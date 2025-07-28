@@ -7,7 +7,7 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
-// Función para mostrar notificación accesibilidad (opcional)
+// Función para mostrar notificación accesibilidad 
 function mostrarAviso(mensaje) {
   const aviso = document.getElementById('avisoAccesibilidad');
   if (aviso) {
@@ -57,3 +57,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('alto-contraste');
   }
 });
+
+
