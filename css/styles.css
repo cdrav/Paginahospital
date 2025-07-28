@@ -1,9 +1,14 @@
+/* Fuente principal */
 body {
   font-family: 'Poppins', sans-serif;
   color: #164443;
-  top: 0px !important;
+  background-color: #f8f9fa;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
 }
 
+/* Títulos */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Poppins', sans-serif;
   font-weight: 900;
@@ -14,17 +19,18 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
+.relleno {
+  font-weight: 300;
+}
+
 .especial {
   font-family: 'IBM Plex Serif', serif;
   font-style: italic;
 }
 
-.relleno {
-  font-weight: 300;
-}
-
+/* Navbar y footer */
 nav.navbar,
-footer {
+footer.footer-area {
   background-color: #164443 !important;
 }
 
@@ -34,17 +40,14 @@ footer {
   color: white !important;
 }
 
-footer {
-  padding: 20px 0;
-  text-align: center;
+footer a {
+  color: white;
+  text-decoration: underline;
 }
 
-/* Ocultar todos los idiomas excepto inglés en Google Translate */
-.goog-te-menu2-item div:not(:contains("Inglés")) {
-  display: none !important;
+footer ul {
+  padding-left: 0;
+  list-style: none;
 }
 
-.goog-te-banner-frame.skiptranslate,
-.goog-te-gadget-icon {
-  display: none !important;
-}
+

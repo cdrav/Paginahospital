@@ -1,0 +1,39 @@
+/* CONTRASTE ALTO (NEGRO / BLANCO) */
+body.contraste-alto {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+body.contraste-alto nav,
+body.contraste-alto footer {
+  background-color: #111 !important;
+}
+
+/* CONTRASTE INVERTIDO (BLANCO / NEGRO) */
+body.contraste-invertido {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+body.contraste-invertido nav,
+body.contraste-invertido footer {
+  background-color: #e0e0e0 !important;
+}
+
+/* CONTRASTE SEPIA (para lectura suave) */
+body.contraste-sepia {
+  background-color: #f4ecd8 !important;
+  color: #5b4636 !important;
+}
+body.contraste-sepia nav,
+body.contraste-sepia footer {
+  background-color: #d9cba0 !important;
+}
+
+/* CONTRASTE AZUL-AMARILLO (para ciertas deficiencias visuales) */
+body.contraste-azul {
+  background-color: #002b36 !important;
+  color: #fdf6e3 !important;
+}
+body.contraste-azul nav,
+body.contraste-azul footer {
+  background-color: #073642 !important;
+}
