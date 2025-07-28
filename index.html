@@ -3,57 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title></title>
+  <title>Hospital Departamental San Antonio</title>
+
+  <!-- Bootstrap y Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #164443;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      color: #164443;
+    }
+
+    .subtitulo {
+      font-weight: 700;
+    }
+
+    .especial {
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+    }
+
+    .relleno {
+      font-weight: 300;
+    }
+
+    nav.navbar,
+    footer {
+      background-color: #164443 !important;
+    }
+
+    nav .nav-link,
+    nav .navbar-brand,
+    footer {
+      color: white !important;
+    }
+
+    footer {
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    /* Ocultar todos los idiomas excepto inglés en Google Translate */
+    .goog-te-menu2-item div:not(:contains("Inglés")) {
+      display: none !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-gadget-icon {
+      display: none !important;
+    }
+
+    body {
+      top: 0px !important;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!-- BARRA GOV.CO CON TRADUCTOR -->
+<div style="background-color: #3366cc; height: 36px;" class="d-flex justify-content-between align-items-center px-4">
+  <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none">
+    <img src="/imagenes/logo gov.svg" alt="GOV.CO" style="height: 18px; margin-right: 8px;">
+    <span style="font-weight: bold;">GOV.CO</span>
+  </a>
+  <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 0 8px; font-weight: bold;"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Hospital Departamental San Antonio </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Hospital Departamental San Antonio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarHospital">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" href="/index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Publica</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Atención y servicios a la ciudadania.html">Atención y servicios a la ciudadania</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Transparencia y acceso a la información Pública</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Atención y Servicios a la Ciudadanía</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Urgencias</a></li>
+            <li><a class="dropdown-item" href="#">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="#">Consulta externa</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Participa</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Normatividad</a></li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Buscar">
-        <button class="btn btn-light" type="submit">Buscar</button>
+        <button class="btn btn-light" type="submit"><i class="bi bi-search"></i></button>
       </form>
     </div>
   </div>
 </nav>
 
-<!-- Carrusel -->
+<!-- CARRUSEL -->
 <div id="carouselHospital" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="/imagenes/hospital.jpg" class="d-block w-100" alt="Hospital">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Bienvenido al Hospital Departamental San Antonio </h5>
-        <p>Atención médica de calidad a su alcance.</p>
+        <h5 class="subtitulo">Bienvenido al Hospital Departamental San Antonio</h5>
+        <p class="relleno">Atención médica de calidad a su alcance.</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="/imagenes/hospital23.webp" class="d-block w-100" alt="Doctores">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Equipo Médico Profesional</h5>
-        <p>Contamos con los mejores especialistas.</p>
+        <h5 class="subtitulo">Equipo Médico Profesional</h5>
+        <p class="relleno">Contamos con los mejores especialistas.</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="/imagenes/hospital3.webp" class="d-block w-100" alt="Salud">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Tecnología Avanzada</h5>
-        <p>Equipos de última generación para su diagnóstico.</p>
+        <h5 class="subtitulo">Tecnología Avanzada</h5>
+        <p class="relleno">Equipos de última generación para su diagnóstico.</p>
       </div>
     </div>
   </div>
@@ -67,13 +145,42 @@
   </button>
 </div>
 
-<!-- Contenido principal -->
+<!-- CONTENIDO PRINCIPAL -->
 <div class="container mt-5">
-  <h2 class="mb-4">Bienvenido Hospital Departamental San Antonio </h2>
-  <p>Ofrecemos atención médica integral con un enfoque humano y profesional. Nuestro compromiso es brindar servicios de salud accesibles y de calidad para toda la comunidad.</p>
+  <h2>Bienvenido al Hospital Departamental San Antonio</h2>
+  <p class="relleno">Ofrecemos atención médica integral con un enfoque humano y profesional. Nuestro compromiso es brindar servicios de salud accesibles y de calidad para toda la comunidad.</p>
+  <p class="especial">“Cuidamos tu salud con excelencia y humanidad.”</p>
 </div>
 
-<!-- Scripts de Bootstrap -->
+<!-- ACCESIBILIDAD -->
+<div style="position: fixed; right: 10px; top: 40%; z-index: 1050;" class="d-flex flex-column gap-2">
+  <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto">A+</button>
+  <button class="btn btn-outline-primary rounded-circle" title="Tamaño normal">A</button>
+  <button class="btn btn-outline-primary rounded-circle" title="Modo alto contraste">🌓</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p class="mb-0">© 2025 Hospital Departamental San Antonio. Todos los derechos reservados.</p>
+    <small class="especial">Comprometidos con tu bienestar.</small>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- GOOGLE TRANSLATE SCRIPT -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      includedLanguages: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
