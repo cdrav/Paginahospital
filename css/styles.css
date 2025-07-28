@@ -1,0 +1,50 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #164443;
+  top: 0px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  color: #164443;
+}
+
+.subtitulo {
+  font-weight: 700;
+}
+
+.especial {
+  font-family: 'IBM Plex Serif', serif;
+  font-style: italic;
+}
+
+.relleno {
+  font-weight: 300;
+}
+
+nav.navbar,
+footer {
+  background-color: #164443 !important;
+}
+
+nav .nav-link,
+nav .navbar-brand,
+footer {
+  color: white !important;
+}
+
+footer {
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Ocultar todos los idiomas excepto inglés en Google Translate */
+.goog-te-menu2-item div:not(:contains("Inglés")) {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget-icon {
+  display: none !important;
+}
