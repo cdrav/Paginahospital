@@ -1,66 +1,31 @@
+// accesibilidad.js
+
 // --- Declaración de Variables ---
-const cuerpo = document.body;
-const contrastToggleBtn = document.getElementById('cambiarcontraste');
-
-// --- Funcionalidad de Aumentar/Reducir Tamaño de Fuente (existing code, if any) ---
-// (Your existing font size code would go here, make sure it's correctly linked to buttons)
-const increaseFontBtn = document.querySelector('[title="Aumentar texto"]');
-const decreaseFontBtn = document.querySelector('[title="Reducir texto"]');
-let currentFontSize = 16; // Default font size
-function updateFontSize() {
-    cuerpo.style.fontSize = `${currentFontSize}px`;
-    // Select all elements you want to scale font for
-    document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, li, button, input, span').forEach(el => {
-        // You might need more sophisticated logic here, e.g., to respect relative units
-        // For simplicity, we'll just set the font size directly, but consider its implications
-        // For example, if an H1 is already 2em, setting it to 20px might not be what you want.
-        // A better approach would be to add/remove classes that adjust font-size based on a multiplier.
-        // For now, let's just make sure the body font size changes, and assume relative units will adjust.
-    });
-    localStorage.setItem('fontSize', currentFontSize);
-}
-
-if (increaseFontBtn) {
-    increaseFontBtn.addEventListener('click', () => {
-        currentFontSize += 2;
-        updateFontSize();
-    });
-}
-if (decreaseFontBtn) {
-    decreaseFontBtn.addEventListener('click', () => {
-        currentFontSize -= 2;
-        updateFontSize();
-    });
-}
+const cuerpo = document.body; // Gets the body element
+const contrastToggleBtn = document.getElementById('cambiarcontraste'); // Gets the contrast button by its ID
 
 
-// --- Funcionalidad de Alternar Contraste (Cycle through multiple classes) ---
-const CONTRAST_CLASSES = ['', 'alto-contraste', 'modo-oscuro', 'modo-sepia']; // Add your contrast classes here. '' represents default.
-let currentContrastIndex = 0; // Start with the default mode
+
+// --- Funcionalidad de Alternar Contraste (Alterna una sola clase) ---
+const CONTRAST_CLASS = 'alto-contraste'; // Define the single contrast class
+let isContrastMode = false; // Track if contrast mode is active
 
 /**
  * Aplica o remueve el tema de contraste al cuerpo del documento.
  */
 function applyContrastTheme() {
-    // Remove all contrast classes first
-    CONTRAST_CLASSES.forEach(className => {
-        if (className !== '') { // Don't try to remove an empty class name
-            cuerpo.classList.remove(className);
-        }
-    });
-
-    // Add the current contrast class if it's not the default empty string
-    if (CONTRAST_CLASSES[currentContrastIndex] !== '') {
-        cuerpo.classList.add(CONTRAST_CLASSES[currentContrastIndex]);
+    if (isContrastMode) {
+        cuerpo.classList.add(CONTRAST_CLASS);
+    } else {
+        cuerpo.classList.remove(CONTRAST_CLASS);
     }
-
     // Guarda la preferencia del usuario en localStorage
-    localStorage.setItem('contrastModeIndex', currentContrastIndex);
+    localStorage.setItem('contrastMode', isContrastMode);
 }
 
 if (contrastToggleBtn) {
     contrastToggleBtn.addEventListener('click', () => {
-        currentContrastIndex = (currentContrastIndex + 1) % CONTRAST_CLASSES.length; // Cycle to the next mode
+        isContrastMode = !isContrastMode; // Toggle the state
         applyContrastTheme();
     });
 }
@@ -68,16 +33,67 @@ if (contrastToggleBtn) {
 // --- Cargar Preferencias al Cargar la Página ---
 document.addEventListener('DOMContentLoaded', () => {
     // Cargar preferencia de contraste
-    const savedContrastModeIndex = localStorage.getItem('contrastModeIndex');
-    if (savedContrastModeIndex !== null) {
-        currentContrastIndex = parseInt(savedContrastModeIndex, 10); // Parse integer from string
+    const savedContrastMode = localStorage.getItem('contrastMode');
+    if (savedContrastMode !== null) {
+        isContrastMode = JSON.parse(savedContrastMode); // Parse boolean from string
     }
-    applyContrastTheme(); // Apply the saved or default contrast mode
+    applyContrastTheme();
 
-    // Cargar preferencia de tamaño de fuente
-    const savedFontSize = localStorage.getItem('fontSize');
-    if (savedFontSize !== null) {
-        currentFontSize = parseInt(savedFontSize, 10);
-        updateFontSize();
+    // Cargar preferencia de tamaño de fuente (if applicable)
+    // const savedFontSize = localStorage.getItem('fontSize');
+    // if (savedFontSize !== null) {
+    //     currentFontSize = parseInt(savedFontSize);
+    //     updateFontSize();
+    // }
+});
+
+// funcionalidad resetear ajustes de tamaño ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    const aumentarBtn = document.querySelector('.accessibility-buttons-container .btn[title="Aumentar texto"]');
+    const reducirBtn = document.querySelector('.accessibility-buttons-container .btn[title="Reducir texto"]');
+    const cambiarContrasteBtn = document.getElementById('cambiarcontraste');
+    const resetContrasteBtn = document.getElementById('resetContraste'); // Get the new reset button
+    const body = document.body;
+    let currentFontSize = 16; // Assuming base font size is 16px (1em)
+    const minFontSize = 12;
+    const maxFontSize = 24;
+
+    // --- Font Size Functions ---
+    if (aumentarBtn) {
+        aumentarBtn.addEventListener('click', () => {
+            if (currentFontSize < maxFontSize) {
+                currentFontSize += 2;
+                body.style.fontSize = `${currentFontSize}px`;
+            }
+        });
+    }
+
+    if (reducirBtn) {
+        reducirBtn.addEventListener('click', () => {
+            if (currentFontSize > minFontSize) {
+                currentFontSize -= 2;
+                body.style.fontSize = `${currentFontSize}px`;
+            }
+        });
+    }
+
+    // --- Contrast Function ---
+    if (cambiarContrasteBtn) {
+        cambiarContrasteBtn.addEventListener('click', () => {
+            body.classList.toggle('high-contrast');
+        });
+    }
+
+    // --- Reset Function ---
+    if (resetContrasteBtn) {
+        resetContrasteBtn.addEventListener('click', () => {
+            // Reset font size
+            currentFontSize = 16; // Reset to original base font size
+            body.style.fontSize = ''; // Remove inline style to revert to CSS default
+
+            // Reset contrast
+            body.classList.remove('high-contrast');
+        });
     }
 });
