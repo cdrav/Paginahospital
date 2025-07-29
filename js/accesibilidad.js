@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reducirBtn = document.querySelector('.accessibility-buttons-container .btn[title="Reducir texto"]');
     const resetAccessibilityBtn = document.getElementById('resetContraste'); // Renamed for clarity
 
-    // --- ajustes de contrtaste ---
+    // --- ajustes de contraste ---
     const CONTRAST_CLASS = 'alto-contraste'; 
     let isContrastMode = false;
 
@@ -89,4 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
             cuerpo.classList.remove(CONTRAST_CLASS); 
         });
     }
-});
+});   
