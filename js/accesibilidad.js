@@ -1,30 +1,32 @@
-// Script de accesibilidad
+document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const increaseTextBtn = document.querySelector('button[title="Aumentar texto"]');
+    const decreaseTextBtn = document.querySelector('button[title="Reducir texto"]');
+    const contrastToggleBtn = document.getElementById('cambiarcontraste');
 
-document.addEventListener("DOMContentLoaded", function () {
-  const btnAumentar = document.querySelector('button[title="Aumentar texto"]');
-  const btnNormal = document.querySelector('button[title="Tamaño normal"]');
-  const btnContraste = document.querySelector('button[title="Modo alto contraste"]');
+    let currentFontSize = 16; 
+    const FONT_SIZE_STEP = 2; 
 
-  let fuenteBase = 1;
-  let altoContrasteActivo = false;
-
-  btnAumentar.addEventListener("click", () => {
-    fuenteBase += 0.1;
-    document.body.style.fontSize = fuenteBase + "em";
-  });
-
-  btnNormal.addEventListener("click", () => {
-    fuenteBase = 1;
-    document.body.style.fontSize = "1em";
-  });
-
-  btnContraste.addEventListener("click", () => {
-    altoContrasteActivo = !altoContrasteActivo;
-    if (altoContrasteActivo) {
-      document.body.classList.add("alto-contraste");
-    } else {
-      document.body.classList.remove("alto-contraste");
+    if (increaseTextBtn) {
+        increaseTextBtn.addEventListener('click', () => {
+            currentFontSize += FONT_SIZE_STEP;
+            body.style.fontSize = `${currentFontSize}px`;
+        });
     }
-  });
-});
 
+    if (decreaseTextBtn) {
+        decreaseTextBtn.addEventListener('click', () => {
+            currentFontSize -= FONT_SIZE_STEP;
+           
+            if (currentFontSize < 10) currentFontSize = 10;
+            body.style.fontSize = `${currentFontSize}px`;
+        });
+    }
+
+   
+    if (contrastToggleBtn) {
+        contrastToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('high-contrast'); 
+        });
+    }
+});
