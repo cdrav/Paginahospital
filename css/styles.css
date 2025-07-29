@@ -53,43 +53,42 @@ footer ul {
 /*     Animacion de los botones de aumentar y reducir tamaño  */
 .accessibility-buttons-container {
     position: fixed;
-    right: 20px; /* Slightly more prominent */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for perfect centering */
+    right: 20px; 
+    top: 50%; 
+    transform: translateY(-50%); 
     z-index: 1050;
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Increased space between buttons */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    gap: 12px; 
+    background-color: rgba(255, 255, 255, 0.9); 
     padding: 10px;
-    border-radius: 15px; /* Softer rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Softer, more pronounced shadow */
+    border-radius: 15px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
 }
 
 .accessibility-buttons-container .btn {
-    width: 48px; /* Slightly larger for better touch target */
+    width: 48px; 
     height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.3em; /* Larger icons/text */
+    font-size: 1.3em; 
     font-weight: bold;
-    color: #164443; /* Match primary brand color */
-    background-color: #e0f2f1; /* Light teal background for buttons */
-    border: 2px solid #00796b; /* Darker teal border */
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Individual button shadow */
+    color: #164443; 
+    background-color: #e0f2f1; 
+    border: 2px solid #00796b; 
+    transition: all 0.3s ease; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .accessibility-buttons-container .btn:hover {
-    background-color: #00796b; /* Darker teal on hover */
-    color: white; /* White text/icon on hover */
-    border-color: #164443; /* Darker border on hover */
-    transform: translateY(-2px); /* Slight lift effect */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+    background-color: #00796b; 
+    color: white; 
+    border-color: #164443; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
 }
 
-/*     Animacion de los botones de aumentar y reducir tamaño  */
 .accessibility-buttons-container {
     position: fixed;
     right: 20px;
@@ -118,7 +117,7 @@ footer ul {
     border: 2px solid #00796b;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 50% !important; /* Ensure perfect circles */
+    border-radius: 50% !important; 
 }
 
 .accessibility-buttons-container .btn:hover {
@@ -129,7 +128,7 @@ footer ul {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Specific button icons/text for better representation */
+
 .accessibility-buttons-container .btn[title="Aumentar texto"]::after {
     content: "A+";
 }
@@ -148,18 +147,17 @@ footer ul {
     font-size: 1.5em;
 }
 
-/* Style for the contrast button icon */
+
 #cambiarcontraste {
     font-size: 1.3em;
 }
-/* Ensure default Bootstrap styles don't override too much for the circular shape */
+
 .accessibility-buttons-container .rounded-circle {
-    border-radius: 50% !important; /* Ensure perfect circles */
+    border-radius: 50% !important; 
 }
 
 /*   estilos nuevos  */  
 
-/* High Contrast Mode */
 body.high-contrast {
     background-color: black !important;
     color: white !important;
@@ -186,7 +184,7 @@ body.high-contrast h6 {
     color: white !important;
 }
 
-/* Adjust other elements as needed for high contrast */
+
 body.high-contrast .accessibility-buttons-container .btn {
     background-color: #555 !important;
     color: white !important;
