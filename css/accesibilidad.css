@@ -1,124 +1,91 @@
-/* Accessibility Notification Styles */
-.aviso-accesibilidad {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 1100;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+/* Base styles (your existing styles) */
+body {
+    background-color: #ffffff; /* Default background */
+    color: #333333; /* Default text color */
 }
 
-.aviso-accesibilidad.mostrar {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Estilos de alto contraste */
+/* --- High Contrast Theme (Black background, white text) --- */
 .alto-contraste {
-    background-color: #000000 !important; /* Pure black background for maximum contrast */
-    color: #FFFFFF !important; /* Pure white text for maximum contrast */
-}
-
-.alto-contraste a {
-    color: #00FFFF !important; /* Bright Cyan for links - excellent contrast against black */
-    text-decoration: underline !important; /* Always underline links for accessibility */
-}
-
-.alto-contraste a:hover,
-.alto-contraste a:focus {
-    color: #FFFF00 !important; /* Bright Yellow on hover/focus for clear interaction */
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text */
 }
 
 .alto-contraste .navbar,
-.alto-contraste footer {
-    background-color: #1A1A1A !important; /* Slightly off-black for subtle distinction */
-    color: #FFFFFF !important;
+.alto-contraste .footer {
+    background-color: #333333 !important; /* Darker backgrounds for sections */
+    color: #ffffff !important;
 }
 
-.alto-contraste .navbar-brand,
-.alto-contraste .nav-link,
-.alto-contraste h1, .alto-contraste h2, .alto-contraste h3, .alto-contraste h4, .alto-contraste h5, .alto-contraste h6 {
-    color: #FFFFFF !important;
+.alto-contraste a {
+    color: #ffff00 !important; /* Yellow links for high visibility */
 }
 
-/* Ajustar los estilos de los botones para un alto contraste */
-.alto-contraste .btn-primary, /* Targeting common primary button classes */
 .alto-contraste .btn-outline-primary {
-    border-color: #00FFFF !important; /* Cyan border */
-    color: #00FFFF !important; /* Cyan text */
-    background-color: transparent !important; /* Transparent background */
+    color: #ffffff !important;
+    border-color: #ffffff !important;
 }
 
-.alto-contraste .btn-primary:hover,
-.alto-contraste .btn-primary:focus,
-.alto-contraste .btn-outline-primary:hover,
-.alto-contraste .btn-outline-primary:focus {
-    background-color: #00FFFF !important; /* Cyan background on hover/focus */
-    color: #000000 !important; /* Black text on hover/focus for contrast */
-    border-color: #00FFFF !important;
+/* Ensure carousel captions are readable in this mode */
+.alto-contraste .carousel-caption h5,
+.alto-contraste .carousel-caption p {
+    color: #ffffff !important;
+    text-shadow: 1px 1px 2px black;
 }
 
-.alto-contraste .btn-secondary, /* Adding styles for a secondary button example */
-.alto-contraste .btn-outline-secondary {
-    border-color: #FF00FF !important; /* Magenta border */
-    color: #FF00FF !important; /* Magenta text */
-    background-color: transparent !important;
+/* --- Dark Mode Theme (Dark grey background, light grey text) --- */
+.modo-oscuro {
+    background-color: #1a1a1a; /* Dark grey background */
+    color: #e0e0e0; /* Light grey text */
 }
 
-.alto-contraste .btn-secondary:hover,
-.alto-contraste .btn-secondary:focus,
-.alto-contraste .btn-outline-secondary:hover,
-.alto-contraste .btn-outline-secondary:focus {
-    background-color: #FF00FF !important; /* Magenta background on hover/focus */
-    color: #000000 !important; /* Black text on hover/focus */
-    border-color: #FF00FF !important;
+.modo-oscuro .navbar,
+.modo-oscuro .footer {
+    background-color: #2c2c2c !important;
+    color: #e0e0e0 !important;
 }
 
-
-.alto-contraste .form-control {
-    background-color: #333333 !important; /* Darker grey for form inputs */
-    color: #FFFFFF !important;
-    border-color: #00FFFF !important; /* Cyan border for better visibility */
+.modo-oscuro a {
+    color: #87ceeb !important; /* Sky blue links */
 }
 
-.alto-contraste .form-control::placeholder { /* Style for placeholder text */
-    color: #BBBBBB !important; /* Lighter grey for placeholder */
+.modo-oscuro .btn-outline-primary {
+    color: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
 }
 
-.alto-contraste .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.8) !important; /* Slightly darker overlay for captions */
-    color: #FFFFFF !important;
+/* Ensure carousel captions are readable in this mode */
+.modo-oscuro .carousel-caption h5,
+.modo-oscuro .carousel-caption p {
+    color: #e0e0e0 !important;
+    text-shadow: 1px 1px 2px black;
 }
 
-/* Additional elements to consider for high contrast */
-.alto-contraste .card {
-    background-color: #000000 !important;
-    border-color: #00FFFF !important;
-    color: #FFFFFF !important;
+/* --- Sepia Mode Theme (Warm, vintage look) --- */
+.modo-sepia {
+    background-color: #f4ecd8; /* Sepia background */
+    color: #5c4033; /* Dark brown text */
 }
 
-.alto-contraste hr {
-    border-top: 1px solid #00FFFF !important; /* Cyan horizontal rule */
+.modo-sepia .navbar,
+.modo-sepia .footer {
+    background-color: #d2b48c !important; /* Sepia-toned backgrounds */
+    color: #5c4033 !important;
 }
 
-.alto-contraste table {
-    background-color: #000000 !important;
-    color: #FFFFFF !important;
-    border-color: #00FFFF !important;
+.modo-sepia a {
+    color: #000080 !important; /* Navy blue links */
 }
 
-.alto-contraste th {
-    background-color: #1A1A1A !important;
-    color: #FFFFFF !important;
-    border-color: #00FFFF !important;
+.modo-sepia .btn-outline-primary {
+    color: #5c4033 !important;
+    border-color: #5c4033 !important;
 }
 
-.alto-contraste td {
-    border-color: #333333 !important; /* Lighter border for table cells */
+/* Ensure carousel captions are readable in this mode */
+.modo-sepia .carousel-caption h5,
+.modo-sepia .carousel-caption p {
+    color: #5c4033 !important;
+    text-shadow: 1px 1px 2px #f4ecd8;
 }
+
+/* Add any other specific element styling needed for each mode (e.g., card backgrounds, headers) */
