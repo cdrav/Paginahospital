@@ -19,15 +19,15 @@ function mostrarAviso(mensaje) {
     }
 }
 
-// Global scope for contrast toggle functionality
+
 const contrastToggleBtn = document.getElementById("cambiarContraste");
 
-// Apply high contrast mode if previously activated
+
 if (localStorage.getItem('altoContraste') === 'true') {
     document.body.classList.add('alto-contraste');
 }
 
-// Add event listener for contrast toggle button immediately
+
 if (contrastToggleBtn) {
     contrastToggleBtn.addEventListener('click', () => {
         document.body.classList.toggle('alto-contraste');
@@ -42,13 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const normalBtn = document.querySelector('[title="Tamaño normal"]');
     const decreaseBtn = document.querySelector('[title="Reducir texto"]');
 
-    let fontSize = parseInt(localStorage.getItem('fontSize')) || 100; // Default 100%
+    let fontSize = parseInt(localStorage.getItem('fontSize')) || 100; 
     document.body.style.fontSize = fontSize + '%';
 
     // Aumentar texto
     if (increaseBtn) {
         increaseBtn.addEventListener('click', () => {
-            if (fontSize < 160) { // Max font size 160%
+            if (fontSize < 160) { 
                 fontSize += 10;
                 document.body.style.fontSize = fontSize + '%';
                 localStorage.setItem('fontSize', fontSize);

@@ -1,70 +1,67 @@
 // accesibilidad.js
 
-// --- Declaración de Variables ---
-const cuerpo = document.body; // Gets the body element
-const contrastToggleBtn = document.getElementById('cambiarcontraste'); // Gets the contrast button by its ID
-
-
-
-// --- Funcionalidad de Alternar Contraste (Alterna una sola clase) ---
-const CONTRAST_CLASS = 'alto-contraste'; // Define the single contrast class
-let isContrastMode = false; // Track if contrast mode is active
-
-/**
- * Aplica o remueve el tema de contraste al cuerpo del documento.
- */
-function applyContrastTheme() {
-    if (isContrastMode) {
-        cuerpo.classList.add(CONTRAST_CLASS);
-    } else {
-        cuerpo.classList.remove(CONTRAST_CLASS);
-    }
-    // Guarda la preferencia del usuario en localStorage
-    localStorage.setItem('contrastMode', isContrastMode);
-}
-
-if (contrastToggleBtn) {
-    contrastToggleBtn.addEventListener('click', () => {
-        isContrastMode = !isContrastMode; // Toggle the state
-        applyContrastTheme();
-    });
-}
-
-// --- Cargar Preferencias al Cargar la Página ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargar preferencia de contraste
-    const savedContrastMode = localStorage.getItem('contrastMode');
-    if (savedContrastMode !== null) {
-        isContrastMode = JSON.parse(savedContrastMode); // Parse boolean from string
-    }
-    applyContrastTheme();
-
-    // Cargar preferencia de tamaño de fuente (if applicable)
-    // const savedFontSize = localStorage.getItem('fontSize');
-    // if (savedFontSize !== null) {
-    //     currentFontSize = parseInt(savedFontSize);
-    //     updateFontSize();
-    // }
-});
-
-// funcionalidad resetear ajustes de tamaño ---
-
-document.addEventListener('DOMContentLoaded', () => {
+    // --- declaración de variables ---
+    const cuerpo = document.body;
+    const contrastToggleBtn = document.getElementById('cambiarcontraste');
     const aumentarBtn = document.querySelector('.accessibility-buttons-container .btn[title="Aumentar texto"]');
     const reducirBtn = document.querySelector('.accessibility-buttons-container .btn[title="Reducir texto"]');
-    const cambiarContrasteBtn = document.getElementById('cambiarcontraste');
-    const resetContrasteBtn = document.getElementById('resetContraste'); // Get the new reset button
-    const body = document.body;
-    let currentFontSize = 16; // Assuming base font size is 16px (1em)
+    const resetAccessibilityBtn = document.getElementById('resetContraste'); // Renamed for clarity
+
+    // --- ajustes de contrtaste ---
+    const CONTRAST_CLASS = 'alto-contraste'; 
+    let isContrastMode = false;
+
+    // ---tamaño variables ---
+    let currentFontSize = 16; 
     const minFontSize = 12;
     const maxFontSize = 24;
+    const FONT_SIZE_STORAGE_KEY = 'fontSize'; 
+    const CONTRAST_MODE_STORAGE_KEY = 'contrastMode'; 
 
-    // --- Font Size Functions ---
+    
+    function applyContrastTheme() {
+        if (isContrastMode) {
+            cuerpo.classList.add(CONTRAST_CLASS);
+        } else {
+            cuerpo.classList.remove(CONTRAST_CLASS);
+        }
+        localStorage.setItem(CONTRAST_MODE_STORAGE_KEY, isContrastMode);
+    }
+
+ 
+    function applyFontSize() {
+        cuerpo.style.fontSize = `${currentFontSize}px`;
+        localStorage.setItem(FONT_SIZE_STORAGE_KEY, currentFontSize);
+    }
+
+    const savedContrastMode = localStorage.getItem(CONTRAST_MODE_STORAGE_KEY);
+    if (savedContrastMode !== null) {
+        isContrastMode = JSON.parse(savedContrastMode);
+    }
+    applyContrastTheme(); 
+
+  
+    const savedFontSize = localStorage.getItem(FONT_SIZE_STORAGE_KEY);
+    if (savedFontSize !== null) {
+        currentFontSize = parseFloat(savedFontSize); 
+    }
+    applyFontSize(); 
+
+  
+    if (contrastToggleBtn) {
+        contrastToggleBtn.addEventListener('click', () => {
+            isContrastMode = !isContrastMode; 
+            applyContrastTheme(); 
+        });
+    }
+
+    
     if (aumentarBtn) {
         aumentarBtn.addEventListener('click', () => {
             if (currentFontSize < maxFontSize) {
                 currentFontSize += 2;
-                body.style.fontSize = `${currentFontSize}px`;
+                applyFontSize(); 
             }
         });
     }
@@ -73,27 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
         reducirBtn.addEventListener('click', () => {
             if (currentFontSize > minFontSize) {
                 currentFontSize -= 2;
-                body.style.fontSize = `${currentFontSize}px`;
+                applyFontSize(); 
             }
         });
     }
 
-    // --- Contrast Function ---
-    if (cambiarContrasteBtn) {
-        cambiarContrasteBtn.addEventListener('click', () => {
-            body.classList.toggle('high-contrast');
-        });
-    }
+    
+    if (resetAccessibilityBtn) {
+        resetAccessibilityBtn.addEventListener('click', () => {
+      
+            currentFontSize = 16;
+            localStorage.removeItem(FONT_SIZE_STORAGE_KEY); 
+            cuerpo.style.fontSize = ''; 
 
-    // --- Reset Function ---
-    if (resetContrasteBtn) {
-        resetContrasteBtn.addEventListener('click', () => {
-            // Reset font size
-            currentFontSize = 16; // Reset to original base font size
-            body.style.fontSize = ''; // Remove inline style to revert to CSS default
-
-            // Reset contrast
-            body.classList.remove('high-contrast');
+            
+            isContrastMode = false;
+            localStorage.removeItem(CONTRAST_MODE_STORAGE_KEY); 
+            cuerpo.classList.remove(CONTRAST_CLASS); 
         });
     }
 });

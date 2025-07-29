@@ -1,41 +1,39 @@
-/* Base styles (your existing styles) */
+/* estilois base) */
 body {
-    background-color: #ffffff; /* Default background */
-    color: #333333; /* Default text color */
+    background-color: #ffffff; 
+    color: #333333;
 }
 
-/* --- High Contrast Theme (Black background, white text) --- */
+
 .alto-contraste {
-    background-color: #000000; /* Black background */
-    color: #ffffff; /* White text */
+    background-color: #000000; 
+    color: #ffffff; 
 }
 
 .alto-contraste .navbar,
 .alto-contraste .footer {
-    background-color: #333333 !important; /* Darker backgrounds for sections */
+    background-color: #333333 !important; 
     color: #ffffff !important;
 }
 
 .alto-contraste a {
-    color: #ffff00 !important; /* Yellow links for high visibility */
+    color: #ffff00 !important; 
 }
 
 .alto-contraste .btn-outline-primary {
     color: #ffffff !important;
     border-color: #ffffff !important;
 }
-
-/* Ensure carousel captions are readable in this mode */
+/*  alto contraste*/
 .alto-contraste .carousel-caption h5,
 .alto-contraste .carousel-caption p {
     color: #ffffff !important;
     text-shadow: 1px 1px 2px black;
 }
 
-/* --- Dark Mode Theme (Dark grey background, light grey text) --- */
 .modo-oscuro {
-    background-color: #1a1a1a; /* Dark grey background */
-    color: #e0e0e0; /* Light grey text */
+    background-color: #1a1a1a; 
+    color: #e0e0e0; 
 }
 
 .modo-oscuro .navbar,
@@ -45,7 +43,7 @@ body {
 }
 
 .modo-oscuro a {
-    color: #87ceeb !important; /* Sky blue links */
+    color: #87ceeb !important; 
 }
 
 .modo-oscuro .btn-outline-primary {
@@ -53,27 +51,26 @@ body {
     border-color: #e0e0e0 !important;
 }
 
-/* Ensure carousel captions are readable in this mode */
+
 .modo-oscuro .carousel-caption h5,
 .modo-oscuro .carousel-caption p {
     color: #e0e0e0 !important;
     text-shadow: 1px 1px 2px black;
 }
 
-/* --- Sepia Mode Theme (Warm, vintage look) --- */
 .modo-sepia {
-    background-color: #f4ecd8; /* Sepia background */
-    color: #5c4033; /* Dark brown text */
+    background-color: #f4ecd8; 
+    color: #5c4033; 
 }
 
 .modo-sepia .navbar,
 .modo-sepia .footer {
-    background-color: #d2b48c !important; /* Sepia-toned backgrounds */
+    background-color: #d2b48c !important; 
     color: #5c4033 !important;
 }
 
 .modo-sepia a {
-    color: #000080 !important; /* Navy blue links */
+    color: #000080 !important; 
 }
 
 .modo-sepia .btn-outline-primary {
@@ -81,11 +78,10 @@ body {
     border-color: #5c4033 !important;
 }
 
-/* Ensure carousel captions are readable in this mode */
+
 .modo-sepia .carousel-caption h5,
 .modo-sepia .carousel-caption p {
     color: #5c4033 !important;
     text-shadow: 1px 1px 2px #f4ecd8;
 }
 
-/* Add any other specific element styling needed for each mode (e.g., card backgrounds, headers) */
