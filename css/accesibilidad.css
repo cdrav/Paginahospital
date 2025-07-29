@@ -1,39 +1,124 @@
-/* CONTRASTE ALTO (NEGRO / BLANCO) */
-body.contraste-alto {
-  background-color: #000 !important;
-  color: #fff !important;
-}
-body.contraste-alto nav,
-body.contraste-alto footer {
-  background-color: #111 !important;
-}
-
-/* CONTRASTE INVERTIDO (BLANCO / NEGRO) */
-body.contraste-invertido {
-  background-color: #fff !important;
-  color: #000 !important;
-}
-body.contraste-invertido nav,
-body.contraste-invertido footer {
-  background-color: #e0e0e0 !important;
+/* Accessibility Notification Styles */
+.aviso-accesibilidad {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* CONTRASTE SEPIA (para lectura suave) */
-body.contraste-sepia {
-  background-color: #f4ecd8 !important;
-  color: #5b4636 !important;
-}
-body.contraste-sepia nav,
-body.contraste-sepia footer {
-  background-color: #d9cba0 !important;
+.aviso-accesibilidad.mostrar {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* CONTRASTE AZUL-AMARILLO (para ciertas deficiencias visuales) */
-body.contraste-azul {
-  background-color: #002b36 !important;
-  color: #fdf6e3 !important;
+/* Estilos de alto contraste */
+.alto-contraste {
+    background-color: #000000 !important; /* Pure black background for maximum contrast */
+    color: #FFFFFF !important; /* Pure white text for maximum contrast */
 }
-body.contraste-azul nav,
-body.contraste-azul footer {
-  background-color: #073642 !important;
+
+.alto-contraste a {
+    color: #00FFFF !important; /* Bright Cyan for links - excellent contrast against black */
+    text-decoration: underline !important; /* Always underline links for accessibility */
+}
+
+.alto-contraste a:hover,
+.alto-contraste a:focus {
+    color: #FFFF00 !important; /* Bright Yellow on hover/focus for clear interaction */
+}
+
+.alto-contraste .navbar,
+.alto-contraste footer {
+    background-color: #1A1A1A !important; /* Slightly off-black for subtle distinction */
+    color: #FFFFFF !important;
+}
+
+.alto-contraste .navbar-brand,
+.alto-contraste .nav-link,
+.alto-contraste h1, .alto-contraste h2, .alto-contraste h3, .alto-contraste h4, .alto-contraste h5, .alto-contraste h6 {
+    color: #FFFFFF !important;
+}
+
+/* Ajustar los estilos de los botones para un alto contraste */
+.alto-contraste .btn-primary, /* Targeting common primary button classes */
+.alto-contraste .btn-outline-primary {
+    border-color: #00FFFF !important; /* Cyan border */
+    color: #00FFFF !important; /* Cyan text */
+    background-color: transparent !important; /* Transparent background */
+}
+
+.alto-contraste .btn-primary:hover,
+.alto-contraste .btn-primary:focus,
+.alto-contraste .btn-outline-primary:hover,
+.alto-contraste .btn-outline-primary:focus {
+    background-color: #00FFFF !important; /* Cyan background on hover/focus */
+    color: #000000 !important; /* Black text on hover/focus for contrast */
+    border-color: #00FFFF !important;
+}
+
+.alto-contraste .btn-secondary, /* Adding styles for a secondary button example */
+.alto-contraste .btn-outline-secondary {
+    border-color: #FF00FF !important; /* Magenta border */
+    color: #FF00FF !important; /* Magenta text */
+    background-color: transparent !important;
+}
+
+.alto-contraste .btn-secondary:hover,
+.alto-contraste .btn-secondary:focus,
+.alto-contraste .btn-outline-secondary:hover,
+.alto-contraste .btn-outline-secondary:focus {
+    background-color: #FF00FF !important; /* Magenta background on hover/focus */
+    color: #000000 !important; /* Black text on hover/focus */
+    border-color: #FF00FF !important;
+}
+
+
+.alto-contraste .form-control {
+    background-color: #333333 !important; /* Darker grey for form inputs */
+    color: #FFFFFF !important;
+    border-color: #00FFFF !important; /* Cyan border for better visibility */
+}
+
+.alto-contraste .form-control::placeholder { /* Style for placeholder text */
+    color: #BBBBBB !important; /* Lighter grey for placeholder */
+}
+
+.alto-contraste .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* Slightly darker overlay for captions */
+    color: #FFFFFF !important;
+}
+
+/* Additional elements to consider for high contrast */
+.alto-contraste .card {
+    background-color: #000000 !important;
+    border-color: #00FFFF !important;
+    color: #FFFFFF !important;
+}
+
+.alto-contraste hr {
+    border-top: 1px solid #00FFFF !important; /* Cyan horizontal rule */
+}
+
+.alto-contraste table {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border-color: #00FFFF !important;
+}
+
+.alto-contraste th {
+    background-color: #1A1A1A !important;
+    color: #FFFFFF !important;
+    border-color: #00FFFF !important;
+}
+
+.alto-contraste td {
+    border-color: #333333 !important; /* Lighter border for table cells */
 }
