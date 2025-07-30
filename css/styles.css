@@ -197,3 +197,91 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
     border-color: #555 !important;
 }
 
+/* --- Mejoras para las tarjetas de servicios --- */
+
+#nuestros-servicios .card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 1px solid #e0e0e0; /* Un borde sutil para definir la tarjeta */
+    border-radius: 10px; /* Bordes redondeados para un look moderno */
+    overflow: hidden; /* Asegura que la imagen no se desborde con el border-radius */
+}
+
+#nuestros-servicios .card:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el mouse */
+}
+
+#nuestros-servicios .card-img-top {
+    height: 200px; /* Altura fija para las imágenes para uniformidad */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    border-top-left-radius: 9px; /* Bordes redondeados en la parte superior de la imagen */
+    border-top-right-radius: 9px;
+}
+
+#nuestros-servicios .card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el botón "Más información" hacia abajo */
+}
+
+#nuestros-servicios .card-title {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+#nuestros-servicios .card-text {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #555;
+    flex-grow: 1; /* Permite que el texto ocupe el espacio disponible */
+}
+
+/* Colores para los títulos de las tarjetas basados en los botones */
+#nuestros-servicios .card-title.text-primary { color: #007bff !important; } /* Urgencias */
+#nuestros-servicios .card-title.text-success { color: #28a745 !important; } /* Cuidado Oral */
+#nuestros-servicios .card-title.text-warning { color: #ffc107 !important; } /* Diagnóstico */
+#nuestros-servicios .card-title.text-danger { color: #dc3545 !important; } /* Hospitalización */
+/* Para los colores 'purple' y 'orange' que no son de Bootstrap por defecto, puedes definirlos: */
+.text-purple { color: #6f42c1 !important; } /* Para Laboratorio */
+.text-orange { color: #fd7e14 !important; } /* Para Partos */
+#nuestros-servicios .card-title.text-info { color: #17a2b8 !important; } /* Promoción y Prevención */
+
+
+/* Estilos para los botones de las tarjetas */
+#nuestros-servicios .btn {
+    margin-top: 15px; /* Espacio superior para el botón */
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Animación para el icono de flecha dentro del botón */
+#nuestros-servicios .btn .bi-arrow-right {
+    transition: transform 0.2s ease;
+}
+
+#nuestros-servicios .btn:hover .bi-arrow-right {
+    transform: translateX(5px); /* Mueve la flecha hacia la derecha al pasar el mouse */
+}
+
+/* Asegura que los botones 'btn-hover-animate' tengan sus colores base */
+#nuestros-servicios .btn-primary { background-color: #007bff; border-color: #007bff; color: white; }
+#nuestros-servicios .btn-success { background-color: #28a745; border-color: #28a745; color: white; }
+#nuestros-servicios .btn-warning { background-color: #ffc107; border-color: #ffc107; color: #212529; } /* El texto debe ser oscuro para este color */
+#nuestros-servicios .btn-danger { background-color: #dc3545; border-color: #dc3545; color: white; }
+#nuestros-servicios .btn-info { background-color: #17a2b8; border-color: #17a2b8; color: white; }
+
+/* Define los colores para los botones 'purple' y 'orange' */
+.btn-purple { background-color: #6f42c1; border-color: #6f42c1; color: white; }
+.btn-orange { background-color: #fd7e14; border-color: #fd7e14; color: white; }
+
+/* Efectos hover para los botones */
+#nuestros-servicios .btn-primary:hover { background-color: #0056b3; border-color: #0056b3; }
+#nuestros-servicios .btn-success:hover { background-color: #218838; border-color: #218838; }
+#nuestros-servicios .btn-warning:hover { background-color: #e0a800; border-color: #e0a800; }
+#nuestros-servicios .btn-danger:hover { background-color: #c82333; border-color: #c82333; }
+#nuestros-servicios .btn-info:hover { background-color: #138496; border-color: #138496; }
+.btn-purple:hover { background-color: #5a2e99; border-color: #5a2e99; }
+.btn-orange:hover { background-color: #e66b0e; border-color: #e66b0e; }
