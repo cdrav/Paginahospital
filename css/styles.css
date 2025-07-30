@@ -289,7 +289,6 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
 
 /* estilo para la seccion quienes somos  */
 
-/* Quiénes Somos Section Styling */
 #quienes-somos .quienes-somos-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -301,56 +300,55 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
 
 #quienes-somos .values-list li {
     margin-bottom: 0.5rem;
-    line-height: 1.5; /* Improves readability for long text */
+    line-height: 1.5; 
 }
 
 #quienes-somos .accordion-item {
-    border: 1px solid #dee2e6; /* Light border for separation */
-    margin-bottom: 10px; /* Space between accordion items */
-    border-radius: 0.375rem; /* Match Bootstrap's default radius */
-    overflow: hidden; /* Ensures border-radius applies correctly */
+    border: 1px solid #dee2e6; 
+    margin-bottom: 10px; 
+    border-radius: 0.375rem;
+    overflow: hidden; 
 }
 
 #quienes-somos .accordion-button {
-    background-color: #f8f9fa; /* Light background for buttons */
-    color: #3366cc; /* Brand color for text */
-    font-weight: bold;
+    background-color: #f8f9fa; 
+    color: #3366cc;     font-weight: bold;
     padding: 1rem 1.25rem;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 #quienes-somos .accordion-button:not(.collapsed) {
-    background-color: #3366cc; /* Darker background when open */
-    color: white; /* White text when open */
+    background-color: #3366cc; 
+    color: white; 
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 }
 
 #quienes-somos .accordion-button:focus {
-    box-shadow: 0 0 0 0.25rem rgba(51, 102, 204, 0.25); /* Focus outline with brand color */
+    box-shadow: 0 0 0 0.25rem rgba(51, 102, 204, 0.25); 
 }
 
 #quienes-somos .accordion-body {
     padding: 1.25rem;
-    background-color: #ffffff; /* White background for content */
-    border-top: 1px solid #dee2e6; /* Separator line */
-    color: #555; /* Slightly darker text for readability */
+    background-color: #ffffff; 
+    border-top: 1px solid #dee2e6; 
+    color: #555; 
 }
 
-/* Image styling within the history section */
+/* estilo de seccion historia  */
 #quienes-somos .history-image {
     max-width: 100%;
     height: auto;
-    display: block; /* Ensures no extra space below image */
-    margin-top: 1rem; /* Space above image on small screens */
+    display: block; 
+    margin-top: 1rem; 
 }
 
 @media (min-width: 768px) {
     #quienes-somos .history-image {
-        margin-top: 0; /* Remove top margin on larger screens */
+        margin-top: 0; 
     }
 }
 
-/* Custom button colors for service cards (if not already defined) */
+/* otros estilos para las tarjetas  */
 .btn-purple {
     background-color: #6f42c1;
     border-color: #6f42c1;
@@ -373,7 +371,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
     color: white;
 }
 
-/* Hover animation for service buttons */
+/* estilo de otros botones*/
 .btn-hover-animate {
     transition: transform 0.2s ease-in-out;
 }
@@ -382,39 +380,39 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
 }
 
 
- /* Custom Styles for the Navigation Bar */
+ /* estilo de barra de navegacion  */
     .navbar {
-      background-color: #164443; /* Dark Teal background for the main navbar */
+      background-color: #164443; 
       padding-top: 0;
       padding-bottom: 0;
     }
 
     .navbar-brand {
-      color: #ffffff !important; /* White color for brand text */
-      font-weight: 700; /* Poppins Semi-Bold */
+      color: #ffffff !important; 
+      font-weight: 700; 
       font-size: 1.5rem;
       display: flex;
       align-items: center;
-      padding: 10px 0; /* Adjust padding for brand */
+      padding: 10px 0; 
     }
 
     .navbar-brand img {
-      height: 50px; /* Slightly larger logo */
+      height: 50px; 
       margin-right: 15px;
     }
 
     .navbar-nav .nav-link {
-      color: #ffffff !important; /* White color for nav links */
-      font-weight: 300; /* Poppins Light */
-      padding: 15px 20px; /* More generous padding for nav items */
-      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+      color: #ffffff !important; 
+      font-weight: 300; 
+      padding: 15px 20px; 
+      transition: background-color 0.3s ease, color 0.3s ease; 
     }
 
     .navbar-nav .nav-link:hover,
     .navbar-nav .nav-link.active {
-      background-color: rgba(255, 255, 255, 0.1); /* Subtle white overlay on hover/active */
+      background-color: rgba(255, 255, 255, 0.1); 
       color: #ffffff !important;
-      border-radius: 5px; /* Slightly rounded corners on hover */
+      border-radius: 5px; 
     }
 
     .navbar-nav .nav-item.dropdown .nav-link {
@@ -423,34 +421,34 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
     }
 
     .navbar-nav .nav-item.dropdown .dropdown-menu {
-      background-color: #164443; /* Dark Teal for dropdown background */
+      background-color: #164443;
       border: none;
       border-radius: 5px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .navbar-nav .nav-item.dropdown .dropdown-item {
-      color: #ffffff !important; /* White for dropdown items */
+      color: #ffffff !important; 
       padding: 10px 20px;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .navbar-nav .nav-item.dropdown .dropdown-item:hover {
-      background-color: rgba(255, 255, 255, 0.2); /* Slightly darker white overlay on dropdown item hover */
+      background-color: rgba(255, 255, 255, 0.2); 
       color: #ffffff !important;
     }
 
     .navbar-toggler {
-      border-color: rgba(255, 255, 255, 0.5); /* Lighter border for toggler */
+      border-color: rgba(255, 255, 255, 0.5); 
     }
 
     .navbar-toggler-icon {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* White toggler icon */
     }
 
-    /* Search Form Styling */
+    
     .navbar .form-control {
-      border-radius: 20px; /* Rounded search input */
+      border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.3);
       background-color: rgba(255, 255, 255, 0.1);
       color: #ffffff;
@@ -458,34 +456,33 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
     }
 
     .navbar .form-control::placeholder {
-      color: rgba(255, 255, 255, 0.7); /* Lighter placeholder text */
+      color: rgba(255, 255, 255, 0.7); 
     }
 
     .navbar .form-control:focus {
       background-color: #ffffff;
       color: #164443;
       border-color: #164443;
-      box-shadow: none; /* Remove default focus shadow */
+      box-shadow: none; 
     }
 
     .navbar .btn-light {
-      background-color: #ffffff; /* White search button */
-      color: #164443; /* Dark Teal icon */
+      background-color: #ffffff; 
+      color: #164443; 
       border-radius: 20px;
-      margin-left: -40px; /* Overlap with input for better visual */
+      margin-left: -40px; 
       padding: 8px 15px;
-      z-index: 1; /* Ensure button is above input */
+      z-index: 1; 
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .navbar .btn-light:hover {
-      background-color: #e0e0e0; /* Slightly darker white on hover */
-      color: #0d2d2c; /* Darker teal */
+      background-color: #e0e0e0; 
+      color: #0d2d2c; 
     }
 
-    /* Top Gov.co bar */
-    .top-bar {
-      background-color: #3366cc; /* Existing blue for GOV.CO */
+  .top-bar {
+      background-color: #3366cc; 
       height: 36px;
     }
 
@@ -497,7 +494,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
         font-weight: bold;
     }
 
-    /* Ensure proper font application */
+    
     body, .navbar, .card-title, .h2, .h3, h2, h3 {
         font-family: 'Poppins', sans-serif;
     }
@@ -505,7 +502,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
         font-family: 'IBM Plex Serif', serif;
     }
 
-    /* Custom button styles for services section to match brand */
+    
     .btn-primary, .btn-success, .btn-warning, .btn-danger, .btn-info,
     .btn-purple, .btn-orange {
       font-weight: 700;
@@ -517,9 +514,9 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    /* Define custom colors for service buttons */
+    
     .btn-purple {
-      background-color: #6a0dad; /* A distinct purple */
+      background-color: #6a0dad; 
       border-color: #6a0dad;
       color: #ffffff;
     }
@@ -529,7 +526,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
     }
 
     .btn-orange {
-      background-color: #ff8c00; /* A distinct orange */
+      background-color: #ff8c00; 
       border-color: #ff8c00;
       color: #ffffff;
     }
@@ -538,7 +535,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
       border-color: #e67c00;
     }
 
-    /* Card styling for services */
+    
     .card {
       border-radius: 10px;
       overflow: hidden;
@@ -549,7 +546,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
       object-fit: cover;
     }
 
-    /* Who We Are Section Styling */
+    
     .quienes-somos-card {
       border-radius: 10px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -574,15 +571,15 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
       border-radius: 10px;
     }
 
-    /* Accordion styling for history */
+    /* estilo acordeon para historia */
     .accordion-button {
-        background-color: #f8f9fa; /* Light background for accordion headers */
-        color: #164443; /* Dark Teal text */
+        background-color: #f8f9fa; 
+        color: #164443; 
         font-weight: 700;
         border-bottom: 1px solid #dee2e6;
     }
     .accordion-button:not(.collapsed) {
-        background-color: #164443; /* Dark Teal when expanded */
+        background-color: #164443; 
         color: #ffffff;
     }
     .accordion-button:focus {
@@ -594,12 +591,11 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
         color: #333333;
     }
 
-    /* Accessibility Buttons - ensure visibility */
     .accessibility-buttons-container button {
-        background-color: #164443 !important; /* Dark Teal background */
-        color: #ffffff !important; /* White icon */
-        border: 1px solid #ffffff !important; /* White border */
+        background-color: #164443 !important; 
+        color: #ffffff !important; 
+        border: 1px solid #ffffff !important; 
     }
     .accessibility-buttons-container button:hover {
-        background-color: #0d2d2c !important; /* Darker Teal on hover */
+        background-color: #0d2d2c !important; 
     }
