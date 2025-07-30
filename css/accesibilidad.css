@@ -1,39 +1,40 @@
-/* estilos base) */
+/* Base styles */
 body {
-    background-color: #ffffff; 
+    background-color: #ffffff;
     color: #333333;
 }
 
-
+/* High Contrast Mode */
 .alto-contraste {
-    background-color: #000000; 
-    color: #ffffff; 
+    background-color: #000000;
+    color: #ffffff;
 }
 
 .alto-contraste .navbar,
 .alto-contraste .footer {
-    background-color: #333333 !important; 
+    background-color: #333333 !important;
     color: #ffffff !important;
 }
 
 .alto-contraste a {
-    color: #ffff00 !important; 
+    color: #ffff00 !important;
 }
 
 .alto-contraste .btn-outline-primary {
     color: #ffffff !important;
     border-color: #ffffff !important;
 }
-/*  alto contraste*/
+
 .alto-contraste .carousel-caption h5,
 .alto-contraste .carousel-caption p {
     color: #ffffff !important;
     text-shadow: 1px 1px 2px black;
 }
 
+/* Dark Mode */
 .modo-oscuro {
-    background-color: #1a1a1a; 
-    color: #e0e0e0; 
+    background-color: #1a1a1a;
+    color: #e0e0e0;
 }
 
 .modo-oscuro .navbar,
@@ -43,7 +44,7 @@ body {
 }
 
 .modo-oscuro a {
-    color: #87ceeb !important; 
+    color: #87ceeb !important;
 }
 
 .modo-oscuro .btn-outline-primary {
@@ -51,26 +52,26 @@ body {
     border-color: #e0e0e0 !important;
 }
 
-
 .modo-oscuro .carousel-caption h5,
 .modo-oscuro .carousel-caption p {
     color: #e0e0e0 !important;
     text-shadow: 1px 1px 2px black;
 }
 
+/* Sepia Mode */
 .modo-sepia {
-    background-color: #f4ecd8; 
-    color: #5c4033; 
+    background-color: #f4ecd8;
+    color: #5c4033;
 }
 
 .modo-sepia .navbar,
 .modo-sepia .footer {
-    background-color: #d2b48c !important; 
+    background-color: #d2b48c !important;
     color: #5c4033 !important;
 }
 
 .modo-sepia a {
-    color: #000080 !important; 
+    color: #000080 !important;
 }
 
 .modo-sepia .btn-outline-primary {
@@ -78,11 +79,8 @@ body {
     border-color: #5c4033 !important;
 }
 
-
 .modo-sepia .carousel-caption h5,
 .modo-sepia .carousel-caption p {
     color: #5c4033 !important;
     text-shadow: 1px 1px 2px #f4ecd8;
 }
-
-
