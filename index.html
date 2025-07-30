@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<div style="background-color: #3366cc; height: 36px;" class="d-flex justify-content-between align-items-center px-4">
+<div style="background-color: #3366cc; height: 36px;" class="d-flex justify-content-between align-items-center px-4 top-bar">
     <div class="d-flex align-items-center">
         <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none">
             <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 18px; margin-right: 8px;">
@@ -26,14 +26,14 @@
     <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 0 8px; font-weight: bold;"></div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark flex-column">
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top">
   <div class="container-fluid d-flex justify-content-between align-items-center w-100">
-    <a class="navbar-brand d-flex align-items-center" href="/index.html">
-      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height: 40px; margin-right: 10px;">
+    <a class="navbar-brand" href="/index.html">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio">
       Hospital Departamental San Antonio
     </a>
-    <form class="d-flex ms-auto" role="search" action="/buscar" method="get">
-      <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
+    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get">
+      <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
       <button class="btn btn-light" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
     </form>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,11 +46,20 @@
         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">Atención y Servicios a la Ciudadanía</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios a la Ciudadanía
+          </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
             <li><a class="dropdown-item" href="/servicios/urgencias.html">Urgencias</a></li>
             <li><a class="dropdown-item" href="/servicios/citas-medicas.html">Citas médicas</a></li>
             <li><a class="dropdown-item" href="/servicios/consulta-externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/Hopsitalización.html">Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
@@ -99,7 +108,7 @@
   <p class="relleno">Ofrecemos atención médica integral con un enfoque humano y profesional. Nuestro compromiso es brindar servicios de salud accesibles y de calidad para toda la comunidad.</p>
   <p class="especial">“Cuidamos tu salud con excelencia y humanidad.”</p>
 
-  ---
+
 <section id="nuestros-servicios" class="mb-5">
   <h2>Nuestros Servicios</h2>
   <p>Descubre los principales servicios que ofrece el Hospital Departamental San Antonio, diseñados para cuidar tu salud con la más alta calidad y un enfoque humano.</p>
@@ -191,15 +200,134 @@
   </div>
 </section>
 
-  ---
+---
+<section id="quienes-somos" class="mb-5">
+  <h2>Quiénes Somos</h2>
+  <p>Conoce la misión, visión y valores del Hospital Departamental San Antonio, así como nuestra historia y compromiso con la comunidad.</p>
 
-  <section id="quienes-somos" class="mb-5">
-    <h2>Quiénes Somos</h2>
-    <p> misión, visión y valores del Hospital Departamental San Antonio,  historia y el compromiso con la comunidad.</p>
-    <p> descripción de su fundación y evolución.</p>
-  </section>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center quienes-somos-card">
+        <div class="card-body">
+          <i class="bi bi-star-fill text-primary mb-3" style="font-size: 2rem;"></i> <h5 class="card-title fw-bold">Misión</h5>
+          <p class="card-text text-muted">Ser un centro de salud de referencia en el Norte del Valle del Cauca, comprometido con la prestación de servicios médicos integrales, humanizados, accesibles y de alta calidad, fundamentados en el profesionalismo, la ética y la vanguardia tecnológica.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center quienes-somos-card">
+        <div class="card-body">
+          <i class="bi bi-eye-fill text-success mb-3" style="font-size: 2rem;"></i>
+          <h5 class="card-title fw-bold">Visión</h5>
+          <p class="card-text text-muted">Ser la institución de salud de referencia en el Norte del Valle del Cauca, reconocida por su excelencia en la atención médica integral, humanizada y de alta calidad, fundamentada en la acreditación institucional, la innovación tecnológica y el compromiso con el bienestar de la comunidad</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      
+      <div class="card h-100 shadow-sm border-0 text-center quienes-somos-card">
+        <div class="card-body">
+          <i class="bi bi-hand-thumbs-up-fill text-warning mb-3" style="font-size: 2rem;"></i>
+          <h5 class="card-title fw-bold">Valores</h5>
+          <ul class="list-unstyled text-muted text-start values-list">
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Responsabilidad:</strong> Es la disposición de aquel que ejecuta sus responsabilidades de manera adecuada y acepta las ramificaciones de sus elecciones. Implica tomar medidas cuando sea necesario y proceder de manera que se añada al logro de los propósitos de la organización y su entorno.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Excelencia:</strong> Búsqueda de la más alta calidad en todos los servicios.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Compromiso:</strong> Compromiso arraigado mediante el cual el profesional se dedica incansablemente al mejoramiento de la entidad. Este enlace impulsa al individuo a comprender y resolver las demandas de las personas con las que interactúa en sus tareas diarias, con el objetivo continuo de enriquecer su bienestar.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Honestidad:</strong> Actuar con integridad y firmeza en consonancia con la verdad y la equidad. Ejecutar las tareas asignadas con probidad en el manejo de la información, los activos materiales y los recursos financieros. Exhibir un comportamiento ejemplar tanto dentro como fuera del ámbito organizacional.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Colaboración:</strong> Participar junto a otro individuo en una labor compartida, especialmente cuando se brinda apoyo o contribución de manera altruista.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Respeto:</strong> Reconocer y apreciar la dignidad de cada ser humano, con sus cualidades y limitaciones, sin considerar su ocupación, origen, credenciales u otras características.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Justicia:</strong> Inclina hacia el accionar y juicio que respeta la verdad y concede a cada uno lo que le es propio y merecido.</li>
+            <li><i class="bi bi-check-circle-fill text-warning me-2"></i><strong>Humanización:</strong> Proporcionar cuidado digno, cálido y humano, imbuido de empatía y amor (Afable, Acogedor, Inclusivo, Manifestación Empática de Cuidado), sumergiéndose en la perspectiva del prójimo, y considerando a los individuos (tanto pacientes como colegas) como seres integrales, abordados éticamente en la prestación de servicios.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  ---
+  <h3>Historia y Evolución</h3>
+  <div class="row mb-4">
+    <div class="col-md-6 order-md-2">
+      <img src="/imagenes/panoramica del hospital.jpg" alt="Imagen representativa de la historia del hospital" class="img-fluid rounded shadow-sm mb-3 history-image" style="object-fit: cover; width: 100%; height: 300px;">
+    </div>
+    <div class="col-md-6 order-md-1">
+      <div class="accordion" id="historyAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingHistoryOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoryOne" aria-expanded="false" aria-controls="collapseHistoryOne">
+              Nuestros Inicios
+            </button>
+          </h2>
+          <div id="collapseHistoryOne" class="accordion-collapse collapse" aria-labelledby="headingHistoryOne" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+              <p>Somos una empresa de servicios de Salud fundada en el año 1940, tradicional y competente, acorde con la normatividad que exige la ley 100 de 1.993. Hacemos parte de la red estatal de instituciones de salud, y hemos venido ampliando nuestro oferta de servicios en respuesta a la creciente demanda de la comunidad Roldanillense y de los Municipios del Centro y Norte del Valle del Cauca</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingHistoryTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoryTwo" aria-expanded="false" aria-controls="collapseHistoryTwo">
+              Origen
+            </button>
+          </h2>
+          <div id="collapseHistoryTwo" class="accordion-collapse collapse" aria-labelledby="headingHistoryTwo" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+              <p>El origen del Hospital está ligado al esfuerzo de los habitantes del municipio de Roldanillo quienes en el año 1932, lograron obtener una partida mensual proveniente de la beneficencia del Valle del Cauca quien mediante Ordenanza No.10 de Marzo 23 “Por la cual se organiza la lotería de la Beneficencia del Valle del Cauca” en su artículo 26, se origina una partida periódica del producto de las utilidades, premios e impuestos a billetes de otras loterías e intereses por depósitos de bancos, por la suma de $150 (ciento cincuenta pesos) mcte, para la construcción y sostenimiento del Hospital de Roldanillo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingHistoryThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoryThree" aria-expanded="false" aria-controls="collapseHistoryThree">
+              Fundación
+            </button>
+          </h2>
+          <div id="collapseHistoryThree" class="accordion-collapse collapse" aria-labelledby="headingHistoryThree" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+              <p>Con los aportes recibidos de la beneficencia del Valle del Cauca y partidas obtenidas fruto del trabajo de la comunidad, se logró la construcción del dispensario de salud inaugurado el 07 de marzo de 1940 ante el Excelentísimo Sr. LUIS A. DÍAZ Obispo de Cali, con la presencia del Dr. DEMETRIO GARCIA VASQUEZ Gobernador del Departamento, presbítero Dr. MARIANO PEÑA Presidente de la Junta Directiva del Hospital “San Antonio”, Junta directiva de la lotería del Valle, la presencia del señor Alcalde y de la comunidad congregada ante tan solemne evento, fue inaugurado el HOSPITAL DE SAN ANTONIO.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingHistoryFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoryFour" aria-expanded="false" aria-controls="collapseHistoryFour">
+              Institución estatal
+            </button>
+          </h2>
+          <div id="collapseHistoryFour" class="accordion-collapse collapse" aria-labelledby="headingHistoryFour" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+              <p>Desde 1932 su organización y dirección fue entregada a una comunidad religiosa (Terciarias Capuchinas), quien se encargó de su administración hasta el año de 1950, fecha en que se entrega la dirección a la secretaría de higiene departamental, nombrándose por primera vez un director Médico en el creciente Hospital San Antonio. Desde allí se inicia el desarrollo científico y administrativo de la institución a cargo del estado.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingHistoryFive">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoryFive" aria-expanded="false" aria-controls="collapseHistoryFive">
+              Creación del ministerio de salud
+            </button>
+          </h2>
+          <div id="collapseHistoryFive" class="accordion-collapse collapse" aria-labelledby="headingHistoryFive" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+              <p>En 1976, se crea el ministerio de salud y se reforma la secretaría departamental de higiene, creándose los servicios departamentales de salud, con autonomía administrativa y organizacional. Se crean las unidades regionales de salud y se estratifica los hospitales por niveles de atención, eligiéndose a Roldanillo como cabecera de la unidad regional y Hospital Nivel II de atención de referencia de los municipios de Bolívar y el Dovio.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingHistorySix">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistorySix" aria-expanded="false" aria-controls="collapseHistorySix">
+              Ascenso de nivel de complejidad
+            </button>
+          </h2>
+          <div id="collapseHistorySix" class="accordion-collapse collapse" aria-labelledby="headingHistorySix" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+              <p>En noviembre de 1995 mediante el decreto 1808 emanado de la gobernación del Valle del Cauca, se cambia su razón social a Hospital Departamental San Antonio de Roldanillo, convirtiéndose en una empresa social del estado (E.S.E.) y nivel II de complejidad; con libertad presupuestal, independencia administrativa y desarrollo empresarial, que le permite inversión en tecnología, talento humano y reorganización funcional, facilitando la diferenciación de servicios a nivel especializado y con técnicas de diagnóstico, lo que lo posiciona en el mercado de servicios de salud del Centro y Norte del Valle.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+---
 
   <section id="noticias-eventos" class="mb-5">
     <h2>Noticias y Eventos</h2>
@@ -207,7 +335,7 @@
     <div class="row">
       <div class="col-md-6 mb-3">
         <h4>Campaña de Vacunación contra la Gripe</h4>
-        <p>¡Protege a tu familia! Próxima jornada de vacunación el 15 de agosto. Más detalles...</p>
+        <p>Protege a tu familia! Próxima jornada de vacunación el 15 de agosto. Más detalles...</p>
         <a href="#" class="btn btn-link">Leer más</a>
       </div>
       <div class="col-md-6 mb-3">
@@ -218,7 +346,6 @@
     </div>
   </section>
 
-  ---
 
   <section id="preguntas-frecuentes" class="mb-5">
     <h2>Preguntas Frecuentes (FAQ)</h2>

@@ -285,3 +285,321 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
 #nuestros-servicios .btn-info:hover { background-color: #138496; border-color: #138496; }
 .btn-purple:hover { background-color: #5a2e99; border-color: #5a2e99; }
 .btn-orange:hover { background-color: #e66b0e; border-color: #e66b0e; }
+
+
+/* estilo para la seccion quienes somos  */
+
+/* Quiénes Somos Section Styling */
+#quienes-somos .quienes-somos-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#quienes-somos .quienes-somos-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+#quienes-somos .values-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5; /* Improves readability for long text */
+}
+
+#quienes-somos .accordion-item {
+    border: 1px solid #dee2e6; /* Light border for separation */
+    margin-bottom: 10px; /* Space between accordion items */
+    border-radius: 0.375rem; /* Match Bootstrap's default radius */
+    overflow: hidden; /* Ensures border-radius applies correctly */
+}
+
+#quienes-somos .accordion-button {
+    background-color: #f8f9fa; /* Light background for buttons */
+    color: #3366cc; /* Brand color for text */
+    font-weight: bold;
+    padding: 1rem 1.25rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#quienes-somos .accordion-button:not(.collapsed) {
+    background-color: #3366cc; /* Darker background when open */
+    color: white; /* White text when open */
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+}
+
+#quienes-somos .accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(51, 102, 204, 0.25); /* Focus outline with brand color */
+}
+
+#quienes-somos .accordion-body {
+    padding: 1.25rem;
+    background-color: #ffffff; /* White background for content */
+    border-top: 1px solid #dee2e6; /* Separator line */
+    color: #555; /* Slightly darker text for readability */
+}
+
+/* Image styling within the history section */
+#quienes-somos .history-image {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Ensures no extra space below image */
+    margin-top: 1rem; /* Space above image on small screens */
+}
+
+@media (min-width: 768px) {
+    #quienes-somos .history-image {
+        margin-top: 0; /* Remove top margin on larger screens */
+    }
+}
+
+/* Custom button colors for service cards (if not already defined) */
+.btn-purple {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    color: white;
+}
+.btn-purple:hover {
+    background-color: #5a359e;
+    border-color: #5a359e;
+    color: white;
+}
+
+.btn-orange {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+    color: white;
+}
+.btn-orange:hover {
+    background-color: #da6c0e;
+    border-color: #da6c0e;
+    color: white;
+}
+
+/* Hover animation for service buttons */
+.btn-hover-animate {
+    transition: transform 0.2s ease-in-out;
+}
+.btn-hover-animate:hover {
+    transform: translateY(-2px);
+}
+
+
+ /* Custom Styles for the Navigation Bar */
+    .navbar {
+      background-color: #164443; /* Dark Teal background for the main navbar */
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .navbar-brand {
+      color: #ffffff !important; /* White color for brand text */
+      font-weight: 700; /* Poppins Semi-Bold */
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      padding: 10px 0; /* Adjust padding for brand */
+    }
+
+    .navbar-brand img {
+      height: 50px; /* Slightly larger logo */
+      margin-right: 15px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #ffffff !important; /* White color for nav links */
+      font-weight: 300; /* Poppins Light */
+      padding: 15px 20px; /* More generous padding for nav items */
+      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.1); /* Subtle white overlay on hover/active */
+      color: #ffffff !important;
+      border-radius: 5px; /* Slightly rounded corners on hover */
+    }
+
+    .navbar-nav .nav-item.dropdown .nav-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-nav .nav-item.dropdown .dropdown-menu {
+      background-color: #164443; /* Dark Teal for dropdown background */
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-nav .nav-item.dropdown .dropdown-item {
+      color: #ffffff !important; /* White for dropdown items */
+      padding: 10px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar-nav .nav-item.dropdown .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.2); /* Slightly darker white overlay on dropdown item hover */
+      color: #ffffff !important;
+    }
+
+    .navbar-toggler {
+      border-color: rgba(255, 255, 255, 0.5); /* Lighter border for toggler */
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* White toggler icon */
+    }
+
+    /* Search Form Styling */
+    .navbar .form-control {
+      border-radius: 20px; /* Rounded search input */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding-left: 15px;
+    }
+
+    .navbar .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.7); /* Lighter placeholder text */
+    }
+
+    .navbar .form-control:focus {
+      background-color: #ffffff;
+      color: #164443;
+      border-color: #164443;
+      box-shadow: none; /* Remove default focus shadow */
+    }
+
+    .navbar .btn-light {
+      background-color: #ffffff; /* White search button */
+      color: #164443; /* Dark Teal icon */
+      border-radius: 20px;
+      margin-left: -40px; /* Overlap with input for better visual */
+      padding: 8px 15px;
+      z-index: 1; /* Ensure button is above input */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar .btn-light:hover {
+      background-color: #e0e0e0; /* Slightly darker white on hover */
+      color: #0d2d2c; /* Darker teal */
+    }
+
+    /* Top Gov.co bar */
+    .top-bar {
+      background-color: #3366cc; /* Existing blue for GOV.CO */
+      height: 36px;
+    }
+
+    #google_translate_element {
+        background-color: white;
+        color: #3366cc;
+        border-radius: 6px;
+        padding: 0 8px;
+        font-weight: bold;
+    }
+
+    /* Ensure proper font application */
+    body, .navbar, .card-title, .h2, .h3, h2, h3 {
+        font-family: 'Poppins', sans-serif;
+    }
+    .especial, .relleno {
+        font-family: 'IBM Plex Serif', serif;
+    }
+
+    /* Custom button styles for services section to match brand */
+    .btn-primary, .btn-success, .btn-warning, .btn-danger, .btn-info,
+    .btn-purple, .btn-orange {
+      font-weight: 700;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .btn-hover-animate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Define custom colors for service buttons */
+    .btn-purple {
+      background-color: #6a0dad; /* A distinct purple */
+      border-color: #6a0dad;
+      color: #ffffff;
+    }
+    .btn-purple:hover {
+      background-color: #5a0ca0;
+      border-color: #5a0ca0;
+    }
+
+    .btn-orange {
+      background-color: #ff8c00; /* A distinct orange */
+      border-color: #ff8c00;
+      color: #ffffff;
+    }
+    .btn-orange:hover {
+      background-color: #e67c00;
+      border-color: #e67c00;
+    }
+
+    /* Card styling for services */
+    .card {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* Who We Are Section Styling */
+    .quienes-somos-card {
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .quienes-somos-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .quienes-somos-card .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .values-list li {
+      margin-bottom: 8px;
+    }
+
+    .history-image {
+      border-radius: 10px;
+    }
+
+    /* Accordion styling for history */
+    .accordion-button {
+        background-color: #f8f9fa; /* Light background for accordion headers */
+        color: #164443; /* Dark Teal text */
+        font-weight: 700;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .accordion-button:not(.collapsed) {
+        background-color: #164443; /* Dark Teal when expanded */
+        color: #ffffff;
+    }
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: #164443;
+    }
+    .accordion-body {
+        background-color: #ffffff;
+        color: #333333;
+    }
+
+    /* Accessibility Buttons - ensure visibility */
+    .accessibility-buttons-container button {
+        background-color: #164443 !important; /* Dark Teal background */
+        color: #ffffff !important; /* White icon */
+        border: 1px solid #ffffff !important; /* White border */
+    }
+    .accessibility-buttons-container button:hover {
+        background-color: #0d2d2c !important; /* Darker Teal on hover */
+    }

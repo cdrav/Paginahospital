@@ -74,8 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    
+ 
     if (resetAccessibilityBtn) {
         resetAccessibilityBtn.addEventListener('click', () => {
       
@@ -90,3 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });   
+
+
