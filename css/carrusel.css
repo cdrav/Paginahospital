@@ -24,3 +24,13 @@
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
 }
+
+@media (max-width: 768px) {
+  .carousel-item img {
+    height: 250px;
+  }
+  .carousel-caption {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}

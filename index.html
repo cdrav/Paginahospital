@@ -16,27 +16,32 @@
   </head>
 <body>
 
-<div style="background-color: #3366cc; height: 36px;" class="d-flex justify-content-between align-items-center px-4 top-bar">
-    <div class="d-flex align-items-center">
-        <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none">
-            <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 18px; margin-right: 8px;">
-            <span style="font-weight: bold;">GOV.CO</span>
-        </a>
-    </div>
-    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 0 8px; font-weight: bold;"></div>
+<!-- BARRA SUPERIOR GOV.CO RESPONSIVA Y LEGIBLE -->
+<div style="background-color: #3366cc; min-height: 44px;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:44px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.1rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 28px; margin-right: 10px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 12px; font-weight: bold; font-size: 1rem;"></div>
+  </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top">
-  <div class="container-fluid d-flex justify-content-between align-items-center w-100">
-    <a class="navbar-brand" href="/index.html">
-      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio">
-      Hospital Departamental San Antonio
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
     </a>
-    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get">
+    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get" style="max-width:300px;">
       <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
-      <button class="btn btn-light" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+      <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
     </form>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
@@ -466,38 +471,23 @@
   <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">🌓</button>
 </div>
 
-<footer class="mt-5 bg-dark text-white py-4">
-  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
-    <!-- Logos a la izquierda -->
-    <div class="footer-logos d-flex align-items-center mb-3 mb-md-0">
-      <a href="https://colombia.co/" target="_blank" aria-label="Colombia.co" class="me-3">
-        <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="width:40px; height:40px; object-fit:contain; background:#fff; border-radius:50%; padding:4px;">
-      </a>
-      <a href="https://www.gov.co/" target="_blank" aria-label="GOV.CO">
-        <img src="/imagenes/logo gov.png" alt="Logo GOV.CO" style="width:40px; height:40px; object-fit:contain; background:#fff; border-radius:50%; padding:4px;">
-      </a>
-    </div>
-    <!-- Información centrada -->
-    <div class="flex-grow-1 text-center">
-      <h3 class="mb-1">Hospital Departamental San Antonio</h3>
-      <h4 class="mb-3">Sede Principal</h4>
-      <ul class="list-unstyled mb-0">
-        <li>Avenida Santander No. 10 -50</li>
-        <li>Roldanillo, Valle del Cauca - Colombia</li>
-        <li>Código Postal: 9-519</li>
-        <li>Horario de Atención: Lunes - Viernes: 6:00 AM - 6:00 PM</li>
-        <li>Teléfono: <a href="tel:+576028912317" class="text-white">602 891 2317</a></li>
-        <li>Línea Gratuita: <a href="tel:+576022295000" class="text-white">602 229 5000</a></li>
-        <li>Correo Electrónico: <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-white">ventanillaunica@hdsa.gov.co</a></li>
-      </ul>
-    </div>
-  </div>
 </footer>
-
+<!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV IGUAL A LA SUPERIOR Y ALINEADA AL CONTENIDO PRINCIPAL -->
+<div style="background-color: #3366cc; min-height: 44px;">
+  <div class="container d-flex align-items-center justify-content-start" style="height:44px;">
+    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.1rem;">
+      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 28px; margin-right: 10px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.1rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 28px; margin-right: 10px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/accesibilidad.js"></script>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-</html>  
-
+</html>
