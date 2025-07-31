@@ -142,9 +142,8 @@ footer {
   font-size: 1.1rem;
 }
 
-/* =======================
-   ACCESIBILIDAD
-   ======================= */
+/*ACCESIBILIDAD*/
+
 .accessibility-buttons-container {
   position: fixed;
   right: 20px;
@@ -184,7 +183,7 @@ footer {
 .accessibility-buttons-container .btn[title="Aumentar texto"]::after { content: "A+"; }
 .accessibility-buttons-container .btn[title="Reducir texto"]::after { content: "A-"; }
 .accessibility-buttons-container .btn[title="Centro de relevo"]::after {
-  content: "🗣️";
+  content: "";
   font-size: 1.5em;
 }
 .accessibility-buttons-container .btn[title="Encuesta de Usabilidad y accesibilidad"]::after {
