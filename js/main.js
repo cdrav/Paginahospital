@@ -42,8 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const normalBtn = document.querySelector('[title="Tamaño normal"]');
     const decreaseBtn = document.querySelector('[title="Reducir texto"]');
 
-    let fontSize = parseInt(localStorage.getItem('fontSize')) || 100; 
-    document.body.style.fontSize = fontSize + '%';
+    // Solo modificar el tamaño de fuente si el usuario ya lo cambió antes
+    let fontSize = 100;
+    if (localStorage.getItem('fontSize') && localStorage.getItem('fontSize') !== "100") {
+        fontSize = parseInt(localStorage.getItem('fontSize'));
+        document.body.style.fontSize = fontSize + '%';
+    } else {
+        document.body.style.fontSize = '100%';
+        localStorage.setItem('fontSize', 100);
+    }
 
     // Aumentar texto
     if (increaseBtn) {

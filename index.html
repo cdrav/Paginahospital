@@ -17,14 +17,14 @@
   </head>
 <body>
 
-<!-- BARRA SUPERIOR GOV.CO RESPONSIVA Y LEGIBLE -->
-<div style="background-color: #3366cc; min-height: 44px;" class="d-flex align-items-center px-3 px-md-5 top-bar">
-  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:44px;">
-    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.1rem;">
-      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 28px; margin-right: 10px;">
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
       <span style="font-weight: bold; letter-spacing: 1px;"></span>
     </a>
-    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 12px; font-weight: bold; font-size: 1rem;"></div>
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
   </div>
 </div>
 
@@ -56,9 +56,9 @@
             Atención y Servicios a la Ciudadanía
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item" href="/servicios/urgencias.html">Urgencias</a></li>
-            <li><a class="dropdown-item" href="/servicios/citas-medicas.html">Citas médicas</a></li>
-            <li><a class="dropdown-item" href="/servicios/consulta-externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consuta externa.html">Consulta externa</a></li>
             <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
             <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
             <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
@@ -113,7 +113,6 @@
   <h2>Bienvenido al Hospital Departamental San Antonio</h2>
   <p class="relleno">Ofrecemos atención médica integral con un enfoque humano y profesional. Nuestro compromiso es brindar servicios de salud accesibles y de calidad para toda la comunidad.</p>
   <p class="especial">“Cuidamos tu salud con excelencia y humanidad.”</p>
-
 
 <section id="nuestros-servicios" class="mb-5">
   <h2>Nuestros Servicios</h2>
@@ -205,7 +204,6 @@
     </div>
   </div>
 </section>
-
 
 <section id="quienes-somos" class="mb-5">
   <h2>Quiénes Somos</h2>
@@ -392,6 +390,32 @@
     </div>
 </section>
 
+</section>
+
+<!-- Sección PQRSD (Peticiones, Quejas, Reclamos, Sugerencias y Denuncias)-->
+<section id="pqrsd" class="mb-5">
+  <div class="container">
+    <div class="card shadow-lg border-0 mx-auto" style="max-width: 800px; border-radius: 1.5rem; background: linear-gradient(90deg, #e3f6f3 0%, #f8fafc 100%);">
+      <div class="card-body py-5 px-4 px-md-5 text-center">
+        <div class="mb-4">
+          <i class="bi bi-chat-dots-fill" style="font-size: 3rem; color: #069681;"></i>
+        </div>
+        <h2 class="fw-bold mb-3" style="color:#069681; letter-spacing: -1px;">PQRSD</h2>
+        <p class="mb-4 text-muted" style="font-size:1.15rem;">
+          ¿Tienes una <strong>petición</strong>, <strong>queja</strong>, <strong>reclamo</strong>, <strong>sugerencia</strong> o <strong>denuncia</strong>?<br>
+          Tu opinión es fundamental para mejorar nuestros servicios. Haz clic en el botón y diligencia el formulario PQRSD.
+        </p>
+        <a href="/pqrsd.html" class="btn btn-success btn-lg rounded-pill px-5 fw-bold shadow-sm" style="font-size:1.2rem;">
+          <i class="bi bi-pencil-square me-2"></i> Radicar PQRSD
+        </a>
+        <div class="mt-4 text-muted" style="font-size:0.98rem;">
+          También puedes consultar el estado de tu solicitud o comunicarte con nuestra oficina de atención al usuario.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="redes-sociales" class="mb-5 py-5 bg-light rounded">
     <div class="container">
         <h2 class="text-center mb-4">Conéctate con Nosotros</h2>
@@ -483,7 +507,6 @@
   </button>
 </div>
 
-
 <!-- Tarjeta institucional moderna, más ancha, elegante y alineada -->
 <div class="container mb-5">
   <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
@@ -504,14 +527,12 @@
           </ul>
         </div>
 
-
-
         <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
           <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
-            <a href="/mapa-del-sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
-            <a href="/politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
-            <a href="/contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
-            <a href="/estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+            <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+            <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+            <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+            <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
           </div>
         </div>
       </div>
@@ -520,15 +541,15 @@
 </div>
 
 </footer>
-<!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV IGUAL A LA SUPERIOR Y ALINEADA AL CONTENIDO PRINCIPAL -->
-<div style="background-color: #3366cc; min-height: 44px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
-  <div class="container-fluid d-flex align-items-center justify-content-start" style="height:44px;">
-    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.1rem;">
-      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 28px; margin-right: 10px;">
+<!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+  <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
+    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
       <span style="font-weight: bold; letter-spacing: 1px;"></span>
     </a>
-    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.1rem;">
-      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 28px; margin-right: 10px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
       <span style="font-weight: bold; letter-spacing: 1px;"></span>
     </a>
   </div>
