@@ -13,61 +13,7 @@
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/carrusel.css" />
   <link rel="stylesheet" href="/css/accesibilidad.css" />
-  <style>
-  .accessibility-buttons-container {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    z-index: 1050;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .accessibility-buttons-container .access-btn {
-    width: 48px;
-    height: 48px;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    color: #3366cc;
-    border: 2px solid #3366cc;
-    box-shadow: 0 2px 8px rgba(51,102,204,0.08);
-    border-radius: 50%;
-    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
-    outline: none;
-  }
-
-  .accessibility-buttons-container .access-btn:hover,
-  .accessibility-buttons-container .access-btn:focus {
-    background: #3366cc;
-    color: #fff;
-    border-color: #224488;
-    box-shadow: 0 4px 16px rgba(51,102,204,0.18);
-  }
-
-  .accessibility-buttons-container .access-btn svg {
-    width: 1.5em;
-    height: 1.5em;
-    vertical-align: middle;
-  }
-
-  @media (max-width: 576px) {
-    .accessibility-buttons-container {
-      bottom: 16px;
-      right: 8px;
-      gap: 10px;
-    }
-    .accessibility-buttons-container .access-btn {
-      width: 40px;
-      height: 40px;
-      font-size: 1.1rem;
-    }
-  }
-  </style>
-</head>
+  </head>
 <body>
 
 <div style="background-color: #3366cc; height: 36px;" class="d-flex justify-content-between align-items-center px-4 top-bar">
@@ -392,54 +338,54 @@
 </section>
 
 <section id="noticias-eventos" class="mb-5">
-    <h2>Noticias y Eventos</h2>
-    <p>Mantente al día con las últimas novedades del Hospital Departamental San Antonio.</p>
+    <div class="container">
+        <h2>Noticias y Eventos</h2>
+        <p>Mantente al día con las últimas novedades del Hospital Departamental San Antonio.</p>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="/imagenes/vacunacion.jpg" class="card-img-top" alt="Campaña de Vacunación contra la Gripe">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-primary">Campaña de Vacunación contra la Gripe</h5>
-                    <p class="card-text text-muted">¡Protege a tu familia! Próxima jornada de vacunación el **15 de agosto**. Más detalles sobre lugares y horarios.</p>
-                    <div class="mt-auto">
-                        <a href="/noticias/vacunacion-gripe.html" class="btn btn-outline-primary btn-sm mt-2">Leer más <i class="bi bi-arrow-right"></i></a>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="/imagenes/vacunacion.jpg" class="card-img-top" alt="Campaña de Vacunación contra la Gripe">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-primary">Campaña de Vacunación contra la Gripe</h5>
+                        <p class="card-text text-muted">¡Protege a tu familia! Próxima jornada de vacunación el **15 de agosto**. Más detalles sobre lugares y horarios.</p>
+                        <div class="mt-auto">
+                            <a href="/noticias/vacunacion-gripe.html" class="btn btn-outline-primary btn-sm mt-2">Leer más <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="/imagenes/telemedicina.jpg" class="card-img-top" alt="Nuevo Servicio de Telemedicina">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-success">Nuevo Servicio de Telemedicina</h5>
+                        <p class="card-text text-muted">Ahora puedes recibir atención médica desde la comodidad de tu hogar. Infórmate sobre cómo acceder a nuestras consultas virtuales.</p>
+                        <div class="mt-auto">
+                            <a href="/noticias/telemedicina.html" class="btn btn-outline-success btn-sm mt-2">Leer más <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="/imagenes/jornada gratuita.jpg" class="card-img-top" alt="Jornada Médica Gratuita">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-info">Jornada Médica Gratuita en Roldanillo</h5>
+                        <p class="card-text text-muted">Únete a nuestra jornada de salud el **25 de septiembre** en el Parque Principal. Habrá chequeos, charlas y más.</p>
+                        <div class="mt-auto">
+                            <a href="/noticias.html" class="btn btn-outline-info btn-sm mt-2">Leer más <i class="bi bi-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="/imagenes/telemedicina.jpg" class="card-img-top" alt="Nuevo Servicio de Telemedicina">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-success">Nuevo Servicio de Telemedicina</h5>
-                    <p class="card-text text-muted">Ahora puedes recibir atención médica desde la comodidad de tu hogar. Infórmate sobre cómo acceder a nuestras consultas virtuales.</p>
-                    <div class="mt-auto">
-                        <a href="/noticias/telemedicina.html" class="btn btn-outline-success btn-sm mt-2">Leer más <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center mt-4">
+            <a href="/archivo-noticias.html" class="btn btn-primary btn-lg">Ver todas las noticias y eventos</a>
         </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="/imagenes/jornada gratuita.jpg" class="card-img-top" alt="Jornada Médica Gratuita">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-info">Jornada Médica Gratuita en Roldanillo</h5>
-                    <p class="card-text text-muted">Únete a nuestra jornada de salud el **25 de septiembre** en el Parque Principal. Habrá chequeos, charlas y más.</p>
-                    <div class="mt-auto">
-                        <a href="/noticias.html" class="btn btn-outline-info btn-sm mt-2">Leer más <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="text-center mt-4">
-        <a href="/archivo-noticias.html" class="btn btn-primary btn-lg">Ver todas las noticias y eventos</a>
     </div>
 </section>
 
-
----
 <section id="redes-sociales" class="mb-5 py-5 bg-light rounded">
     <div class="container">
         <h2 class="text-center mb-4">Conéctate con Nosotros</h2>
@@ -478,11 +424,11 @@
             </div>
         </div>
     </div>
-</section>
+</section>  
 
 <section id="preguntas-frecuentes" class="mb-5">
     <h2>Preguntas Frecuentes (FAQ)</h2>
-    <p>trámites, horarios, documentación, (acordeón de Bootstrap) .</p>
+    <p>trámites, horarios, documentación</p>
     <div class="accordion" id="faqAccordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
@@ -521,18 +467,30 @@
 </div>
 
 <footer class="mt-5 bg-dark text-white py-4">
-  <div class="container">
-    <h3>Hospital Departamental San Antonio</h3>
-    <h4>Sede Principal</h4>
-    <ul class="list-unstyled">
-      <li>Avenida Santander No. 10 -50</li>
-      <li>Roldanillo, Valle del Cauca - Colombia</li>
-      <li>Código Postal: 9-519</li>
-      <li>Horario de Atención: Lunes - Viernes: 6:00 AM - 6:00 PM</li>
-      <li>Teléfono: <a href="tel:+576028912317" class="text-white">602 891 2317</a></li>
-      <li>Línea Gratuita: <a href="tel:+576022295000" class="text-white">602 229 5000</a></li>
-      <li>Correo Electrónico: <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-white">ventanillaunica@hdsa.gov.co</a></li>
-    </ul>
+  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+    <!-- Logos a la izquierda -->
+    <div class="footer-logos d-flex align-items-center mb-3 mb-md-0">
+      <a href="https://colombia.co/" target="_blank" aria-label="Colombia.co" class="me-3">
+        <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="width:40px; height:40px; object-fit:contain; background:#fff; border-radius:50%; padding:4px;">
+      </a>
+      <a href="https://www.gov.co/" target="_blank" aria-label="GOV.CO">
+        <img src="/imagenes/logo gov.png" alt="Logo GOV.CO" style="width:40px; height:40px; object-fit:contain; background:#fff; border-radius:50%; padding:4px;">
+      </a>
+    </div>
+    <!-- Información centrada -->
+    <div class="flex-grow-1 text-center">
+      <h3 class="mb-1">Hospital Departamental San Antonio</h3>
+      <h4 class="mb-3">Sede Principal</h4>
+      <ul class="list-unstyled mb-0">
+        <li>Avenida Santander No. 10 -50</li>
+        <li>Roldanillo, Valle del Cauca - Colombia</li>
+        <li>Código Postal: 9-519</li>
+        <li>Horario de Atención: Lunes - Viernes: 6:00 AM - 6:00 PM</li>
+        <li>Teléfono: <a href="tel:+576028912317" class="text-white">602 891 2317</a></li>
+        <li>Línea Gratuita: <a href="tel:+576022295000" class="text-white">602 229 5000</a></li>
+        <li>Correo Electrónico: <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-white">ventanillaunica@hdsa.gov.co</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
 
@@ -541,4 +499,5 @@
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-</html>
+</html>  
+
