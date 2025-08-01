@@ -11,33 +11,33 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/carrusel.css" />
   <link rel="stylesheet" href="/css/accesibilidad.css" />
+  <link rel="stylesheet" href="/css/transparencia.css" />
 </head>
 <body>
 
 <!-- BARRA SUPERIOR -->
-<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
-  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
-    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
-      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
-      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+<div class="d-flex align-items-center px-3 px-md-5 top-bar top-bar-container">
+  <div class="container-fluid d-flex align-items-center justify-content-between top-bar-inner">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none gov-co-link">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" class="gov-co-logo">
+      <span class="gov-co-text"></span>
     </a>
-    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+    <div id="google_translate_element" class="google-translate-widget"></div>
   </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0 main-navbar">
   <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
-    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
-      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
-      <span class="d-none d-md-inline" style="line-height:1.1;">
+    <a class="navbar-brand d-flex align-items-center gap-3 navbar-brand-custom" href="/index.html">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" class="hospital-logo">
+      <span class="d-none d-md-inline hospital-name-desktop">
         Hospital<br>
-        <span style="font-weight:700;">Departamental San Antonio</span>
+        <span class="hospital-name-bold">Departamental San Antonio</span>
       </span>
-      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
+      <span class="d-inline d-md-none hospital-name-mobile">San Antonio</span>
     </a>
-    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get" style="max-width:300px;">
+    <form class="d-flex ms-auto me-3 search-form-custom" role="search" action="/buscar" method="get">
       <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
       <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
     </form>
@@ -75,292 +75,396 @@
 </nav>
 
 <!-- HERO SECTION PARA TRANSPARENCIA -->
-<div class="hero-section" style="background: linear-gradient(135deg, #164443 0%, #069681 100%); padding: 60px 0; color: white;">
+<div class="hero-section-transparencia">
   <div class="container text-center">
-    <h1 class="display-4 fw-bold mb-4" style="line-height: 1.2;">Transparencia y Acceso a la Información Pública</h1>
-    <p class="lead mb-4" style="font-size: 1.25rem; opacity: 0.9; max-width: 800px; margin: 0 auto;">Comprometidos con la transparencia, la rendición de cuentas y el acceso libre a la información pública. Navega por las diferentes secciones para conocer nuestros procesos, presupuestos, contratación y más.</p>
+    <h1 class="display-4 fw-bold mb-4 hero-title">Transparencia y Acceso a la Información Pública</h1>
+    <p class="lead mb-4 hero-lead">Comprometidos con la transparencia, la rendición de cuentas y el acceso libre a la información pública. Navega por las diferentes secciones para conocer nuestros procesos, presupuestos, contratación y más.</p>
     <div class="mt-4">
-      <i class="bi bi-shield-check" style="font-size: 4rem; opacity: 0.7;"></i>
+      <i class="bi bi-shield-check hero-icon"></i>
     </div>
   </div>
 </div>
 
-<!-- CARRUSEL DE TRANSPARENCIA -->
+<!-- ACORDEÓN DE TRANSPARENCIA -->
 <div class="container my-5">
-  <div id="transparenciaCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-    
-    <!-- Indicadores del carrusel -->
-    <div class="carousel-indicators mb-5" style="position: relative; bottom: auto; margin-top: 0;">
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="0" class="active" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="1" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="2" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="3" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="4" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="5" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="6" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="7" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
-      <button type="button" data-bs-target="#transparenciaCarousel" data-bs-slide-to="8" style="width: 15px; height: 15px; border-radius: 50%; background-color: #164443; border: 2px solid #069681; margin: 0 8px;"></button>
+  <div class="accordion" id="accordionTransparencia">
+
+    <!-- ITEM 1: INFORMACIÓN DE LA ENTIDAD -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          1. Información de la Entidad
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4">
+            <!-- Repite este bloque para cada tarjeta, cambiando el contenido -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-bullseye mb-3 card-icon"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">1.1 Misión, Visión, Funciones y Deberes</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Conoce nuestra razón de ser y principios institucionales.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-eye me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-diagram-3 mb-3 card-icon"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">1.2 Estructura Orgánica - Organigrama</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Organización y jerarquía institucional.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-diagram-3 me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-map mb-3 card-icon"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">1.3 Mapas y Cartas Descriptivas</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Procesos y procedimientos institucionales.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-file-earmark me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-people mb-3 card-icon"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">1.4 Directorio Institucional</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Contactos de funcionarios y directivos.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-person-lines-fill me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-person-badge mb-3 card-icon"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">1.5 Directorio de Servidores Públicos</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Empleados y contratistas del hospital.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-list-ul me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-chat-dots mb-3 card-icon"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">1.6 Mecanismos de Presentación de PQRS</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Peticiones, quejas, reclamos y sugerencias.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-envelope me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <!-- Fin del bloque de tarjeta -->
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <!-- ITEM 2: NORMATIVIDAD -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          2. Normatividad
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-book mb-3 card-icon" style="color: #28a745;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">2.1 Leyes</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Normativa general y específica que nos rige.</p>
+                  <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-3"><i class="bi bi-link-45deg me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <!-- Añadir más tarjetas para la sección 2 si es necesario -->
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Slides del carrusel -->
-    <div class="carousel-inner">
-      
-      <!-- SLIDE 1: INFORMACIÓN DE LA ENTIDAD -->
-      <div class="carousel-item active">
-        <div class="text-center mb-5">
-          <div class="d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #069681, #164443); border-radius: 50%;">
-            <span style="font-size: 3rem; color: white; font-weight: bold;">1</span>
+    <!-- ITEM 3: CONTRATACIÓN -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          3. Contratación
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-file-earmark-text mb-3 card-icon" style="color: #ffc107;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">3.1 Plan Anual de Adquisiciones</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Consulta nuestro plan de compras y adquisiciones.</p>
+                  <a href="#" class="btn btn-outline-warning btn-sm rounded-pill px-3"><i class="bi bi-calendar-check me-1"></i>Ver</a>
+                </div>
+              </div>
+            </div>
+            <!-- Añadir más tarjetas para la sección 3 si es necesario -->
           </div>
-          <h2 class="fw-bold mb-3" style="color: #164443; font-size: 2.5rem;">Información de la Entidad</h2>
-          <p class="lead text-muted mb-5">Información institucional básica del Hospital Departamental San Antonio</p>
         </div>
-        
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-bullseye mb-3" style="font-size: 3rem; color: #069681;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">1.1 Misión, Visión, Funciones y Deberes</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Conoce nuestra razón de ser y principios institucionales.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-eye me-1"></i>Ver
-                </a>
+      </div>
+    </div>
+
+    <!-- ITEM 4: PLANEACIÓN, PRESUPUESTO E INFORMES -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          4. Planeación, Presupuesto e Informes
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-pie-chart mb-3 card-icon" style="color: #dc3545;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">4.1 Presupuesto General</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Detalles sobre nuestro presupuesto anual.</p>
+                  <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3"><i class="bi bi-file-pdf me-1"></i>Ver</a>
+                </div>
               </div>
             </div>
+            <!-- Añadir más tarjetas para la sección 4 si es necesario -->
           </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-diagram-3 mb-3" style="font-size: 3rem; color: #069681;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">1.2 Estructura Orgánica - Organigrama</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Organización y jerarquía institucional.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-diagram-3 me-1"></i>Ver
-                </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 5: TRÁMITES Y SERVICIOS -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          5. Trámites y Servicios
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-card-list mb-3 card-icon" style="color: #17a2b8;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">5.1 Listado de Trámites</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Conoce todos los trámites que puedes realizar.</p>
+                  <a href="#" class="btn btn-outline-info btn-sm rounded-pill px-3"><i class="bi bi-list-ol me-1"></i>Ver</a>
+                </div>
               </div>
             </div>
+            <!-- Añadir más tarjetas para la sección 5 si es necesario -->
           </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-map mb-3" style="font-size: 3rem; color: #069681;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">1.3 Mapas y Cartas Descriptivas</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Procesos y procedimientos institucionales.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-earmark me-1"></i>Ver
-                </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 6: PARTICIPA -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          6. Participa
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-people-fill mb-3 card-icon" style="color: #6f42c1;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">6.1 Convocatorias</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Espacios de participación ciudadana.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-megaphone me-1"></i>Ver convocatorias</a>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-people mb-3" style="font-size: 3rem; color: #069681;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">1.4 Directorio Institucional</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Contactos de funcionarios y directivos.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-person-lines-fill me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-person-badge mb-3" style="font-size: 3rem; color: #069681;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">1.5 Directorio de Servidores Públicos</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Empleados y contratistas del hospital.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-list-ul me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-chat-dots mb-3" style="font-size: 3rem; color: #069681;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">1.6 Mecanismos de Presentación de PQRS</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Peticiones, quejas, reclamos y sugerencias.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-envelope me-1"></i>Ver
-                </a>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-chat-left-text-fill mb-3 card-icon" style="color: #6f42c1;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">6.2 Rendición de Cuentas</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Informes y audiencias públicas.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-graph-up me-1"></i>Ver informes</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- SLIDE 2: NORMATIVIDAD -->
-      <div class="carousel-item">
-        <div class="text-center mb-5">
-          <div class="d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%;">
-            <span style="font-size: 3rem; color: white; font-weight: bold;">2</span>
-          </div>
-          <h2 class="fw-bold mb-3" style="color: #164443; font-size: 2.5rem;">Normatividad</h2>
-          <p class="lead text-muted mb-5">Marco normativo y regulatorio que rige el funcionamiento del hospital</p>
-        </div>
-        
-        <div class="row g-4 justify-content-center">
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-book mb-3" style="font-size: 3rem; color: #28a745;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">2.1 Leyes</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Marco legal aplicable al hospital.</p>
-                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-earmark-text me-1"></i>Ver
-                </a>
+    </div>
+
+    <!-- ITEM 7: DATOS ABIERTOS -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSeven">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          7. Datos Abiertos
+        </button>
+      </h2>
+      <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-database-fill-down mb-3 card-icon" style="color: #fd7e14;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">7.1 Conjunto de Datos</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Accede a datos públicos en formatos abiertos.</p>
+                  <a href="#" class="btn btn-outline-warning btn-sm rounded-pill px-3"><i class="bi bi-table me-1"></i>Explorar datos</a>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-shield-check mb-3" style="font-size: 3rem; color: #28a745;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">2.2 Normativa Aplicable</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Decretos y resoluciones vigentes.</p>
-                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-earmark-ruled me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-journal-text mb-3" style="font-size: 3rem; color: #28a745;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">2.3 Políticas / Lineamientos / Manuales</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Políticas internas y manuales de procedimientos.</p>
-                <a href="#" class="btn btn-outline-success btn-sm rounded-pill px-3">
-                  <i class="bi bi-book me-1"></i>Ver
-                </a>
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-file-earmark-text-fill mb-3 card-icon" style="color: #fd7e14;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">7.2 Diccionario de Datos</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Guía para entender la estructura de los datos.</p>
+                  <a href="#" class="btn btn-outline-warning btn-sm rounded-pill px-3"><i class="bi bi-book me-1"></i>Consultar</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- SLIDE 3: CONTRATACIÓN -->
-      <div class="carousel-item">
-        <div class="text-center mb-5">
-          <div class="d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #6f42c1, #e83e8c); border-radius: 50%;">
-            <span style="font-size: 3rem; color: white; font-weight: bold;">3</span>
-          </div>
-          <h2 class="fw-bold mb-3" style="color: #164443; font-size: 2.5rem;">Contratación</h2>
-          <p class="lead text-muted mb-5">Información sobre procesos de contratación, licitaciones y proveedores</p>
-        </div>
-        
-        <div class="row g-4 justify-content-center">
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-calendar-check mb-3" style="font-size: 3rem; color: #6f42c1;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">3.1 Plan Anual de Adquisiciones</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Planificación anual de compras y contrataciones.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-earmark-ruled me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-clipboard-check mb-3" style="font-size: 3rem; color: #6f42c1;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">3.2 Información Contractual</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Contratos vigentes y procesos de selección.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-search me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-graph-up mb-3" style="font-size: 3rem; color: #6f42c1;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">3.3 Ejecución de Contratos</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.9rem;">Seguimiento y ejecución contractual.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-earmark-bar-graph me-1"></i>Ver
-                </a>
+    </div>
+
+    <!-- ITEM 8: INFORMACIÓN ESPECÍFICA PARA GRUPOS DE INTERÉS -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingEight">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          8. Información Específica para Grupos de Interés
+        </button>
+      </h2>
+      <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-person-hearts mb-3 card-icon" style="color: #d63384;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">8.1 Información para Niños, Niñas y Adolescentes</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Contenido adaptado para el público infantil.</p>
+                  <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-3"><i class="bi bi-emoji-smile me-1"></i>Explorar</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- SLIDE 4: PLANEACIÓN, PRESUPUESTO E INFORMES -->
-      <div class="carousel-item">
-        <div class="text-center mb-5">
-          <div class="d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #007bff, #6610f2); border-radius: 50%;">
-            <span style="font-size: 3rem; color: white; font-weight: bold;">4</span>
-          </div>
-          <h2 class="fw-bold mb-3" style="color: #164443; font-size: 2.5rem;">Planeación, Presupuesto e Informes</h2>
-          <p class="lead text-muted mb-5">Información financiera, presupuestal y de gestión institucional</p>
-        </div>
-        
-        <div class="row g-4">
-          <div class="col-lg-3 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-calculator mb-3" style="font-size: 2.5rem; color: #007bff;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">4.1 Presupuesto General</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.85rem;">Ingresos, gastos e inversión.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-earmark-spreadsheet me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-graph-up mb-3" style="font-size: 2.5rem; color: #007bff;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">4.2 Ejecución Presupuestal</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.85rem;">Seguimiento presupuestal.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-bar-chart me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-clipboard-data mb-3" style="font-size: 2.5rem; color: #007bff;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">4.3 Plan de Acción</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.85rem;">Planificación estratégica.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-list-check me-1"></i>Ver
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-6">
-            <div class="card h-100 shadow-sm border-0 hover-card" style="transition: all 0.3s ease;">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-file-earmark-text mb-3" style="font-size: 2.5rem; color: #007bff;"></i>
-                <h6 class="card-title fw-bold mb-3" style="color: #164443;">4.4 Informes de Gestión</h6>
-                <p class="card-text text-muted mb-4" style="font-size: 0.85rem;">Evaluación y auditoría.</p>
-                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                  <i class="bi bi-file-text me-1"></i>Ver
-                </a>
+    </div>
+
+    <!-- ITEM 9: REPORTE DE INFORMACIÓN ESPECÍFICA A ENTES DE CONTROL -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingNine">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+          9. Reporte de Información Específica a Entes de Control
+        </button>
+      </h2>
+      <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionTransparencia">
+        <div class="accordion-body">
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+                <div class="card-body text-center p-4">
+                  <i class="bi bi-flag-fill mb-3 card-icon" style="color: #0d6efd;"></i>
+                  <h6 class="card-title fw-bold mb-3 card-title-custom">9.1 Informes a Entes de Control</h6>
+                  <p class="card-text text-muted mb-4 card-text-custom">Reportes enviados a las autoridades competentes.</p>
+                  <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3"><i class="bi bi-file-earmark-check me-1"></i>Ver informes</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+  </div>
+</div>
+
+</section>
+<div class="accessibility-buttons-container">
+  <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+    <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+    <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+  </button>
+  <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+    <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+    <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+    <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+  </button>
+  <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+    <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+  </button>
+</div>
+
+<!-- Tarjeta institucional moderna, más ancha, elegante y alineada -->
+<div class="container mb-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+    <div class="card-body py-5 px-5">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+          <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+          <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+            <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+            <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+          <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+            <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+            <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+            <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+            <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</footer>
+<!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+  <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
+    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/accesibilidad.js"></script>
+<script src="/js/main.js"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
