@@ -362,7 +362,7 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
 }
 #preguntas-frecuentes h2 {
   font-size: 2.5rem;
-  color: #0056b3;
+  color: #069681;
   margin-bottom: 1rem;
 }
 #preguntas-frecuentes p {
@@ -465,4 +465,6 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
   .navbar-brand img { height: 48px !important; }
   .navbar-brand { font-size: 1.2rem !important; }
 }
+
+/*estilo para los enlaces de interes*/
 
