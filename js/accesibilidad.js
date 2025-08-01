@@ -6,9 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const CONTRAST_MODE_STORAGE_KEY = 'contrastMode';
 
     let isContrastMode = false;
-    let currentFontSize = 16;
-    const minFontSize = 12;
-    const maxFontSize = 24;
+    let currentFontSize = 100; // Usar porcentaje en lugar de px
+    const minFontSize = 80;
+    const maxFontSize = 140;
+    const defaultFontSize = 100;
 
     // --- Funciones para aplicar y guardar estilos ---
     function applyContrastTheme() {
@@ -21,8 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFontSize() {
-        cuerpo.style.fontSize = `${currentFontSize}px`;
+        // Aplicar el tamaño de fuente como porcentaje al html en lugar del body
+        document.documentElement.style.fontSize = `${currentFontSize}%`;
         localStorage.setItem(FONT_SIZE_STORAGE_KEY, currentFontSize);
+    }
+
+    function resetStyles() {
+        currentFontSize = defaultFontSize;
+        isContrastMode = false;
+        
+        localStorage.removeItem(FONT_SIZE_STORAGE_KEY);
+        localStorage.removeItem(CONTRAST_MODE_STORAGE_KEY);
+
+        document.documentElement.style.fontSize = '';
+        cuerpo.classList.remove(CONTRAST_CLASS);
     }
 
     // --- Cargar preferencias guardadas al inicio ---
@@ -46,33 +59,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = event.target.closest('button');
             if (!target) return;
 
-            switch (target.id) {
-                case 'cambiarcontraste':
-                    isContrastMode = !isContrastMode;
-                    applyContrastTheme();
-                    break;
-                case 'aumentarTextoBtn': //  botones  IDs
-                    if (currentFontSize < maxFontSize) {
-                        currentFontSize += 2;
-                        applyFontSize();
-                    }
-                    break;
-                case 'reducirTextoBtn': // botones IDs
-                    if (currentFontSize > minFontSize) {
-                        currentFontSize -= 2;
-                        applyFontSize();
-                    }
-                    break;
-                case 'resetContraste':
-                    currentFontSize = 16;
-                    isContrastMode = false;
-                    
-                    localStorage.removeItem(FONT_SIZE_STORAGE_KEY);
-                    localStorage.removeItem(CONTRAST_MODE_STORAGE_KEY);
+            // Identificar botones por su contenido de icono o título
+            const title = target.getAttribute('title');
+            const ariaLabel = target.getAttribute('aria-label');
+            const iconClass = target.querySelector('i')?.className;
 
-                    cuerpo.style.fontSize = '';
-                    cuerpo.classList.remove(CONTRAST_CLASS);
-                    break;
+            if (target.id === 'cambiarcontraste' || title === 'Cambiar contraste') {
+                isContrastMode = !isContrastMode;
+                applyContrastTheme();
+            } else if (target.id === 'resetContraste' || title === 'Restablecer Contraste y Texto') {
+                resetStyles();
+            } else if (title === 'Aumentar texto' || iconClass?.includes('bi-plus-circle')) {
+                if (currentFontSize < maxFontSize) {
+                    currentFontSize += 10;
+                    applyFontSize();
+                }
+            } else if (title === 'Reducir texto' || iconClass?.includes('bi-dash-circle')) {
+                if (currentFontSize > minFontSize) {
+                    currentFontSize -= 10;
+                    applyFontSize();
+                }
             }
         });
     }

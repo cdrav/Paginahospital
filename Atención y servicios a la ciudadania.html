@@ -3,59 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hospital Departamental San Antonio</title>
+  <title>Título de la Página</title>
 
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;0,900&family=IBM+Plex+Serif:ital@1&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap y estilos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/carrusel.css" />
-  <link rel="stylesheet" href="/css/accesibilidad.css" />
+
+  <!-- Traductor de Google -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
 
-<div style="background-color: #3366cc; height: 36px;" class="d-flex justify-content-between align-items-center px-4">
-    <div class="d-flex align-items-center">
-        <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none">
-            <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 18px; margin-right: 8px;">
-            <span style="font-weight: bold;">GOV.CO</span>
-        </a>
-    </div>
-    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 0 8px; font-weight: bold;"></div>
-</div>
+  <!-- Barra superior gov.co -->
+  <div class="top-bar d-flex justify-content-between align-items-center px-3 py-2">
+    <a href="https://www.gov.co/" target="_blank"><img src="img/govco.png" alt="gov.co" /></a>
+    <div id="google_translate_element"></div>
+  </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark flex-column">
-  <div class="container-fluid d-flex justify-content-between align-items-center w-100">
-    <a class="navbar-brand d-flex align-items-center" href="/index.html">
-      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height: 40px; margin-right: 10px;">
-      Hospital Departamental San Antonio
-    </a>
-    <form class="d-flex ms-auto" role="search" action="/buscar" method="get">
-      <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
-      <button class="btn btn-light" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
-    </form>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse w-100" id="navbarHospital">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">Atención y Servicios a la Ciudadanía</a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item" href="/servicios/urgencias.html">Urgencias</a></li>
-            <li><a class="dropdown-item" href="/servicios/citas-medicas.html">Citas médicas</a></li>
-            <li><a class="dropdown-item" href="/servicios/consulta-externa.html">Consulta externa</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-principal sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/index.html">Hospital</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Atención a la Ciudadanía
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="citas.html">Citas Médicas</a></li>
+              <li><a class="dropdown-item" href="consulta.html">Consulta Externa</a></li>
+              <li><a class="dropdown-item" href="cuidado-oral.html">Cuidado Oral</a></li>
+              <li><a class="dropdown-item" href="diagnostico.html">Diagnóstico</a></li>
+              <li><a class="dropdown-item" href="hospitalizacion.html">Hospitalización</a></li>
+              <li><a class="dropdown-item" href="laboratorio.html">Laboratorio</a></li>
+              <li><a class="dropdown-item" href="urgencias.html">Urgencias</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="estadisticas.html">Estadísticas</a></li>
+          <li class="nav-item"><a class="nav-link" href="normatividad.html">Normatividad</a></li>
+          <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+          <li class="nav-item"><a class="nav-link" href="participa.html">Participa</a></li>
+          <li class="nav-item"><a class="nav-link" href="transparencia.html">Transparencia</a></li>
+          <li class="nav-item"><a class="nav-link" href="mapa-del-sitio.html">Mapa del sitio</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="container my-5">
+    <h1 class="titulo-principal text-center mb-4">Título de la Página</h1>
+    <p class="texto-especial text-center">Aquí va el contenido específico de esta sección.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-principal text-white text-center py-4">
+    <p>Dirección: Calle X #Y - Z, Roldanillo, Valle del Cauca</p>
+    <p>Tel: (602) 123 4567 | Correo: contacto@hdsa.gov.co</p>
+    <p class="texto-especial">&copy; 2025 Hospital Departamental San Antonio</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
