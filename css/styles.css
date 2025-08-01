@@ -205,6 +205,282 @@ body.high-contrast footer {
   background-color: #000 !important;
   color: #fff !important;
 }
+/* =======================
+   CITAS MÉDICAS PAGE STYLES
+   ======================= */
+.citas-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/imagenes/citas-hero.jpg') no-repeat center center/cover;
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.citas-steps {
+  counter-reset: step;
+  position: relative;
+  padding: 40px 0;
+}
+
+.citas-steps::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: #069681;
+  z-index: 1;
+}
+
+.step-card {
+  position: relative;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.step-card::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: #069681;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  z-index: 3;
+}
+
+.step-card.right {
+  margin-left: 50%;
+  padding-left: 45px;
+}
+
+.step-card.left {
+  margin-right: 50%;
+  padding-right: 45px;
+  text-align: right;
+}
+
+.step-card.left::before {
+  left: auto;
+  right: -25px;
+}
+
+.citas-form {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+  padding: 30px;
+  margin-top: 30px;
+}
+
+.citas-form .form-label {
+  font-weight: 600;
+  color: #164443;
+}
+
+.citas-form .form-control, 
+.citas-form .form-select {
+  border: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.citas-form .form-control:focus, 
+.citas-form .form-select:focus {
+  border-color: #069681;
+  box-shadow: 0 0 0 0.25rem rgba(6, 150, 129, 0.25);
+}
+
+.btn-cita {
+  background: #069681;
+  color: white;
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-cita:hover {
+  background: #057a68;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(6, 150, 129, 0.3);
+}
+
+.citas-info-card {
+  background: #f8f9fa;
+  border-left: 4px solid #069681;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.citas-info-card i {
+  color: #069681;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.citas-info-card h4 {
+  color: #164443;
+  margin-bottom: 10px;
+}
+
+/* =======================
+   URGENCIAS PAGE STYLES
+   ======================= */
+.hero-urgencias {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/imagenes/urgencias-hero.jpg') no-repeat center center/cover;
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.urgencia-card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 30px;
+  height: 100%;
+}
+
+.urgencia-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.urgencia-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #dc3545;
+}
+
+.urgencia-nivel {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.nivel-1 { background-color: #dc3545; color: white; }
+.nivel-2 { background-color: #fd7e14; color: white; }
+.nivel-3 { background-color: #ffc107; color: #212529; }
+.nivel-4 { background-color: #198754; color: white; }
+
+/* Urgencias page specific styles */
+.urgencias-title {
+  color: #164443;
+}
+
+.institucional-card {
+  max-width: 900px;
+  border-radius: 2rem;
+}
+
+.institucional-title {
+  color: #069681;
+  font-size: 2.3rem;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+/* Top bar styles */
+.top-bar {
+  background-color: #3366cc;
+  min-height: 48px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #164443;
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.navbar-brand img {
+  height: 70px;
+  width: auto;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  background: #fff;
+  padding: 4px;
+}
+
+.navbar-brand .d-none.d-md-inline {
+  line-height: 1.1;
+}
+
+/* Search form */
+.search-form {
+  max-width: 300px;
+}
+
+/* Accessibility buttons */
+.accessibility-buttons-container .btn-outline-primary {
+  font-size: 1.6rem;
+}
+
+/* Institutional bar */
+.institucional-bar {
+  background-color: #3366cc;
+  min-height: 48px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.institucional-bar a img {
+  height: 32px;
+  margin-right: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .hero-urgencias {
+    padding: 60px 0;
+  }
+  
+  .urgencia-card {
+    margin-bottom: 20px;
+  }
+  
+  .institucional-title {
+    font-size: 1.8rem;
+  }
+}
+
 body.high-contrast a,
 body.high-contrast .nav-link,
 body.high-contrast .navbar-brand {

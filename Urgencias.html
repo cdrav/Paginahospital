@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Urgencias - Hospital Departamental San Antonio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+</head>
+<body>
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+    <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+      <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+    </div>
+  </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
+      <img src="imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" class="navbar-logo" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline navbar-brand-text">
+        Hospital<br>
+        <span class="navbar-brand-subtext">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none mobile-brand">Urgencias</span>
+    </a>
+    <form class="d-flex ms-auto me-3 search-form" role="search" action="/buscar" method="get">
+      <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
+      <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+    </form>
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item active" href="/Urgencias.html">Urgencias</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/Hopsitalización.html">Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero-urgencias">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-3">Servicio de Urgencias</h1>
+    <p class="lead mb-4">Atención médica inmediata las 24 horas del día, los 7 días de la semana</p>
+    <div class="d-flex justify-content-center gap-3">
+      <a href="tel:+576028912317" class="btn btn-danger btn-lg rounded-pill px-4">
+        <i class="bi bi-telephone-fill me-2"></i>Llamar a Urgencias
+      </a>
+      <a href="#ubicacion" class="btn btn-outline-light btn-lg rounded-pill px-4">
+        <i class="bi bi-geo-alt-fill me-2"></i>¿Cómo llegar?
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NIVELES DE URGENCIA -->
+<section class="container mb-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3 urgencias-title">Niveles de Urgencia</h2>
+    <p class="lead text-muted">Conoce los niveles de atención en nuestro servicio de urgencias</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="card urgencia-card h-100">
+        <div class="card-body text-center p-4 position-relative">
+          <span class="urgencia-nivel nivel-1">Nivel I</span>
+          <i class="bi bi-heart-pulse-fill urgencia-icon"></i>
+          <h3 class="h5 fw-bold mb-3">Urgencia Prioritaria</h3>
+          <p class="text-muted">Atención inmediata para condiciones que amenazan la vida y requieren intervención médica urgente.</p>
+          <p class="text-danger fw-bold mb-0">Tiempo de espera: Inmediato</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card urgencia-card h-100">
+        <div class="card-body text-center p-4 position-relative">
+          <span class="urgencia-nivel nivel-2">Nivel II</span>
+          <i class="bi bi-activity urgencia-icon"></i>
+          <h3 class="h5 fw-bold mb-3">Urgencia Emergente</h3>
+          <p class="text-muted">Condiciones que podrían evolucionar a una emergencia y requieren atención rápida.</p>
+          <p class="text-warning fw-bold mb-0">Tiempo de espera: Hasta 30 min</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card urgencia-card h-100">
+        <div class="card-body text-center p-4 position-relative">
+          <span class="urgencia-nivel nivel-3">Nivel III</span>
+          <i class="bi bi-bandaid-fill urgencia-icon"></i>
+          <h3 class="h5 fw-bold mb-3">Urgencia No Emergente</h3>
+          <p class="text-muted">Condiciones agudas que no amenazan la vida pero requieren atención médica.</p>
+          <p class="text-info fw-bold mb-0">Tiempo de espera: Hasta 2 horas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card urgencia-card h-100">
+        <div class="card-body text-center p-4 position-relative">
+          <span class="urgencia-nivel nivel-4">Nivel IV</span>
+          <i class="bi bi-clipboard2-pulse-fill urgencia-icon"></i>
+          <h3 class="h5 fw-bold mb-3">Consulta Ambulatoria</h3>
+          <p class="text-muted">Problemas de salud que pueden ser atendidos en consulta externa.</p>
+          <p class="text-success fw-bold mb-0">Tiempo de espera: Variable</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFORMACIÓN IMPORTANTE -->
+<section class="py-5 mb-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="fw-bold mb-4" style="color:#164443;">Información Importante</h2>
+        <div class="d-flex mb-3">
+          <i class="bi bi-info-circle-fill text-primary me-3" style="font-size: 1.5rem;"></i>
+          <div>
+            <h4 class="h5 fw-bold">Documentos Requeridos</h4>
+            <p class="mb-0">Documento de identidad, carné de EPS o SISBÉN, y orden médica si aplica.</p>
+          </div>
+        </div>
+        <div class="d-flex mb-3">
+          <i class="bi bi-clock-fill text-primary me-3" style="font-size: 1.5rem;"></i>
+          <div>
+            <h4 class="h5 fw-bold">Horario de Visitas</h4>
+            <p class="mb-0">Lunes a domingo de 2:00 p.m. a 6:00 p.m. (Máximo 2 visitantes por paciente)</p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <i class="bi bi-telephone-fill text-primary me-3" style="font-size: 1.5rem;"></i>
+          <div>
+            <h4 class="h5 fw-bold">Líneas de Atención</h4>
+            <p class="mb-0">Urgencias: (602) 891 2317<br>Línea de emergencias: #123</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="ratio ratio-16x9 rounded shadow">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.1234567890123!2d-76.12345678901234!3d4.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMDcnMjQuNCJOIDc2wrAwNyczMi40Ilc!5e0!3m2!1sen!2sco!4v1234567890123!5m2!1sen!2sco" 
+                  style="border:0;" allowfullscreen="" loading="lazy" id="ubicacion"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section class="container mb-5">
+  <h2 class="fw-bold text-center mb-5 urgencias-title">Preguntas Frecuentes</h2>
+  
+  <div class="accordion" id="faqUrgencias">
+    <div class="accordion-item mb-3 border-0 shadow-sm">
+      <h3 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+          ¿Qué debo hacer en caso de una emergencia médica?
+        </button>
+      </h3>
+      <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqUrgencias">
+        <div class="accordion-body">
+          <p>En caso de emergencia, llame inmediatamente a la línea de emergencias #123 o acuda directamente a nuestro servicio de urgencias. Si la situación lo permite, traiga consigo los documentos de identificación y cualquier información médica relevante del paciente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item mb-3 border-0 shadow-sm">
+      <h3 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+          ¿Cómo funciona el sistema de triaje en urgencias?
+        </button>
+      </h3>
+      <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqUrgencias">
+        <div class="accordion-body">
+          <p>El triaje es un proceso de clasificación que prioriza a los pacientes según la gravedad de su condición. Nuestro personal de enfermería capacitado evaluará al paciente a su llegada y lo clasificará en uno de los cuatro niveles de urgencia. Esto nos permite atender primero a quienes más lo necesitan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item mb-3 border-0 shadow-sm">
+      <h3 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+          ¿Puedo acompañar a mi familiar durante su atención?
+        </button>
+      </h3>
+      <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqUrgencias">
+        <div class="accordion-body">
+          <p>Sí, se permite un solo acompañante por paciente, excepto en situaciones específicas donde el personal médico lo determine de otra manera. Por favor, siga las indicaciones del personal de salud en todo momento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTONES DE ACCESIBILIDAD -->
+<div class="accessibility-buttons-container">
+  <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+    <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+    <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+  </button>
+  <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+    <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+    <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+    <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+  </button>
+  <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+    <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+  </button>
+</div>
+
+<!-- Tarjeta institucional-->
+<div class="container mb-5">
+    <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+      <div class="card-body py-5 px-5">
+        <div class="row align-items-center">
+          <div class="col-md-7">
+            <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+            <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+            <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+              <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+              <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+              <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+            <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+              <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+              <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+              <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+              <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- BARRA INSTITUCIONAL FINAL -->
+<div class="institucional-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-start institucional-bar-content">
+    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4 institucional-link">
+      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" class="institucional-logo">
+    </a>
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none institucional-link">
+      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" class="institucional-logo">
+    </a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/accesibilidad.js"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      includedLanguages: 'en,fr,pt,it',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Citas Médicas - Hospital Departamental San Antonio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+</head>
+<body>
+    
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+    <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+      <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+    </div>
+  </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
+      <img src="imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" class="navbar-logo" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline navbar-brand-text">
+        Hospital<br>
+        <span class="navbar-brand-subtext">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none mobile-brand">Citas Médicas</span>
+    </a>
+    <form class="d-flex ms-auto me-3 search-form" role="search" action="/buscar" method="get">
+      <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
+      <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+    </form>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse w-100" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/index.html">Inicio</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="institucionalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Institucional
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="institucionalDropdown">
+            <li><a class="dropdown-item" href="/institucional/quienes-somos.html">Quiénes Somos</a></li>
+            <li><a class="dropdown-item" href="/institucional/mision-vision.html">Misión y Visión</a></li>
+            <li><a class="dropdown-item" href="/institucional/directorio.html">Directorio</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="serviciosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
+            <li><a class="dropdown-item" href="/urgencias.html">Urgencias</a></li>
+            <li><a class="dropdown-item active" href="/citasmedicas.html">Citas Médicas</a></li>
+            <li><a class="dropdown-item" href="/especialidades.html">Especialidades</a></li>
+            <li><a class="dropdown-item" href="/programas.html">Programas</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/noticias.html">Noticias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contacto.html">Contacto</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="citas-hero">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-4">Solicita tu Cita Médica</h1>
+    <p class="lead mb-4">Agenda tu cita de manera rápida y sencilla con nuestros especialistas</p>
+    <a href="#solicitar-cita" class="btn btn-primary btn-lg px-4 me-2">Solicitar Cita</a>
+    <a href="#consultar-cita" class="btn btn-outline-light btn-lg px-4">Consultar Cita</a>
+  </div>
+</section>
+
+<!-- CÓMO SOLICITAR UNA CITA -->
+<section class="container my-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3" style="color:#164443;">¿Cómo solicitar una cita médica?</h2>
+    <p class="lead text-muted">Sigue estos sencillos pasos para agendar tu cita</p>
+  </div>
+
+  <div class="citas-steps">
+    <!-- Paso 1 -->
+    <div class="step-card right">
+      <h3>Completa el formulario</h3>
+      <p>Llena todos los campos solicitados con tus datos personales y de contacto.</p>
+    </div>
+    
+    <!-- Paso 2 -->
+    <div class="step-card left">
+      <h3>Selecciona especialidad y médico</h3>
+      <p>Elige la especialidad médica y el profesional de tu preferencia.</p>
+    </div>
+    
+    <!-- Paso 3 -->
+    <div class="step-card right">
+      <h3>Elige fecha y hora</h3>
+      <p>Selecciona el día y la hora que mejor se ajusten a tu disponibilidad.</p>
+    </div>
+    
+    <!-- Paso 4 -->
+    <div class="step-card left">
+      <h3>Confirma tu cita</h3>
+      <p>Revisa la información y confirma tu cita. Recibirás un correo de confirmación.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO DE SOLICITUD DE CITA -->
+<section id="solicitar-cita" class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="citas-form">
+        <h2 class="text-center mb-4" style="color:#069681;">Solicitar Cita Médica</h2>
+        
+        <form id="formCitaMedica">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
+              <select class="form-select" id="tipoDocumento" required>
+                <option value="" selected disabled>Seleccionar...</option>
+                <option value="cc">Cédula de Ciudadanía</option>
+                <option value="ce">Cédula de Extranjería</option>
+                <option value="ti">Tarjeta de Identidad</option>
+                <option value="rc">Registro Civil</option>
+                <option value="pa">Pasaporte</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="numeroDocumento" class="form-label">Número de Documento</label>
+              <input type="text" class="form-control" id="numeroDocumento" required>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="nombres" class="form-label">Nombres</label>
+              <input type="text" class="form-control" id="nombres" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="apellidos" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="apellidos" required>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" class="form-control" id="fechaNacimiento" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="genero" class="form-label">Género</label>
+              <select class="form-select" id="genero" required>
+                <option value="" selected disabled>Seleccionar...</option>
+                <option value="femenino">Femenino</option>
+                <option value="masculino">Masculino</option>
+                <option value="otro">Otro</option>
+                <option value="prefiero-no-decir">Prefiero no decirlo</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" required>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="tel" class="form-control" id="telefono" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+          </div>
+          
+          <hr class="my-4">
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="especialidad" class="form-label">Especialidad Médica</label>
+              <select class="form-select" id="especialidad" required>
+                <option value="" selected disabled>Seleccionar especialidad...</option>
+                <option value="medicina-general">Medicina General</option>
+                <option value="pediatria">Pediatría</option>
+                <option value="ginecologia">Ginecología</option>
+                <option value="cardiologia">Cardiología</option>
+                <option value="dermatologia">Dermatología</option>
+                <option value="oftalmologia">Oftalmología</option>
+                <option value="ortopedia">Ortopedia</option>
+                <option value="psicologia">Psicología</option>
+                <option value="nutricion">Nutrición</option>
+                <option value="otorrinolaringologia">Otorrinolaringología</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="medico" class="form-label">Médico (Opcional)</label>
+              <select class="form-select" id="medico">
+                <option value="" selected>Cualquiera disponible</option>
+                <!-- Las opciones de médicos se cargarán dinámicamente según la especialidad seleccionada -->
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="motivo" class="form-label">Motivo de la Consulta</label>
+            <textarea class="form-control" id="motivo" rows="3" required></textarea>
+          </div>
+          
+          <div class="mb-4">
+            <label for="fechaCita" class="form-label">Fecha Preferida para la Cita</label>
+            <input type="date" class="form-control" id="fechaCita" min="" required>
+            <div class="form-text">Nota: La fecha y hora final de la cita están sujetas a disponibilidad y serán confirmadas por nuestro personal.</div>
+          </div>
+          
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="terminos" required>
+            <label class="form-check-label" for="terminos">
+              Acepto los <a href="/terminos-condiciones" target="_blank">términos y condiciones</a> y autorizo el tratamiento de mis datos personales de acuerdo con la ley de protección de datos.
+            </label>
+          </div>
+          
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="submit" class="btn btn-cita px-4">
+              <i class="bi bi-calendar-check me-2"></i>Solicitar Cita
+            </button>
+            <button type="reset" class="btn btn-outline-secondary px-4">
+              <i class="bi bi-x-circle me-2"></i>Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTA DE CITAS -->
+<section id="consultar-cita" class="container my-5 py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="citas-form">
+        <h2 class="text-center mb-4" style="color:#069681;">Consultar Cita</h2>
+        <p class="text-center mb-4">Ingresa el número de documento y el número de cita para consultar o modificar tu cita.</p>
+        
+        <form id="formConsultarCita">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="consultaDocumento" class="form-label">Número de Documento</label>
+              <input type="text" class="form-control" id="consultaDocumento" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="numeroCita" class="form-label">Número de Cita</label>
+              <input type="text" class="form-control" id="numeroCita" required>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+            <button type="submit" class="btn btn-cita px-4">
+              <i class="bi bi-search me-2"></i>Consultar Cita
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFORMACIÓN IMPORTANTE -->
+<section class="container my-5">
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="citas-info-card">
+        <i class="bi bi-clock"></i>
+        <h4>Horario de Atención</h4>
+        <p>Lunes a Viernes: 7:00 AM - 7:00 PM<br>Sábados: 8:00 AM - 12:00 PM</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="citas-info-card">
+        <i class="bi bi-telephone"></i>
+        <h4>Contacto</h4>
+        <p>Teléfono: 602 891 2317<br>Celular: -----------</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="citas-info-card">
+        <i class="bi bi-info-circle"></i>
+        <h4>Recomendaciones</h4>
+        <p>Llegar 15 minutos antes de la cita. Traer documento de identidad y carné de EPS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section class="container my-5 py-5">
+  <h2 class="text-center mb-5" style="color:#164443;">Preguntas Frecuentes</h2>
+  
+  <div class="accordion" id="faqCitas">
+    <div class="accordion-item mb-3 border-0 shadow-sm">
+      <h3 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          ¿Cómo sé si mi cita fue agendada correctamente?
+        </button>
+      </h3>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqCitas">
+        <div class="accordion-body">
+          Recibirás un correo electrónico de confirmación con los detalles de tu cita. También puedes consultar el estado de tu cita en la sección de "Consultar Cita" ingresando tu número de documento y número de cita.
+        </div>
+      </div>
+    </div>
+    
+    <div class="accordion-item mb-3 border-0 shadow-sm">
+      <h3 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          ¿Puedo cancelar o reprogramar mi cita?
+        </button>
+      </h3>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqCitas">
+        <div class="accordion-body">
+          Sí, puedes cancelar o reprogramar tu cita con al menos 24 horas de anticipación. Para hacerlo, utiliza la opción de "Consultar Cita" y sigue las instrucciones, o comunícate con nuestro centro de atención al paciente.
+        </div>
+      </div>
+    </div>
+    
+    <div class="accordion-item mb-3 border-0 shadow-sm">
+      <h3 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          ¿Qué debo hacer si llego tarde a mi cita?
+        </button>
+      </h3>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqCitas"><div class="accordion-body">
+          Si llegas con más de 15 minutos de retraso, tu cita podría ser reprogramada según la disponibilidad. Te recomendamos llegar al menos 15 minutos antes de la hora programada para completar los trámites necesarios.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTONES DE ACCESIBILIDAD -->
+<div class="accessibility-buttons-container">
+    <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+      <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+      <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+      <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+      <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+      <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+      <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+    </button>
+  </div>
+  
+  <!-- Tarjeta institucional-->
+  <div class="container mb-5">
+      <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+        <div class="card-body py-5 px-5">
+          <div class="row align-items-center">
+            <div class="col-md-7">
+              <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+              <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+              <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+                <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+                <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+                <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+                <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+                <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+                <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+                <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+                <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+              </ul>
+            </div>
+    
+            <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+              <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+                <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+                <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+                <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+                <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+  <!-- BARRA INSTITUCIONAL FINAL -->
+  <div class="institucional-bar">
+    <div class="container-fluid d-flex align-items-center justify-content-start institucional-bar-content">
+      <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4 institucional-link">
+        <img src="/imagenes/logo col.png" alt="Logo Colombia.co" class="institucional-logo">
+      </a>
+      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none institucional-link">
+        <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" class="institucional-logo">
+      </a>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/accesibilidad.js"></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,fr,pt,it',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  </body>
+  </html>
