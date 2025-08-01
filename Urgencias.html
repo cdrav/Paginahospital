@@ -3,37 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Urgencias - Hospital Departamental San Antonio</title>
+  <title>Hospital Departamental San Antonio</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/carrusel.css" />
   <link rel="stylesheet" href="/css/accesibilidad.css" />
-</head>
+  </head>
 <body>
+
 <!-- BARRA SUPERIOR -->
 <div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
-    <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
-      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
-        <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
-        <span style="font-weight: bold; letter-spacing: 1px;"></span>
-      </a>
-      <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
-    </div>
-  </div>
-
-<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0">
-  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
-    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
-      <img src="imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" class="navbar-logo" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
-      <span class="d-none d-md-inline navbar-brand-text">
-        Hospital<br>
-        <span class="navbar-brand-subtext">Departamental San Antonio</span>
-      </span>
-      <span class="d-inline d-md-none mobile-brand">Urgencias</span>
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
     </a>
-    <form class="d-flex ms-auto me-3 search-form" role="search" action="/buscar" method="get">
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
+    </a>
+    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get" style="max-width:300px;">
       <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
       <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
     </form>
@@ -44,15 +48,17 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Atención y Servicios
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios a la Ciudadanía
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item active" href="/Urgencias.html">Urgencias</a></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias</a></li>
             <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
-            <li><a class="dropdown-item" href="/consulta externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/consuta externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
             <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
             <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
             <li><a class="dropdown-item" href="/Hopsitalización.html">Hospitalización</a></li>
@@ -63,11 +69,49 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
         <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
+<div id="carouselHospital" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/imagenes/ensayo baner.jpg" class="d-block w-100" alt="Vista exterior del Hospital Departamental San Antonio">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="subtitulo">Bienvenido al Hospital Departamental San Antonio</h5>
+        <p class="relleno">Atención médica de calidad a su alcance.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/imagenes/hospital23.webp" class="d-block w-100" alt="Equipo de doctores profesionales del hospital">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="subtitulo">Equipo Médico Profesional</h5>
+        <p class="relleno">Contamos con los mejores especialistas.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/imagenes/hospital3.webp" class="d-block w-100" alt="Equipos médicos de última generación en una sala de salud">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="subtitulo">Tecnología Avanzada</h5>
+        <p class="relleno">Equipos de última generación para su diagnóstico.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHospital" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselHospital" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+<div class="container mt-5">
+  <h2>Bienvenido al Hospital Departamental San Antonio</h2>
+  <p class="relleno">Ofrecemos atención médica integral con un enfoque humano y profesional. Nuestro compromiso es brindar servicios de salud accesibles y de calidad para toda la comunidad.</p>
+  <p class="especial">“Cuidamos tu salud con excelencia y humanidad.”</p>
 
 <!-- HERO SECTION -->
 <section class="hero-urgencias">
