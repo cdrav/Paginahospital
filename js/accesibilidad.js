@@ -1,11 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Declaración de variables y selectores ---
     const cuerpo = document.body;
-    const CONTRAST_CLASS = 'alto-contraste';
     const FONT_SIZE_STORAGE_KEY = 'fontSize';
     const CONTRAST_MODE_STORAGE_KEY = 'contrastMode';
 
-    let isContrastMode = false;
+    // Modos de contraste disponibles
+    const CONTRAST_MODES = {
+        NORMAL: 'normal',
+        ALTO_CONTRASTE: 'alto-contraste',
+        MODO_OSCURO: 'modo-oscuro',
+        MODO_SEPIA: 'modo-sepia'
+    };
+
+    const CONTRAST_CLASSES = [CONTRAST_MODES.ALTO_CONTRASTE, CONTRAST_MODES.MODO_OSCURO, CONTRAST_MODES.MODO_SEPIA];
+    
+    let currentContrastMode = CONTRAST_MODES.NORMAL;
     let currentFontSize = 100; // Usar porcentaje en lugar de px
     const minFontSize = 80;
     const maxFontSize = 140;
@@ -13,12 +22,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Funciones para aplicar y guardar estilos ---
     function applyContrastTheme() {
-        if (isContrastMode) {
-            cuerpo.classList.add(CONTRAST_CLASS);
-        } else {
-            cuerpo.classList.remove(CONTRAST_CLASS);
+        // Remover todas las clases de contraste
+        CONTRAST_CLASSES.forEach(className => {
+            cuerpo.classList.remove(className);
+        });
+        
+        // Aplicar la clase actual si no es normal
+        if (currentContrastMode !== CONTRAST_MODES.NORMAL) {
+            cuerpo.classList.add(currentContrastMode);
         }
-        localStorage.setItem(CONTRAST_MODE_STORAGE_KEY, isContrastMode);
+        
+        localStorage.setItem(CONTRAST_MODE_STORAGE_KEY, currentContrastMode);
+    }
+
+    function cycleContrastMode() {
+        const modes = Object.values(CONTRAST_MODES);
+        const currentIndex = modes.indexOf(currentContrastMode);
+        const nextIndex = (currentIndex + 1) % modes.length;
+        currentContrastMode = modes[nextIndex];
+        applyContrastTheme();
+        
+        // Mostrar notificación del modo actual
+        showContrastNotification();
+    }
+
+    function showContrastNotification() {
+        const modeNames = {
+            [CONTRAST_MODES.NORMAL]: 'Modo Normal',
+            [CONTRAST_MODES.ALTO_CONTRASTE]: 'Alto Contraste',
+            [CONTRAST_MODES.MODO_OSCURO]: 'Modo Oscuro',
+            [CONTRAST_MODES.MODO_SEPIA]: 'Modo Sepia'
+        };
+        
+        // Crear notificación temporal
+        const notification = document.createElement('div');
+        notification.textContent = `Contraste: ${modeNames[currentContrastMode]}`;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remover después de 2 segundos
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 2000);
     }
 
     function applyFontSize() {
@@ -29,19 +88,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function resetStyles() {
         currentFontSize = defaultFontSize;
-        isContrastMode = false;
+        currentContrastMode = CONTRAST_MODES.NORMAL;
         
         localStorage.removeItem(FONT_SIZE_STORAGE_KEY);
         localStorage.removeItem(CONTRAST_MODE_STORAGE_KEY);
 
         document.documentElement.style.fontSize = '';
-        cuerpo.classList.remove(CONTRAST_CLASS);
+        // Remover todas las clases de contraste
+        CONTRAST_CLASSES.forEach(className => {
+            cuerpo.classList.remove(className);
+        });
     }
 
     // --- Cargar preferencias guardadas al inicio ---
     const savedContrastMode = localStorage.getItem(CONTRAST_MODE_STORAGE_KEY);
     if (savedContrastMode !== null) {
-        isContrastMode = JSON.parse(savedContrastMode);
+        currentContrastMode = savedContrastMode;
     }
     applyContrastTheme();
 
@@ -65,8 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const iconClass = target.querySelector('i')?.className;
 
             if (target.id === 'cambiarcontraste' || title === 'Cambiar contraste') {
-                isContrastMode = !isContrastMode;
-                applyContrastTheme();
+                cycleContrastMode();
             } else if (target.id === 'resetContraste' || title === 'Restablecer Contraste y Texto') {
                 resetStyles();
             } else if (title === 'Aumentar texto' || iconClass?.includes('bi-plus-circle')) {
