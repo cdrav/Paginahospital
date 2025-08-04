@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospital Departamental San Antonio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/carrusel.css" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+  </head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
+    </a>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
+    </form>
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios a la Ciudadanía
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta-externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/hospitalizacion.html">Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Hero Section -->
+  <header class="py-5 bg-gradient-primary text-white" style="background: linear-gradient(135deg, #0f3332 0%, #1a5a57 100%);">
+    <div class="container py-5">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-4">Noticias y Eventos</h1>
+          <p class="lead mb-4">Mantente informado sobre las últimas noticias, eventos y anuncios del Hospital Departamental San Antonio. Nuestro compromiso es brindarte información actualizada sobre servicios, programas especiales y actividades para el bienestar de nuestra comunidad.</p>
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="#noticias" class="btn btn-light btn-lg px-4">Ver Noticias Recientes</a>
+            <a href="#eventos" class="btn btn-outline-light btn-lg px-4">Próximos Eventos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sección de Noticias -->
+  <section id="noticias" class="py-5 bg-white">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-uppercase text-primary mb-3">Últimas Noticias</h2>
+        <div class="divider mx-auto bg-primary" style="width: 80px; height: 4px; opacity: 0.7;"></div>
+        <p class="lead text-muted mt-3">Información actualizada sobre salud, servicios y actividades en nuestra institución</p>
+      </div>
+      
+      <!-- Noticia Destacada -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="card border-0 shadow-lg overflow-hidden">
+            <div class="row g-0">
+              <div class="col-lg-6">
+                <div class="position-relative h-100">
+                  <img src="/imagenes/vacunacion.jpg" class="img-fluid h-100 w-100 object-fit-cover" alt="Campaña de vacunación contra la gripe">
+                  <div class="position-absolute top-0 start-0 m-3">
+                    <span class="badge bg-success px-3 py-2 fw-normal">Destacado</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card-body p-4 p-lg-5 d-flex flex-column h-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">Salud Pública</span>
+                    <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>15 Ago 2023</small>
+                  </div>
+                  <h2 class="h1 fw-bold mb-3">Campaña de Vacunación contra la Gripe 2023</h2>
+                  <p class="card-text mb-4 fs-5 text-muted">El Hospital Departamental San Antonio invita a toda la comunidad a participar en la campaña de vacunación contra la gripe estacional. La vacuna es gratuita y está disponible para grupos de riesgo, incluyendo adultos mayores, mujeres embarazadas y personas con condiciones crónicas.</p>
+                  <div class="mt-auto">
+                    <a href="#" class="btn btn-primary px-4 py-2">Leer noticia completa <i class="bi bi-arrow-right ms-2"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Otras Noticias -->
+      <div class="row g-4">
+
+        <!-- Noticia 1 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <article class="card h-100 shadow-sm">
+            <div class="position-relative">
+              <img src="/imagenes/telemedicina.jpg" class="card-img-top" alt="Servicio de telemedicina">
+              <span class="position-absolute top-0 end-0 m-3 badge bg-primary">Nuevo</span>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-info bg-opacity-10 text-info">Nuevos Servicios</span>
+                <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>1 Ago 2023</small>
+              </div>
+              <h3 class="card-title">Nuevo Servicio de Telemedicina</h3>
+              <p class="card-text">Ahora puedes realizar consultas médicas desde la comodidad de tu hogar a través de nuestra plataforma de telemedicina. Conecta con nuestros especialistas de manera segura y sencilla.</p>
+              <a href="#" class="btn btn-link p-0">Leer más <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Noticia 2 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <article class="card h-100 shadow-sm">
+            <div class="position-relative">
+              <img src="/imagenes/pediatria.jpg" class="card-img-top" alt="Atención pediátrica">
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-warning bg-opacity-10 text-warning">Pediatría</span>
+                <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>20 Jul 2023</small>
+              </div>
+              <h3 class="card-title">Ampliación del Servicio de Pediatría</h3>
+              <p class="card-text">Hemos ampliado nuestro servicio de pediatría con nuevas instalaciones y especialistas para ofrecer una mejor atención a los más pequeños de la casa.</p>
+              <a href="#" class="btn btn-link p-0">Leer más <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Noticia 3 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <article class="card h-100 shadow-sm highlight">
+            <div class="position-relative">
+              <img src="/imagenes/atencion comunitaria.jpg" class="card-img-top" alt="Jornada de salud comunitaria">
+              <span class="position-absolute top-0 end-0 m-3 badge bg-warning text-dark">Destacado</span>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-warning bg-opacity-20 text-warning">Evento</span>
+                <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>28 Jul 2023</small>
+              </div>
+              <h3 class="card-title">Jornada de Salud Comunitaria</h3>
+              <p class="card-text">Participa en nuestra próxima jornada de salud con servicios médicos gratuitos para toda la comunidad. Incluye toma de presión, glucosa, vacunación y más.</p>
+              <a href="#" class="btn btn-link p-0">Ver detalles <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+      
+      <!-- Botón de ver más noticias -->
+      <div class="text-center mt-5">
+        <a href="#" class="btn btn-outline-primary btn-lg px-5 py-2">Ver más noticias</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Eventos -->
+  <section id="eventos" class="py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-uppercase text-primary mb-3">Próximos Eventos</h2>
+        <div class="divider mx-auto bg-primary" style="width: 80px; height: 4px; opacity: 0.7;"></div>
+        <p class="lead text-muted mt-3">Participa en nuestros eventos y actividades comunitarias</p>
+      </div>
+      
+      <div class="row g-4">
+        <!-- Evento 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
+            <div class="card-body p-4 text-center">
+              <div class="mb-3">
+                <div class="bg-primary text-white p-3 rounded-3 d-inline-block" style="min-width: 90px;">
+                  <h3 class="mb-0 fw-bold">25</h3>
+                  <p class="mb-0 text-uppercase fw-medium">SEP</p>
+                </div>
+              </div>
+              <h3 class="h4 fw-bold mb-3">Jornada de Salud Comunitaria</h3>
+              <p class="card-text text-muted mb-4">Únete a nuestra jornada de salud en el parque principal de Roldanillo. Ofreceremos servicios médicos gratuitos para toda la comunidad.</p>
+              <div class="mt-3">
+                <div class="d-flex justify-content-center align-items-center text-muted mb-2">
+                  <i class="bi bi-clock me-2"></i>
+                  <span>9:00 AM - 4:00 PM</span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center text-muted mb-4">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  <span>Parque Principal, Roldanillo</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary px-4">Más información</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evento 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
+            <div class="card-body p-4 text-center">
+              <div class="mb-3">
+                <div class="bg-success text-white p-3 rounded-3 d-inline-block" style="min-width: 90px;">
+                  <h3 class="mb-0 fw-bold">30</h3>
+                  <p class="mb-0 text-uppercase fw-medium">SEP</p>
+                </div>
+              </div>
+              <h3 class="h4 fw-bold mb-3">Taller de Primeros Auxilios</h3>
+              <p class="card-text text-muted mb-4">Aprende técnicas básicas de primeros auxilios que pueden hacer la diferencia en situaciones de emergencia. Incluye certificado de participación.</p>
+              <div class="mt-3">
+                <div class="d-flex justify-content-center align-items-center text-muted mb-2">
+                  <i class="bi bi-clock me-2"></i>
+                  <span>2:00 PM - 5:00 PM</span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center text-muted mb-4">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  <span>Auditorio Principal del Hospital</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-outline-primary px-4">Más información</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evento 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
+            <div class="card-body p-4 text-center">
+              <div class="mb-3">
+                <div class="bg-info text-white p-3 rounded-3 d-inline-block" style="min-width: 90px;">
+                  <h3 class="mb-0 fw-bold">15</h3>
+                  <p class="mb-0 text-uppercase fw-medium">OCT</p>
+                </div>
+              </div>
+              <h3 class="h4 fw-bold mb-3">Día de la Salud Mental</h3>
+              <p class="card-text text-muted mb-4">Conferencias y talleres sobre el cuidado de la salud mental. Contaremos con especialistas en psicología y psiquiatría.</p>
+              <div class="mt-3">
+                <div class="d-flex justify-content-center align-items-center text-muted mb-2">
+                  <i class="bi bi-clock me-2"></i>
+                  <span>8:00 AM - 6:00 PM</span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center text-muted mb-4">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  <span>Centro de Convenciones Municipal</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-outline-primary px-4">Más información</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Botón de ver más eventos -->
+      <div class="text-center mt-5">
+        <a href="#" class="btn btn-primary btn-lg px-5 py-2">Ver todos los eventos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Suscripción al boletín -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-5 text-center">
+              <h3 class="h2 fw-bold mb-3">¡Mantente informado!</h3>
+              <p class="lead mb-4">Suscríbete a nuestro boletín para recibir las últimas noticias y eventos directamente en tu correo electrónico.</p>
+              <form class="row g-3 justify-content-center">
+                <div class="col-md-8">
+                  <input type="email" class="form-control form-control-lg" placeholder="Tu correo electrónico" required>
+                </div>
+                <div class="col-md-auto">
+                  <button type="submit" class="btn btn-primary btn-lg w-100">Suscribirse</button>
+                </div>
+              </form>
+              <p class="small text-muted mt-3 mb-0">Respetamos tu privacidad. No compartiremos tu información con terceros.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="accessibility-buttons-container">
+    <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+      <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+      <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+      <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+      <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+      <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+      <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+    </button>
+  </div>
+  
+  <!-- Tarjeta institucional-->
+  <div class="container mb-5">
+    <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+      <div class="card-body py-5 px-5">
+        <div class="row align-items-center">
+          <div class="col-md-7">
+            <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+            <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+            <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+              <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+              <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+              <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+            <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+              <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+              <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+              <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+              <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </footer>
+  <!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
+  <div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+    <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
+      <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/busqueda.js"></script>
+  <script src="/js/accesibilidad.js"></script>
+  <script src="/js/main.js"></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+  </html>
+  
+  
+  
+  

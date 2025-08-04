@@ -194,6 +194,98 @@ footer {
 .accessibility-buttons-container .rounded-circle { border-radius: 50% !important; }
 
 /* =======================
+   TARJETAS DE NOTICIAS
+   ======================= */
+/* Contenedor de noticias */
+#noticias .card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Efecto hover para todas las tarjetas */
+#noticias .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+/* Imágenes de las tarjetas */
+#noticias .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Cuerpo de la tarjeta */
+#noticias .card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Título de la tarjeta */
+#noticias .card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #164443;
+}
+
+/* Texto de la tarjeta */
+#noticias .card-text {
+  color: #6c757d;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+/* Badges y etiquetas */
+#noticias .badge {
+  font-weight: 500;
+  padding: 0.4em 0.8em;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+/* Fecha de la noticia */
+#noticias .text-muted {
+  font-size: 0.85rem;
+}
+
+/* Botón de leer más */
+#noticias .btn-link {
+  color: #069681;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  transition: color 0.3s;
+}
+
+#noticias .btn-link:hover {
+  color: #04776b;
+}
+
+/* Tarjeta destacada */
+#noticias .card.highlight {
+  border-left: 4px solid #069681;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 767.98px) {
+  #noticias .card-img-top {
+    height: 180px;
+  }
+  
+  #noticias .card-body {
+    padding: 1.25rem;
+  }
+}
+
+/* =======================
    ALTO CONTRASTE
    ======================= */
 body.high-contrast {
@@ -204,6 +296,99 @@ body.high-contrast .navbar,
 body.high-contrast footer {
   background-color: #000 !important;
   color: #fff !important;
+}
+
+/* =======================
+   LABORATORIO PAGE STYLES
+   ======================= */
+.lab-hero {
+  background: linear-gradient(rgba(22, 68, 67, 0.9), rgba(6, 150, 129, 0.9)), url('../imagenes/lab-bg.jpg') center/cover;
+  color: white;
+  padding: 100px 0;
+  margin-bottom: 3rem;
+}
+
+.lab-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.lab-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.lab-icon {
+  font-size: 2.5rem;
+  color: #069681;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.bg-light-blue {
+  background-color: #f0f9ff;
+}
+
+.lab-feature {
+  padding: 2rem 0;
+}
+
+.lab-cta {
+  background-color: #069681;
+  color: white;
+  padding: 4rem 0;
+  margin: 4rem 0;
+}
+
+.lab-cta .btn-outline-light {
+  border-width: 2px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.lab-cta .btn-outline-light:hover {
+  background-color: white;
+  color: #069681;
+}
+
+.lab-section-title {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.lab-section-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #069681;
+}
+
+.lab-testimonial {
+  border-left: 4px solid #069681;
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+}
+
+.lab-faq .accordion-button:not(.collapsed) {
+  background-color: rgba(6, 150, 129, 0.1);
+  color: #069681;
+}
+
+.lab-faq .accordion-button:focus {
+  box-shadow: none;
+  border-color: #069681;
 }
 /* =======================
    CITAS MÉDICAS PAGE STYLES
@@ -742,5 +927,195 @@ body.high-contrast .accessibility-buttons-container .btn:hover {
   .navbar-brand { font-size: 1.2rem !important; }
 }
 
+/* ===================================
+   ESTILOS ESPECÍFICOS DE LABORATORIO
+   =================================== */
 
+/* Hero Section */
+.lab-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../imagenes/lab-bg.jpg') no-repeat center center/cover;
+  color: white;
+  padding: 120px 0 80px;
+  position: relative;
+  margin-top: -20px;
+}
 
+.lab-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.lab-hero p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  opacity: 0.9;
+}
+
+/* Section Titles */
+.lab-section-title {
+  color: #164443;
+  font-weight: 800;
+  position: relative;
+  padding-bottom: 15px;
+  margin-bottom: 3rem;
+}
+
+.lab-section-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #069681, #0d6e5e);
+  border-radius: 2px;
+}
+
+/* Cards */
+.lab-card {
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  height: 100%;
+  background: white;
+}
+
+.lab-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.lab-icon {
+  font-size: 2.5rem;
+  color: #069681;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.lab-card:hover .lab-icon {
+  transform: scale(1.1);
+}
+
+/* CTA Section */
+.lab-cta {
+  background: linear-gradient(135deg, #069681, #0d6e5e);
+  color: white;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.lab-cta h2 {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.lab-cta .lead {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9;
+}
+
+/* Process Section */
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* FAQ Section */
+.lab-faq .accordion-button {
+  font-weight: 600;
+  padding: 1.25rem;
+  border-radius: 8px !important;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  color: #164443;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.lab-faq .accordion-button:not(.collapsed) {
+  background-color: #e9f8f6;
+  color: #069681;
+  box-shadow: 0 2px 8px rgba(6, 150, 129, 0.1);
+}
+
+.lab-faq .accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(6, 150, 129, 0.25);
+  border-color: #069681;
+}
+
+.lab-faq .accordion-body {
+  padding: 1.25rem;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #e9ecef;
+  border-top: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .lab-hero {
+    padding: 100px 0 60px;
+  }
+  
+  .lab-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .lab-hero p {
+    font-size: 1.1rem;
+  }
+  
+  .lab-section-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .lab-cta {
+    padding: 60px 0;
+  }
+  
+  .lab-cta h2 {
+    font-size: 1.8rem;
+  }
+  
+  .lab-cta .lead {
+    font-size: 1.1rem;
+  }
+}
+
+/* High Contrast Mode */
+body.high-contrast .lab-card {
+  border: 2px solid #000;
+}
+
+body.high-contrast .lab-icon {
+  color: #000;
+}
+
+body.high-contrast .lab-cta {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.high-contrast .lab-faq .accordion-button {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff;
+}
+
+body.high-contrast .lab-faq .accordion-body {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff;
+  border-top: none;
+}

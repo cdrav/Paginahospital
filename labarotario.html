@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laboratorio Clínico - Hospital Departamental San Antonio</title>
+  <meta name="description" content="Laboratorio clínico especializado en el Hospital Departamental San Antonio. Ofrecemos análisis clínicos confiables y oportunos para tu salud.">
+  <meta name="keywords" content="laboratorio clínico, análisis clínicos, exámenes de laboratorio, hospital Roldanillo, Valle del Cauca">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/carrusel.css" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
+    </a>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
+    </form>
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios a la Ciudadanía
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta-externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/hospitalizacion.html">Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="accessibility-buttons-container">
+    <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+      <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+      <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+      <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+      <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+      <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+      <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+    </button>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="lab-hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-4">Laboratorio Clínico Especializado</h1>
+          <p class="lead mb-5">Resultados confiables y oportunos para el cuidado de tu salud. Contamos con tecnología de punta y personal altamente calificado.</p>
+          <a href="#servicios" class="btn btn-light btn-lg px-4 me-3">Nuestros Servicios</a>
+          <a href="#contacto" class="btn btn-outline-light btn-lg px-4">Solicitar Cita</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 lab-section-title">Nuestros Servicios</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card lab-card h-100">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-droplet lab-icon"></i>
+              <h3 class="h4 mb-3">Hematología</h3>
+              <p class="text-muted">Análisis completos de sangre para evaluar tu salud general y detectar posibles anomalías.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card lab-card h-100">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-activity lab-icon"></i>
+              <h3 class="h4 mb-3">Bioquímica Clínica</h3>
+              <p class="text-muted">Evaluación de enzimas, electrolitos, proteínas y otros marcadores bioquímicos.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card lab-card h-100">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-bug lab-icon"></i>
+              <h3 class="h4 mb-3">Microbiología</h3>
+              <p class="text-muted">Detección e identificación de microorganismos causantes de enfermedades infecciosas.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card lab-card h-100">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-heart-pulse lab-icon"></i>
+              <h3 class="h4 mb-3">Inmunología</h3>
+              <p class="text-muted">Estudios para evaluar el sistema inmunológico y detectar enfermedades autoinmunes.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card lab-card h-100">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-dna lab-icon"></i>
+              <h3 class="h4 mb-3">Genética Molecular</h3>
+              <p class="text-muted">Análisis de ADN para diagnóstico de enfermedades hereditarias y predisposición genética.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card lab-card h-100">
+            <div class="card-body text-center p-4">
+              <i class="bi bi-hospital lab-icon"></i>
+              <h3 class="h4 mb-3">Pruebas Especiales</h3>
+              <p class="text-muted">Estudios específicos según indicación médica para diagnósticos precisos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="lab-cta">
+    <div class="container text-center">
+      <h2 class="mb-4">¿Necesitas realizarte exámenes de laboratorio?</h2>
+      <p class="lead mb-5">Agenda tu cita ahora y obtén resultados precisos y confiables en el menor tiempo posible.</p>
+      <a href="#contacto" class="btn btn-outline-light btn-lg">Solicitar Cita</a>
+    </div>
+  </section>
+
+  <!-- Proceso de Atención -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5 lab-section-title">Nuestro Proceso</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4 text-center">
+          <div class="p-4">
+            <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; border: 2px solid #069681; margin: 0 auto;">
+              <h3 class="mb-0 text-primary">1</h3>
+            </div>
+            <h4 class="h5 mb-3">Solicitud de Cita</h4>
+            <p class="text-muted">Agenda tu cita en línea o por teléfono de manera rápida y sencilla.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4 text-center">
+          <div class="p-4">
+            <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; border: 2px solid #069681; margin: 0 auto;">
+              <h3 class="mb-0 text-primary">2</h3>
+            </div>
+            <h4 class="h5 mb-3">Preparación</h4>
+            <p class="text-muted">Recibe instrucciones claras para prepararte según el tipo de estudio a realizar.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4 text-center">
+          <div class="p-4">
+            <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; border: 2px solid #069681; margin: 0 auto;">
+              <h3 class="mb-0 text-primary">3</h3>
+            </div>
+            <h4 class="h5 mb-3">Toma de Muestra</h4>
+            <p class="text-muted">Nuestro personal calificado realiza la toma de muestras con los más altos estándares de calidad.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 text-center">
+          <div class="p-4">
+            <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; border: 2px solid #069681; margin: 0 auto;">
+              <h3 class="mb-0 text-primary">4</h3>
+            </div>
+            <h4 class="h5 mb-3">Análisis en Laboratorio</h4>
+            <p class="text-muted">Realizamos los análisis con tecnología de punta y personal altamente capacitado.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 text-center">
+          <div class="p-4">
+            <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; border: 2px solid #069681; margin: 0 auto;">
+              <h3 class="mb-0 text-primary">5</h3>
+            </div>
+            <h4 class="h5 mb-3">Entrega de Resultados</h4>
+            <p class="text-muted">Recibe tus resultados en el tiempo acordado, de forma segura y confidencial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preguntas Frecuentes -->
+  <section id="preguntas-frecuentes" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 lab-section-title">Preguntas Frecuentes</h2>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion lab-faq" id="faqAccordion">
+            <div class="accordion-item border-0 mb-3">
+              <h3 class="accordion-header" id="headingOne">
+                <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  ¿Necesito orden médica para realizarme exámenes?
+                </button>
+              </h3>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  La mayoría de los exámenes de laboratorio requieren orden médica. Sin embargo, ofrecemos algunos perfiles básicos que pueden realizarse sin orden previa. Te recomendamos consultar con nuestro personal.
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item border-0 mb-3">
+              <h3 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  ¿Cuánto tiempo debo ayunar antes de un examen de sangre?
+                </button>
+              </h3>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  El ayuno recomendado es de 8 a 12 horas para la mayoría de los exámenes de sangre. Sin embargo, esto puede variar según el tipo de estudio. Sigue siempre las indicaciones específicas que te proporcione tu médico o nuestro personal.
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item border-0 mb-3">
+              <h3 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  ¿Cuánto tiempo tardan los resultados?
+                </button>
+              </h3>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Los tiempos de entrega varían según el tipo de estudio. Los exámenes de rutina generalmente están listos en 24-48 horas, mientras que estudios especializados pueden tomar más tiempo. Te informaremos el tiempo estimado al momento de la toma de muestra.
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item border-0 mb-3">
+              <h3 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  ¿Puedo tomar mis medicamentos antes de los exámenes?
+                </button>
+              </h3>
+              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Depende del tipo de estudio. Algunos exámenes requieren la suspensión temporal de ciertos medicamentos. Siempre consulta con tu médico si debes o no tomar tus medicamentos antes de realizarte los exámenes.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mb-5 lab-section-title">Contáctanos</h2>
+          <p class="lead mb-5">¿Tienes preguntas sobre nuestros servicios de laboratorio? Estamos aquí para ayudarte.</p>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                <i class="bi bi-geo-alt-fill text-primary" style="font-size: 1.8rem;"></i>
+              </div>
+              <h4 class="h5 mb-3">Ubicación</h4>
+              <p class="text-muted mb-0">Avenida Santander No. 10-50<br>Roldanillo, Valle del Cauca</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                <i class="bi bi-telephone-fill text-primary" style="font-size: 1.8rem;"></i>
+              </div>
+              <h4 class="h5 mb-3">Teléfonos</h4>
+              <p class="text-muted mb-1">PBX: 602 891 2317</p>
+              <p class="text-muted mb-0">Línea de atención: 01 8000 123 456</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                <i class="bi bi-envelope-fill text-primary" style="font-size: 1.8rem;"></i>
+              </div>
+              <h4 class="h5 mb-3">Correo Electrónico</h4>
+              <p class="text-muted mb-1">laboratorio@hdsa.gov.co</p>
+              <p class="text-muted mb-0">ventanillaunica@hdsa.gov.co</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-5">
+        <div class="col-lg-8 mx-auto">
+          <div class="card border-0 shadow">
+            <div class="card-body p-4">
+              <h3 class="h4 text-center mb-4">Horario de Atención</h3>
+              <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                  <div class="p-3 bg-light rounded">
+                    <h5 class="h6 mb-2">Lunes a Viernes</h5>
+                    <p class="mb-0 fw-bold text-primary">6:00 a.m. - 6:00 p.m.</p>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="p-3 bg-light rounded">
+                    <h5 class="h6 mb-2">Sábados</h5>
+                    <p class="mb-0 fw-bold text-primary">6:00 a.m. - 6:00 p.m.</p>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="p-3 bg-light rounded">
+                    <h5 class="h6 mb-2">Domingos y Festivos</h5>
+                    <p class="mb-0 fw-bold text-primary">Solo Urgencias 24/7</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  </footer>
+  <!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
+  <div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+    <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
+      <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/busqueda.js"></script>
+  <script src="/js/accesibilidad.js"></script>
+  <script src="/js/main.js"></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+  </html>
+  
+  
+  
+  
+
+
+
+
+
+
+
+
