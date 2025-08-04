@@ -37,9 +37,14 @@
       </span>
       <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
     </a>
-    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get" style="max-width:300px;">
-      <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
-      <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
     </form>
     <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -55,10 +60,9 @@
             Atención y Servicios a la Ciudadanía
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias</a></li>
-            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
-            <li><a class="dropdown-item" href="/consuta externa.html">Consulta externa</a></li>
             <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta-externa.html">Consulta externa</a></li>
             <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
             <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
             <li><a class="dropdown-item" href="/Hopsitalización.html">Hospitalización</a></li>
@@ -698,13 +702,12 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/busqueda.js"></script>
 <script src="/js/accesibilidad.js"></script>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
-
-
 
 
 

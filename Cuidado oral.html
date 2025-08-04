@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cuidado Oral - Hospital Departamental San Antonio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/carrusel.css" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
+    </a>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
+    </form>
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarHospital">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">Atención y Servicios a la Ciudadanía</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta-externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item active" href="/Cuidado oral.html">Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/Hopsitalización.html">Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="container-fluid p-0 mb-5">
+  <div class="position-relative">
+    <img src="/imagenes/cuidado-oral-640x440.jpg" alt="Servicio de Odontología del Hospital San Antonio" class="img-fluid w-100" style="height: 400px; object-fit: cover;">
+    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0,0,0,0.5);">
+      <div class="container">
+        <h1 class="text-white fw-bold display-4 mb-3">Cuidado Oral</h1>
+        <p class="lead text-white mb-0">Sonrisas saludables para toda la familia</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="container mb-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h2 class="fw-bold mb-4" style="color: #164443;">Servicio de Odontología</h2>
+      
+      <div class="card border-0 shadow-sm mb-5">
+        <div class="card-body p-4">
+          <p class="lead">En el Hospital Departamental San Antonio ofrecemos servicios odontológicos integrales para toda la familia, con profesionales altamente calificados y tecnología de punta para el cuidado de tu salud bucal.</p>
+          
+          <div class="row g-4 mt-3">
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-check-circle-fill fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold mb-2">Atención Integral</h5>
+                  <p class="mb-0">Diagnóstico, tratamiento y seguimiento de todas las patologías bucales.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-people-fill fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold mb-2">Para Toda la Familia</h5>
+                  <p class="mb-0">Servicios odontológicos para niños, adultos y adultos mayores.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-shield-check fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold mb-2">Enfoque Preventivo</h5>
+                  <p class="mb-0">Promovemos la salud bucal a través de la educación y prevención.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-emoji-smile fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold mb-2">Atención Personalizada</h5>
+                  <p class="mb-0">Trato humano y personalizado para cada paciente.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Tarjeta de Contacto -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3" style="color: #164443;">Información de Contacto</h4>
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Ubicación</h6>
+                  <p class="mb-0">Piso 2, Ala Norte<br>Hospital Departamental San Antonio</p>
+                </div>
+              </div>
+            </li>
+            <li class="mb-3">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Teléfono</h6>
+                  <p class="mb-0">(602) 891 2317 Ext. 123</p>
+                </div>
+              </div>
+            </li>
+            <li class="mb-3">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-clock-fill"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Horario de Atención</h6>
+                  <p class="mb-0">Lunes a Viernes: 7:00 AM - 6:00 PM<br>
+                  Sábados: 8:00 AM - 12:00 PM</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-calendar-check-fill"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Citas</h6>
+                  <p class="mb-0">Se atiende con cita previa</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <a href="/citasmedicas.html" class="btn btn-primary w-100 mt-3">Solicitar Cita</a>
+        </div>
+      </div>
+      
+      <!-- Emergencias -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body text-center">
+          <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; margin: 0 auto;">
+            <i class="bi bi-exclamation-triangle-fill text-danger fs-2"></i>
+          </div>
+          <h4 class="fw-bold mb-3" style="color: #164443;">Emergencias Odontológicas</h4>
+          <p>En caso de emergencias odontológicas fuera del horario de atención, dirígete al servicio de urgencias.</p>
+          <a href="/Urgencias.html" class="btn btn-outline-danger w-100">Ver Urgencias</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Botones de accesibilidad -->
+<div class="accessibility-buttons-container">
+  <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+    <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+    <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+  </button>
+  <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+    <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+    <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+    <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+  </button>
+  <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+    <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+  </button>
+</div>
+
+<!-- Tarjeta institucional-->
+<div class="container mb-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+    <div class="card-body py-5 px-5">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+          <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+          <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+            <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+            <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+          <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+            <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+            <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+            <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+            <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</footer>
+<!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+  <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
+    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/accesibilidad.js"></script>
+<script src="/js/main.js"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

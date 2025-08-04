@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consulta Externa - Hospital Departamental San Antonio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/carrusel.css" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
+      <span style="font-weight: bold; letter-spacing: 1px;"></span>
+    </a>
+    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
+    </a>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
+    </form>
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Atención y Servicios a la Ciudadanía
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
+            <li><a class="dropdown-item active" href="/consulta-externa.html">Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/Hopsitalización.html">Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="container-fluid p-0 mb-5">
+  <div class="position-relative">
+    <img src="/imagenes/descarga consulta.jpeg" alt="Médico en consulta con paciente" class="img-fluid w-100" style="height: 400px; object-fit: cover;">
+    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0,0,0,0.4);">
+      <div class="container">
+        <h1 class="text-white fw-bold display-4 mb-3">Consulta Externa</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/index.html" class="text-white">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-white">Atención y Servicios</a></li>
+            <li class="breadcrumb-item active text-white" aria-current="page">Consulta Externa</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="container mb-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h2 class="fw-bold mb-4" style="color: #164443;">Servicio de Consulta Externa</h2>
+      
+      <div class="card border-0 shadow-sm mb-5">
+        <div class="card-body p-4">
+          <p class="lead">En el Hospital Departamental San Antonio ofrecemos servicios de consulta externa con especialistas altamente calificados en diferentes áreas médicas, brindando atención integral y personalizada a nuestros pacientes.</p>
+          
+          <div class="row g-4 mt-4">
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-calendar-check" style="font-size: 1.5rem;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold">Horario de Atención</h5>
+                  <p class="mb-0">Lunes a Viernes: 7:00 AM - 6:00 PM<br>
+                  Sábados: 8:00 AM - 12:00 PM</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="me-3 text-primary">
+                  <i class="bi bi-telephone" style="font-size: 1.5rem;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold">Contacto</h5>
+                  <p class="mb-0">Teléfono: (601) 555-1234<br>
+                  Extensión: 1234</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sección de Especialidades -->
+      <section class="mb-5">
+        <h3 class="fw-bold mb-4" style="color: #164443;">Nuestras Especialidades</h3>
+        
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex align-items-start">
+                  <div class="me-3 text-primary">
+                    <i class="bi bi-heart-pulse" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <div>
+                    <h5 class="card-title fw-bold">Cardiología</h5>
+                    <p class="card-text">Evaluación y tratamiento de enfermedades del corazón y sistema cardiovascular.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex align-items-start">
+                  <div class="me-3 text-primary">
+                    <i class="bi bi-lungs" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <div>
+                    <h5 class="card-title fw-bold">Neumología</h5>
+                    <p class="card-text">Atención especializada en enfermedades del sistema respiratorio.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex align-items-start">
+                  <div class="me-3 text-primary">
+                    <i class="bi bi-activity" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <div>
+                    <h5 class="card-title fw-bold">Endocrinología</h5>
+                    <p class="card-text">Manejo de trastornos hormonales y metabólicos como la diabetes.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex align-items-start">
+                  <div class="me-3 text-primary">
+                    <i class="bi bi-emoji-smile" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <div>
+                    <h5 class="card-title fw-bold">Pediatría</h5>
+                    <p class="card-text">Cuidado integral de la salud de niños y adolescentes.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-4">
+          <a href="#especialidades-completas" class="btn btn-outline-primary">Ver todas las especialidades</a>
+        </div>
+      </section>
+
+      <!-- Proceso de Atención -->
+      <section class="mb-5">
+        <h3 class="fw-bold mb-4" style="color: #164443;">Proceso de Atención</h3>
+        
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 text-center p-3">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; margin: 0 auto;">
+                <i class="bi bi-calendar2-check text-primary" style="font-size: 2rem;"></i>
+              </div>
+              <h5 class="fw-bold">1. Solicitud de Cita</h5>
+              <p>Puede solicitar su cita a través de nuestra línea telefónica, página web o de manera presencial.</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card h-100 border-0 text-center p-3">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; margin: 0 auto;">
+                <i class="bi bi-clipboard2-pulse text-primary" style="font-size: 2rem;"></i>
+              </div>
+              <h5 class="fw-bold">2. Valoración Médica</h5>
+              <p>Nuestros especialistas realizarán una evaluación completa de su estado de salud.</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card h-100 border-0 text-center p-3">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; margin: 0 auto;">
+                <i class="bi bi-prescription2 text-primary" style="font-size: 2rem;"></i>
+              </div>
+              <h5 class="fw-bold">3. Tratamiento</h5>
+              <p>Se le indicará el tratamiento a seguir y las recomendaciones necesarias para su recuperación.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Tarjeta de Contacto -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-primary text-white fw-bold">
+          <i class="bi bi-info-circle me-2"></i>Información de Contacto
+        </div>
+        <div class="card-body">
+          <h5 class="card-title fw-bold">Horario de Atención</h5>
+          <p class="card-text">
+            <i class="bi bi-clock me-2 text-primary"></i> Lunes a Viernes: 7:00 AM - 6:00 PM<br>
+            <i class="bi bi-clock me-2 text-primary"></i> Sábados: 8:00 AM - 12:00 PM
+          </p>
+          <hr>
+          <h5 class="card-title fw-bold">Contacto</h5>
+          <p class="card-text">
+            <i class="bi bi-telephone me-2 text-primary"></i> (601) 555-1234<br>
+            <i class="bi bi-telephone-plus me-2 text-primary"></i> Extensión: 1234<br>
+            <i class="bi bi-envelope me-2 text-primary"></i> consulta.externa@hospitalsanantonio.gov.co
+          </p>
+          <hr>
+          <h5 class="card-title fw-bold">Ubicación</h5>
+          <p class="card-text">
+            <i class="bi bi-geo-alt me-2 text-primary"></i> Calle 123 #45-67, Bogotá D.C.<br>
+            <i class="bi bi-building me-2 text-primary"></i> Piso 2, Consultorios 201-250
+          </p>
+          <a href="#ubicacion" class="btn btn-primary w-100 mt-2">
+            <i class="bi bi-geo-alt me-2"></i>Ver en el Mapa
+          </a>
+        </div>
+      </div>
+      
+      <!-- Tarjeta de Citas en Línea -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-success text-white fw-bold">
+          <i class="bi bi-calendar-check me-2"></i>Solicitar Cita en Línea
+        </div>
+        <div class="card-body text-center">
+          <p>Agende su cita de manera rápida y sencilla a través de nuestro portal de citas en línea.</p>
+          <a href="/citasmedicas.html" class="btn btn-success w-100">
+            <i class="bi bi-calendar-plus me-2"></i>Solicitar Cita
+          </a>
+        </div>
+      </div>
+      
+      <!-- Tarjeta de Especialidades -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-info text-white fw-bold">
+          <i class="bi bi-heart-pulse me-2"></i>Especialidades
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Cardiología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Dermatología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Endocrinología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Gastroenterología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Ginecología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Medicina Interna</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Neurología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Oftalmología</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Ortopedia</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Pediatría</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Psiquiatría</li>
+          <li class="list-group-item"><i class="bi bi-arrow-right-circle text-info me-2"></i>Reumatología</li>
+        </ul>
+        <div class="card-footer bg-transparent text-center">
+          <a href="#especialidades" class="btn btn-outline-info btn-sm">Ver todas las especialidades</a>
+        </div>
+      </div>
+      
+      <!-- Tarjeta de Emergencias -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-danger text-white fw-bold">
+          <i class="bi bi-exclamation-triangle me-2"></i>¿Es una Emergencia?
+        </div>
+        <div class="card-body text-center">
+          <p>Si requiere atención médica inmediata, diríjase a nuestro servicio de urgencias.</p>
+          <a href="/Urgencias.html" class="btn btn-danger w-100">
+            <i class="bi bi-ambulance me-2"></i>Ir a Urgencias
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Sección de Requisitos y Documentación -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-4" style="color: #164443;">Requisitos para la Atención</h3>
+            
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              <strong>Importante:</strong> Presentar documento de identificación y carné de su EPS o régimen de salud.
+            </div>
+            
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <h5 class="fw-bold">Documentación Requerida:</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Documento de identidad original (cédula, tarjeta de identidad, registro civil, etc.)
+                  </li>
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Carné de afiliación a EPS o régimen de salud
+                  </li>
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Orden médica (si aplica)
+                  </li>
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Exámenes o estudios previos relacionados con su condición
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5 class="fw-bold">Recomendaciones:</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Llegar con 30 minutos de anticipación
+                  </li>
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Traer ropa cómoda si es necesario para la valoración
+                  </li>
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Llevar lista de medicamentos que consume actualmente
+                  </li>
+                  <li class="list-group-item bg-transparent border-start-0 border-end-0 ps-0">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Anotar dudas o preguntas para el médico
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="alert alert-warning mt-4">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              <strong>Nota:</strong> En caso de no presentar la documentación requerida, su atención podría verse retrasada o reprogramada.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Preguntas Frecuentes -->
+<section class="py-5" id="preguntas-frecuentes">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color: #164443;">Preguntas Frecuentes</h2>
+      <p class="text-muted">Encuentra respuestas a las preguntas más comunes sobre nuestro servicio de consulta externa</p>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="accordion" id="faqConsultaExterna">
+          <div class="accordion-item mb-3 border-0 shadow-sm">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                ¿Cómo puedo agendar una cita de consulta externa?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqConsultaExterna">
+              <div class="accordion-body">
+                Puede agendar su cita a través de los siguientes canales:
+                <ul class="mt-2">
+                  <li>Llamando a nuestra línea de atención al (601) 555-1234</li>
+                  <li>Visitando nuestra página web en la sección de "Citas en Línea"</li>
+                  <li>De manera presencial en nuestras oficinas de atención al usuario</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item mb-3 border-0 shadow-sm">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                ¿Qué debo hacer si necesito cancelar o reprogramar mi cita?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqConsultaExterna">
+              <div class="accordion-body">
+                Para cancelar o reprogramar su cita, por favor comuníquese con al menos 24 horas de anticipación a nuestra línea de atención. Esto nos permite ofrecer ese espacio a otro paciente que lo necesite.
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item mb-3 border-0 shadow-sm">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                ¿Qué especialidades médicas están disponibles en consulta externa?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqConsultaExterna">
+              <div class="accordion-body">
+                Contamos con un amplio portafolio de especialidades médicas que incluye: medicina interna, pediatría, ginecología, cardiología, ortopedia, dermatología, oftalmología, neurología, psiquiatría, entre otras. Consulte la disponibilidad de especialidades en nuestro portal web o comuníquese a nuestra línea de atención.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item mb-3 border-0 shadow-sm">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                ¿Cuánto tiempo debo esperar para ser atendido en consulta externa?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqConsultaExterna">
+              <div class="accordion-body">
+                El tiempo de espera puede variar según la afluencia de pacientes. Sin embargo, nuestro personal se esfuerza por atender a todos los pacientes en el horario programado. Le recomendamos llegar con 30 minutos de anticipación a su cita para completar los trámites de ingreso.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item mb-3 border-0 shadow-sm">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                ¿Qué debo hacer si necesito atención médica fuera del horario de consulta externa?
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqConsultaExterna">
+              <div class="accordion-body">
+                Para atención médica fuera del horario de consulta externa, puede acudir a nuestro servicio de urgencias que está disponible las 24 horas del día, los 7 días de la semana. Si su situación no es de urgencia, puede programar una cita para el siguiente día hábil.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Ubicación -->
+<section id="ubicacion" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color: #164443;">Ubicación y Contacto</h2>
+      <p class="text-muted">Encuéntranos fácilmente y contáctanos para más información</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h4 class="fw-bold mb-4" style="color: #164443;">Servicio de Consulta Externa</h4>
+            
+            <div class="d-flex mb-3">
+              <div class="me-3 text-primary">
+                <i class="bi bi-geo-alt-fill" style="font-size: 1.5rem;"></i>
+              </div>
+              <div>
+                <h5 class="fw-bold">Dirección</h5>
+                <p class="mb-0">Calle 123 #45-67, Bogotá D.C.<br>
+                Edificio Principal, Piso 2, Consultorios 201-250</p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-3">
+              <div class="me-3 text-primary">
+                <i class="bi bi-telephone-fill" style="font-size: 1.5rem;"></i>
+              </div>
+              <div>
+                <h5 class="fw-bold">Teléfonos</h5>
+                <p class="mb-0">
+                  Línea de atención: (601) 555-1234<br>
+                  Extensión: 1234<br>
+                  Celular: 310 123 4567
+                </p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-3">
+              <div class="me-3 text-primary">
+                <i class="bi bi-envelope-fill" style="font-size: 1.5rem;"></i>
+              </div>
+              <div>
+                <h5 class="fw-bold">Correo Electrónico</h5>
+                <p class="mb-0">consulta.externa@hospitalsanantonio.gov.co</p>
+              </div>
+            </div>
+            
+            <div class="d-flex">
+              <div class="me-3 text-primary">
+                <i class="bi bi-clock-fill" style="font-size: 1.5rem;"></i>
+              </div>
+              <div>
+                <h5 class="fw-bold">Horario de Atención</h5>
+                <p class="mb-0">
+                  Lunes a Viernes: 7:00 AM - 6:00 PM<br>
+                  Sábados: 8:00 AM - 12:00 PM<br>
+                  <span class="text-muted">*Cerrado domingos y festivos</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-0">
+            <div class="ratio ratio-16x9">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15906.61665027802!2d-74.0839!3d4.7109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwNDInMzkuMiJOIDc0wrAwNScwMi4wIlc!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                class="rounded-end">
+              </iframe>
+            </div>
+            <div class="p-4">
+              <h5 class="fw-bold mb-3">¿Cómo llegar?</h5>
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-bus-front text-primary me-2"></i> <strong>Transporte Público:</strong> Rutas 8-9, B12, C45</li>
+                <li class="mb-2"><i class="bi bi-train-lightrail text-primary me-2"></i> <strong>Transmilenio:</strong> Estación Calle 76</li>
+                <li class="mb-2"><i class="bi bi-p-circle text-primary me-2"></i> <strong>Parqueadero:</strong> Disponible para pacientes</li>
+                <li><i class="bi bi-bicycle text-primary me-2"></i> <strong>CicloRuta:</strong> Estación 45 disponible</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="accessibility-buttons-container">
+    <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
+      <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
+      <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
+      <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
+      <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
+    </button>
+    <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
+      <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
+    </button>
+    <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
+      <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
+    </button>
+  </div>
+  
+  <!-- Tarjeta institucional-->
+  <div class="container mb-5">
+    <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+      <div class="card-body py-5 px-5">
+        <div class="row align-items-center">
+          <div class="col-md-7">
+            <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+            <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+            <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+              <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+              <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+              <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+            <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+              <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+              <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+              <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+              <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </footer>
+  <!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
+  <div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+    <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
+      <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+      <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
+        <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
+        <span style="font-weight: bold; letter-spacing: 1px;"></span>
+      </a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/busqueda.js"></script>
+  <script src="/js/accesibilidad.js"></script>
+  <script src="/js/main.js"></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+  </html>
+  
