@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="/css/carrusel.css" />
   <link rel="stylesheet" href="/css/accesibilidad.css" />
   </head>
-<body>
-
+  <body>
+    
 <!-- BARRA SUPERIOR -->
 <div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
   <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
@@ -37,9 +37,14 @@
       </span>
       <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
     </a>
-    <form class="d-flex ms-auto me-3" role="search" action="/buscar" method="get" style="max-width:300px;">
-      <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
-      <button class="btn btn-light ms-2" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
     </form>
     <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -55,7 +60,7 @@
             Atención y Servicios a la Ciudadanía
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item active" href="/Urgencias.html">Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
             <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
             <li><a class="dropdown-item" href="/consulta-externa.html">Consulta externa</a></li>
             <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
@@ -73,44 +78,9 @@
   </div>
 </nav>
 
-<div id="carouselHospital" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/imagenes/ensayo baner.jpg" class="d-block w-100" alt="Vista exterior del Hospital Departamental San Antonio">
-      <div class="carousel-caption d-none d-md-block">
-        <h5 class="subtitulo">Bienvenido al Hospital Departamental San Antonio</h5>
-        <p class="relleno">Atención médica de calidad a su alcance.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/imagenes/hospital23.webp" class="d-block w-100" alt="Equipo de doctores profesionales del hospital">
-      <div class="carousel-caption d-none d-md-block">
-        <h5 class="subtitulo">Equipo Médico Profesional</h5>
-        <p class="relleno">Contamos con los mejores especialistas.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/imagenes/hospital3.webp" class="d-block w-100" alt="Equipos médicos de última generación en una sala de salud">
-      <div class="carousel-caption d-none d-md-block">
-        <h5 class="subtitulo">Tecnología Avanzada</h5>
-        <p class="relleno">Equipos de última generación para su diagnóstico.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHospital" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselHospital" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
-</div>
 
-<div class="container mt-5">
-  <h2>Bienvenido al Hospital Departamental San Antonio</h2>
-  <p class="relleno">Ofrecemos atención médica integral con un enfoque humano y profesional. Nuestro compromiso es brindar servicios de salud accesibles y de calidad para toda la comunidad.</p>
-  <p class="especial">“Cuidamos tu salud con excelencia y humanidad.”</p>
+
+
 
 <!-- HERO SECTION -->
 <section class="hero-urgencias">
