@@ -100,38 +100,159 @@
     </button>
   </div>
   
-  <!-- Tarjeta institucional-->
-  <div class="container mb-5">
-    <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
-      <div class="card-body py-5 px-5">
-        <div class="row align-items-center">
-          <div class="col-md-7">
-            <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
-            <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
-            <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
-              <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
-              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
-              <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
-              <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
-              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
-              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
-              <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
-              <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
-            </ul>
-          </div>
   
-          <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
-            <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
-              <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
-              <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
-              <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
-              <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+  
+  <!-- Sección de Normatividad -->
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <h2 class="text-center mb-5 fw-bold" style="color: #069681;">Normatividad Institucional</h2>
+        
+        <!-- Pestañas de Navegación -->
+        <ul class="nav nav-tabs nav-fill mb-4" id="normatividadTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-bold" id="leyes-tab" data-bs-toggle="tab" data-bs-target="#leyes" type="button" role="tab" aria-controls="leyes" aria-selected="true">
+              <i class="bi bi-journal-text me-2"></i>Leyes / Ordenanzas / Acuerdos
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold" id="decretos-tab" data-bs-toggle="tab" data-bs-target="#decretos" type="button" role="tab" aria-controls="decretos" aria-selected="false">
+              <i class="bi bi-file-earmark-text me-2"></i>Decretos
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold" id="circulares-tab" data-bs-toggle="tab" data-bs-target="#circulares" type="button" role="tab" aria-controls="circulares" aria-selected="false">
+              <i class="bi bi-file-earmark-richtext me-2"></i>Circulares y Otros
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold" id="resoluciones-tab" data-bs-toggle="tab" data-bs-target="#resoluciones" type="button" role="tab" aria-controls="resoluciones" aria-selected="false">
+              <i class="bi bi-file-earmark-ruled me-2"></i>Resoluciones
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold" id="edictos-tab" data-bs-toggle="tab" data-bs-target="#edictos" type="button" role="tab" aria-controls="edictos" aria-selected="false">
+              <i class="bi bi-megaphone me-2"></i>Edictos y Avisos
+            </button>
+          </li>
+        </ul>
+        
+        <!-- Contenido de las Pestañas -->
+        <div class="tab-content p-3 border border-top-0 rounded-bottom" id="normatividadTabsContent">
+          <!-- Leyes / Ordenanzas / Acuerdos -->
+          <div class="tab-pane fade show active" id="leyes" role="tabpanel" aria-labelledby="leyes-tab">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              Contenido en proceso de actualización. Próximamente estará disponible la información de Leyes, Ordenanzas y Acuerdos.
+            </div>
+          </div>
+          
+          <!-- Decretos -->
+          <div class="tab-pane fade" id="decretos" role="tabpanel" aria-labelledby="decretos-tab">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              Contenido en proceso de actualización. Próximamente estará disponible la información de Decretos.
+            </div>
+          </div>
+          
+          <!-- Circulares y Otros -->
+          <div class="tab-pane fade" id="circulares" role="tabpanel" aria-labelledby="circulares-tab">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              Contenido en proceso de actualización. Próximamente estará disponible la información de Circulares y otros Actos Administrativos.
+            </div>
+          </div>
+          
+          <!-- Resoluciones -->
+          <div class="tab-pane fade" id="resoluciones" role="tabpanel" aria-labelledby="resoluciones-tab">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              Contenido en proceso de actualización. Próximamente estará disponible la información de Resoluciones.
+            </div>
+          </div>
+          
+          <!-- Edictos y Avisos -->
+          <div class="tab-pane fade" id="edictos" role="tabpanel" aria-labelledby="edictos-tab">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              Contenido en proceso de actualización. Próximamente estará disponible la información de Edictos y Avisos.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Búsqueda y Filtros -->
+        <div class="card shadow-sm mt-4 border-0">
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="buscarNormatividad" class="form-label">Buscar en la normatividad</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="buscarNormatividad" placeholder="Escribe tu búsqueda...">
+                  <button class="btn btn-outline-primary" type="button">
+                    <i class="bi bi-search"></i> Buscar
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="filtroAnio" class="form-label">Filtrar por año</label>
+                <select class="form-select" id="filtroAnio">
+                  <option selected>Todos los años</option>
+                  <option>2024</option>
+                  <option>2023</option>
+                  <option>2022</option>
+                  <option>2021</option>
+                  <option>2020</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+<!-- Tarjeta institucional-->
+<div class="container mb-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+    <div class="card-body py-5 px-5">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+          <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+          <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+            <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+            <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+          <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+            <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+            <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+            <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+            <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
   
   </footer>
   <!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->

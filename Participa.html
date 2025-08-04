@@ -26,23 +26,32 @@
     <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 0 8px; font-weight: bold;"></div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark flex-column">
-  <div class="container-fluid d-flex justify-content-between align-items-center w-100">
-    <a class="navbar-brand d-flex align-items-center" href="/index.html">
-      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height: 40px; margin-right: 10px;">
-      Hospital Departamental San Antonio
+<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
+  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
+    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
+      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
+      <span class="d-none d-md-inline" style="line-height:1.1;">
+        Hospital<br>
+        <span style="font-weight:700;">Departamental San Antonio</span>
+      </span>
+      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
     </a>
-    <form class="d-flex ms-auto" role="search" action="/buscar" method="get">
-      <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Buscar" name="q">
-      <button class="btn btn-light" type="submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
+        <button class="btn btn-light" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <span class="visually-hidden">Buscar</span>
+        </button>
+      </div>
     </form>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
   <div class="container-fluid">
-    <div class="collapse navbar-collapse w-100" id="navbarHospital">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
+      <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
         <li class="nav-item dropdown">
