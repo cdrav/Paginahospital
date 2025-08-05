@@ -1119,3 +1119,103 @@ body.high-contrast .lab-faq .accordion-body {
   border: 2px solid #fff;
   border-top: none;
 }
+
+/* =======================
+   MAPA DEL SITIO
+   ======================= */
+.sitemap-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.sitemap-section h2 {
+  color: #0d6efd;
+  border-bottom: 2px solid #0d6efd;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.sitemap-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.sitemap-list li {
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.5;
+}
+
+.sitemap-list li:before {
+  content: "•";
+  color: #0d6efd;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.sitemap-list a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.sitemap-list a:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  padding: 1rem 0;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+.page-header {
+  background-color: #f1f8ff;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.page-header h1 {
+  margin-bottom: 0.5rem;
+  color: #0d6efd;
+}
+
+.page-header .lead {
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+/* Responsive para móviles */
+@media (max-width: 767.98px) {
+  .sitemap-section {
+    padding: 1rem;
+  }
+  
+  .sitemap-section h2 {
+    font-size: 1.3rem;
+  }
+  
+  .sitemap-list li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.2rem;
+  }
+  
+  .page-header {
+    padding: 1.5rem 0;
+  }
+  
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+}
