@@ -1,86 +1,417 @@
-/* Base styles */
-body {
-    background-color: #ffffff;
-    color: #333333;
+/* ===================================
+   BOTONES DE ACCESIBILIDAD - SIMPLIFICADOS
+   =================================== */
+
+.accessibility-buttons-container {
+    position: fixed !important;
+    top: 60% !important; /* Mover más abajo para evitar el banner */
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+    z-index: 9999 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 2px;
+    background: #164443;
+    border-radius: 6px 0 0 6px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.25);
 }
 
-/* High Contrast Mode */
+.accessibility-buttons-container .btn {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 3px !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    font-size: 0.7rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.accessibility-buttons-container .btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.accessibility-buttons-container .btn:active {
+    transform: scale(0.98) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.accessibility-buttons-container .btn:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.accessibility-buttons-container .btn i {
+    font-size: 0.8rem !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: bold !important;
+}
+
+/* ===================================
+   ICONOS SIMPLES
+   =================================== */
+
+.accessibility-buttons-container .btn .icon-plus::before {
+    content: "A+" !important;
+    font-weight: bold !important;
+    font-size: 0.7rem !important;
+}
+
+.accessibility-buttons-container .btn .icon-minus::before {
+    content: "A-" !important;
+    font-weight: bold !important;
+    font-size: 0.7rem !important;
+}
+
+.accessibility-buttons-container .btn .icon-contrast::before {
+    content: "◐" !important;
+    font-size: 0.9rem !important;
+    font-weight: bold !important;
+}
+
+.accessibility-buttons-container .btn .icon-reset::before {
+    content: "↻" !important;
+    font-size: 0.9rem !important;
+    font-weight: bold !important;
+}
+
+.accessibility-buttons-container .btn .icon-phone::before {
+    content: "📞" !important;
+    font-size: 0.8rem !important;
+}
+
+.accessibility-buttons-container .btn .icon-survey::before {
+    content: "📋" !important;
+    font-size: 0.8rem !important;
+}
+
+/* ===================================
+   TOOLTIP
+   =================================== */
+
+.accessibility-buttons-container .btn::after {
+    content: attr(title);
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    margin-right: 6px;
+    z-index: 10000;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.accessibility-buttons-container .btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-2px);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .accessibility-buttons-container {
+        top: auto !important;
+        bottom: 15px !important;
+        right: 10px !important;
+        transform: none !important;
+        flex-direction: row;
+        border-radius: 6px;
+        padding: 3px 6px;
+        gap: 2px;
+    }
+    
+    .accessibility-buttons-container .btn {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.6rem !important;
+    }
+    
+    .accessibility-buttons-container .btn i {
+        font-size: 0.7rem !important;
+    }
+    
+    .accessibility-buttons-container .btn::after {
+        bottom: 100%;
+        right: 50%;
+        top: auto;
+        transform: translateX(50%);
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .accessibility-buttons-container .btn:hover::after {
+        transform: translateX(50%) translateY(-2px);
+    }
+}
+
+/* ===================================
+   CORRECCIÓN DE IMÁGENES - ELIMINAR COLOR VERDE
+   =================================== */
+
+/* Asegurar que las imágenes se vean correctamente en todos los modos */
+.carousel-item img,
+.card-img-top,
+img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* En modo alto contraste, las imágenes deben mantener sus colores originales */
+.alto-contraste .carousel-item img,
+.alto-contraste .card-img-top,
+.alto-contraste img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* En modo oscuro, las imágenes deben mantener sus colores originales */
+.modo-oscuro .carousel-item img,
+.modo-oscuro .card-img-top,
+.modo-oscuro img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* En modo sepia, las imágenes deben mantener sus colores originales */
+.modo-sepia .carousel-item img,
+.modo-sepia .card-img-top,
+.modo-sepia img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* ===================================
+   MODOS DE CONTRASTE
+   =================================== */
+
+/* Modo Alto Contraste */
 .alto-contraste {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
-.alto-contraste .navbar,
-.alto-contraste .footer {
-    background-color: #333333 !important;
+.alto-contraste .navbar {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.alto-contraste .top-bar {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.alto-contraste .card {
+    background-color: #000000 !important;
     color: #ffffff !important;
 }
 
 .alto-contraste a {
-    color: #ffff00 !important;
+    color: #00ff00 !important;
 }
 
 .alto-contraste .btn-outline-primary {
-    color: #ffffff !important;
-    border-color: #ffffff !important;
+    border-color: #00ff00 !important;
+    color: #00ff00 !important;
 }
 
 .alto-contraste .carousel-caption h5,
 .alto-contraste .carousel-caption p {
-    color: #ffffff !important;
-    text-shadow: 1px 1px 2px black;
+    color: #00ff00 !important;
 }
 
-/* Dark Mode */
+.alto-contraste .accessibility-buttons-container {
+    background: #000000 !important;
+    border: 2px solid #00ff00 !important;
+}
+
+.alto-contraste .accessibility-buttons-container .btn {
+    background: #000000 !important;
+    border-color: #00ff00 !important;
+    color: #00ff00 !important;
+}
+
+.alto-contraste .accessibility-buttons-container .btn:hover {
+    background: #333333 !important;
+    border-color: #00ff00 !important;
+    color: #00ff00 !important;
+}
+
+/* Modo Oscuro */
 .modo-oscuro {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
 }
 
-.modo-oscuro .navbar,
-.modo-oscuro .footer {
-    background-color: #2c2c2c !important;
+.modo-oscuro .navbar {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+}
+
+.modo-oscuro .top-bar {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+}
+
+.modo-oscuro .card {
+    background-color: #2a2a2a !important;
     color: #e0e0e0 !important;
 }
 
 .modo-oscuro a {
-    color: #87ceeb !important;
+    color: #90caf9 !important;
 }
 
 .modo-oscuro .btn-outline-primary {
-    color: #e0e0e0 !important;
-    border-color: #e0e0e0 !important;
+    border-color: #90caf9 !important;
+    color: #90caf9 !important;
 }
 
 .modo-oscuro .carousel-caption h5,
 .modo-oscuro .carousel-caption p {
     color: #e0e0e0 !important;
-    text-shadow: 1px 1px 2px black;
 }
 
-/* Sepia Mode */
+.modo-oscuro .accessibility-buttons-container {
+    background: #2a2a2a !important;
+}
+
+.modo-oscuro .accessibility-buttons-container .btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.modo-oscuro .accessibility-buttons-container .btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: #ffffff !important;
+}
+
+/* Modo Sepia */
 .modo-sepia {
-    background-color: #f4ecd8;
-    color: #5c4033;
+    background-color: #f4ecd8 !important;
+    color: #5a4a3a !important;
 }
 
-.modo-sepia .navbar,
-.modo-sepia .footer {
-    background-color: #d2b48c !important;
-    color: #5c4033 !important;
+.modo-sepia .navbar {
+    background-color: #e6d8c0 !important;
+    color: #5a4a3a !important;
+}
+
+.modo-sepia .top-bar {
+    background-color: #e6d8c0 !important;
+    color: #5a4a3a !important;
+}
+
+.modo-sepia .card {
+    background-color: #e6d8c0 !important;
+    color: #5a4a3a !important;
 }
 
 .modo-sepia a {
-    color: #000080 !important;
+    color: #8b4513 !important;
 }
 
 .modo-sepia .btn-outline-primary {
-    color: #5c4033 !important;
-    border-color: #5c4033 !important;
+    border-color: #8b4513 !important;
+    color: #8b4513 !important;
 }
 
 .modo-sepia .carousel-caption h5,
 .modo-sepia .carousel-caption p {
-    color: #5c4033 !important;
-    text-shadow: 1px 1px 2px #f4ecd8;
+    color: #5a4a3a !important;
+}
+
+.modo-sepia .accessibility-buttons-container {
+    background: #d4c2a8 !important;
+}
+
+.modo-sepia .accessibility-buttons-container .btn {
+    background: rgba(139, 69, 19, 0.2) !important;
+    border-color: rgba(139, 69, 19, 0.5) !important;
+    color: #8b4513 !important;
+}
+
+.modo-sepia .accessibility-buttons-container .btn:hover {
+    background: rgba(139, 69, 19, 0.3) !important;
+    border-color: rgba(139, 69, 19, 0.7) !important;
+    color: #8b4513 !important;
+}
+
+/* ===================================
+   NOTIFICACIONES
+   =================================== */
+
+.contrast-notification {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: linear-gradient(135deg, #164443 0%, #069681 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10001 !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 300px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contrast-notification.show {
+    transform: translateX(0);
+}
+
+.notification-increase-text {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.notification-decrease-text {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%) !important;
+}
+
+.notification-contrast-change {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    color: #000 !important;
+}
+
+.notification-reset-settings {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+}
+
+.notification-centro-relevo {
+    background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%) !important;
+}
+
+.notification-encuesta-accesibilidad {
+    background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%) !important;
 }

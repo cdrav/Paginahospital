@@ -1,146 +1,220 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Declaración de variables y selectores ---
-    const cuerpo = document.body;
-    const FONT_SIZE_STORAGE_KEY = 'fontSize';
-    const CONTRAST_MODE_STORAGE_KEY = 'contrastMode';
+// URLs para enlaces externos
+const CENTRO_RELEVO_URL = "https://centrorelevo.gov.co/";
+const ENCUESTA_ACCESIBILIDAD_URL = "https://forms.gle/example";
 
-    // Modos de contraste disponibles
-    const CONTRAST_MODES = {
-        NORMAL: 'normal',
-        ALTO_CONTRASTE: 'alto-contraste',
-        MODO_OSCURO: 'modo-oscuro',
-        MODO_SEPIA: 'modo-sepia'
-    };
-
-    const CONTRAST_CLASSES = [CONTRAST_MODES.ALTO_CONTRASTE, CONTRAST_MODES.MODO_OSCURO, CONTRAST_MODES.MODO_SEPIA];
+// Función para mostrar notificaciones mejoradas
+function showNotification(message, type = 'default') {
+    console.log('Mostrando notificación:', message, type); // Debug
     
-    let currentContrastMode = CONTRAST_MODES.NORMAL;
-    let currentFontSize = 100; // Usar porcentaje en lugar de px
-    const minFontSize = 80;
-    const maxFontSize = 140;
-    const defaultFontSize = 100;
-
-    // --- Funciones para aplicar y guardar estilos ---
-    function applyContrastTheme() {
-        // Remover todas las clases de contraste
-        CONTRAST_CLASSES.forEach(className => {
-            cuerpo.classList.remove(className);
-        });
-        
-        // Aplicar la clase actual si no es normal
-        if (currentContrastMode !== CONTRAST_MODES.NORMAL) {
-            cuerpo.classList.add(currentContrastMode);
-        }
-        
-        localStorage.setItem(CONTRAST_MODE_STORAGE_KEY, currentContrastMode);
+    // Remover notificación anterior si existe
+    const existingNotification = document.querySelector('.contrast-notification');
+    if (existingNotification) {
+        existingNotification.remove();
     }
 
-    function cycleContrastMode() {
-        const modes = Object.values(CONTRAST_MODES);
-        const currentIndex = modes.indexOf(currentContrastMode);
-        const nextIndex = (currentIndex + 1) % modes.length;
-        currentContrastMode = modes[nextIndex];
-        applyContrastTheme();
-        
-        // Mostrar notificación del modo actual
-        showContrastNotification();
-    }
-
-    function showContrastNotification() {
-        const modeNames = {
-            [CONTRAST_MODES.NORMAL]: 'Modo Normal',
-            [CONTRAST_MODES.ALTO_CONTRASTE]: 'Alto Contraste',
-            [CONTRAST_MODES.MODO_OSCURO]: 'Modo Oscuro',
-            [CONTRAST_MODES.MODO_SEPIA]: 'Modo Sepia'
-        };
-        
-        // Crear notificación temporal
-        const notification = document.createElement('div');
-        notification.textContent = `Contraste: ${modeNames[currentContrastMode]}`;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #333;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 9999;
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Remover después de 2 segundos
+    // Crear nueva notificación
+    const notification = document.createElement('div');
+    notification.className = `contrast-notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Agregar al body
+    document.body.appendChild(notification);
+    
+    // Mostrar con animación
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+        notification.classList.remove('show');
         setTimeout(() => {
             if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+                notification.remove();
             }
-        }, 2000);
-    }
+        }, 300);
+    }, 3000);
+}
 
-    function applyFontSize() {
-        // Aplicar el tamaño de fuente como porcentaje al html en lugar del body
-        document.documentElement.style.fontSize = `${currentFontSize}%`;
-        localStorage.setItem(FONT_SIZE_STORAGE_KEY, currentFontSize);
-    }
+// Función para abrir Centro de Relevo
+function openCentroRelevo() {
+    showNotification('Abriendo Centro de Relevo para personas sordas...', 'centro-relevo');
+    setTimeout(() => {
+        window.open(CENTRO_RELEVO_URL, '_blank');
+    }, 500);
+}
 
-    function resetStyles() {
-        currentFontSize = defaultFontSize;
-        currentContrastMode = CONTRAST_MODES.NORMAL;
+// Función para abrir Encuesta de Accesibilidad
+function openEncuestaAccesibilidad() {
+    showNotification('Abriendo Encuesta de Usabilidad y Accesibilidad...', 'encuesta-accesibilidad');
+    setTimeout(() => {
+        window.open(ENCUESTA_ACCESIBILIDAD_URL, '_blank');
+    }, 500);
+}
+
+// Función para cambiar el tamaño del texto
+function changeTextSize(direction) {
+    console.log('Cambiando tamaño de texto:', direction); // Debug
+    
+    const body = document.body;
+    const currentSize = parseFloat(getComputedStyle(body).fontSize);
+    
+    if (direction === 'increase') {
+        if (currentSize < 24) { // Límite máximo
+            body.style.fontSize = (currentSize + 2) + 'px';
+            showNotification('Texto aumentado', 'increase-text');
+        } else {
+            showNotification('Tamaño máximo alcanzado', 'increase-text');
+        }
+    } else if (direction === 'decrease') {
+        if (currentSize > 12) { // Límite mínimo
+            body.style.fontSize = (currentSize - 2) + 'px';
+            showNotification('Texto reducido', 'decrease-text');
+        } else {
+            showNotification('Tamaño mínimo alcanzado', 'decrease-text');
+        }
+    }
+    
+    // Guardar en localStorage
+    localStorage.setItem('fontSize', body.style.fontSize);
+}
+
+// Función para cambiar el contraste
+function changeContrast() {
+    console.log('Cambiando contraste'); // Debug
+    
+    const body = document.body;
+    const currentMode = localStorage.getItem('contrastMode') || 'normal';
+    
+    console.log('Modo actual:', currentMode); // Debug
+    
+    // Remover clases anteriores
+    body.classList.remove('alto-contraste', 'modo-oscuro', 'modo-sepia');
+    
+    let newMode;
+    let message;
+    
+    switch (currentMode) {
+        case 'normal':
+            newMode = 'alto-contraste';
+            message = 'Modo alto contraste activado';
+            break;
+        case 'alto-contraste':
+            newMode = 'modo-oscuro';
+            message = 'Modo oscuro activado';
+            break;
+        case 'modo-oscuro':
+            newMode = 'modo-sepia';
+            message = 'Modo sepia activado';
+            break;
+        case 'modo-sepia':
+            newMode = 'normal';
+            message = 'Modo normal activado';
+            break;
+        default:
+            newMode = 'alto-contraste';
+            message = 'Modo alto contraste activado';
+    }
+    
+    console.log('Nuevo modo:', newMode); // Debug
+    
+    if (newMode !== 'normal') {
+        body.classList.add(newMode);
+        console.log('Clase agregada:', newMode); // Debug
+    }
+    
+    localStorage.setItem('contrastMode', newMode);
+    showNotification(message, 'contrast-change');
+}
+
+// Función para resetear configuración
+function resetSettings() {
+    console.log('Reseteando configuración'); // Debug
+    
+    const body = document.body;
+    
+    // Resetear tamaño de texto
+    body.style.fontSize = '';
+    localStorage.removeItem('fontSize');
+    
+    // Resetear contraste
+    body.classList.remove('alto-contraste', 'modo-oscuro', 'modo-sepia');
+    localStorage.setItem('contrastMode', 'normal');
+    
+    showNotification('Configuración restablecida', 'reset-settings');
+}
+
+// Event listener para los botones de accesibilidad
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado, inicializando accesibilidad'); // Debug
+    
+    // Cargar configuración guardada
+    const savedFontSize = localStorage.getItem('fontSize');
+    const savedContrastMode = localStorage.getItem('contrastMode');
+    
+    if (savedFontSize) {
+        document.body.style.fontSize = savedFontSize;
+    }
+    
+    if (savedContrastMode && savedContrastMode !== 'normal') {
+        document.body.classList.add(savedContrastMode);
+        console.log('Modo cargado:', savedContrastMode); // Debug
+    }
+    
+    // Delegación de eventos para los botones
+    document.addEventListener('click', function(e) {
+        const button = e.target.closest('.accessibility-buttons-container .btn');
+        if (!button) return;
         
-        localStorage.removeItem(FONT_SIZE_STORAGE_KEY);
-        localStorage.removeItem(CONTRAST_MODE_STORAGE_KEY);
-
-        document.documentElement.style.fontSize = '';
-        // Remover todas las clases de contraste
-        CONTRAST_CLASSES.forEach(className => {
-            cuerpo.classList.remove(className);
-        });
-    }
-
-    // --- Cargar preferencias guardadas al inicio ---
-    const savedContrastMode = localStorage.getItem(CONTRAST_MODE_STORAGE_KEY);
-    if (savedContrastMode !== null) {
-        currentContrastMode = savedContrastMode;
-    }
-    applyContrastTheme();
-
-    const savedFontSize = localStorage.getItem(FONT_SIZE_STORAGE_KEY);
-    if (savedFontSize !== null) {
-        currentFontSize = parseFloat(savedFontSize);
-    }
-    applyFontSize();
-
-    // --- Manejo de eventos usando delegación ---
-    const accessibilityContainer = document.querySelector('.accessibility-buttons-container');
-
-    if (accessibilityContainer) {
-        accessibilityContainer.addEventListener('click', (event) => {
-            const target = event.target.closest('button');
-            if (!target) return;
-
-            // Identificar botones por su contenido de icono o título
-            const title = target.getAttribute('title');
-            const ariaLabel = target.getAttribute('aria-label');
-            const iconClass = target.querySelector('i')?.className;
-
-            if (target.id === 'cambiarcontraste' || title === 'Cambiar contraste') {
-                cycleContrastMode();
-            } else if (target.id === 'resetContraste' || title === 'Restablecer Contraste y Texto') {
-                resetStyles();
-            } else if (title === 'Aumentar texto' || iconClass?.includes('bi-plus-circle')) {
-                if (currentFontSize < maxFontSize) {
-                    currentFontSize += 10;
-                    applyFontSize();
-                }
-            } else if (title === 'Reducir texto' || iconClass?.includes('bi-dash-circle')) {
-                if (currentFontSize > minFontSize) {
-                    currentFontSize -= 10;
-                    applyFontSize();
-                }
+        console.log('Botón clickeado:', button); // Debug
+        
+        const action = button.getAttribute('data-action');
+        console.log('Acción:', action); // Debug
+        
+        switch (action) {
+            case 'increase-text':
+                changeTextSize('increase');
+                break;
+            case 'decrease-text':
+                changeTextSize('decrease');
+                break;
+            case 'change-contrast':
+                changeContrast();
+                break;
+            case 'reset-settings':
+                resetSettings();
+                break;
+            case 'centro-relevo':
+                openCentroRelevo();
+                break;
+            case 'encuesta-accesibilidad':
+                openEncuestaAccesibilidad();
+                break;
+            default:
+                console.log('Acción no reconocida:', action); // Debug
+        }
+    });
+    
+    // Atajos de teclado
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey) {
+            switch (e.key) {
+                case '=':
+                case '+':
+                    e.preventDefault();
+                    changeTextSize('increase');
+                    break;
+                case '-':
+                    e.preventDefault();
+                    changeTextSize('decrease');
+                    break;
+                case '0':
+                    e.preventDefault();
+                    resetSettings();
+                    break;
             }
-        });
-    }
+        }
+    });
+    
+    console.log('Accesibilidad inicializada correctamente'); // Debug
 });
