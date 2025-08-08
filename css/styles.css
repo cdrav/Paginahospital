@@ -84,6 +84,203 @@
 }
 
 /* =======================
+   ESTILOS GENERALES
+   ======================= */
+:root {
+  --primary-color: #164443;
+  --secondary-color: #069681;
+  --accent-color: #28a745;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+  --transition: all 0.3s ease;
+  --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+h2:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 60px;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title h2:after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+p {
+  color: #555;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Botones */
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: #0e2d2c;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Secciones */
+section {
+  padding: 5rem 0;
+  position: relative;
+}
+
+.section-bg {
+  background-color: var(--light-gray);
+}
+
+/* Tarjetas */
+.card {
+  border: none;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: var(--transition);
+  margin-bottom: 2rem;
+  box-shadow: var(--box-shadow);
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1.8rem;
+}
+
+.card-title {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.card-text {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Efectos */
+.hover-effect {
+  transition: var(--transition);
+}
+
+.hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Utilidades */
+.rounded-lg {
+  border-radius: var(--border-radius) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Transiciones */
+a, button, .btn, .nav-link, .card, .form-control {
+  transition: var(--transition);
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* =======================
    ESTILOS BASE
    ======================= */
 *,
@@ -98,6 +295,7 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  font-size: 16px;
 }
 
 body {
@@ -122,37 +320,70 @@ body {
 }
 
 /* Contenedor principal */
-#main-content {
-  flex: 1 0 auto;
+.main-container {
   width: 100%;
-  padding-top: var(--espaciado-xl);
-  padding-bottom: var(--espaciado-2xl);
-}
-
-/* Contenedor fluido */
-.container-fluid {
-  width: 100%;
-  padding-right: var(--espaciado-md);
-  padding-left: var(--espaciado-md);
-  margin-right: auto;
-  margin-left: auto;
   max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-/* Contenedor estándar */
-.container {
-  width: 100%;
-  padding-right: var(--espaciado-md);
-  padding-left: var(--espaciado-md);
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 1200px;
-}
-
-/* Secciones */
+/* Secciones principales */
 section {
-  padding: var(--espaciado-2xl) 0;
+  margin-bottom: 3rem;
+  padding: 0 0.5rem;
+}
+
+/* Encabezados de sección */
+section > h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primario);
+  margin-bottom: 1.5rem;
+  text-align: center;
   position: relative;
+  padding-bottom: 0.75rem;
+}
+
+section > h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-secundario);
+}
+
+section > p {
+  font-size: 1.1rem;
+  color: var(--color-texto-secundario);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 767.98px) {
+  .main-container {
+    padding: 0 1rem;
+  }
+  
+  section {
+    margin-bottom: 2rem;
+    padding: 0 0.25rem;
+  }
+  
+  section > h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  section > p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /* =======================
@@ -366,6 +597,27 @@ img {
 .img-fluid {
   max-width: 100%;
   height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Asegurar que las imágenes en tarjetas se ajusten correctamente */
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 767.98px) {
+  .card-img-top {
+    max-height: 200px; /* Limitar altura en móviles */
+  }
+  
+  /* Ajustar imágenes en el carrusel para móviles */
+  .carousel-item img {
+    max-height: 50vh;
+    object-fit: cover;
+  }
 }
 
 .img-thumbnail {
@@ -732,15 +984,726 @@ em {
 }
 
 /* =======================
-   BARRA DE NAVEGACIÓN (NAVBAR)
+   BARRA DE NAVEGACIÓN MEJORADA
    ======================= */
 .navbar {
-  background-color: var(--color-primario);
-  padding: 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
+  background: linear-gradient(135deg, var(--color-primario) 0%, #0d2f2e 100%);
+  padding: 0.25rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: sticky;
+  top: 0;
   z-index: 1030;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Efecto de scroll */
+.navbar.scrolled {
+  padding: 0.1rem 0;
+  background: rgba(22, 68, 67, 0.98);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal del menú */
+.navbar > .container-fluid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Logo */
+.navbar-brand {
+  padding: 0.5rem 0;
+  margin-right: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.02);
+}
+
+.navbar-brand img {
+  height: 50px;
+  width: auto;
   transition: all 0.3s ease;
+}
+
+/* Menú de navegación */
+.navbar-collapse {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Elementos del menú */
+.navbar-nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Enlaces del menú */
+.nav-link {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.8rem 1.2rem !important;
+  border-radius: 0.5rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  text-align: center;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-secundario);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+  color: white !important;
+}
+
+.nav-link:hover::before,
+.nav-link:focus::before {
+  width: 60%;
+}
+
+.nav-link.active {
+  background-color: rgba(6, 150, 129, 0.15);
+  color: white !important;
+  font-weight: 600;
+}
+
+.nav-link.active::before {
+  width: 60%;
+  background-color: var(--color-secundario);
+}
+
+/* Dropdown */
+.dropdown-menu {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 0;
+  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transform: translateY(10px);
+  opacity: 0;
+  display: block;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown:hover .dropdown-menu {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-item {
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #333;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdown-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--color-secundario);
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: rgba(6, 150, 129, 0.05);
+  color: var(--color-primario);
+  padding-left: 1.8rem;
+}
+
+.dropdown-item:hover::before,
+.dropdown-item:focus::before {
+  transform: scaleY(1);
+}
+
+/* Barra de búsqueda */
+.search-form {
+  max-width: 280px;
+  margin: 0 1rem 0 2rem;
+  position: relative;
+}
+
+.search-form .input-group {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  padding: 0.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-form .form-control {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  height: 40px;
+}
+
+.search-form .form-control:focus {
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2rem 0 0 2rem;
+}
+
+.search-form .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+}
+
+.search-form .btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  border-radius: 0 2rem 2rem 0;
+  width: 46px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.search-form .btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: none;
+}
+
+.search-form .btn i {
+  font-size: 1.1rem;
+}
+
+/* Botón de menú móvil */
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.95%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Botones de acción */
+.nav-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 1.5rem;
+}
+
+.action-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.action-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.action-button i {
+  font-size: 1.2rem;
+}
+
+/* Badge de notificaciones */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 2px solid var(--color-primario);
+}
+
+/* Efecto de carga en la barra de búsqueda */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.search-form.loading .input-group {
+  animation: pulse 1.5s infinite;
+}
+
+/* Transiciones suaves para el menú desplegable */
+.dropdown-menu.show {
+  display: block;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Efecto hover en el contenedor del menú */
+.navbar-nav > li {
+  position: relative;
+}
+
+/* Línea decorativa debajo del menú activo */
+.navbar-nav > li > .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: var(--color-secundario);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-nav > li:hover > .nav-link::after,
+.navbar-nav > li.active > .nav-link::after {
+  width: 60%;
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 991.98px) {
+  .navbar > .container-fluid {
+    padding: 0.5rem 1.5rem;
+  }
+  
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 85%;
+    max-width: 350px;
+    height: 100vh;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 1050;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block !important;
+    overflow-y: auto;
+  }
+  
+  .navbar-collapse.show {
+    right: 0;
+  }
+  
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .nav-link {
+    color: var(--color-primario) !important;
+    padding: 0.8rem 0 !important;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0 0 0 1rem;
+    background: transparent;
+    display: none;
+  }
+  
+  .dropdown-menu.show {
+    display: block !important;
+  }
+  
+  .dropdown-item {
+    padding: 0.6rem 1rem;
+    color: #666 !important;
+  }
+  
+  .search-form {
+    margin: 1.5rem 0;
+    max-width: 100%;
+  }
+  
+  .search-form .form-control {
+    color: #333;
+  }
+  
+  .search-form .form-control::placeholder {
+    color: #999;
+  }
+  
+  .search-form .input-group {
+    background: #f5f5f5;
+    border: 1px solid #eee;
+  }
+  
+  .search-form .btn {
+    background: var(--color-secundario);
+    color: white;
+  }
+  
+  .nav-action-buttons {
+    margin: 1.5rem 0 0;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Efecto de overlay cuando el menú móvil está abierto */
+.navbar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.navbar-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Botón de cierre del menú móvil */
+.navbar-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-primario);
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  z-index: 1051;
+}
+
+/* Header del menú móvil */
+.navbar-mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem;
+}
+
+.navbar-mobile-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  margin: 0;
+}
+
+/* Mejoras para el menú desplegable en móviles */
+.dropdown-toggle::after {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Ajustes para el logo en móviles */
+@media (max-width: 767.98px) {
+  .navbar-brand img {
+    height: 42px;
+  }
+}
+
+/* Ajustes para tablets */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .navbar-nav {
+    gap: 0.25rem;
+  }
+  
+  .nav-link {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.8rem;
+  }
+  
+  .search-form {
+    max-width: 220px;
+    margin: 0 0.5rem 0 1rem;
+  }
+}
+
+/* Efecto de scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ajustes de accesibilidad */
+.nav-link:focus-visible,
+.dropdown-item:focus-visible,
+.action-button:focus-visible,
+.search-form .btn:focus-visible {
+  outline: 2px solid var(--color-secundario);
+  outline-offset: 2px;
+}
+
+/* Mejoras para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.search-form .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Menú móvil */
+@media (max-width: 991.98px) {
+  .navbar > .container-fluid {
+    padding: 0.5rem 1rem;
+    position: relative;
+    z-index: 1051;
+  }
+  
+  .navbar-brand {
+    margin-right: 0;
+    flex: 1;
+  }
+  
+  .search-form {
+    margin: 1rem 0;
+    max-width: 100%;
+  }
+  
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    bottom: 0;
+    width: 90%;
+    max-width: 400px;
+    padding: 1rem 0 0;
+    background: white;
+    z-index: 1050;
+    transition: right 0.3s ease-in-out;
+    overflow-y: auto;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navbar-collapse.show {
+    right: 0;
+  }
+  
+  .navbar-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--color-bordes);
+    margin-bottom: 1rem;
+  }
+  
+  .navbar-mobile-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-primario);
+  }
+  
+  .navbar-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-texto);
+    padding: 0.25rem;
+    line-height: 1;
+  }
+  
+  .navbar-nav {
+    padding: 0 1.5rem;
+    width: 100%;
+  }
+  
+  .nav-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .nav-link {
+    color: var(--color-texto) !important;
+    padding: 1rem 0.5rem !important;
+    margin: 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+  
+  .nav-link i {
+    min-width: 24px;
+    text-align: center;
+    margin-right: 0.75rem;
+    color: var(--color-primario);
+  }
+  
+  .dropdown-toggle::after {
+    margin-left: auto;
+    transition: transform 0.2s ease;
+  }
+  
+  .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 2.5rem;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .dropdown-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    color: var(--color-texto);
+  }
+  
+  .dropdown-item i {
+    margin-right: 0.5rem;
+    color: var(--color-secundario);
+  }
+  
+  .dropdown-item:hover, 
+  .dropdown-item:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--color-primario);
+  }
+  
+  /* Fondo oscuro detrás del menú */
+  .navbar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .show + .navbar-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Efecto de subrayado para enlaces */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 60%;
+}
+
+.nav-link.active::after {
+  width: 60%;
+  background-color: white;
 }
 
 /* Contenedor del navbar */
@@ -802,6 +1765,29 @@ em {
 .top-bar a:hover {
   color: var(--color-fondo);
   text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* Estilos específicos para el logo de GOV.CO */
+.gov-logo {
+  height: 30px !important;
+  width: auto !important;
+  max-width: 120px;
+  transition: all 0.3s ease;
+  display: block !important;
+  opacity: 1 !important;
+  filter: brightness(0) invert(1);
+}
+
+.gov-link {
+  display: flex !important;
+  align-items: center;
+  padding: 0.25rem 0;
+}
+
+.gov-link:hover .gov-logo {
+  opacity: 0.9 !important;
+  transform: translateY(-1px);
 }
 
 .top-bar-container {
@@ -1124,41 +2110,163 @@ em {
 
 /* Menú móvil */
 @media (max-width: 991.98px) {
+  /* Contenedor del menú */
   .navbar-collapse {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 280px;
-    padding: 1.5rem;
-    background-color: var(--color-primario);
-    z-index: 1050;
+    width: 85%;
+    max-width: 320px;
+    padding: 1.5rem 1rem;
+    background-color: #fff;
+    z-index: 1100;
     transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
   }
   
+  /* Barra de desplazamiento personalizada */
+  .navbar-collapse::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .navbar-collapse::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+  
+  /* Estado visible del menú */
   .navbar-collapse.show {
     transform: translateX(0);
   }
   
-  .navbar-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1040;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out;
+  /* Encabezado del menú móvil */
+  .navbar-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
   }
   
-  .navbar-backdrop.show {
-    opacity: 1;
-    visibility: visible;
+  .navbar-mobile-title {
+    color: var(--color-primario);
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  .navbar-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .navbar-close-btn:hover {
+    color: #000;
+  }
+  
+  /* Estilos de los enlaces del menú */
+  .navbar-nav {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-bottom: 0.25rem;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #333;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link:focus {
+    background-color: rgba(22, 68, 67, 0.1);
+    color: var(--color-primario);
+    transform: none;
+  }
+  
+  .navbar-nav .nav-link.active {
+    background-color: var(--color-primario);
+    color: white;
+    font-weight: 600;
+  }
+  
+  /* Menús desplegables */
+  .navbar-nav .dropdown-menu {
+    position: static !important;
+    float: none;
+    width: 100%;
+    margin: 0.25rem 0;
+    border: none;
+    background-color: #f8f9fa;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0;
+  }
+  
+  .navbar-nav .dropdown-menu.show {
+    max-height: 500px; /* Ajusta según sea necesario */
+    padding: 0.5rem 0;
+  }
+  
+  .navbar-nav .dropdown-item {
+    padding: 0.5rem 2rem;
+    color: #444;
+    font-size: 0.95rem;
+  }
+  
+  .navbar-nav .dropdown-item:hover,
+  .navbar-nav .dropdown-item:focus {
+    background-color: rgba(22, 68, 67, 0.1);
+    color: var(--color-primario);
+  }
+  
+  /* Icono de flecha para menús desplegables */
+  .dropdown-toggle::after {
+    margin-left: auto;
+    transition: transform 0.2s;
+  }
+  
+  .dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(-180deg);
+  }
+  
+  /* Botón de menú mejorado */
+  .navbar-toggler {
+    padding: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255,255,255,0.25);
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 1.5em;
+    height: 1.5em;
   }
   
   .dropdown-menu {
@@ -1211,12 +2319,165 @@ em {
    TOP BAR
    ======================= */
 .top-bar {
-  background-color: #3366cc;
-  height: 54px;
-  font-size: 1.15rem;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
+  background-color: var(--color-terciario);
+  color: white;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  position: relative;
+  z-index: 1050; /* Aumentado para asegurar que esté por encima de otros elementos */
+  overflow: visible; /* Cambiado a visible para asegurar que el logo no se recorte */
+  min-height: 40px; /* Altura mínima para asegurar espacio */
+  display: flex;
+  align-items: center;
 }
+
+/* Ajustes para móviles */
+@media (max-width: 767.98px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .main-content {
+    padding: 0 0.75rem;
+    overflow-x: hidden;
+  }
+  
+  /* Mejorar accesibilidad táctil */
+  .btn, 
+  .dropdown-item,
+  .nav-link,
+  .form-control,
+  .form-select,
+  .form-check-input,
+  .form-check-label,
+  .accordion-button {
+    padding: 0.75rem 1rem;
+    min-height: 44px; /* Tamaño mínimo para toques */
+  }
+  
+  /* Botones más grandes en móviles */
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Mejor espaciado en navegación */
+  .navbar-nav .nav-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Enlaces de navegación más fáciles de tocar */
+  .navbar-nav .nav-link {
+    padding: 1rem 1.25rem;
+    margin: 0.25rem 0;
+    display: block;
+  }
+  
+  .container, 
+  .container-fluid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Ajustar tamaños de fuente para móviles */
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.875rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  p, li, a, span, div {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Mejorar el espaciado en secciones */
+  section {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+  
+  /* Mejorar tarjetas en móviles */
+  .card {
+    margin-bottom: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-text {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Ajustar botones en tarjetas */
+  .card .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .top-bar {
+    padding: 0.25rem 0;
+    font-size: 0.8rem;
+  }
+  
+  .top-bar .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  #google_translate_element {
+    padding: 0.1rem 0.5rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .top-bar img {
+    max-height: 24px !important;
+    width: auto !important;
+    display: block !important;
+  }
+  
+  /* Estilos específicos para el logo de GOV.CO */
+  .gov-logo {
+    height: 24px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin-right: 10px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    border: 2px solid red !important; /* Temporal para depuración */
+  }
+  
+  /* Asegurar que el enlace del logo sea visible */
+  .gov-link {
+    display: flex !important;
+    align-items: center;
+    height: 24px;
+  }
+}
+
 #google_translate_element {
   background-color: white;
   color: #3366cc;
@@ -1226,69 +2487,143 @@ em {
   font-size: 1.1rem;
 }
 
-/*ACCESIBILIDAD*/
-
+/* =======================
+   BARRA DE ACCESIBILIDAD
+   ======================= */
 .accessibility-buttons-container {
   position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 10px;
+  bottom: 10px;
   z-index: 1050;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background-color: rgba(255,255,255,0.9);
-  padding: 10px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  flex-direction: row;
+  gap: 8px;
+  background-color: rgba(255,255,255,0.95);
+  padding: 8px;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  max-width: 95%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
+/* Ajustes para pantallas medianas y grandes */
+@media (min-width: 768px) {
+  .accessibility-buttons-container {
+    right: 20px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    flex-direction: column;
+    border-radius: 15px;
+    max-width: none;
+    overflow: visible;
+  }
+}
+
 .accessibility-buttons-container .btn {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: bold;
   color: #164443;
   background-color: #e0f2f1;
   border: 2px solid #00796b;
-  transition: all 0.3s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border-radius: 50% !important;
+  padding: 0;
 }
-.accessibility-buttons-container .btn:hover {
+
+/* Ajustes para pantallas medianas y grandes */
+@media (min-width: 768px) {
+  .accessibility-buttons-container .btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+  }
+}
+
+.accessibility-buttons-container .btn:hover,
+.accessibility-buttons-container .btn:focus {
   background-color: #00796b;
   color: white;
   border-color: #164443;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  outline: none;
 }
-.accessibility-buttons-container .btn[title="Aumentar texto"]::after { content: "A+"; }
-.accessibility-buttons-container .btn[title="Reducir texto"]::after { content: "A-"; }
+
+/* Estilos para los íconos de accesibilidad */
+.accessibility-buttons-container .btn[title="Aumentar texto"]::after { 
+  content: "A+";
+  font-size: 1.1em;
+}
+
+.accessibility-buttons-container .btn[title="Reducir texto"]::after { 
+  content: "A-";
+  font-size: 1.1em;
+}
+
 .accessibility-buttons-container .btn[title="Centro de relevo"]::after {
-  content: "";
-  font-size: 1.5em;
+  content: "\F5EF";
+  font-family: 'bootstrap-icons';
+  font-size: 1.2em;
 }
+
 .accessibility-buttons-container .btn[title="Encuesta de Usabilidad y accesibilidad"]::after {
-  content: "📋";
-  font-size: 1.5em;
+  content: "\F7D9";
+  font-family: 'bootstrap-icons';
+  font-size: 1.2em;
 }
-#cambiarcontraste { font-size: 1.3em; }
-.accessibility-buttons-container .rounded-circle { border-radius: 50% !important; }
+
+#cambiarcontraste { 
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Asegurar que los botones sean accesibles por teclado */
+.accessibility-buttons-container .btn:focus-visible {
+  outline: 3px solid #069681;
+  outline-offset: 2px;
+}
+
+/* Ocultar scrollbar en móviles pero mantener funcionalidad de desplazamiento */
+.accessibility-buttons-container::-webkit-scrollbar {
+  display: none;
+}
+
+.accessibility-buttons-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 /* =======================
-   TARJETAS DE NOTICIAS
-   ======================= */
+TARJETAS DE NOTICIAS
+======================= */
 /* Contenedor de noticias */
-#noticias .card {
-  border: none;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+#nuestros-servicios .card {
+margin-bottom: 1.5rem;
+border: none;
+border-radius: 10px;
+overflow: hidden;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+height: 100%;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  
+@media (max-width: 767.98px) {
+margin-bottom: 1rem;
+border: 1px solid #eee;
+}
+display: flex;
+flex-direction: column;
 }
 
 /* Efecto hover para todas las tarjetas */
@@ -1675,42 +3010,392 @@ body.high-contrast footer {
 
 /* Top bar styles */
 .top-bar {
-  background-color: #3366cc;
+  background-color: var(--color-terciario);
   min-height: 48px;
+  width: 100%;
+  position: relative;
+  z-index: 1030;
+  overflow: hidden;
+}
+
+.top-bar .container-fluid {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  .top-bar {
+    min-height: 40px;
+  }
+  
+  .top-bar .container-fluid {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+  
+  #google_translate_element {
+    padding: 2px 8px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* =======================
+   MAIN CONTENT CONTAINER
+   ======================= */
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* Ensure full width sections can break out of the container */
+.full-width {
   width: 100vw;
   position: relative;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  padding: 0;
 }
 
-/* Navbar styles */
+/* Adjust container padding for better mobile experience */
+.container, .container-fluid {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* =======================
+   BARRA DE NAVEGACIÓN
+   ======================= */
 .navbar {
   background-color: #164443;
+  padding: 0.25rem 0;
+  transition: all 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Contenedor del logo y marca */
+.brand-container {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Logo del hospital */
+.hospital-logo {
+  height: 44px;
+  width: auto;
+  min-width: 36px;
+  max-height: 44px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 2px;
+  margin-right: 0.75rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Texto de la marca */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+  overflow: hidden;
+}
+
+.hospital-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hospital-location {
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Barra de búsqueda */
+.search-form {
+  flex: 1 1 auto;
+  max-width: 500px;
+  min-width: 200px;
+  margin: 0.5rem 1rem;
+}
+
+/* Controles del menú móvil */
+.navbar-toggler {
+  padding: 0.35rem 0.5rem;
+  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggler:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 767.98px) {
+  .navbar {
+    padding: 0.25rem 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+  }
+  
+  .navbar .container-fluid {
+    padding: 0 0.5rem;
+    flex-wrap: nowrap;
+  }
+  
+  .hospital-logo {
+    height: 38px;
+    width: 38px;
+    min-width: 38px;
+    margin-right: 0.5rem;
+  }
+  
+  .hospital-name {
+    font-size: 0.8rem;
+    display: none; /* Ocultar en móviles muy pequeños */
+  }
+  
+  .hospital-location {
+    font-size: 0.9rem;
+  }
+  
+  .search-form {
+    margin: 0.25rem 0.5rem 0.25rem 0;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  
+  .search-form .form-control {
+    height: 36px;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .search-form .btn {
+    padding: 0.25rem 0.5rem;
+  }
 }
 
 .navbar-brand {
-  font-size: 2rem;
-  font-weight: 900;
+  margin: 0;
+  padding: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  max-width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 767.98px) {
+  .navbar-brand {
+    font-size: 0.95rem;
+    margin-right: 0.25rem;
+    padding: 0.15rem 0;
+  }
+  
+  .navbar-brand .d-none.d-md-block {
+    display: none !important;
+  }
+  
+  .navbar-brand .d-inline.d-md-none {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+    display: inline-block !important;
+  }
 }
 
 .navbar-brand img {
-  height: 70px;
+  height: 44px;
   width: auto;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  min-width: 36px;
+  max-height: 44px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   background: #fff;
-  padding: 4px;
+  padding: 2px;
+  margin-right: 0.5rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block !important;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 767.98px) {
+  .navbar-brand img {
+    height: 38px;
+    max-height: 38px;
+    min-width: 32px;
+    margin-right: 0.4rem;
+  }
 }
 
 .navbar-brand .d-none.d-md-inline {
-  line-height: 1.1;
+  line-height: 1.2;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  white-space: normal;
+  vertical-align: middle;
 }
 
-/* Search form */
+/* Barra de búsqueda */
 .search-form {
-  max-width: 300px;
+  max-width: 100%;
+  margin: 0.5rem 0;
+  flex-grow: 1;
+  transition: all 0.3s ease;
+}
+
+/* Menú de navegación */
+.navbar-nav {
+  margin-top: 0.5rem;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 991.98px) {
+  .navbar {
+    padding: 0.25rem 0;
+  }
+  
+  .navbar-brand {
+    font-size: 1rem;
+    margin-right: 0.25rem;
+    max-width: calc(100% - 100px);
+  }
+  
+  .navbar-brand img {
+    height: 40px;
+    border-radius: 8px;
+    margin-right: 0.4rem;
+  }
+  
+  .navbar-brand .d-none.d-md-inline {
+    font-size: 0.9rem;
+    line-height: 1.1;
+  }
+  
+  .search-form {
+    margin: 0.25rem 0;
+    max-width: 100%;
+  }
+  
+  .navbar-toggler {
+    padding: 0.25rem 0.4rem;
+    font-size: 1rem;
+  }
+  
+  /* Ajustes específicos para pantallas muy pequeñas (400px o menos) */
+  @media (max-width: 400px) {
+    .navbar-brand {
+      font-size: 0.9rem;
+    }
+    
+    .navbar-brand img {
+      height: 36px;
+      margin-right: 0.3rem;
+    }
+    
+    .navbar-brand .d-none.d-md-inline {
+      font-size: 0.8rem;
+    }
+    
+    .d-inline.d-md-none {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .search-form .form-control {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.75rem;
+    }
+    
+    .search-form .btn {
+      padding: 0.25rem 0.5rem;
+    }
+  }
+}
+
+/* Ajustes para tablets */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-brand img {
+    height: 55px;
+  }
+  
+  .navbar-brand .d-none.d-md-inline {
+    font-size: 1rem;
+  }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1400px) {
+  .navbar-brand {
+    font-size: 1.8rem;
+  }
+  
+  .navbar-brand img {
+    height: 70px;
+  }
+  
+  .search-form {
+    max-width: 400px;
+  }
 }
 
 /* Accessibility buttons */
