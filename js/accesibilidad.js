@@ -1,5 +1,5 @@
 // URLs para enlaces externos
-const CENTRO_RELEVO_URL = "https://centrorelevo.gov.co/";
+const CENTRO_RELEVO_URL = "https://www.centroderelevo.gov.co/632/w3-propertyvalue-15254.html";
 const ENCUESTA_ACCESIBILIDAD_URL = "https://forms.gle/example";
 
 // Función para mostrar notificaciones mejoradas
