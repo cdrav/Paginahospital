@@ -156,6 +156,19 @@ section {
 }
 
 /* =======================
+   LOGO
+   ======================= */
+.navbar-brand img {
+  height: 70px;
+  width: auto;
+  border: none;
+  box-shadow: none;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* =======================
    ENLACES
    ======================= */
 a {
@@ -751,7 +764,7 @@ em {
   font-size: 1.5rem;
   font-weight: var(--font-weight-bold);
   line-height: 1.2;
-  color: var(--color-blanco) !important;
+  color: var(--color-bordes) !important;
   text-decoration: none;
   white-space: nowrap;
   transition: all 0.2s ease;
