@@ -198,11 +198,47 @@ section > p {
 }
 
 /* Tarjetas e iconos de servicios */
-.servicios .card { border: none; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform .2s ease; }
-.servicios .card:hover { transform: translateY(-3px); }
-.card-title { font-family: 'Work Sans', 'Poppins', sans-serif; font-weight: 800; letter-spacing: .2px; }
-.card-img-top { width: 100%; height: auto; display: block; aspect-ratio: 16/11; object-fit: cover; }
-.card-text { color: var(--color-texto-sec); }
+.servicios .card {
+  transition: transform .3s ease, box-shadow .3s ease;
+  aspect-ratio: 4/5;
+}
+.servicios .card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+.servicios .card-background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.servicios .card:hover .card-background-img {
+  transform: scale(1.1);
+}
+.servicios .card-img-overlay {
+  position: relative;
+  background: linear-gradient(to top, rgba(22, 68, 67, 0.95) 20%, transparent 100%);
+}
+.servicios .card-title {
+  color: #fff;
+  font-weight: 700;
+}
+.servicios .card-text {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.25rem;
+}
+.servicios .btn-overlay {
+  background-color: var(--color-secundario);
+  border-color: var(--color-secundario);
+  color: #fff;
+}
+.servicios .btn-overlay:hover {
+  background-color: #058772;
+  border-color: #058772;
+}
 .card-subtitle {
   font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 600;

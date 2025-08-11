@@ -1,0 +1,129 @@
+<!-- Header Partial: top bar and main navbar -->
+<div class="top-bar">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none gov-link">
+      <img src="/imagenes/logo gov.png" alt="Logo de GOV.CO" class="gov-logo">
+    </a>
+    <div id="google_translate_element" class="translate-widget"></div>
+  </div>
+</div>
+
+<!-- Barra de navegación principal -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container-fluid">
+    <div class="nav-top d-flex align-items-center w-100">
+      <!-- Logo y nombre del hospital -->
+      <a class="navbar-brand me-2 me-lg-3" href="/index.html">
+        <div class="brand-container">
+          <img src="/imagenes/coporativo 5.png" alt="Hospital Departamental San Antonio" class="hospital-logo">
+          <div class="brand-text">
+            <span class="hospital-name">Hospital Departamental</span>
+            <span class="hospital-location">San Antonio</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Botón de menú móvil -->
+      <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Menú de navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Barra de búsqueda (desktop) en la fila superior -->
+      <form class="d-none d-md-flex ms-3 ms-lg-auto search-form" role="search" action="buscar.html" method="get">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q" id="search-input">
+          <button class="btn" type="submit">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <span class="visually-hidden">Buscar</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Menú de navegación (colapsable) en su propia fila inferior -->
+    <div class="collapse navbar-collapse nav-bottom w-100" id="navbarHospital">
+      <!-- Encabezado del menú móvil -->
+      <div class="d-lg-none navbar-mobile-header">
+        <h2 class="navbar-mobile-title">Menú</h2>
+        <button type="button" class="navbar-close-btn" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-label="Cerrar menú">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <!-- Barra de búsqueda móvil -->
+        <form class="d-lg-none w-100 px-3 mt-3 mb-2" role="search" action="buscar.html" method="get">
+          <div class="input-group">
+            <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q">
+            <button class="btn btn-primary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Elementos del menú -->
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/index.html">
+            <i class="bi bi-house-door me-2 d-lg-none"></i>Inicio
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/Transparencia y acceso a la información Publica.html">
+            <i class="bi bi-file-earmark-text me-2 d-lg-none"></i>Transparencia y Acceso a la Información
+          </a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex justify-content-between align-items-center" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span><i class="bi bi-heart-pulse me-2 d-lg-none"></i>Atención y Servicios a la Ciudadanía</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
+            <li><a class="dropdown-item" href="/Urgencias.html"><i class="bi bi-ambulance me-2"></i>Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html"><i class="bi bi-calendar-check me-2"></i>Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta-externa.html"><i class="bi bi-clipboard-pulse me-2"></i>Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/Cuidado oral.html"><i class="bi bi-tooth me-2"></i>Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/Diagnóstico.html"><i class="bi bi-clipboard2-pulse me-2"></i>Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/hospitalizacion.html"><i class="bi bi-hospital me-2"></i>Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/labarotario.html"><i class="bi bi-droplet me-2"></i>Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html"><i class="bi bi-gender-female me-2"></i>Partos</a></li>
+            <li><a class="dropdown-item" href="/Promoción prevención.html"><i class="bi bi-shield-plus me-2"></i>Promoción y Prevención</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/Participa.html">
+            <i class="bi bi-people me-2 d-lg-none"></i>Participa
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/Normatividad.html">
+            <i class="bi bi-journal-text me-2 d-lg-none"></i>Normatividad
+          </a>
+        </li>
+      </ul>
+      
+      <!-- Información de contacto en móviles -->
+      <div class="d-lg-none mt-auto p-3 border-top">
+        <h5 class="text-uppercase text-muted mb-3">Contacto</h5>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2">
+            <a href="tel:+576028912317" class="text-decoration-none text-dark">
+              <i class="bi bi-telephone me-2"></i>PBX: 602 891 2317
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">
+              <i class="bi bi-envelope me-2"></i>ventanillaunica@hdsa.gov.co
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="https://wa.me/573001234567" target="_blank" class="text-decoration-none text-dark">
+              <i class="bi bi-whatsapp me-2"></i>WhatsApp
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -17,135 +17,8 @@
 </head>
 
 <body>
-<!-- BARRA SUPERIOR -->
-<div class="top-bar">
-  <div class="container-fluid d-flex align-items-center justify-content-between">
-    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none gov-link">
-      <img src="/imagenes/logo gov.png" alt="Logo de GOV.CO" class="gov-logo">
-    </a>
-    <div id="google_translate_element" class="translate-widget"></div>
-  </div>
-</div>
-
-<!-- Barra de navegación principal -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container-fluid">
-    <div class="nav-top d-flex align-items-center w-100">
-      <!-- Logo y nombre del hospital -->
-      <a class="navbar-brand me-2 me-lg-3" href="/index.html">
-        <div class="brand-container">
-          <img src="/imagenes/coporativo 5.png" alt="Hospital Departamental San Antonio" class="hospital-logo">
-          <div class="brand-text">
-            <span class="hospital-name">Hospital Departamental</span>
-            <span class="hospital-location">San Antonio</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Botón de menú móvil -->
-      <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Menú de navegación">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Barra de búsqueda (desktop) en la fila superior -->
-      <form class="d-none d-md-flex ms-3 ms-lg-auto search-form" role="search" action="buscar.html" method="get">
-        <div class="input-group">
-          <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q" id="search-input">
-          <button class="btn" type="submit">
-            <i class="bi bi-search" aria-hidden="true"></i>
-            <span class="visually-hidden">Buscar</span>
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Menú de navegación (colapsable) en su propia fila inferior -->
-    <div class="collapse navbar-collapse nav-bottom w-100" id="navbarHospital">
-      <!-- Encabezado del menú móvil -->
-      <div class="d-lg-none navbar-mobile-header">
-        <h2 class="navbar-mobile-title">Menú</h2>
-        <button type="button" class="navbar-close-btn" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-label="Cerrar menú">
-          <i class="bi bi-x-lg"></i>
-        </button>
-        <!-- Barra de búsqueda móvil -->
-        <form class="d-lg-none w-100 px-3 mt-3 mb-2" role="search" action="buscar.html" method="get">
-          <div class="input-group">
-            <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q">
-            <button class="btn btn-primary" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </form>
-      </div>
-      
-      <!-- Elementos del menú -->
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/index.html">
-            <i class="bi bi-house-door me-2 d-lg-none"></i>Inicio
-          </a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/Transparencia y acceso a la información Publica.html">
-            <i class="bi bi-file-earmark-text me-2 d-lg-none"></i>Transparencia y Acceso a la Información
-          </a>
-        </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex justify-content-between align-items-center" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span><i class="bi bi-heart-pulse me-2 d-lg-none"></i>Atención y Servicios a la Ciudadanía</span>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item" href="/Urgencias.html"><i class="bi bi-ambulance me-2"></i>Urgencias 24/7</a></li>
-            <li><a class="dropdown-item" href="/citasmedicas.html"><i class="bi bi-calendar-check me-2"></i>Citas médicas</a></li>
-            <li><a class="dropdown-item" href="/consulta-externa.html"><i class="bi bi-clipboard-pulse me-2"></i>Consulta externa</a></li>
-            <li><a class="dropdown-item" href="/Cuidado oral.html"><i class="bi bi-tooth me-2"></i>Cuidado Oral</a></li>
-            <li><a class="dropdown-item" href="/Diagnóstico.html"><i class="bi bi-clipboard2-pulse me-2"></i>Diagnóstico</a></li>
-            <li><a class="dropdown-item" href="/hospitalizacion.html"><i class="bi bi-hospital me-2"></i>Hospitalización</a></li>
-            <li><a class="dropdown-item" href="/labarotario.html"><i class="bi bi-droplet me-2"></i>Laboratorio</a></li>
-            <li><a class="dropdown-item" href="/partos.html"><i class="bi bi-gender-female me-2"></i>Partos</a></li>
-            <li><a class="dropdown-item" href="/Promoción prevención.html"><i class="bi bi-shield-plus me-2"></i>Promoción y Prevención</a></li>
-          </ul>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/Participa.html">
-            <i class="bi bi-people me-2 d-lg-none"></i>Participa
-          </a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/Normatividad.html">
-            <i class="bi bi-journal-text me-2 d-lg-none"></i>Normatividad
-          </a>
-        </li>
-      </ul>
-      
-      <!-- Información de contacto en móviles -->
-      <div class="d-lg-none mt-auto p-3 border-top">
-        <h5 class="text-uppercase text-muted mb-3">Contacto</h5>
-        <ul class="list-unstyled mb-0">
-          <li class="mb-2">
-            <a href="tel:+576028912317" class="text-decoration-none text-dark">
-              <i class="bi bi-telephone me-2"></i>PBX: 602 891 2317
-            </a>
-          </li>
-          <li class="mb-2">
-            <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">
-              <i class="bi bi-envelope me-2"></i>ventanillaunica@hdsa.gov.co
-            </a>
-          </li>
-          <li class="mb-2">
-            <a href="https://wa.me/573001234567" target="_blank" class="text-decoration-none text-dark">
-              <i class="bi bi-whatsapp me-2"></i>WhatsApp
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav>
+<!-- Header incluido -->
+<div data-include="/partials/header.html"></div>
 
 <main class="main-content p-0">
   <h1 class="visually-hidden">Hospital Departamental San Antonio — Sitio Oficial</h1>
@@ -199,86 +72,72 @@
   <p>Descubre los principales servicios que ofrece el Hospital Departamental San Antonio, diseñados para cuidar tu salud con la más alta calidad y un enfoque humano.</p>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/urgencias-640x440.jpg" class="card-img-top" alt="Imagen de Urgencias">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-primary">Urgencias 24/7</h5>
-          <p class="card-text text-muted">Atención inmediata para emergencias médicas en cualquier momento, garantizando una respuesta rápida y efectiva.</p>
-          <div class="mt-auto">
-            <a href="/Urgencias.html" class="btn btn-primary btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/urgencias-640x440.jpg" class="card-background-img" alt="Imagen de Urgencias">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Urgencias 24/7</h5>
+          <p class="card-text">Atención inmediata para emergencias médicas, garantizando una respuesta rápida y efectiva.</p>
+          <a href="/Urgencias.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/odontologia.jpg" class="card-img-top" alt="Imagen de Cuidado Oral">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-success">Cuidado Oral</h5>
-          <p class="card-text text-muted">Servicios odontológicos completos para mantener tu salud bucal en óptimas condiciones, desde revisiones hasta tratamientos especializados.</p>
-          <div class="mt-auto">
-            <a href="/Cuidado oral.html" class="btn btn-success btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/odontologia.jpg" class="card-background-img" alt="Imagen de Cuidado Oral">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Cuidado Oral</h5>
+          <p class="card-text">Servicios odontológicos completos para mantener tu salud bucal en óptimas condiciones.</p>
+          <a href="/Cuidado oral.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/diagnostico.jpg" class="card-img-top" alt="Imagen de Diagnóstico">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-warning">Diagnóstico</h5>
-          <p class="card-text text-muted">Contamos con tecnología de vanguardia para diagnósticos precisos y oportunos, esenciales para un tratamiento efectivo.</p>
-          <div class="mt-auto">
-            <a href="/Diagnóstico.html" class="btn btn-warning btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/diagnostico.jpg" class="card-background-img" alt="Imagen de Diagnóstico">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Diagnóstico</h5>
+          <p class="card-text">Tecnología de vanguardia para diagnósticos precisos y oportunos, esenciales para un tratamiento efectivo.</p>
+          <a href="/Diagnóstico.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/hospitalizacion.jpg" class="card-img-top" alt="Imagen de Hospitalización">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-danger">Hospitalización</h5>
-          <p class="card-text text-muted">Instalaciones cómodas y seguras para la recuperación de nuestros pacientes, con atención constante de nuestro personal médico.</p>
-          <div class="mt-auto">
-            <a href="/hospitalizacion.html" class="btn btn-danger btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/hospitalizacion.jpg" class="card-background-img" alt="Imagen de Hospitalización">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Hospitalización</h5>
+          <p class="card-text">Instalaciones cómodas y seguras para la recuperación de pacientes, con atención constante.</p>
+          <a href="/hospitalizacion.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/laboratorio.jpg" class="card-img-top" alt="Imagen de Laboratorio">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-purple">Laboratorio</h5>
-          <p class="card-text text-muted">Análisis clínicos y patológicos con resultados confiables y rápidos, fundamentales para el diagnóstico y seguimiento de tu salud.</p>
-          <div class="mt-auto">
-            <a href="/labarotario.html" class="btn btn-purple btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/laboratorio.jpg" class="card-background-img" alt="Imagen de Laboratorio">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Laboratorio</h5>
+          <p class="card-text">Análisis clínicos con resultados confiables y rápidos para el diagnóstico y seguimiento de tu salud.</p>
+          <a href="/labarotario.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/Partos.jpg" class="card-img-top" alt="Imagen de Partos">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-orange">Partos</h5>
-          <p class="card-text text-muted">Acompañamiento profesional y un ambiente seguro para el nacimiento de tu bebé, con el cuidado que merecen madre e hijo.</p>
-          <div class="mt-auto">
-            <a href="/partos.html" class="btn btn-orange btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/Partos.jpg" class="card-background-img" alt="Imagen de Partos">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Partos</h5>
+          <p class="card-text">Acompañamiento profesional y un ambiente seguro para el nacimiento de tu bebé.</p>
+          <a href="/partos.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <img src="/imagenes/promoción y prevención.jpg" class="card-img-top" alt="Imagen de Promoción y Prevención">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold text-info">Promoción y Prevención</h5>
-          <p class="card-text text-muted">Programas y actividades para fomentar hábitos de vida saludables y prevenir enfermedades en nuestra comunidad.</p>
-          <div class="mt-auto">
-            <a href="/Promoción prevención.html" class="btn btn-info btn-hover-animate">Más información <i class="bi bi-arrow-right"></i></a>
-          </div>
+      <div class="card h-100 text-white overflow-hidden shadow-sm border-0 servicios">
+        <img src="/imagenes/promoción y prevención.jpg" class="card-background-img" alt="Imagen de Promoción y Prevención">
+        <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+          <h5 class="card-title">Promoción y Prevención</h5>
+          <p class="card-text">Programas para fomentar hábitos de vida saludables y prevenir enfermedades en la comunidad.</p>
+          <a href="/Promoción prevención.html" class="btn btn-overlay stretched-link mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -809,63 +668,16 @@
   </button>
 </div>
 
-<footer>
+<!-- Footer incluido -->
+<div data-include="/partials/footer.html"></div>
 
-<!-- Tarjeta institucional-->
-<div class="container mb-5 footer-institutional-card-container">
-  <div class="card shadow-lg border-0 mx-auto footer-institutional-card">
-    <div class="card-body py-5 px-5">
-      <div class="row align-items-center">
-        <div class="col-md-7">
-          <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
-          <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
-          <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
-            <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
-            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
-            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
-            <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
-            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
-            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
-            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
-            <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
-          </ul>
-        </div>
-
-        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
-          <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
-            <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold quicklink-btn"><i class="bi bi-diagram-3 me-2"></i>Mapa del Sitio</a>
-            <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold quicklink-btn"><i class="bi bi-shield-check me-2"></i>Políticas</a>
-            <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold quicklink-btn"><i class="bi bi-telephone me-2"></i>Mecanismos de Contacto</a>
-            <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold quicklink-btn"><i class="bi bi-graph-up me-2"></i>Estadísticas</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
-<div class="gov-final-bar">
-  <div class="container-fluid d-flex align-items-center justify-content-start" style="height:48px;">
-    <a href="https://colombia.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none me-4" style="font-size: 1.25rem;">
-      <img src="/imagenes/logo col.png" alt="Logo Colombia.co" style="height: 32px; margin-right: 12px;">
-      <span style="font-weight: bold; letter-spacing: 1px;"></span>
-    </a>
-    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
-      <img src="/imagenes/logo gov.svg" alt="Logo GOV.CO" style="height: 32px; margin-right: 12px;">
-      <span style="font-weight: bold; letter-spacing: 1px;"></span>
-    </a>
-  </div>
-</div>
-
-
-</footer>
-
+<!-- Scripts -->
+<script src="/js/includes.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/busqueda.js"></script>
 <script src="/js/accesibilidad.js"></script>
-<script src="/js/mobile-menu.js"></script>
 <script src="/js/navbar-enhanced.js"></script>
+<script src="/js/mobile-menu.js"></script>
+<script src="/js/accessibility-styles.js"></script>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
