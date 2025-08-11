@@ -21,9 +21,9 @@
     <link rel="stylesheet" href="/css/fullwidth-carousel.css" />
    </head>
 
- <body>
- 
-  <div data-include="/partials/header.html"></div>
+  <body>
+
+   <div id="header-placeholder"></div>
 
 <!-- Hero Section -->
 <div class="container-fluid p-0 mb-5">
@@ -33,9 +33,9 @@
       <div class="container">
       <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/index.html" class="text-white"></a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-white"></a></li>
-            <li class="breadcrumb-item active text-white" aria-current="page"></li>
+            <li class="breadcrumb-item"><a href="/index.html" class="text-white">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/servicios.html" class="text-white">Servicios</a></li>
+            <li class="breadcrumb-item active text-white" aria-current="page">Consulta Externa</li>
           </ol>
         </nav>
       </div>
@@ -73,8 +73,7 @@
                 </div>
                 <div>
                   <h5 class="fw-bold">Contacto</h5>
-                  <p class="mb-0">Teléfono:602 891 2317<br>
-                  Extensión: 1234</p>
+                  <p class="mb-0">PBX: 602 891 2317</p>
                 </div>
               </div>
             </div>
@@ -211,8 +210,7 @@
           <hr>
           <h5 class="card-title fw-bold">Contacto</h5>
           <p class="card-text">
-            <i class="bi bi-telephone me-2 text-primary"></i> (601) 555-1234<br>
-            <i class="bi bi-telephone-plus me-2 text-primary"></i> Extensión: 1234<br>
+            <i class="bi bi-telephone me-2 text-primary"></i> PBX: 602 891 2317<br>
             <i class="bi bi-envelope me-2 text-primary"></i> consulta.externa@hospitalsanantonio.gov.co
           </p>
           <hr>
@@ -221,9 +219,6 @@
             <i class="bi bi-geo-alt me-2 text-primary"></i> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca<br>
             
           </p>
-          <a href="#ubicacion" class="btn btn-primary w-100 mt-2">
-            <i class="bi bi-geo-alt me-2"></i>Ver en el Mapa
-          </a>
         </div>
       </div>
       
@@ -342,9 +337,21 @@
             <div class="alert alert-warning mt-4">
               <i class="bi bi-exclamation-triangle-fill me-2"></i>
               <strong>Nota:</strong> En caso de no presentar la documentación requerida, su atención podría verse retrasada o reprogramada.
- </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
- 
+<section class="py-5" id="preguntas-frecuentes">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color: #164443;">Preguntas Frecuentes</h2>
+      <p class="text-muted">Encuentra respuestas a las preguntas más comunes sobre nuestro servicio de consulta externa</p>
+    </div>
+
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="accordion" id="faqConsultaExterna">
@@ -358,7 +365,7 @@
               <div class="accordion-body">
                 Puede agendar su cita a través de los siguientes canales:
                 <ul class="mt-2">
-                  <li>Llamando a nuestra línea de atención al (601) 555-1234</li>
+                  <li>Llamando a nuestra línea de atención al PBX: 602 891 2317</li>
                   <li>Visitando nuestra página web en la sección de "Citas en Línea"</li>
                   <li>De manera presencial en nuestras oficinas de atención al usuario</li>
                 </ul>
@@ -423,9 +430,9 @@
   </div>
 </section>
 
- <div data-include="/partials/footer.html"></div>
+ <div id="footer-placeholder"></div>
 
- <script src="/js/includes.js"></script>
+ <script src="/js/layout.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
  </body>
  </html>
