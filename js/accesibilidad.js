@@ -217,4 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('Accesibilidad inicializada correctamente'); // Debug
+    // Exponer bandera global para evitar conflictos con otros scripts
+    window.ACCESSIBILITY_MANAGED = true;
 });

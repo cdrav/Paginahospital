@@ -13,10 +13,86 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.querySelector('.search-form .form-control');
   const searchButton = document.querySelector('.search-form .btn');
   const actionButtons = document.querySelectorAll('.action-button');
+  const navContainer = document.querySelector('.navbar .navbar-nav');
   
   // Verificar si el menú móvil ya está activo
   const isMobileMenuActive = document.querySelector('.navbar-toggler') !== null;
   
+  // Normalizar y ordenar elementos del menú según orden esperado
+  function normalizeNavbar() {
+    if (!navContainer) return;
+
+    // Orden deseado (después de Inicio): Transparencia, Atención, Participa, Normatividad
+    const desired = [
+      { key: 'inicio', match: (a) => /\/index\.html$/i.test(a.getAttribute('href') || '') || a.textContent.trim().toLowerCase().startsWith('inicio'), build: () => null },
+      { key: 'transparencia', match: (a) => (a.textContent || '').toLowerCase().includes('transparencia') || /Transparencia y acceso a la información Publica\.html$/i.test(a.getAttribute('href') || ''), build: () => {
+          const li = document.createElement('li');
+          li.className = 'nav-item';
+          const a = document.createElement('a');
+          a.className = 'nav-link';
+          a.href = '/Transparencia y acceso a la información Publica.html';
+          a.textContent = 'Transparencia y Acceso a la Información';
+          li.appendChild(a); return li;
+        }
+      },
+      { key: 'atencion', match: (a) => (a.textContent || '').toLowerCase().includes('atención') || (a.textContent || '').toLowerCase().includes('servicios a la ciudadanía'), build: () => null },
+      { key: 'participa', match: (a) => (a.textContent || '').toLowerCase().includes('participa') || /\/Participa\.html$/i.test(a.getAttribute('href') || ''), build: () => {
+          const li = document.createElement('li');
+          li.className = 'nav-item';
+          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/Participa.html'; a.textContent = 'Participa'; li.appendChild(a); return li; }
+      },
+      { key: 'normatividad', match: (a) => (a.textContent || '').toLowerCase().includes('normatividad') || /\/Normatividad\.html$/i.test(a.getAttribute('href') || ''), build: () => {
+          const li = document.createElement('li');
+          li.className = 'nav-item';
+          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/Normatividad.html'; a.textContent = 'Normatividad'; li.appendChild(a); return li; }
+      }
+    ];
+
+    // Obtener items actuales
+    const items = Array.from(navContainer.children);
+
+    // Utilidad: obtener li por match de su <a>
+    function findItemBy(matchFn) {
+      return items.find(li => {
+        const a = li.querySelector('a.nav-link, a.dropdown-toggle, a');
+        return a ? matchFn(a) : false;
+      });
+    }
+
+    // Asegurar que Transparencia NO sea dropdown: si existe dropdown con texto transparencia, reemplazar por link simple
+    const transparenciaDropdown = items.find(li => li.classList.contains('dropdown') && /transparencia/i.test(li.textContent || ''));
+    if (transparenciaDropdown) transparenciaDropdown.remove();
+
+    // Construir nuevo orden
+    const newOrder = [];
+    desired.forEach((def, idx) => {
+      if (def.key === 'inicio') {
+        const liInicio = findItemBy(def.match);
+        if (liInicio) newOrder.push(liInicio);
+        return;
+      }
+      const existing = findItemBy(def.match);
+      if (existing) {
+        // Si era dropdown y es Transparencia, ignorado arriba. Para otros casos, conservar tal cual (p.ej., Atención)
+        newOrder.push(existing);
+      } else if (def.build) {
+        newOrder.push(def.build());
+      }
+    });
+
+    // Añadir cualquier otro item que exista y no esté en la lista (evita perder vínculos extra)
+    items.forEach(li => { if (!newOrder.includes(li)) newOrder.push(li); });
+
+    // Reemplazar contenido del UL
+    const frag = document.createDocumentFragment();
+    newOrder.forEach(li => { if (li) frag.appendChild(li); });
+    navContainer.innerHTML = '';
+    navContainer.appendChild(frag);
+  }
+
+  // Ejecutar normalización antes de inicializar dropdowns y listeners
+  normalizeNavbar();
+
   // Efecto de scroll en la barra de navegación
   function handleScroll() {
     if (window.scrollY > 50) {
@@ -106,12 +182,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Mejorar la búsqueda
   if (searchForm) {
-    searchForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (searchInput.value.trim() !== '') {
-        // Aquí iría la lógica de búsqueda
-        console.log('Búsqueda realizada:', searchInput.value.trim());
-        // Mostrar animación de carga
+    searchForm.addEventListener('submit', () => {
+      if (searchInput && searchInput.value.trim() !== '') {
+        // Añadir feedback visual sin interferir con la navegación/redirección
         searchForm.classList.add('loading');
         setTimeout(() => {
           searchForm.classList.remove('loading');
@@ -149,10 +222,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mejorar la accesibilidad del menú móvil
   if (isMobileMenuActive) {
     const mobileMenuToggler = document.querySelector('.navbar-toggler');
+    const collapseEl = document.querySelector('.navbar-collapse');
     if (mobileMenuToggler) {
       mobileMenuToggler.setAttribute('aria-label', 'Menú de navegación');
       mobileMenuToggler.setAttribute('aria-expanded', 'false');
-      mobileMenuToggler.setAttribute('aria-controls', 'navbarNav');
+      if (collapseEl && collapseEl.id) {
+        mobileMenuToggler.setAttribute('aria-controls', collapseEl.id);
+      }
     }
   }
   

@@ -16,14 +16,16 @@ const searchConfig = {
     
     // Configura el formulario de búsqueda
     setupSearchForm: function() {
-        const searchForm = document.querySelector('form[action="/buscar"]');
+        // Soporta formularios con clase .search-form o action que termine en buscar.html
+        const searchForm = document.querySelector('form.search-form, form[action$="buscar.html"]');
         if (searchForm) {
             searchForm.addEventListener('submit', (e) => {
+                const input = searchForm.querySelector('input[name="q"]');
+                const searchTerm = input ? input.value.trim() : '';
+                if (!searchTerm) { return; }
+                // Interceptar para usar navegación amigable
                 e.preventDefault();
-                const searchTerm = searchForm.querySelector('input[name="q"]').value.trim();
-                if (searchTerm) {
-                    this.performSearch(searchTerm);
-                }
+                this.performSearch(searchTerm);
             });
         }
     },
