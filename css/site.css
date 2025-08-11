@@ -221,6 +221,46 @@ section > p {
 .hover-card { transition: transform .2s ease, box-shadow .2s ease; }
 .hover-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.12); }
 
+/* Enlaces de interés: cajas de logos institucionales (reemplazo de estilos inline) */
+.institution-logo-box {
+  width: 120px;
+  height: 120px;
+  background: #ffffff;
+  border: 4px solid transparent;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 12px;
+}
+.institution-logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.institution-logo-box.is-green { border-color: #28a745; box-shadow: 0 8px 24px rgba(40,167,69,0.15); }
+.institution-logo-box.is-red { border-color: #dc3545; box-shadow: 0 8px 24px rgba(220,53,69,0.15); }
+.institution-logo-box.is-blue { border-color: #007bff; box-shadow: 0 8px 24px rgba(0,123,255,0.15); }
+.institution-logo-box.is-blue2 { border-color: #3366cc; box-shadow: 0 8px 24px rgba(51,102,204,0.15); }
+.institution-logo-box.is-gray { border-color: #6c757d; box-shadow: 0 8px 24px rgba(108,117,125,0.15); }
+.institution-logo-box.is-success { border-color: #198754; box-shadow: 0 8px 24px rgba(25,135,84,0.15); }
+.institution-logo-box.pad-8 { padding: 8px; }
+
+/* Controles del carrusel de enlaces (reemplazo de estilos inline) */
+.enlaces-control { width: 5%; }
+.enlaces-control.prev { left: -50px; }
+.enlaces-control.next { right: -50px; }
+.control-circle {
+  background: rgba(22, 68, 67, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* FAQ acordeón: confiar en Bootstrap, solo pequeños ajustes */
 .accordion-button { font-family: 'Work Sans', 'Poppins', sans-serif; font-weight: 700; }
 .accordion-button:not(.collapsed) { color: var(--color-primario); background: #e9f4f2; }
@@ -229,12 +269,11 @@ section > p {
 .text-primary { color: var(--color-primario) !important; }
 .bg-light { background: #f8f9fa !important; }
 
-/* Ajustes responsivos generales */
 @media (max-width: 767.98px) {
   .search-form { display: none !important; }
 }
 
-/* Botones de accesibilidad (migrado desde JS) */
+/* Botones de accesibilidad  */
 .accessibility-buttons-container {
   position: fixed;
   top: 60%;
@@ -266,7 +305,6 @@ section > p {
 
 /* =====================================================
    Accesibilidad mínima (botonera y modos de contraste)
-   Consolidado desde accesibilidad.css y accessibility-buttons.css
    ===================================================== */
 
 /* Contenedor flotante de botones de accesibilidad */
@@ -398,4 +436,26 @@ section > p {
 .alto-contraste .card-img-top, .modo-oscuro .card-img-top, .modo-sepia .card-img-top,
 .alto-contraste .carousel-item img, .modo-oscuro .carousel-item img, .modo-sepia .carousel-item img {
   filter: none !important; -webkit-filter: none !important;
+}
+
+/* =====================================================
+   Estilos del Footer y Barra Final
+   ===================================================== */
+
+/* Tarjeta institucional en el footer */
+.footer-institutional-card {
+  max-width: 900px;
+  border-radius: 2rem;
+}
+
+/* Barra final de GOV.CO */
+.gov-final-bar {
+  background-color: #3366cc;
+  min-height: 48px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
