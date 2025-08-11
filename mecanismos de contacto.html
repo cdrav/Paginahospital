@@ -1,316 +1,101 @@
+<!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Laboratorio Clínico - Hospital Departamental San Antonio</title>
-  <meta name="description" content="Laboratorio clínico especializado en el Hospital Departamental San Antonio. Ofrecemos análisis clínicos confiables y oportunos para tu salud.">
-  <meta name="keywords" content="laboratorio clínico, análisis clínicos, exámenes de laboratorio, hospital Roldanillo, Valle del Cauca">
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/carrusel.css" />
-  <link rel="stylesheet" href="/css/accesibilidad.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#164443">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Hospital Departamental San Antonio</title>
+    <meta name="description" content="Sitio web oficial del Hospital Departamental San Antonio. Brindamos servicios de salud con calidad y calidez humana.">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/carrusel.css" />
+    <link rel="stylesheet" href="/css/accesibilidad.css?v=1.1" />
+    <link rel="stylesheet" href="/css/accessibility-buttons.css" />
+   <link rel="stylesheet" href="/css/fullwidth-carousel.css" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+   </head>
 <body>
 
-<!-- BARRA SUPERIOR -->
-<div style="background-color: #3366cc; min-height: 48px; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;" class="d-flex align-items-center px-3 px-md-5 top-bar">
-  <div class="container-fluid d-flex align-items-center justify-content-between" style="height:48px;">
-    <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none" style="font-size: 1.25rem;">
-      <img src="/imagenes/logo gov.svg" alt="Logo de GOV.CO" style="height: 32px; margin-right: 12px;">
-      <span style="font-weight: bold; letter-spacing: 1px;"></span>
-    </a>
-    <div id="google_translate_element" style="background-color: white; color: #3366cc; border-radius: 6px; padding: 2px 16px; font-weight: bold; font-size: 1.1rem;"></div>
-  </div>
+<!-- Botones de Accesibilidad Mejorados -->
+<div class="accessibility-buttons-container" role="toolbar" aria-label="Herramientas de accesibilidad">
+  <button class="btn btn-outline-primary rounded-circle" 
+          title="Aumentar texto (Ctrl + +)" 
+          aria-label="Aumentar tamaño de texto"
+          data-action="increase-text">
+    <i class="bi bi-zoom-in"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" 
+          title="Reducir texto (Ctrl + -)" 
+          aria-label="Reducir tamaño de texto"
+          data-action="decrease-text">
+    <i class="bi bi-zoom-out"></i>
+  </button>
+  <button id="cambiarcontraste" 
+          class="btn btn-outline-primary rounded-circle" 
+          title="Cambiar contraste" 
+          aria-label="Cambiar esquema de contraste"
+          data-action="change-contrast">
+    <i class="bi bi-brightness-high"></i>
+  </button>
+  <button id="resetContraste" 
+          class="btn btn-outline-primary rounded-circle" 
+          title="Restablecer configuración (Ctrl + 0)" 
+          aria-label="Restablecer Contraste y Texto"
+          data-action="reset-settings">
+    <i class="bi bi-arrow-counterclockwise"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" 
+          title="Centro de relevo para personas sordas" 
+          aria-label="Ir a Centro de relevo"
+          data-action="centro-relevo">
+    <i class="icon-phone"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" 
+          title="Encuesta de Usabilidad y accesibilidad" 
+          aria-label="Acceder a Encuesta de Usabilidad y accesibilidad"
+          data-action="encuesta-accesibilidad">
+    <i class="icon-survey"></i>
+  </button>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark flex-column sticky-top py-0" style="background-color: #164443;">
-  <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2">
-    <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html" style="font-size:2rem; font-weight:900;">
-      <img src="/imagenes/HDSACorporativo_2.jpg" alt="Logo Hospital Departamental San Antonio" style="height:70px; width:auto; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); background:#fff; padding:4px;">
-      <span class="d-none d-md-inline" style="line-height:1.1;">
-        Hospital<br>
-        <span style="font-weight:700;">Departamental San Antonio</span>
-      </span>
-      <span class="d-inline d-md-none" style="font-size:1.1rem; font-weight:700;">San Antonio</span>
-    </a>
-    <form class="d-flex ms-auto me-3" role="search" action="buscar.html" method="get" style="max-width:400px; width:100%;">
-      <div class="input-group">
-        <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q" id="search-input">
-        <button class="btn btn-light" type="submit">
-          <i class="bi bi-search" aria-hidden="true"></i>
-          <span class="visually-hidden">Buscar</span>
-        </button>
-      </div>
-    </form>
-    <button class="navbar-toggler mt-2 mt-md-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarHospital">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Transparencia y acceso a la información Publica.html">Transparencia y acceso a la información Pública</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtencion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Atención y Servicios a la Ciudadanía
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item" href="/Urgencias.html">Urgencias 24/7</a></li>
-            <li><a class="dropdown-item" href="/citasmedicas.html">Citas médicas</a></li>
-            <li><a class="dropdown-item" href="/consulta-externa.html">Consulta externa</a></li>
-            <li><a class="dropdown-item" href="/Cuidado oral.html">Cuidado Oral</a></li>
-            <li><a class="dropdown-item" href="/Diagnóstico.html">Diagnóstico</a></li>
-            <li><a class="dropdown-item" href="/hospitalizacion.html">Hospitalización</a></li>
-            <li><a class="dropdown-item" href="/labarotario.html">Laboratorio</a></li>
-            <li><a class="dropdown-item" href="/partos.html">Partos</a></li>
-            <li><a class="dropdown-item" href="/Promoción prevención.html">Promoción y Prevención</a></li>
+<!-- Tarjeta institucional-->
+<div class="container mb-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px; border-radius: 2rem;">
+    <div class="card-body py-5 px-5">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <h3 class="card-title fw-bold mb-3" style="color:#069681; font-size: 2.3rem; letter-spacing: -1px;">Hospital Departamental San Antonio</h3>
+          <p class="mb-4 text-muted" style="font-size:1.15rem;">¡Tu salud, nuestra prioridad! Atención médica integral y humana en el Norte del Valle.</p>
+          <ul class="list-unstyled mb-0 text-start" style="font-size:1.08rem;">
+            <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary fs-5"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Email:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co" class="text-decoration-none text-dark">ventanillaunica@hdsa.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary fs-5"></i><strong>Correo de Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="text-decoration-none text-dark">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary fs-5"></i><strong>PBX:</strong> 602 891 2317</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Horario:</strong> Lunes a Viernes 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
+            <li class="mb-2"><i class="bi bi-clock-fill me-2 text-primary fs-5"></i><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
+            <li><i class="bi bi-globe2 me-2 text-primary fs-5"></i><strong>Web:</strong> <a href="https://hdsa.gov.co/" class="text-decoration-none" target="_blank">hdsa.gov.co</a></li>
           </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="/Participa.html">Participa</a></li>
-        <li class="nav-item"><a class="nav-link" href="/Normatividad.html">Normatividad</a></li>
-      </ul>
+        </div>
+
+        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center mt-4 mt-md-0">
+          <div class="d-flex flex-wrap justify-content-center gap-3 w-100">
+            <a href="/Mapa del sitio.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mapa del Sitio</a>
+            <a href="/Politicas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Políticas</a>
+            <a href="/Mecanismos de contacto.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Mecanismos de Contacto</a>
+            <a href="/Estadisticas.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-bold">Estadísticas</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
-
-
-<div class="accessibility-buttons-container">
-    <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto">
-      <i class="bi bi-plus-circle" style="font-size: 1.6rem;"></i>
-    </button>
-    <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto">
-      <i class="bi bi-dash-circle" style="font-size: 1.6rem;"></i>
-    </button>
-    <button id="resetContraste" class="btn btn-outline-primary rounded-circle" title="Restablecer Contraste y Texto" aria-label="Restablecer Contraste y Texto">
-      <i class="bi bi-arrow-clockwise" style="font-size: 1.6rem;"></i>
-    </button>
-    <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Ir a Centro de relevo">
-      <i class="bi bi-telephone" style="font-size: 1.6rem;"></i>
-    </button>
-    <button class="btn btn-outline-primary rounded-circle" title="Encuesta de Usabilidad y accesibilidad" aria-label="Acceder a Encuesta de Usabilidad y accesibilidad">
-      <i class="bi bi-clipboard-data" style="font-size: 1.6rem;"></i>
-    </button>
-    <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste">
-      <i class="bi bi-circle-half" style="font-size: 1.6rem;"></i>
-    </button>
-  </div>
-
-  <!-- Contenido Principal -->
-  <main class="container my-5">
-    <h1 class="text-center mb-5 fw-bold" style="color: #069681;">Mecanismos de Contacto</h1>
-    
-    <!-- Mecanismos para la atención al ciudadano -->
-    <div class="card shadow-sm mb-4 border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-people-fill me-2" style="color: #069681;"></i>Mecanismos para la Atención al Ciudadano</h2>
-      </div>
-      <div class="card-body">
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="p-3 border rounded h-100">
-              <h3 class="h5 fw-bold"><i class="bi bi-telephone-fill me-2 text-primary"></i>Líneas de Atención</h3>
-              <ul class="list-unstyled">
-                <li class="mb-2"><strong>PBX:</strong> 602 891 2317</li>
-                <li class="mb-2"><strong>Atención al Usuario:</strong> Ext. 123</li>
-                <li class="mb-2"><strong>PQRD:</strong> Ext. 124</li>
-                <li><strong>Emergencias:</strong> 123</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="p-3 border rounded h-100">
-              <h3 class="h5 fw-bold"><i class="bi bi-envelope-fill me-2 text-primary"></i>Correos Electrónicos</h3>
-              <ul class="list-unstyled">
-                <li class="mb-2"><strong>Notificaciones Judiciales:</strong> <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co">notificacionesjudiciales@hospitalroldanillo.gov.co</a></li>
-                <li class="mb-2"><strong>Atención al Usuario:</strong> <a href="mailto:atencionalusuario@hdsa.gov.co">atencionalusuario@hdsa.gov.co</a></li>
-                <li><strong>PQRD:</strong> <a href="mailto:pqr@hdsa.gov.co">pqr@hdsa.gov.co</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Atención en línea -->
-    <div class="card shadow-sm mb-4 border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-laptop me-2" style="color: #069681;"></i>Atención en Línea</h2>
-      </div>
-      <div class="card-body">
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="p-3 border rounded h-100">
-              <h3 class="h5 fw-bold"><i class="bi bi-chat-dots-fill me-2 text-primary"></i>Chat en Vivo</h3>
-              <p>Disponible de lunes a viernes de 7:00 a.m. a 6:00 p.m.</p>
-              <button class="btn btn-primary">Iniciar Chat</button>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="p-3 border rounded h-100">
-              <h3 class="h5 fw-bold"><i class="bi bi-calendar-check-fill me-2 text-primary"></i>Agenda tu Cita</h3>
-              <p>Agenda tus citas médicas de manera rápida y sencilla.</p>
-              <a href="/citasmedicas.html" class="btn btn-outline-primary">Agendar Cita</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quejas, Reclamos y Sugerencias -->
-    <div class="card shadow-sm mb-4 border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-chat-square-text-fill me-2" style="color: #069681;"></i>Quejas, Reclamos y Sugerencias</h2>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-8 mx-auto">
-            <div class="p-4 border rounded text-center">
-              <p class="mb-4">Su opinión es importante para mejorar nuestro servicio. Por favor complete el siguiente formulario:</p>
-              <a href="/formulario-pqrs.html" class="btn btn-primary btn-lg">Presentar PQRD</a>
-              <p class="mt-3 small text-muted">Recibirá respuesta en un plazo máximo de 15 días hábiles.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Localización y Horarios -->
-    <div class="card shadow-sm mb-4 border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-geo-alt-fill me-2" style="color: #069681;"></i>Localización y Horarios</h2>
-      </div>
-      <div class="card-body">
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="p-3 border rounded h-100">
-              <h3 class="h5 fw-bold"><i class="bi bi-geo-alt me-2 text-primary"></i>Ubicación</h3>
-              <p class="mb-3">Avenida Santander No. 10-50, Roldanillo, Valle del Cauca, Colombia</p>
-              <div class="ratio ratio-16x9">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.258123332259!2d-76.1549879852408!3d4.412923996894982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3a2f44b7f6f3c5%3A0x8c0b1b1b1b1b1b1b1!2sHospital%20Departamental%20San%20Antonio!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="p-3 border rounded h-100">
-              <h3 class="h5 fw-bold"><i class="bi bi-clock-fill me-2 text-primary"></i>Horarios de Atención</h3>
-              <ul class="list-unstyled">
-                <li class="mb-2"><strong>Lunes a Viernes:</strong> 6:00 a.m. - 6:00 p.m.</li>
-                <li class="mb-2"><strong>Sábados:</strong> 6:00 a.m. - 6:00 p.m.</li>
-                <li class="mb-2"><strong>Domingos y Festivos:</strong> Solo Urgencias 24/7</li>
-                <li class="mb-3"><strong>Oficina de Atención al Usuario:</strong> 7:00 a.m. - 5:00 p.m.</li>
-              </ul>
-              <h4 class="h6 fw-bold mt-4">Días Festivos 2024</h4>
-              <p>Cerrados: 1 de enero, 8 de abril, 1 de mayo, 13 de junio, 1 de julio, 7 de agosto, 14 de octubre, 4 de noviembre, 8 de diciembre, 25 de diciembre.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Políticas de Seguridad y Protección de Datos -->
-    <div class="card shadow-sm mb-4 border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-shield-lock-fill me-2" style="color: #069681;"></i>Seguridad de la Información y Protección de Datos</h2>
-      </div>
-      <div class="card-body">
-        <div class="accordion" id="seguridadAccordion">
-          <div class="accordion-item">
-            <h3 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Política de Seguridad de la Información
-              </button>
-            </h3>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#seguridadAccordion">
-              <div class="accordion-body">
-                <p>El Hospital Departamental San Antonio implementa medidas técnicas, administrativas y legales para garantizar la seguridad de la información de nuestros usuarios, en cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013.</p>
-                <a href="/politicas/seguridad-informacion.html" class="btn btn-sm btn-outline-primary">Ver política completa</a>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Tratamiento de Datos Personales
-              </button>
-            </h3>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#seguridadAccordion">
-              <div class="accordion-body">
-                <p>Como titular de sus datos personales, usted tiene derecho a conocer, actualizar, rectificar y suprimir su información, así como a revocar la autorización previamente otorgada para el tratamiento de sus datos personales.</p>
-                <a href="/politicas/tratamiento-datos.html" class="btn btn-sm btn-outline-primary">Más información</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Derechos de los Ciudadanos - Carta de Trato Digno -->
-    <div class="card shadow-sm mb-4 border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-heart-fill me-2" style="color: #069681;"></i>Derechos de los Ciudadanos - Carta de Trato Digno</h2>
-      </div>
-      <div class="card-body">
-        <p>En el Hospital Departamental San Antonio nos comprometemos a brindar un trato digno a todos nuestros usuarios. Usted tiene derecho a:</p>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <ul class="list-group">
-              <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Recibir atención oportuna y de calidad</li>
-              <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Ser tratado con respeto y dignidad</li>
-              <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Recibir información clara y comprensible</li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <ul class="list-group">
-              <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Participar en las decisiones sobre su salud</li>
-              <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Presentar peticiones, quejas o reclamos</li>
-              <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Confidencialidad de su información</li>
-            </ul>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <a href="/documentos/carta-trato-digno.pdf" class="btn btn-outline-primary" target="_blank">
-            <i class="bi bi-download me-2"></i>Descargar Carta de Trato Digno
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Normas y Protocolos de Atención -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-white">
-        <h2 class="h4 mb-0"><i class="bi bi-clipboard2-check-fill me-2" style="color: #069681;"></i>Normas y Protocolos de Atención</h2>
-      </div>
-      <div class="card-body">
-        <p>Nuestros servicios se rigen por los siguientes protocolos y normativas:</p>
-        <div class="list-group mb-4">
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            Protocolo de Atención al Usuario
-            <i class="bi bi-arrow-right"></i>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            Manual de Convivencia Institucional
-            <i class="bi bi-arrow-right"></i>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            Guía de Servicios al Ciudadano
-            <i class="bi bi-arrow-right"></i>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            Protocolo de Seguridad del Paciente
-            <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
-        <div class="alert alert-info">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          Para consultar documentos adicionales, visite nuestra sección de <a href="/normatividad.html" class="alert-link">Normatividad</a>.
-        </div>
-      </div>
-    </div>
-  </main>
+</div>
 
 </footer>
 <!-- BARRA INSTITUCIONAL FINAL CON LOGOS COL Y GOV MÁS ANCHA Y CON ICONOS MÁS GRANDES -->
@@ -329,8 +114,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/busqueda.js"></script>
 <script src="/js/accesibilidad.js"></script>
+<script src="/js/mobile-menu.js"></script>
+<script src="/js/navbar-enhanced.js"></script>
+<script src="/js/accessibility-styles.js"></script>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
-
+  
+  
