@@ -187,7 +187,7 @@ section > p {
 }
 /* Controles discretos en desktop, ocultos en móviles */
 .fullwidth-carousel .carousel-control-prev,
-.fullwidth-carousel .carousel-control-next { filter: drop-shadow(0 2px 6px rgba(0,0,0,.2)); }
+.fullwidth-carousel .carousel-control-next { filter: none; }
 @media (max-width: 768px) {
   .fullwidth-carousel .carousel-control-prev,
   .fullwidth-carousel .carousel-control-next { display: none; }
@@ -199,12 +199,29 @@ section > p {
 
 /* Tarjetas e iconos de servicios */
 .servicios .card {
-  transition: transform .3s ease, box-shadow .3s ease;
-  aspect-ratio: 4/5;
+  border: 3px solid var(--color-secundario); /* Marco verde de la página */
+  border-radius: 20px; /* Esquinas más redondeadas */
+  overflow: hidden;
+  background: #fff; /* Fondo claro para dar protagonismo a la imagen */
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 6px 16px rgba(0,0,0,.08); /* Sombra interior sutil + sombra exterior */
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; /* Animación en la tarjeta, no en la imagen */
+  will-change: transform, box-shadow, border-color;
 }
 .servicios .card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.65), 0 14px 32px rgba(0,0,0,.14), 0 0 0 4px rgba(5,135,114,.10); /* Ring sutil con verde */
+  border-color: #047a67; /* Verde un poco más oscuro al hover */
+}
+
+/* Cambio sutil de color de título en hover de la tarjeta */
+.servicios .card:hover .card-title {
+  color: var(--color-secundario);
+}
+
+/* Accesibilidad: resaltar cuando el contenido interno recibe foco */
+.servicios .card:focus-within {
+  outline: 3px solid #ffbf47; /* Amarillo GOV accesible */
+  outline-offset: 3px;
 }
 .servicios .card-background-img {
   position: absolute;
@@ -213,32 +230,69 @@ section > p {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .4s ease;
+  filter: none; /* Sin filtros para respetar colores originales */
+  transform: none; /* Sin zoom ni transformaciones */
+  transition: none; /* Sin transiciones que alteren la imagen */
+  opacity: 1; /* Imagen completamente visible */
 }
-.servicios .card:hover .card-background-img {
-  transform: scale(1.1);
+
+/* Nueva disposición: imagen arriba y contenido abajo */
+.servicios .card-img-top {
+  width: 100%;
+  height: clamp(220px, 28vw, 340px); /* Altura responsiva dominante */
+  object-fit: cover; /* Protagonismo de la imagen sin deformación */
+  display: block;
+}
+
+.servicios .card-body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+/* Sección de servicios: fondo claro y separación del contenido */
+.servicios-section {
+  background: #f8fbfb;
+  border: 2px solid rgba(5,135,114,.15); /* Borde verde sutil alrededor de la sección */
+  border-radius: 20px;
+  padding: 1rem 1.25rem 1.25rem;
 }
 .servicios .card-img-overlay {
   position: relative;
-  background: linear-gradient(to top, rgba(22, 68, 67, 0.95) 20%, transparent 100%);
+  background: none; /* Sin gradiente sobre la imagen */
 }
 .servicios .card-title {
-  color: #fff;
+  color: #164443; /* Color de marca, legible sobre fondo claro */
   font-weight: 700;
+  font-size: 1.45rem; /* Título más protagonista */
+  margin-bottom: .25rem;
+  line-height: 1.25;
 }
 .servicios .card-text {
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1.25rem;
+  display: inline-block;            /* Caja compacta detrás del texto */
+  background-color: rgba(0,0,0,.55);/* Un poco más claro que el título */
+  padding: .25rem .5rem;            /* Espaciado interno para legibilidad */
+  border-radius: .375rem;           /* Consistencia visual */
+  line-height: 1.35;               /* Mejora lectura en varias líneas */
 }
 .servicios .btn-overlay {
   background-color: var(--color-secundario);
   border-color: var(--color-secundario);
   color: #fff;
+  font-weight: 700;
+  padding: .5rem .9rem;
+  border-radius: .5rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
 }
 .servicios .btn-overlay:hover {
   background-color: #058772;
   border-color: #058772;
+  box-shadow: 0 10px 20px rgba(0,0,0,.16);
 }
+
+/* Micro-animación de la flecha del botón */
+.servicios .btn-overlay i { transition: transform .2s ease; }
+.servicios .btn-overlay:hover i { transform: translateX(3px); }
 .card-subtitle {
   font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 600;
@@ -354,19 +408,19 @@ section > p {
   flex-direction: column;
   gap: 4px;
   padding: 6px 4px;
-  background: var(--color-primario);
+  background: var(--color-primario); /* Contenedor oscuro para contrastar con botones blancos */
   border-radius: 8px 0 0 8px;
   box-shadow: -2px 0 10px rgba(0,0,0,.25);
 }
 
 .accessibility-buttons-container .btn {
-  width: 28px !important;
-  height: 28px !important;
-  border-radius: 4px !important;
-  border: 1px solid rgba(255,255,255,.6) !important;
-  background: rgba(255,255,255,.15) !important;
-  color: #fff !important;
-  font-size: .75rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(0,0,0,.25) !important; /* Borde más notorio */
+  background: #ffffff !important; /* Fondo blanco sólido para máxima legibilidad */
+  color: #164443 !important; /* Íconos en color oscuro de la marca */
+  font-size: 1rem !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -377,14 +431,15 @@ section > p {
 }
 
 .accessibility-buttons-container .btn:hover { 
-  background: rgba(255,255,255,.25) !important; 
+  background: #f1f5f5 !important; 
   transform: translateY(-1px) !important; 
   box-shadow: 0 2px 8px rgba(0,0,0,.25) !important; 
 }
 
 .accessibility-buttons-container .btn:focus { 
-  outline: none !important; 
-  box-shadow: 0 0 0 2px #fff !important; 
+  outline: 3px solid #ffbf47 !important; /* Aro accesible GOV */
+  outline-offset: 2px !important;
+  box-shadow: none !important; 
 }
 
 /* Tooltip simple usando el atributo title */
@@ -427,16 +482,23 @@ section > p {
     gap: 6px;
   }
   .accessibility-buttons-container .btn {
-    width: 26px !important;
-    height: 26px !important;
-    font-size: .7rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    font-size: .95rem !important;
   }
   .accessibility-buttons-container .btn::after {
     top: auto; bottom: 100%; right: 50%; transform: translateX(50%);
     margin-right: 0; margin-bottom: 6px;
   }
 }
-
+/* Iconos más legibles dentro de la barra de accesibilidad */
+.accessibility-buttons-container .btn i {
+  font-size: 1.2rem !important;
+  color: #0b0b0b !important;
+  line-height: 1 !important;
+}
+/* Ajuste de tooltip para mejor legibilidad */
+.accessibility-buttons-container .btn::after { font-size: .8rem; }
 /* ===== Modos de contraste mínimos ===== */
 /* Alto contraste */
 .alto-contraste, .high-contrast {
