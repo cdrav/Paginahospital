@@ -209,6 +209,13 @@
 
     <!-- Contenido principal -->
     <section class="col-lg-8 col-md-7">
+      <!-- Barra de controles del contenido -->
+      <div class="d-flex justify-content-end align-items-center gap-2 mt-2 mb-2">
+        <button id="view-mode-toggle" type="button" class="btn btn-outline-brand btn-sm rounded-pill" title="Alternar entre ver todo el contenido o solo la sección activa">
+          <!-- El texto se establece dinámicamente desde js/transparencia.js -->
+          Cargando…
+        </button>
+      </div>
       <!-- Contenedor dinámico para Misión, Visión, Valores y Eslogan -->
       <div id="mvve-container" class="py-4" data-src="/partials/mision-vision-valores.html"></div>
 
@@ -312,22 +319,394 @@
 
       <section id="directorio-entidades" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
-          <h3 class="h5 fw-bold mb-2"><i class="bi bi-building me-2"></i>1.6 Directorio de Entidades</h3>
-          <p class="text-muted mb-0">Próximamente: enlaces y datos de contacto.</p>
+          <h3 class="h5 fw-bold mb-3"><i class="bi bi-building me-2"></i>1.6 Directorio de Entidades</h3>
+          <p class="text-muted">Información de contacto de las entidades aliadas</a>. Para precisión, se remite al sitio oficial.</p>
+
+          <div class="row g-3">
+            <!-- Alcaldía de Roldanillo -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Alcaldía de Roldanillo</h4>
+                    <div class="small text-muted mb-2">Portal oficial municipal</div>
+                  </div>
+                  <a href="https://www.roldanillo-valle.gov.co/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfono:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Gobernación del Valle del Cauca -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Gobernación del Valle del Cauca</h4>
+                    <div class="small text-muted mb-2">Gobierno Departamental</div>
+                  </div>
+                  <a href="https://www.valledelcauca.gov.co/publicaciones/60066/contactenos/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Contacto</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfonos:</strong> PBX +57 (602) 620 0000 · Línea gratuita 01 8000 972033</li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> contactenos@valledelcauca.gov.co</li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Carrera 6 entre calles 9 y 10, Edificio Palacio de San Francisco, Cali</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Supersalud -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Superintendencia Nacional de Salud (Supersalud)</h4>
+                    <div class="small text-muted mb-2">Atención al ciudadano</div>
+                  </div>
+                  <a href="https://www.supersalud.gov.co/es-co/atencion-ciudadano/contactenos" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Contáctenos</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfonos:</strong> Conmutador +57 601 722 4000 · Línea gratuita 01 8000 513 700</li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correos:</strong> snsnotificacionesjudiciales@supersalud.gov.co · snstutelas@supersalud.gov.co</li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Carrera 68A N.º 24B-10, Torre 3, Ed. Plaza Claro, Bogotá D.C.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- GOV.CO -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">GOV.CO – Portal Único del Estado</h4>
+                    <div class="small text-muted mb-2">Portal nacional</div>
+                  </div>
+                  <a href="https://www.gov.co/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfono:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Procuraduría General de la Nación -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Procuraduría General de la Nación</h4>
+                    <div class="small text-muted mb-2">Atención a la ciudadanía</div>
+                  </div>
+                  <a href="https://www.procuraduria.gov.co/Pages/Inicio.aspx" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfono:</strong> <span class="text-muted">Consultar en contacto oficial</span></li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> <span class="text-muted">Consultar en contacto oficial</span></li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> <span class="text-muted">Consultar en contacto oficial</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Contraloría General de la República -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Contraloría General de la República</h4>
+                    <div class="small text-muted mb-2">Órgano de control fiscal</div>
+                  </div>
+                  <a href="https://www.contraloria.gov.co/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfonos:</strong> PBX (+57) 601 518 7000 · Línea 199 · 01 8000 910060</li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> cgr@contraloria.gov.co</li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Carrera 69 No 44-35, Bogotá, Colombia</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-muted small mt-3 mb-0"><i class="bi bi-info-circle me-1"></i> Para garantizar exactitud, los datos (teléfono, correo y dirección) deben verificarse en los sitios oficiales enlazados.</p>
         </div></div>
       </section>
 
       <section id="directorio-agremiaciones" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-diagram-2 me-2"></i>1.7 Directorio de Agremiaciones o Asociaciones</h3>
-          <p class="text-muted mb-0">Próximamente: asociaciones relacionadas.</p>
+          <p class="text-muted">Relación de agremiaciones y convenios institucionales.</p>
+
+          <div class="mb-4">
+            <h4 class="h6 fw-bold mb-2"><i class="bi bi-people me-2"></i>Agremiaciones</h4>
+            <div class="table-responsive">
+              <table class="table table-sm table-striped align-middle mb-2">
+                <thead>
+                  <tr>
+                    <th scope="col">Entidad</th>
+                    <th scope="col">Contacto</th>
+                    <th scope="col">Teléfono</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SERVICOLOMBIA</td>
+                    <td>JUAN CARLOS URIBE</td>
+                    <td>(57) (2) -2220924</td>
+                  </tr>
+                  <tr>
+                    <td>ANTHOC</td>
+                    <td><span class="text-muted">—</span></td>
+                    <td>(57)(1) 288 02 16 – 288 02 80</td>
+                  </tr>
+                  <tr>
+                    <td>Fondo de Empleados Hospital San Antonio</td>
+                    <td>OLGA LUCIA TREJOS</td>
+                    <td>3104664865</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-muted small mb-0">Los datos de contacto pueden variar. Verifique en los canales oficiales de cada entidad.</p>
+          </div>
+
+          <div>
+            <h4 class="h6 fw-bold mb-2"><i class="bi bi-mortarboard me-2"></i>Convenios con Instituciones</h4>
+            <div class="table-responsive">
+              <table class="table table-sm table-striped align-middle mb-2">
+                <thead>
+                  <tr>
+                    <th scope="col">Institución</th>
+                    <th scope="col">Programa / Área</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>UNIVERSIDAD DEL VALLE</td>
+                    <td>TRABAJO SOCIAL</td>
+                  </tr>
+                  <tr>
+                    <td>UNIVERSIDAD SANTIAGO DE CALI</td>
+                    <td>MEDICINA GENERAL</td>
+                  </tr>
+                  <tr>
+                    <td>UNIVERSIDAD ANTONIO NARIÑO</td>
+                    <td>PSICOLOGIA</td>
+                  </tr>
+                  <tr>
+                    <td>INTEP (Instituto de Educación Técnica Profesional)</td>
+                    <td>SISTEMAS</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-muted small mb-0">Convenios activos reportados por el área correspondiente. Sujetos a actualización.</p>
+          </div>
         </div></div>
       </section>
 
       <section id="servicio-publico-normas" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-journal-text me-2"></i>1.8 Servicio al Público, Normas, Formularios y Protocolos</h3>
-          <p class="text-muted mb-0">Próximamente: protocolos y formatos descargables.</p>
+          <p class="text-muted">Información y recursos para la atención al ciudadano.</p>
+
+          <div class="list-group list-group-flush">
+            <!-- Mecanismos para la Atención al Ciudadano -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Mecanismos para la Atención al Ciudadano</strong>
+                  <div class="text-muted small">Canales de contacto.</div>
+                </div>
+                <a href="#directorio-institucional" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-people me-1"></i> Ver contactos</a>
+              </div>
+              <ul class="list-unstyled small mt-2 mb-0">
+                <li class="mb-1"><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+                <li class="mb-1"><i class="bi bi-envelope-paper me-2"></i><strong>Correo Electrónico:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></li>
+                <li><i class="bi bi-telephone me-2"></i><strong>PBX:</strong> 602 891 2317</li>
+              </ul>
+            </div>
+
+            <!-- Solicitud y Verificación de PQRSD -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Solicitud y Verificación de Peticiones, Quejas, Reclamos y Sugerencias (PQRSD)</strong>
+                  <div class="text-muted small">Acceda al mecanismo para radicar y consultar PQRSD.</div>
+                </div>
+                <a href="#mecanismo-pqrs" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-inbox me-1"></i> Ir a PQRS</a>
+              </div>
+              <div class="text-muted small mt-1">El detalle del proceso se encuentra en la sección <a href="#mecanismo-pqrs">1.10 Mecanismos de Presentación de PQRS</a>.</div>
+            </div>
+
+            <!-- Localización Física y Días de Atención -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Localización Física y Días de Atención al Público</strong>
+                  <div class="text-muted small">Dirección, sedes y horarios de atención.</div>
+                </div>
+                <div class="d-flex gap-2">
+                  <a href="/documentos/HORARIOS-DE-ATENCION-HDSA.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-file-earmark-pdf me-1"></i> Horarios (PDF)</a>
+                </div>
+              </div>
+              <div class="text-muted small mt-1">Consulte la dirección y demás datos en el <a href="#directorio-institucional">Directorio Institucional</a>. Los horarios oficiales se encuentran en el documento <a href="/documentos/HORARIOS-DE-ATENCION-HDSA.pdf" target="_blank" rel="noopener">HORARIOS-DE-ATENCION-HDSA.pdf</a>.</div>
+              <div class="mt-3">
+                <div class="accordion" id="horariosAccordion">
+                  <!-- Hospital principal -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingHosp">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHosp" aria-expanded="true" aria-controls="collapseHosp">
+                        Hospital Departamental San Antonio de Roldanillo <span class="ms-3 badge rounded-pill bg-light text-dark">PBX: (2) 8912317 - (2) 2295000 - 018000952749</span>
+                      </button>
+                    </h2>
+                    <div id="collapseHosp" class="accordion-collapse collapse show" aria-labelledby="headingHosp" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <div class="table-responsive">
+                          <table class="table table-sm table-striped align-middle mb-0">
+                            <thead>
+                              <tr>
+                                <th>Servicio</th>
+                                <th>Horario</th>
+                              </tr>
+                            </thead>
+                            <tbody class="small">
+                              <tr><td>Central de Citas y Facturación</td><td>Lunes a Viernes 7:00 a.m. – 5:00 p.m. · Sábados 7:00 a.m. – 1:00 p.m.</td></tr>
+                              <tr><td>Laboratorio Clínico – Toma de muestras ambulatorias</td><td>Lunes a Viernes 6:00 a.m. – 10:00 a.m.</td></tr>
+                              <tr><td>Laboratorio Clínico – Entrega de resultados</td><td>Lunes a Viernes 2:00 p.m. – 4:00 p.m.</td></tr>
+                              <tr><td>Laboratorio Clínico – Urgencias</td><td>Lunes a Domingo · 24 horas</td></tr>
+                              <tr><td>Vacunación</td><td>Lunes a Viernes 8:00 a.m. – 12:00 p.m. / 1:00 p.m. – 5:00 p.m. · Sábados 8:00 a.m. – 12:00 p.m.</td></tr>
+                              <tr><td>RX</td><td>24 horas (Urgencias). Ambulatorio: Lunes a Sábado 7:00 a.m. – 2:00 p.m. / 4:00 p.m. – 7:00 p.m.</td></tr>
+                              <tr><td>Información – Ventanilla Única</td><td>Lunes a Jueves 7:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m. · Viernes 8:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m.</td></tr>
+                              <tr><td>SIAU</td><td>Lunes a Jueves 7:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m. · Viernes 8:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m.</td></tr>
+                              <tr><td>Consulta Externa</td><td>Lunes a Viernes 7:00 a.m. – 12:00 p.m. / 1:00 p.m. – 5:00 p.m. · Sábados 8:00 a.m. – 12:00 p.m.</td></tr>
+                              <tr><td>Odontología</td><td>Lunes a Viernes 7:00 a.m. – 5:00 p.m.</td></tr>
+                              <tr><td>Área Administrativa</td><td>Lunes a Jueves 7:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m. · Viernes 8:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m.</td></tr>
+                              <tr><td>PYP y Vacunación</td><td>Lunes a Viernes 8:00 a.m. – 12:00 p.m. / 2:00 p.m. – 5:00 p.m. · Sábados 8:00 a.m. – 12:00 p.m.</td></tr>
+                              <tr><td>Urgencias</td><td>24 horas</td></tr>
+                              <tr><td>Hospitalización</td><td>24 horas</td></tr>
+                              <tr><td>Farmacia</td><td>Lunes a Viernes 7:00 a.m. – 2:00 p.m.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sede La Ermita: removida a solicitud -->
+
+                  <!-- Puesto de Salud San Sebastián -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSebastian">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSebastian" aria-expanded="false" aria-controls="collapseSebastian">
+                        Puesto de Salud San Sebastián
+                      </button>
+                    </h2>
+                    <div id="collapseSebastian" class="accordion-collapse collapse" aria-labelledby="headingSebastian" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Puesto de Salud Llanitos -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingLlanitos">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLlanitos" aria-expanded="false" aria-controls="collapseLlanitos">
+                        Puesto de Salud Llanitos <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 211</span>
+                      </button>
+                    </h2>
+                    <div id="collapseLlanitos" class="accordion-collapse collapse" aria-labelledby="headingLlanitos" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Puesto de Salud El Rey -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingElRey">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseElRey" aria-expanded="false" aria-controls="collapseElRey">
+                        Puesto de Salud El Rey <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 157</span>
+                      </button>
+                    </h2>
+                    <div id="collapseElRey" class="accordion-collapse collapse" aria-labelledby="headingElRey" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Puesto de Salud La Asunción -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingAsuncion">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAsuncion" aria-expanded="false" aria-controls="collapseAsuncion">
+                        Puesto de Salud La Asunción <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 210</span>
+                      </button>
+                    </h2>
+                    <div id="collapseAsuncion" class="accordion-collapse collapse" aria-labelledby="headingAsuncion" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Notificaciones judiciales -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Correo Electrónico para Notificaciones Judiciales</strong>
+                  <div class="text-muted small">Canal exclusivo para notificaciones judiciales conforme a la normatividad.</div>
+                </div>
+                <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-envelope me-1"></i> Enviar correo</a>
+              </div>
+              <div class="text-muted small mt-1">Correo oficial: <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co">notificacionesjudiciales@hospitalroldanillo.gov.co</a></div>
+            </div>
+
+            <!-- Políticas de Seguridad y Protección de Datos -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Políticas de Seguridad de la Información del Portal Web y Protección de Datos</strong>
+                  <div class="text-muted small">Documentos institucionales aplicables.</div>
+                </div>
+                <div class="d-flex gap-2">
+                  <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-file-earmark-text me-1"></i> Política de Seguridad (PDF)</a>
+                  <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-shield-lock me-1"></i> Protección de Datos (PDF)</a>
+                  <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-journal-text me-1"></i> Política Editorial (PDF)</a>
+                </div>
+              </div>
+              <div class="text-muted small mt-1">Próximamente: documentos descargables. Se publicarán en esta sección.</div>
+            </div>
+
+            <!-- Derechos de los Ciudadanos - Carta de Trato Digno -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Derechos de los Ciudadanos – Carta de Trato Digno</strong>
+                  <div class="text-muted small">Compromisos de trato digno y respeto a los usuarios.</div>
+                </div>
+                <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-file-earmark-pdf me-1"></i> Ver documento</a>
+              </div>
+              <div class="text-muted small mt-1">Próximamente: Carta de Trato Digno en PDF.</div>
+            </div>
+          </div>
         </div></div>
       </section>
 
@@ -341,21 +720,102 @@
       <section id="mecanismo-pqrs" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-inbox me-2"></i>1.10 Mecanismos de Presentación de PQRS</h3>
-          <p class="text-muted mb-0">Próximamente: enlaces a PQRS y guía rápida.</p>
+          <p class="text-muted">Radica y consulta tus Peticiones, Quejas, Reclamos, Sugerencias y Denuncias (PQRSD) a través de nuestros canales oficiales.</p>
+
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <a href="/index.html#pqrsd" class="btn btn-success rounded-pill px-4 fw-bold"><i class="bi bi-pencil-square me-2"></i>Radicar PQRSD</a>
+            <a href="/index.html#pqrsd" class="btn btn-outline-brand rounded-pill px-4"><i class="bi bi-chat-left-dots me-2"></i>Ver sección en Inicio</a>
+          </div>
+
+          <div class="mt-2">
+            <h4 class="h6 fw-bold mb-2"><i class="bi bi-lightbulb me-2"></i>Guía rápida</h4>
+            <ol class="text-muted small mb-0">
+              <li>Haz clic en “Radicar PQRSD” para abrir el formulario.</li>
+              <li>Selecciona el tipo de solicitud (Petición, Queja, Reclamo, Sugerencia o Denuncia).</li>
+              <li>Completa tus datos de contacto y describe tu solicitud con claridad.</li>
+              <li>Adjunta soportes si es necesario y envía la solicitud.</li>
+              <li>Conserva el número de radicado para seguimiento.</li>
+            </ol>
+          </div>
         </div></div>
       </section>
 
       <section id="calendario-actividades" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-calendar3 me-2"></i>1.11 Calendario de Actividades y Eventos</h3>
-          <p class="text-muted mb-0">Próximamente: eventos y actividades institucionales.</p>
+          <p class="text-muted">Consulta las actividades institucionales, jornadas de salud y eventos del hospital.</p>
+          <a href="/noticias.html" class="btn btn-outline-brand rounded-pill"><i class="bi bi-newspaper me-1"></i> Ver calendario y noticias</a>
         </div></div>
       </section>
 
       <section id="entes-vigilancia" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-shield-check me-2"></i>1.12 Entes y Autoridades de Vigilancia</h3>
-          <p class="text-muted mb-0">Próximamente: lista de entes de control con enlaces.</p>
+          <p class="text-muted">Entidades que ejercen inspección, vigilancia, control y orientación sobre la E.S.E Hospital Departamental San Antonio de Roldanillo.</p>
+
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Entidad</th>
+                  <th scope="col">Rol de vigilancia</th>
+                  <th scope="col" class="text-center">Acceso</th>
+                </tr>
+              </thead>
+              <tbody class="small">
+                <tr>
+                  <td>
+                    <strong>Superintendencia Nacional de Salud</strong>
+                    <div class="text-muted">Supersalud</div>
+                  </td>
+                  <td>Inspección, Vigilancia y Control del sector salud.</td>
+                  <td class="text-center"><a href="https://www.supersalud.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Ministerio de Salud y Protección Social</strong>
+                    <div class="text-muted">Minsalud</div>
+                  </td>
+                  <td>Orientación y formulación de políticas en salud.</td>
+                  <td class="text-center"><a href="https://www.minsalud.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Secretaría de Salud del Valle del Cauca</strong>
+                    <div class="text-muted">Gobernación del Valle</div>
+                  </td>
+                  <td>Dirección, vigilancia y apoyo técnico a E.S.E departamentales.</td>
+                  <td class="text-center"><a href="https://www.valledelcauca.gov.co/salud/" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Procuraduría General de la Nación</strong>
+                    <div class="text-muted">Ministerio Público</div>
+                  </td>
+                  <td>Vigilancia de la conducta oficial y control disciplinario.</td>
+                  <td class="text-center"><a href="https://www.procuraduria.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Contraloría General de la República</strong>
+                    <div class="text-muted">Control fiscal</div>
+                  </td>
+                  <td>Vigilancia de la gestión fiscal de la administración pública.</td>
+                  <td class="text-center"><a href="https://www.contraloria.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Defensoría del Pueblo</strong>
+                    <div class="text-muted">Derechos de los ciudadanos</div>
+                  </td>
+                  <td>Promoción, ejercicio y divulgación de los derechos humanos.</td>
+                  <td class="text-center"><a href="https://www.defensoria.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-muted small mb-0">Nota: Para teléfonos, correos y sedes de atención, consulte los canales oficiales de cada entidad. Si deseas, puedo agregar contactos específicos verificados.</p>
         </div></div>
       </section>
 

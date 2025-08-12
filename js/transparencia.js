@@ -72,6 +72,255 @@
   ensureMVVEObserved();
 })();
 
+// Modo "una sección a la vez" con toggle, autoexpand de acordeón, foco accesible y prev/sig dinámicos
+(function () {
+  const contentRoot = document.querySelector('section.col-lg-8.col-md-7');
+  if (!contentRoot) return;
+
+  const secInfoEntidad = contentRoot.querySelector('section[aria-labelledby="sec-info-entidad"]');
+  const anchorSections = Array.from(contentRoot.querySelectorAll('section.anchor-target'));
+  const mvveContainer = document.getElementById('mvve-container');
+
+  const allSections = [mvveContainer, secInfoEntidad, ...anchorSections].filter(Boolean);
+
+  const hide = (el) => el && el.classList.add('d-none');
+  const show = (el) => el && el.classList.remove('d-none');
+
+  let singleView = true; // modo por defecto
+
+  // Scroll con compensación por header fijo
+  const headerOffset = 110;
+  function scrollToWithOffset(el) {
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  // Utilidades para acordeón lateral
+  const accordion = document.getElementById('transpAccordion');
+  const collapseIds = ['acc-c1','acc-c2','acc-c3','acc-c4','acc-c5','acc-c6','acc-c7','acc-c8','acc-c9'];
+  function expandAccordionForSectionId(id) {
+    if (!accordion || !id) return;
+    // Determinar grupo
+    let groupIndex = 1;
+    if (/^seccion-(\d+)/.test(id)) {
+      const n = parseInt(id.match(/^seccion-(\d+)/)[1], 10);
+      if (n >= 2 && n <= 9) groupIndex = n;
+    } else {
+      groupIndex = 1; // 1.x
+    }
+    collapseIds.forEach((cid, idx) => {
+      const el = document.getElementById(cid);
+      if (!el) return;
+      if (idx === groupIndex - 1) {
+        el.classList.add('show');
+      } else {
+        el.classList.remove('show');
+      }
+    });
+  }
+
+  function setActiveLink(hash) {
+    document.querySelectorAll('.sidebar-nav a').forEach((x) => {
+      x.classList.remove('active');
+      x.removeAttribute('aria-current');
+    });
+    const a = document.querySelector(`.sidebar-nav a[href="${hash}"]`);
+    if (a) {
+      a.classList.add('active');
+      a.setAttribute('aria-current', 'true');
+    }
+  }
+
+  function focusSectionHeading(sectionEl) {
+    if (!sectionEl) return;
+    const heading = sectionEl.querySelector('h2, h3');
+    if (!heading) return;
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({ preventScroll: true });
+  }
+
+  function showOnlyBySelector(sel) {
+    const target = sel ? document.querySelector(sel) : null;
+    // Si el objetivo es el contenedor de MVVE pero aún no está cargado, esperar y reintentar
+    if (sel === '#mision-vision-valores' && !target) {
+      // Reintentar cuando muta el DOM (ya hay un MO para MVVE en otro bloque)
+      setTimeout(() => showOnlyBySelector(sel), 150);
+      return;
+    }
+    if (singleView) {
+      allSections.forEach(hide);
+      // Caso especial 1.1 (contenido dinámico): el ancla real es #mision-vision-valores dentro de mvveContainer
+      const isMvve = sel === '#mision-vision-valores';
+      if (isMvve && mvveContainer) {
+        show(mvveContainer);
+      } else if (target && allSections.includes(target)) {
+        show(target);
+      } else if (secInfoEntidad) {
+        show(secInfoEntidad);
+      }
+    } else {
+      // Ver todo: asegurar todas visibles
+      allSections.forEach(show);
+    }
+
+    // Acordeón y activo
+    const hash = sel || (target ? `#${target.id}` : '');
+    if (target && target.id) expandAccordionForSectionId(target.id);
+    if (hash) setActiveLink(hash);
+    // Foco: si es 1.1, buscar heading dentro de mvveContainer; si no, sobre la sección
+    if (sel === '#mision-vision-valores' && mvveContainer) {
+      focusSectionHeading(mvveContainer);
+    } else if (target) {
+      focusSectionHeading(target);
+    }
+  }
+
+  function initialApply() {
+    const hash = location.hash;
+    if (hash && document.querySelector(hash)) {
+      showOnlyBySelector(hash);
+    } else {
+      showOnlyBySelector(secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : '');
+      if (secInfoEntidad) show(secInfoEntidad);
+    }
+  }
+
+  // Aplicar al cargar
+  initialApply();
+
+  // Clicks en el sidebar: mostrar solo la sección de destino
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('.sidebar-nav a[href^="#"]');
+    if (!a) return;
+    const hash = a.getAttribute('href');
+    if (!hash) return;
+    e.preventDefault();
+    showOnlyBySelector(hash);
+    const target = document.querySelector(hash);
+    if (target) scrollToWithOffset(target);
+    // Actualizar URL sin recargar
+    history.replaceState(null, '', hash);
+  }, true);
+
+  // Navegación interna dentro del contenido (botones Anterior/Siguiente u otros enlaces hash)
+  contentRoot.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const hash = a.getAttribute('href');
+    if (!hash) return;
+    const target = document.querySelector(hash) || (hash === '#mision-vision-valores' ? mvveContainer : null);
+    if (!target) return;
+    e.preventDefault();
+    showOnlyBySelector(hash);
+    scrollToWithOffset(target);
+    history.replaceState(null, '', hash);
+  });
+
+  // Responder a navegación del navegador (atrás/adelante)
+  window.addEventListener('hashchange', () => {
+    const h = location.hash;
+    if (!h) return;
+    showOnlyBySelector(h);
+  });
+
+  // Cambios del hash (por navegación del usuario)
+  window.addEventListener('hashchange', () => {
+    const hash = location.hash;
+    if (hash) showOnlyBySelector(hash);
+  });
+
+  // Integración con búsqueda: cuando el campo queda vacío, re-aplicar modo una sección
+  const searchInput = document.querySelector('form.search-form input[name="q"]');
+  const reapplySingleView = () => {
+    if (!searchInput) return;
+    if ((searchInput.value || '').trim() === '') {
+      const hash = location.hash;
+      showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
+    }
+  };
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      // Reaplicar al limpiar
+      if ((searchInput.value || '').trim() === '') {
+        // Dar tiempo a que el buscador restaure visibilidad
+        setTimeout(reapplySingleView, 0);
+      }
+    });
+  }
+  const clearBtn = document.getElementById('search-clear-btn');
+  if (clearBtn) clearBtn.addEventListener('click', () => setTimeout(reapplySingleView, 0));
+
+  // Toggle Ver todo / Ver solo esta sección
+  const toggleBtn = document.getElementById('view-mode-toggle');
+  const updateToggleLabel = () => {
+    if (!toggleBtn) return;
+    toggleBtn.innerHTML = singleView
+      ? '<i class="bi bi-layout-text-sidebar-reverse me-1"></i>Ver todo'
+      : '<i class="bi bi-square-half me-1"></i>Ver solo esta sección';
+  };
+  updateToggleLabel();
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      singleView = !singleView;
+      updateToggleLabel();
+      // Reaplicar vista actual
+      const hash = location.hash;
+      if (singleView) {
+        showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
+      } else {
+        // Ver todo
+        allSections.forEach(show);
+      }
+    });
+  }
+
+  // Botones Anterior / Siguiente dinámicos
+  const sectionsInOrder = (() => {
+    // Incluir 1.1 al inicio para navegación secuencial
+    const arr = [];
+    if (mvveContainer) arr.push(mvveContainer);
+    return [...arr, ...anchorSections];
+  })();
+  sectionsInOrder.forEach((section, idx) => {
+    const nav = document.createElement('div');
+    nav.className = 'd-flex justify-content-between align-items-center gap-2 mt-3';
+    const prev = document.createElement('a');
+    const next = document.createElement('a');
+    prev.className = 'btn btn-outline-brand btn-sm rounded-pill';
+    next.className = 'btn btn-outline-brand btn-sm rounded-pill';
+    if (idx > 0) {
+      const prevTarget = sectionsInOrder[idx - 1];
+      const prevId = prevTarget.id || 'mision-vision-valores';
+      prev.href = `#${prevId}`;
+      prev.innerHTML = '<i class="bi bi-arrow-left me-1"></i> Anterior';
+    } else {
+      prev.classList.add('disabled');
+      prev.setAttribute('aria-disabled', 'true');
+      prev.innerHTML = '<i class="bi bi-arrow-left me-1"></i> Anterior';
+    }
+    if (idx < sectionsInOrder.length - 1) {
+      const nextTarget = sectionsInOrder[idx + 1];
+      const nextId = nextTarget.id || 'mision-vision-valores';
+      next.href = `#${nextId}`;
+      next.innerHTML = 'Siguiente <i class="bi bi-arrow-right ms-1"></i>';
+    } else {
+      next.classList.add('disabled');
+      next.setAttribute('aria-disabled', 'true');
+      next.innerHTML = 'Siguiente <i class="bi bi-arrow-right ms-1"></i>';
+    }
+    nav.appendChild(prev);
+    nav.appendChild(next);
+    const cardBody = section.querySelector?.('.card-body');
+    (cardBody || section).appendChild(nav);
+  });
+
+  // Si el contenido 1.1 se carga después, asegurar que el contenedor responda al hash #mision-vision-valores
+  if (mvveContainer && !mvveContainer.id) {
+    // No cambiamos el hash objetivo del ancla interna, pero permitimos enfocar el heading del contenedor
+  }
+})();
+
 // Carga dinámica del parcial de Misión, Visión, Valores y Eslogan (1.1)
 (function () {
   const container = document.getElementById('mvve-container');

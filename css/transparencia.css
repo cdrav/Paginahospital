@@ -84,3 +84,11 @@ mark.search-hit {
   padding: 0 .15em;
   border-radius: .15rem;
 }
+
+/* Espaciado superior para el texto de la ley en el hero de Transparencia */
+.hero-section-transparencia .hero-lead {
+  margin-top: 1rem;
+}
+@media (min-width: 768px) {
+  .hero-section-transparencia .hero-lead { margin-top: 2rem; }
+}
