@@ -25,26 +25,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Orden deseado (después de Inicio): Transparencia, Atención, Participa, Normatividad
     const desired = [
       { key: 'inicio', match: (a) => /\/index\.html$/i.test(a.getAttribute('href') || '') || a.textContent.trim().toLowerCase().startsWith('inicio'), build: () => null },
-      { key: 'transparencia', match: (a) => (a.textContent || '').toLowerCase().includes('transparencia') || /Transparencia y acceso a la información Publica\.html$/i.test(a.getAttribute('href') || ''), build: () => {
+      { key: 'transparencia', match: (a) => (a.textContent || '').toLowerCase().includes('transparencia') || /Transparencia y acceso a la información Publica\.html$/i.test(a.getAttribute('href') || '') || /\/transparencia-acceso-informacion-publica\.html$/i.test(a.getAttribute('href') || ''), build: () => {
           const li = document.createElement('li');
           li.className = 'nav-item';
           const a = document.createElement('a');
           a.className = 'nav-link';
-          a.href = '/Transparencia y acceso a la información Publica.html';
+          a.href = '/transparencia-acceso-informacion-publica.html';
           a.textContent = 'Transparencia y Acceso a la Información';
           li.appendChild(a); return li;
         }
       },
       { key: 'atencion', match: (a) => (a.textContent || '').toLowerCase().includes('atención') || (a.textContent || '').toLowerCase().includes('servicios a la ciudadanía'), build: () => null },
-      { key: 'participa', match: (a) => (a.textContent || '').toLowerCase().includes('participa') || /\/Participa\.html$/i.test(a.getAttribute('href') || ''), build: () => {
+      { key: 'participa', match: (a) => (a.textContent || '').toLowerCase().includes('participa') || /\/(Participa|participa)\.html$/i.test(a.getAttribute('href') || ''), build: () => {
           const li = document.createElement('li');
           li.className = 'nav-item';
-          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/Participa.html'; a.textContent = 'Participa'; li.appendChild(a); return li; }
+          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/participa.html'; a.textContent = 'Participa'; li.appendChild(a); return li; }
       },
-      { key: 'normatividad', match: (a) => (a.textContent || '').toLowerCase().includes('normatividad') || /\/Normatividad\.html$/i.test(a.getAttribute('href') || ''), build: () => {
+      { key: 'normatividad', match: (a) => (a.textContent || '').toLowerCase().includes('normatividad') || /\/(Normatividad|normatividad)\.html$/i.test(a.getAttribute('href') || ''), build: () => {
           const li = document.createElement('li');
           li.className = 'nav-item';
-          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/Normatividad.html'; a.textContent = 'Normatividad'; li.appendChild(a); return li; }
+          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/normatividad.html'; a.textContent = 'Normatividad'; li.appendChild(a); return li; }
       }
     ];
 

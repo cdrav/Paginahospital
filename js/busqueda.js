@@ -2,10 +2,17 @@
 const searchConfig = {
     // Páginas donde se realizará la búsqueda
     searchablePages: [
+        // Páginas base
         'index.html',
-        'Transparencia y acceso a la información Publica.html',
-        'Atención y servicios a la ciudadania.html',
         'Participa.html',
+
+        // Páginas normalizadas (kebab-case, minúsculas)
+        'transparencia-acceso-informacion-publica.html',
+        'promocion-prevencion.html',
+        'cuidado-oral.html',
+        'diagnostico.html',
+        'mapa-del-sitio.html',
+        'mecanismos-de-contacto.html',
         // Agrega aquí más páginas según sea necesario
     ],
     
