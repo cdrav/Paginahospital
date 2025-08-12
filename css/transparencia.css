@@ -1,0 +1,86 @@
+/* Estilos de marca para la página de Transparencia */
+:root { --brand-main: #164443; --brand-dark: #0f3332; }
+
+/* Botones outline con color de marca */
+.btn-outline-brand {
+  color: var(--brand-main);
+  border-color: var(--brand-main);
+}
+.btn-outline-brand:hover,
+.btn-outline-brand:focus {
+  color: #fff;
+  background-color: var(--brand-main);
+  border-color: var(--brand-main);
+}
+
+/* Enlaces de las secciones (2–9) en sidebar */
+.sidebar-nav a.fw-bold { color: var(--brand-main); }
+.sidebar-nav a.fw-bold:hover { color: var(--brand-dark); text-decoration: underline; }
+
+/* Estado activo para cualquier enlace del sidebar */
+.sidebar-nav a.active {
+  color: #fff !important;
+  background-color: var(--brand-main) !important;
+  border-color: var(--brand-main) !important;
+}
+
+/* Buscador de Transparencia */
+.search-card {
+  background: #f8fbfb; /* sutil contraste sobre fondo blanco */
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 51, 50, 0.08);
+  border: 1px solid rgba(15, 51, 50, 0.12);
+}
+.search-form .input-group-text {
+  background-color: var(--brand-main);
+  border-color: var(--brand-main);
+  color: #ffffff;
+}
+.search-form .form-control {
+  background-color: #ffffff;
+  color: #212529;
+  border-color: var(--brand-dark);
+  font-size: 1rem;
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+}
+.search-form .form-control.rounded-pill {
+  padding-top: .45rem;
+  padding-bottom: .45rem;
+  padding-left: .9rem;
+  padding-right: .9rem;
+  height: 44px; /* más delgada y proporcionada */
+  border-width: 2px;
+}
+.search-form .form-control::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+.search-form .form-control:focus {
+  border-color: var(--brand-main);
+  box-shadow: 0 0 0 .15rem rgba(22, 68, 67, .15);
+}
+.search-form .input-group > .form-control,
+.search-form .input-group > .input-group-text,
+.search-form .input-group > .btn {
+  border-width: 2px;
+}
+.search-form .input-group .btn { white-space: nowrap; }
+
+/* Botón sólido de marca */
+.btn-brand {
+  color: #fff;
+  background-color: var(--brand-main);
+  border-color: var(--brand-main);
+}
+.btn-brand:hover,
+.btn-brand:focus {
+  color: #fff;
+  background-color: var(--brand-dark);
+  border-color: var(--brand-dark);
+}
+/* Resaltado de coincidencias en búsqueda en vivo */
+mark.search-hit {
+  background-color: #fff3cd;
+  padding: 0 .15em;
+  border-radius: .15rem;
+}

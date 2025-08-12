@@ -584,3 +584,18 @@ section > p {
 @media (max-width: 575.98px) {
   .hero-promocion { height: 220px; }
 }
+
+/* =====================================================
+   Transparencia: Sidebar y anclas internas
+   ===================================================== */
+/* Compensación del header fijo para scroll a anclas */
+.anchor-target { scroll-margin-top: 110px; }
+@media (max-width: 991.98px) { .anchor-target { scroll-margin-top: 80px; } }
+
+/* Sidebar: resaltar enlace activo manteniendo la línea gráfica */
+.sidebar-nav .btn.active,
+.sidebar-nav a.active {
+  background-color: var(--color-secundario);
+  border-color: var(--color-secundario);
+  color: #fff;
+}
