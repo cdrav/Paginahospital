@@ -142,6 +142,9 @@
 
   function showOnlyBySelector(sel) {
     const target = sel ? document.querySelector(sel) : null;
+    // Si el hash apunta a un elemento interno (como un encabezado dentro de una sección),
+    // resolver la sección contenedora para poder mostrarla en modo "una sección a la vez".
+    const targetSection = target?.closest ? target.closest('section.anchor-target') : null;
     // Si el objetivo es el contenedor de MVVE pero aún no está cargado, esperar y reintentar
     if (sel === '#mision-vision-valores' && !target) {
       // Reintentar cuando muta el DOM (ya hay un MO para MVVE en otro bloque)
@@ -156,6 +159,8 @@
         show(mvveContainer);
       } else if (target && allSections.includes(target)) {
         show(target);
+      } else if (targetSection && allSections.includes(targetSection)) {
+        show(targetSection);
       } else if (secInfoEntidad) {
         show(secInfoEntidad);
       }
@@ -164,15 +169,38 @@
       allSections.forEach(show);
     }
 
+    // Si el hash corresponde a un subapartado de Participa (#participa-6-x), abrir su panel del acordeón
+    const participaMatch = /^#participa-6-(\d+)$/.exec(sel || '');
+    if (participaMatch) {
+      const num = participaMatch[1];
+      const accordion = document.getElementById('participaAccordion');
+      if (accordion) {
+        const openAll = accordion.querySelectorAll('.accordion-collapse.show');
+        openAll.forEach((el) => el.classList.remove('show'));
+        const toOpen = document.getElementById(`collapse-6-${num}`);
+        if (toOpen) {
+          toOpen.classList.add('show');
+          // Actualizar aria-expanded del botón correspondiente
+          const btn = accordion.querySelector(`[data-bs-target="#collapse-6-${num}"]`);
+          accordion.querySelectorAll('.accordion-button').forEach(b => b.classList.add('collapsed'));
+          if (btn) {
+            btn.classList.remove('collapsed');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        }
+      }
+    }
+
     // Acordeón y activo
-    const hash = sel || (target ? `#${target.id}` : '');
-    if (target && target.id) expandAccordionForSectionId(target.id);
+    const effectiveTarget = targetSection || target;
+    const hash = sel || (effectiveTarget ? `#${effectiveTarget.id}` : '');
+    if (effectiveTarget && effectiveTarget.id) expandAccordionForSectionId(effectiveTarget.id);
     if (hash) setActiveLink(hash);
     // Foco: si es 1.1, buscar heading dentro de mvveContainer; si no, sobre la sección
     if (sel === '#mision-vision-valores' && mvveContainer) {
       focusSectionHeading(mvveContainer);
-    } else if (target) {
-      focusSectionHeading(target);
+    } else if (effectiveTarget) {
+      focusSectionHeading(effectiveTarget);
     }
   }
 
