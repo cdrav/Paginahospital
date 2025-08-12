@@ -468,27 +468,44 @@ section > p {
   transform: translateY(-50%) translateX(-2px); 
 }
 
-/* Ubicación en móviles: barra inferior centrada */
+/* Ubicación en móviles: barra inferior fija y fluida */
 @media (max-width: 768px) {
   .accessibility-buttons-container {
     top: auto !important;
-    bottom: 12px !important;
-    right: 50% !important;
-    left: auto !important;
-    transform: translateX(50%) !important;
-    flex-direction: row;
-    border-radius: 10px;
-    padding: 4px 8px;
-    gap: 6px;
+    bottom: calc(env(safe-area-inset-bottom, 0) + 12px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important; /* permite salto de línea si no cabe */
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 12px !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    margin: 0 8px !important; /* separa de los bordes laterales */
   }
   .accessibility-buttons-container .btn {
     width: 38px !important;
     height: 38px !important;
     font-size: .95rem !important;
   }
-  .accessibility-buttons-container .btn::after {
-    top: auto; bottom: 100%; right: 50%; transform: translateX(50%);
-    margin-right: 0; margin-bottom: 6px;
+  /* En pantallas táctiles, ocultar tooltip para evitar desbordes */
+  @media (pointer: coarse) {
+    .accessibility-buttons-container .btn::after { display: none; }
+  }
+}
+
+/* Extra pequeño: reducir ligeramente tamaño y aumentar wrap */
+@media (max-width: 360px) {
+  .accessibility-buttons-container {
+    gap: 4px !important;
+    padding: 6px !important;
+  }
+  .accessibility-buttons-container .btn {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: .9rem !important;
   }
 }
 /* Iconos más legibles dentro de la barra de accesibilidad */

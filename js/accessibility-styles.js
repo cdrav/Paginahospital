@@ -4,37 +4,68 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Asegurar que los botones de accesibilidad estén en la posición correcta
+  // Posicionamiento responsivo para la barra de accesibilidad (evitar forzar centro en móviles)
   const initAccessibilityButtons = () => {
     const accessibilityContainer = document.querySelector('.accessibility-buttons-container');
-    if (accessibilityContainer) {
-      // Aplicar estilos al contenedor de botones de accesibilidad
+    if (!accessibilityContainer) return;
+
+    const applyPosition = () => {
+      const w = window.innerWidth || document.documentElement.clientWidth;
+
+      // Reset de propiedades que pueden venir de estilos previos
       Object.assign(accessibilityContainer.style, {
         position: 'fixed',
-        top: '60%',
-        right: '0',
-        transform: 'translateY(-50%)',
         zIndex: '9999',
         display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-        padding: '8px',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: '4px 0 0 4px',
-        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)'
+        boxShadow: '',
+        backgroundColor: '',
       });
 
-      // Asegurar que los botones sean accesibles
-      const buttons = accessibilityContainer.querySelectorAll('button');
-      buttons.forEach(button => {
-        button.setAttribute('aria-label', button.title || 'Botón de accesibilidad');
-        button.style.padding = '8px';
-        button.style.border = '1px solid #ddd';
-        button.style.borderRadius = '4px';
-        button.style.background = 'white';
-        button.style.cursor = 'pointer';
-      });
-    }
+      if (w <= 768) {
+        // Móvil: barra inferior centrada y fluida
+        Object.assign(accessibilityContainer.style, {
+          top: 'auto',
+          bottom: (window.visualViewport ? `calc(${window.visualViewport.height ? 'env(safe-area-inset-bottom, 0)' : '0'} + 12px)` : '12px'),
+          left: '0',
+          right: '0',
+          transform: 'none',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '6px',
+        });
+      } else {
+        // Tablet y escritorio: acoplada al lado derecho, vertical
+        const h = window.innerHeight || document.documentElement.clientHeight;
+        const compact = h < 800; // iPad Pro landscape u otras alturas reducidas
+        Object.assign(accessibilityContainer.style, {
+          top: '50%',
+          right: '8px',
+          left: 'auto',
+          bottom: 'auto',
+          transform: 'translateY(-50%)',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'stretch',
+          gap: compact ? '6px' : '8px',
+          maxHeight: 'calc(100dvh - 24px)', // usar dvh para evitar recortes por UI de Safari
+          overflowY: 'auto',
+          padding: '8px',
+        });
+        // Momentum scrolling en iOS
+        accessibilityContainer.style.webkitOverflowScrolling = 'touch';
+      }
+    };
+
+    // Asegurar etiquetas accesibles de los botones (sin forzar estilos que colisionen con CSS)
+    const buttons = accessibilityContainer.querySelectorAll('button');
+    buttons.forEach(button => {
+      button.setAttribute('aria-label', button.title || 'Botón de accesibilidad');
+    });
+
+    applyPosition();
+    window.addEventListener('resize', applyPosition);
+    window.addEventListener('orientationchange', applyPosition);
   };
 
   // Eliminar filtros de imágenes para asegurar la accesibilidad visual
