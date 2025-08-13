@@ -15,6 +15,78 @@
   --radius: 10px;
 }
 
+/* Título sobre imagen con texto blanco y gradiente de soporte */
+.hero-title-badge {
+  display: inline-block;
+  background: transparent;             /* sin placa */
+  color: #fff;                          /* texto blanco */
+  padding: 0;                           /* sin relleno de placa */
+  border-radius: 0;                     /* sin bordes redondeados */
+  font-family: 'Work Sans', 'Poppins', sans-serif;
+  font-weight: 900;                     /* fuerte para legibilidad */
+  text-transform: uppercase;
+  /* Escala responsiva, más grande que antes */
+  font-size: clamp(1.25rem, 0.9rem + 2.2vw, 2.6rem);
+  letter-spacing: .4px;
+  text-shadow: 0 3px 12px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.35);
+}
+.hero-title-wrap {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 1.25rem;
+  z-index: 2;                           /* por delante del gradiente */
+}
+.hero-title-wrap .container { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; }
+.hero-title-wrap .hero-title-badge i { margin-right: .5rem; }
+/* Gradiente oscuro inferior para contraste AA/AAA */
+.hero-title-wrap::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  /* expandir banda hacia abajo y un poco hacia arriba del texto */
+  bottom: -1.25rem;
+  height: clamp(120px, 22vw, 260px);
+  background: linear-gradient(to top, rgba(0,0,0,.58) 0%, rgba(0,0,0,.34) 45%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Breadcrumbs legibles en placa clara y centrados en el hero */
+.hero-breadcrumbs-wrap {
+  position: absolute;
+  left: 0; right: 0;
+  top: 1rem;
+}
+.hero-breadcrumbs-wrap .container { display: flex; justify-content: center; }
+.breadcrumb-plate {
+  background: rgba(255,255,255,.96);
+  border-radius: .75rem;
+  padding: .4rem .8rem;
+  margin: 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,.10);
+}
+.breadcrumb-plate .breadcrumb-item a { color: var(--color-primario); text-decoration: none; font-weight: 700; }
+.breadcrumb-plate .breadcrumb-item a:hover, .breadcrumb-plate .breadcrumb-item a:focus { text-decoration: underline; }
+.breadcrumb-plate .breadcrumb-item.active { color: #333; font-weight: 800; }
+.breadcrumb-plate .breadcrumb-item + .breadcrumb-item::before { color: #666; }
+
+/* Títulos y subtítulos de sección con escala proporcional */
+.section-title {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+  color: var(--color-primario);
+  /* Similar a citas médicas: contundente pero ajustable */
+  font-size: clamp(1.25rem, 0.9rem + 2.1vw, 2.4rem);
+  letter-spacing: -0.3px;
+  margin-bottom: .25rem;
+}
+.section-lead {
+  color: #6c757d;
+  font-size: clamp(.95rem, .85rem + .5vw, 1.15rem);
+  line-height: 1.55;
+  margin: 0;
+}
+
 /* Tipografía base */
 html { font-size: clamp(15px, 0.9rem + 0.3vw, 18px); }
 body {
@@ -110,7 +182,7 @@ section > p {
 /* Disposición horizontal del menú en pantallas grandes */
 @media (min-width: 992px) {
   /* Marca más grande para dar presencia y frescura */
-  .navbar .navbar-brand img { max-height: 90px !important; height: auto; width: auto; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); background:#fff; padding:4px; }
+  .navbar .navbar-brand img { max-height: 90px !important; height: auto; width: auto; border-radius: 0; box-shadow: none; background: transparent; padding: 0; }
   .navbar .navbar-brand { padding-top: .25rem; padding-bottom: .25rem; }
 
   /* Mantener layout horizontal del menú en UNA sola línea */
@@ -363,6 +435,105 @@ section > p {
   .search-form { display: none !important; }
 }
 
+/* =====================================================
+   Normatividad - Barra de búsqueda (estilos globales)
+   ===================================================== */
+.search-card { 
+  border-radius: var(--radius); 
+  background-color: #f5f7f7; /* leve contraste sobre fondo blanco */
+  border: 2px solid rgba(22,68,67,.15);
+}
+.norma-search-input {
+  border-width: 2px;
+  border-color: var(--color-primario);
+  background-color: #f1f3f5; /* gris claro para distinguir */
+  color: #111;
+  min-height: 48px;
+  font-size: 1rem;
+  padding-left: 2.25rem; /* espacio para icono */
+  background-repeat: no-repeat;
+  background-position: .8rem 50%;
+  background-size: 16px 16px;
+  /* Icono de búsqueda (SVG inline) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23164443' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85Zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z'/%3E%3C/svg%3E");
+}
+.norma-search-input::placeholder { color: #495057; opacity: 1; }
+.norma-search-input:focus {
+  border-color: #0f3332;
+  box-shadow: 0 0 0 .2rem rgba(15, 51, 50, 0.25);
+}
+
+/* Botón outline con color de marca secundario */
+.btn-outline-brand {
+  border: 2px solid var(--color-secundario);
+  color: var(--color-secundario);
+  background: transparent;
+}
+.btn-outline-brand:hover, .btn-outline-brand:focus {
+  background: var(--color-secundario);
+  color: #fff;
+  border-color: var(--color-secundario);
+}
+
+/* =====================================================
+   Normatividad - Badges por tipo de archivo
+   ===================================================== */
+/* Base visual para badges de archivo */
+.badge-file-pdf,
+.badge-file-doc,
+.badge-file-docx,
+.badge-file-xls,
+.badge-file-xlsx,
+.badge-file-ppt,
+.badge-file-pptx,
+.badge-file-odt,
+.badge-file-ods,
+.badge-file-zip,
+.badge-file-rar,
+.badge-file-txt,
+.badge-file-other {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .25rem .5rem;
+  border-radius: .5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+.badge-file-pdf  { background-color: #dc3545; } /* danger */
+.badge-file-doc,
+.badge-file-docx { background-color: #0d6efd; } /* primary */
+.badge-file-xls,
+.badge-file-xlsx { background-color: #198754; } /* success */
+.badge-file-ppt,
+.badge-file-pptx { background-color: #fd7e14; } /* orange */
+.badge-file-odt,
+.badge-file-ods { background-color: #6f42c1; } /* purple */
+.badge-file-zip,
+.badge-file-rar { background-color: #6c757d; } /* secondary */
+.badge-file-txt  { background-color: #343a40; } /* dark */
+.badge-file-other{ background-color: #495057; } /* neutral */
+
+/* Ícono dentro de la badge */
+.badge-file-pdf i,
+.badge-file-doc i,
+.badge-file-docx i,
+.badge-file-xls i,
+.badge-file-xlsx i,
+.badge-file-ppt i,
+.badge-file-pptx i,
+.badge-file-odt i,
+.badge-file-ods i,
+.badge-file-zip i,
+.badge-file-rar i,
+.badge-file-txt i,
+.badge-file-other i {
+  font-size: 1rem;
+  line-height: 1;
+  color: #fff !important; /* asegurar icono blanco, evitar gris por herencia */
+}
+
 /* Botones de accesibilidad  */
 .accessibility-buttons-container {
   position: fixed;
@@ -583,11 +754,12 @@ section > p {
   width: 100%;
   height: 400px;           /* Igual que Participa para consistencia */
   max-height: none;
-  min-height: 220px;       /* Asegurar presencia en móviles */
+  /* Altura mínima responsiva para mantener proporción visual */
+  min-height: clamp(220px, 30vw, 420px);
   background-color: transparent;
-  background-image: url('/imagenes/Promocion y prevencion.jpg');
+  background-image: url('/imagenes/promoción-y prevención-banner.jpg');
   background-repeat: no-repeat;
-  background-position: center top;    /* Enfoque superior para rostros/logos */
+  background-position: center;         /* Mejor equilibrio visual */
   background-size: cover;            /* Ocupa todo el área sin bandas */
 }
 
@@ -600,6 +772,41 @@ section > p {
 }
 @media (max-width: 575.98px) {
   .hero-promocion { height: 220px; }
+}
+
+/* =====================================================
+   Citas Médicas - Banner (hero)
+   ===================================================== */
+section.citas-hero {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  padding: 60px 0; /* espacio vertical para el contenido */
+  color: #fff; /* texto blanco sobre banner */
+  background-color: #0f3332; /* color de respaldo por si no carga la imagen */
+  background-image: url('/imagenes/citas-medicas-banner.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+section.citas-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none; /* Sin overlay: mostrar imagen original sin oscurecer */
+}
+section.citas-hero > .container {
+  position: relative;
+  z-index: 1; /* sobre el overlay */
+}
+@media (max-width: 991.98px) {
+  section.citas-hero { min-height: 300px; padding: 48px 0; }
+}
+@media (max-width: 767.98px) {
+  section.citas-hero { min-height: 260px; padding: 36px 0; }
+}
+@media (max-width: 575.98px) {
+  section.citas-hero { min-height: 220px; padding: 28px 0; }
 }
 
 /* =====================================================

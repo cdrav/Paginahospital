@@ -27,7 +27,30 @@
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-12">
-        <h2 class="text-center mb-5 fw-bold" style="color: #069681;">Normatividad Institucional</h2>
+        <h2 class="text-center mb-4 fw-bold" style="color: #069681;">Normatividad Institucional</h2>
+
+        
+
+        <!-- Búsqueda (estilo Transparencia) en la parte superior -->
+        <div class="card border-0 shadow-sm search-card mb-4">
+          <div class="card-body p-3 p-md-4">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <form class="norma-search-form" role="search" aria-label="Buscar en Normatividad" action="#" autocomplete="off" novalidate>
+                  <div class="input-group">
+                    <input type="search" class="form-control bg-white text-dark rounded-pill norma-search-input" id="buscarNormatividad" placeholder="Buscar en Normatividad" aria-label="Campo de búsqueda" aria-describedby="search-live-status" name="q" autocomplete="off" />
+                    <button id="btnLimpiarNorma" class="btn btn-outline-brand rounded-pill ms-2" type="button" title="Limpiar búsqueda" aria-label="Limpiar búsqueda"><i class="bi bi-x-circle"></i> Limpiar</button>
+                  </div>
+                  <div id="search-live-status" class="small text-muted mt-2" aria-live="polite"></div>
+                  <div id="no-results-msg" class="alert alert-warning d-none mt-2 py-2 px-3" role="status">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Sin resultados para la búsqueda actual.
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
         
         <!-- Pestañas de Navegación -->
         <ul class="nav nav-tabs nav-fill mb-4" id="normatividadTabs" role="tablist">
@@ -62,33 +85,186 @@
         <div class="tab-content p-3 border border-top-0 rounded-bottom" id="normatividadTabsContent">
           <!-- Leyes / Ordenanzas / Acuerdos -->
           <div class="tab-pane fade show active" id="leyes" role="tabpanel" aria-labelledby="leyes-tab">
-            <div class="alert alert-info">
-              <i class="bi bi-info-circle-fill me-2"></i>
-              Contenido en proceso de actualización. Próximamente estará disponible la información de Leyes, Ordenanzas y Acuerdos.
+            <div class="list-group list-group-flush">
+              <a data-year="2015" href="/documentos/estatutos/Estatutos-HDSA-Acuerdo-003-2015.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-journal-text me-2"></i>Acuerdo 003 de 2015 · Estatutos HDSA</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2015</span>
+                  <span class="badge text-bg-light">1.12 MB</span>
+                </span>
+              </a>
             </div>
           </div>
           
           <!-- Decretos -->
           <div class="tab-pane fade" id="decretos" role="tabpanel" aria-labelledby="decretos-tab">
-            <div class="alert alert-info">
-              <i class="bi bi-info-circle-fill me-2"></i>
-              Contenido en proceso de actualización. Próximamente estará disponible la información de Decretos.
+            <div class="list-group list-group-flush">
+              <a data-year="2004" href="/documentos/decretos-circulares/Decreto-2193-2004.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-text me-2"></i>Decreto 2193 de 2004</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2004</span>
+                  <span class="badge text-bg-light">3.81 MB</span>
+                </span>
+              </a>
             </div>
           </div>
           
           <!-- Circulares y Otros -->
           <div class="tab-pane fade" id="circulares" role="tabpanel" aria-labelledby="circulares-tab">
-            <div class="alert alert-info">
-              <i class="bi bi-info-circle-fill me-2"></i>
-              Contenido en proceso de actualización. Próximamente estará disponible la información de Circulares y otros Actos Administrativos.
+            <div class="list-group list-group-flush">
+              <a data-year="2016" href="/documentos/decretos-circulares/Circular-Externa-0012-2016.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-richtext me-2"></i>Circular Externa 0012 de 2016</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2016</span>
+                  <span class="badge text-bg-light">0.66 MB</span>
+                </span>
+              </a>
+              <a data-year="2015" href="/documentos/decretos-circulares/Circular-Externa-0009-2015.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-richtext me-2"></i>Circular Externa 0009 de 2015</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2015</span>
+                  <span class="badge text-bg-light">1.48 MB</span>
+                </span>
+              </a>
             </div>
           </div>
           
           <!-- Resoluciones -->
           <div class="tab-pane fade" id="resoluciones" role="tabpanel" aria-labelledby="resoluciones-tab">
-            <div class="alert alert-info">
-              <i class="bi bi-info-circle-fill me-2"></i>
-              Contenido en proceso de actualización. Próximamente estará disponible la información de Resoluciones.
+            <div class="list-group list-group-flush">
+              <a data-year="2025" href="/documentos/resoluciones/Resolucion-0169-2025-Acuerdo-Laboral-ANTHOC-2025-2027.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0169 de 2025 · Acuerdo Laboral ANTHOC 2025–2027</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2025</span>
+                  <span class="badge text-bg-light">2.19 MB</span>
+                </span>
+              </a>
+              <a data-year="2024" href="/documentos/resoluciones/Resolucion-0341-2024-Comite-Vigilancia-y-Reporte.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0341 de 2024 · Comité de Vigilancia y Reporte</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2024</span>
+                  <span class="badge text-bg-light">6.29 MB</span>
+                </span>
+              </a>
+              <a data-year="2024" href="/documentos/resoluciones/Resolucion-0340-2024-IAMI.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0340 de 2024 · IAMI</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2024</span>
+                  <span class="badge text-bg-light">3.96 MB</span>
+                </span>
+              </a>
+              <a data-year="2024" href="/documentos/resoluciones/Resolucion-0338-2024-Desnutricion-Aguda.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0338 de 2024 · Desnutrición Aguda</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2024</span>
+                  <span class="badge text-bg-light">5.61 MB</span>
+                </span>
+              </a>
+              <a data-year="2024" href="/documentos/resoluciones/Resolucion-0294-2024-Comisiones-de-Servicio.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0294 de 2024 · Comisiones de Servicio</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2024</span>
+                  <span class="badge text-bg-light">1.16 MB</span>
+                </span>
+              </a>
+              <a data-year="2021" href="/documentos/resoluciones/Resolucion-000341-2021.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0341 de 2021</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2021</span>
+                  <span class="badge text-bg-light">0.99 MB</span>
+                </span>
+              </a>
+              <a data-year="2019" href="/documentos/resoluciones/Resolucion-0654-2019-Grupos-Gestion-Conocimiento-Innovacion.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0654 de 2019 · Grupos de Gestión del Conocimiento e Innovación</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2019</span>
+                  <span class="badge text-bg-light">0.41 MB</span>
+                </span>
+              </a>
+              <a data-year="2019" href="/documentos/resoluciones/Resolucion-0509-2019-Lineas-de-Defensa.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0509 de 2019 · Líneas de Defensa</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2019</span>
+                  <span class="badge text-bg-light">0.33 MB</span>
+                </span>
+              </a>
+              <a data-year="2019" href="/documentos/resoluciones/Resolucion-0452-2019-Comite-Control-Interno.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0452 de 2019 · Comité de Control Interno</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2019</span>
+                  <span class="badge text-bg-light">0.92 MB</span>
+                </span>
+              </a>
+              <a data-year="2018" href="/documentos/resoluciones/Resolucion-0651-2018.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0651 de 2018</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2018</span>
+                  <span class="badge text-bg-light">2.83 MB</span>
+                </span>
+              </a>
+              <a data-year="2018" href="/documentos/resoluciones/Resolucion-0408-2018-Modifica-R710-2010-Modificada-R743-2013.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0408 de 2018 · Modifica R710 de 2010 (mod. R743 de 2013)</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2018</span>
+                  <span class="badge text-bg-light">0.65 MB</span>
+                </span>
+              </a>
+              <a data-year="2018" href="/documentos/resoluciones/Resolucion-0376-2018.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0376 de 2018</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2018</span>
+                  <span class="badge text-bg-light">1.18 MB</span>
+                </span>
+              </a>
+              <a data-year="2017" href="/documentos/resoluciones/Resolucion-1111-2017.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 1111 de 2017</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2017</span>
+                  <span class="badge text-bg-light">0.19 MB</span>
+                </span>
+              </a>
+              <a data-year="2017" href="/documentos/resoluciones/Resolucion-0339-2017-Comite-Modelo-Operacion-por-Proceso.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0339 de 2017 · Comité Modelo de Operación por Proceso</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2017</span>
+                  <span class="badge text-bg-light">0.69 MB</span>
+                </span>
+              </a>
+              <a data-year="2016" href="/documentos/resoluciones/Resolucion-0256-2016.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0256 de 2016</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2016</span>
+                  <span class="badge text-bg-light">0.47 MB</span>
+                </span>
+              </a>
+              <a data-year="2014" href="/documentos/resoluciones/Resolucion-2003-2014.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 2003 de 2014</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2014</span>
+                  <span class="badge text-bg-light">1.62 MB</span>
+                </span>
+              </a>
+              <a data-year="2013" href="/documentos/resoluciones/Resolucion-0743-2013-Modificatoria-0710-2012-Evaluacion-Plan-de-Gestion.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0743 de 2013 · Modificatoria 0710 de 2012</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2013</span>
+                  <span class="badge text-bg-light">0.74 MB</span>
+                </span>
+              </a>
+              <a data-year="2012" href="/documentos/resoluciones/Resolucion-0310-2012-Politica-Gestion-Riesgo.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 0310 de 2012 · Política Gestión del Riesgo</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2012</span>
+                  <span class="badge text-bg-light">0.56 MB</span>
+                </span>
+              </a>
+              <a data-year="2006" href="/documentos/resoluciones/Resolucion-1445-2006-Manual-Estandares-Sistema-Acreditacion.pdf" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-file-earmark-ruled me-2"></i>Resolución 1445 de 2006 · Manual Estándares Sistema de Acreditación</span>
+                <span class="d-flex align-items-center gap-2">
+                  <span class="badge bg-secondary">2006</span>
+                  <span class="badge text-bg-light">0.45 MB</span>
+                </span>
+              </a>
             </div>
           </div>
           
@@ -101,33 +277,7 @@
           </div>
         </div>
         
-        <!-- Búsqueda y Filtros -->
-        <div class="card shadow-sm mt-4 border-0">
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-8">
-                <label for="buscarNormatividad" class="form-label">Buscar en la normatividad</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="buscarNormatividad" placeholder="Escribe tu búsqueda...">
-                  <button class="btn btn-outline-primary" type="button">
-                    <i class="bi bi-search"></i> Buscar
-                  </button>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label for="filtroAnio" class="form-label">Filtrar por año</label>
-                <select class="form-select" id="filtroAnio">
-                  <option selected>Todos los años</option>
-                  <option>2024</option>
-                  <option>2023</option>
-                  <option>2022</option>
-                  <option>2021</option>
-                  <option>2020</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -185,6 +335,7 @@
 <script src="/js/accessibility-styles.js"></script>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="/js/normatividad.js"></script>
 </body>
 </html>
   

@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
       { key: 'normatividad', match: (a) => (a.textContent || '').toLowerCase().includes('normatividad') || /\/(Normatividad|normatividad)\.html$/i.test(a.getAttribute('href') || ''), build: () => {
           const li = document.createElement('li');
           li.className = 'nav-item';
-          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/normatividad.html'; a.textContent = 'Normatividad'; li.appendChild(a); return li; }
+          const a = document.createElement('a'); a.className = 'nav-link'; a.href = '/Normatividad.html'; a.textContent = 'Normatividad'; li.appendChild(a); return li; }
       }
     ];
 
