@@ -4,9 +4,15 @@
     <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none gov-link">
       <img src="/imagenes/logo gov.png" alt="Logo de GOV.CO" class="gov-logo">
     </a>
-    <div id="google_translate_element" class="translate-widget"></div>
+    <div class="d-flex align-items-center gap-2">
+      <div id="google_translate_element" class="translate-widget"></div>
+      <button id="translate-now" class="translate-btn" type="button" data-lang="en" aria-label="Cambiar el idioma del sitio">Cambiar el idioma del sitio</button>
+    </div>
   </div>
 </div>
+
+<!-- Script de Google Translate (HTTPS para evitar problemas en file://) -->
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- Barra de navegación principal -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">

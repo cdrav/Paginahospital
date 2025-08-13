@@ -1,3 +1,99 @@
+/* Top GOV bar: misma cuadrícula y mayor altura */
+.top-bar { background: #0b5ed7; /* azul GOV */ }
+.top-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px; }
+.top-bar .gov-link { display: flex; align-items: center; }
+.gov-logo { height: 40px; width: auto; display: block; }
+
+/* ====== Google Translate (widget) - visibilidad en barra azul ====== */
+.top-bar .translate-widget { display: flex; align-items: center; gap: .5rem; color: #fff; }
+.top-bar .goog-te-gadget { font-size: 0; /* ocultar texto "Powered by" */ }
+.top-bar .goog-te-gadget .goog-te-combo {
+  font-size: 14px; line-height: 1.2; height: 34px;
+  background: rgba(255,255,255,.14); color: #fff;
+  border: 1px solid rgba(255,255,255,.35); border-radius: 6px;
+  padding: 6px 10px; outline: none; cursor: pointer;
+}
+.top-bar .goog-te-gadget .goog-te-combo option { color: #111; background: #fff; }
+/* Ocultar logo/link de Google y texto auxiliar del gadget */
+.goog-logo-link, .goog-te-gadget span { display: none !important; }
+/* Quitar la barra superior inyectada por Google Translate */
+.goog-te-banner-frame { display: none !important; }
+body { top: 0 !important; }
+
+/* Botón Traducir en top bar */
+.top-bar .translate-btn {
+  background: #ffffff; color: #0b5ed7; border: 1px solid rgba(255,255,255,.35);
+  border-radius: 9999px; padding: 6px 12px; font-weight: 600; font-size: 14px;
+  line-height: 1; transition: all .2s ease; box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+.top-bar .translate-btn:hover { background: #e9f1ff; border-color: #ffffff; }
+.top-bar .translate-btn:active { transform: translateY(1px); }
+
+/* Footer GOV bar: misma cuadrícula, mayor altura y logos más grandes */
+.gov-final-bar { background: #0b5ed7; color: #fff; }
+.gov-final-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px !important; }
+.gov-final-bar img { height: 40px !important; width: auto; margin-right: 12px; }
+.gov-final-bar a { color: #fff; }
+
+/* ===================
+   Animaciones: Nuestros Servicios (cards)
+   =================== */
+.servicios {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden; /* ya está en HTML, reforzamos */
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  will-change: transform, box-shadow;
+  box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
+.servicios .card-img-top {
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  transform-origin: center center;
+}
+.servicios:hover,
+.servicios:focus-within {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.16);
+}
+.servicios:hover .card-img-top,
+.servicios:focus-within .card-img-top {
+  transform: scale(1.1);
+}
+/* Resalte sutil con halo */
+.servicios::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.22), transparent 60%),
+              linear-gradient(180deg, rgba(6,150,129,.2), rgba(6,150,129,0));
+  opacity: 0; transition: opacity .35s ease;
+}
+.servicios:hover::after,
+.servicios:focus-within::after { opacity: 1; }
+
+/* Accesible: estados focus visibles para tarjetas clicables dentro */
+.servicios a:focus,
+.servicios button:focus { outline: 2px solid rgba(6,150,129,.65); outline-offset: 2px; }
+
+/* Fade-up del contenido (título y botón) sin tocar HTML */
+.servicios .card-body > * { 
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .38s ease, transform .45s ease;
+}
+.servicios:hover .card-body > *,
+.servicios:focus-within .card-body > * {
+  opacity: 1; transform: translateY(0);
+}
+/* Stagger sutil: primero el título, luego el botón */
+.servicios .card-body > :nth-child(1) { transition-delay: .04s; }
+.servicios .card-body > :nth-child(2) { transition-delay: .12s; }
+
+/* Respeto a usuarios que prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .servicios, .servicios .card-img-top { transition: none; }
+  .servicios:hover, .servicios:focus-within { transform: none; box-shadow: 0 6px 16px rgba(0,0,0,.06); }
+  .servicios .card-body > * { opacity: 1; transform: none; transition: none; }
+}
 /* =====================================================
    HDSA - CSS mínimo y responsivo para index.html
    Basado en Bootstrap 5 y variables de marca
@@ -166,9 +262,15 @@ section > p {
   --logo-scale: 1;     /* escala general */
   transform: translateY(0) scaleX(var(--logo-scale-x)) scale(var(--logo-scale));
   transform-origin: center;
-  transition: transform .18s ease, filter .18s ease;
+  transition: transform .28s cubic-bezier(.22,.61,.36,1), filter .28s ease;
 }
-.hospital-logo:hover { transform: translateY(-1px) scaleX(var(--logo-scale-x)) scale(1.02); }
+.hospital-logo:hover,
+.hospital-logo:focus-visible {
+  transform: translateY(-2px) scaleX(var(--logo-scale-x)) scale(1.08);
+  filter:
+    drop-shadow(0 0 3px rgba(255,255,255,.9))
+    drop-shadow(0 6px 14px rgba(0,0,0,.24));
+}
 .brand-text { display: flex; flex-direction: column; line-height: 1; font-family: 'Work Sans', 'Poppins', sans-serif; }
 .hospital-name { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .4px; }
 .hospital-location { color: #bfe7e3; font-size: .9rem; font-weight: 600; }

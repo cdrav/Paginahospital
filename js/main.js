@@ -1,10 +1,58 @@
-// Inicialización de Google Translate
+// Inicialización de Google Translate (robusta con header dinámico)
 function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: 'es',
-        includedLanguages: 'en',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
+    function mountTranslate() {
+        const el = document.getElementById('google_translate_element');
+        if (!el) return false;
+        if (!(window.google && google.translate && google.translate.TranslateElement)) return false;
+        // Evitar inicialización múltiple
+        if (el.getAttribute('data-gt-initialized') === '1') return true;
+        new google.translate.TranslateElement({
+            pageLanguage: 'es',
+            includedLanguages: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+        el.setAttribute('data-gt-initialized', '1');
+        return true;
+    }
+
+    // Botón "Traducir": fuerza cambio a Inglés usando el combo de Google
+    const translateBtn = document.getElementById('translate-now');
+    if (translateBtn) {
+        translateBtn.addEventListener('click', () => {
+            const lang = translateBtn.getAttribute('data-lang') || 'en';
+            // Buscar el select del widget
+            const combo = document.querySelector('#google_translate_element select.goog-te-combo');
+            if (combo) {
+                combo.value = lang;
+                combo.dispatchEvent(new Event('change'));
+            } else {
+                // Si aún no está montado, intentar montar y reintentar brevemente
+                if (typeof googleTranslateElementInit === 'function') googleTranslateElementInit();
+                setTimeout(() => {
+                    const cb2 = document.querySelector('#google_translate_element select.goog-te-combo');
+                    if (cb2) { cb2.value = lang; cb2.dispatchEvent(new Event('change')); }
+                }, 400);
+            }
+        });
+    }
+    // Intento inmediato
+    if (mountTranslate()) return;
+
+    // Observar cambios en el DOM por si el header llega luego
+    const observer = new MutationObserver(() => {
+        if (mountTranslate()) observer.disconnect();
+    });
+    try {
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        // Seguridad: detener tras 8s
+        setTimeout(() => observer.disconnect(), 8000);
+    } catch (_) {
+        // Fallback simple
+        const maxTries = 16; let tries = 0;
+        const id = setInterval(() => {
+            if (mountTranslate() || ++tries >= maxTries) clearInterval(id);
+        }, 250);
+    }
 }
 
 // Función para mostrar notificación de accesibilidad
