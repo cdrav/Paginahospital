@@ -1,0 +1,35 @@
+# Line endings
+# Use LF by default for text files in the repo
+* text eol=lf
+
+# Windows scripts that should keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Non-text/binary files
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.svg -text
+*.ico -text
+*.pdf -text
+*.zip -text
+*.gz -text
+*.7z -text
+*.woff -text
+*.woff2 -text
+*.ttf -text
+*.eot -text
+
+# Keep SLN/VCXPROJ on CRLF if you ever add them (optional)
+*.sln text eol=crlf
+*.vcxproj text eol=crlf
+
+# Optional: enforce LF for web assets explicitly (redundant with *)
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf

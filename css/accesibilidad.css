@@ -1,0 +1,108 @@
+/* Accesibilidad: modos de contraste y estilos auxiliares */
+
+/* Variables por modo para mantener consistencia */
+:root {
+  --acc-text: #111;
+  --acc-bg: #fff;
+  --acc-link: #0d6efd;
+  --acc-link-hover: #0a58ca;
+}
+
+/* Notificaciones de contraste */
+.contrast-notification {
+  position: fixed;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.85);
+  color: #fff;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
+  z-index: 2000;
+  font-weight: 700;
+}
+.contrast-notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ====== Modo Alto Contraste (blanco/negro) ====== */
+body.alto-contraste {
+  color: #000 !important;
+  background: #fff !important;
+}
+body.alto-contraste a { color: #0000EE !important; text-decoration: underline !important; }
+body.alto-contraste a:hover, body.alto-contraste a:focus { color: #00008B !important; }
+
+body.alto-contraste .navbar { background: #000 !important; border-bottom: 3px solid #fff !important; }
+body.alto-contraste .navbar .nav-link { color: #fff !important; border-bottom-color: transparent !important; }
+body.alto-contraste .navbar .nav-link:hover,
+body.alto-contraste .navbar .nav-link:focus { background: #111 !important; border-bottom-color: #fff !important; }
+body.alto-contraste .navbar .navbar-brand .hospital-name,
+body.alto-contraste .navbar .navbar-brand .hospital-location { color: #fff !important; }
+
+body.alto-contraste .card { background: #fff !important; color: #000 !important; border: 2px solid #000 !important; }
+body.alto-contraste .card .card-title, body.alto-contraste .card .card-text { color: inherit !important; }
+
+body.alto-contraste .btn { color: #000 !important; background: #FFD700 !important; border-color: #000 !important; }
+body.alto-contraste .btn:hover, body.alto-contraste .btn:focus { background: #FFC107 !important; color: #000 !important; }
+body.alto-contraste .btn-outline-brand, body.alto-contraste .btn-outline-primary { color: #000 !important; border-color: #000 !important; }
+
+body.alto-contraste .hero-title-badge { color: #fff !important; text-shadow: none !important; }
+body.alto-contraste .section-title, body.alto-contraste h1, body.alto-contraste h2, body.alto-contraste h3,
+body.alto-contraste h4, body.alto-contraste h5 { color: #000 !important; text-shadow: none !important; }
+
+body.alto-contraste .list-group-item { background: #fff !important; color: #000 !important; border-color: #000 !important; }
+
+/* ====== Modo Oscuro ====== */
+body.modo-oscuro {
+  color: #e9ecef !important; /* texto claro */
+  background: #111418 !important; /* fondo muy oscuro */
+}
+body.modo-oscuro a { color: #6ab0ff !important; }
+body.modo-oscuro a:hover, body.modo-oscuro a:focus { color: #9cc7ff !important; }
+
+body.modo-oscuro .navbar { background: #0b0e12 !important; border-bottom: 1px solid rgba(255,255,255,.12) !important; }
+body.modo-oscuro .navbar .nav-link { color: #e9ecef !important; border-bottom-color: transparent !important; }
+body.modo-oscuro .navbar .nav-link:hover, body.modo-oscuro .navbar .nav-link:focus { color: #ffffff !important; border-bottom-color: #6ab0ff !important; }
+body.modo-oscuro .navbar .navbar-brand .hospital-name { color: #fff !important; }
+body.modo-oscuro .navbar .navbar-brand .hospital-location { color: #cbd5e1 !important; }
+
+body.modo-oscuro .card { background: #171b21 !important; color: #e9ecef !important; border-color: rgba(255,255,255,.14) !important; }
+body.modo-oscuro .card .card-title { color: #f1f5f9 !important; }
+body.modo-oscuro .card .card-text { color: #cbd5e1 !important; }
+
+body.modo-oscuro .btn { color: #111 !important; background: #f8f9fa !important; border-color: #f8f9fa !important; }
+body.modo-oscuro .btn:hover, body.modo-oscuro .btn:focus { background: #e2e6ea !important; border-color: #e2e6ea !important; color: #111 !important; }
+body.modo-oscuro .btn-outline-brand, body.modo-oscuro .btn-outline-primary { color: #e9ecef !important; border-color: #e9ecef !important; }
+body.modo-oscuro .btn-outline-brand:hover, body.modo-oscuro .btn-outline-primary:hover { background: #e9ecef !important; color: #111 !important; }
+
+body.modo-oscuro .list-group-item { background: #171b21 !important; color: #e9ecef !important; border-color: rgba(255,255,255,.14) !important; }
+
+body.modo-oscuro .breadcrumb-plate { background: rgba(255,255,255,.12) !important; color: #fff !important; }
+body.modo-oscuro .breadcrumb-plate .breadcrumb-item a { color: #fff !important; }
+
+body.modo-oscuro .search-form .form-control { background: rgba(255,255,255,.1) !important; color: #fff !important; }
+body.modo-oscuro .search-form .form-control::placeholder { color: rgba(255,255,255,.7) !important; }
+
+body.modo-oscuro .hero-title-badge { color: #fff !important; text-shadow: 0 2px 6px rgba(0,0,0,.8) !important; }
+
+/* ====== Modo Sepia (alto legible) ====== */
+body.modo-sepia { color: #3d2b1f !important; background: #f5ecd8 !important; }
+body.modo-sepia a { color: #5b3a1e !important; }
+body.modo-sepia .navbar { background: #3d2b1f !important; }
+body.modo-sepia .navbar .nav-link { color: #f5ecd8 !important; }
+body.modo-sepia .card { background: #fff8e7 !important; color: #3d2b1f !important; }
+body.modo-sepia .btn-outline-brand { color: #3d2b1f !important; border-color: #3d2b1f !important; }
+
+/* Elementos específicos comunes que requieren ajuste en modos */
+body.alto-contraste .footer, body.modo-oscuro .footer { background: transparent !important; color: inherit !important; }
+body.alto-contraste .table, body.modo-oscuro .table { color: inherit !important; }
+body.modo-oscuro .table-striped > tbody > tr:nth-of-type(odd) { --bs-table-accent-bg: rgba(255,255,255,.04); color: inherit; }
+
+/* Transparencia buscador tarjeta */
+body.modo-oscuro .search-card { background: #12161b !important; border-color: rgba(255,255,255,.12) !important; box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.6) !important; }
+
+/* Marcas/resaltados */
+body.modo-oscuro mark.search-hit { background: #3b82f6 !important; color: #0b0e12 !important; }
+body.alto-contraste mark.search-hit { background: #ff0 !important; color: #000 !important; }
