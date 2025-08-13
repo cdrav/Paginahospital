@@ -92,3 +92,61 @@ mark.search-hit {
 @media (min-width: 768px) {
   .hero-section-transparencia .hero-lead { margin-top: 2rem; }
 }
+
+/* ------------------------------ */
+/* Correcciones de layout locales */
+/* ------------------------------ */
+/* El CSS global define section { padding: ... } lo que duplica espacios aquí. */
+/* Reducimos el padding en las secciones ancladas solo en Transparencia. */
+.anchor-target {
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+  /* Asegura que al hacer scroll a una ancla quede justo bajo el header fijo */
+  scroll-margin-top: 110px;
+}
+
+
+
+/* Normalizar el bloque HERO local (sin desbordes ni saltos grandes) */
+.hero-section-transparencia {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Alinear sidebar sticky con la altura real del header/nav */
+.sidebar-nav { scroll-margin-top: 110px; }
+/* Unificar con altura del header fijo (110px) */
+aside .position-sticky { top: 110px !important; }
+
+/* Tarjetas dentro de la grilla principal: márgenes y tipografía proporcionados */
+.card-title-custom {
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.05rem);
+}
+.card-text-custom {
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+}
+
+/* Contenedor de búsqueda: evitar que se expanda demasiado y mantener proporción */
+.search-card .form-control.rounded-pill {
+  height: 42px;
+}
+
+
+/* ------------------------------ */
+/* Opción B: robustecer layout    */
+/* ------------------------------ */
+/* Evitar que contenido ancho rompa la grilla y empuje el sidebar */
+.container.my-5 .row.g-4 > * { min-width: 0; }
+section.col-lg-8.col-md-7 { min-width: 0; }
+
+/* Hacer desplazamiento horizontal en tablas/blocks demasiado anchos */
+.anchor-target .table-responsive { overflow-x: auto; }
+.anchor-target table { display: block; width: 100%; overflow-x: auto; }
+
+/* Asegurar que textos/URLs largas no desborden */
+.anchor-target a, .anchor-target td, .anchor-target th {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+

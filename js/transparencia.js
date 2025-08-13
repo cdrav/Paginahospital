@@ -1,27 +1,50 @@
 // Transparencia page scripts: smooth scrolling, active link, and dynamic MVVE loader
 
+// Utilidades compartidas: cálculo dinámico del alto del header fijo/pegajoso
+function calcHeaderOffset() {
+  let total = 0;
+  const selectors = [
+    'nav.navbar',
+    '.fixed-top',
+    'header[role="banner"]',
+    'header.site-header',
+    '#header',
+    '#header-placeholder > *',
+    '.enlaces-institucionales',
+    '.institutional-links'
+  ];
+  document.querySelectorAll(selectors.join(',')).forEach((el) => {
+    const cs = getComputedStyle(el);
+    if (cs.position === 'fixed') {
+      const rect = el.getBoundingClientRect();
+      if (rect.height > 0 && rect.top <= 1) total += rect.height;
+    }
+  });
+  return total || 90; // fallback si no se detecta nada fijo
+}
+
 // Scroll suave con compensación y activación de enlaces del sidebar
 (function () {
   const sidebar = document.querySelector('.sidebar-nav');
-  const headerOffset = 110; // coherente con scroll-margin-top en CSS
 
   function smoothScrollTo(el) {
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    // Scroll con compensación local sin depender de funciones fuera del ámbito
+    const heading = el.querySelector?.('h2, h3');
+    const targetEl = heading || el;
+    const rect = targetEl.getBoundingClientRect();
+    const headerOffset = calcHeaderOffset();
+    const y = rect.top + window.pageYOffset - headerOffset - 4;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }
 
   // Clicks en el sidebar
+  // Nota: el desplazamiento y la lógica de "una sección a la vez" se manejan
+  // en el segundo bloque (captura true). Aquí no intervenimos para evitar dobles scrolls.
   sidebar?.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
-    const hash = a.getAttribute('href');
-    if (!hash) return;
-    const target = document.querySelector(hash);
-
-    // Para anclas normales
-    e.preventDefault();
-    if (target) smoothScrollTo(target);
+    // No prevenir ni hacer scroll aquí; solo permitir que el otro handler actúe.
   });
 
   // Resaltado activo según scroll
@@ -89,11 +112,15 @@
   let singleView = true; // modo por defecto
 
   // Scroll con compensación por header fijo
-  const headerOffset = 110;
   function scrollToWithOffset(el) {
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    // Alinear el encabezado interno (h2/h3) justo bajo el header fijo
+    const heading = el.querySelector?.('h2, h3');
+    const targetEl = heading || el;
+    const rect = targetEl.getBoundingClientRect();
+    const headerOffset = calcHeaderOffset();
+    const y = rect.top + window.pageYOffset - headerOffset - 4;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }
 
   // Utilidades para acordeón lateral
@@ -368,7 +395,7 @@
       // Si el hash apunta al ancla dentro del parcial, hacer scroll suave
       if (location.hash === '#mision-vision-valores') {
         const target = document.getElementById('mision-vision-valores');
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     } catch (e) {
       container.innerHTML =
@@ -388,7 +415,7 @@
       ev.preventDefault();
       loadPartial().then(() => {
         const target = document.getElementById('mision-vision-valores');
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     }
   });
@@ -398,7 +425,7 @@
     if (location.hash === '#mision-vision-valores') {
       loadPartial().then(() => {
         const target = document.getElementById('mision-vision-valores');
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     }
   });
