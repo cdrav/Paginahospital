@@ -143,12 +143,32 @@ section > p {
 
 /* Navbar */
 .navbar { background: var(--color-primario); border-bottom: 1px solid rgba(255,255,255,.15); }
+/* Aislar el contexto para que el blending del logo no afecte otros elementos */
+.navbar .navbar-brand { isolation: isolate; }
 /* Limitar ancho como container para centrar contenido */
 .navbar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
 .navbar .nav-top { padding-top: .35rem; padding-bottom: .35rem; }
 .navbar .nav-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: .15rem; padding-bottom: .15rem; }
 .navbar .navbar-brand { display: flex; align-items: center; gap: .75rem; }
-.hospital-logo { height: 50px; width: auto; }
+/* Logo: tamaño mayor y delineado sutil para resaltar sobre el banner */
+.hospital-logo {
+  height: 84px;
+  width: auto;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0;
+  /* Delineado suave alrededor del contorno + sombra sutil hacia abajo */
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.85))
+    drop-shadow(0 2px 6px rgba(0,0,0,.22));
+  /* Controlar ensanchado del logo sin alterar demasiado su altura */
+  --logo-scale-x: 1;   /* base */
+  --logo-scale: 1;     /* escala general */
+  transform: translateY(0) scaleX(var(--logo-scale-x)) scale(var(--logo-scale));
+  transform-origin: center;
+  transition: transform .18s ease, filter .18s ease;
+}
+.hospital-logo:hover { transform: translateY(-1px) scaleX(var(--logo-scale-x)) scale(1.02); }
 .brand-text { display: flex; flex-direction: column; line-height: 1; font-family: 'Work Sans', 'Poppins', sans-serif; }
 .hospital-name { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .4px; }
 .hospital-location { color: #bfe7e3; font-size: .9rem; font-weight: 600; }
@@ -167,7 +187,9 @@ section > p {
 }
 /* Reducir tamaño del logo en navbar en pantallas medianas para dar más espacio al menú */
 @media (max-width: 991.98px) {
-  .navbar .navbar-brand img { max-height: 56px !important; height: auto !important; width: auto; }
+  .navbar .navbar-brand img { max-height: 96px !important; height: auto !important; width: auto; background: transparent; }
+  /* Ensanchado leve en móviles para no romper el layout */
+  .hospital-logo { --logo-scale-x: 1.03; }
 }
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .navbar .navbar-brand img { max-height: 84px !important; }
@@ -182,9 +204,12 @@ section > p {
 /* Disposición horizontal del menú en pantallas grandes */
 @media (min-width: 992px) {
   /* Marca más grande para dar presencia y frescura */
-  .navbar .navbar-brand img { max-height: 90px !important; height: auto; width: auto; border-radius: 0; box-shadow: none; background: transparent; padding: 0; }
+  .navbar .navbar-brand img { max-height: 140px !important; height: auto; width: auto; border-radius: 0; box-shadow: none; background: transparent; padding: 0; }
+  /* Ajustar espacio vertical para proporción más compacta */
+  .navbar .navbar-brand { padding-top: .2rem; padding-bottom: .2rem; }
   .navbar .navbar-brand { padding-top: .25rem; padding-bottom: .25rem; }
-
+  /* Ensanchado más notorio en escritorio */
+  .hospital-logo { --logo-scale-x: 1.10; }
   /* Mantener layout horizontal del menú en UNA sola línea */
   .navbar .navbar-nav { flex-direction: row; align-items: center; gap: .2rem .55rem; flex-wrap: nowrap; }
   .navbar .nav-link { white-space: nowrap; }
@@ -822,4 +847,45 @@ section.citas-hero > .container {
   background-color: var(--color-secundario);
   border-color: var(--color-secundario);
   color: #fff;
+}
+
+/* =====================================================
+   Normatividad: Alineación de íconos y filas
+   ===================================================== */
+/* Asegura que todos los elementos de la lista queden en la misma línea base */
+#normatividadTabsContent .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* alinea verticalmente el texto, icono y badges */
+  gap: .75rem;
+}
+/* Grupo de la izquierda: icono + texto siempre centrados verticalmente */
+#normatividadTabsContent .list-group-item > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+/* Normaliza los íconos Bootstrap para evitar saltos de línea/altura */
+#normatividadTabsContent .list-group-item i.bi {
+  font-size: 1.1rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex: 0 0 1.25rem; /* ancho fijo para alinear con todas las filas */
+  vertical-align: middle;
+}
+/* Evita que las badges estiren la altura de la fila */
+#normatividadTabsContent .list-group-item .badge { line-height: 1; }
+
+/* Colorear íconos de archivos PDF (rojo característico) */
+#normatividadTabsContent a[href$=".pdf"] i.bi {
+  color: #dc3545; /* rojo Bootstrap - danger */
+}
+/* Mantener y oscurecer levemente en hover/focus del item */
+#normatividadTabsContent .list-group-item:hover a[href$=".pdf"] i.bi,
+#normatividadTabsContent .list-group-item:focus a[href$=".pdf"] i.bi {
+  color: #b02a37; /* rojo más oscuro en hover */
 }
