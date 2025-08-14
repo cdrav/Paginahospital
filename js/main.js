@@ -139,4 +139,160 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // -----------------------------
+    // 4.2 Estados Financieros: construir desde manifest.json
+    // -----------------------------
+    (function buildFinancialsFromManifest() {
+        const acc = document.getElementById('acci-financieros-anual');
+        if (!acc) return; // Solo en la página de transparencia 4.2
+
+        // Utilidades
+        const catOrder = ['estados', 'resultados', 'comparativos', 'reciprocas', 'otros'];
+        const catLabels = {
+            estados: 'Balances y Estados Financieros',
+            resultados: 'Resultados / Actividad Económica',
+            comparativos: 'Comparativos',
+            reciprocas: 'Recíprocas (CGN)',
+            otros: 'Otros documentos'
+        };
+
+        function toArray(files) { return Array.isArray(files) ? files : (files ? [files] : []); }
+
+        const yearChipsEl = document.getElementById('fin-year-chips');
+        const searchEl = document.getElementById('fin-search');
+        const expandAllBtn = document.getElementById('fin-expand-all');
+        const collapseAllBtn = document.getElementById('fin-collapse-all');
+        const chipButtons = Array.from(document.querySelectorAll('.fin-controls .chip'));
+        let currentCategory = 'all';
+        let selectedYear = '';
+        const normCat = (c) => String(c || '').toLowerCase();
+
+        // Normaliza texto: minúsculas y sin acentos (búsqueda amplia)
+        const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+        fetch('documentos/financieros/manifest.json', { cache: 'no-cache' })
+            .then(r => r.ok ? r.json() : Promise.reject(new Error('No se pudo leer manifest.json')))
+            .then(data => {
+                // Esperamos un arreglo de {Year, Files}
+                if (!Array.isArray(data)) return;
+                // Limpiar contenedor y crear grid plano (sin acordeón)
+                acc.innerHTML = '';
+                const grid = document.createElement('div');
+                grid.className = 'fin-grid';
+                acc.appendChild(grid);
+
+                // Construir chips de años
+                if (yearChipsEl) yearChipsEl.innerHTML = '';
+
+                const allFiles = [];
+                data.forEach(entry => {
+                    const year = entry.Year;
+                    const files = toArray(entry.Files);
+                    if (!year || !files.length) return;
+                    files.forEach(f => {
+                        const cat = (f.Category || 'otros').toLowerCase();
+                        allFiles.push({ year, cat, file: f.File, label: f.Name || (f.File || '').split('/').pop() });
+                    });
+
+                    // Chip de año
+                    if (yearChipsEl) {
+                        const ybtn = document.createElement('button');
+                        ybtn.className = 'chip';
+                        ybtn.type = 'button';
+                        ybtn.textContent = String(year);
+                        ybtn.setAttribute('data-year', String(year));
+                        ybtn.addEventListener('click', () => {
+                            // Toggle de año seleccionado
+                            const y = String(year);
+                            if (selectedYear === y) {
+                                selectedYear = '';
+                                // Quitar activo visual
+                                yearChipsEl.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                            } else {
+                                selectedYear = y;
+                                // Marcar activo visual
+                                yearChipsEl.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                                ybtn.classList.add('active');
+                            }
+                            applyFilters();
+                        });
+                        yearChipsEl.appendChild(ybtn);
+                    }
+                });
+
+                // Render inicial de todos los archivos en el grid
+                allFiles.forEach(({ year, cat, file, label }) => {
+                    const ext = (String(file).split('.').pop() || '').toLowerCase();
+                    const extBadge = ext ? `<span class=\"file-ext-badge\">${ext}</span>` : '';
+                    const yearBadge = `<span class=\"year-badge\">${year}</span>`;
+                    const el = document.createElement('a');
+                    el.className = 'btn btn-sm btn-outline-brand rounded-pill fin-file';
+                    el.setAttribute('data-year', String(year));
+                    el.setAttribute('data-cat', String(cat));
+                    el.setAttribute('data-label', norm(label));
+                    el.setAttribute('data-path', norm(file));
+                    el.href = file;
+                    el.target = '_blank';
+                    el.rel = 'noopener';
+                    el.innerHTML = `${extBadge}${yearBadge}<span class=\"fin-label\">${label}</span>`;
+                    grid.appendChild(el);
+                });
+
+                // Filtros y controles sobre grid plano
+                function applyFilters(forceYear) {
+                    const raw = (searchEl?.value || '').trim();
+                    const q = norm(raw);
+                    const tokens = q ? q.split(/\s+/).filter(Boolean) : [];
+                    const cat = normCat(currentCategory);
+                    const yearFilter = forceYear ? String(forceYear) : selectedYear;
+                    const files = grid.querySelectorAll('.fin-file');
+                    let visibles = 0;
+                    const isBalanceHay = (hay) => hay.includes('balance') || (hay.includes('situacion') && hay.includes('financiera')) || hay.includes('balance-general');
+                    files.forEach(a => {
+                        const label = a.getAttribute('data-label') || '';
+                        const year = a.getAttribute('data-year') || '';
+                        const aCat = normCat(a.getAttribute('data-cat') || '');
+                        const path = a.getAttribute('data-path') || '';
+                        const hay = `${label} ${year} ${aCat} ${path}`;
+                        const matchText = tokens.length === 0 || tokens.every(t => hay.includes(t));
+                        let matchCat = true;
+                        if (cat === 'all') {
+                            matchCat = true;
+                        } else if (cat === 'balances') {
+                            // Solo mostrar documentos de balances/estado de situación financiera
+                            matchCat = isBalanceHay(hay);
+                        } else {
+                            matchCat = (aCat === cat);
+                        }
+                        const matchYear = !yearFilter || year === yearFilter;
+                        const show = matchText && matchCat && matchYear;
+                        a.style.display = show ? '' : 'none';
+                        if (show) visibles++;
+                    });
+                    acc.classList.toggle('fin-empty', visibles === 0);
+                }
+
+                let tId = 0;
+                if (searchEl) {
+                    searchEl.addEventListener('input', () => {
+                        clearTimeout(tId);
+                        tId = setTimeout(applyFilters, 180);
+                    });
+                }
+                chipButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        chipButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        currentCategory = btn.getAttribute('data-cat') || 'all';
+                        applyFilters();
+                    });
+                });
+                // Ocultar botones expand/contraer si no hay acordeón
+                if (expandAllBtn) expandAllBtn.style.display = 'none';
+                if (collapseAllBtn) collapseAllBtn.style.display = 'none';
+                applyFilters();
+            })
+            .catch(() => { /* Silencioso: deja el HTML estático si falla */ });
+    })();
 });

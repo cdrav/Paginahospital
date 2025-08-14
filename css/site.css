@@ -29,6 +29,73 @@ body { top: 0 !important; }
 .top-bar .translate-btn:hover { background: #e9f1ff; border-color: #ffffff; }
 .top-bar .translate-btn:active { transform: translateY(1px); }
 
+/* Botón Traducir en top bar */
+/* --- Transparencia 4.2 UX enhancements --- */
+.fin-controls .chip {
+  border: 1px solid rgba(0,0,0,.15);
+  background: #fff;
+  color: #0f3332;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.fin-controls .chip:hover { background: #f5f9f9; border-color: var(--color-primario); }
+.fin-controls .chip.active { background: var(--color-primario); color: #fff; border-color: var(--color-primario); }
+.fin-controls .fin-chip-label { font-size: .9rem; color: #555; }
+.fin-controls { gap: .5rem; }
+
+.fin-cat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem 1.25rem;
+}
+@media (min-width: 992px) {
+  .fin-cat-grid { grid-template-columns: 1fr 1fr; }
+}
+.fin-cat-block { min-width: 0; }
+
+/* Grid plano (sin acordeón) */
+.fin-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.file-ext-badge {
+  display: inline-block;
+  background: #e9ecef;
+  color: #495057;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: .72rem;
+  margin-right: .5rem;
+  text-transform: uppercase;
+}
+
+.year-badge {
+  display: inline-block;
+  background: #f0faf9;
+  color: #0f3332;
+  border: 1px solid #cfe7e5;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: .72rem;
+  margin-right: .5rem;
+}
+
+/* Make small financial buttons more compact on wrap */
+.fin-file.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  white-space: normal;
+}
+
+/* Hide years with zero visible items after filter */
+.accordion-item.fin-empty { display: none; }
+
 /* Footer GOV bar: misma cuadrícula, mayor altura y logos más grandes */
 .gov-final-bar { background: #0b5ed7; color: #fff; }
 .gov-final-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px !important; }

@@ -1,0 +1,363 @@
+[
+    {
+        "Year":  2024,
+        "Files":  {
+                      "Name":  "ESTADOS-FINANCIEROS-2024-HDSR.pdf",
+                      "File":  "documentos/financieros/2024/ESTADOS-FINANCIEROS-2024-HDSR.pdf",
+                      "Category":  "estados"
+                  }
+    },
+    {
+        "Year":  2023,
+        "Files":  {
+                      "Name":  "Estados-Financieros-2023-2022.pdf",
+                      "File":  "documentos/financieros/2023/Estados-Financieros-2023-2022.pdf",
+                      "Category":  "estados"
+                  }
+    },
+    {
+        "Year":  2022,
+        "Files":  {
+                      "Name":  "ESTADOS-FINANCIEROS-A-DICIEMBRE-2022.pdf",
+                      "File":  "documentos/financieros/2022/ESTADOS-FINANCIEROS-A-DICIEMBRE-2022.pdf",
+                      "Category":  "estados"
+                  }
+    },
+    {
+        "Year":  2021,
+        "Files":  {
+                      "Name":  "ESTADOS-FINANCIEROS-HDSA-2021.pdf",
+                      "File":  "documentos/financieros/2021/ESTADOS-FINANCIEROS-HDSA-2021.pdf",
+                      "Category":  "estados"
+                  }
+    },
+    {
+        "Year":  2020,
+        "Files":  [
+                      {
+                          "Name":  "Estados-Financieros-a-diciembre-2020.pdf",
+                          "File":  "documentos/financieros/2020/Estados-Financieros-a-diciembre-2020.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "RECIPROCAS-2020.xlsx",
+                          "File":  "documentos/financieros/2020/RECIPROCAS-2020.xlsx",
+                          "Category":  "reciprocas"
+                      }
+                  ]
+    },
+    {
+        "Year":  2019,
+        "Files":  [
+                      {
+                          "Name":  "Estados-Financieros-Dic.-2019.pdf",
+                          "File":  "documentos/financieros/2019/Estados-Financieros-Dic.-2019.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "RECIPROCAS-2019.xlsx",
+                          "File":  "documentos/financieros/2019/RECIPROCAS-2019.xlsx",
+                          "Category":  "reciprocas"
+                      }
+                  ]
+    },
+    {
+        "Year":  2018,
+        "Files":  [
+                      {
+                          "Name":  "122776000-DICIEMBRE-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2018/122776000-DICIEMBRE-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "Balance-General-2017-vs-2018.pdf",
+                          "File":  "documentos/financieros/2018/Balance-General-2017-vs-2018.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Balance-General-y-PYG.pdf",
+                          "File":  "documentos/financieros/2018/Balance-General-y-PYG.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "ESTADOS-FINANCIEROS-HDSA-2018.pdf",
+                          "File":  "documentos/financieros/2018/ESTADOS-FINANCIEROS-HDSA-2018.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "RECIPROCAS-2018.xlsx",
+                          "File":  "documentos/financieros/2018/RECIPROCAS-2018.xlsx",
+                          "Category":  "reciprocas"
+                      }
+                  ]
+    },
+    {
+        "Year":  2017,
+        "Files":  [
+                      {
+                          "Name":  "Balance-General-2017-vs-2018.pdf",
+                          "File":  "documentos/financieros/2017/Balance-General-2017-vs-2018.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Balance-General-Ene-Dic-2017-VS-Ene-Dic-2016.pdf",
+                          "File":  "documentos/financieros/2017/Balance-General-Ene-Dic-2017-VS-Ene-Dic-2016.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "ESTADOS-FINANCIEROS-NIIF-AL-31-DE-DICIEMBRE-2017.pdf",
+                          "File":  "documentos/financieros/2017/ESTADOS-FINANCIEROS-NIIF-AL-31-DE-DICIEMBRE-2017.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "RECIPROCAS-2017.xlsx",
+                          "File":  "documentos/financieros/2017/RECIPROCAS-2017.xlsx",
+                          "Category":  "reciprocas"
+                      }
+                  ]
+    },
+    {
+        "Year":  2016,
+        "Files":  [
+                      {
+                          "Name":  "122776000-CUENTAS-RECIPROCAS-HDSA-ESE-A-31-MARZO-2016.xlsx",
+                          "File":  "documentos/financieros/2016/122776000-CUENTAS-RECIPROCAS-HDSA-ESE-A-31-MARZO-2016.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "Estado-Financiero-hdsa-Junio-2016.pdf",
+                          "File":  "documentos/financieros/2016/Estado-Financiero-hdsa-Junio-2016.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financiero-Diciembre-2016.pdf",
+                          "File":  "documentos/financieros/2016/Estados-Financiero-Diciembre-2016.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financieros-Septiembre-2016.pdf",
+                          "File":  "documentos/financieros/2016/Estados-Financieros-Septiembre-2016.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "RECIPROCAS-2016.xlsx",
+                          "File":  "documentos/financieros/2016/RECIPROCAS-2016.xlsx",
+                          "Category":  "reciprocas"
+                      }
+                  ]
+    },
+    {
+        "Year":  2015,
+        "Files":  [
+                      {
+                          "Name":  "122776000-DICIEMBRE-2015-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2015/122776000-DICIEMBRE-2015-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-JUNIO-2015-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2015/122776000-JUNIO-2015-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-MARZO-2015-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2015/122776000-MARZO-2015-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-SEPTIEMBRE-2015-RECIPROCAS-HDSA.xls",
+                          "File":  "documentos/financieros/2015/122776000-SEPTIEMBRE-2015-RECIPROCAS-HDSA.xls",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "Estados-Financiero-Dic-2015.pdf",
+                          "File":  "documentos/financieros/2015/Estados-Financiero-Dic-2015.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financieros-3t-2015.pdf",
+                          "File":  "documentos/financieros/2015/Estados-Financieros-3t-2015.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financieros-a-Junio-2015.pdf",
+                          "File":  "documentos/financieros/2015/Estados-Financieros-a-Junio-2015.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financieros-a-Marzo-31-2015.pdf",
+                          "File":  "documentos/financieros/2015/Estados-Financieros-a-Marzo-31-2015.pdf",
+                          "Category":  "estados"
+                      }
+                  ]
+    },
+    {
+        "Year":  2014,
+        "Files":  [
+                      {
+                          "Name":  "122776000-DICIEMBRE-2014-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2014/122776000-DICIEMBRE-2014-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-JUNIO-2014-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2014/122776000-JUNIO-2014-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-MARZO-2014-RECIPROCAS-HDSA.xls",
+                          "File":  "documentos/financieros/2014/122776000-MARZO-2014-RECIPROCAS-HDSA.xls",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-SEPTIEMBRE-2014-RECIPROCAS-HDSA.xls",
+                          "File":  "documentos/financieros/2014/122776000-SEPTIEMBRE-2014-RECIPROCAS-HDSA.xls",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "Balances-Junio-2014.pdf",
+                          "File":  "documentos/financieros/2014/Balances-Junio-2014.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financiero-Dic-2014.pdf",
+                          "File":  "documentos/financieros/2014/Estados-Financiero-Dic-2014.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estados-Financiero-Sept-2014.pdf",
+                          "File":  "documentos/financieros/2014/Estados-Financiero-Sept-2014.pdf",
+                          "Category":  "estados"
+                      }
+                  ]
+    },
+    {
+        "Year":  2013,
+        "Files":  [
+                      {
+                          "Name":  "122776000-DICIEMBRE-2013-RECIPROCAS-HDSA.xls",
+                          "File":  "documentos/financieros/2013/122776000-DICIEMBRE-2013-RECIPROCAS-HDSA.xls",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "122776000-SEPTIEMBRE-2013-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2013/122776000-SEPTIEMBRE-2013-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "Balance-General-2013.pdf",
+                          "File":  "documentos/financieros/2013/Balance-General-2013.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Balance-General-comparativo-2012-2013.pdf",
+                          "File":  "documentos/financieros/2013/Balance-General-comparativo-2012-2013.pdf",
+                          "Category":  "comparativos"
+                      },
+                      {
+                          "Name":  "Balance-General-Septiembre-2013.pdf",
+                          "File":  "documentos/financieros/2013/Balance-General-Septiembre-2013.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estado-de-actividad-economica-2013.pdf",
+                          "File":  "documentos/financieros/2013/Estado-de-actividad-economica-2013.pdf",
+                          "Category":  "resultados"
+                      },
+                      {
+                          "Name":  "Estado-de-actividad-economica-Comparativo-2012-2013.pdf",
+                          "File":  "documentos/financieros/2013/Estado-de-actividad-economica-Comparativo-2012-2013.pdf",
+                          "Category":  "comparativos"
+                      },
+                      {
+                          "Name":  "Estado-de-Actividad-Economica-Sept-2013.pdf",
+                          "File":  "documentos/financieros/2013/Estado-de-Actividad-Economica-Sept-2013.pdf",
+                          "Category":  "resultados"
+                      },
+                      {
+                          "Name":  "Estado-de-Resultados-Marzo-31-2013.pdf",
+                          "File":  "documentos/financieros/2013/Estado-de-Resultados-Marzo-31-2013.pdf",
+                          "Category":  "resultados"
+                      },
+                      {
+                          "Name":  "HDSA-122776000-MARZO-2013-RECIPROCAS-HDSA.xlsx",
+                          "File":  "documentos/financieros/2013/HDSA-122776000-MARZO-2013-RECIPROCAS-HDSA.xlsx",
+                          "Category":  "reciprocas"
+                      }
+                  ]
+    },
+    {
+        "Year":  2012,
+        "Files":  [
+                      {
+                          "Name":  "12277600012-JUNIO-2012-RECIPROCAS.pdf",
+                          "File":  "documentos/financieros/2012/12277600012-JUNIO-2012-RECIPROCAS.pdf",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "12277600012-SEPTIEMBRE-2012-RECIPROCAS.pdf",
+                          "File":  "documentos/financieros/2012/12277600012-SEPTIEMBRE-2012-RECIPROCAS.pdf",
+                          "Category":  "reciprocas"
+                      },
+                      {
+                          "Name":  "Balance-General-2012.pdf",
+                          "File":  "documentos/financieros/2012/Balance-General-2012.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estado-de-Resultados-2012.pdf",
+                          "File":  "documentos/financieros/2012/Estado-de-Resultados-2012.pdf",
+                          "Category":  "resultados"
+                      },
+                      {
+                          "Name":  "Estado-de-Resultados-Comparativo-2011-2012.pdf",
+                          "File":  "documentos/financieros/2012/Estado-de-Resultados-Comparativo-2011-2012.pdf",
+                          "Category":  "comparativos"
+                      }
+                  ]
+    },
+    {
+        "Year":  2011,
+        "Files":  [
+                      {
+                          "Name":  "Balance-General-2011.pdf",
+                          "File":  "documentos/financieros/2011/Balance-General-2011.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "Estado-de-Resultados-2011.pdf",
+                          "File":  "documentos/financieros/2011/Estado-de-Resultados-2011.pdf",
+                          "Category":  "resultados"
+                      }
+                  ]
+    },
+    {
+        "Year":  2010,
+        "Files":  [
+                      {
+                          "Name":  "BALANCE-DE-COMPROBACION-2009-2010-COMPARATIVO.pdf",
+                          "File":  "documentos/financieros/2010/BALANCE-DE-COMPROBACION-2009-2010-COMPARATIVO.pdf",
+                          "Category":  "comparativos"
+                      },
+                      {
+                          "Name":  "Balance-General-a-Diciembre-31-DE-2010.pdf",
+                          "File":  "documentos/financieros/2010/Balance-General-a-Diciembre-31-DE-2010.pdf",
+                          "Category":  "estados"
+                      },
+                      {
+                          "Name":  "BALANCE-GENERAL-COMPARATIVO-2009-2010.pdf",
+                          "File":  "documentos/financieros/2010/BALANCE-GENERAL-COMPARATIVO-2009-2010.pdf",
+                          "Category":  "comparativos"
+                      },
+                      {
+                          "Name":  "Estado-de-Resultados-Diciembre-31-de-2010.pdf",
+                          "File":  "documentos/financieros/2010/Estado-de-Resultados-Diciembre-31-de-2010.pdf",
+                          "Category":  "resultados"
+                      }
+                  ]
+    },
+    {
+        "Year":  2009,
+        "Files":  [ ]
+    }
+]
