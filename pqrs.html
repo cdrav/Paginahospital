@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#164443">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>PQRS - Hospital Departamental San Antonio</title>
+  <meta name="description" content="Formulario de Peticiones, Quejas, Reclamos y Sugerencias del Hospital Departamental San Antonio.">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&family=Work+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/formularios.css" />
+</head>
+
+<body>
+  <!-- Header incluido -->
+  <div id="header-placeholder"></div>
+
+  <main class="main-content py-5">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/index.html">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">PQRS</li>
+        </ol>
+      </nav>
+
+      <h1 class="mb-4">Peticiones, Quejas, Reclamos y Sugerencias (PQRS)</h1>
+      
+      <div class="info-box">
+        <h5><i class="bi bi-info-circle-fill me-2"></i>Información importante</h5>
+        <p class="mb-0">Este formulario está destinado para que los usuarios del Hospital Departamental San Antonio presenten sus peticiones, quejas, reclamos y sugerencias. Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
+      </div>
+
+      <form name="pqrs-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="needs-validation" novalidate>
+        <input type="hidden" name="form-name" value="pqrs-form">
+        <p class="d-none">
+          <label>No llenar este campo si eres humano: <input name="bot-field"></label>
+        </p>
+
+        <!-- Información Básica -->
+        <div class="form-section">
+          <h2 class="form-title">Información Básica</h2>
+          
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="tipoSolicitud" class="form-label required-field">Tipo de solicitud</label>
+              <select class="form-select" id="tipoSolicitud" name="tipoSolicitud" required>
+                <option value="" selected disabled>Seleccione una opción</option>
+                <option value="peticion">Petición</option>
+                <option value="queja">Queja</option>
+                <option value="reclamo">Reclamo</option>
+                <option value="sugerencia">Sugerencia</option>
+              </select>
+              <div class="invalid-feedback">
+                Por favor seleccione el tipo de solicitud.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="fecha" class="form-label required-field">Fecha</label>
+              <input type="date" class="form-control" id="fecha" name="fecha" required>
+              <div class="invalid-feedback">
+                Por favor ingrese la fecha.
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="tipoDocumento" class="form-label required-field">Tipo de documento</label>
+              <select class="form-select" id="tipoDocumento" name="tipoDocumento" required>
+                <option value="" selected disabled>Seleccione</option>
+                <option value="cedula">Cédula de Ciudadanía</option>
+                <option value="tarjeta">Tarjeta de Identidad</option>
+                <option value="cedula_extranjeria">Cédula de Extranjería</option>
+                <option value="pasaporte">Pasaporte</option>
+                <option value="otro">Otro</option>
+              </select>
+              <div class="invalid-feedback">
+                Por favor seleccione el tipo de documento.
+              </div>
+            </div>
+
+            <div class="col-md-8">
+              <label for="numeroDocumento" class="form-label required-field">Número de documento</label>
+              <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" required>
+              <div class="invalid-feedback">
+                Por favor ingrese su número de documento.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="nombres" class="form-label required-field">Nombres completos</label>
+              <input type="text" class="form-control" id="nombres" name="nombres" required>
+              <div class="invalid-feedback">
+                Por favor ingrese sus nombres completos.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="apellidos" class="form-label required-field">Apellidos completos</label>
+              <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+              <div class="invalid-feedback">
+                Por favor ingrese sus apellidos completos.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="telefono" class="form-label required-field">Teléfono de contacto</label>
+              <input type="tel" class="form-control" id="telefono" name="telefono" required>
+              <div class="invalid-feedback">
+                Por favor ingrese un número de teléfono válido.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="email" class="form-label required-field">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+              <div class="invalid-feedback">
+                Por favor ingrese un correo electrónico válido.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="direccion" class="form-label required-field">Dirección de residencia</label>
+              <input type="text" class="form-control" id="direccion" name="direccion" required>
+              <div class="invalid-feedback">
+                Por favor ingrese su dirección de residencia.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="municipio" class="form-label required-field">Municipio</label>
+              <input type="text" class="form-control" id="municipio" name="municipio" required>
+              <div class="invalid-feedback">
+                Por favor ingrese su municipio de residencia.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="departamento" class="form-label required-field">Departamento</label>
+              <input type="text" class="form-control" id="departamento" name="departamento" required>
+              <div class="invalid-feedback">
+                Por favor ingrese su departamento de residencia.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detalles de la Solicitud -->
+        <div class="form-section">
+          <h2 class="form-title">Detalles de la Solicitud</h2>
+          
+          <div class="mb-3">
+            <label for="asunto" class="form-label required-field">Asunto</label>
+            <input type="text" class="form-control" id="asunto" name="asunto" required>
+            <div class="invalid-feedback">
+              Por favor ingrese un asunto para su solicitud.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="descripcion" class="form-label required-field">Descripción detallada</label>
+            <textarea class="form-control form-textarea" id="descripcion" name="descripcion" rows="5" required></textarea>
+            <div class="form-text">Describa de manera clara y detallada su petición, queja, reclamo o sugerencia.</div>
+            <div class="invalid-feedback">
+              Por favor proporcione una descripción detallada.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="archivos" class="form-label">Documentos de soporte (opcional)</label>
+            <input type="file" class="form-control" id="archivos" name="archivos" multiple>
+            <div class="form-text">Puede adjuntar hasta 5 archivos (PDF, JPG, PNG) con un tamaño máximo de 5MB cada uno.</div>
+          </div>
+
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" value="" id="aceptoTerminos" required>
+            <label class="form-check-label" for="aceptoTerminos">
+              Acepto la <a href="#" data-bs-toggle="modal" data-bs-target="#politicaTratamiento">Política de Tratamiento de Datos Personales</a> y autorizo el tratamiento de mis datos de acuerdo con la Ley 1581 de 2012.
+            </label>
+            <div class="invalid-feedback">
+              Debe aceptar los términos y condiciones para continuar.
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="reset" class="btn btn-outline-secondary me-md-2">Limpiar formulario</button>
+          <button type="submit" class="btn btn-primary btn-submit">
+            <i class="bi bi-send-fill me-2"></i>Enviar solicitud
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Modal Política de Tratamiento -->
+  <div class="modal fade" id="politicaTratamiento" tabindex="-1" aria-labelledby="politicaTratamientoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="politicaTratamientoLabel">Política de Tratamiento de Datos Personales</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>En cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013, el Hospital Departamental San Antonio, en su calidad de responsable del tratamiento de datos personales, informa que los datos personales que sean recogidos en los formatos, serán utilizados con la finalidad de atender su solicitud, queja, reclamo o sugerencia, así como para mantenerle informado sobre el estado de la misma.</p>
+          <p>Los datos personales suministrados serán tratados bajo los principios de legalidad, finalidad, libertad, veracidad o calidad, transparencia, acceso y circulación restringida, seguridad y confidencialidad, y se conservarán por el tiempo necesario para cumplir con los fines del tratamiento.</p>
+          <p>Como titular de los datos personales, usted tiene derecho a conocer, actualizar, rectificar y suprimir su información personal, así como a revocar la autorización previamente otorgada para el tratamiento de sus datos personales, a través de los canales dispuestos por el Hospital Departamental San Antonio.</p>
+          <p>Para mayor información sobre nuestra política de tratamiento de datos personales, puede consultar nuestra <a href="/Politicas.html">Política de Privacidad</a>.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer incluido -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/site.js"></script>
+  <script>
+    // Validación del formulario
+    (function () {
+      'use strict'
+
+      // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Bucle sobre ellos y evitar el envío
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+
+    // Establecer la fecha actual por defecto
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('fecha').value = today;
+      
+      // Cargar header y footer
+      fetch('/partials/header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+          // Inicializar el traductor después de cargar el header
+          if (typeof googleTranslateElementInit === 'function') {
+            googleTranslateElementInit();
+          }
+        });
+      
+      fetch('/partials/footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    });
+  </script>
+</body>
+</html>

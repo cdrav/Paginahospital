@@ -428,15 +428,100 @@ section > p {
 .search-form .btn:hover, .search-form .btn:focus { background: #058772; border-color: #058772; color: #fff; }
 @media (min-width: 1400px) { .search-form { width: clamp(360px, 28vw, 560px); } }
 
-/* Botones rápidos del footer: tipografía y jerarquía visual */
+/* Botones rápidos del footer: tipografía, colores institucionales y animaciones */
 .quicklink-btn { 
   font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 700; 
   text-transform: uppercase; 
   letter-spacing: .2px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border: 2px solid #069681 !important;
+  background: transparent !important;
+  color: #069681 !important;
+  padding: 0.5rem 1.5rem !important;
 }
-.quicklink-btn i { font-size: 1.1em; }
-.quicklink-btn:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
+
+/* Efecto hover con el color del menú de navegación */
+.quicklink-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .2px;
+  z-index: 1;
+  border: 2px solid var(--color-secundario, #069681) !important;
+  background: transparent !important;
+  color: var(--color-secundario, #069681) !important;
+  padding: 0.5rem 1.5rem !important;
+}
+
+.quicklink-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-secundario, #069681);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+  opacity: 0.9;
+}
+
+.quicklink-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+  background-color: var(--color-secundario-hover, #058772);
+}
+
+.quicklink-btn:hover {
+  color: #fff !important;
+  border-color: var(--color-secundario, #069681) !important;
+  box-shadow: 0 4px 12px rgba(6, 150, 129, 0.15);
+  transform: translateY(-2px);
+  background-color: transparent !important;
+}
+
+.quicklink-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quicklink-btn i { 
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
+}
+
+.quicklink-btn:hover i {
+  transform: translateX(3px);
+}
+
+.quicklink-btn:focus-visible { 
+  outline: 3px solid #ffbf47; 
+  outline-offset: 2px; 
+  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
+}
+
+/* Aplicar el mismo estilo a todos los botones */
+.quicklink-btn.btn-mapa,
+.quicklink-btn.btn-politicas,
+.quicklink-btn.btn-contacto,
+.quicklink-btn.btn-estadisticas {
+  color: var(--color-secundario, #069681) !important;
+  border-color: var(--color-secundario, #069681) !important;
+}
+
+/* Definir el color de hover consistente con el menú */
+:root {
+  --color-secundario: #069681; /* Color institucional */
+  --color-secundario-hover: #047a67; /* Color de hover del menú */
+}
 
 /* Carrusel full width mínimo y 100% responsivo */
 .fullwidth-carousel { background: #fff; }
@@ -930,7 +1015,7 @@ section > p {
 
 /* Barra final de GOV.CO */
 .gov-final-bar {
-  background-color: #3366cc;
+  background-color: #3366cc; /* Azul institucional */
   min-height: 48px;
   width: 100vw;
   position: relative;
@@ -938,6 +1023,10 @@ section > p {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
 }
 
 /* =====================================================
