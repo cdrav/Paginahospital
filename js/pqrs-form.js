@@ -63,18 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Función para mostrar mensajes
-  function showMessage(message, type) {
-    if (!formMessage) return;
-    
-    formMessage.textContent = message;
-    formMessage.className = `alert alert-${type} mt-3`;
-    formMessage.classList.remove('d-none');
-    
-    // Desplazarse al mensaje
-    formMessage.scrollIntoView({ behavior: 'smooth' });
-  }
-
   // Validación de formulario Bootstrap
   (function () {
     'use strict'

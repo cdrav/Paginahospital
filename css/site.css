@@ -31,6 +31,17 @@ body { top: 0 !important; }
 
 /* Botón Traducir en top bar */
 /* --- Transparencia 4.2 UX enhancements --- */
+
+/* ====== Utilidades personalizadas (para reemplazar estilos inline) ====== */
+.text-brand { color: #164443 !important; }
+.bg-brand { background-color: #164443 !important; }
+.alert-brand { background-color: #164443 !important; color: #ffffff !important; }
+.top-90 { top: 90px !important; }
+.hero-img-400 { height: 400px; object-fit: cover; }
+.icon-2rem { font-size: 2rem !important; }
+.bg-transparent { background-color: transparent !important; }
+.text-accent { color: #069681 !important; }
+.wh-80 { width: 80px !important; height: 80px !important; }
 .fin-controls .chip {
   border: 1px solid rgba(0,0,0,.15);
   background: #fff;
