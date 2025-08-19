@@ -3,10 +3,19 @@
   position: fixed !important;
   right: 1rem !important;
   bottom: 1rem !important;
-  display: flex !important;
+  display: inline-flex !important; /* que el fondo se ajuste al contenido */
   flex-direction: column;
   gap: .5rem;
   z-index: 2000 !important;
+  /* Contenedor sin fondo para evitar franja alargada */
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: auto !important;  /* evita ocupación de ancho extra */
+  height: auto !important; /* evita franjas alargadas */
 }
 
 .accessibility-buttons-container .btn {
@@ -36,6 +45,20 @@ body.modo-oscuro .accessibility-buttons-container .btn:focus {
   background: #1b2430;
 }
 
+/* Botón de Encuesta con estilo institucional (solo este botón en verde) */
+.accessibility-buttons-container [data-action="encuesta-accesibilidad"] {
+  background: #164443 !important;
+  color: #ffffff !important;
+  border-color: #164443 !important;
+}
+.accessibility-buttons-container [data-action="encuesta-accesibilidad"] i { color: #ffffff !important; }
+
+body.modo-oscuro .accessibility-buttons-container [data-action="encuesta-accesibilidad"] {
+  background: #0f3332 !important;
+  border-color: #0f3332 !important;
+  color: #ffffff !important;
+}
+
 body.alto-contraste .accessibility-buttons-container .btn {
   background: #ffff00;
   color: #000;
@@ -43,7 +66,15 @@ body.alto-contraste .accessibility-buttons-container .btn {
 }
 
 /* Layout responsivo del contenedor */
-@media (max-width: 576px) {
-  .accessibility-buttons-container { right: .5rem !important; bottom: .5rem !important; gap: .4rem !important; }
+@media (max-width: 768px) {
+  .accessibility-buttons-container {
+    right: .5rem !important;
+    bottom: .5rem !important;
+    left: auto !important;  /* evitar que se expanda desde el lado izquierdo */
+    top: auto !important;
+    flex-direction: row;     /* en móviles, en fila para ocupar menos alto */
+    gap: .4rem !important;
+    width: auto !important;
+  }
   .accessibility-buttons-container .btn { width: 40px; height: 40px; }
 }
