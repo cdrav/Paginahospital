@@ -12,6 +12,9 @@ function googleTranslateElementInit() {
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE
         }, 'google_translate_element');
         el.setAttribute('data-gt-initialized', '1');
+        // Asegurar visibilidad del contenedor por si algún estilo lo oculta
+        try { el.style.display = 'inline-block'; el.style.visibility = 'visible'; } catch(_) {}
+        if (window.console && console.debug) console.debug('[GT] Widget montado');
         return true;
     }
 
@@ -46,6 +49,16 @@ function googleTranslateElementInit() {
         observer.observe(document.documentElement, { childList: true, subtree: true });
         // Seguridad: detener tras 8s
         setTimeout(() => observer.disconnect(), 8000);
+        // Además: reintentos periódicos mientras carga el script de Google (hasta 8s)
+        const start = Date.now();
+        const retryId = setInterval(() => {
+            if (mountTranslate()) {
+                clearInterval(retryId);
+                observer.disconnect();
+            } else if (Date.now() - start > 8000) {
+                clearInterval(retryId);
+            }
+        }, 250);
     } catch (_) {
         // Fallback simple
         const maxTries = 16; let tries = 0;
@@ -68,6 +81,20 @@ function mostrarAviso(mensaje) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Asegurar que el script de Google Translate esté presente
+    (function ensureGTScript() {
+        const hasScript = !!document.querySelector('script[src*="translate_a/element.js"]');
+        if (!hasScript) {
+            const s = document.createElement('script');
+            s.src = 'https://translate.google.com/translate_a/element.js';
+            s.async = true;
+            s.onload = () => { try { googleTranslateElementInit(); } catch(_) {} };
+            document.head.appendChild(s);
+        }
+    })();
+
+    // Iniciar el traductor (configura observadores y reintentos)
+    try { googleTranslateElementInit(); } catch(_) {}
     // Evitar duplicar gestión de accesibilidad si ya está centralizada
     const ACCESS_MANAGED = Boolean(window.ACCESSIBILITY_MANAGED);
 

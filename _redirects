@@ -1,0 +1,6 @@
+# Redirecciones para el formulario PQRS
+/pqrs/gracias    /pqrs/success.html    200
+/thanks.html     /pqrs/success.html    200
+
+# Redirección general para SPA (Single Page Application)
+/*    /index.html    200
