@@ -1,5 +1,60 @@
 /* Estilos de marca para la página de Transparencia */
-:root { --brand-main: #164443; --brand-dark: #0f3332; }
+:root { 
+  --brand-main: #164443; 
+  --brand-dark: #0f3332; 
+}
+
+/* Ajustes específicos para la página de transparencia */
+#main-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Asegurar que el contenido principal tenga márgenes consistentes */
+.container {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Ajustar el ancho del sidebar y contenido principal */
+@media (min-width: 992px) {
+  .container {
+    max-width: 1440px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Asegurar que el logo se muestre correctamente */
+.navbar .navbar-brand img.hospital-logo {
+  height: 84px;
+  width: auto;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,.85)) 
+          drop-shadow(0 2px 6px rgba(0,0,0,.22));
+  transform: translateY(0) scaleX(1.1) scale(1);
+  transform-origin: center;
+  transition: transform .28s cubic-bezier(.22,.61,.36,1), 
+              filter .28s ease;
+}
+
+.navbar .navbar-brand img.hospital-logo:hover,
+.navbar .navbar-brand img.hospital-logo:focus-visible {
+  transform: translateY(-2px) scaleX(1.1) scale(1.08);
+  filter: drop-shadow(0 0 3px rgba(255,255,255,.9))
+          drop-shadow(0 6px 14px rgba(0,0,0,.24));
+}
+
+/* Ajustes específicos para el logo en pantallas grandes */
+@media (min-width: 992px) {
+  .navbar .navbar-brand img.hospital-logo {
+    max-height: 140px !important;
+    height: auto !important;
+  }
+}
 
 /* Botones outline con color de marca */
 .btn-outline-brand {

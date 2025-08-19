@@ -59,8 +59,8 @@
                 </div>
                 <div>
                   <h5 class="fw-bold">Horario de Atención</h5>
-                  <p class="mb-0">Lunes a Viernes: 7:00 AM - 6:00 PM<br>
-                  Sábados: 8:00 AM - 12:00 PM</p>
+                  <p class="mb-0">Lunes a Viernes: 7:00 a.m.  12:00 p.m 1:00 p.m.  5:00 p.m<br>
+                  Sábados: 8:00 a.m.  12:00 p.m.</p>
                 </div>
               </div>
             </div>
@@ -200,17 +200,17 @@
           <i class="bi bi-info-circle me-2"></i>Información de Contacto
         </div>
         <div class="card-body">
-          <h5 class="card-title fw-bold">Horario de Atención</h5>
+          <h5 class="fw-bold">Horario de Atención</h5>
           <p class="card-text">
-            <i class="bi bi-clock me-2 text-primary"></i> Lunes a Viernes: 7:00 AM - 6:00 PM<br>
-            <i class="bi bi-clock me-2 text-primary"></i> Sábados: 8:00 AM - 12:00 PM
+            <i class="bi bi-clock me-2 text-primary"></i> Lunes a Viernes: 7:00 a.m. – 12:00 p.m. / 1:00 p.m. – 5:00 p.m.<br>
+            <i class="bi bi-clock me-2 text-primary"></i> Sábados: 8:00 a.m. – 12:00 p.m.
           </p>
           <hr>
           <h5 class="card-title fw-bold">Contacto</h5>
           <p class="card-text">
             <i class="bi bi-telephone me-2 text-primary"></i> PBX: 602 891 2317<br>
-            <i class="bi bi-envelope me-2 text-primary"></i> consulta.externa@hospitalsanantonio.gov.co
           </p>
+            </p>
           <hr>
           <h5 class="card-title fw-bold">Ubicación</h5>
           <p class="card-text">
@@ -220,18 +220,6 @@
         </div>
       </div>
       
-      <!-- Tarjeta de Citas en Línea -->
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-success text-white fw-bold">
-          <i class="bi bi-calendar-check me-2"></i>Solicitar Cita en Línea
-        </div>
-        <div class="card-body text-center">
-          <p>Agende su cita de manera rápida y sencilla a través de nuestro portal de citas en línea.</p>
-          <a href="/citasmedicas.html" class="btn btn-success w-100">
-            <i class="bi bi-calendar-plus me-2"></i>Solicitar Cita
-          </a>
-        </div>
-      </div>
       
       <!-- Tarjeta de Especialidades -->
       <div class="card border-0 shadow-sm mb-4">
@@ -361,11 +349,11 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqConsultaExterna">
               <div class="accordion-body">
-                Puede agendar su cita a través de los siguientes canales:
-                <ul class="mt-2">
-                  <li>Llamando a nuestra línea de atención al PBX: 602 891 2317</li>
-                  <li>Visitando nuestra página web en la sección de "Citas en Línea"</li>
-                  <li>De manera presencial en nuestras oficinas de atención al usuario</li>
+                <h5 class="card-title fw-bold mb-3">Solicitar Cita</h5>
+                <p class="card-text mb-3">Puede solicitar su cita a través de los siguientes canales:</p>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-telephone-fill text-primary me-2"></i> Línea de atención: 602 891 2317</li>
+                  <li><i class="bi bi-geo-alt-fill text-primary me-2"></i> De manera presencial en nuestras instalaciones</li>
                 </ul>
               </div>
             </div>
@@ -440,8 +428,20 @@
 
  <div id="footer-placeholder"></div>
 
- <script src="/js/layout.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="/js/layout.js"></script>
+ <script src="/js/accesibilidad.js"></script>
+ <script src="/js/accessibility-styles.js"></script>
+ <script src="/js/main.js"></script>
+ <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+ <script>
+   // Inicializar el traductor después de cargar el header
+   document.addEventListener('DOMContentLoaded', function() {
+     if (typeof googleTranslateElementInit === 'function') {
+       googleTranslateElementInit();
+     }
+   });
+ </script>
  </body>
  </html>
 
