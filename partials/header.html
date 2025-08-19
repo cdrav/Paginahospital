@@ -1,4 +1,7 @@
 <!-- Header Partial: top bar and main navbar -->
+<!-- Carga global de estilos de accesibilidad -->
+<link rel="stylesheet" href="/css/accesibilidad.css?v=1.1">
+<link rel="stylesheet" href="/css/accessibility-buttons.css">
 <div class="top-bar">
   <div class="container-fluid d-flex align-items-center justify-content-between">
     <a href="https://www.gov.co/" target="_blank" class="d-flex align-items-center text-white text-decoration-none gov-link">
@@ -145,3 +148,25 @@
     </div>
   </div>
 </nav>
+
+<!-- Botones de Accesibilidad (globales) -->
+<div class="accessibility-buttons-container" role="toolbar" aria-label="Herramientas de accesibilidad">
+  <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto (Ctrl + +)" aria-label="Aumentar tamaño de texto" data-action="increase-text">
+    <i class="bi bi-zoom-in"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Reducir texto (Ctrl + -)" aria-label="Reducir tamaño de texto" data-action="decrease-text">
+    <i class="bi bi-zoom-out"></i>
+  </button>
+  <button id="cambiarcontraste" class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste" data-action="change-contrast">
+    <i class="bi bi-brightness-high"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Restablecer configuración (Ctrl + 0)" aria-label="Restablecer configuración" data-action="reset-settings">
+    <i class="bi bi-arrow-counterclockwise"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Centro de relevo" aria-label="Abrir Centro de Relevo" data-action="centro-relevo">
+    <i class="bi bi-universal-access-circle"></i>
+  </button>
+  <button class="btn btn-outline-primary rounded-circle" title="Encuesta de accesibilidad" aria-label="Abrir Encuesta de Accesibilidad" data-action="encuesta-accesibilidad">
+    <i class="bi bi-clipboard-check"></i>
+  </button>
+</div>

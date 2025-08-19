@@ -11,11 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Función para mostrar mensajes
   function showMessage(message, type) {
-    if (!formMessage) return;
-    formMessage.textContent = message;
-    formMessage.className = `alert alert-${type} mt-3`;
-    formMessage.classList.remove('d-none');
-    formMessage.scrollIntoView({ behavior: 'smooth' });
+    // Preferir utilidad global unificada con target del formulario
+    if (window.notify) {
+      window.notify(message, { type, target: formMessage || null, timeout: 4000 });
+      return;
+    }
+    // Fallback anterior si no existe utils.js
+    if (formMessage) {
+      formMessage.textContent = message;
+      formMessage.className = `alert alert-${type} mt-3`;
+      formMessage.classList.remove('d-none');
+      formMessage.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert(message);
+    }
   }
 
   // Validación del formulario

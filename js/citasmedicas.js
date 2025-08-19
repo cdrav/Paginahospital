@@ -189,44 +189,26 @@ function inicializarAcordeonFAQ() {
  * @param {string} tipo - Tipo de mensaje (success, error, info, warning)
  */
 function mostrarMensaje(mensaje, tipo = 'info') {
-    // Crear el contenedor del mensaje si no existe
-    let contenedorMensajes = document.getElementById('mensajes-flotantes');
-    
-    if (!contenedorMensajes) {
-        contenedorMensajes = document.createElement('div');
-        contenedorMensajes.id = 'mensajes-flotantes';
-        contenedorMensajes.style.position = 'fixed';
-        contenedorMensajes.style.top = '20px';
-        contenedorMensajes.style.right = '20px';
-        contenedorMensajes.style.zIndex = '9999';
-        document.body.appendChild(contenedorMensajes);
+    // Usar utilidad global unificada si está disponible
+    if (window.notify) {
+        // Mapear 'error' a 'danger' para clases Bootstrap
+        const mapped = tipo === 'error' ? 'danger' : tipo;
+        window.notify(mensaje, { type: mapped, timeout: 5000 });
+        return;
     }
-    
-    // Crear el mensaje
-    const mensajeElemento = document.createElement('div');
-    mensajeElemento.className = `alert alert-${tipo} alert-dismissible fade show`;
-    mensajeElemento.role = 'alert';
-    mensajeElemento.innerHTML = `
-        ${mensaje}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-    `;
-    
-    // Agregar el mensaje al contenedor
-    contenedorMensajes.appendChild(mensajeElemento);
-    
-    // Eliminar el mensaje después de 5 segundos
-    setTimeout(() => {
-        mensajeElemento.classList.remove('show');
-        mensajeElemento.classList.add('fade');
-        
-        // Eliminar el elemento después de la animación
-        setTimeout(() => {
-            mensajeElemento.remove();
-            
-            // Si no hay más mensajes, eliminar el contenedor
-            if (contenedorMensajes.children.length === 0) {
-                contenedorMensajes.remove();
-            }
-        }, 150);
-    }, 5000);
+    // Fallback mínimo si utils.js no ha cargado
+    try {
+        const cont = document.createElement('div');
+        cont.className = `alert alert-${tipo === 'error' ? 'danger' : tipo}`;
+        cont.role = 'alert';
+        cont.style.position = 'fixed';
+        cont.style.top = '1rem';
+        cont.style.right = '1rem';
+        cont.style.zIndex = '1080';
+        cont.textContent = mensaje;
+        document.body.appendChild(cont);
+        setTimeout(() => cont.remove(), 5000);
+    } catch (e) {
+        alert(mensaje);
+    }
 }

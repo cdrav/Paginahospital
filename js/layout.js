@@ -4,6 +4,22 @@
 (function () {
   "use strict";
 
+  // Asegurar utilidades globales (utils.js) disponibles temprano
+  (function ensureUtils() {
+    try {
+      if (window.notify) return;
+      const existing = document.querySelector('script[src="/js/utils.js"]');
+      if (existing) return;
+      const s = document.createElement("script");
+      s.src = "/js/utils.js";
+      // intención: cargar lo antes posible para otros scripts
+      s.async = false;
+      document.head.appendChild(s);
+    } catch (e) {
+      console.warn('[layout] No se pudo inyectar utils.js temprano', e);
+    }
+  })();
+
   async function loadPartial(targetSelector, url) {
     const target = document.querySelector(targetSelector);
     if (!target) return;

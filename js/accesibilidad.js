@@ -3,37 +3,28 @@ const CENTRO_RELEVO_URL = "https://www.centroderelevo.gov.co/632/w3-propertyvalu
 const ENCUESTA_ACCESIBILIDAD_URL = "https://forms.gle/example";
 
 // Función para mostrar notificaciones mejoradas
-function showNotification(message, type = 'default') {
-    console.log('Mostrando notificación:', message, type); // Debug
-    
-    // Remover notificación anterior si existe
-    const existingNotification = document.querySelector('.contrast-notification');
-    if (existingNotification) {
-        existingNotification.remove();
+function showNotification(message, type = 'info') {
+    // Usar utilidad global si está disponible, con un timeout estándar
+    if (window.notify) {
+        window.notify(message, { type, timeout: 3000 });
+        return;
     }
-
-    // Crear nueva notificación
-    const notification = document.createElement('div');
-    notification.className = `contrast-notification notification-${type}`;
-    notification.textContent = message;
-    
-    // Agregar al body
-    document.body.appendChild(notification);
-    
-    // Mostrar con animación
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
-    
-    // Ocultar después de 3 segundos
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 300);
-    }, 3000);
+    // Fallback mínimo si utils.js no ha cargado
+    try {
+        // Bootstrap alert simple como fallback
+        const div = document.createElement('div');
+        div.className = `alert alert-${type === 'error' ? 'danger' : type}`;
+        div.role = 'alert';
+        div.style.position = 'fixed';
+        div.style.top = '1rem';
+        div.style.right = '1rem';
+        div.style.zIndex = '1080';
+        div.textContent = message;
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
+    } catch (e) {
+        console.log(message);
+    }
 }
 
 // Función para abrir Centro de Relevo
