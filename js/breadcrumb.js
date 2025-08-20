@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const breadcrumbHtml = `
     <nav aria-label="breadcrumb" class="mb-4">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/index.html">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
         <li class="breadcrumb-item active" aria-current="page">${pageTitle}</li>
       </ol>
     </nav>

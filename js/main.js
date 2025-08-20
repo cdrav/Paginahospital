@@ -50,15 +50,48 @@
     }
   }
   
+  // Optimización: Usar MutationObserver en lugar de setInterval para el widget de Google Translate
+  function observeTranslateWidget() {
+    const targetNode = document.getElementById('google_translate_element');
+    if (!targetNode) {
+      // Si el elemento no existe aún, reintentar en un momento.
+      // Esto es un fallback por si el script se ejecuta antes de que el layout.js inserte el header.
+      setTimeout(observeTranslateWidget, 100);
+      return;
+    }
+
+    // Función a ejecutar cuando se detectan mutaciones
+    const callback = function(mutationsList, observer) {
+      // El widget de Google a menudo se envuelve en un iframe o modifica sus hijos.
+      // Simplemente corremos nuestra función de corrección cada vez que cambia.
+      checkAndFixTranslateElement();
+      
+      // Opcional: si sabemos que el widget solo se carga una vez, podemos desconectar el observador.
+      // Pero es más seguro dejarlo activo por si hay cambios dinámicos.
+      // observer.disconnect();
+    };
+
+    // Crear una instancia de observador
+    const observer = new MutationObserver(callback);
+
+    // Configuración del observador: vigilar cambios en los hijos del elemento
+    const config = { childList: true, subtree: true };
+
+    // Empezar a observar el nodo objetivo
+    observer.observe(targetNode, config);
+
+    // Ejecutar una vez al inicio por si el widget ya está presente
+    checkAndFixTranslateElement();
+  }
+
   // Inicialización cuando el DOM esté listo
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       setupTranslateButton();
-      // Verificar periódicamente el estado del traductor
-      setInterval(checkAndFixTranslateElement, 1000);
+      observeTranslateWidget();
     });
   } else {
     setupTranslateButton();
-    setInterval(checkAndFixTranslateElement, 1000);
+    observeTranslateWidget();
   }
 })();

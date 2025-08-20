@@ -125,7 +125,11 @@ function calcHeaderOffset() {
 
   // Utilidades para acordeón lateral
   const accordion = document.getElementById('transpAccordion');
-  const collapseIds = ['acc-c1','acc-c2','acc-c3','acc-c4','acc-c5','acc-c6','acc-c7','acc-c8','acc-c9'];
+  // Hacer el array dinámico para que sea robusto a cambios en el HTML.
+  // Se buscan todos los elementos colapsables dentro del acordeón y se extraen sus IDs.
+  const collapseIds = accordion
+    ? Array.from(accordion.querySelectorAll('.accordion-collapse')).map(el => el.id)
+    : [];
   function expandAccordionForSectionId(id) {
     if (!accordion || !id) return;
     // Determinar grupo
@@ -272,17 +276,10 @@ function calcHeaderOffset() {
     history.replaceState(null, '', hash);
   });
 
-  // Responder a navegación del navegador (atrás/adelante)
-  window.addEventListener('hashchange', () => {
-    const h = location.hash;
-    if (!h) return;
-    showOnlyBySelector(h);
-  });
-
-  // Cambios del hash (por navegación del usuario)
+  // Responder a navegación del navegador (atrás/adelante) y otros cambios de hash
   window.addEventListener('hashchange', () => {
     const hash = location.hash;
-    if (hash) showOnlyBySelector(hash);
+    showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
   });
 
   // Integración con búsqueda: cuando el campo queda vacío, re-aplicar modo una sección

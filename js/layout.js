@@ -8,10 +8,10 @@
   (function ensureUtils() {
     try {
       if (window.notify) return;
-      const existing = document.querySelector('script[src="/js/utils.js"]');
-      if (existing) return;
+      const existing = document.querySelector('script[src$="js/utils.js"]');
+      if (existing) return; // Evitar duplicados si ya está cargado
       const s = document.createElement("script");
-      s.src = "/js/utils.js";
+      s.src = "js/utils.js";
       // intención: cargar lo antes posible para otros scripts
       s.async = false;
       document.head.appendChild(s);
@@ -48,7 +48,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    loadPartial("#header-placeholder", "/partials/header.html");
-    loadPartial("#footer-placeholder", "/partials/footer.html");
+    loadPartial("#header-placeholder", "partials/header.html");
+    loadPartial("#footer-placeholder", "partials/footer.html");
   });
 })();
