@@ -103,6 +103,26 @@ body.modo-oscuro .table-striped > tbody > tr:nth-of-type(odd) { --bs-table-accen
 /* Transparencia buscador tarjeta */
 body.modo-oscuro .search-card { background: #12161b !important; border-color: rgba(255,255,255,.12) !important; box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.6) !important; }
 
+/* Asegurar que el footer sea visible en todos los modos */
+body.modo-oscuro footer,
+body.modo-sepia footer,
+body.alto-contraste footer {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+body.modo-oscuro footer a,
+body.modo-sepia footer a,
+body.alto-contraste footer a {
+  color: #4dabf7 !important;
+}
+
+body.modo-oscuro footer .text-muted,
+body.modo-sepia footer .text-muted,
+body.alto-contraste footer .text-muted {
+  color: #adb5bd !important;
+}
+
 /* Marcas/resaltados */
 body.modo-oscuro mark.search-hit { background: #3b82f6 !important; color: #0b0e12 !important; }
 body.alto-contraste mark.search-hit { background: #ff0 !important; color: #000 !important; }
