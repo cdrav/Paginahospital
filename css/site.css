@@ -771,6 +771,19 @@ section > p {
 .accordion-button { font-family: 'Work Sans', 'Poppins', sans-serif; font-weight: 700; }
 .accordion-button:not(.collapsed) { color: var(--color-primario); background: #e9f4f2; }
 
+/* Estilos para resultados de búsqueda */
+.no-results-icon {
+  font-size: 3rem;
+  color: #6c757d;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 /* Utilidades */
 .text-primary { color: var(--color-primario) !important; }
 .bg-light { background: #f8f9fa !important; }
