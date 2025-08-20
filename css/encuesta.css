@@ -1,0 +1,75 @@
+/* Estilos específicos para la página de encuesta de accesibilidad */
+.encuesta-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.page-header {
+    background-color: #069681;
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+/* Estilos para el formulario */
+#encuestaAccesibilidad .form-label {
+    font-weight: 600;
+}
+
+#encuestaAccesibilidad .form-check-label {
+    font-weight: normal;
+}
+
+/* Mejoras de accesibilidad */
+#encuestaAccesibilidad fieldset {
+    margin-bottom: 1.5rem;
+    border: 1px solid #dee2e6;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+#encuestaAccesibilidad legend {
+    width: auto;
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #069681;
+}
+
+/* Estilos para los botones */
+.btn-submit {
+    background-color: #069681;
+    border-color: #069681;
+    padding: 0.5rem 2rem;
+    font-weight: 600;
+}
+
+.btn-submit:hover {
+    background-color: #057a6a;
+    border-color: #046b5d;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .encuesta-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    .page-header {
+        padding: 2rem 0;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+}

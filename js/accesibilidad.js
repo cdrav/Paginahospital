@@ -1,6 +1,6 @@
 // URLs para enlaces externos
 const CENTRO_RELEVO_URL = "https://www.centroderelevo.gov.co/632/w3-propertyvalue-15254.html";
-const ENCUESTA_ACCESIBILIDAD_URL = "https://forms.gle/example";
+const ENCUESTA_ACCESIBILIDAD_URL = "encuesta-accesibilidad.html";
 
 // Función para mostrar notificaciones mejoradas
 function showNotification(message, type = 'info') {
@@ -37,9 +37,10 @@ function openCentroRelevo() {
 
 // Función para abrir Encuesta de Accesibilidad
 function openEncuestaAccesibilidad() {
-    showNotification('Abriendo Encuesta de Usabilidad y Accesibilidad...', 'encuesta-accesibilidad');
+    showNotification('Redirigiendo a la encuesta de accesibilidad...', 'encuesta-accesibilidad');
+    // Usar location.href en lugar de window.open para mejor experiencia en móviles
     setTimeout(() => {
-        window.open(ENCUESTA_ACCESIBILIDAD_URL, '_blank');
+        window.location.href = ENCUESTA_ACCESIBILIDAD_URL;
     }, 500);
 }
 
