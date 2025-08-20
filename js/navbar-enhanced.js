@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Efecto de scroll en la barra de navegación
   function handleScroll() {
+    if (!navbar) return; // Salir si navbar no existe
+    
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
