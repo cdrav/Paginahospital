@@ -440,90 +440,102 @@ section > p {
 @media (min-width: 1400px) { .search-form { width: clamp(360px, 28vw, 560px); } }
 
 /* Botones rápidos del footer: tipografía, colores institucionales y animaciones */
-.quicklink-btn { 
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 700; 
-  text-transform: uppercase; 
-  letter-spacing: .2px;
-  transition: all 0.3s ease-in-out;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  border: 2px solid #069681 !important;
-  background: transparent !important;
-  color: #069681 !important;
-  padding: 0.5rem 1.5rem !important;
-}
-
-/* Efecto hover con el color del menú de navegación */
-.quicklink-btn {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .2px;
-  z-index: 1;
+/* Estilos base para todos los botones del footer */
+.footer-institutional-card .btn,
+.quicklink-btn,
+.btn-mapa,
+.btn-politicas,
+.btn-contacto,
+.btn-estadisticas,
+.btn-email {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.3s ease-in-out !important;
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
   border: 2px solid var(--color-secundario, #069681) !important;
-  background: transparent !important;
   color: var(--color-secundario, #069681) !important;
-  padding: 0.5rem 1.5rem !important;
-}
-
-.quicklink-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--color-secundario, #069681);
-  z-index: -1;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
-  opacity: 0.9;
-}
-
-.quicklink-btn:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
-  background-color: var(--color-secundario-hover, #058772);
-}
-
-.quicklink-btn:hover {
-  color: #fff !important;
-  border-color: var(--color-secundario, #069681) !important;
-  box-shadow: 0 4px 12px rgba(6, 150, 129, 0.15);
-  transform: translateY(-2px);
   background-color: transparent !important;
+  padding: 0.5rem 1.25rem !important;
+  text-transform: none !important;
+  min-width: 140px !important;
+  margin: 0.25rem !important;
+  text-align: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50px !important;
+  box-shadow: none !important;
 }
 
-.quicklink-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+/* Efecto hover para todos los botones */
+.footer-institutional-card .btn:hover,
+.quicklink-btn:hover,
+.btn-mapa:hover,
+.btn-politicas:hover,
+.btn-contacto:hover,
+.btn-estadisticas:hover,
+.btn-email:hover {
+  color: #fff !important;
+  background-color: var(--color-secundario, #069681) !important;
+  border-color: var(--color-secundario, #069681) !important;
+  box-shadow: 0 4px 12px rgba(6, 150, 129, 0.25) !important;
+  transform: translateY(-2px) !important;
 }
 
-.quicklink-btn i { 
-  font-size: 1.1em;
-  transition: transform 0.3s ease;
+/* Efecto active para todos los botones */
+.footer-institutional-card .btn:active,
+.quicklink-btn:active,
+.btn-mapa:active,
+.btn-politicas:active,
+.btn-contacto:active,
+.btn-estadisticas:active,
+.btn-email:active {
+  transform: translateY(1px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-.quicklink-btn:hover i {
-  transform: translateX(3px);
+/* Estilos para los íconos dentro de los botones */
+.quicklink-btn i,
+.btn-mapa i,
+.btn-politicas i,
+.btn-contacto i,
+.btn-estadisticas i,
+.btn-email i {
+  font-size: 1.1em !important;
+  transition: transform 0.3s ease !important;
 }
 
-.quicklink-btn:focus-visible { 
-  outline: 3px solid #ffbf47; 
-  outline-offset: 2px; 
-  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
+/* Efecto hover para los íconos */
+.quicklink-btn:hover i,
+.btn-mapa:hover i,
+.btn-politicas:hover i,
+.btn-contacto:hover i,
+.btn-estadisticas:hover i,
+.btn-email:hover i {
+  transform: translateX(3px) !important;
+}
+
+/* Estilo para el foco accesible */
+.quicklink-btn:focus-visible,
+.btn-mapa:focus-visible,
+.btn-politicas:focus-visible,
+.btn-contacto:focus-visible,
+.btn-estadisticas:focus-visible,
+.btn-email:focus-visible { 
+  outline: 3px solid #ffbf47 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3) !important;
 }
 
 /* Aplicar el mismo estilo a todos los botones */
 .quicklink-btn.btn-mapa,
 .quicklink-btn.btn-politicas,
 .quicklink-btn.btn-contacto,
-.quicklink-btn.btn-estadisticas {
+.quicklink-btn.btn-estadisticas,
+.quicklink-btn.btn-email {
   color: var(--color-secundario, #069681) !important;
   border-color: var(--color-secundario, #069681) !important;
 }
