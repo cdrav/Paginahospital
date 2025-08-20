@@ -9,23 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <style>
-    .search-result-card {
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    .search-result-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    .search-snippet {
-      color: #495057;
-    }
-    .search-term {
-      color: #0d6efd;
-      font-weight: 600;
-    }
-  </style>
+
 </head>
 <body>
 
@@ -70,10 +54,54 @@
 
 <script src="js/layout.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/vendor/lunr.min.js"></script> <!-- Librería principal de búsqueda (local) -->
-<script src="js/vendor/lunr.stemmer.support.js"></script> <!-- Soporte para stemmers (local) -->
-<script src="js/vendor/lunr.es.js"></script> <!-- Stemmer en español (local) -->
+<script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.10.0/min/lunr.stemmer.support.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.10.0/min/lunr.es.min.js"></script>
 <script src="js/busqueda.js"></script>
+<script>
+  // Inicializar la búsqueda después de cargar todo
+  document.addEventListener('DOMContentLoaded', async function() {
+    // Obtener el término de búsqueda de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get('q');
+    
+    if (searchTerm) {
+      document.getElementById('search-term').textContent = searchTerm;
+      
+      // Inicializar la búsqueda
+      try {
+        // Esperar a que se inicialice la búsqueda
+        await searchConfig.initializeSearch();
+        
+        // Realizar la búsqueda
+        const results = await searchConfig.performSearch(searchTerm);
+        
+        // Actualizar el contador de resultados
+        const resultsCount = document.getElementById('results-count');
+        if (resultsCount) {
+          if (results.length > 0) {
+            resultsCount.textContent = `Se encontraron ${results.length} resultados`;
+            resultsCount.className = 'mt-2 text-success';
+          } else {
+            resultsCount.textContent = 'No se encontraron resultados para su búsqueda.';
+            resultsCount.className = 'mt-2 text-warning';
+          }
+        }
+      } catch (error) {
+        console.error('Error en la búsqueda:', error);
+        const resultsContainer = document.getElementById('search-results');
+        if (resultsContainer) {
+          resultsContainer.innerHTML = `
+            <div class="alert alert-danger" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              Ocurrió un error al realizar la búsqueda. Por favor, intente de nuevo.
+            </div>
+          `;
+        }
+      }
+    }
+  });
+</script>
 
 </body>
 </html>

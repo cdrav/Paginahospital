@@ -2,11 +2,37 @@
 const searchConfig = {
     lunrIndex: null,
     dataStore: {}, // Para mapear URL a datos completos de la página
+    isInitialized: false,
+    initializationPromise: null,
     
     // Inicialización
     init: function() {
         this.setupSearchForm();
-        // La carga del índice se delega al listener del DOM en la página de búsqueda
+        // Inicializar el índice si estamos en la página de búsqueda
+        if (document.getElementById('search-results')) {
+            this.initializeSearch();
+        }
+    },
+    
+    // Inicializar la búsqueda
+    initializeSearch: function() {
+        if (this.initializationPromise) {
+            return this.initializationPromise;
+        }
+        
+        this.initializationPromise = new Promise(async (resolve, reject) => {
+            try {
+                await this.loadSearchData();
+                this.isInitialized = true;
+                resolve();
+            } catch (error) {
+                console.error('Error al inicializar la búsqueda:', error);
+                this.showError('No se pudo cargar la funcionalidad de búsqueda. Por favor, intente recargar la página.');
+                reject(error);
+            }
+        });
+        
+        return this.initializationPromise;
     },
     
     // Configura el formulario de búsqueda
@@ -28,21 +54,34 @@ const searchConfig = {
     // Carga el índice de búsqueda y lo prepara para ser usado por Lunr.js
     loadSearchData: async function() {
         try {
+            console.log('Cargando índice de búsqueda...');
             const response = await fetch('search-index.json');
             if (!response.ok) {
                 throw new Error(`Error de red: ${response.statusText}`);
             }
             const documents = await response.json();
             
+            if (!Array.isArray(documents)) {
+                throw new Error('El formato del índice de búsqueda no es válido');
+            }
+            
+            console.log(`Se cargaron ${documents.length} documentos para búsqueda`);
+            
             // Guardar los datos para mostrarlos en los resultados
             documents.forEach(doc => {
-                this.dataStore[doc.url] = doc;
+                if (doc && doc.url) {
+                    this.dataStore[doc.url] = doc;
+                }
             });
 
             // Configurar Lunr.js
             this.lunrIndex = lunr(function () {
                 // Habilitar el stemmer (lematizador) para español
-                this.use(lunr.es);
+                try {
+                    this.use(lunr.es);
+                } catch (e) {
+                    console.warn('No se pudo cargar el stemmer en español, usando el predeterminado', e);
+                }
 
                 this.ref('url');
                 this.field('title', { boost: 10 });
@@ -63,52 +102,100 @@ const searchConfig = {
         }
     },
 
+    // Muestra un mensaje de error en la interfaz
+    showError: function(message) {
+        const resultsContainer = document.getElementById('search-results');
+        if (resultsContainer) {
+            resultsContainer.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    ${message}
+                </div>
+            `;
+        }
+    },
+    
     // Realiza la búsqueda
-    performSearch: function(term) {
-        if (window.location.pathname.endsWith('buscar.html')) {
-            if (!this.lunrIndex) {
-                console.warn("Intento de búsqueda antes de que el índice esté listo.");
-                return;
-            }
-            
+    performSearch: async function(term) {
+        if (!this.isInitialized) {
             try {
-                const searchResults = this.lunrIndex.search(term);
-                const results = searchResults.map(result => {
-                    const doc = this.dataStore[result.ref];
-                    return {
-                        url: doc.url,
-                        title: doc.title,
-                        excerpt: this.getExcerpt(doc.content, term)
-                    };
-                });
-                this.displaySearchResults(term, results);
-            } catch (e) {
-                console.error("Error durante la búsqueda con Lunr:", e);
-                this.displaySearchResults(term, []);
+                await this.initializeSearch();
+            } catch (error) {
+                console.error('Error al inicializar la búsqueda:', error);
+                this.showError('No se pudo inicializar la búsqueda. Por favor, intente recargar la página.');
+                return [];
             }
-        } else {
-            // Redirige a la página de resultados de búsqueda
-            window.location.href = `buscar.html?q=${encodeURIComponent(term)}`;
+        }
+        
+        if (!this.lunrIndex) {
+            console.error('El índice de búsqueda no está inicializado');
+            this.showError('El índice de búsqueda no está disponible. Por favor, intente más tarde.');
+            return [];
+        }
+        
+        try {
+            // Realizar la búsqueda con Lunr
+            const results = this.lunrIndex.search(term);
+            console.log(`Se encontraron ${results.length} resultados para: ${term}`);
+            this.displaySearchResults(term, results);
+            return results;
+        } catch (error) {
+            console.error('Error al realizar la búsqueda:', error);
+            this.showError('Ocurrió un error al realizar la búsqueda. Por favor, intente con otros términos.');
+            return [];
         }
     },
     
     // Obtiene un extracto del texto que contiene el término de búsqueda
     getExcerpt: function(text, term) {
-        const index = text.toLowerCase().indexOf(term.toLowerCase());
-        if (index === -1) {
-            return text.substring(0, 250) + '...';
+        // Manejar casos donde el texto es nulo o indefinido
+        if (!text) {
+            return 'No hay contenido disponible para mostrar.';
         }
+        
+        // Si el texto es muy corto, devolverlo completo
+        if (text.length <= 250) {
+            return this.highlightTerm(text, term);
+        }
+        
+        // Buscar el término en el texto (insensible a mayúsculas/minúsculas)
+        const searchTerm = term.toLowerCase();
+        const textLower = text.toLowerCase();
+        const index = textLower.indexOf(searchTerm);
+        
+        // Si no se encuentra el término, devolver los primeros 250 caracteres
+        if (index === -1) {
+            return this.highlightTerm(text.substring(0, 250) + '...', term);
+        }
+        
+        // Obtener un fragmento alrededor del término de búsqueda
         const start = Math.max(0, index - 80);
-        const end = Math.min(text.length, index + term.length + 80);
+        const end = Math.min(text.length, index + searchTerm.length + 80);
         let excerpt = text.substring(start, end);
         
+        // Agregar puntos suspensivos si es necesario
         if (start > 0) excerpt = '...' + excerpt;
         if (end < text.length) excerpt = excerpt + '...';
         
         // Resaltar el término de búsqueda
-        // Escapar caracteres especiales para la RegExp
-        const escapedTerm = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        return excerpt.replace(new RegExp(escapedTerm, 'gi'), match => `<strong>${match}</strong>`);
+        return this.highlightTerm(excerpt, term);
+    },
+    
+    // Función auxiliar para resaltar términos en el texto
+    highlightTerm: function(text, term) {
+        if (!term || !text) return text;
+        
+        try {
+            // Escapar caracteres especiales para la expresión regular
+            const escapedTerm = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            return text.replace(
+                new RegExp(escapedTerm, 'gi'), 
+                match => `<span class="bg-warning text-dark">${match}</span>`
+            );
+        } catch (e) {
+            console.error('Error al resaltar el término:', e);
+            return text; // Devolver el texto sin modificar si hay un error
+        }
     },
     
     // Actualiza el mensaje de estado de la búsqueda
@@ -134,8 +221,12 @@ const searchConfig = {
     // Muestra los resultados de búsqueda
     displaySearchResults: function(term, results) {
         const resultsContainer = document.getElementById('search-results');
-        if (!resultsContainer) return;
+        if (!resultsContainer) {
+            console.error('No se encontró el contenedor de resultados');
+            return;
+        }
 
+        console.log('Mostrando resultados:', results);
         this.updateResultsMessage(term, results.length);
         
         let html = '';
@@ -144,10 +235,16 @@ const searchConfig = {
             // El mensaje de "no resultados" se maneja en updateResultsMessage
             return;
         } else {
-            const groupedResults = this.groupResultsByPage(results);
-            Object.entries(groupedResults).forEach(([url, pageResults]) => {
-                // El título de la página es el mismo para todos los resultados agrupados
-                const pageTitle = pageResults[0].title;
+            // Mostrar los resultados sin agrupar primero para depuración
+            results.forEach(result => {
+                const pageData = this.dataStore[result.ref] || {};
+                const pageTitle = pageData.title || 'Sin título';
+                const pageContent = pageData.content || '';
+                const url = result.ref;
+                
+                // Generar un extracto del contenido de la página que contenga el término de búsqueda
+                const excerpt = this.getExcerpt(pageContent, term);
+                
                 html += `
                     <div class="card search-result-card mb-4">
                         <div class="card-header bg-light">
@@ -157,15 +254,10 @@ const searchConfig = {
                             </h5>
                         </div>
                         <div class="card-body">
-                            <ul class="list-unstyled">
-                                ${pageResults.map(result => `
-                                    <li class="mb-3 search-snippet">
-                                        <a href="${url}" class="text-decoration-none text-body">
-                                            ${result.excerpt}
-                                        </a>
-                                    </li>
-                                `).join('')}
-                            </ul>
+                            <div class="search-snippet">
+                                ${excerpt}
+                                <div class="text-muted small mt-2">Relevancia: ${(result.score * 100).toFixed(2)}%</div>
+                            </div>
                         </div>
                     </div>
                 `;
