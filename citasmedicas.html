@@ -83,166 +83,13 @@
       <p>Revisa la información y confirma tu cita. Recibirás un correo de confirmación.</p>
     </div>
   </div>
-</section>
-
-<!-- FORMULARIO DE SOLICITUD DE CITA -->
-<section id="solicitar-cita" class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="citas-form">
-        <h2 class="text-center mb-4" style="color:#069681;">Solicitar Cita Médica</h2>
-        
-        <form id="formCitaMedica">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
-              <select class="form-select" id="tipoDocumento" required>
-                <option value="" selected disabled>Seleccionar...</option>
-                <option value="cc">Cédula de Ciudadanía</option>
-                <option value="ce">Cédula de Extranjería</option>
-                <option value="ti">Tarjeta de Identidad</option>
-                <option value="rc">Registro Civil</option>
-                <option value="pa">Pasaporte</option>
-              </select>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="numeroDocumento" class="form-label">Número de Documento</label>
-              <input type="text" class="form-control" id="numeroDocumento" required>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="nombres" class="form-label">Nombres</label>
-              <input type="text" class="form-control" id="nombres" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="apellidos" class="form-label">Apellidos</label>
-              <input type="text" class="form-control" id="apellidos" required>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-              <input type="date" class="form-control" id="fechaNacimiento" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="genero" class="form-label">Género</label>
-              <select class="form-select" id="genero" required>
-                <option value="" selected disabled>Seleccionar...</option>
-                <option value="femenino">Femenino</option>
-                <option value="masculino">Masculino</option>
-                <option value="otro">Otro</option>
-                <option value="prefiero-no-decir">Prefiero no decirlo</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccion" required>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="telefono" class="form-label">Teléfono</label>
-              <input type="tel" class="form-control" id="telefono" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" required>
-            </div>
-          </div>
-          
-          <hr class="my-4">
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="especialidad" class="form-label">Especialidad Médica</label>
-              <select class="form-select" id="especialidad" required>
-                <option value="" selected disabled>Seleccionar especialidad...</option>
-                <option value="medicina-general">Medicina General</option>
-                <option value="pediatria">Pediatría</option>
-                <option value="ginecologia">Ginecología</option>
-                <option value="cardiologia">Cardiología</option>
-                <option value="dermatologia">Dermatología</option>
-                <option value="oftalmologia">Oftalmología</option>
-                <option value="ortopedia">Ortopedia</option>
-                <option value="psicologia">Psicología</option>
-                <option value="nutricion">Nutrición</option>
-                <option value="otorrinolaringologia">Otorrinolaringología</option>
-              </select>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="medico" class="form-label">Médico (Opcional)</label>
-              <select class="form-select" id="medico">
-                <option value="" selected>Cualquiera disponible</option>
-                <!-- Las opciones de médicos se cargarán dinámicamente según la especialidad seleccionada -->
-              </select>
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <label for="motivo" class="form-label">Motivo de la Consulta</label>
-            <textarea class="form-control" id="motivo" rows="3" required></textarea>
-          </div>
-          
-          <div class="mb-4">
-            <label for="fechaCita" class="form-label">Fecha Preferida para la Cita</label>
-            <input type="date" class="form-control" id="fechaCita" min="" required>
-            <div class="form-text">Nota: La fecha y hora final de la cita están sujetas a disponibilidad y serán confirmadas por nuestro personal.</div>
-          </div>
-          
-          <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" id="terminos" required>
-            <label class="form-check-label" for="terminos">
-              Acepto los <a href="/terminos-condiciones" target="_blank">términos y condiciones</a> y autorizo el tratamiento de mis datos personales de acuerdo con la ley de protección de datos.
-            </label>
-          </div>
-          
-          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <button type="submit" class="btn btn-cita px-4">
-              <i class="bi bi-calendar-check me-2"></i>Solicitar Cita
-            </button>
-            <button type="reset" class="btn btn-outline-secondary px-4">
-              <i class="bi bi-x-circle me-2"></i>Cancelar
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONSULTA DE CITAS -->
-<section id="consultar-cita" class="container my-5 py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="citas-form">
-        <h2 class="text-center mb-4" style="color:#069681;">Consultar Cita</h2>
-        <p class="text-center mb-4">Ingresa el número de documento y el número de cita para consultar o modificar tu cita.</p>
-        
-        <form id="formConsultarCita">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="consultaDocumento" class="form-label">Número de Documento</label>
-              <input type="text" class="form-control" id="consultaDocumento" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="numeroCita" class="form-label">Número de Cita</label>
-              <input type="text" class="form-control" id="numeroCita" required>
-            </div>
-          </div>
-          
-          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
-            <button type="submit" class="btn btn-cita px-4">
-              <i class="bi bi-search me-2"></i>Consultar Cita
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+  
+  <!-- Botón de Solicitar Cita -->
+  <div class="text-center mt-5">
+    <a href="https://citas.hdsa.gov.co/solicitud" target="_blank" class="btn btn-primary btn-lg">
+      <i class="bi bi-calendar-plus me-2"></i>Solicita tu cita
+    </a>
+    <p class="text-muted mt-3">Serás redirigido a nuestro sistema de citas en línea</p>
   </div>
 </section>
 
@@ -260,7 +107,7 @@
       <div class="citas-info-card">
         <i class="bi bi-telephone"></i>
         <h4>Contacto</h4>
-        <p>Teléfono: 602 891 2317<br>Celular: -----------</p>
+        <pTeléfono: 602 891 2317>602 891 2317</pl>
       </div>
     </div>
     <div class="col-md-4 mb-4">
