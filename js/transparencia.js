@@ -430,7 +430,9 @@ function calcHeaderOffset() {
 
 // Búsqueda en vivo dentro de la página de Transparencia
 (function () {
-  const form = document.querySelector('form.search-form');
+  // Selector más específico para evitar conflicto con el buscador global del header.
+  // Apunta solo al formulario de búsqueda que está dentro del <main> de la página de transparencia.
+  const form = document.querySelector('main form.search-form');
   if (!form) return;
 
   const input = form.querySelector('input[name="q"]');

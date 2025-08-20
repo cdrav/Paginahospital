@@ -187,28 +187,60 @@ const searchConfig = {
     }
 };
 
+/**
+ * Espera a que una variable global (como una librería cargada desde un CDN) esté disponible.
+ * @param {string} name - El nombre de la variable global a esperar (ej. 'lunr').
+ * @param {number} [timeout=3000] - Tiempo máximo de espera en milisegundos.
+ * @returns {Promise<void>} - Una promesa que se resuelve cuando la variable está lista.
+ */
+function waitForGlobal(name, timeout = 3000) {
+    return new Promise((resolve, reject) => {
+        let waited = 0;
+        const interval = 50;
+        const check = () => {
+            if (window[name]) {
+                resolve();
+            } else if (waited >= timeout) {
+                reject(new Error(`La librería '${name}' no estuvo disponible después de ${timeout}ms`));
+            } else {
+                waited += interval;
+                setTimeout(check, interval);
+            }
+        };
+        check();
+    });
+}
+
 // Inicializar la búsqueda cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', async () => {
     searchConfig.init();
     
     if (window.location.pathname.endsWith('buscar.html')) {
         const spinnerContainer = document.querySelector('#search-results .text-center');
-        if (spinnerContainer) spinnerContainer.classList.remove('d-none');
-
-        // Cargar el índice de búsqueda
-        const indexLoaded = await searchConfig.loadSearchData();
-        
-        // Ocultar el spinner
-        if (spinnerContainer) spinnerContainer.classList.add('d-none');
-
-        if (indexLoaded) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchTerm = urlParams.get('q');
+        try {
+            if (spinnerContainer) spinnerContainer.classList.remove('d-none');
             
-            if (searchTerm) {
-                document.querySelector('input[name="q"]').value = searchTerm;
-                searchConfig.performSearch(searchTerm);
+            // Esperar a que lunr.js esté cargado y listo para usar
+            await waitForGlobal('lunr');
+
+            const indexLoaded = await searchConfig.loadSearchData();
+            if (spinnerContainer) spinnerContainer.classList.add('d-none');
+
+            if (indexLoaded) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchTerm = urlParams.get('q');
+                if (searchTerm) {
+                    document.querySelector('input[name="q"]').value = searchTerm;
+                    searchConfig.performSearch(searchTerm);
+                }
             }
+        } catch (error) {
+            console.error("Error al inicializar la búsqueda:", error);
+            const resultsContainer = document.getElementById('search-results');
+            if (resultsContainer) {
+                resultsContainer.innerHTML = `<div class="alert alert-danger">Error crítico: La función de búsqueda no se pudo cargar.</div>`;
+            }
+            if (spinnerContainer) spinnerContainer.classList.add('d-none');
         }
     }
 });
