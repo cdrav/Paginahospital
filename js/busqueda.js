@@ -55,10 +55,22 @@ const searchConfig = {
     loadSearchData: async function() {
         try {
             console.log('Cargando índice de búsqueda...');
-            const response = await fetch('search-index.json');
+            
+            // Esperar a que estén disponibles las librerías de lunr
+            await waitForGlobal('lunr', 5000);
+            
+            // Cargar el índice de búsqueda
+            const response = await fetch('search-index.json', {
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                }
+            });
+            
             if (!response.ok) {
                 throw new Error(`Error de red: ${response.statusText}`);
             }
+            
             const documents = await response.json();
             
             if (!Array.isArray(documents)) {
@@ -75,23 +87,37 @@ const searchConfig = {
             });
 
             // Configurar Lunr.js
-            this.lunrIndex = lunr(function () {
-                // Habilitar el stemmer (lematizador) para español
+            return new Promise((resolve, reject) => {
                 try {
-                    this.use(lunr.es);
-                } catch (e) {
-                    console.warn('No se pudo cargar el stemmer en español, usando el predeterminado', e);
+                    // Esperar a que esté disponible el soporte para español
+                    if (window.lunr && window.lunr.es) {
+                        this.lunrIndex = lunr(function() {
+                            this.use(lunr.es);
+                            this.ref('url');
+                            this.field('title', { boost: 10 });
+                            this.field('content');
+                            
+                            documents.forEach(doc => this.add(doc));
+                        });
+                        console.log('Índice de búsqueda creado exitosamente');
+                        resolve(true);
+                    } else {
+                        // Usar configuración básica si no hay soporte para español
+                        console.warn('Usando configuración básica de lunr (sin soporte para español)');
+                        this.lunrIndex = lunr(function() {
+                            this.ref('url');
+                            this.field('title', { boost: 10 });
+                            this.field('content');
+                            
+                            documents.forEach(doc => this.add(doc));
+                        });
+                        resolve(true);
+                    }
+                } catch (error) {
+                    console.error('Error al configurar el índice de búsqueda:', error);
+                    reject(error);
                 }
-
-                this.ref('url');
-                this.field('title', { boost: 10 });
-                this.field('content');
-                
-                documents.forEach(doc => {
-                    this.add(doc);
-                });
             });
-            return true;
         } catch (error) {
             console.error('Error al cargar y construir el índice de búsqueda:', error);
             const resultsContainer = document.getElementById('search-results');

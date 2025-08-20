@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css" />
+  
+  <!-- Cargar las dependencias de lunr.js desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.10.0/min/lunr.stemmer.support.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.10.0/min/lunr.es.min.js"></script>
 
 </head>
 <body>
@@ -54,9 +59,7 @@
 
 <script src="js/layout.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.10.0/min/lunr.stemmer.support.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lunr-languages@1.10.0/min/lunr.es.min.js"></script>
+<!-- Los scripts de lunr ya están cargados en el head -->
 <script src="js/busqueda.js"></script>
 <script>
   // Inicializar la búsqueda después de cargar todo
