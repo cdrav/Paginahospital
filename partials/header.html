@@ -63,31 +63,34 @@
   <div class="container-fluid">
     <div class="nav-top d-flex align-items-center w-100">
       <!-- Logo y nombre del hospital -->
-      <a class="navbar-brand me-2 me-lg-3" href="/index.html">
-        <div class="brand-container">
-          <img src="/imagenes/Logo-hospital.png" alt="Hospital Departamental San Antonio" class="hospital-logo" width="60" height="60" style="object-fit: contain;">
-          <div class="brand-text">
-            <span class="hospital-name">HOSPITAL DEPARTAMENTAL SAN ANTONIO </span>
-             <span class="hospital-location">SERVIR CON EXCELENCIA</span>
-          </div>
-        </div>
+      <a class="navbar-brand me-2 me-lg-3 d-flex align-items-center" href="/index.html">
+        <img src="/imagenes/Logo-hospital.png" alt="Hospital Departamental San Antonio" class="hospital-logo me-2" width="60" height="60" style="object-fit: contain;">
+        <span class="hospital-name fw-bold" style="font-size: 1.1rem;">HOSPITAL DEPARTAMENTAL SAN ANTONIO</span>
       </a>
 
       <!-- Botón de menú móvil -->
-      <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Menú de navegación">
+      <button class="navbar-toggler ms-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Menú de navegación">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Barra de búsqueda (desktop) en la fila superior -->
-      <form class="d-none d-md-flex ms-3 ms-lg-auto search-form" role="search" action="buscar.html" method="get">
-        <div class="input-group">
-          <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q" id="search-input">
-          <button class="btn" type="submit">
-            <i class="bi bi-search" aria-hidden="true"></i>
-            <span class="visually-hidden">Buscar</span>
-          </button>
+      <!-- Contenedor para el lema y la barra de búsqueda -->
+      <div class="d-none d-md-flex flex-column ms-auto" style="min-width: 300px;">
+        <!-- Lema del hospital -->
+        <div class="text-end mb-1">
+          <span class="text-white fw-bold" style="font-style: italic; font-size: 0.9rem; white-space: nowrap;">SERVIR CON EXCELENCIA</span>
         </div>
-      </form>
+        
+        <!-- Barra de búsqueda -->
+        <form class="search-form" role="search" action="buscar.html" method="get">
+          <div class="input-group">
+            <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q" id="search-input">
+            <button class="btn" type="submit">
+              <i class="bi bi-search" aria-hidden="true"></i>
+              <span class="visually-hidden">Buscar</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Menú de navegación (colapsable) en su propia fila inferior -->
