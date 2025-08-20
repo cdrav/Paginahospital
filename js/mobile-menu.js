@@ -7,14 +7,29 @@ document.addEventListener('DOMContentLoaded', function() {
   // Elementos del DOM
   const navbarToggler = document.querySelector('.navbar-toggler');
   const navbarCollapse = document.querySelector('.navbar-collapse');
-  const navbarBackdrop = document.createElement('div');
+  const navbar = document.querySelector('.navbar');
   const body = document.body;
+  let navbarBackdrop;
+  
+  // Verificar que los elementos necesarios existen
+  if (!navbar || !navbarCollapse) {
+    console.warn('No se encontraron los elementos necesarios para el menú móvil');
+    return;
+  }
   
   // Crear el fondo oscuro si no existe
   if (!document.querySelector('.navbar-backdrop')) {
+    navbarBackdrop = document.createElement('div');
     navbarBackdrop.className = 'navbar-backdrop';
-    const navbar = document.querySelector('.navbar');
-    navbar.insertBefore(navbarBackdrop, navbarCollapse);
+    
+    // Insertar el backdrop solo si navbarCollapse existe
+    if (navbarCollapse && navbarCollapse.parentNode) {
+      navbar.insertBefore(navbarBackdrop, navbarCollapse.nextSibling);
+    } else {
+      navbar.appendChild(navbarBackdrop);
+    }
+  } else {
+    navbarBackdrop = document.querySelector('.navbar-backdrop');
   }
   
   // Función para abrir el menú
