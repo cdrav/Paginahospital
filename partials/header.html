@@ -14,8 +14,49 @@
   </div>
 </div>
 
-<!-- Script de Google Translate (sin callback; main.js monta el widget cuando esté listo) -->
-<script src="https://translate.google.com/translate_a/element.js"></script>
+<!-- Script de Google Translate con parámetros mejorados -->
+<script>
+  function loadGoogleTranslate() {
+    // Verificar si ya está cargado
+    if (window.google && google.translate) return;
+    
+    // Crear script
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    script.onerror = function() {
+      console.error('Error al cargar Google Translate');
+    };
+    
+    // Función de inicialización global
+    window.googleTranslateElementInit = function() {
+      if (!window.google || !window.google.translate) {
+        console.error('La API de Google Translate no se cargó correctamente');
+        return;
+      }
+      
+      // Inicializar el widget
+      new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+      
+      console.log('Google Translate inicializado correctamente');
+    };
+    
+    // Añadir al documento
+    document.head.appendChild(script);
+  }
+  
+  // Cargar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadGoogleTranslate);
+  } else {
+    loadGoogleTranslate();
+  }
+</script>
 
 <!-- Barra de navegación principal -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
