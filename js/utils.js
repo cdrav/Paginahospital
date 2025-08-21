@@ -84,4 +84,27 @@
   // Alias para compatibilidad hacia atrás
   window.notify = notify;
   window.showNotification = notify;
+
+  // Utilidad para calcular el alto del header fijo/pegajoso
+  function calcHeaderOffset() {
+    let total = 0;
+    const selectors = [
+      'nav.navbar',
+      '.fixed-top',
+      'header[role="banner"]',
+      'header.site-header',
+      '#header',
+      '#header-placeholder > *',
+    ];
+    document.querySelectorAll(selectors.join(',')).forEach((el) => {
+      const cs = getComputedStyle(el);
+      if (cs.position === 'fixed' || cs.position === 'sticky') {
+        const rect = el.getBoundingClientRect();
+        if (rect.height > 0 && rect.top <= 1) total += rect.height;
+      }
+    });
+    return total || 90; // fallback si no se detecta nada fijo
+  }
+
+  window.calcHeaderOffset = calcHeaderOffset;
 })();

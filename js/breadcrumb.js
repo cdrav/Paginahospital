@@ -4,29 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Mapeo de nombres de archivo a títulos de página para el breadcrumb
-  const pageTitles = {
-    'citasmedicas.html': 'Citas Médicas',
-    'consulta-externa.html': 'Consulta Externa',
-    'urgencias.html': 'Urgencias',
-    'hospitalizacion.html': 'Hospitalización',
-    'laboratorio.html': 'Laboratorio Clínico',
-    'partos.html': 'Sala de Partos',
-    'diagnostico.html': 'Diagnóstico por Imágenes',
-    'promocion-prevencion.html': 'Promoción y Prevención',
-    'cuidado-oral.html': 'Cuidado Oral',
-    'pqrs.html': 'PQRS',
-    'mapa-del-sitio.html': 'Mapa del Sitio',
-    'politicas.html': 'Políticas',
-    'mecanismos-de-contacto.html': 'Mecanismos de Contacto',
-    'Estadisticas.html': 'Estadísticas',
-    'transparencia-acceso-informacion-publica.html': 'Transparencia y Acceso a la Información Pública',
-    'participa.html': 'Participa',
-    'normatividad.html': 'Normatividad',
-    'noticias.html': 'Noticias',
-    'buscar.html': 'Búsqueda'
-  };
-
   // Obtener el nombre del archivo actual
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
@@ -35,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
-  // Obtener el título de la página actual
-  const pageTitle = pageTitles[currentPage] || 'Página Actual';
+  // Obtener el título de la página desde un atributo en el body o el título del documento
+  const pageTitle = document.body.dataset.pageTitle || document.title.split('|')[0].split('-')[0].trim() || 'Página Actual';
   
   // Crear el breadcrumb
   const breadcrumbHtml = `
@@ -55,10 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Insertar en el contenedor designado
     breadcrumbContainer.innerHTML = breadcrumbHtml;
   } else {
-    // Si no hay contenedor específico, intentar insertar antes del contenido principal
-    const mainContent = document.querySelector('main, .main-content, .container:not(#header-placeholder)');
+    // Si no hay contenedor específico, intentar insertar después del header o antes del contenido principal
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    const mainContent = document.querySelector('main, .main-content');
     if (mainContent) {
       mainContent.insertAdjacentHTML('afterbegin', breadcrumbHtml);
+    } else if (headerPlaceholder) {
+      headerPlaceholder.insertAdjacentHTML('afterend', breadcrumbHtml);
     }
   }
 });

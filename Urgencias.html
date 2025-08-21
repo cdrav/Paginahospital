@@ -14,24 +14,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&family=Work+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/site.css" />
-     </head>
-  <body>
+  </head>
+  <body data-page-title="Urgencias">
 <div id="header-placeholder"></div>
-
-<!-- Hero Section -->
-<div class="container-fluid p-0 mb-5">
-  <div class="position-relative">
-    <img src="imagenes/urgencias-banner.jpeg" alt="Servicios de Diagnóstico del Hospital San Antonio" class="img-fluid w-100 hero-img-400">
-    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center bg-transparent">
-      <div class="container"></div>
-      <div class="hero-title-wrap">
-        <div class="container">
-          <span class="hero-title-badge">Urgencias</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Descripción corta del servicio -->
 <section class="py-3">
   <div class="container text-center">
@@ -165,55 +150,17 @@
   </div>
 </section>
 
-<!-- Botones de Accesibilidad Mejorados -->
-<div class="accessibility-buttons-container" role="toolbar" aria-label="Herramientas de accesibilidad">
-  <button class="btn btn-outline-primary rounded-circle" 
-          title="Aumentar texto (Ctrl + +)" 
-          aria-label="Aumentar tamaño de texto"
-          data-action="increase-text">
-    <i class="bi bi-zoom-in"></i>
-  </button>
-  <button class="btn btn-outline-primary rounded-circle" 
-          title="Reducir texto (Ctrl + -)" 
-          aria-label="Reducir tamaño de texto"
-          data-action="decrease-text">
-    <i class="bi bi-zoom-out"></i>
-  </button>
-  <button id="cambiarcontraste" 
-          class="btn btn-outline-primary rounded-circle" 
-          title="Cambiar contraste" 
-          aria-label="Cambiar esquema de contraste"
-          data-action="change-contrast">
-    <i class="bi bi-brightness-high"></i>
-  </button>
-  <button id="resetContraste" 
-          class="btn btn-outline-primary rounded-circle" 
-          title="Restablecer configuración (Ctrl + 0)" 
-          aria-label="Restablecer Contraste y Texto"
-          data-action="reset-settings">
-    <i class="bi bi-arrow-counterclockwise"></i>
-  </button>
-  <button class="btn btn-outline-primary rounded-circle" 
-          title="Centro de relevo para personas sordas" 
-          aria-label="Ir a Centro de relevo"
-          data-action="centro-relevo">
-    <i class="bi bi-ear-fill"></i>
-  </button>
-  <button class="btn btn-outline-primary rounded-circle" 
-          title="Encuesta de Usabilidad y accesibilidad" 
-          aria-label="Acceder a Encuesta de Usabilidad y accesibilidad"
-          data-action="encuesta-accesibilidad">
-    <i class="bi bi-clipboard-check"></i>
-  </button>
-</div>
-
 <div id="footer-placeholder" class="mt-0"></div>
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/layout.js"></script>
-<script src="js/accesibilidad.js"></script>
-<script src="js/accessibility-styles.js"></script>
-<script src="js/main.js"></script>
+<!-- Scripts optimizados con defer -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="js/utils.js" defer></script>
+<script src="js/layout.js" defer></script>
+<script src="js/navbar.js" defer></script>
+<script src="js/accesibilidad.js" defer></script>
+<script src="js/accessibility-styles.js" defer></script>
+<script src="js/busqueda.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/breadcrumb.js" defer></script>
 </body>
 </html>

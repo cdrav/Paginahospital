@@ -1,27 +1,8 @@
 // Transparencia page scripts: smooth scrolling, active link, and dynamic MVVE loader
 
-// Utilidades compartidas: cálculo dinámico del alto del header fijo/pegajoso
-function calcHeaderOffset() {
-  let total = 0;
-  const selectors = [
-    'nav.navbar',
-    '.fixed-top',
-    'header[role="banner"]',
-    'header.site-header',
-    '#header',
-    '#header-placeholder > *',
-    '.enlaces-institucionales',
-    '.institutional-links'
-  ];
-  document.querySelectorAll(selectors.join(',')).forEach((el) => {
-    const cs = getComputedStyle(el);
-    if (cs.position === 'fixed') {
-      const rect = el.getBoundingClientRect();
-      if (rect.height > 0 && rect.top <= 1) total += rect.height;
-    }
-  });
-  return total || 90; // fallback si no se detecta nada fijo
-}
+// La función calcHeaderOffset ahora es global y se carga desde js/utils.js
+// Se asume que window.calcHeaderOffset está disponible.
+const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? window.calcHeaderOffset() : 90);
 
 // Scroll suave con compensación y activación de enlaces del sidebar
 (function () {
@@ -33,7 +14,7 @@ function calcHeaderOffset() {
     const heading = el.querySelector?.('h2, h3');
     const targetEl = heading || el;
     const rect = targetEl.getBoundingClientRect();
-    const headerOffset = calcHeaderOffset();
+    const headerOffset = getHeaderOffset();
     const y = rect.top + window.pageYOffset - headerOffset - 4;
     window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }
@@ -118,7 +99,7 @@ function calcHeaderOffset() {
     const heading = el.querySelector?.('h2, h3');
     const targetEl = heading || el;
     const rect = targetEl.getBoundingClientRect();
-    const headerOffset = calcHeaderOffset();
+    const headerOffset = getHeaderOffset();
     const y = rect.top + window.pageYOffset - headerOffset - 4;
     window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }
@@ -651,4 +632,103 @@ function calcHeaderOffset() {
       input.focus();
     });
   }
+})();
+
+// Filtro dinámico para Estados Financieros (sección 4.2)
+(function() {
+  const finContainer = document.getElementById('acci-financieros-anual');
+  if (!finContainer) return;
+
+  const searchInput = document.getElementById('fin-search');
+  const catChips = document.querySelectorAll('.fin-controls .chip[data-cat]');
+  const yearChipsContainer = document.getElementById('fin-year-chips');
+
+  const allLinks = Array.from(finContainer.querySelectorAll('a.btn'));
+  const allItems = Array.from(finContainer.querySelectorAll('.accordion-item'));
+
+  // Extraer categorías y años para los filtros
+  const years = [...new Set(allItems.map(item => item.querySelector('button')?.textContent.match(/\d{4}/)?.[0]).filter(Boolean))].sort((a, b) => b - a);
+
+  // Generar chips de años
+  if (yearChipsContainer) {
+    years.forEach(year => {
+      const chip = document.createElement('button');
+      chip.className = 'chip';
+      chip.type = 'button';
+      chip.dataset.year = year;
+      chip.textContent = year;
+      yearChipsContainer.appendChild(chip);
+    });
+  }
+  const yearChips = yearChipsContainer ? Array.from(yearChipsContainer.querySelectorAll('.chip[data-year]')) : [];
+
+  // Función de normalización de texto
+  const normalize = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  const filterFinancials = () => {
+    const searchTerm = normalize(searchInput.value);
+    const activeCat = document.querySelector('.fin-controls .chip[data-cat].active')?.dataset.cat || 'all';
+    const activeYear = document.querySelector('.fin-controls .chip[data-year].active')?.dataset.year || 'all';
+
+    allItems.forEach(item => {
+      const yearOfItem = item.querySelector('button')?.textContent.match(/\d{4}/)?.[0];
+      let yearHasVisibleLinks = false;
+
+      const linksInYear = Array.from(item.querySelectorAll('a.btn'));
+      linksInYear.forEach(link => {
+        const linkText = normalize(link.textContent);
+        const parentCategoryDiv = link.closest('.accordion-body')?.querySelector('.fw-semibold');
+        const categoryText = normalize(parentCategoryDiv?.textContent || '');
+
+        // Mapeo de categorías de texto a data-cat
+        let linkCat = 'other';
+        if (categoryText.includes('balance')) linkCat = 'balances';
+        else if (categoryText.includes('estado')) linkCat = 'estados';
+        else if (categoryText.includes('resultado')) linkCat = 'resultados';
+        else if (categoryText.includes('comparativo')) linkCat = 'comparativos';
+        else if (categoryText.includes('reciproca')) linkCat = 'reciprocas';
+
+        const termMatch = !searchTerm || linkText.includes(searchTerm);
+        const catMatch = activeCat === 'all' || linkCat === activeCat;
+        const yearMatch = activeYear === 'all' || yearOfItem === activeYear;
+
+        if (termMatch && catMatch && yearMatch) {
+          link.style.display = '';
+          yearHasVisibleLinks = true;
+        } else {
+          link.style.display = 'none';
+        }
+      });
+
+      // Ocultar el año completo si no tiene enlaces visibles
+      if (yearHasVisibleLinks) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  };
+
+  // Event listeners
+  searchInput.addEventListener('input', filterFinancials);
+
+  catChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      catChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      filterFinancials();
+    });
+  });
+
+  yearChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wasActive = chip.classList.contains('active');
+      yearChips.forEach(c => c.classList.remove('active'));
+      if (!wasActive) {
+        chip.classList.add('active');
+      }
+      filterFinancials();
+    });
+  });
+
 })();
