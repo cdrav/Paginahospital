@@ -18,16 +18,21 @@
     <link rel="stylesheet" href="css/accessibility-buttons.css" />
     <link rel="stylesheet" href="css/encuesta.css" />
 </head>
-<body>
+<body data-page-title="Encuesta de Accesibilidad">
 <!-- Header incluido dinámicamente -->
 <div id="header-placeholder"></div>
+
+<!-- Contenedor para el breadcrumb -->
+<div id="breadcrumb-container" class="container mt-3">
+  <!-- El breadcrumb se insertará aquí mediante JavaScript -->
+</div>
 
 <main class="main-content p-0">
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="encuesta-container">
-                    <h2 class="text-center mb-4">Encuesta de Accesibilidad Web</h2>
+                    <h1 class="text-center mb-4">Encuesta de Accesibilidad Web</h1>
                     <p class="text-muted text-center mb-4">Su opinión nos ayuda a mejorar la experiencia de todos nuestros usuarios</p>
                     
                     <form id="encuestaAccesibilidad" class="needs-validation" novalidate>
