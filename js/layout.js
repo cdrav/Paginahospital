@@ -6,17 +6,13 @@
 
   async function loadPartial(targetSelector, url) {
     const target = document.querySelector(targetSelector);
-    if (!target) return;
+    if (!target) return Promise.resolve(); // Resuelve silenciosamente si el objetivo no existe
     try {
       const res = await fetch(url, { cache: "no-cache" });
       if (!res.ok) throw new Error(`HTTP ${res.status} al cargar ${url}`);
       const html = await res.text();
       target.innerHTML = html;
       
-      // Emitir evento cuando se cargue el header
-      if (targetSelector === '#header-placeholder') {
-        document.dispatchEvent(new Event('headerLoaded'));
-      }
       // Opcional: re-ejecutar scripts embebidos en el parcial, si existieran
       const scripts = target.querySelectorAll("script");
       scripts.forEach((oldScript) => {
@@ -33,11 +29,19 @@
       });
     } catch (err) {
       console.error(`[layout] Error cargando parcial ${url}:`, err);
+      // No rechazar la promesa, solo registrar el error
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    loadPartial("#header-placeholder", "partials/header.html");
-    loadPartial("#footer-placeholder", "partials/footer.html");
+  document.addEventListener("DOMContentLoaded", async () => {
+    const headerPromise = loadPartial("#header-placeholder", "partials/header.html");
+    const footerPromise = loadPartial("#footer-placeholder", "partials/footer.html");
+
+    // Esperar a que tanto el header como el footer se carguen
+    await Promise.all([headerPromise, footerPromise]);
+
+    // Despachar un evento personalizado para notificar a otros scripts que el layout está listo
+    console.log('Parciales cargados, despachando evento.');
+    document.dispatchEvent(new CustomEvent('partialsLoaded'));
   });
 })();

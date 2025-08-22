@@ -153,19 +153,6 @@ body { top: 0 !important; }
 .servicios a:focus,
 .servicios button:focus { outline: 2px solid rgba(6,150,129,.65); outline-offset: 2px; }
 
-/* Fade-up del contenido (título y botón) sin tocar HTML */
-.servicios .card-body > * { 
-  opacity: 0; transform: translateY(10px);
-  transition: opacity .38s ease, transform .45s ease;
-}
-.servicios:hover .card-body > *,
-.servicios:focus-within .card-body > * {
-  opacity: 1; transform: translateY(0);
-}
-/* Stagger sutil: primero el título, luego el botón */
-.servicios .card-body > :nth-child(1) { transition-delay: .04s; }
-.servicios .card-body > :nth-child(2) { transition-delay: .12s; }
-
 /* Respeto a usuarios que prefieren menos movimiento */
 @media (prefers-reduced-motion: reduce) {
   .servicios, .servicios .card-img-top { transition: none; }
@@ -323,10 +310,17 @@ section > p {
 .navbar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
 .navbar .nav-top { padding-top: .35rem; padding-bottom: .35rem; }
 .navbar .nav-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: .15rem; padding-bottom: .15rem; }
-.navbar .navbar-brand { display: flex; align-items: center; gap: .75rem; }
+/*
+ * Contenedor de la marca (logo + nombre).
+ * Se permite que se encoja (flex-shrink) y no crezca (flex-grow) para
+ * evitar que empuje a otros elementos como el botón del menú.
+ * min-width: 0 es crucial para que el flexbox pueda encoger el elemento.
+*/
+.navbar .navbar-brand { display: flex; align-items: center; gap: .5rem; min-width: 0; flex-shrink: 1; flex-grow: 0; }
 /* Logo: tamaño mayor y delineado sutil para resaltar sobre el banner */
 .hospital-logo {
-  height: 84px;
+  /* Altura responsiva: empieza pequeño en móviles y crece con la pantalla */
+  height: 60px;
   width: auto;
   background: transparent;
   box-shadow: none;
@@ -340,7 +334,7 @@ section > p {
   --logo-scale: 1;     /* escala general */
   transform: translateY(0) scaleX(var(--logo-scale-x)) scale(var(--logo-scale));
   transform-origin: center;
-  transition: transform .28s cubic-bezier(.22,.61,.36,1), filter .28s ease;
+  transition: transform .28s cubic-bezier(.22,.61,.36,1), filter .28s ease, height .28s ease;
 }
 .hospital-logo:hover,
 .hospital-logo:focus-visible {
@@ -350,41 +344,86 @@ section > p {
     drop-shadow(0 6px 14px rgba(0,0,0,.24));
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1; font-family: 'Work Sans', 'Poppins', sans-serif; }
-.hospital-name { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .4px; }
+.hospital-name {
+  display: flex;
+  flex-direction: column; /* Apila el texto en móviles por defecto */
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  font-size: clamp(0.7rem, 3.5vw, 1.1rem); /* Tamaño de fuente responsivo y más agresivo en móviles */
+  line-height: 1.2; /* Mejora el espaciado cuando el texto se ajusta en dos líneas */
+}
+
+.hospital-name-line1,
+.hospital-name-line2 {
+  text-align: left; /* Asegura alineación a la izquierda cuando se apila */
+}
+
+@media (min-width: 992px) {
+  .hospital-name {
+    flex-direction: row; /* Vuelve a una sola línea en escritorio */
+    gap: 0.25em; /* Añade un espacio entre las dos partes */
+  }
+}
 .hospital-location { color: #bfe7e3; font-size: .9rem; font-weight: 600; }
 /* Mejorar tocabilidad y legibilidad del menú */
 .navbar .nav-link { color:#fff; padding: .6rem .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15px; white-space: normal; border-bottom: 3px solid transparent; border-radius: 0; }
 .navbar .nav-link:hover, .navbar .nav-link:focus { text-decoration: none; border-bottom-color: var(--color-secundario); }
 .navbar .nav-link.active, .navbar .nav-link[aria-current="page"] { border-bottom-color: #fff; }
 
+/* Asegurar que el botón del menú no se encoja */
+.navbar-toggler {
+  flex-shrink: 0;
+}
+
 /* En móvil/tablet puede envolver; en desktop forzamos una sola línea */
 .navbar .navbar-nav { flex-wrap: wrap; gap: .15rem .4rem; }
 
-/* Afinar tamaños en puntos de quiebre para evitar desbordes */
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .navbar .nav-link { padding: .5rem .65rem; font-size: .95rem; }
-  .search-form { width: clamp(200px, 36vw, 340px); }
+/* Tamaños de logo y fuentes responsivos para el navbar, de menor a mayor */
+@media (min-width: 576px) {
+  .hospital-logo {
+    height: 60px;
+  }
 }
-/* Reducir tamaño del logo en navbar en pantallas medianas para dar más espacio al menú */
-@media (max-width: 991.98px) {
-  .navbar .navbar-brand img { max-height: 96px; height: auto; width: auto; background: transparent; }
-  /* Ensanchado leve en móviles para no romper el layout */
-  .hospital-logo { --logo-scale-x: 1.03; }
+
+@media (min-width: 768px) {
+  .hospital-logo {
+    height: 70px;
+  }
 }
-@media (min-width: 992px) and (max-width: 1199.98px) {
-  .navbar .navbar-brand img { max-height: 84px; }
-  .navbar .nav-link { padding: .45rem .65rem; font-size: .93rem; letter-spacing: 0; }
-  .navbar .navbar-nav { gap: .2rem .45rem; }
-  .search-form { width: clamp(220px, 22vw, 380px); }
+
+@media (min-width: 992px) {
+  .hospital-logo {
+    height: 84px;
+  }
+  .navbar .navbar-brand {
+    gap: .75rem; /* Aumentar el gap en desktop */
+  }
 }
+
 @media (min-width: 1200px) {
+  .hospital-logo {
+    height: 100px;
+  }
   .navbar .nav-link { padding: .5rem .8rem; font-size: .98rem; }
+}
+
+/* Ajuste fino para pantallas extra pequeñas para evitar superposición */
+@media (max-width: 380px) {
+  .hospital-logo {
+    height: 40px; /* Logo aún más pequeño */
+  }
+  .navbar .navbar-brand {
+    gap: .25rem; /* Espacio entre logo y texto más pequeño */
+  }
+  .hospital-name {
+    font-size: 0.75rem; /* Forzar un tamaño de fuente mínimo más pequeño */
+  }
 }
 
 /* Disposición horizontal del menú en pantallas grandes */
 @media (min-width: 992px) {
-  /* Marca más grande para dar presencia y frescura */
-  .navbar .navbar-brand img { max-height: 140px; height: auto; width: auto; border-radius: 0; box-shadow: none; background: transparent; padding: 0; }
   /* Ajustar espacio vertical para proporción más compacta */
   .navbar .navbar-brand { padding-top: .2rem; padding-bottom: .2rem; }
   .navbar .navbar-brand { padding-top: .25rem; padding-bottom: .25rem; }

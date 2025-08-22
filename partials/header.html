@@ -62,20 +62,23 @@
 <!-- Barra de navegación principal -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid">
-    <div class="nav-top d-flex align-items-center w-100">
+    <div class="nav-top d-flex align-items-center justify-content-between w-100 gap-3">
       <!-- Logo y nombre del hospital -->
-      <a class="navbar-brand me-2 me-lg-3 d-flex align-items-center" href="index.html">
-        <img src="imagenes/Logo-hospital.png" alt="Hospital Departamental San Antonio" class="hospital-logo me-2" width="60" height="60" style="object-fit: contain;">
-        <span class="hospital-name fw-bold" style="font-size: 1.1rem;">HOSPITAL DEPARTAMENTAL SAN ANTONIO</span>
+      <a class="navbar-brand" href="index.html">
+        <img src="imagenes/Logo-hospital.png" alt="Hospital Departamental San Antonio" class="hospital-logo" width="60" height="60" style="object-fit: contain;">
+        <span class="hospital-name fw-bold">
+          <span class="hospital-name-line1">HOSPITAL DEPARTAMENTAL</span>
+          <span class="hospital-name-line2">SAN ANTONIO</span>
+        </span>
       </a>
 
       <!-- Botón de menú móvil -->
-      <button class="navbar-toggler ms-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Menú de navegación">
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHospital" aria-controls="navbarHospital" aria-expanded="false" aria-label="Menú de navegación">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <!-- Contenedor para el lema y la barra de búsqueda -->
-      <div class="d-none d-lg-flex flex-column ms-auto">
+      <div class="d-none d-lg-flex flex-column">
         <!-- Lema del hospital -->
         <div class="text-end mb-1">
           <span class="text-white fw-bold" style="font-style: italic; font-size: 0.9rem;">SERVIR CON EXCELENCIA</span>
