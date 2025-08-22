@@ -37,18 +37,30 @@ const searchConfig = {
     
     // Configura el formulario de búsqueda
     setupSearchForm: function() {
-        // Soporta formularios con clase .search-form o action que termine en buscar.html
-        const searchForm = document.querySelector('form.search-form, form[action$="buscar.html"]');
-        if (searchForm) {
+        // Selecciona TODOS los formularios de búsqueda (header y menú móvil)
+        const searchForms = document.querySelectorAll('form.search-form, form[action$="buscar.html"]');
+        
+        searchForms.forEach(searchForm => {
             searchForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Siempre prevenir el submit por defecto
+                
                 const input = searchForm.querySelector('input[name="q"]');
                 const searchTerm = input ? input.value.trim() : '';
-                if (!searchTerm) { return; }
-                // Interceptar para usar navegación amigable
-                e.preventDefault();
-                this.performSearch(searchTerm);
+                
+                if (!searchTerm) { return; } // No hacer nada si está vacío
+
+                // Si estamos en la página de búsqueda, realizamos la búsqueda aquí mismo.
+                // Si no, redirigimos a la página de búsqueda.
+                if (window.location.pathname.endsWith('/buscar.html')) {
+                    const url = new URL(window.location);
+                    url.searchParams.set('q', searchTerm);
+                    window.history.pushState({}, '', url); // Actualizar URL sin recargar
+                    this.performSearch(searchTerm);
+                } else {
+                    window.location.href = `buscar.html?q=${encodeURIComponent(searchTerm)}`;
+                }
             });
-        }
+        });
     },
     
     // Carga el índice de búsqueda y lo prepara para ser usado por Lunr.js

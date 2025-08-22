@@ -34,9 +34,7 @@ function initializeNavbar() {
   // Esta es la solución definitiva para la redirección.
   navbarCollapse.addEventListener('click', function(event) {
       // Solo actuar si el menú está abierto
-      if (!navbarCollapse.classList.contains('show')) {
-          return;
-      }
+      if (!navbarCollapse.classList.contains('show')) return;
 
       const link = event.target.closest('a.nav-link, a.dropdown-item');
       if (link && link.href) {
@@ -45,6 +43,7 @@ function initializeNavbar() {
           const urlToNavigate = link.href;
 
           // Escuchar el evento que Bootstrap dispara CUANDO el menú TERMINA de cerrarse.
+          // Esta es la forma más robusta de asegurar que la animación no se interrumpa.
           navbarCollapse.addEventListener('hidden.bs.collapse', function onMenuHidden() {
               // Una vez que el menú está completamente cerrado y la "sombra" ha desaparecido,
               // navegamos a la página deseada.
@@ -52,8 +51,9 @@ function initializeNavbar() {
           }, { once: true }); // { once: true } asegura que este listener se ejecute solo una vez.
 
           // Usar la API de Bootstrap para cerrar el menú.
-          // Esto asegura que todas las animaciones y eventos se disparen correctamente.
-          bsCollapse.hide();
+          // Si la instancia no existe (por la carga dinámica), la creamos.
+          const collapseInstance = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
+          collapseInstance.hide();
       }
   });
 
