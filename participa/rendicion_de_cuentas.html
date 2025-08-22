@@ -114,15 +114,46 @@
 
     <div id="footer-placeholder"></div>
 
-<!-- Scripts optimizados con defer -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-<script src="../js/utils.js" defer></script>
-<script src="../js/layout.js" defer></script>
-<script src="../js/navbar.js" defer></script>
-<script src="../js/accesibilidad.js" defer></script>
-<script src="../js/accessibility-styles.js" defer></script>
-<script src="../js/busqueda.js" defer></script>
-<script src="../js/main.js" defer></script>
-<script src="../js/breadcrumb.js" defer></script>
+    <!-- Scripts optimizados -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Cargar scripts en el orden correcto
+      function loadScripts() {
+        const scripts = [
+          '../js/utils.js',
+          '../js/layout.js',
+          '../js/navbar.js',
+          '../js/accesibilidad.js',
+          '../js/accessibility-styles.js',
+          '../js/busqueda.js',
+          '../js/main.js',
+          '../js/breadcrumb.js'
+        ];
+        
+        function loadScript(index) {
+          if (index >= scripts.length) return;
+          
+          const script = document.createElement('script');
+          script.src = scripts[index];
+          script.onload = function() {
+            loadScript(index + 1);
+          };
+          script.onerror = function() {
+            console.error('Error al cargar el script:', scripts[index]);
+            loadScript(index + 1);
+          };
+          document.body.appendChild(script);
+        }
+        
+        loadScript(0);
+      }
+      
+      // Iniciar carga de scripts cuando el DOM esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadScripts);
+      } else {
+        loadScripts();
+      }
+    </script>
   </body>
 </html>
