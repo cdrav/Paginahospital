@@ -60,8 +60,8 @@
   <div class="container-fluid">
     <div class="nav-top d-flex align-items-center justify-content-between w-100 gap-3">
       <!-- Logo y nombre del hospital -->
-      <a class="navbar-brand" href="index.html">
-        <img src="imagenes/Logo-hospital.png" alt="Hospital Departamental San Antonio" class="hospital-logo" width="60" height="60" style="object-fit: contain;">
+      <a class="navbar-brand" href="/index.html">
+        <img src="/imagenes/Logo-hospital.png" alt="Hospital Departamental San Antonio" class="hospital-logo" width="60" height="60" style="object-fit: contain;">
         <span class="hospital-name fw-bold">
           <span class="hospital-name-line1">HOSPITAL DEPARTAMENTAL</span>
           <span class="hospital-name-line2">SAN ANTONIO</span>
@@ -73,15 +73,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Contenedor para el lema y la barra de búsqueda -->
-      <div class="d-none d-lg-flex flex-column">
+      <!-- Contenedor para lema y búsqueda en desktop, alineado horizontalmente -->
+      <div class="d-none d-lg-flex align-items-center gap-4">
         <!-- Lema del hospital -->
-        <div class="text-end mb-1">
-          <span class="text-white fw-bold" style="font-style: italic; font-size: 0.9rem;">SERVIR CON EXCELENCIA</span>
-        </div>
+        <span class="text-white fw-bold fst-italic" style="font-size: 0.9rem; white-space: nowrap;">SERVIR CON EXCELENCIA</span>
         
         <!-- Barra de búsqueda -->
-        <form class="search-form" role="search" action="buscar.html" method="get">
+        <form class="search-form" role="search" action="/buscar.html" method="get" style="width: 280px;">
           <div class="input-group">
             <input class="form-control" type="search" placeholder="Buscar..." aria-label="Buscar" name="q" id="search-input">
             <button class="btn" type="submit">
@@ -102,7 +100,7 @@
           <i class="bi bi-x-lg"></i>
         </button>
         <!-- Barra de búsqueda móvil -->
-        <form class="d-lg-none w-100 px-3 mt-3 mb-2" role="search" action="buscar.html" method="get">
+        <form class="d-lg-none w-100 px-3 mt-3 mb-2" role="search" action="/buscar.html" method="get">
           <div class="input-group">
             <input class="form-control" type="search" placeholder="Buscar en el sitio..." aria-label="Buscar" name="q">
             <button class="btn btn-primary" type="submit">
@@ -115,13 +113,13 @@
       <!-- Elementos del menú -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.html">
+          <a class="nav-link active" aria-current="page" href="/index.html">
             <i class="bi bi-house-door me-2 d-lg-none"></i>Inicio
           </a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="transparencia-acceso-informacion-publica.html">
+          <a class="nav-link" href="/transparencia-acceso-informacion-publica.html">
             <i class="bi bi-file-earmark-text me-2 d-lg-none"></i>Transparencia y Acceso a la Información
           </a>
         </li>
@@ -131,17 +129,17 @@
             <span><i class="bi bi-heart-pulse me-2 d-lg-none"></i>Atención y Servicios a la Ciudadanía</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownAtencion">
-            <li><a class="dropdown-item" href="urgencias.html"><i class="bi bi-ambulance me-2"></i>Urgencias 24/7</a></li>
-            <li><a class="dropdown-item" href="citasmedicas.html"><i class="bi bi-calendar-check me-2"></i>Citas médicas</a></li>
-            <li><a class="dropdown-item" href="consulta-externa.html"><i class="bi bi-clipboard-pulse me-2"></i>Consulta externa</a></li>
-            <li><a class="dropdown-item" href="cuidado-oral.html"><i class="bi bi-tooth me-2"></i>Cuidado Oral</a></li>
-            <li><a class="dropdown-item" href="diagnostico.html"><i class="bi bi-clipboard2-pulse me-2"></i>Diagnóstico</a></li>
-            <li><a class="dropdown-item" href="hospitalizacion.html"><i class="bi bi-hospital me-2"></i>Hospitalización</a></li>
-            <li><a class="dropdown-item" href="laboratorio.html"><i class="bi bi-droplet me-2"></i>Laboratorio</a></li>
-            <li><a class="dropdown-item" href="partos.html"><i class="bi bi-gender-female me-2"></i>Partos</a></li>
-            <li><a class="dropdown-item" href="promocion-prevencion.html"><i class="bi bi-shield-plus me-2"></i>Promoción y Prevención</a></li>
+            <li><a class="dropdown-item" href="/urgencias.html"><i class="bi bi-ambulance me-2"></i>Urgencias 24/7</a></li>
+            <li><a class="dropdown-item" href="/citasmedicas.html"><i class="bi bi-calendar-check me-2"></i>Citas médicas</a></li>
+            <li><a class="dropdown-item" href="/consulta-externa.html"><i class="bi bi-clipboard-pulse me-2"></i>Consulta externa</a></li>
+            <li><a class="dropdown-item" href="/cuidado-oral.html"><i class="bi bi-tooth me-2"></i>Cuidado Oral</a></li>
+            <li><a class="dropdown-item" href="/diagnostico.html"><i class="bi bi-clipboard2-pulse me-2"></i>Diagnóstico</a></li>
+            <li><a class="dropdown-item" href="/hospitalizacion.html"><i class="bi bi-hospital me-2"></i>Hospitalización</a></li>
+            <li><a class="dropdown-item" href="/laboratorio.html"><i class="bi bi-droplet me-2"></i>Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/partos.html"><i class="bi bi-gender-female me-2"></i>Partos</a></li>
+            <li><a class="dropdown-item" href="/promocion-prevencion.html"><i class="bi bi-shield-plus me-2"></i>Promoción y Prevención</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-primary fw-bold" href="pqrs.html"><i class="bi bi-chat-square-text me-2"></i>PQRS - Peticiones, Quejas y Reclamos</a></li>
+            <li><a class="dropdown-item text-primary fw-bold" href="/pqrs.html"><i class="bi bi-chat-square-text me-2"></i>PQRS - Peticiones, Quejas y Reclamos</a></li>
           </ul>
         </li>
         
@@ -150,19 +148,19 @@
             <span><i class="bi bi-people me-2 d-lg-none"></i>Participa</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownParticipa">
-            <li><a class="dropdown-item" href="participa.html#slide-1"><i class="bi bi-info-circle me-2"></i>Información General del Menú Participa</a></li>
-            <li><a class="dropdown-item" href="participa/diagnostico_identificacion_problemas.html"><i class="bi bi-search me-2"></i>Participación para el Diagnóstico e Identificación de Problemas</a></li>
-            <li><a class="dropdown-item" href="participa/planeacion_presupuesto_participativo.html"><i class="bi bi-graph-up-arrow me-2"></i>Planeación y Presupuesto Participativo</a></li>
-            <li><a class="dropdown-item" href="participa/consulta_ciudadana.html"><i class="bi bi-chat-left-text me-2"></i>Consulta Ciudadana</a></li>
-            <li><a class="dropdown-item" href="participa/colaboracion_innovacion_abierta.html"><i class="bi bi-lightbulb me-2"></i>Colaboración e Innovación</a></li>
-            <li><a class="dropdown-item" href="participa/rendicion_de_cuentas.html"><i class="bi bi-megaphone me-2"></i>Rendición de Cuentas</a></li>
-            <li><a class="dropdown-item" href="participa/control_social.html"><i class="bi bi-shield-check me-2"></i>Control Social</a></li>
+            <li><a class="dropdown-item" href="/participa.html"><i class="bi bi-info-circle me-2"></i>Información General del Menú Participa</a></li>
+            <li><a class="dropdown-item" href="/participa/diagnostico_identificacion_problemas.html"><i class="bi bi-search me-2"></i>Participación para el Diagnóstico e Identificación de Problemas</a></li>
+            <li><a class="dropdown-item" href="/participa/planeacion_presupuesto_participativo.html"><i class="bi bi-graph-up-arrow me-2"></i>Planeación y Presupuesto Participativo</a></li>
+            <li><a class="dropdown-item" href="/participa/consulta_ciudadana.html"><i class="bi bi-chat-left-text me-2"></i>Consulta Ciudadana</a></li>
+            <li><a class="dropdown-item" href="/participa/colaboracion_innovacion_abierta.html"><i class="bi bi-lightbulb me-2"></i>Colaboración e Innovación</a></li>
+            <li><a class="dropdown-item" href="/participa/rendicion_de_cuentas.html"><i class="bi bi-megaphone me-2"></i>Rendición de Cuentas</a></li>
+            <li><a class="dropdown-item" href="/participa/control_social.html"><i class="bi bi-shield-check me-2"></i>Control Social</a></li>
             
           </ul>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="Normatividad.html">
+          <a class="nav-link" href="/Normatividad.html">
             <i class="bi bi-journal-text me-2 d-lg-none"></i>Normatividad
           </a>
         </li>

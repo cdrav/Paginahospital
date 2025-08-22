@@ -34,8 +34,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
-    const headerPromise = loadPartial("#header-placeholder", "partials/header.html");
-    const footerPromise = loadPartial("#footer-placeholder", "partials/footer.html");
+    // Usar rutas absolutas desde la raíz del sitio ('/') para que funcione
+    // correctamente desde cualquier subdirectorio (como /participa/).
+    // Esto asume que el sitio se sirve desde la raíz del dominio.
+    const headerPromise = loadPartial("#header-placeholder", "/partials/header.html");
+    const footerPromise = loadPartial("#footer-placeholder", "/partials/footer.html");
 
     // Esperar a que tanto el header como el footer se carguen
     await Promise.all([headerPromise, footerPromise]);

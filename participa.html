@@ -28,86 +28,136 @@
   <!-- El breadcrumb se insertará aquí mediante JavaScript -->
 </div>
 
-<!-- Encabezado simple como la página de referencia -->
-<section class="py-4">
-  <div class="container">
-    <div id="breadcrumb-container"></div>
-    <span id="slide-1"></span>
-    <h1 class="fw-bold h2 mb-3" data-page-title>Estructura y contenidos del Menú Participa</h1>
-    <p class="mb-0">El Menú Participa es una nueva categoría del menú destacado que deben crear las entidades y organismos obligados en el encabezado principal de su sitio web. Las autoridades deben publicar en el Menú Participa los contenidos de información sobre los espacios, mecanismos y acciones que permiten la participación ciudadana en el ciclo de la gestión pública, esto con el propósito de dinamizar la vinculación de la ciudadanía en las decisiones y acciones públicas durante el diagnóstico, formulación, implementación, evaluación y seguimiento a la gestión institucional a través de su sitio web institucional.</p>
+<!-- Banner / Hero con imagen -->
+<section class="position-relative hero-participa"
+         role="img"
+         aria-label="Ciudadanos participando en una reunión comunitaria" style="background-image: url('imagenes/participa.jpg');">
+  <div class="hero-title-wrap">
+    <div class="container">
+      <h1 class="hero-title-badge" data-page-title>Participa</h1>
+    </div>
   </div>
-  </section>
+</section>
 
-<!-- Lista de secciones como la página de referencia -->
-<section class="py-4">
+<!-- Descripción corta -->
+<section class="py-5 text-center">
   <div class="container">
-    <ol class="mb-0 ps-3">
-      <li id="slide-2" class="mb-2"><a class="link-body-emphasis" href="participa/diagnostico_identificacion_problemas.html">Participación para el Diagnóstico e Identificación de Problemas</a></li>
-      <li id="slide-3" class="mb-2"><a class="link-body-emphasis" href="participa/planeacion_presupuesto_participativo.html">Planeación y Presupuesto Participativo</a></li>
-      <li id="slide-4" class="mb-2"><a class="link-body-emphasis" href="participa/consulta_ciudadana.html">Consulta Ciudadana</a></li>
-      <li id="slide-5" class="mb-2"><a class="link-body-emphasis" href="participa/colaboracion_innovacion_abierta.html">Colaboración e Innovación</a></li>
-      <li id="slide-6" class="mb-2"><a class="link-body-emphasis" href="participa/rendicion_de_cuentas.html">Rendición de Cuentas</a></li>
-      <li id="slide-7" class="mb-0"><a class="link-body-emphasis" href="participa/control_social.html">Control Social</a></li>
-    </ol>
+    <h2 class="section-title">Tu Voz es Esencial</h2>
+    <p class="lead section-lead mx-auto" style="max-width: 800px;">
+      El Menú Participa es el espacio donde puedes vincularte en las decisiones y acciones públicas. Explora los mecanismos que te permiten ser parte activa en el diagnóstico, formulación, implementación y evaluación de la gestión de nuestro hospital.
+    </p>
   </div>
-  </section>
+</section>
 
+<!-- Contenido principal: Tarjetas de Participación -->
+<main class="container my-5">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+    <!-- Card 1: Diagnóstico e Identificación de Problemas -->
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center hover-card participa-card">
+        <a href="participa/diagnostico_identificacion_problemas.html" class="text-decoration-none text-dark stretched-link">
+          <div class="card-body p-4">
+            <div class="participa-icon-wrap">
+              <i class="bi bi-search"></i>
+            </div>
+            <h5 class="card-title fw-bold mt-3 mb-2">Diagnóstico e Identificación de Problemas</h5>
+            <p class="card-text text-muted small">Ayúdanos a identificar las necesidades y desafíos de nuestra comunidad para mejorar nuestros servicios.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 2: Planeación y Presupuesto Participativo -->
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center hover-card participa-card">
+        <a href="participa/planeacion_presupuesto_participativo.html" class="text-decoration-none text-dark stretched-link">
+          <div class="card-body p-4">
+            <div class="participa-icon-wrap">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h5 class="card-title fw-bold mt-3 mb-2">Planeación y Presupuesto Participativo</h5>
+            <p class="card-text text-muted small">Involúcrate en la definición de metas y la asignación de recursos para los proyectos del hospital.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3: Consulta Ciudadana -->
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center hover-card participa-card">
+        <a href="participa/consulta_ciudadana.html" class="text-decoration-none text-dark stretched-link">
+          <div class="card-body p-4">
+            <div class="participa-icon-wrap">
+              <i class="bi bi-chat-left-text"></i>
+            </div>
+            <h5 class="card-title fw-bold mt-3 mb-2">Consulta Ciudadana</h5>
+            <p class="card-text text-muted small">Opina sobre temas de interés público y participa en la toma de decisiones que nos afectan a todos.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 4: Colaboración e Innovación -->
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center hover-card participa-card">
+        <a href="participa/colaboracion_innovacion_abierta.html" class="text-decoration-none text-dark stretched-link">
+          <div class="card-body p-4">
+            <div class="participa-icon-wrap">
+              <i class="bi bi-lightbulb"></i>
+            </div>
+            <h5 class="card-title fw-bold mt-3 mb-2">Colaboración e Innovación</h5>
+            <p class="card-text text-muted small">Aporta tus ideas y soluciones para innovar y cocrear en la gestión de la salud pública.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 5: Rendición de Cuentas -->
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center hover-card participa-card">
+        <a href="participa/rendicion_de_cuentas.html" class="text-decoration-none text-dark stretched-link">
+          <div class="card-body p-4">
+            <div class="participa-icon-wrap">
+              <i class="bi bi-megaphone"></i>
+            </div>
+            <h5 class="card-title fw-bold mt-3 mb-2">Rendición de Cuentas</h5>
+            <p class="card-text text-muted small">Conoce y evalúa nuestra gestión. Te presentamos los resultados de nuestro trabajo de forma transparente.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 6: Control Social -->
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 text-center hover-card participa-card">
+        <a href="participa/control_social.html" class="text-decoration-none text-dark stretched-link">
+          <div class="card-body p-4">
+            <div class="participa-icon-wrap">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <h5 class="card-title fw-bold mt-3 mb-2">Control Social</h5>
+            <p class="card-text text-muted small">Ejerce tu derecho a vigilar y controlar la gestión pública para asegurar la correcta inversión de los recursos.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
 
 <!-- Footer parcial -->
 <div id="footer-placeholder"></div>
 
-<!-- Scripts optimizados -->
-<!-- Scripts optimizados -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Cargar scripts en el orden correcto
-  function loadScripts() {
-    const scripts = [
-      'js/utils.js',
-      'js/layout.js',
-      'js/navbar.js',
-      'js/accesibilidad.js',
-      'js/accessibility-styles.js',
-      'js/busqueda.js',
-      'js/main.js',
-      'js/breadcrumb.js'
-    ];
-    
-    function loadScript(index) {
-      if (index >= scripts.length) return;
-      
-      const script = document.createElement('script');
-      script.src = scripts[index];
-      script.onload = function() {
-        loadScript(index + 1);
-      };
-      script.onerror = function() {
-        console.error('Error al cargar el script:', scripts[index]);
-        loadScript(index + 1);
-      };
-      document.body.appendChild(script);
-    }
-    
-    // Iniciar carga de scripts cuando el header esté listo o después de un tiempo de espera
-    function startLoadingScripts() {
-      loadScript(0);
-    }
-    
-    if (typeof headerLoaded !== 'undefined' && headerLoaded) {
-      startLoadingScripts();
-    } else {
-      document.addEventListener('headerLoaded', startLoadingScripts);
-      // Timeout de respaldo por si el evento nunca se dispara
-      setTimeout(startLoadingScripts, 1000);
-    }
-  }
-  
-  // Iniciar carga de scripts cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadScripts);
-  } else {
-    loadScripts();
-  }
-</script>
+<!-- Scripts optimizados con defer -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="js/utils.js" defer></script>
+<script src="js/layout.js" defer></script>
+<script src="js/navbar.js" defer></script>
+<script src="js/accesibilidad.js" defer></script>
+<script src="js/accessibility-styles.js" defer></script>
+<script src="js/busqueda.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/breadcrumb.js" defer></script>
   </body>
   </html>
