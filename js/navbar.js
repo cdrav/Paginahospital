@@ -3,25 +3,31 @@
  * Combina funcionalidades de escritorio y móvil, efectos de scroll y accesibilidad.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+// Función para inicializar el navbar
+function initNavbar() {
   // Intentar encontrar los elementos del navbar
   const navbar = document.querySelector('nav.navbar');
-  const navbarToggler = document.querySelector('button.navbar-toggler');
+  const navbarToggler = document.querySelector('button.navbar-toggler[data-bs-toggle="collapse"]');
   let navbarCollapse = document.querySelector('div.navbar-collapse');
   const body = document.body;
 
   // Si no se encuentra el navbar, salir
   if (!navbar) {
     console.warn('Navbar no encontrado.');
-    return;
+    return false;
   }
+
+  console.log('Navbar encontrado, inicializando...');
 
   // Si no se encuentra el colapsable, intentar encontrarlo por ID
   const navbarId = navbarToggler ? navbarToggler.getAttribute('data-bs-target') : null;
-  const collapseElement = navbarId ? document.querySelector(navbarId) : null;
+  if (navbarId && !navbarCollapse) {
+    navbarCollapse = document.querySelector(navbarId);
+    console.log('Navbar collapse encontrado por ID:', navbarCollapse ? 'Sí' : 'No');
+  }
   
-  if (!navbarCollapse && collapseElement) {
-    navbarCollapse = collapseElement;
+  if (!navbarCollapse && navbarId) {
+    navbarCollapse = document.querySelector(navbarId);
   }
 
   if (!navbarCollapse) {
@@ -31,8 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- Funcionalidad General ---
 
-  // Efecto de scroll
-  const handleScroll = () => {
+  // Efecto de Scroll
+  function handleScroll() {
+    if (!navbar) return;
+    
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
@@ -43,31 +51,60 @@ document.addEventListener('DOMContentLoaded', function() {
   handleScroll();
 
   // --- Menú Móvil ---
-
-  let backdrop;
-  const getBackdrop = () => {
+  function getBackdrop() {
+    let backdrop = document.querySelector('.navbar-backdrop');
     if (!backdrop) {
       backdrop = document.createElement('div');
       backdrop.className = 'navbar-backdrop';
-      navbar.insertBefore(backdrop, navbarCollapse.nextSibling);
+      document.body.appendChild(backdrop);
     }
     return backdrop;
-  };
-
+  }
+  
+  // Inicializar eventos
+  function initEvents() {
+    // Evento de scroll
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Ejecutar una vez al cargar
+    
+    // Eventos del botón de menú móvil
+    if (navbarToggler) {
+      navbarToggler.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (navbarCollapse.classList.contains('show')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+    }
+    
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', function(e) {
+      if (navbarCollapse && navbarCollapse.classList.contains('show') && 
+          !navbarCollapse.contains(e.target) && !navbarToggler.contains(e.target)) {
+        closeMenu();
+      }
+    });
+  }
+  
+    // --- Menú Móvil ---
+  let backdrop;
+  
   const openMenu = () => {
-    body.classList.add('menu-open');
+    document.body.classList.add('menu-open');
     navbarCollapse.classList.add('show');
     getBackdrop().classList.add('show');
-    navbarToggler?.setAttribute('aria-expanded', 'true');
+    if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'true');
     document.addEventListener('keydown', handleEscapeKey);
     getBackdrop().addEventListener('click', closeMenu);
   };
 
   const closeMenu = () => {
-    body.classList.remove('menu-open');
+    document.body.classList.remove('menu-open');
     navbarCollapse.classList.remove('show');
     getBackdrop().classList.remove('show');
-    navbarToggler?.setAttribute('aria-expanded', 'false');
+    if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'false');
     document.removeEventListener('keydown', handleEscapeKey);
     getBackdrop().removeEventListener('click', closeMenu);
   };
@@ -75,17 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const handleEscapeKey = (e) => {
     if (e.key === 'Escape') closeMenu();
   };
-
-  if (navbarToggler) {
-    navbarToggler.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (navbarCollapse.classList.contains('show')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-  }
 
   // Cerrar menú al hacer clic en un enlace o al cambiar tamaño de ventana
   navbar.addEventListener('click', (e) => {
@@ -95,11 +121,14 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 992 && body.classList.contains('menu-open')) {
+    if (window.innerWidth >= 992 && document.body.classList.contains('menu-open')) {
       closeMenu();
     }
   });
 
+  // Inicializar todo
+  initEvents();
+  
   // --- Dropdowns (comportamiento híbrido) ---
 
   const dropdowns = navbar.querySelectorAll('.dropdown');
@@ -150,7 +179,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // Añadir clase para detectar JS activo
   document.body.classList.add('js-enabled');
   console.log('Navbar unificada cargada.');
-});
+  
+  return true;
+}
+
+// Iniciar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initNavbar);
+} else {
+  initNavbar();
+}
 
 // Estilos CSS para el backdrop del menú móvil
 const mobileMenuStyles = document.createElement('style');

@@ -12,6 +12,11 @@
       if (!res.ok) throw new Error(`HTTP ${res.status} al cargar ${url}`);
       const html = await res.text();
       target.innerHTML = html;
+      
+      // Emitir evento cuando se cargue el header
+      if (targetSelector === '#header-placeholder') {
+        document.dispatchEvent(new Event('headerLoaded'));
+      }
       // Opcional: re-ejecutar scripts embebidos en el parcial, si existieran
       const scripts = target.querySelectorAll("script");
       scripts.forEach((oldScript) => {

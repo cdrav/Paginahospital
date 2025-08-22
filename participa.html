@@ -56,15 +56,25 @@
 <!-- Footer parcial -->
 <div id="footer-placeholder"></div>
 
-<!-- Scripts optimizados con defer -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-<script src="js/utils.js" defer></script>
-<script src="js/layout.js" defer></script>
-<script src="js/navbar.js" defer></script>
-<script src="js/accesibilidad.js" defer></script>
-<script src="js/accessibility-styles.js" defer></script>
-<script src="js/busqueda.js" defer></script>
-<script src="js/main.js" defer></script>
-<script src="js/breadcrumb.js" defer></script>
+<!-- Scripts optimizados -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/layout.js"></script>
+<script>
+  // Esperar a que el header se cargue antes de inicializar navbar
+  document.addEventListener('headerLoaded', function() {
+    // Cargar navbar después del header
+    const script = document.createElement('script');
+    script.src = 'js/navbar.js';
+    document.body.appendChild(script);
+    
+    // Cargar el resto de scripts
+    ['accesibilidad.js', 'accessibility-styles.js', 'busqueda.js', 'main.js', 'breadcrumb.js'].forEach(src => {
+      const s = document.createElement('script');
+      s.src = 'js/' + src;
+      document.body.appendChild(s);
+    });
+  });
+</script>
   </body>
   </html>
