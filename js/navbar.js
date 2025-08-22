@@ -4,13 +4,28 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-  const navbar = document.querySelector('.navbar');
-  const navbarToggler = document.querySelector('.navbar-toggler');
-  const navbarCollapse = document.querySelector('.navbar-collapse');
+  // Intentar encontrar los elementos del navbar
+  const navbar = document.querySelector('nav.navbar');
+  const navbarToggler = document.querySelector('button.navbar-toggler');
+  let navbarCollapse = document.querySelector('div.navbar-collapse');
   const body = document.body;
 
-  if (!navbar || !navbarCollapse) {
-    console.warn('Componentes de la barra de navegación no encontrados.');
+  // Si no se encuentra el navbar, salir
+  if (!navbar) {
+    console.warn('Navbar no encontrado.');
+    return;
+  }
+
+  // Si no se encuentra el colapsable, intentar encontrarlo por ID
+  const navbarId = navbarToggler ? navbarToggler.getAttribute('data-bs-target') : null;
+  const collapseElement = navbarId ? document.querySelector(navbarId) : null;
+  
+  if (!navbarCollapse && collapseElement) {
+    navbarCollapse = collapseElement;
+  }
+
+  if (!navbarCollapse) {
+    console.warn('Elemento colapsable del navbar no encontrado.');
     return;
   }
 
