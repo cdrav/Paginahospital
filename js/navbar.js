@@ -37,7 +37,9 @@ function initializeNavbar() {
       if (!navbarCollapse.classList.contains('show')) return;
 
       const link = event.target.closest('a.nav-link, a.dropdown-item');
-      if (link && link.href) {
+      // Solo actuar si es un enlace válido y NO es un botón para desplegar un submenú.
+      // Esto permite que los dropdowns de Bootstrap funcionen correctamente en móvil.
+      if (link && link.href && !link.classList.contains('dropdown-toggle')) {
           // Prevenir la navegación inmediata para que el menú se cierre primero.
           event.preventDefault();
           const urlToNavigate = link.href;
