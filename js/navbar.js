@@ -1,101 +1,93 @@
 /**
- * navbar.js - Lógica unificada para la barra de navegación.
- * Combina funcionalidades de escritorio y móvil, efectos de scroll y accesibilidad.
+ * navbar.js - Lógica unificada y robusta para la barra de navegación.
+ * Resuelve problemas de carga asíncrona (race condition) y mantiene
+ * las funcionalidades de menú móvil, scroll y accesibilidad.
+ *
+ * @version 2.1
+ * @date 2024-07-26
  */
 
-// Función para inicializar el navbar
-function initNavbar() {
-  // Intentar encontrar los elementos del navbar
-  const navbar = document.querySelector('nav.navbar');
-  const navbarToggler = document.querySelector('button.navbar-toggler[data-bs-toggle="collapse"]');
-  let navbarCollapse = document.querySelector('div.navbar-collapse');
-  const body = document.body;
-
-  // Si no se encuentra el navbar, salir
-  if (!navbar) {
-    console.warn('Navbar no encontrado.');
-    return false;
-  }
-
-  console.log('Navbar encontrado, inicializando...');
-
-  // Si no se encuentra el colapsable, intentar encontrarlo por ID
-  const navbarId = navbarToggler ? navbarToggler.getAttribute('data-bs-target') : null;
-  if (navbarId && !navbarCollapse) {
-    navbarCollapse = document.querySelector(navbarId);
-    console.log('Navbar collapse encontrado por ID:', navbarCollapse ? 'Sí' : 'No');
-  }
-  
-  if (!navbarCollapse && navbarId) {
-    navbarCollapse = document.querySelector(navbarId);
-  }
-
-  if (!navbarCollapse) {
-    console.warn('Elemento colapsable del navbar no encontrado.');
+/**
+ * Espera a que un elemento que coincida con el selector aparezca en el DOM.
+ * Esto es crucial para scripts que dependen de contenido cargado dinámicamente.
+ *
+ * @param {string} selector - El selector CSS del elemento a esperar.
+ * @param {function} callback - La función a ejecutar una vez que el elemento se encuentre.
+ */
+function waitForElement(selector, callback) {
+  const element = document.querySelector(selector);
+  if (element) {
+    callback(element);
     return;
   }
 
-  // --- Funcionalidad General ---
+  const observer = new MutationObserver((mutations, obs) => {
+    const foundElement = document.querySelector(selector);
+    if (foundElement) {
+      obs.disconnect();
+      callback(foundElement);
+    }
+  });
 
-  // Efecto de Scroll
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+/**
+ * Contiene toda la lógica de inicialización del navbar.
+ * Se ejecuta una vez que el elemento .navbar está disponible en el DOM.
+ * @param {HTMLElement} navbar - El elemento <nav> principal.
+ */
+function initializeNavbarLogic(navbar) {
+  const navbarToggler = navbar.querySelector('.navbar-toggler');
+  const navbarCollapse = navbar.querySelector('.navbar-collapse');
+
+  if (!navbarToggler || !navbarCollapse) {
+    console.warn('No se encontraron el toggler o el contenedor colapsable del navbar.');
+    return;
+  }
+
+  // --- Lógica de Scroll ---
   function handleScroll() {
-    if (!navbar) return;
-    
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
-  };
+  }
   window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll();
+  handleScroll(); // Estado inicial
 
-  // --- Menú Móvil ---
+  // --- Lógica del Menú Móvil con Backdrop ---
   function getBackdrop() {
     let backdrop = document.querySelector('.navbar-backdrop');
     if (!backdrop) {
       backdrop = document.createElement('div');
       backdrop.className = 'navbar-backdrop';
       document.body.appendChild(backdrop);
+      
+      // Añadir estilos para el backdrop si no existen
+      if (!document.getElementById('navbar-backdrop-styles')) {
+        const mobileMenuStyles = document.createElement('style');
+        mobileMenuStyles.id = 'navbar-backdrop-styles';
+        mobileMenuStyles.textContent = `
+          body.menu-open { overflow: hidden; position: fixed; width: 100%; }
+          .navbar-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.5); z-index: 1040; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+          .navbar-backdrop.show { opacity: 1; visibility: visible; }
+        `;
+        document.head.appendChild(mobileMenuStyles);
+      }
     }
     return backdrop;
   }
-  
-  // Inicializar eventos
-  function initEvents() {
-    // Evento de scroll
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Ejecutar una vez al cargar
-    
-    // Eventos del botón de menú móvil
-    if (navbarToggler) {
-      navbarToggler.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (navbarCollapse.classList.contains('show')) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-      });
-    }
-    
-    // Cerrar menú al hacer clic fuera
-    document.addEventListener('click', function(e) {
-      if (navbarCollapse && navbarCollapse.classList.contains('show') && 
-          !navbarCollapse.contains(e.target) && !navbarToggler.contains(e.target)) {
-        closeMenu();
-      }
-    });
-  }
-  
-    // --- Menú Móvil ---
-  let backdrop;
-  
+
   const openMenu = () => {
     document.body.classList.add('menu-open');
     navbarCollapse.classList.add('show');
     getBackdrop().classList.add('show');
-    if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'true');
+    navbarToggler.setAttribute('aria-expanded', 'true');
     document.addEventListener('keydown', handleEscapeKey);
     getBackdrop().addEventListener('click', closeMenu);
   };
@@ -104,7 +96,7 @@ function initNavbar() {
     document.body.classList.remove('menu-open');
     navbarCollapse.classList.remove('show');
     getBackdrop().classList.remove('show');
-    if (navbarToggler) navbarToggler.setAttribute('aria-expanded', 'false');
+    navbarToggler.setAttribute('aria-expanded', 'false');
     document.removeEventListener('keydown', handleEscapeKey);
     getBackdrop().removeEventListener('click', closeMenu);
   };
@@ -113,10 +105,22 @@ function initNavbar() {
     if (e.key === 'Escape') closeMenu();
   };
 
+  // Eventos del toggler
+  navbarToggler.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (navbarCollapse.classList.contains('show')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
   // Cerrar menú al hacer clic en un enlace o al cambiar tamaño de ventana
   navbar.addEventListener('click', (e) => {
     if (e.target.matches('.nav-link:not(.dropdown-toggle), .dropdown-item')) {
-      if (window.innerWidth < 992) closeMenu();
+      if (window.innerWidth < 992 && navbarCollapse.classList.contains('show')) {
+        closeMenu();
+      }
     }
   });
 
@@ -126,94 +130,68 @@ function initNavbar() {
     }
   });
 
-  // Inicializar todo
-  initEvents();
-  
-  // --- Dropdowns (comportamiento híbrido) ---
-
+  // --- Lógica de Dropdowns (comportamiento híbrido) ---
   const dropdowns = navbar.querySelectorAll('.dropdown');
   dropdowns.forEach(dropdown => {
     const toggle = dropdown.querySelector('.dropdown-toggle');
+    if (!toggle) return;
 
     // Hover para escritorio
-    if (window.innerWidth >= 992) {
-      dropdown.addEventListener('mouseenter', () => toggle.setAttribute('aria-expanded', 'true'));
-      dropdown.addEventListener('mouseleave', () => toggle.setAttribute('aria-expanded', 'false'));
-    }
+    dropdown.addEventListener('mouseenter', () => {
+      if (window.innerWidth >= 992) {
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.nextElementSibling.classList.add('show');
+      }
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      if (window.innerWidth >= 992) {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.nextElementSibling.classList.remove('show');
+      }
+    });
 
-    // Clic para móvil
+    // Clic para móvil (Bootstrap lo maneja, pero podemos asegurar que otros se cierren)
     toggle.addEventListener('click', (e) => {
       if (window.innerWidth < 992) {
         e.preventDefault();
         const menu = toggle.nextElementSibling;
         const isExpanded = menu.classList.contains('show');
-        // Cerrar otros dropdowns
-        document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
-        // Abrir el actual si estaba cerrado
-        if (!isExpanded) menu.classList.add('show');
+        
+        // Cerrar otros dropdowns abiertos
+        document.querySelectorAll('.dropdown-menu.show').forEach(m => {
+          if (m !== menu) {
+            m.classList.remove('show');
+          }
+        });
+        
+        // Alternar el actual
+        menu.classList.toggle('show');
       }
     });
   });
 
-  // --- Mejoras de Accesibilidad y UI ---
+  // --- Lógica para resaltar el enlace activo ---
+  const currentPageTitle = document.body.dataset.pageTitle || '';
+  const navLinks = navbar.querySelectorAll('.nav-link, .dropdown-item');
 
-  // Foco visible
-  try {
-    if (!("CSS" in window) || !CSS.supports || !CSS.supports("selector(:focus-visible)")) {
-      document.body.classList.add('no-focus-visible');
-    }
-  } catch(e) { console.warn('focus-visible polyfill check failed.'); }
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    link.removeAttribute('aria-current');
 
-  // Búsqueda
-  const searchForm = document.querySelector('.search-form');
-  if (searchForm) {
-    searchForm.addEventListener('submit', () => {
-      const searchInput = searchForm.querySelector('input[name="q"]');
-      if (searchInput && searchInput.value.trim() !== '') {
-        searchForm.classList.add('loading');
-        setTimeout(() => searchForm.classList.remove('loading'), 1500);
+    if (currentPageTitle && link.textContent.trim() === currentPageTitle) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+      const dropdownToggle = link.closest('.dropdown')?.querySelector('.dropdown-toggle');
+      if (dropdownToggle) {
+        dropdownToggle.classList.add('active');
       }
-    });
-  }
+    }
+  });
 
-  // Añadir clase para detectar JS activo
-  document.body.classList.add('js-enabled');
-  console.log('Navbar unificada cargada.');
-  
-  return true;
+  console.log('Navbar inicializado correctamente.');
 }
 
-// Iniciar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initNavbar);
-} else {
-  initNavbar();
-}
-
-// Estilos CSS para el backdrop del menú móvil
-const mobileMenuStyles = document.createElement('style');
-mobileMenuStyles.textContent = `
-  body.menu-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-  }
-  .navbar-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1040; /* Debajo del navbar-collapse (1045 por defecto) */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  .navbar-backdrop.show {
-    opacity: 1;
-    visibility: visible;
-  }
-`;
-document.head.appendChild(mobileMenuStyles);
-
+// --- PUNTO DE ENTRADA ---
+// Esperar a que el elemento '.navbar' exista en el DOM antes de llamar a la lógica principal.
+// Esto soluciona el error "Navbar no encontrado" causado por la carga asíncrona del header.
+waitForElement('nav.navbar', initializeNavbarLogic);

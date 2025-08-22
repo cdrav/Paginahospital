@@ -73,10 +73,11 @@
 .sidebar-nav a.fw-bold:hover { color: var(--brand-dark); text-decoration: underline; }
 
 /* Estado activo para cualquier enlace del sidebar */
-.sidebar-nav a.active {
-  color: #fff !important;
-  background-color: var(--brand-main) !important;
-  border-color: var(--brand-main) !important;
+/* Usamos mayor especificidad para sobreescribir los estilos de :hover de los botones sin usar !important */
+body[data-page-title="Transparencia y Acceso a la Información Pública"] .sidebar-nav a.active {
+  color: #fff;
+  background-color: var(--brand-main);
+  border-color: var(--brand-main);
 }
 
 /* Buscador de Transparencia */
@@ -151,11 +152,13 @@ mark.search-hit {
 /* ------------------------------ */
 /* Correcciones de layout locales */
 /* ------------------------------ */
-/* El CSS global define section { padding: ... } lo que duplica espacios aquí. */
-/* Reducimos el padding en las secciones ancladas solo en Transparencia. */
-.anchor-target {
-  padding-top: 1.25rem !important;
-  padding-bottom: 1.25rem !important;
+/*
+ * Se ajusta el padding para las secciones ancladas en la página de Transparencia.
+ * Se usa un selector más específico para evitar el uso de !important.
+ */
+body[data-page-title="Transparencia y Acceso a la Información Pública"] .anchor-target {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
   /* Asegura que al hacer scroll a una ancla quede justo bajo el header fijo */
   scroll-margin-top: 110px;
 }
@@ -170,8 +173,8 @@ mark.search-hit {
 
 /* Alinear sidebar sticky con la altura real del header/nav */
 .sidebar-nav { scroll-margin-top: 110px; }
-/* Unificar con altura del header fijo (110px) */
-aside .position-sticky { top: 110px !important; }
+/* Unificar con altura del header fijo (110px) usando mayor especificidad */
+body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky { top: 110px; }
 
 /* Tarjetas dentro de la grilla principal: márgenes y tipografía proporcionados */
 .card-title-custom {
@@ -203,5 +206,3 @@ section.col-lg-8.col-md-7 { min-width: 0; }
   word-break: break-word;
   overflow-wrap: anywhere;
 }
-
-

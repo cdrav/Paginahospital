@@ -328,8 +328,8 @@ section > p {
 .hospital-logo {
   height: 84px;
   width: auto;
-  background: transparent !important;
-  box-shadow: none !important;
+  background: transparent;
+  box-shadow: none;
   border: 0;
   /* Delineado suave alrededor del contorno + sombra sutil hacia abajo */
   filter:
@@ -367,12 +367,12 @@ section > p {
 }
 /* Reducir tamaño del logo en navbar en pantallas medianas para dar más espacio al menú */
 @media (max-width: 991.98px) {
-  .navbar .navbar-brand img { max-height: 96px !important; height: auto !important; width: auto; background: transparent; }
+  .navbar .navbar-brand img { max-height: 96px; height: auto; width: auto; background: transparent; }
   /* Ensanchado leve en móviles para no romper el layout */
   .hospital-logo { --logo-scale-x: 1.03; }
 }
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .navbar .navbar-brand img { max-height: 84px !important; }
+  .navbar .navbar-brand img { max-height: 84px; }
   .navbar .nav-link { padding: .45rem .65rem; font-size: .93rem; letter-spacing: 0; }
   .navbar .navbar-nav { gap: .2rem .45rem; }
   .search-form { width: clamp(220px, 22vw, 380px); }
@@ -384,7 +384,7 @@ section > p {
 /* Disposición horizontal del menú en pantallas grandes */
 @media (min-width: 992px) {
   /* Marca más grande para dar presencia y frescura */
-  .navbar .navbar-brand img { max-height: 140px !important; height: auto; width: auto; border-radius: 0; box-shadow: none; background: transparent; padding: 0; }
+  .navbar .navbar-brand img { max-height: 140px; height: auto; width: auto; border-radius: 0; box-shadow: none; background: transparent; padding: 0; }
   /* Ajustar espacio vertical para proporción más compacta */
   .navbar .navbar-brand { padding-top: .2rem; padding-bottom: .2rem; }
   .navbar .navbar-brand { padding-top: .25rem; padding-bottom: .25rem; }
@@ -441,44 +441,44 @@ section > p {
 
 /* Estilos para todos los botones de la página */
 .btn {
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.3px !important;
-  transition: all 0.3s ease !important;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
 /* Efecto hover para todos los botones */
 .btn:not(.btn-outline-brand):not(.btn-link):not(.btn-close):hover {
-  color: #fff !important;
-  background-color: var(--color-secundario, #069681) !important;
-  border-color: var(--color-secundario, #069681) !important;
+  color: #fff;
+  background-color: var(--color-secundario, #069681);
+  border-color: var(--color-secundario, #069681);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Efecto active para todos los botones */
 .btn:not(.btn-link):not(.btn-close):active {
-  transform: translateY(1px) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo para los íconos dentro de los botones */
 .btn i {
-  transition: transform 0.3s ease !important;
+  transition: transform 0.3s ease;
 }
 
 /* Efecto hover para los íconos */
 .btn:hover i {
-  transform: translateX(3px) !important;
+  transform: translateX(3px);
 }
 
 /* Estilo para el foco accesible */
 .btn:focus-visible { 
-  outline: 3px solid #ffbf47 !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3) !important;
+  outline: 3px solid #ffbf47;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
 }
 
 /* Botones rápidos del footer: tipografía, colores institucionales y animaciones */
@@ -490,26 +490,26 @@ section > p {
 .btn-contacto,
 .btn-estadisticas,
 .btn-email {
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.3px !important;
-  transition: all 0.3s ease-in-out !important;
-  position: relative !important;
-  overflow: hidden !important;
-  z-index: 1 !important;
-  border: 2px solid var(--color-secundario, #069681) !important;
-  color: var(--color-secundario, #069681) !important;
-  background-color: transparent !important;
-  padding: 0.5rem 1.25rem !important;
-  text-transform: none !important;
-  min-width: 140px !important;
-  margin: 0.25rem !important;
-  text-align: center !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 50px !important;
-  box-shadow: none !important;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border: 2px solid var(--color-secundario, #069681);
+  color: var(--color-secundario, #069681);
+  background-color: transparent;
+  padding: 0.5rem 1.25rem;
+  text-transform: none;
+  min-width: 140px;
+  margin: 0.25rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  box-shadow: none;
 }
 
 /* Efecto hover para todos los botones */
@@ -520,11 +520,11 @@ section > p {
 .btn-contacto:hover,
 .btn-estadisticas:hover,
 .btn-email:hover {
-  color: #fff !important;
-  background-color: var(--color-secundario, #069681) !important;
-  border-color: var(--color-secundario, #069681) !important;
-  box-shadow: 0 4px 12px rgba(6, 150, 129, 0.25) !important;
-  transform: translateY(-2px) !important;
+  color: #fff;
+  background-color: var(--color-secundario, #069681);
+  border-color: var(--color-secundario, #069681);
+  box-shadow: 0 4px 12px rgba(6, 150, 129, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Efecto active para todos los botones */
@@ -535,8 +535,8 @@ section > p {
 .btn-contacto:active,
 .btn-estadisticas:active,
 .btn-email:active {
-  transform: translateY(1px) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para los íconos dentro de los botones */
@@ -546,8 +546,8 @@ section > p {
 .btn-contacto i,
 .btn-estadisticas i,
 .btn-email i {
-  font-size: 1.1em !important;
-  transition: transform 0.3s ease !important;
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
 }
 
 /* Efecto hover para los íconos */
@@ -557,7 +557,7 @@ section > p {
 .btn-contacto:hover i,
 .btn-estadisticas:hover i,
 .btn-email:hover i {
-  transform: translateX(3px) !important;
+  transform: translateX(3px);
 }
 
 /* Estilo para el foco accesible */
@@ -567,9 +567,9 @@ section > p {
 .btn-contacto:focus-visible,
 .btn-estadisticas:focus-visible,
 .btn-email:focus-visible { 
-  outline: 3px solid #ffbf47 !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3) !important;
+  outline: 3px solid #ffbf47;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
 }
 
 /* Aplicar el mismo estilo a todos los botones */
@@ -578,8 +578,8 @@ section > p {
 .quicklink-btn.btn-contacto,
 .quicklink-btn.btn-estadisticas,
 .quicklink-btn.btn-email {
-  color: var(--color-secundario, #069681) !important;
-  border-color: var(--color-secundario, #069681) !important;
+  color: var(--color-secundario, #069681);
+  border-color: var(--color-secundario, #069681);
 }
 
 /* Definir el color de hover consistente con el menú */
@@ -927,11 +927,11 @@ section > p {
 
 /* Contenedor flotante de botones de accesibilidad */
 .accessibility-buttons-container {
-  position: fixed !important;
-  top: 60% !important;
-  right: 0 !important;
-  transform: translateY(-50%) !important;
-  z-index: 9999 !important;
+  position: fixed;
+  top: 60%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -942,32 +942,32 @@ section > p {
 }
 
 .accessibility-buttons-container .btn {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 6px !important;
-  border: 1px solid rgba(0,0,0,.25) !important; /* Borde más notorio */
-  background: #ffffff !important; /* Fondo blanco sólido para máxima legibilidad */
-  color: #164443 !important; /* Íconos en color oscuro de la marca */
-  font-size: 1rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  line-height: 1 !important;
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.25); /* Borde más notorio */
+  background: #ffffff; /* Fondo blanco sólido para máxima legibilidad */
+  color: #164443; /* Íconos en color oscuro de la marca */
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
 .accessibility-buttons-container .btn:hover { 
-  background: #f1f5f5 !important; 
-  transform: translateY(-1px) !important; 
-  box-shadow: 0 2px 8px rgba(0,0,0,.25) !important; 
+  background: #f1f5f5; 
+  transform: translateY(-1px); 
+  box-shadow: 0 2px 8px rgba(0,0,0,.25); 
 }
 
 .accessibility-buttons-container .btn:focus { 
-  outline: 3px solid #ffbf47 !important; /* Aro accesible GOV */
-  outline-offset: 2px !important;
-  box-shadow: none !important; 
+  outline: 3px solid #ffbf47; /* Aro accesible GOV */
+  outline-offset: 2px;
+  box-shadow: none; 
 }
 
 /* Tooltip simple usando el atributo title */
@@ -999,24 +999,24 @@ section > p {
 /* Ubicación en móviles: barra inferior fija y fluida */
 @media (max-width: 768px) {
   .accessibility-buttons-container {
-    top: auto !important;
-    bottom: calc(env(safe-area-inset-bottom, 0) + 12px) !important;
-    left: 0 !important;
-    right: 0 !important;
-    transform: none !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important; /* permite salto de línea si no cabe */
-    justify-content: center !important;
-    align-items: center !important;
-    border-radius: 12px !important;
-    padding: 6px 8px !important;
-    gap: 6px !important;
-    margin: 0 8px !important; /* separa de los bordes laterales */
+    top: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0) + 12px);
+    left: 0;
+    right: 0;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap; /* permite salto de línea si no cabe */
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 6px 8px;
+    gap: 6px;
+    margin: 0 8px; /* separa de los bordes laterales */
   }
   .accessibility-buttons-container .btn {
-    width: 38px !important;
-    height: 38px !important;
-    font-size: .95rem !important;
+    width: 38px;
+    height: 38px;
+    font-size: .95rem;
   }
   /* En pantallas táctiles, ocultar tooltip para evitar desbordes */
   @media (pointer: coarse) {
@@ -1027,20 +1027,20 @@ section > p {
 /* Extra pequeño: reducir ligeramente tamaño y aumentar wrap */
 @media (max-width: 360px) {
   .accessibility-buttons-container {
-    gap: 4px !important;
-    padding: 6px !important;
+    gap: 4px;
+    padding: 6px;
   }
   .accessibility-buttons-container .btn {
-    width: 34px !important;
-    height: 34px !important;
-    font-size: .9rem !important;
+    width: 34px;
+    height: 34px;
+    font-size: .9rem;
   }
 }
 /* Iconos más legibles dentro de la barra de accesibilidad */
 .accessibility-buttons-container .btn i {
-  font-size: 1.2rem !important;
-  color: #0b0b0b !important;
-  line-height: 1 !important;
+  font-size: 1.2rem;
+  color: #0b0b0b;
+  line-height: 1;
 }
 /* Ajuste de tooltip para mejor legibilidad */
 .accessibility-buttons-container .btn::after { font-size: .8rem; }
@@ -1094,26 +1094,26 @@ footer {
   width: 100%;
   position: relative;
   z-index: 1;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  height: auto !important;
-  overflow: visible !important;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  overflow: visible;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Asegurar que el footer sea visible en modo normal */
 body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer {
-  background-color: #f8f9fa !important;
-  color: #212529 !important;
+  background-color: #f8f9fa;
+  color: #212529;
 }
 
 body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer a {
-  color: #0d6efd !important;
+  color: #0d6efd;
 }
 
 body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer .text-muted {
-  color: #6c757d !important;
+  color: #6c757d;
 }
 
 /* Tarjeta institucional en el footer */
@@ -1276,4 +1276,52 @@ section.citas-hero > .container {
 #normatividadTabsContent .list-group-item:hover a[href$=".pdf"] i.bi,
 #normatividadTabsContent .list-group-item:focus a[href$=".pdf"] i.bi {
   color: #b02a37; /* rojo más oscuro en hover */
+}
+
+.hero-image-responsive {
+  height: 250px; /* Altura para móviles */
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .hero-image-responsive {
+    height: 400px; /* Altura para tablets y escritorio */
+  }
+}
+
+/* =====================================================
+   Robustez Responsiva Global
+   ===================================================== */
+
+/* Prevenir que tablas anchas rompan el layout en móviles */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Asegurar que textos y URLs largas no desborden sus contenedores */
+p, a, td, th, li {
+  word-break: break-word; /* Para navegadores antiguos */
+  overflow-wrap: anywhere; /* Estándar moderno */
+}
+
+/* Evitar que elementos flex/grid se encojan de forma indeseada */
+.row > * { min-width: 0; }
+
+/* Clase de utilidad para círculos de iconos */
+.icon-circle-lg {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Hacer los círculos un poco más pequeños en móviles */
+@media (max-width: 767.98px) {
+  .icon-circle-lg {
+    width: 60px;
+    height: 60px;
+  }
 }

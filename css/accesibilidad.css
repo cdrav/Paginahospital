@@ -107,20 +107,20 @@ body.modo-oscuro .search-card { background: #12161b !important; border-color: rg
 body.modo-oscuro footer,
 body.modo-sepia footer,
 body.alto-contraste footer {
-  background-color: #1a1a1a !important;
-  color: #ffffff !important;
+  background-color: #1a1a1a;
+  color: #ffffff;
 }
 
 body.modo-oscuro footer a,
 body.modo-sepia footer a,
 body.alto-contraste footer a {
-  color: #4dabf7 !important;
+  color: #4dabf7;
 }
 
 body.modo-oscuro footer .text-muted,
 body.modo-sepia footer .text-muted,
 body.alto-contraste footer .text-muted {
-  color: #adb5bd !important;
+  color: #adb5bd;
 }
 
 /* Marcas/resaltados */
