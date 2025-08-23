@@ -1,0 +1,82 @@
+/* Estilos específicos para la página del Consultorio Rosado */
+
+/* Paleta de colores y botones */
+.text-pink {
+  color: #d63384 !important;
+}
+
+.bg-pink-light {
+  background-color: rgba(214, 51, 132, 0.1);
+}
+
+.btn-outline-pink {
+  --bs-btn-color: #d63384;
+  --bs-btn-border-color: #d63384;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #d63384;
+  --bs-btn-hover-border-color: #d63384;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #d63384;
+  --bs-btn-active-border-color: #d63384;
+}
+
+/* Iconos */
+.icon-xl {
+  font-size: 2.5rem;
+}
+
+/* Hero Banner */
+.hero-image-responsive {
+  height: 450px;
+  object-fit: cover;
+}
+
+/* Guía de autoexamen */
+.step-guide .step-card {
+  background-color: #f8f9fa;
+  border-left: 5px solid #d63384;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-guide .step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.step-guide .step-card:hover .fw-bold {
+  color: #d63384; /* Título de la tarjeta se vuelve rosado */
+}
+
+/* Tarjetas de Servicios Especializados con enfoque rosado */
+.service-cards .card {
+  border: 1px solid transparent; /* Asegura que haya un borde para la transición de color */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service-cards .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(214, 51, 132, 0.12); /* Sombra rosada suave */
+  border-color: rgba(214, 51, 132, 0.5); /* Borde rosado semitransparente */
+}
+
+.service-cards .card:hover .fw-bold {
+  color: #d63384; /* Título de la tarjeta se vuelve rosado */
+  transition: color 0.3s ease;
+}
+
+/* Estilos para el Acordeón de FAQ con temática rosada */
+#faqConsultorio .accordion-button:not(.collapsed) {
+  color: #a12363; /* Un rosa oscuro para el texto */
+  background-color: #fceef6; /* Un rosa muy pálido */
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+}
+
+#faqConsultorio .accordion-button:focus {
+  border-color: #f8b4d9;
+  box-shadow: 0 0 0 0.25rem rgba(214, 51, 132, 0.25);
+}
+
+/* Cambiar el color del ícono del acordeón (chevron) */
+#faqConsultorio .accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23a12363'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
