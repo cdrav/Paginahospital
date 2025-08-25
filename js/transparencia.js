@@ -732,3 +732,25 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   });
 
 })();
+
+// Filtro para Presupuesto (sección 4.1)
+(function() {
+  const container = document.querySelector('#seccion-4');
+  if (!container) return;
+
+  const select = container.querySelector('#presupuesto-year-filter');
+  const accordion = container.querySelector('#presupuestoAccordion');
+  if (!select || !accordion) return;
+
+  const items = Array.from(accordion.querySelectorAll('.accordion-item'));
+
+  select.addEventListener('change', () => {
+    const selectedYear = select.value;
+    
+    items.forEach(item => {
+      const itemYear = item.dataset.year;
+      // Muestra el item si el año coincide o si se selecciona "Mostrar Todos"
+      item.style.display = (selectedYear === 'all' || itemYear === selectedYear) ? '' : 'none';
+    });
+  });
+})();
