@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#164443">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Hospital Departamental San Antonio</title>
+    <meta name="description" content="Sitio web oficial del Hospital Departamental San Antonio. Brindamos servicios de salud con calidad y calidez humana.">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/accesibilidad.css?v=1.1" />
+    <link rel="stylesheet" href="css/accessibility-buttons.css" />
+    <link rel="stylesheet" href="css/transparencia.css" />
+   </head>
+ <body data-page-title="Transparencia y Acceso a la Información Pública">
+
+<div id="header-placeholder"></div>
+
+<!-- HERO SECTION PARA TRANSPARENCIA -->
+<div class="hero-section-transparencia">
+  <div class="container text-center">
+    <h1 class="h2 text-white fw-bold">Transparencia y Acceso a la Información Pública</h1>
+    <p class="lead mb-4 hero-lead">De acuerdo a la Ley 1712 de 2014, y resolución 3564 de 2015 de MinTIC se pone a disposición de la ciudadanía la sección de Transparencia y Acceso a la Información Pública Nacional, donde podrán conocer de primera mano toda la información.</p>
+    <div class="mt-4">
+      <i class="bi bi-shield-check hero-icon"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Barra de búsqueda (contenido de Transparencia) -->
+<main>
+<div class="container mt-4" aria-label="Buscador de contenido de Transparencia">
+  <div class="card border-0 shadow-sm search-card">
+    <div class="card-body p-3 p-md-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form class="search-form" role="search" aria-label="Buscar en Transparencia" action="buscar.html">
+            <div class="input-group flex-nowrap">
+              <input type="search" class="form-control bg-white text-dark rounded-pill" placeholder="Buscar en Transparencia" aria-label="Campo de búsqueda" aria-describedby="search-live-status" name="q" autocomplete="off" />
+            </div>
+            <div id="search-live-status" class="small text-muted mt-2" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Layout con Sidebar al estilo de referencia -->
+<div class="container my-5">
+  <div class="row g-4">
+    <!-- Sidebar de navegación -->
+    <aside class="col-lg-4 col-md-5">
+      <div class="position-sticky top-90">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-3">
+            <h6 class="fw-bold text-uppercase small mb-3 text-brand">Transparencia y acceso a la información</h6>
+            <div class="accordion sidebar-nav" id="transpAccordion">
+              <!-- 1. Información de la Entidad -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h1">
+                  <button class="accordion-button small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c1" aria-expanded="true" aria-controls="acc-c1">
+                    1. Información de la Entidad
+                  </button>
+                </h2>
+                <div id="acc-c1" class="accordion-collapse collapse show" aria-labelledby="acc-h1" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <div class="d-grid gap-2">
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#mision-vision-valores">1.1 Misión, Visión, Funciones y Deberes</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#estructura-organica">1.2 Estructura Orgánica - Organigrama</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#mapas-cartas">1.3 Mapas y Manual de procesos y procedimientos</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-institucional">1.4 Directorio Institucional</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-personal">1.5 Directorio de Servidores Públicos, Empleados o Contratistas</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-entidades">1.6 Directorio de Entidades</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-agremiaciones">1.7 Directorio de Agremiaciones o Asociaciones</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#servicio-publico-normas">1.8 Servicio al Público, Normas, Formularios y Protocolos de Atención</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#mecanismo-pqrs">1.9 Mecanismos de Presentación de PQRS</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#calendario-actividades">1.10 Calendario de Actividades y Eventos</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#entes-vigilancia">1.11 Entes y Autoridades que lo Vigilan o Supervisan</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Normatividad -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h2">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c2" aria-expanded="false" aria-controls="acc-c2">
+                    2. Normatividad
+                  </button>
+                </h2>
+                <div id="acc-c2" class="accordion-collapse collapse" aria-labelledby="acc-h2" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="Normatividad.html">
+                      Abrir Normatividad
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Contratación -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h3">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c3" aria-expanded="false" aria-controls="acc-c3">
+                    3. Contratación
+                  </button>
+                </h2>
+                <div id="acc-c3" class="accordion-collapse collapse" aria-labelledby="acc-h3" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-3">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Planeación, Presupuesto e Informes -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h4">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c4" aria-expanded="false" aria-controls="acc-c4">
+                    4. Planeación, Presupuesto e Informes
+                  </button>
+                </h2>
+                <div id="acc-c4" class="accordion-collapse collapse" aria-labelledby="acc-h4" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-4">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. Trámites -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h5">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c5" aria-expanded="false" aria-controls="acc-c5">
+                    5. Trámites
+                  </button>
+                </h2>
+                <div id="acc-c5" class="accordion-collapse collapse" aria-labelledby="acc-h5" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-5">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6. Participa -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h6">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c6" aria-expanded="false" aria-controls="acc-c6">
+                    6. Participa
+                  </button>
+                </h2>
+                <div id="acc-c6" class="accordion-collapse collapse" aria-labelledby="acc-h6" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-6">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 7. Datos Abiertos -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h7">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c7" aria-expanded="false" aria-controls="acc-c7">
+                    7. Datos Abiertos
+                  </button>
+                </h2>
+                <div id="acc-c7" class="accordion-collapse collapse" aria-labelledby="acc-h7" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-7">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 8. Información para Grupos de Interés -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h8">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c8" aria-expanded="false" aria-controls="acc-c8">
+                    8. Información para Grupos de Interés
+                  </button>
+                </h2>
+                <div id="acc-c8" class="accordion-collapse collapse" aria-labelledby="acc-h8" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-8">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 9. Reporte de Información Específica -->
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="acc-h9">
+                  <button class="accordion-button collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#acc-c9" aria-expanded="false" aria-controls="acc-c9">
+                    9. Reporte de Información Específica
+                  </button>
+                </h2>
+                <div id="acc-c9" class="accordion-collapse collapse" aria-labelledby="acc-h9" data-bs-parent="#transpAccordion">
+                  <div class="accordion-body p-2">
+                    <a class="btn btn-outline-brand btn-sm w-100 text-start" href="#seccion-9">Ir a la sección</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <section class="col-lg-8 col-md-7">
+      <!-- Barra de controles del contenido -->
+      <div class="d-flex justify-content-end align-items-center gap-2 mt-2 mb-2">
+        <button id="view-mode-toggle" type="button" class="btn btn-outline-brand btn-sm rounded-pill" title="Alternar entre ver todo el contenido o solo la sección activa">
+          <!-- El texto se establece dinámicamente desde js/transparencia.js -->
+          Cargando…
+        </button>
+      </div>
+      <!-- Contenedor dinámico para Misión, Visión, Valores y Eslogan -->
+      <div id="mvve-container" class="py-4" data-src="/partials/mision-vision-valores.html"></div>
+
+      <!-- TARJETAS PRINCIPALES: Información de la Entidad (sin acordeón) -->
+      <section aria-labelledby="sec-info-entidad" class="mb-4">
+        <h2 id="sec-info-entidad" class="h5 fw-bold mb-3">1. Información de la Entidad</h2>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+              <div class="card-body text-center p-4">
+                <i class="bi bi-bullseye mb-3 card-icon"></i>
+                <h6 class="card-title fw-bold mb-3 card-title-custom">1.1 Misión, Visión, Funciones y Deberes</h6>
+                <p class="card-text text-muted mb-4 card-text-custom">Conoce nuestra razón de ser y principios institucionales.</p>
+                <a href="#mision-vision-valores" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+              <div class="card-body text-center p-4">
+                <i class="bi bi-diagram-3 mb-3 card-icon"></i>
+                <h6 class="card-title fw-bold mb-3 card-title-custom">1.2 Estructura Orgánica - Organigrama</h6>
+              <p class="card-text text-muted mb-4 card-text-custom">Organización y jerarquía institucional.</p>
+                <a href="#estructura-organica" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-diagram-3 me-1"></i>Ver</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm border-0 hover-card card-transition">
+              <div class="card-body text-center p-4">
+                <i class="bi bi-map mb-3 card-icon"></i>
+                <h6 class="card-title fw-bold mb-3 card-title-custom">1.3 Mapas y Manual de procesos y procedimientos</h6>
+              <p class="card-text text-muted mb-4 card-text-custom">Procesos y procedimientos institucionales.</p>
+                <a href="#mapas-cartas" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-file-earmark me-1"></i>Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIONES DE DETALLE ANCLADAS (claras y agradables) -->
+      <!-- 1.1 Cargada dinámicamente en #mvve-container (arriba) -->
+
+      <!-- 1.2 Estructura Orgánica -->
+      <section id="estructura-organica" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-3"><i class="bi bi-diagram-3 me-2"></i>1.2 Estructura Orgánica - Organigrama</h3>
+            <p class="text-muted mb-3">Consulta la estructura institucional y su organigrama.</p>
+            
+            <!-- Vista previa del organigrama -->
+            <div class="text-center mb-4 border rounded p-3 bg-light">
+              <a href="imagenes/organigrama.jpg" target="_blank" title="Haz clic para ver la imagen completa">
+                <img src="imagenes/organigrama.jpg" alt="Vista previa del Organigrama del Hospital" class="img-fluid rounded" style="max-height: 500px; cursor: pointer;">
+              </a>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-4">
+              <a href="documentos/organigrama-hospital.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-download me-1"></i>Descargar Organigrama (PDF)</a>
+            </div>
+            <p class="text-muted small mb-4">Archivo PDF (193 KB). Requiere visor PDF.</p>
+            
+            <!-- Sección de Documentos de Seguridad y Salud en el Trabajo -->
+            <div class="mt-4 pt-3 border-top">
+              <h4 class="h6 fw-bold mb-3"><i class="bi bi-shield-check me-2"></i>Documentos de Seguridad y Salud en el Trabajo</h4>
+              
+              <!-- Acordeón para documentos SGSST -->
+              <div class="accordion mb-4" id="sgsstAccordion">
+                <!-- 2025 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="sgsstHeading2025">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sgsstCollapse2025" aria-expanded="false" aria-controls="sgsstCollapse2025">
+                      Documentos 2025
+                    </button>
+                  </h2>
+                  <div id="sgsstCollapse2025" class="accordion-collapse collapse" aria-labelledby="sgsstHeading2025" data-bs-parent="#sgsstAccordion">
+                    <div class="accordion-body">
+                      <div class="d-flex flex-wrap gap-2">
+                        <a href="documentos/talento-humano/sgsst/politicas/Politica-SST-2025.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Política SST 2025
+                        </a>
+                        <a href="documentos/talento-humano/sgsst/planes-trabajo/Plan-Trabajo-SGSST-2025.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Trabajo SGSST 2025
+                        </a>
+                        <a href="documentos/talento-humano/capacitaciones/Plan-Integral-Capacitaciones-2025.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Capacitación 2025
+                        </a>
+                        <a href="documentos/talento-humano/capacitaciones/Cronograma-Capacitacion-Brigadas-2025.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-calendar3 me-1"></i>Cronograma Brigadas 2025
+                        </a>
+                        <a href="documentos/talento-humano/planes-estrategicos/Plan-Estrategico-TH-2025.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Estratégico TH 2025
+                        </a>
+                        <a href="documentos/talento-humano/resoluciones/Resolucion-079-2025-Comite-Bienestar-Social.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Resolución Comité Bienestar 2025
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 2024 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="sgsstHeading2024">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sgsstCollapse2024" aria-expanded="false" aria-controls="sgsstCollapse2024">
+                      Documentos 2024
+                    </button>
+                  </h2>
+                  <div id="sgsstCollapse2024" class="accordion-collapse collapse" aria-labelledby="sgsstHeading2024" data-bs-parent="#sgsstAccordion">
+                    <div class="accordion-body">
+                      <div class="d-flex flex-wrap gap-2">
+                        <a href="documentos/talento-humano/sgsst/planes-trabajo/Plan-Trabajo-SGSST-2024.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Trabajo SGSST 2024
+                        </a>
+                        <a href="documentos/talento-humano/sgsst/politicas/Politica-SST-2024.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Política SST 2024
+                        </a>
+                        <a href="documentos/talento-humano/resoluciones/Resolucion-025-2024-Plan-Bienestar-Social.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Resolución Plan Bienestar 2024
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 2023 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="sgsstHeading2023">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sgsstCollapse2023" aria-expanded="false" aria-controls="sgsstCollapse2023">
+                      Documentos 2023
+                    </button>
+                  </h2>
+                  <div id="sgsstCollapse2023" class="accordion-collapse collapse" aria-labelledby="sgsstHeading2023" data-bs-parent="#sgsstAccordion">
+                    <div class="accordion-body">
+                      <div class="d-flex flex-wrap gap-2">
+                        <a href="documentos/talento-humano/sgsst/planes-trabajo/Plan-Trabajo-SGSST-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Trabajo SGSST 2023
+                        </a>
+                        <a href="documentos/talento-humano/sgsst/politicas/Politica-SST-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Política SST 2023
+                        </a>
+                        <a href="documentos/talento-humano/planes-estrategicos/Plan-Estrategico-TH-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Estratégico TH 2023
+                        </a>
+                        <a href="documentos/talento-humano/resoluciones/Resolucion-022-2023-Plan-Bienestar-Social.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Resolución Plan Bienestar 2023
+                        </a>
+                        <a href="documentos/talento-humano/resoluciones/Resolucion-025-2023-Plan-Capacitacion.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Resolución Plan Capacitación 2023
+                        </a>
+                        <a href="documentos/talento-humano/planes-estrategicos/Plan-Prevision-RH-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Previsión RH 2023
+                        </a>
+                        <a href="documentos/talento-humano/manuales/Manual-SGSST-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-journal-text me-1"></i>Manual SGSST 2023
+                        </a>
+                        <a href="documentos/talento-humano/resoluciones/Resolucion-098-2023-Comite-Convivencia.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Resolución Comité Convivencia 2023-2025
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 2022 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="sgsstHeading2022">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sgsstCollapse2022" aria-expanded="false" aria-controls="sgsstCollapse2022">
+                      Documentos 2022
+                    </button>
+                  </h2>
+                  <div id="sgsstCollapse2022" class="accordion-collapse collapse" aria-labelledby="sgsstHeading2022" data-bs-parent="#sgsstAccordion">
+                    <div class="accordion-body">
+                      <div class="d-flex flex-wrap gap-2">
+                        <a href="documentos/talento-humano/sgsst/planes-trabajo/Plan-Trabajo-SGSST-2022.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Trabajo SGSST 2022
+                        </a>
+                        <a href="documentos/talento-humano/sgsst/politicas/Politica-SST-2022.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Política SST 2022
+                        </a>
+                        <a href="documentos/talento-humano/resoluciones/Resolucion-0125-2022-Comision-Personal.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Resolución Comisión Personal 2022-2024
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Documentos sin año específico -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="sgsstHeadingOtros">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sgsstCollapseOtros" aria-expanded="false" aria-controls="sgsstCollapseOtros">
+                      Documentos Generales
+                    </button>
+                  </h2>
+                  <div id="sgsstCollapseOtros" class="accordion-collapse collapse" aria-labelledby="sgsstHeadingOtros" data-bs-parent="#sgsstAccordion">
+                    <div class="accordion-body">
+                      <div class="d-flex flex-wrap gap-2">
+                        <a href="documentos/talento-humano/estandares/Estandares-Minimos-SGSST-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Estándares Mínimos SGSST
+                        </a>
+                        <a href="documentos/talento-humano/estandares/Plan-Mejoa-Estandares-Minimos-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Plan Mejora Estándares Mínimos
+                        </a>
+                        <a href="documentos/talento-humano/estandares/Constancia-Estandares-Minimos-2023.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Constancia Estándares Mínimos
+                        </a>
+                        <a href="documentos/talento-humano/capacitaciones/Formato-Evaluacion-Capacitaciones.pdf" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-file-earmark-text me-1"></i>Formato Evaluación Capacitaciones
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="alert alert-info mt-3 mb-0">
+                <i class="bi bi-info-circle me-2"></i>
+                <span>Los documentos están organizados por año para facilitar su consulta. Para descargar, haga clic en el botón correspondiente.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1.3 Mapas y Cartas -->
+      <section id="mapas-cartas" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-3"><i class="bi bi-map me-2"></i>1.3 Mapas y Manual de procesos y procedimientos</h3>
+            <p class="text-muted mb-3">Encuentra los procesos y procedimientos institucionales documentados.</p>
+            
+            <!-- Vista previa del Mapa de Procesos -->
+            <div class="text-center mb-4 border rounded p-3 bg-light">
+              <a href="/imagenes/mapa-de-procesos.jpg"" target="_blank" title="Haz clic para ver la imagen completa">
+                <img src="/imagenes/mapa-de-procesos.jpg" alt="Vista previa del Mapa de Procesos del Hospital" class="img-fluid rounded" style="max-height: 500px; cursor: pointer;">
+              </a>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+              <a href="documentos/mapa-de-procesos-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-download me-1"></i>Descargar Mapa de procesos (PDF)</a>
+              <a href="documentos/MAN_PROCESOS_PROCEDIMIENTOS 2018.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-file-earmark-pdf me-1"></i>Manual de procesos y procedimientos (PDF)</a>
+            </div>
+            <p class="text-muted small mt-2 mb-0">Archivos PDF. Requiere visor PDF.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1.4 Directorio Institucional -->
+      <section id="directorio-institucional" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-3"><i class="bi bi-person-lines-fill me-2"></i>1.4 Directorio Institucional</h3>
+            <p class="text-muted mb-3">Información de contacto de las dependencias.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="documentos/directorio-institucional.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
+                <i class="bi bi-file-earmark-pdf me-1"></i>Directorio institucional (PDF)
+              </a>
+            </div>
+            <p class="text-muted small mt-2 mb-0">Archivo PDF (~41 KB). Requiere visor PDF.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1.5 a 1.12: placeholders visuales listos para contenido -->
+      <section id="directorio-personal" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-2"><i class="bi bi-people me-2"></i>1.5 Directorio de Servidores Públicos, Empleados o Contratistas</h3>
+          <div class="d-flex flex-wrap gap-2 mb-1">
+            <a href="https://www.funcionpublica.gov.co/dafpIndexerBHV/login/auth" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Consultar directorio en Función Pública
+            </a>
+          </div>
+          <p class="text-muted small mb-0">Enlace externo al Directorio de Servidores Públicos, Empleados o Contratistas (DAFP). Se abrirá en una nueva pestaña.</p>
+        </div></div>
+      </section>
+
+      <section id="directorio-entidades" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-3"><i class="bi bi-building me-2"></i>1.6 Directorio de Entidades</h3>
+          <p class="text-muted">Información de contacto de las entidades aliadas</a>. Para precisión, se remite al sitio oficial.</p>
+
+          <div class="row g-3">
+            <!-- Alcaldía de Roldanillo -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Alcaldía de Roldanillo</h4>
+                    <div class="small text-muted mb-2">Portal oficial municipal</div>
+                  </div>
+                  <a href="https://www.roldanillo-valle.gov.co/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfono:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Gobernación del Valle del Cauca -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Gobernación del Valle del Cauca</h4>
+                    <div class="small text-muted mb-2">Gobierno Departamental</div>
+                  </div>
+                  <a href="https://www.valledelcauca.gov.co/publicaciones/60066/contactenos/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Contacto</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfonos:</strong> PBX (+57) 602 620 0000 · Línea gratuita 01 8000 972033</li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> contactenos@valledelcauca.gov.co</li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Carrera 6 entre calles 9 y 10, Edificio Palacio de San Francisco, Cali</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Supersalud -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Superintendencia Nacional de Salud (Supersalud)</h4>
+                    <div class="small text-muted mb-2">Atención al ciudadano</div>
+                  </div>
+                  <a href="https://www.supersalud.gov.co/es-co/atencion-ciudadano/contactenos" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Contáctenos</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfonos:</strong> Conmutador +57 601 722 4000 · Línea gratuita 01 8000 513 700</li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correos:</strong> snsnotificacionesjudiciales@supersalud.gov.co · snstutelas@supersalud.gov.co</li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Carrera 68A N.º 24B-10, Torre 3, Ed. Plaza Claro, Bogotá D.C.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- GOV.CO -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">GOV.CO – Portal Único del Estado</h4>
+                    <div class="small text-muted mb-2">Portal nacional</div>
+                  </div>
+                  <a href="https://www.gov.co/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfono:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> <span class="text-muted">Consultar en sitio oficial</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Procuraduría General de la Nación -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Procuraduría General de la Nación</h4>
+                    <div class="small text-muted mb-2">Atención a la ciudadanía</div>
+                  </div>
+                  <a href="https://www.procuraduria.gov.co/Pages/Inicio.aspx" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfono:</strong> <span class="text-muted">Consultar en contacto oficial</span></li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> <span class="text-muted">Consultar en contacto oficial</span></li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> <span class="text-muted">Consultar en contacto oficial</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Contraloría General de la República -->
+            <div class="col-12 col-md-6">
+              <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                <div class="d-flex align-items-start justify-content-between">
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">Contraloría General de la República</h4>
+                    <div class="small text-muted mb-2">Órgano de control fiscal</div>
+                  </div>
+                  <a href="https://www.contraloria.gov.co/" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i>Sitio</a>
+                </div>
+                <ul class="list-unstyled mb-0 small">
+                  <li class="mb-1"><i class="bi bi-telephone me-2"></i><strong>Teléfonos:</strong> PBX (+57) 601 518 7000 · Línea 199 · 01 8000 910060</li>
+                  <li class="mb-1"><i class="bi bi-envelope me-2"></i><strong>Correo:</strong> cgr@contraloria.gov.co</li>
+                  <li><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Carrera 69 No 44-35, Bogotá, Colombia</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-muted small mt-3 mb-0"><i class="bi bi-info-circle me-1"></i> Para garantizar exactitud, los datos (teléfono, correo y dirección) deben verificarse en los sitios oficiales enlazados.</p>
+        </div></div>
+      </section>
+
+      <section id="directorio-agremiaciones" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-2"><i class="bi bi-diagram-2 me-2"></i>1.7 Directorio de Agremiaciones o Asociaciones</h3>
+          <p class="text-muted">Relación de agremiaciones y convenios institucionales.</p>
+
+          <div class="mb-4">
+            <h4 class="h6 fw-bold mb-2"><i class="bi bi-people me-2"></i>Agremiaciones</h4>
+            <div class="table-responsive">
+              <table class="table table-sm table-striped align-middle mb-2">
+                <thead>
+                  <tr>
+                    <th scope="col">Entidad</th>
+                    <th scope="col">Contacto</th>
+                    <th scope="col">Teléfono</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SERVICOLOMBIA</td>
+                    <td>JUAN CARLOS URIBE</td>
+                    <td>(57) (2) -2220924</td>
+                  </tr>
+                  <tr>
+                    <td>ANTHOC</td>
+                    <td><span class="text-muted">—</span></td>
+                    <td>(57)(1) 288 02 16 – 288 02 80</td>
+                  </tr>
+                  <tr>
+                    <td>Fondo de Empleados Hospital San Antonio</td>
+                    <td>OLGA LUCIA TREJOS</td>
+                    <td>3104664865</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-muted small mb-0">Los datos de contacto pueden variar. Verifique en los canales oficiales de cada entidad.</p>
+          </div>
+
+          <div>
+            <h4 class="h6 fw-bold mb-2"><i class="bi bi-mortarboard me-2"></i>Convenios con Instituciones</h4>
+            <div class="table-responsive">
+              <table class="table table-sm table-striped align-middle mb-2">
+                <thead>
+                  <tr>
+                    <th scope="col">Institución</th>
+                    <th scope="col">Programa / Área</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>UNIVERSIDAD DEL VALLE</td>
+                    <td>TRABAJO SOCIAL</td>
+                  </tr>
+                  <tr>
+                    <td>UNIVERSIDAD SANTIAGO DE CALI</td>
+                    <td>MEDICINA GENERAL</td>
+                  </tr>
+                  <tr>
+                    <td>UNIVERSIDAD ANTONIO NARIÑO</td>
+                    <td>PSICOLOGIA</td>
+                  </tr>
+                  <tr>
+                    <td>INTEP (Instituto de Educación Técnica Profesional)</td>
+                    <td>SISTEMAS</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-muted small mb-0">Convenios activos reportados por el área correspondiente. Sujetos a actualización.</p>
+          </div>
+        </div></div>
+      </section>
+
+      <section id="servicio-publico-normas" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-2"><i class="bi bi-journal-text me-2"></i>1.8 Servicio al Público, Normas, Formularios y Protocolos</h3>
+          <p class="text-muted">Información y recursos para la atención al ciudadano.</p>
+
+          <div class="list-group list-group-flush">
+            <!-- Mecanismos para la Atención al Ciudadano -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Mecanismos para la Atención al Ciudadano</strong>
+                  <div class="text-muted small">Canales de contacto.</div>
+                </div>
+                <a href="#directorio-institucional" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-people me-1"></i> Ver contactos</a>
+              </div>
+              <ul class="list-unstyled small mt-2 mb-0">
+                <li class="mb-1"><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
+                <li class="mb-1"><i class="bi bi-envelope-paper me-2"></i><strong>Correo Electrónico:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></li>
+                <li><i class="bi bi-telephone me-2"></i><strong>PBX:</strong> 602 891 2317</li>
+              </ul>
+            </div>
+
+            <!-- Solicitud y Verificación de PQRSD -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Solicitud y Verificación de Peticiones, Quejas, Reclamos y Sugerencias (PQRSD)</strong>
+                  <div class="text-muted small">Acceda al mecanismo para radicar y consultar PQRSD.</div>
+                </div>
+                <a href="#mecanismo-pqrs" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-inbox me-1"></i> Ir a PQRS</a>
+              </div>
+              <div class="text-muted small mt-1">El detalle del proceso se encuentra en la sección <a href="#mecanismo-pqrs">1.10 Mecanismos de Presentación de PQRS</a>.</div>
+            </div>
+
+            <!-- Localización Física y Días de Atención -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Localización Física y Días de Atención al Público</strong>
+                  <div class="text-muted small">Dirección, sedes y horarios de atención.</div>
+                </div>
+                <div class="d-flex gap-2">
+                  <a href="/documentos/HORARIOS-DE-ATENCION-HDSA.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-file-earmark-pdf me-1"></i> Horarios (PDF)</a>
+                </div>
+              </div>
+              <div class="text-muted small mt-1">Consulte la dirección y demás datos en el <a href="#directorio-institucional">Directorio Institucional</a>. Los horarios oficiales se encuentran en el documento <a href="/documentos/HORARIOS-DE-ATENCION-HDSA.pdf" target="_blank" rel="noopener">HORARIOS-DE-ATENCION-HDSA.pdf</a>.</div>
+              <div class="mt-3">
+                <div class="accordion" id="horariosAccordion">
+                  <!-- Hospital principal -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingHosp">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHosp" aria-expanded="true" aria-controls="collapseHosp">
+                        <span class="d-block">
+                          Hospital Departamental San Antonio de Roldanillo
+                          <small class="d-block text-muted mt-1">PBX: (2) 8912317 - (2) 2295000 - 018000952749</small>
+                        </span>
+                      </button>
+                    </h2>
+                    <div id="collapseHosp" class="accordion-collapse collapse show" aria-labelledby="headingHosp" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <div class="table-responsive">
+                          <table class="table table-sm table-striped align-middle mb-0">
+                            <thead>
+                              <tr>
+                                <th>Servicio</th>
+                                <th>Horario</th>
+                              </tr>
+                            </thead>
+                            <tbody class="small">
+                              <tr><td>Central de Citas y Facturación</td><td>Lunes a Viernes 7:00 a.m. – 5:00 p.m. · Sábados 7:00 a.m. – 1:00 p.m.</td></tr>
+                              <tr><td>Laboratorio Clínico – Toma de muestras ambulatorias</td><td>Lunes a Viernes 6:00 a.m. – 10:00 a.m.</td></tr>
+                              <tr><td>Laboratorio Clínico – Entrega de resultados</td><td>Lunes a Viernes 2:00 p.m. – 4:00 p.m.</td></tr>
+                              <tr><td>Laboratorio Clínico – Urgencias</td><td>Lunes a Domingo · 24 horas</td></tr>
+                              <tr><td>Vacunación</td><td>Lunes a Viernes 8:00 a.m. – 12:00 p.m. / 1:00 p.m. – 5:00 p.m. · Sábados 8:00 a.m. – 12:00 p.m.</td></tr>
+                              <tr><td>RX</td><td>24 horas (Urgencias). Ambulatorio: Lunes a Sábado 7:00 a.m. – 2:00 p.m. / 4:00 p.m. – 7:00 p.m.</td></tr>
+                              <tr><td>Información – Ventanilla Única</td><td>Lunes a Jueves 7:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m. · Viernes 8:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m.</td></tr>
+                              <tr><td>SIAU</td><td>Lunes a Jueves 7:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m. · Viernes 8:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m.</td></tr>
+                              <tr><td>Consulta Externa</td><td>Lunes a Viernes 7:00 a.m. – 12:00 p.m. / 1:00 p.m. – 5:00 p.m. · Sábados 8:00 a.m. – 12:00 p.m.</td></tr>
+                              <tr><td>Odontología</td><td>Lunes a Viernes 7:00 a.m. – 5:00 p.m.</td></tr>
+                              <tr><td>Área Administrativa</td><td>Lunes a Jueves 7:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m. · Viernes 8:00 a.m. – 12:30 p.m. / 2:00 p.m. – 5:30 p.m.</td></tr>
+                              <tr><td>PYP y Vacunación</td><td>Lunes a Viernes 8:00 a.m. – 12:00 p.m. / 2:00 p.m. – 5:00 p.m. · Sábados 8:00 a.m. – 12:00 p.m.</td></tr>
+                              <tr><td>Urgencias</td><td>24 horas</td></tr>
+                              <tr><td>Hospitalización</td><td>24 horas</td></tr>
+                              <tr><td>Farmacia</td><td>Lunes a Viernes 7:00 a.m. – 2:00 p.m.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+        
+                  <!-- Puesto de Salud San Sebastián -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSebastian">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSebastian" aria-expanded="false" aria-controls="collapseSebastian">
+                        Puesto de Salud San Sebastián
+                      </button>
+                    </h2>
+                    <div id="collapseSebastian" class="accordion-collapse collapse" aria-labelledby="headingSebastian" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Puesto de Salud Llanitos -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingLlanitos">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLlanitos" aria-expanded="false" aria-controls="collapseLlanitos">
+                        Puesto de Salud Llanitos <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 211</span>
+                      </button>
+                    </h2>
+                    <div id="collapseLlanitos" class="accordion-collapse collapse" aria-labelledby="headingLlanitos" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Puesto de Salud El Rey -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingElRey">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseElRey" aria-expanded="false" aria-controls="collapseElRey">
+                        Puesto de Salud El Rey <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 157</span>
+                      </button>
+                    </h2>
+                    <div id="collapseElRey" class="accordion-collapse collapse" aria-labelledby="headingElRey" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Puesto de Salud La Asunción -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingAsuncion">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAsuncion" aria-expanded="false" aria-controls="collapseAsuncion">
+                        Puesto de Salud La Asunción <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 210</span>
+                      </button>
+                    </h2>
+                    <div id="collapseAsuncion" class="accordion-collapse collapse" aria-labelledby="headingAsuncion" data-bs-parent="#horariosAccordion">
+                      <div class="accordion-body">
+                        <ul class="small mb-0">
+                          <li><strong>Consulta Externa y PYP:</strong> Lunes a Viernes 7:00 a.m. – 12:00 m / 1:00 p.m. – 6:00 p.m.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Notificaciones judiciales -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Correo Electrónico para Notificaciones Judiciales</strong>
+                  <div class="text-muted small">Canal exclusivo para notificaciones judiciales conforme a la normatividad.</div>
+                </div>
+                <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-envelope me-1"></i> Enviar correo</a>
+              </div>
+              <div class="text-muted small mt-1">Correo oficial: <a href="mailto:notificacionesjudiciales@hospitalroldanillo.gov.co">notificacionesjudiciales@hospitalroldanillo.gov.co</a></div>
+            </div>
+
+            <!-- Políticas de Seguridad y Protección de Datos -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Políticas de Seguridad de la Información del Portal Web y Protección de Datos</strong>
+                  <div class="text-muted small">Documentos institucionales aplicables.</div>
+                </div>
+                <div class="d-flex gap-2">
+                  <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-file-earmark-text me-1"></i> Política de Seguridad (PDF)</a>
+                  <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-shield-lock me-1"></i> Protección de Datos (PDF)</a>
+                  <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-journal-text me-1"></i> Política Editorial (PDF)</a>
+                </div>
+              </div>
+              <div class="text-muted small mt-1">Próximamente: documentos descargables. Se publicarán en esta sección.</div>
+            </div>
+
+            <!-- Derechos de los Ciudadanos - Carta de Trato Digno -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Derechos de los Ciudadanos – Carta de Trato Digno</strong>
+                  <div class="text-muted small">Compromisos de trato digno y respeto a los usuarios.</div>
+                </div>
+                <a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true"><i class="bi bi-file-earmark-pdf me-1"></i> Ver documento</a>
+              </div>
+              <div class="text-muted small mt-1">Próximamente: Carta de Trato Digno en PDF.</div>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      
+
+      <section id="mecanismo-pqrs" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-2"><i class="bi bi-inbox me-2"></i>1.9 Mecanismos de Presentación de PQRS</h3>
+          <p class="text-muted">Radica y consulta tus Peticiones, Quejas, Reclamos, Sugerencias y Denuncias (PQRSD) a través de nuestros canales oficiales.</p>
+
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <a href="index.html#pqrsd" class="btn btn-success rounded-pill px-4 fw-bold"><i class="bi bi-pencil-square me-2"></i>Radicar PQRSD</a>
+            <a href="index.html#pqrsd" class="btn btn-outline-brand rounded-pill px-4"><i class="bi bi-chat-left-dots me-2"></i>Ver sección en Inicio</a>
+          </div>
+
+          <div class="mt-2">
+            <h4 class="h6 fw-bold mb-2"><i class="bi bi-lightbulb me-2"></i>Guía rápida</h4>
+            <ol class="text-muted small mb-0">
+              <li>Haz clic en “Radicar PQRSD” para abrir el formulario.</li>
+              <li>Selecciona el tipo de solicitud (Petición, Queja, Reclamo, Sugerencia o Denuncia).</li>
+              <li>Completa tus datos de contacto y describe tu solicitud con claridad.</li>
+              <li>Adjunta soportes si es necesario y envía la solicitud.</li>
+              <li>Conserva el número de radicado para seguimiento.</li>
+            </ol>
+          </div>
+        </div></div>
+      </section>
+
+      <section id="calendario-actividades" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-2"><i class="bi bi-calendar3 me-2"></i>1.10 Calendario de Actividades y Eventos</h3>
+          <p class="text-muted">Consulta las actividades institucionales, jornadas de salud y eventos del hospital.</p>
+          <a href="noticias.html" class="btn btn-outline-brand rounded-pill"><i class="bi bi-newspaper me-1"></i> Ver calendario y noticias</a>
+        </div></div>
+      </section>
+
+      <section id="entes-vigilancia" class="anchor-target py-4">
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <h3 class="h5 fw-bold mb-2"><i class="bi bi-shield-check me-2"></i>1.11 Entes y Autoridades de Vigilancia</h3>
+          <p class="text-muted">Entidades que ejercen inspección, vigilancia, control y orientación sobre la E.S.E Hospital Departamental San Antonio de Roldanillo.</p>
+
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Entidad</th>
+                  <th scope="col">Rol de vigilancia</th>
+                  <th scope="col" class="text-center">Acceso</th>
+                </tr>
+              </thead>
+              <tbody class="small">
+                <tr>
+                  <td>
+                    <strong>Superintendencia Nacional de Salud</strong>
+                    <div class="text-muted">Supersalud</div>
+                  </td>
+                  <td>Inspección, Vigilancia y Control del sector salud.</td>
+                  <td class="text-center"><a href="https://www.supersalud.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Ministerio de Salud y Protección Social</strong>
+                    <div class="text-muted">Minsalud</div>
+                  </td>
+                  <td>Orientación y formulación de políticas en salud.</td>
+                  <td class="text-center"><a href="https://www.minsalud.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Secretaría de Salud del Valle del Cauca</strong>
+                    <div class="text-muted">Gobernación del Valle</div>
+                  </td>
+                  <td>Dirección, vigilancia y apoyo técnico a E.S.E departamentales.</td>
+                  <td class="text-center"><a href="https://www.valledelcauca.gov.co/salud/" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Procuraduría General de la Nación</strong>
+                    <div class="text-muted">Ministerio Público</div>
+                  </td>
+                  <td>Vigilancia de la conducta oficial y control disciplinario.</td>
+                  <td class="text-center"><a href="https://www.procuraduria.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Contraloría General de la República</strong>
+                    <div class="text-muted">Control fiscal</div>
+                  </td>
+                  <td>Vigilancia de la gestión fiscal de la administración pública.</td>
+                  <td class="text-center"><a href="https://www.contraloria.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Defensoría del Pueblo</strong>
+                    <div class="text-muted">Derechos de los ciudadanos</div>
+                  </td>
+                  <td>Promoción, ejercicio y divulgación de los derechos humanos.</td>
+                  <td class="text-center"><a href="https://www.defensoria.gov.co" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-box-arrow-up-right me-1"></i> Ver sitio</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-muted small mb-0">Nota: Para teléfonos, correos y sedes de atención, consulte los canales oficiales de cada entidad. Si deseas, puedo agregar contactos específicos verificados.</p>
+        </div></div>
+      </section>
+
+      <!-- SECCIONES 2 a 9 (anclas limpias) -->
+      <section id="seccion-2" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">2. Normatividad</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>2.1 Resoluciones</strong>
+                <div class="text-muted small">Resoluciones expedidas por la E.S.E.</div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <a href="documentos/resoluciones/Resolucion-0169-2025-Acuerdo-Laboral-ANTHOC-2025-2027.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 169 - 2025 (Acuerdo Laboral)</a>
+                  <a href="documentos/resoluciones/Resolucion-0294-2024-Comisiones-de-Servicio.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 294 - 2024</a>
+                  <a href="documentos/resoluciones/Resolucion-0338-2024-Desnutricion-Aguda.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 338 - 2024</a>
+                  <a href="documentos/resoluciones/Resolucion-0340-2024-IAMI.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 340 - 2024</a>
+                  <a href="documentos/resoluciones/Resolucion-0341-2024-Comite-Vigilancia-y-Reporte.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 341 - 2024</a>
+                  <a href="documentos/resoluciones/Resolucion-000341-2021.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 341 - 2021</a>
+                  <a href="documentos/resoluciones/Resolucion-0054-2019-Comite-Gestion-Desempeno.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 054 - 2019</a>
+                  <a href="documentos/resoluciones/Resolucion-0452-2019-Comite-Control-Interno.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 452 - 2019</a>
+                  <a href="documentos/resoluciones/Resolucion-0654-2019-Grupos-Gestion-Conocimiento-Innovacion.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 654 - 2019</a>
+                  <a href="documentos/resoluciones/Resolucion-0509-2019-Lineas-de-Defensa.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 509 - 2019</a>
+                  <a href="documentos/resoluciones/Resolucion-0651-2018.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 651 - 2018</a>
+                  <a href="documentos/resoluciones/Resolucion-0408-2018-Modifica-R710-2010-Modificada-R743-2013.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 408 - 2018</a>
+                  <a href="documentos/resoluciones/Resolucion-0376-2018.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 376 - 2018</a>
+                  <a href="documentos/resoluciones/Resolucion-0339-2017-Comite-Modelo-Operacion-por-Proceso.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 339 - 2017</a>
+                  <a href="documentos/resoluciones/Resolucion-1111-2017.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 1111 - 2017</a>
+                  <a href="documentos/resoluciones/Resolucion-0256-2016.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 256 - 2016</a>
+                  <a href="documentos/resoluciones/Resolucion-2003-2014.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 2003 - 2014</a>
+                  <a href="documentos/resoluciones/Resolucion-0743-2013-Modificatoria-0710-2012-Evaluacion-Plan-de-Gestion.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 743 - 2013</a>
+                  <a href="documentos/resoluciones/Resolucion-0310-2012-Politica-Gestion-Riesgo.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Resolución 310 - 2012</a>
+                  <a href="documentos/resoluciones/Resolucion-1445-2006-Manual-Estandares-Sistema-Acreditacion.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Manual de Estándares (2006)</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div></div>
+      </section>
+
+      <section id="seccion-3" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">3. Contratación</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>3.1 Plan Anual de Adquisiciones</strong>
+                <div class="text-muted small">PAA vigente y archivos históricos.</div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <a href="documentos/contratacion/paa/PLAN-ANUAL-DE-ADQUISICI0N-2025.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2025 (PDF)</a>
+                  <a href="documentos/contratacion/paa/PLAN-ANUAL-DE-ADQUISICI0N-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2024 (PDF)</a>
+                  <a href="documentos/contratacion/paa/AdquisicionesPAA-3-Enero2023.xlsx" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2023 (XLSX)</a>
+                  <a href="documentos/contratacion/paa/Formatopaa-2022.xls" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2022 (XLS)</a>
+                  <a href="documentos/contratacion/paa/PAA_276622022_76622-2021.xls" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2021 (XLS)</a>
+                  <a href="documentos/contratacion/paa/PAA_276622022_76622_2020.xls" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2020 (XLS)</a>
+                  <a href="documentos/contratacion/paa/Plan-Anual-de-Adquisiciones-2019.xlsx" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2019 (XLSX)</a>
+                  <a href="documentos/contratacion/paa/PAA_276622022_76622_2018.xls" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2018 (XLS)</a>
+                  <a href="documentos/contratacion/paa/PAA_276622022_76622_2017.xls" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2017 (XLS)</a>
+                  <a href="documentos/contratacion/paa/PAA_276622022_76622_2016.xls" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">PAA 2016 (XLS)</a>
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>3.2 Publicación de la Información Contractual</strong>
+                <div class="text-muted small">Estatuto de Contratación (PDF).</div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <a href="documentos/contratacion/paa/Estatuto-de-Contratacion-HDSA.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Estatuto de Contratación</a>
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>3.3 Publicación de la Ejecución de los Contratos</strong>
+                <div class="text-muted small">Actas, informes y novedades.</div>
+              </div>
+              <a href="https://community.secop.gov.co/Public/Tendering/ContractNoticeManagement/Index?currentLanguage=es-CO&Page=login&Country=CO&SkinName=CCE" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Ir a SECOP</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>3.4 Manual de Contratación, Adquisición y/o Compras</strong>
+                <div class="text-muted small">Manual vigente para contrataciones (PDF).</div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <a href="documentos/contratacion/paa/Manual-de-Contratacion-HDSA.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Manual de Contratación</a>
+                </div>
+              </div>
+              
+            </li>
+          </ul>
+        </div></div>
+      </section>
+
+      <section id="seccion-4" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">4. Planeación, Presupuesto e Informes</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.1 Presupuesto General de Ingresos, Gastos e Inversión</strong>
+                <div class="text-muted small">Documentos de presupuesto por vigencia, ordenados del más reciente al más antiguo.</div>
+                
+                <!-- Filtro por año -->
+                <div class="my-3">
+                  <label for="presupuesto-year-filter" class="form-label fw-bold">Filtrar por Período:</label>
+                  <select id="presupuesto-year-filter" class="form-select form-select-sm" style="max-width: 200px;">
+                    <option value="all" selected>Mostrar Todos</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                  </select>
+                </div>
+
+                <!-- Acordeón de Presupuestos -->
+                <div class="accordion mt-3" id="presupuestoAccordion">
+                  
+                  <!-- 2024 -->
+                  <div class="accordion-item" data-year="2024">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2024" aria-expanded="true">
+                        Vigencia 2024
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2024" class="accordion-collapse collapse show" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2023-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 021 - 2023
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2024/Presupuesto-2024.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2024
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2024.pdf" target="_blank" rel="noopener">
+                              Ejecución 2024
+                            </a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2025/Ejecucion-2025-Gastos.pdf" target="_blank" rel="noopener">
+                              Ejecución Gastos 2025
+                            </a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2025/Ejecucion-2025-Ingresos.pdf" target="_blank" rel="noopener">
+                              Ejecución Ingresos 2025
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2023 -->
+                  <div class="accordion-item" data-year="2023">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2023">
+                        Vigencia 2023
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2023" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2022-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 024 - 2022
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2023/Presupuesto-2023.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2023
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2023.pdf" target="_blank" rel="noopener">
+                              Ejecución 2023
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2022 -->
+                  <div class="accordion-item" data-year="2022">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2022">
+                        Vigencia 2022
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2022" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2021-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 022 - 2021
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2022/Presupuesto-2022.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2022
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2022.pdf" target="_blank" rel="noopener">
+                              Ejecución 2022
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 2021 -->
+                  <div class="accordion-item" data-year="2021">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2021">
+                        Vigencia 2021
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2021" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2020-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 018 - 2020
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2021/Presupuesto-2021.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2021
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2021.pdf" target="_blank" rel="noopener">
+                              Ejecución 2021
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2020 -->
+                  <div class="accordion-item" data-year="2020">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2020">
+                        Vigencia 2020
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2020" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2019-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 2019
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2020/Presupuesto-2020.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2020
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2020.pdf" target="_blank" rel="noopener">
+                              Ejecución 2020
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2019 -->
+                  <div class="accordion-item" data-year="2019">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2019">
+                        Vigencia 2019
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2019" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2018-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 2018
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2019/Presupuesto-2019.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2019
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2019.pdf" target="_blank" rel="noopener">
+                              Ejecución 2019
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2018 -->
+                  <div class="accordion-item" data-year="2018">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2018">
+                        Vigencia 2018
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2018" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2017-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 2017
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2018/Presupuesto-2018.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2018
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2018.pdf" target="_blank" rel="noopener">
+                              Ejecución 2018
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2017 -->
+                  <div class="accordion-item" data-year="2017">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2017">
+                        Vigencia 2017
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2017" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/acuerdos/Acuerdo-2016-000.pdf" target="_blank" rel="noopener">
+                              Acuerdo 2016
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2017/Presupuesto-2017.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2017
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2017.pdf" target="_blank" rel="noopener">
+                              Ejecución 2017
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2016 -->
+                  <div class="accordion-item" data-year="2016">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2016">
+                        Vigencia 2016
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2016" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2015/acuerdo-012-aprobacion-ppto-2016.pdf" target="_blank" rel="noopener">
+                              Acuerdo 012 - 2015
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2016/Presupuesto-2016.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2016
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/ejecuciones/Ejecucion-2016.pdf" target="_blank" rel="noopener">
+                              Ejecución 2016
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2015 -->
+                  <div class="accordion-item" data-year="2015">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2015">
+                        Vigencia 2015
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2015" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2015/Presupuesto-2015.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2015
+                            </a>
+                          </div>
+                          <div class="col-md-6">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/ejecuciones/EJECUCION-AL-31-DE-DICIEMBRE-DE-2015.pdf" target="_blank" rel="noopener">
+                              Ejecución 2015
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2014 -->
+                  <div class="accordion-item" data-year="2014">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2014">
+                        Vigencia 2014
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2014" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2014/Presupuesto-2014.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2014
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2013 -->
+                  <div class="accordion-item" data-year="2013">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-presupuesto-2013">
+                        Vigencia 2013
+                      </button>
+                    </h2>
+                    <div id="c-presupuesto-2013" class="accordion-collapse collapse" data-bs-parent="#presupuestoAccordion">
+                      <div class="accordion-body">
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2013/Presupuesto-2013.pdf" target="_blank" rel="noopener">
+                              Presupuesto 2013
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.2 Estados Financieros</strong>
+                <div class="text-muted small">Documentos oficiales organizados por año (lo más reciente primero). Incluye Balances, Estados Financieros, Estados de Resultados/Actividad Económica, Comparativos y Operaciones Recíprocas (CGN), según disponibilidad.</div>
+                  <!-- Controles de navegación y filtro para 4.2 -->
+                  <div class="fin-controls mb-3">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-12 col-md-6">
+                        <input id="fin-search" type="search" class="form-control" placeholder="Buscar por nombre, categoría o año..." aria-label="Buscar documentos financieros" />
+                      </div>
+                      <div class="col-12 col-md-6 d-flex justify-content-md-end gap-2"></div>
+                    </div>
+                    <div class="mt-2 d-flex flex-wrap gap-2 align-items-center">
+                      <div class="fin-chip-label">Filtrar por categoría:</div>
+                      <button class="chip active" data-cat="all" type="button">Todos</button>
+                      <button class="chip" data-cat="estados" type="button">Estados</button>
+                      <button class="chip" data-cat="balances" type="button">Balances</button>
+                      <button class="chip" data-cat="resultados" type="button">Resultados</button>
+                      <button class="chip" data-cat="comparativos" type="button">Comparativos</button>
+                      <button class="chip" data-cat="reciprocas" type="button">Recíprocas</button>
+                    </div>
+                    <div class="mt-2 d-flex flex-wrap gap-2 align-items-center" id="fin-year-chips" aria-label="Ir al año"></div>
+                  </div>
+
+                  <div class="accordion" id="acci-financieros-anual">
+                  <!-- 2024 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2024">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2024" aria-expanded="true" aria-controls="c-fin-2024">
+                        2024 – Estados Financieros y Resultados
+{{ ... }}
+                      </button>
+                    </h2>
+                    <div id="c-fin-2024" class="accordion-collapse collapse show" aria-labelledby="h-fin-2024" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2024/ESTADOS-FINANCIEROS-2024-HDSR.pdf">Estados Financieros 2024 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2023 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2023">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2023" aria-expanded="false" aria-controls="c-fin-2023">
+                        2023 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2023" class="accordion-collapse collapse" aria-labelledby="h-fin-2023" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2023/Estados Financieros 2023-2022.pdf">Estados Financieros 2023-2022 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2022 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2022">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2022" aria-expanded="false" aria-controls="c-fin-2022">
+                        2022 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2022" class="accordion-collapse collapse" aria-labelledby="h-fin-2022" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2022/ESTADOS FINANCIEROS A DICIEMBRE 2022.pdf">Estados Financieros a Diciembre 2022 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2021 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2021">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2021" aria-expanded="false" aria-controls="c-fin-2021">
+                        2021 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2021" class="accordion-collapse collapse" aria-labelledby="h-fin-2021" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2021/ESTADOS-FINANCIEROS-HDSA-2021.pdf">Estados Financieros 2021 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Resultados / Actividad Económica</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2021/ESTADOS-FINANCIEROS-HDSA-2021.pdf">Estado de Resultados 2021 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2020 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2020">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2020" aria-expanded="false" aria-controls="c-fin-2020">
+                        2020 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2020" class="accordion-collapse collapse" aria-labelledby="h-fin-2020" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2020/Estados-Financieros-a-diciembre-2020.pdf">Estados Financieros a Diciembre 2020 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2020/RECIPROCAS-2020.xlsx">Enero - Junio 2020 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2019 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2019">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2019" aria-expanded="false" aria-controls="c-fin-2019">
+                        2019 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2019" class="accordion-collapse collapse" aria-labelledby="h-fin-2019" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2019/Estados-Financieros-Dic.-2019.pdf">Estados Financieros Diciembre 2019 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2019/RECIPROCAS-2019.xlsx">Enero - Diciembre 2019 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2018 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2018">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2018" aria-expanded="false" aria-controls="c-fin-2018">
+                        2018 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2018" class="accordion-collapse collapse" aria-labelledby="h-fin-2018" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2018/Balance-General-y-PYG.pdf">Balance General y PYG 2018 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2018/RECIPROCAS-2018.xlsx">Enero - Diciembre 2018 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2017 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2017">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2017" aria-expanded="false" aria-controls="c-fin-2017">
+                        2017 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2017" class="accordion-collapse collapse" aria-labelledby="h-fin-2017" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2017/ESTADOS FINANCIEROS NIIF AL 31 DE DICIEMBRE 2017.pdf">Estados Financieros NIIF a Diciembre 2017 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Comparativos</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2017/Balance-General-Ene-Dic-2017-VS-Ene-Dic-2016.pdf">Diciembre 2017 vs Diciembre 2016 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2017/Balance-General-2017-vs-2018.pdf">2017 vs 2018 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2017/RECIPROCAS-2017.xlsx">Enero - Diciembre 2017 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2016 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2016">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2016" aria-expanded="false" aria-controls="c-fin-2016">
+                        2016 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2016" class="accordion-collapse collapse" aria-labelledby="h-fin-2016" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2016/Estado-Financiero-hdsa-Junio-2016.pdf">Junio 2016 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2016/Estados-Financieros-Septiembre-2016.pdf">Septiembre 2016 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2016/Estados-Financiero-Diciembre-2016.pdf">Diciembre 2016 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2016/122776000-CUENTAS-RECIPROCAS-HDSA-ESE-A-31-MARZO-2016.xlsx">Marzo 2016 (XLSX)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2016/RECIPROCAS-2016.xlsx">Enero - Diciembre 2016 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2015 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2015">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2015" aria-expanded="false" aria-controls="c-fin-2015">
+                        2015 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2015" class="accordion-collapse collapse" aria-labelledby="h-fin-2015" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/Estados-Financieros-a-Marzo-31-2015.pdf">Marzo 2015 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/Estados-Financieros-a-Junio-2015.pdf">Junio 2015 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/Estados-Financieros-3t-2015.pdf">Septiembre 2015 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/Estados-Financiero-Dic-2015.pdf">Diciembre 2015 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/122776000-MARZO-2015-RECIPROCAS-HDSA.xlsx">Enero - Marzo 2015 (XLSX)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/122776000-JUNIO-2015-RECIPROCAS-HDSA.xlsx">Abril - Junio 2015 (XLSX)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/122776000-SEPTIEMBRE-2015-RECIPROCAS-HDSA.xls">Julio - Septiembre 2015 (XLS)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2015/122776000-DICIEMBRE-2015-RECIPROCAS-HDSA.xlsx">Septiembre - Diciembre 2015 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2014 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2014">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2014" aria-expanded="false" aria-controls="c-fin-2014">
+                        2014 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2014" class="accordion-collapse collapse" aria-labelledby="h-fin-2014" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances y Estados Financieros</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/Balances-Junio-2014.pdf">Junio 2014 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/Estados-Financiero-Sept-2014.pdf">Septiembre 2014 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/Estados-Financiero-Dic-2014.pdf">Diciembre 2014 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/122776000-MARZO-2014-RECIPROCAS-HDSA.xls">Enero - Marzo 2014 (XLS)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/122776000-JUNIO-2014-RECIPROCAS-HDSA.xlsx">Abril - Junio 2014 (XLSX)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/122776000-SEPTIEMBRE-2014-RECIPROCAS-HDSA.xls">Julio - Septiembre 2014 (XLS)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2014/122776000-DICIEMBRE-2014-RECIPROCAS-HDSA.xlsx">Septiembre - Diciembre 2014 (XLSX)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2013 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2013">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2013" aria-expanded="false" aria-controls="c-fin-2013">
+                        2013 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2013" class="accordion-collapse collapse" aria-labelledby="h-fin-2013" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/Balance-General-2013.pdf">Balance General 2013 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/Balance-General-Septiembre-2013.pdf">Balance General Septiembre 2013 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Resultados / Actividad Económica</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/Estado-de-Resultados-Marzo-31-2013.pdf">Resultados Marzo 2013 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/Estado-de-actividad-economica-2013.pdf">Actividad Económica 2013 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/Estado-de-Actividad-Economica-Sept-2013.pdf">Actividad Económica Septiembre 2013 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/HDSA-122776000-MARZO-2013-RECIPROCAS-HDSA.xlsx">Enero - Marzo 2013 (XLSX)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/122776000-SEPTIEMBRE-2013-RECIPROCAS-HDSA.xlsx">Julio - Septiembre 2013 (XLSX)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2013/122776000-DICIEMBRE-2013-RECIPROCAS-HDSA.xls">Octubre - Diciembre 2013 (XLS)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2012 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2012">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2012" aria-expanded="false" aria-controls="c-fin-2012">
+                        2012 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2012" class="accordion-collapse collapse" aria-labelledby="h-fin-2012" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2012/Balance-General-2012.pdf">Balance General 2012 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Resultados / Actividad Económica</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2012/Estado-de-Resultados-2012.pdf">Resultados 2012 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Comparativos</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2012/Balance-General-comparativo-2012-2013.pdf">Balance general 2012 - 2013 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2012/Estado-de-actividad-economica-Comparativo-2012-2013.pdf">Actividad Económica 2012 - 2013 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Operaciones Recíprocas (CGN)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2012/12277600012-JUNIO-2012-RECIPROCAS.pdf">Abril - Junio 2012 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2012/12277600012-SEPTIEMBRE-2012-RECIPROCAS.pdf">Julio - Septiembre 2012 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2011 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2011">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2011" aria-expanded="false" aria-controls="c-fin-2011">
+                        2011 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2011" class="accordion-collapse collapse" aria-labelledby="h-fin-2011" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2011/Balance-General-2011.pdf">Balance General 2011 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Resultados</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2011/Estado-de-Resultados-2011.pdf">Resultados 2011 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Comparativos</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2011/Estado-de-Resultados-Comparativo-2011-2012.pdf">Resultados 2011 - 2012 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2010 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2010">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2010" aria-expanded="false" aria-controls="c-fin-2010">
+                        2010 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2010" class="accordion-collapse collapse" aria-labelledby="h-fin-2010" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Balances</div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2010/Balance-General-a-Diciembre-31-DE-2010.pdf">Balance General a Diciembre 31 de 2010 (PDF)</a>
+                        </div>
+                        <div class="mb-2 fw-semibold">Resultados</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2010/Estado-de-Resultados-Diciembre-31-de-2010.pdf">Resultados Diciembre 31 de 2010 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2009 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-fin-2009">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-fin-2009" aria-expanded="false" aria-controls="c-fin-2009">
+                        2009 – Estados Financieros y Resultados
+                      </button>
+                    </h2>
+                    <div id="c-fin-2009" class="accordion-collapse collapse" aria-labelledby="h-fin-2009" data-bs-parent="#acci-financieros-anual">
+                      <div class="accordion-body">
+                        <div class="mb-2 fw-semibold">Comparativos</div>
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2009/BALANCE-GENERAL-COMPARATIVO-2009-2010.pdf">Balance General 2009 - 2010 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/financieros/2009/BALANCE-DE-COMPROBACION-2009-2010-COMPARATIVO.pdf">Balance de Comprobación 2009 - 2010 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.3 Plan de Acción</strong>
+                <div class="alert alert-info mt-2 mb-0">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Contenido en proceso de actualización. Próximamente estará disponible.
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.4 Proyectos de Inversión</strong>
+                <div class="alert alert-info mt-2 mb-0">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Contenido en proceso de actualización. Próximamente estará disponible.
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.5 Informes de Empalme</strong>
+                <div class="alert alert-info mt-2 mb-0">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Contenido en proceso de actualización. Próximamente estará disponible.
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.6 Información Pública y/o Relevante</strong>
+                <div class="text-muted small">Política de gestión presupuestal y austeridad del gasto (PDF).</div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <a href="documentos/contratacion/paa/Politica-gestion-presupuestal-y-Austeridad-del-gasto.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Política gestión presupuestal y austeridad del gasto</a>
+                  <a href="documentos/casos clinicos/Caso-Clinico-IVC-HDSAR-2023-V.1-1.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">Casos clínicos (PDF)</a>
+                </div>
+                <div class="mt-3">
+                  <h6 class="fw-bold mb-2">Documentos de Planeación y Gestión (Decreto 612 de 2018)</h6>
+                  <div class="accordion" id="planeacionDocsAccordion">
+                    <!-- Main Accordion Item -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="h-decreto-612-2018">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c-decreto-612-2018" aria-expanded="true" aria-controls="c-decreto-612-2018">
+                          Planes y Documentos por Vigencia
+                        </button>
+                      </h2>
+                      <div id="c-decreto-612-2018" class="accordion-collapse collapse show" aria-labelledby="h-decreto-612-2018" data-bs-parent="#planeacionDocsAccordion">
+                        <div class="accordion-body">
+                          <!-- 2025 Documents -->
+                          <h6 class="fw-bold mt-2 mb-2">2025</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/hdsa-plan-institucional-de-archivos-pinar.pdf">Plan Institucional de Archivos de la Entidad – PINAR</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/res.-000014-modificacion-pinar.pdf">Resolución Adopción PINAR</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/adquisicionespaa-0.xlsx">Plan Anual de Adquisiciones</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/certificacion-de-no-vacantes.pdf">Plan Anual de Vacantes</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/plan-prevision-recursos-humanos-2025.pdf">Plan de Previsión de Recursos Humanos</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/plan-estrategico-th-2025.pdf">Plan Estratégico de Talento Humano</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/resolucion-no.-000025-enero-22-adopcion-plan-bienestar-estimulos-e-incentivos-2024-f.pdf">Plan Institucional de Capacitación</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/hdsa-plan-institucional-de-archivos-pinar.pdf">Resolución donde se adopta el Plan Institucional de Capacitación</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/resolucion-no.-000025-enero-22-adopcion-plan-bienestar-estimulos-e-incentivos-2024-f.pdf">Plan de Incentivos Institucionales</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/hdsa-plan-institucional-de-archivos-pinar.pdf">Resolución donde se adopta el Plan Institucional de Bienestar Social, Estímulos e Incentivos</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/plan-de-trabajo-anual-2025 (1).pdf">Plan de Trabajo Anual en Seguridad y Salud en el Trabajo</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/plan-anticorrupcion-y-atencion-al-ciudadano-paac-2023.pdf">Plan Anticorrupción y de Atención al Ciudadano</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/resolucion-000040-paac.pdf">Resolución Actualización Plan Anticorrupción</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/plan-estrategi-peti-hdsa-20212_r2.pdf">Plan Estratégico de Tecnologías de la Información y las Comunicaciones – PETI</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/politica-de-proteccion-de-datos-personales-de-hdsa-2022.pdf">Plan de Tratamiento de Riesgos de Seguridad y Privacidad de la Información</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2025/politicas-de-seguridad-de-la-informacion_21.pdf">Plan de Seguridad y Privacidad de la Información</a>
+                          </div>
+                          <hr class="my-4">
+                          <!-- 2024 Documents -->
+                          <h6 class="fw-bold mt-3 mb-2">2024</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/hdsa-plan-institucional-de-archivos-pinar (1).pdf">Plan Institucional de Archivos de la Entidad – PINAR</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/res.-000014-modificacion-pinar.pdf">Resolución Adopción PINAR</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/adquisicionespaa-2024.xlsx">Plan Anual de Adquisiciones</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/certificacion-de-no-vacantes.pdf">Plan Anual de Vacantes</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/plan-estrategico-th-2024.pdf">Plan Estratégico de Talento Humano</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/resolucion-no.-000025-enero-22-adopcion-plan-bienestar-estimulos-e-incentivos-2024-f.pdf">Plan Institucional de Capacitación</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/resolucion-no.-000025-enero-22-adopcion-plan-bienestar-estimulos-e-incentivos-2024-f.pdf">Resolución Adopción PIC</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/resolucion-no.-000025-enero-22-adopcion-plan-bienestar-estimulos-e-incentivos-2024-f.pdf">Plan de Incentivos Institucionales</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/plan-de-trabajo-anual-sg-sst-2024.pdf">Plan de Trabajo Anual en Seguridad y Salud en el Trabajo</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/plan-anticorrupcion-y-atencion-al-ciudadano-paac-2023.pdf">Plan Anticorrupción y de Atención al Ciudadano</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/resolucion-000040-paac.pdf">Resolución Actualización Plan Anticorrupción</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/plan-estrategi-peti-hdsa-20212_r2.pdf">Plan Estratégico de Tecnologías de la Información y las Comunicaciones – PETI</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/politica-de-proteccion-de-datos-personales-de-hdsa-2022.pdf">Plan de Tratamiento de Riesgos de Seguridad y Privacidad de la Información</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/planeacion/2024/politicas-de-seguridad-de-la-informacion_21.pdf">Plan de Seguridad y Privacidad de la Información</a>
+                          </div>
+                         
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.7 Informes de Gestión, Evaluación y Auditoría</strong>
+                <div class="alert alert-info mt-2 mb-0">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Contenido en proceso de actualización. Próximamente estará disponible.
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.8 Informes de la Oficina de Control Interno</strong>
+                <p class="text-muted small mt-2 mb-3">Consulta los informes por año. Los documentos más recientes aparecen primero.</p>
+
+                <div class="accordion" id="acci-control-interno">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-oci-2025">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c-oci-2025" aria-expanded="true" aria-controls="c-oci-2025">
+                        2025 – Informes de Control Interno
+                      </button>
+                    </h2>
+                    <div id="c-oci-2025" class="accordion-collapse collapse show" aria-labelledby="h-oci-2025" data-bs-parent="#acci-control-interno">
+                      <div class="accordion-body">
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2025/INFORME-SEGUIMIENTO-PTEP-I-CUATRIMESTRE-2025.pdf">Informe Seguimiento PTEP I Cuatrimestre 2025 (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2025/informes-control-interno-hdsa-corte-30-06-2025-1-2.pdf">Informes Control Interno – corte 30/06/2025 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-oci-2024">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-oci-2024" aria-expanded="false" aria-controls="c-oci-2024">
+                        2024 – Informes de Control Interno
+                      </button>
+                    </h2>
+                    <div id="c-oci-2024" class="accordion-collapse collapse" aria-labelledby="h-oci-2024" data-bs-parent="#acci-control-interno">
+                      <div class="accordion-body">
+                        <div class="d-flex flex-wrap gap-2">
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2024/Austeridad%20del%20Gasto.pdf">Austeridad del Gasto (PDF)</a>
+                          <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2024/Manual-de-auditoria-2024.pdf">Manual de auditoría 2024 (PDF)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="h-oci-2023">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-oci-2023" aria-expanded="false" aria-controls="c-oci-2023">
+                        2023 – Informes de la Oficina de Control Interno
+                      </button>
+                    </h2>
+                    <div id="c-oci-2023" class="accordion-collapse collapse" aria-labelledby="h-oci-2023" data-bs-parent="#acci-control-interno">
+                      <div class="accordion-body">
+                        <div class="mb-3">
+                          <h6 class="fw-bold mb-2">Plan Anual de Auditorías 2023</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/PLAN-AUDITORIAS-2023.docx">Plan anual de auditorías basado en riesgos 2023 (DOCX)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/PLAN-AUDITORIA-VIGENCIA-2023.pdf">Plan anual de auditoría vigencia 2023 (PDF)</a>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <h6 class="fw-bold mb-2">Informe de Cumplimiento de Auditorías</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/AUDITORIA-ALMACEN.pdf">Auditoría Almacén (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/AUDITORIA-ESTADISTICA.pdf">Auditoría Estadística (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/AUDITORIA-LABORATORIO.pdf">Auditoría Laboratorio Clínico (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/AUDITORIA-PYP.pdf">Auditoría Promoción y Prevención (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/AUDITORIA-REVISION-A-LA-CUENTA.pdf">Auditoría Revisión a la Cuenta (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/AUDITORIA-SISTEMAS.pdf">Auditoría Sistemas (PDF)</a>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <h6 class="fw-bold mb-2">Informes Semestrales 2023</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/INFORME-SEMESTRAL-AL-SISTEMA-DE-CONTROL-INTERNO-DE-LA-ESE-30-06-2023.pdf">Informe con corte al 30 de junio de 2023 (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/INFORME-SEMESTRAL-AL-SISTEMA-DE-CONTROL-INTERNO-DE-LA-ESE-31-12-2023.pdf">Informe con corte al 31 de diciembre de 2023 (PDF)</a>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <h6 class="fw-bold mb-2">Evaluación Anual del Sistema de Control Interno</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/INFORME-ANUAL-DE-SISTEMA-DE-CONTROL-INTERNO.xlsx">Informe Anual del Sistema de Control Interno (XLSX)</a>
+                          </div>
+                        </div>
+
+                        <div class="mb-2">
+                          <h6 class="fw-bold mb-2">Informe Anual de Control Interno Contable</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/Control-Interno-Contable-2023.xlsx">Informe de Control Interno Contable 2023 (XLSX)</a>
+                          </div>
+                        </div>
+
+                        <div class="mb-2">
+                          <h6 class="fw-bold mb-2">Seguimiento Plan Anticorrupción y Atención al Ciudadano (PAAAC) 2023</h6>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/INFORME-SEGUIMIENTO-PLAN-ANTICORRUPCION-Y-ATENCION-AL-CIUDADANO-I.pdf">Primer cuatrimestre (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/INFORME-SEGUIMIENTO-PLAN-ANTICORRUPCION-Y-DE-ATENCION-AL-CIUDADANO-II.pdf">Segundo cuatrimestre (PDF)</a>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="documentos/control-interno/2023/INFORME-SEGUIMIENTO-PLAN-ANTICORRUPCION-y-DE-ATENCION-AL-CIUDADANO-III.pdf">Tercer cuatrimestre (PDF)</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+             </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.9 Informe sobre Defensa Pública y Prevención del Daño Antijurídico</strong>
+                <div class="alert alert-info mt-2 mb-0">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Contenido en proceso de actualización. Próximamente estará disponible.
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>4.10 Informes Sobre Acceso a Información, Quejas y Reclamos</strong>
+                <div class="alert alert-info mt-2 mb-0">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Contenido en proceso de actualización. Próximamente estará disponible.
+                </div>
+              </div>
+              
+            </li>
+          </ul>
+          
+        </div></div>
+      </section>
+
+      <section id="seccion-5" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">5. Trámites</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>5.1 Listado de Trámites y Servicios</strong>
+                <div class="table-responsive mt-2">
+                  <table class="table table-striped table-sm align-middle mb-2">
+                    <thead>
+                      <tr>
+                        <th scope="col">Servicio</th>
+                        <th scope="col">Descripción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Urgencias 24/7</td>
+                        <td>Atención inmediata a emergencias las 24 horas del día, los 7 días de la semana.</td>
+                      </tr>
+                      <tr>
+                        <td>Cuidado Oral</td>
+                        <td>Servicios de odontología preventiva y curativa para todas las edades.</td>
+                      </tr>
+                      <tr>
+                        <td>Diagnóstico</td>
+                        <td>Estudios y procedimientos de apoyo diagnóstico por imágenes y complementarios.</td>
+                      </tr>
+                      <tr>
+                        <td>Hospitalización</td>
+                        <td>Atención intrahospitalaria con acompañamiento interdisciplinario.</td>
+                      </tr>
+                      <tr>
+                        <td>Laboratorio</td>
+                        <td>Exámenes de laboratorio clínico para apoyo al diagnóstico y seguimiento.</td>
+                      </tr>
+                      <tr>
+                        <td>Partos</td>
+                        <td>Atención integral y segura del trabajo de parto, parto y puerperio.</td>
+                      </tr>
+                      <tr>
+                        <td>Promoción y Prevención</td>
+                        <td>Programas y actividades para promover la salud y prevenir la enfermedad.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <a href="index.html#nuestros-servicios" class="btn btn-sm btn-outline-brand rounded-pill mt-2">Ver todos nuestros servicios</a>
+              </div>
+              
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>5.2 Formularios de Trámites y Servicios</strong>
+                <p class="text-muted small mb-0">La Institución no cuenta con formulario en línea para trámites.</p>
+              </div>
+              
+            </li>
+          </ul>
+          <div class="small mt-3 mb-0 alert d-flex align-items-center alert-brand" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <span>La Institución no cuenta con formulario en línea para trámites.</span>
+          </div>
+        </div></div>
+      </section>
+
+      <section id="seccion-6" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">6. Participa</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <p class="text-muted">Selecciona un componente para ver el detalle en la página dedicada de participación.</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.1 Información General del Menú Participa</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="Participa.html#slide-1">Ver</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.2 Participación para el Diagnóstico e Identificación de Problemas</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/diagnostico_identificacion_problemas.html">Ver</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.3 Planeación y Presupuesto Participativo</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/planeacion_presupuesto_participativo.html">Ver</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.4 Consulta Ciudadana</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/consulta_ciudadana.html">Ver</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.5 Colaboración e Innovación</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/colaboracion_innovacion_abierta.html">Ver</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.6 Rendición de Cuentas</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/rendicion_de_cuentas.html">Ver</a>
+            </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div><strong>6.7 Control Social</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/control_social.html">Ver</a>
+            </li>
+          </ul>
+        </div></div>
+        </section>
+
+      <section id="seccion-7" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">7. Datos Abiertos</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>7.1 Gestión Documental</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>7.2 Registros de Activos de Información</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>7.3 Esquema de Publicación de la Información</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>7.4 Costos de Reproducción de Información Pública</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>7.5 Datos Abiertos</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+          </ul>
+          <p class="text-muted small mt-3 mb-0">Puedes enlazar a portal de datos abiertos y matrices internas.</p>
+        </div></div>
+      </section>
+
+      <section id="seccion-8" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">8. Información para Grupos de Interés</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>8.1 Información Para Niños, Niñas y Adolescentes</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>8.2 Información para Mujeres</strong></div><a href="consultorio-rosado.html" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>8.3 Otros Grupos de Interés</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill disabled" aria-disabled="true">Ver</a></li>
+          </ul>
+          <p class="text-muted small mt-3 mb-0">Enlaza a secciones especializadas o recursos descargables.</p>
+        </div></div>
+      </section>
+
+      <section id="seccion-9" class="anchor-target py-4">
+        <h2 class="h5 fw-bold mb-3">9. Reporte de Información Específica</h2>
+        <div class="card border-0 shadow-sm"><div class="card-body p-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>9.1 Registro de Publicaciones</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>9.2 Convenios</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>9.3 Manual de Funciones y Competencias</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>9.4 Estados Financieros</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start"><div><strong>9.5 Metas e Indicadores de Gestión</strong></div><a href="#" class="btn btn-sm btn-outline-brand rounded-pill">Ver</a></li>
+          </ul>
+          <p class="text-muted small mt-3 mb-0">Agrega enlaces a páginas internas o documentos por cada ítem.</p>
+        </div></div>
+      </section>
+
+    </section>
+  </div>
+</div>
+</main>
+
+<!-- Scripts optimizados con defer -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="js/utils.js" defer></script>
+<script src="js/layout.js" defer></script>
+<script src="js/accesibilidad.js" defer></script>
+<script src="js/accessibility-styles.js" defer></script>
+<script src="js/transparencia.js" defer></script>
+<script src="js/busqueda.js" defer></script>
+<script src="js/main.js" defer></script>
+
+</body>
+</html>
