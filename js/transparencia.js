@@ -422,6 +422,13 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   if (!input || !contentRoot) return;
   const clearBtn = document.getElementById('search-clear-btn');
 
+  // Mostrar/ocultar el botón de limpiar según el contenido del input
+  if (clearBtn) {
+    input.addEventListener('input', () => {
+      clearBtn.classList.toggle('d-none', !input.value);
+    });
+  }
+
   // Secciones: 1 (tarjetas), 2-9 (anchor-target con list-group)
   const secInfoEntidad = contentRoot.querySelector('section[aria-labelledby="sec-info-entidad"]');
   const anchorSections = Array.from(contentRoot.querySelectorAll('section.anchor-target'));
@@ -591,10 +598,10 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn.apply(null, args), ms); };
   };
 
-  input.addEventListener('input', debounce(() => {
-    filterPage(input.value);
-  }, 150), true);
-
+  // Se elimina el listener de 'input' para que la búsqueda no sea en vivo.
+  // La búsqueda ahora se activa solo al presionar Enter o enviar el formulario.
+  // input.addEventListener('input', debounce(() => { filterPage(input.value); }, 150), true);
+  
   // Submit: siempre en la misma página (búsqueda en vivo)
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -621,6 +628,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     } else if (ev.key === 'Escape') {
       input.value = '';
       resetFilters();
+      if (clearBtn) clearBtn.classList.add('d-none');
     }
   });
 
@@ -630,6 +638,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       input.value = '';
       resetFilters();
       input.focus();
+      clearBtn.classList.add('d-none');
     });
   }
 })();

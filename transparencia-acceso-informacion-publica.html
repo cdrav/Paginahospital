@@ -25,7 +25,7 @@
 <!-- HERO SECTION PARA TRANSPARENCIA -->
 <div class="hero-section-transparencia">
   <div class="container text-center">
-    <h1 class="h2 text-white fw-bold">Transparencia y Acceso a la Información Pública</h1>
+    <h1 class="h2 fw-bold">Transparencia y Acceso a la Información Pública</h1>
     <p class="lead mb-4 hero-lead">De acuerdo a la Ley 1712 de 2014, y resolución 3564 de 2015 de MinTIC se pone a disposición de la ciudadanía la sección de Transparencia y Acceso a la Información Pública Nacional, donde podrán conocer de primera mano toda la información.</p>
     <div class="mt-4">
       <i class="bi bi-shield-check hero-icon"></i>
@@ -41,10 +41,20 @@
       <div class="row justify-content-center">
         <div class="col-lg-8">
           <form class="search-form" role="search" aria-label="Buscar en Transparencia" action="buscar.html">
-            <div class="input-group flex-nowrap">
-              <input type="search" class="form-control bg-white text-dark rounded-pill" placeholder="Buscar en Transparencia" aria-label="Campo de búsqueda" aria-describedby="search-live-status" name="q" autocomplete="off" />
+            <div class="input-group has-clear-btn">
+              <input type="search" class="form-control bg-white text-dark" placeholder="Buscar en Transparencia" aria-label="Campo de búsqueda" aria-describedby="search-help-text" name="q" autocomplete="off" />
+              <button class="btn btn-light d-none" type="button" id="search-clear-btn" title="Limpiar búsqueda" aria-label="Limpiar búsqueda">
+                <i class="bi bi-x-lg"></i>
+              </button>
+              <button class="btn btn-brand" type="submit" id="search-live-btn" aria-label="Buscar">
+                <i class="bi bi-search"></i>
+                <span class="visually-hidden">Buscar</span>
+              </button>
             </div>
-            <div id="search-live-status" class="small text-muted mt-2" aria-live="polite"></div>
+            <div id="search-help-text" class="form-text mt-2">
+              Escriba un término y presione Enter o el botón de buscar para filtrar el contenido. Use la tecla 'Esc' para limpiar.
+            </div>
+            <div id="search-live-status" class="small text-muted mt-1" aria-live="polite"></div>
           </form>
         </div>
       </div>
@@ -488,8 +498,11 @@
             <a href="https://www.funcionpublica.gov.co/dafpIndexerBHV/login/auth" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
               <i class="bi bi-box-arrow-up-right me-1"></i> Consultar directorio en Función Pública
             </a>
+            <a href="https://www.funcionpublica.gov.co/sigep-web/sigep2/index.xhtml?faces-redirect=true#no-back-button" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Sigep II
+            </a>
           </div>
-          <p class="text-muted small mb-0">Enlace externo al Directorio de Servidores Públicos, Empleados o Contratistas (DAFP). Se abrirá en una nueva pestaña.</p>
+          <p class="text-muted small mb-0">Enlaces externos al Directorio de Servidores Públicos (DAFP) y al SIGEP II. Se abrirán en una nueva pestaña.</p>
         </div></div>
       </section>
 
@@ -703,7 +716,7 @@
               <ul class="list-unstyled small mt-2 mb-0">
                 <li class="mb-1"><i class="bi bi-geo-alt me-2"></i><strong>Dirección:</strong> Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</li>
                 <li class="mb-1"><i class="bi bi-envelope-paper me-2"></i><strong>Correo Electrónico:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></li>
-                <li><i class="bi bi-telephone me-2"></i><strong>PBX:</strong> 602 891 2317</li>
+                <li><i class="bi bi-telephone me-2"></i><strong>PBX:</strong> +57 602 891 2317</li>
               </ul>
             </div>
 
@@ -739,7 +752,7 @@
                       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHosp" aria-expanded="true" aria-controls="collapseHosp">
                         <span class="d-block">
                           Hospital Departamental San Antonio de Roldanillo
-                          <small class="d-block text-muted mt-1">PBX: (2) 8912317 - (2) 2295000 - 018000952749</small>
+                          <small class="d-block text-muted mt-1">PBX:+57 602 891 2317</small>
                         </span>
                       </button>
                     </h2>
@@ -797,7 +810,7 @@
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="headingLlanitos">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLlanitos" aria-expanded="false" aria-controls="collapseLlanitos">
-                        Puesto de Salud Llanitos <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 211</span>
+                        Puesto de Salud Llanitos <span class="ms-3 badge rounded-pill bg-light text-dark"></span>
                       </button>
                     </h2>
                     <div id="collapseLlanitos" class="accordion-collapse collapse" aria-labelledby="headingLlanitos" data-bs-parent="#horariosAccordion">
@@ -813,7 +826,7 @@
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="headingElRey">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseElRey" aria-expanded="false" aria-controls="collapseElRey">
-                        Puesto de Salud El Rey <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 157</span>
+                        Puesto de Salud El Rey <span class="ms-3 badge rounded-pill bg-light text-dark"></span>
                       </button>
                     </h2>
                     <div id="collapseElRey" class="accordion-collapse collapse" aria-labelledby="headingElRey" data-bs-parent="#horariosAccordion">
@@ -829,7 +842,7 @@
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="headingAsuncion">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAsuncion" aria-expanded="false" aria-controls="collapseAsuncion">
-                        Puesto de Salud La Asunción <span class="ms-3 badge rounded-pill bg-light text-dark">Ext. 210</span>
+                        Puesto de Salud La Asunción <span class="ms-3 badge rounded-pill bg-light text-dark"></span>
                       </button>
                     </h2>
                     <div id="collapseAsuncion" class="accordion-collapse collapse" aria-labelledby="headingAsuncion" data-bs-parent="#horariosAccordion">
@@ -910,6 +923,7 @@
               <li>Conserva el número de radicado para seguimiento.</li>
             </ol>
           </div>
+
         </div></div>
       </section>
 
@@ -1087,6 +1101,14 @@
               </div>
               
             </li>
+            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+              <div>
+                <strong>3.5 Consulta de Procesos en SECOP II</strong>
+                <div class="text-muted small">Plataforma transaccional para la gestión de contratación pública.</div>
+              </div>
+              <a href="https://community.secop.gov.co/STS/Users/Login/Index?SkinName=CCE" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                <i class="bi bi-box-arrow-up-right me-1"></i>Ir a SECOP II</a>
+            </li>
           </ul>
         </div></div>
       </section>
@@ -1134,13 +1156,22 @@
                     <div id="c-presupuesto-2025" class="accordion-collapse collapse show" data-bs-parent="#presupuestoAccordion">
                       <div class="accordion-body">
                         <div class="row g-3">
-                          <div class="col-md-6">
-                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
-                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2025/Ejecucion-2025-Gastos.pdf" target="_blank" rel="noopener">
-                              Ejecución Gastos 2025
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Acuerdo</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2 disabled" href="#" aria-disabled="true">
+                              Acuerdo 2025 (Pendiente)
                             </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Presupuesto</h6>
+                            <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2 disabled" href="#" aria-disabled="true">
+                              Presupuesto 2025 (Pendiente)
+                            </a>
+                          </div>
+                          <div class="col-md-4">
+                            <h6 class="fw-bold border-bottom pb-2">Ejecución</h6>
                             <a class="btn btn-sm btn-outline-brand rounded-pill d-block mb-2" href="documentos/planeacion/presupuesto/2025/Ejecucion-2025-Ingresos.pdf" target="_blank" rel="noopener">
-                              Ejecución Ingresos 2025
+                              Ejecución Presupuestal 2025
                             </a>
                           </div>
                         </div>
@@ -2140,12 +2171,87 @@
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
               <div>
                 <strong>4.10 Informes Sobre Acceso a Información, Quejas y Reclamos</strong>
-                <div class="alert alert-info mt-2 mb-0">
-                  <i class="bi bi-info-circle-fill me-2"></i>
-                  Contenido en proceso de actualización. Próximamente estará disponible.
+                <p class="text-muted small mt-2 mb-3">Consulta los informes de Peticiones, Quejas, Reclamos, Sugerencias y Satisfacción por período.</p>
+                <div class="accordion" id="pqrsAccordion">
+                  <!-- 2025 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePqrs2025" aria-expanded="true">
+                        Vigencia 2025
+                      </button>
+                    </h2>
+                    <div id="collapsePqrs2025" class="accordion-collapse collapse show" data-bs-parent="#pqrsAccordion">
+                      <div class="accordion-body">
+                        <div class="mb-4">
+                          <h5 class="fw-bold mb-3">Informes de Satisfacción</h5>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a href="documentos/pqrs/informe-de-satisfaccion-i-trimestre-2025.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> I Trimestre 2025
+                            </a>
+                          </div>
+                        </div>
+                        <div>
+                          <h5 class="fw-bold mb-3">Informes de PQRS</h5>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a href="documentos/pqrs/informe-pqrs-primer-semestre-2025.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> I Semestre 2025
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 2024 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePqrs2024" aria-expanded="false">
+                        Vigencia 2024
+                      </button>
+                    </h2>
+                    <div id="collapsePqrs2024" class="accordion-collapse collapse" data-bs-parent="#pqrsAccordion">
+                      <div class="accordion-body">
+                        <div class="mb-4">
+                          <h5 class="fw-bold mb-3">Informes de Satisfacción</h5>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a href="documentos/pqrs/informe-de-satisfaccion-anual-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> Anual 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-de-satisfaccion-3-trimestre-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> III Trimestre 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-de-satisfaccion-2-trimestre-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> II Trimestre 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-de-satisfaccion-1-semestre-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> I Semestre 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-de-satisfaccion-junio-de-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> Junio 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-de-satisfaccion-abril-de-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> Abril 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-de-satisfaccion-enero-de-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> Enero 2024
+                            </a>
+                          </div>
+                        </div>
+                        <div>
+                          <h5 class="fw-bold mb-3">Informes de PQRS</h5>
+                          <div class="d-flex flex-wrap gap-2">
+                            <a href="documentos/pqrs/informe-pqrs-cuarto-trimestre-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> IV Trimestre 2024
+                            </a>
+                            <a href="documentos/pqrs/informe-pqrs-primer-trimestre-2024.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                              <i class="bi bi-file-earmark-pdf me-1"></i> I Trimestre 2024
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
             </li>
           </ul>
           
@@ -2217,46 +2323,57 @@
                     <div id="collapseForm1" class="accordion-collapse collapse" aria-labelledby="headingForm1" data-bs-parent="#formulariosAccordion">
                       <div class="accordion-body">
                         <h4 class="h6 fw-bold">¿CÓMO SOLICITAR COPIA DE LA HISTORIA CLÍNICA?</h4>
-                        <p class="text-muted small">Infórmese sobre cuáles son los requisitos para solicitar copia de su historia clínica en el Hospital Departamental San Antonio de Roldanillo Valle.</p>
-                        <hr>
-                        <h5 class="h6 fw-bold mt-3">Si usted es paciente:</h5>
-                        <ul class="small">
-                          <li>Solicitud de historia clínica.</li>
-                          <li>Copia del documento de identificación del Paciente.</li>
-                        </ul>
-                        <h5 class="h6 fw-bold mt-3">Si usted es autorizado por el paciente:</h5>
-                        <ul class="small">
-                          <li>Formato de carta de autorización de entrega de historia clínica.</li>
-                          <li>Copia del documento de identificación del Paciente.</li>
-                          <li>Copia del documento de identificación del Autorizado.</li>
-                        </ul>
-                        <h5 class="h6 fw-bold mt-3">Si usted es representante legal de un menor de edad:</h5>
-                        <ul class="small">
-                          <li>Solicitud de historia clínica de menor de edad.</li>
-                          <li>Fotocopia de la cédula de ciudadanía del Solicitante (Representante legal).</li>
-                          <li>Copia del documento de identificación del menor de edad.</li>
-                          <li>Copia del Registro Civil donde conste el parentesco o la representación legal.</li>
-                        </ul>
-                        <h5 class="h6 fw-bold mt-3">Si Usted es Familiar de un Paciente fallecido:</h5>
-                        <ul class="small">
-                          <li>Solicitud de historia clínica de Paciente fallecido.</li>
-                          <li>Copia del documento de identificación del Familiar solicitante.</li>
-                          <li>Copia del certificado de defunción del Paciente.</li>
-                          <li>Copia del registro civil donde conste el parentesco como Padre o Madre, Hijo(a) o Compañero(a) permanente.</li>
-                        </ul>
-                        <h5 class="h6 fw-bold mt-3">Si Usted es Familiar de un Paciente incapacitado:</h5>
-                        <ul class="small">
-                          <li>Solicitud de historia clínica de Paciente incapacitado.</li>
-                          <li>Copia del documento de identificación del Familiar solicitante.</li>
-                          <li>Copia del registro civil donde conste el parentesco como Padre o Madre, Hijo(a) o Compañero(a) permanente.</li>
-                        </ul>
-                        <hr>
-                        <h5 class="h6 fw-bold mt-3">Archivos relacionados:</h5>
-                        <div class="d-flex flex-wrap gap-2 mt-2">
-                          <a href="/documentos/historia-clinica/si-f-003-solicitud-hc-terceros.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-download me-1"></i> SOLICITUD HISTORIA CLINICA TERCEROS</a>
-                          <a href="/documentos/historia-clinica/si-f-001-solicitud-hc-fallecidos.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-download me-1"></i> SOLICITUD HISTORIA CLINICA FALLECIDO</a>
-                          <a href="/documentos/historia-clinica/si-f-002-solicitud-hc-menor-de-edad.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-download me-1"></i> SOLICITUD HISTORIA CLINICA MENOR DE EDAD</a>
+                        <p class="text-muted small">Infórmese sobre los requisitos para solicitar copia de su historia clínica en el Hospital Departamental San Antonio de Roldanillo Valle.</p>
+                        
+                        <div class="border-top mt-3 pt-3">
+                          <h5 class="h6 fw-bold">Si usted es el paciente:</h5>
+                          <ul class="small">
+                            <li>Solicitud escrita.</li>
+                            <li>Copia del documento de identificación del Paciente.</li>
+                          </ul>
                         </div>
+
+                        <div class="border-top mt-3 pt-3">
+                          <h5 class="h6 fw-bold">Si usted es autorizado por el paciente:</h5>
+                          <ul class="small">
+                            <li>Formato de carta de autorización.</li>
+                            <li>Copia del documento de identificación del Paciente.</li>
+                            <li>Copia del documento de identificación del Autorizado.</li>
+                          </ul>
+                          <a href="/documentos/historia-clinica/si-f-003-solicitud-hc-terceros.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-download me-1"></i> Descargar Formato para Terceros</a>
+                        </div>
+
+                        <div class="border-top mt-3 pt-3">
+                          <h5 class="h6 fw-bold">Si usted es representante legal de un menor de edad:</h5>
+                          <ul class="small">
+                            <li>Formato de solicitud.</li>
+                            <li>Fotocopia de la cédula del Solicitante (representante legal).</li>
+                            <li>Copia del documento de identificación del menor.</li>
+                            <li>Copia del Registro Civil que conste el parentesco.</li>
+                          </ul>
+                          <a href="/documentos/historia-clinica/si-f-002-solicitud-hc-menor-de-edad.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-download me-1"></i> Descargar Formato para Menor de Edad</a>
+                        </div>
+
+                        <div class="border-top mt-3 pt-3">
+                          <h5 class="h6 fw-bold">Si usted es familiar de un paciente fallecido:</h5>
+                          <ul class="small">
+                            <li>Formato de solicitud.</li>
+                            <li>Copia del documento del Familiar solicitante.</li>
+                            <li>Copia del certificado de defunción del Paciente.</li>
+                            <li>Copia del registro civil que conste el parentesco.</li>
+                          </ul>
+                          <a href="/documentos/historia-clinica/si-f-001-solicitud-hc-fallecidos.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-download me-1"></i> Descargar Formato para Paciente Fallecido</a>
+                        </div>
+
+                        <div class="border-top mt-3 pt-3">
+                          <h5 class="h6 fw-bold">Si usted es familiar de un paciente incapacitado:</h5>
+                          <ul class="small">
+                            <li>Formato de solicitud.</li>
+                            <li>Copia del documento del Familiar solicitante.</li>
+                            <li>Copia del registro civil que conste el parentesco.</li>
+                          </ul>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -2350,6 +2467,9 @@
 </div>
 </main>
 
+<!-- Footer parcial -->
+<div id="footer-placeholder"></div>
+
 <!-- Scripts optimizados con defer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 <script src="js/utils.js" defer></script>
@@ -2359,6 +2479,5 @@
 <script src="js/transparencia.js" defer></script>
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
-
 </body>
 </html>

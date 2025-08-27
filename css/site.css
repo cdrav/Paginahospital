@@ -790,6 +790,8 @@ section > p {
 .institution-logo-box.is-blue2 { border-color: #3366cc; box-shadow: 0 8px 24px rgba(51,102,204,0.15); }
 .institution-logo-box.is-gray { border-color: #6c757d; box-shadow: 0 8px 24px rgba(108,117,125,0.15); }
 .institution-logo-box.is-success { border-color: #198754; box-shadow: 0 8px 24px rgba(25,135,84,0.15); }
+.institution-logo-box.is-info { border-color: #0dcaf0; box-shadow: 0 8px 24px rgba(13,202,240,0.15); }
+.institution-logo-box.is-warning { border-color: #ffc107; box-shadow: 0 8px 24px rgba(255,193,7,0.15); }
 .institution-logo-box.pad-8 { padding: 8px; }
 
 /* Controles del carrusel de enlaces (reemplazo de estilos inline) */
@@ -834,30 +836,7 @@ section > p {
 /* =====================================================
    Normatividad - Barra de búsqueda (estilos globales)
    ===================================================== */
-.search-card { 
-  border-radius: var(--radius); 
-  background-color: #f5f7f7; /* leve contraste sobre fondo blanco */
-  border: 2px solid rgba(22,68,67,.15);
-}
-.norma-search-input {
-  border-width: 2px;
-  border-color: var(--color-primario);
-  background-color: #f1f3f5; /* gris claro para distinguir */
-  color: #111;
-  min-height: 48px;
-  font-size: 1rem;
-  padding-left: 2.25rem; /* espacio para icono */
-  background-repeat: no-repeat;
-  background-position: .8rem 50%;
-  background-size: 16px 16px;
-  /* Icono de búsqueda (SVG inline) */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23164443' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85Zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z'/%3E%3C/svg%3E");
-}
-.norma-search-input::placeholder { color: #495057; opacity: 1; }
-.norma-search-input:focus {
-  border-color: #0f3332;
-  box-shadow: 0 0 0 .2rem rgba(15, 51, 50, 0.25);
-}
+
 
 /* Botón outline con color de marca secundario */
 .btn-outline-brand {
@@ -1406,6 +1385,39 @@ p, a, td, th, li {
   .icon-circle-lg {
     width: 60px;
     height: 60px;
+  }
+}
+
+/* =====================================================
+   Cookie Consent Banner - Corrección de visibilidad
+   ===================================================== */
+
+/* 
+  Asegura que el banner de cookies tenga la máxima prioridad visual
+  y esté por encima de otros elementos fijos como los botones de accesibilidad.
+*/
+.cookie-banner {
+  z-index: 10000 !important; /* Prioridad sobre los botones de accesibilidad (z-index: 9999) */
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease-out;
+  transform: translateY(100%); /* Oculto por defecto, se muestra con JS */
+  visibility: hidden;
+}
+
+/* Clase para mostrar el banner con una animación suave */
+.cookie-banner.show {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* 
+  En móviles, cuando el banner de cookies está visible, se desplazan los botones de accesibilidad hacia arriba.
+  Esto requiere que el script `cookie-consent.js` añada la clase `cookie-banner-visible` al <body>.
+*/
+@media (max-width: 768px) {
+  body.cookie-banner-visible .accessibility-buttons-container {
+    bottom: calc(env(safe-area-inset-bottom, 0) + 140px); /* 140px es una altura estimada para el banner */
+    transition: bottom 0.4s ease-out;
   }
 }
   

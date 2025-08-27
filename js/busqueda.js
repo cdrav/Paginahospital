@@ -37,8 +37,9 @@ const searchConfig = {
     
     // Configura el formulario de búsqueda
     setupSearchForm: function() {
-        // Selecciona TODOS los formularios de búsqueda (header y menú móvil)
-        const searchForms = document.querySelectorAll('form.search-form, form[action$="buscar.html"]');
+        // Selecciona solo los formularios de búsqueda del header/navbar para la búsqueda global.
+        // Esto evita conflictos con el buscador en vivo de la página de Transparencia.
+        const searchForms = document.querySelectorAll('nav form.search-form, nav form[action$="buscar.html"]');
         
         searchForms.forEach(searchForm => {
             searchForm.addEventListener('submit', (e) => {

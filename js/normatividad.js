@@ -1,272 +1,149 @@
-/* Normatividad: búsqueda en vivo, resaltado y filtro por año en pestañas Bootstrap */
+// js/normatividad.js
+
 (function () {
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  'use strict';
 
-  const idsTabs = ["leyes", "decretos", "circulares", "resoluciones", "edictos"];
-  const input = $("#buscarNormatividad");
-  const liveStatus = $("#search-live-status");
-  const noResults = document.getElementById("no-results-msg");
-  const tabsContainer = $("#normatividadTabsContent");
+  const form = document.querySelector('main form.search-form');
+  if (!form) return;
 
-  if (!input || !tabsContainer) return;
+  const input = document.getElementById('buscarNormatividad');
+  const liveStatus = document.getElementById('search-live-status');
+  const noResultsMsg = document.getElementById('no-results-msg');
+  const contentRoot = document.getElementById('normatividadTabsContent');
+  const clearBtn = document.getElementById('search-clear-btn');
 
-  // Utilidades de resaltado
-  function normalizeNoAccents(s) {
-    return (s || "")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
-  }
+  if (!input || !contentRoot) return;
 
-  function clearHighlights(container) {
-    $$("mark.__hl", container).forEach((m) => {
-      const parent = m.parentNode;
-      if (!parent) return;
-      parent.replaceChild(document.createTextNode(m.textContent || ""), m);
-      parent.normalize();
+  // --- Helpers ---
+  const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const show = (el) => el && el.classList.remove('d-none');
+  const hide = (el) => el && el.classList.add('d-none');
+
+  // --- Highlighting ---
+  const clearHighlights = (root) => {
+    root.querySelectorAll('mark.search-hit').forEach((mark) => {
+      const parent = mark.parentNode;
+      parent.replaceChild(document.createTextNode(mark.textContent), mark);
+      parent.normalize(); // Merges adjacent text nodes
     });
-  }
+  };
 
-  function escapeRegExp(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
-
-  function highlightMatches(container, term) {
+  const highlightInElement = (el, rawTerm) => {
+    if (!el || !rawTerm) return;
+    const term = rawTerm.trim();
     if (!term) return;
-    const needleRaw = term.trim();
-    if (!needleRaw) return;
-    const needle = normalizeNoAccents(needleRaw);
-    if (!needle) return;
-    const items = $$(".tab-pane.active .list-group-item", tabsContainer);
-
-    function indicesOf(haystack, needle) {
-      const out = [];
-      if (!needle) return out;
-      let i = 0;
-      while (i <= haystack.length - needle.length) {
-        const idx = haystack.indexOf(needle, i);
-        if (idx === -1) break;
-        out.push(idx);
-        i = idx + needle.length;
-      }
-      return out;
-    }
-
-    items.forEach((a) => {
-      const labelSpan = a.querySelector("span");
-      if (!labelSpan) return;
-      const original = labelSpan.textContent || "";
-      clearHighlights(labelSpan);
-      if (!original) return;
-      const normalized = normalizeNoAccents(original);
-      const idxs = indicesOf(normalized, needle);
-      if (!idxs.length) return;
-      // reconstruir con <mark> sin alterar los caracteres originales con tilde
-      let result = "";
-      let last = 0;
-      idxs.forEach((startIdx) => {
-        const endIdx = startIdx + needle.length;
-        result += original.slice(last, startIdx);
-        result += `<mark class="__hl">${original.slice(startIdx, endIdx)}</mark>`;
-        last = endIdx;
-      });
-      result += original.slice(last);
-      labelSpan.innerHTML = result;
-    });
-  }
-
-  // Filtro general
-  function updateLiveStatus(count) {
-    if (!liveStatus) return;
-    // Mensaje breve y claro, acorde a accesibilidad
-    const pane = $(".tab-pane.active", tabsContainer);
-    const paneLabel = pane?.getAttribute("id") || "";
-    const map = {
-      leyes: "Leyes / Ordenanzas / Acuerdos",
-      decretos: "Decretos",
-      circulares: "Circulares y Otros",
-      resoluciones: "Resoluciones",
-      edictos: "Edictos y Avisos",
-    };
-    const nombre = map[paneLabel] || "Resultados";
-    const termShown = (input.value || "").trim();
-    const suffix = termShown ? ` para "${termShown}"` : "";
-    liveStatus.textContent = `${count} resultado${count === 1 ? '' : 's'} en ${nombre}${suffix}`;
-  }
-
-  function applyFilters() {
-    const termRaw = (input.value || "").trim();
-    const term = normalizeNoAccents(termRaw);
-
-    const panes = $$(".tab-pane", tabsContainer);
-    if (!panes.length) return;
-
-    let totalVisible = 0;
-    const countsByPane = new Map();
-
-    // Filtrar y resaltar en todas las pestañas
-    panes.forEach((pane) => {
-      const items = $$(".list-group-item", pane);
-      items.forEach((a) => clearHighlights(a));
-      let count = 0;
-      items.forEach((a) => {
-        const text = normalizeNoAccents(a.textContent || "");
-        const href = normalizeNoAccents(a.getAttribute("href") || "");
-        const matchTerm = !term || text.includes(term) || href.includes(term);
-        const visible = matchTerm;
-        a.classList.toggle("d-none", !visible);
-        if (visible) count++;
-      });
-      // Resaltar en esta pestaña con el término original
-      highlightMatches(pane, termRaw);
-      countsByPane.set(pane.id, count);
-      totalVisible += count;
-    });
-
-    // Si la pestaña activa no tiene resultados pero otra sí, cambiar a la primera con resultados
-    const activePane = $(".tab-pane.active", tabsContainer);
-    const activeCount = activePane ? (countsByPane.get(activePane.id) || 0) : 0;
-    if (termRaw.length > 0 && activeCount === 0 && totalVisible > 0) {
-      const targetPane = panes.find((p) => (countsByPane.get(p.id) || 0) > 0);
-      if (targetPane) {
-        const tabBtn = document.querySelector(`[data-bs-target="#${targetPane.id}"]`);
-        if (tabBtn) tabBtn.click();
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    const texts = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      const value = node.nodeValue;
+      if (value && norm(value).includes(norm(term))) {
+        texts.push(node);
       }
     }
+    const re = new RegExp(escapeRegExp(term), 'gi');
+    texts.forEach((textNode) => {
+      const span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  };
 
-    // Actualizar aria-live con el total
+  // --- Filtering Logic ---
+  const allItems = Array.from(contentRoot.querySelectorAll('.list-group-item'));
+
+  const resetFilters = () => {
+    allItems.forEach(show);
+    hide(noResultsMsg);
+    if (liveStatus) liveStatus.textContent = '';
+    clearHighlights(contentRoot);
+    // Al limpiar, volver a la primera pestaña para una experiencia consistente
+    const firstTabTrigger = document.querySelector('#normatividadTabs .nav-link');
+    if (firstTabTrigger) {
+      const tab = bootstrap.Tab.getInstance(firstTabTrigger) || new bootstrap.Tab(firstTabTrigger);
+      tab.show();
+    }
+  };
+
+  const filterContent = (termRaw) => {
+    const term = norm(termRaw.trim());
+
+    if (!term) {
+      resetFilters();
+      return 0;
+    }
+
+    clearHighlights(contentRoot);
+    hide(noResultsMsg);
+
+    const matches = allItems.filter(item => norm(item.textContent).includes(term));
+
+    // Ocultar TODOS los items primero. Esto limpia el estado anterior.
+    allItems.forEach(hide);
+
     if (liveStatus) {
-      const termShown = termRaw;
-      const suffix = termShown ? ` para "${termShown}"` : "";
-      liveStatus.textContent = `${totalVisible} resultado${totalVisible === 1 ? '' : 's'}${suffix}`;
+      liveStatus.textContent = matches.length === 0
+        ? 'No se encontraron resultados.'
+        : `${matches.length} resultado${matches.length === 1 ? '' : 's'} encontrados.`;
     }
 
-    // Mostrar/ocultar mensaje de "Sin resultados"
-    if (noResults) {
-      const show = termRaw.length > 0 && totalVisible === 0;
-      noResults.classList.toggle("d-none", !show);
-      if (show) {
-        noResults.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i> Sin resultados para "${termRaw}".`;
+    if (matches.length === 0) {
+      show(noResultsMsg);
+      return 0;
+    }
+
+    // Esta función se encarga de mostrar y resaltar solo los resultados.
+    const displayMatches = () => {
+      matches.forEach(item => {
+        show(item);
+        highlightInElement(item, termRaw);
+      });
+    };
+
+    const firstMatchEl = matches[0];
+    const targetTabPane = firstMatchEl.closest('.tab-pane');
+    
+    // Si la pestaña del resultado ya está activa, mostramos los resultados directamente.
+    if (targetTabPane.classList.contains('active')) {
+      displayMatches();
+    } else {
+      // Si no, esperamos a que la pestaña se muestre y LUEGO mostramos los resultados.
+      const tabTrigger = document.querySelector(`.nav-tabs .nav-link[data-bs-target="#${targetTabPane.id}"]`);
+      if (tabTrigger) {
+        tabTrigger.addEventListener('shown.bs.tab', displayMatches, { once: true });
+        const tab = bootstrap.Tab.getInstance(tabTrigger) || new bootstrap.Tab(tabTrigger);
+        tab.show();
       }
     }
+
+    return matches.length;
+  };
+
+  // --- Event Listeners ---
+  if (clearBtn) {
+    input.addEventListener('input', () => clearBtn.classList.toggle('d-none', !input.value));
   }
 
-  // Eliminado: repopulateYears (ya no se usa filtro por año)
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    filterContent(input.value);
+  });
 
-  // Debounce para búsqueda
-  function debounce(fn, wait) {
-    let t;
-    return function (...args) {
-      clearTimeout(t);
-      t = setTimeout(() => fn.apply(this, args), wait);
-    };
-  }
-
-  const debouncedApply = debounce(applyFilters, 120);
-
-  // Eventos
-  input.addEventListener("input", debouncedApply);
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      applyFilters();
+  input.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') {
+      input.value = '';
+      resetFilters();
+      if (clearBtn) hide(clearBtn);
     }
   });
-  // También si se hace clic al botón al lado del input (si existiera)
-  const btnBuscar = input.closest(".input-group")?.querySelector("button.btn");
-  if (btnBuscar) {
-    btnBuscar.addEventListener("click", (e) => {
-      e.preventDefault();
-      applyFilters();
-    });
-  }
 
-  // Manejar Enter (submit del formulario)
-  const form = input.closest("form");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      applyFilters();
-    });
-  }
-
-  // Botón Limpiar: borra texto y aplica filtros
-  const btnClear = document.getElementById("btnLimpiarNorma");
-  if (btnClear) {
-    btnClear.addEventListener("click", (e) => {
-      e.preventDefault();
-      input.value = "";
-      applyFilters();
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      resetFilters();
+      hide(clearBtn);
       input.focus();
     });
   }
-
-  // Reaccionar al cambio de pestaña (Bootstrap 5)
-  $$("button[data-bs-toggle='tab']").forEach((btn) => {
-    btn.addEventListener("shown.bs.tab", () => {
-      applyFilters();
-    });
-  });
-
-  // Inicialización
-  document.addEventListener("DOMContentLoaded", () => {
-    // Reemplazar tamaño por tipo de archivo en badges
-    function updateBadgesToFileType() {
-      const labelByExt = {
-        pdf: "PDF",
-        doc: "DOC",
-        docx: "DOCX",
-        xls: "XLS",
-        xlsx: "XLSX",
-        ppt: "PPT",
-        pptx: "PPTX",
-        odt: "ODT",
-        ods: "ODS",
-        zip: "ZIP",
-        rar: "RAR",
-        txt: "TXT",
-      };
-      const iconByExt = {
-        pdf: "bi-filetype-pdf",
-        doc: "bi-filetype-doc",
-        docx: "bi-filetype-docx",
-        xls: "bi-filetype-xls",
-        xlsx: "bi-filetype-xlsx",
-        ppt: "bi-filetype-ppt",
-        pptx: "bi-filetype-pptx",
-        odt: "bi-file-earmark",
-        ods: "bi-file-earmark",
-        zip: "bi-filetype-zip",
-        rar: "bi-file-earmark-zip",
-        txt: "bi-filetype-txt",
-      };
-
-      $$(".tab-pane .list-group-item").forEach((a) => {
-        const href = (a.getAttribute("href") || "").toLowerCase();
-        const ext = href.split("?")[0].split("#")[0].split(".").pop();
-        const type = labelByExt[ext] || (ext ? ext.toUpperCase() : "ARCH");
-        const icon = iconByExt[ext] || "bi-file-earmark";
-        const badge = a.querySelector(".badge");
-        if (badge) {
-          // Tooltip nativo y accesibilidad
-          badge.setAttribute("title", type);
-          badge.setAttribute("aria-label", type);
-          // Ícono visible
-          badge.innerHTML = `<i class="bi ${icon}" aria-hidden="true"></i><span class="visually-hidden"> ${type}</span>`;
-          // Clases de color por tipo
-          badge.classList.remove("text-bg-light", "text-bg-secondary");
-          // Eliminar cualquier clase previa badge-file-*
-          Array.from(badge.classList).forEach((cn) => {
-            if (cn.indexOf("badge-file-") === 0) badge.classList.remove(cn);
-          });
-          const typeClass = `badge-file-${ext || 'other'}`;
-          badge.classList.add(typeClass);
-        }
-      });
-    }
-
-    updateBadgesToFileType();
-    applyFilters();
-  });
 })();

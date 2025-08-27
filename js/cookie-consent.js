@@ -1,33 +1,66 @@
-/**
- * cookie-consent.js
- * Maneja la lógica para el banner de consentimiento de cookies.
- */
+// js/cookie-consent.js
+
 document.addEventListener('DOMContentLoaded', () => {
-    const COOKIE_CONSENT_KEY = 'hospital_cookie_consent_accepted';
     const banner = document.getElementById('cookie-consent-banner');
     const acceptButton = document.getElementById('cookie-consent-button');
+    const body = document.body;
+    const COOKIE_NAME = 'hospital_cookie_consent';
+    const COOKIE_EXPIRATION_DAYS = 365;
 
-    // Si los elementos no existen, no hacer nada.
     if (!banner || !acceptButton) {
+        // No hay banner en esta página, no hacer nada.
         return;
     }
 
-    // Verificar si el usuario ya ha aceptado las cookies.
-    const hasConsented = localStorage.getItem(COOKIE_CONSENT_KEY);
+    /**
+     * Comprueba si la cookie de consentimiento ya existe.
+     * @returns {boolean} - True si la cookie existe, false en caso contrario.
+     */
+    const hasCookieConsent = () => {
+        return document.cookie.split(';').some((item) => item.trim().startsWith(`${COOKIE_NAME}=`));
+    };
 
-    if (!hasConsented) {
-        // Mostrar el banner si no hay consentimiento previo.
-        // Usar un pequeño timeout para asegurar que la transición CSS se aplique correctamente.
-        setTimeout(() => {
+    /**
+     * Muestra el banner de cookies y ajusta el layout.
+     */
+    const showBanner = () => {
+        if (banner) {
+            body.classList.add('cookie-banner-visible');
             banner.classList.add('show');
-        }, 500);
+        }
+    };
+
+    /**
+     * Oculta el banner de cookies y revierte los ajustes de layout.
+     */
+    const hideBanner = () => {
+        if (banner) {
+            banner.classList.remove('show');
+            // Esperar a que la animación de salida termine para quitar la clase del body
+            setTimeout(() => {
+                body.classList.remove('cookie-banner-visible');
+            }, 500); // Debe coincidir con la duración de la transición CSS
+        }
+    };
+
+    /**
+     * Establece la cookie de consentimiento.
+     */
+    const setCookieConsent = () => {
+        const date = new Date();
+        date.setTime(date.getTime() + (COOKIE_EXPIRATION_DAYS * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = `${COOKIE_NAME}=true;${expires};path=/;SameSite=Lax;Secure`;
+    };
+
+    // Lógica principal
+    if (!hasCookieConsent()) {
+        // Retrasar la aparición del banner ligeramente para no ser tan intrusivo
+        setTimeout(showBanner, 1500);
     }
 
-    // Manejar el clic en el botón de aceptar.
     acceptButton.addEventListener('click', () => {
-        // Guardar el consentimiento en localStorage.
-        localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
-        // Ocultar el banner con la transición.
-        banner.classList.remove('show');
+        setCookieConsent();
+        hideBanner();
     });
 });
