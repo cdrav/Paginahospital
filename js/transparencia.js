@@ -280,9 +280,12 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
         setTimeout(reapplySingleView, 0);
       }
     });
+    // Escuchar el evento personalizado disparado al presionar 'Esc' en la búsqueda
+    searchInput.addEventListener('search:cleared', () => {
+      // Dar tiempo a que el buscador restaure visibilidad antes de aplicar la vista única
+      setTimeout(reapplySingleView, 0);
+    });
   }
-  const clearBtn = document.getElementById('search-clear-btn');
-  if (clearBtn) clearBtn.addEventListener('click', () => setTimeout(reapplySingleView, 0));
 
   // Toggle Ver todo / Ver solo esta sección
   const toggleBtn = document.getElementById('view-mode-toggle');
@@ -422,6 +425,47 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   if (!input || !contentRoot) return;
   const clearBtn = document.getElementById('search-clear-btn');
 
+  /**
+   * Restaura completamente la página a su estado inicial antes de la búsqueda.
+   * Limpia el campo de búsqueda, el hash de la URL, los filtros y restaura la vista única.
+   */
+  function clearSearchAndResetView() {
+    input.value = '';
+
+    // Limpiar el hash de la URL para asegurar que la página vuelva a la vista por defecto (sección 1).
+    if (history.replaceState) {
+        const urlWithoutHash = window.location.pathname + window.location.search;
+        history.replaceState(null, '', urlWithoutHash);
+    }
+
+    resetFilters();
+    if (clearBtn) clearBtn.classList.add('d-none');
+    
+    // Disparar el evento para que el módulo de "vista única" restaure su estado.
+    input.dispatchEvent(new CustomEvent('search:cleared', { bubbles: true }));
+  }
+  // Helpers for accordion state
+  const expandAccordionItem = (item) => {
+    if (!item) return;
+    const button = item.querySelector('.accordion-button');
+    const collapse = item.querySelector('.accordion-collapse');
+    if (button) {
+      button.classList.remove('collapsed');
+      button.setAttribute('aria-expanded', 'true');
+    }
+    if (collapse) collapse.classList.add('show');
+  };
+
+  const collapseAccordionItem = (item) => {
+    if (!item) return;
+    const button = item.querySelector('.accordion-button');
+    const collapse = item.querySelector('.accordion-collapse');
+    if (button) {
+      button.classList.add('collapsed');
+      button.setAttribute('aria-expanded', 'false');
+    }
+    if (collapse) collapse.classList.remove('show');
+  };
   // Mostrar/ocultar el botón de limpiar según el contenido del input
   if (clearBtn) {
     input.addEventListener('input', () => {
@@ -492,6 +536,19 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     // Secciones 2-9
     anchorSections.forEach((section) => {
       section.querySelectorAll('.list-group-item').forEach(show);
+      section.querySelectorAll('.accordion-item').forEach(show);
+
+      // Reset accordion states to default (first item open)
+      const accordions = section.querySelectorAll('.accordion');
+      accordions.forEach(acc => {
+        const items = Array.from(acc.querySelectorAll('.accordion-item'));
+        items.forEach((item, index) => {
+          // The default state in the HTML is the first item open.
+          if (index === 0) expandAccordionItem(item);
+          else collapseAccordionItem(item);
+        });
+      });
+
       show(section);
     });
     if (liveStatus) liveStatus.textContent = '';
@@ -545,19 +602,54 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
         totalMatches++;
         highlightInElement(heading, termRaw);
       }
+
       if (items.length > 0) {
         items.forEach((li) => {
-          // considerar href de enlaces internos
-          const hrefs = Array.from(li.querySelectorAll('a')).map((a) => (a.getAttribute('href') || '').toLowerCase());
-          const text = norm(li.textContent);
-          const match = text.includes(term) || hrefs.some((h) => h.includes(term));
-          if (match) {
+          const innerAccordion = li.querySelector('.accordion');
+          let liIsVisible = false;
+
+          if (innerAccordion) {
+            const accordionItems = Array.from(innerAccordion.querySelectorAll('.accordion-item'));
+            let hasVisibleChild = false;
+            accordionItems.forEach(accItem => {
+              if (norm(accItem.textContent).includes(term)) {
+                show(accItem);
+                highlightInElement(accItem, termRaw);
+                expandAccordionItem(accItem); // EXPAND on match
+                hasVisibleChild = true;
+              } else {
+                hide(accItem);
+                collapseAccordionItem(accItem); // COLLAPSE and hide
+              }
+            });
+
+            if (hasVisibleChild) {
+              liIsVisible = true;
+            }
+
+            // If the LI title itself matches, show it and all its children
+            const liTitle = li.querySelector('strong');
+            if (liTitle && norm(liTitle.textContent).includes(term)) {
+              liIsVisible = true;
+              highlightInElement(liTitle, termRaw);
+              accordionItems.forEach(acc => {
+                show(acc);
+                highlightInElement(acc, termRaw);
+                expandAccordionItem(acc); // EXPAND all children
+              });
+            }
+          } else {
+            // Simple list item, no accordion
+            if (norm(li.textContent).includes(term)) {
+              liIsVisible = true;
+              highlightInElement(li, termRaw);
+            }
+          }
+
+          if (liIsVisible) {
             show(li);
             visibleInSection++;
             totalMatches++;
-            // Resaltar en títulos/descr de cada item
-            highlightInElement(li.querySelector('strong'), termRaw);
-            highlightInElement(li.querySelector('.text-muted'), termRaw);
           } else {
             hide(li);
           }
@@ -626,140 +718,17 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
         firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else if (ev.key === 'Escape') {
-      input.value = '';
-      resetFilters();
-      if (clearBtn) clearBtn.classList.add('d-none');
+      ev.preventDefault(); // Prevenir que el navegador cancele otras cosas.
+      clearSearchAndResetView();
+      input.focus();
     }
   });
 
   // Botón limpiar
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      input.value = '';
-      resetFilters();
+      clearSearchAndResetView();
       input.focus();
-      clearBtn.classList.add('d-none');
     });
   }
-})();
-
-// Filtro dinámico para Estados Financieros (sección 4.2)
-(function() {
-  const finContainer = document.getElementById('acci-financieros-anual');
-  if (!finContainer) return;
-
-  const searchInput = document.getElementById('fin-search');
-  const catChips = document.querySelectorAll('.fin-controls .chip[data-cat]');
-  const yearChipsContainer = document.getElementById('fin-year-chips');
-
-  const allLinks = Array.from(finContainer.querySelectorAll('a.btn'));
-  const allItems = Array.from(finContainer.querySelectorAll('.accordion-item'));
-
-  // Extraer categorías y años para los filtros
-  const years = [...new Set(allItems.map(item => item.querySelector('button')?.textContent.match(/\d{4}/)?.[0]).filter(Boolean))].sort((a, b) => b - a);
-
-  // Generar chips de años
-  if (yearChipsContainer) {
-    years.forEach(year => {
-      const chip = document.createElement('button');
-      chip.className = 'chip';
-      chip.type = 'button';
-      chip.dataset.year = year;
-      chip.textContent = year;
-      yearChipsContainer.appendChild(chip);
-    });
-  }
-  const yearChips = yearChipsContainer ? Array.from(yearChipsContainer.querySelectorAll('.chip[data-year]')) : [];
-
-  // Función de normalización de texto
-  const normalize = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-  const filterFinancials = () => {
-    const searchTerm = normalize(searchInput.value);
-    const activeCat = document.querySelector('.fin-controls .chip[data-cat].active')?.dataset.cat || 'all';
-    const activeYear = document.querySelector('.fin-controls .chip[data-year].active')?.dataset.year || 'all';
-
-    allItems.forEach(item => {
-      const yearOfItem = item.querySelector('button')?.textContent.match(/\d{4}/)?.[0];
-      let yearHasVisibleLinks = false;
-
-      const linksInYear = Array.from(item.querySelectorAll('a.btn'));
-      linksInYear.forEach(link => {
-        const linkText = normalize(link.textContent);
-        const parentCategoryDiv = link.closest('.accordion-body')?.querySelector('.fw-semibold');
-        const categoryText = normalize(parentCategoryDiv?.textContent || '');
-
-        // Mapeo de categorías de texto a data-cat
-        let linkCat = 'other';
-        if (categoryText.includes('balance')) linkCat = 'balances';
-        else if (categoryText.includes('estado')) linkCat = 'estados';
-        else if (categoryText.includes('resultado')) linkCat = 'resultados';
-        else if (categoryText.includes('comparativo')) linkCat = 'comparativos';
-        else if (categoryText.includes('reciproca')) linkCat = 'reciprocas';
-
-        const termMatch = !searchTerm || linkText.includes(searchTerm);
-        const catMatch = activeCat === 'all' || linkCat === activeCat;
-        const yearMatch = activeYear === 'all' || yearOfItem === activeYear;
-
-        if (termMatch && catMatch && yearMatch) {
-          link.style.display = '';
-          yearHasVisibleLinks = true;
-        } else {
-          link.style.display = 'none';
-        }
-      });
-
-      // Ocultar el año completo si no tiene enlaces visibles
-      if (yearHasVisibleLinks) {
-        item.style.display = '';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  };
-
-  // Event listeners
-  searchInput.addEventListener('input', filterFinancials);
-
-  catChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      catChips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      filterFinancials();
-    });
-  });
-
-  yearChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const wasActive = chip.classList.contains('active');
-      yearChips.forEach(c => c.classList.remove('active'));
-      if (!wasActive) {
-        chip.classList.add('active');
-      }
-      filterFinancials();
-    });
-  });
-
-})();
-
-// Filtro para Presupuesto (sección 4.1)
-(function() {
-  const container = document.querySelector('#seccion-4');
-  if (!container) return;
-
-  const select = container.querySelector('#presupuesto-year-filter');
-  const accordion = container.querySelector('#presupuestoAccordion');
-  if (!select || !accordion) return;
-
-  const items = Array.from(accordion.querySelectorAll('.accordion-item'));
-
-  select.addEventListener('change', () => {
-    const selectedYear = select.value;
-    
-    items.forEach(item => {
-      const itemYear = item.dataset.year;
-      // Muestra el item si el año coincide o si se selecciona "Mostrar Todos"
-      item.style.display = (selectedYear === 'all' || itemYear === selectedYear) ? '' : 'none';
-    });
-  });
 })();
