@@ -43,7 +43,7 @@
       <!-- Mensaje de éxito/error del envío -->
       <div id="form-message" class="alert d-none" role="alert"></div>
       
-      <form name="pqrs-form" method="POST" action="pqrs/success.html" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" class="needs-validation" novalidate>
+      <form name="pqrs-form" method="POST" action="pqrs/success.html" enctype="multipart/form-data" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" class="needs-validation" novalidate>
         <!-- Campos requeridos por Netlify -->
         <input type="hidden" name="form-name" value="pqrs-form">
         <input type="hidden" name="_subject" value="Nueva PQRS desde el sitio web">
@@ -191,6 +191,10 @@
             <label for="archivos" class="form-label">Documentos de soporte (opcional)</label>
             <input type="file" class="form-control" id="archivos" name="archivos" multiple>
             <div class="form-text">Puede adjuntar hasta 5 archivos (PDF, JPG, PNG) con un tamaño máximo de 5MB cada uno.</div>
+          </div>
+
+          <div class="mb-4">
+            <div data-netlify-recaptcha="true"></div>
           </div>
 
           <div class="form-check mb-4">
