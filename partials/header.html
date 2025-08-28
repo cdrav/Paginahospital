@@ -32,6 +32,11 @@
         return;
       }
       
+      // WORKAROUND: Prevenir la violación de 'document.write()' causada por el widget de Google Translate.
+      // Se intercepta la llamada, se ignora y se restaura la función original.
+      const originalWrite = document.write;
+      document.write = function() { /* No hacer nada */ };
+
       // Inicializar el widget
       new google.translate.TranslateElement({
         pageLanguage: 'es',
@@ -39,8 +44,11 @@
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
       }, 'google_translate_element');
-      
-      console.log('Google Translate inicializado correctamente');
+
+      // Restaurar la función original después de un breve instante.
+      setTimeout(() => {
+        document.write = originalWrite;
+      }, 500);
     };
     
     // Añadir al documento

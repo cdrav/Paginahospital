@@ -237,8 +237,11 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (!hash) return;
     e.preventDefault();
     showOnlyBySelector(hash);
-    const target = document.querySelector(hash);
-    if (target) scrollToWithOffset(target);
+    // Defer scroll to next frame to avoid forced reflow
+    requestAnimationFrame(() => {
+      const target = document.querySelector(hash);
+      if (target) scrollToWithOffset(target);
+    });
     // Actualizar URL sin recargar
     history.replaceState(null, '', hash);
   }, true);
@@ -253,7 +256,10 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (!target) return;
     e.preventDefault();
     showOnlyBySelector(hash);
-    scrollToWithOffset(target);
+    // Defer scroll to next frame
+    requestAnimationFrame(() => {
+      scrollToWithOffset(target);
+    });
     history.replaceState(null, '', hash);
   });
 
@@ -527,6 +533,11 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   const show = (el) => el.classList.remove('d-none');
   const hide = (el) => el.classList.add('d-none');
 
+  const getViewModeState = () => {
+    const toggleBtn = document.getElementById('view-mode-toggle');
+    // El botón dice "Ver todo" cuando estamos en modo de vista única.
+    return toggleBtn ? toggleBtn.textContent.includes('Ver todo') : true;
+  };
   const resetFilters = () => {
     // Tarjetas 1.x
     if (secInfoEntidad) {
@@ -534,6 +545,8 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       show(secInfoEntidad);
     }
     // Secciones 2-9
+    const isInSingleView = getViewModeState();
+
     anchorSections.forEach((section) => {
       section.querySelectorAll('.list-group-item').forEach(show);
       section.querySelectorAll('.accordion-item').forEach(show);
@@ -549,7 +562,11 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
         });
       });
 
-      show(section);
+      // Para evitar el parpadeo, solo mostramos la sección si NO estamos en modo de vista única.
+      // Si estamos en vista única, el gestor de vistas se encargará de mostrar la sección correcta.
+      if (!isInSingleView) {
+        show(section);
+      }
     });
     if (liveStatus) liveStatus.textContent = '';
     clearHighlights(contentRoot);
@@ -698,13 +715,17 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const q = (input.value || '').trim();
-    const count = filterPage(q);
-    const firstVisible = contentRoot.querySelector('.card:not(.d-none), .list-group-item:not(.d-none)');
-    if (count > 0 && firstVisible) {
-      firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (liveStatus && q) {
-      liveStatus.textContent = 'No hay coincidencias en esta página.';
-    }
+    const count = filterPage(q); // WRITE
+
+    // Defer read/scroll to avoid forced reflow
+    requestAnimationFrame(() => {
+      const firstVisible = contentRoot.querySelector('.card:not(.d-none), .list-group-item:not(.d-none)'); // READ
+      if (count > 0 && firstVisible) {
+        firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' }); // WRITE
+      } else if (liveStatus && q) {
+        liveStatus.textContent = 'No hay coincidencias en esta página.';
+      }
+    });
   }, true);
 
   // Teclas: Enter evita submit (ya controlado arriba), Escape limpia
@@ -712,11 +733,14 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (ev.key === 'Enter') {
       ev.preventDefault();
       const q = (input.value || '').trim();
-      const count = filterPage(q);
-      const firstVisible = contentRoot.querySelector('.card:not(.d-none), .list-group-item:not(.d-none)');
-      if (count > 0 && firstVisible) {
-        firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      const count = filterPage(q); // WRITE
+      // Defer read/scroll
+      requestAnimationFrame(() => {
+        const firstVisible = contentRoot.querySelector('.card:not(.d-none), .list-group-item:not(.d-none)'); // READ
+        if (count > 0 && firstVisible) {
+          firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' }); // WRITE
+        }
+      });
     } else if (ev.key === 'Escape') {
       ev.preventDefault(); // Prevenir que el navegador cancele otras cosas.
       clearSearchAndResetView();
