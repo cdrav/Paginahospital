@@ -1084,14 +1084,67 @@
               </div>
               
             </li>
-            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div>
-                <strong>3.3 SECOP II - Sistema Electrónico de Contratación Pública</strong>
-                <div class="text-muted small">Plataforma transaccional para la gestión de contratación pública.</div>
+            <li class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>3.3 Publicación de la Ejecución de los Contratos</strong>
+                  <div class="text-muted small">Informe consolidado de la ejecución de contratos por año.</div>
+                </div>
+                <a href="https://community.secop.gov.co/STS/Users/Login/Index?SkinName=CCE" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                  Ir a SECOP II
+                </a>
               </div>
-              <a href="https://community.secop.gov.co/STS/Users/Login/Index?SkinName=CCE" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
-                Ir a SECOP II
-              </a>
+              
+              <!-- Acordeón para los informes de ejecución -->
+              <div class="accordion mt-3" id="ejecucionContratosAccordion">
+                <!-- 2025 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ejecucion-2025" aria-expanded="true" aria-controls="ejecucion-2025">
+                      Ejecución de Contratos 2025
+                    </button>
+                  </h2>
+                  <div id="ejecucion-2025" class="accordion-collapse collapse show" data-bs-parent="#ejecucionContratosAccordion">
+                    <div class="accordion-body">
+                      <a href="documentos/publicación-de-la-ejecución-de-los-contratos/consolidado-2025.xlsx" class="btn btn-outline-primary btn-sm" download>
+                        <i class="bi bi-file-earmark-excel me-1"></i> Descargar consolidado 2025 (XLSX)
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 2024 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ejecucion-2024" aria-expanded="false" aria-controls="ejecucion-2024">
+                      Ejecución de Contratos 2024
+                    </button>
+                  </h2>
+                  <div id="ejecucion-2024" class="accordion-collapse collapse" data-bs-parent="#ejecucionContratosAccordion">
+                    <div class="accordion-body">
+                      <a href="documentos/publicación-de-la-ejecución-de-los-contratos/consolidado-2024.xlsx" class="btn btn-outline-primary btn-sm" download>
+                        <i class="bi bi-file-earmark-excel me-1"></i> Descargar consolidado 2024 (XLSX)
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 2023 -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ejecucion-2023" aria-expanded="false" aria-controls="ejecucion-2023">
+                      Ejecución de Contratos 2023
+                    </button>
+                  </h2>
+                  <div id="ejecucion-2023" class="accordion-collapse collapse" data-bs-parent="#ejecucionContratosAccordion">
+                    <div class="accordion-body">
+                      <a href="documentos/publicación-de-la-ejecución-de-los-contratos/consolidado-2023.xlsx" class="btn btn-outline-primary btn-sm" download>
+                        <i class="bi bi-file-earmark-excel me-1"></i> Descargar consolidado 2023 (XLSX)
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
               <div>
