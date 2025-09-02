@@ -1532,3 +1532,42 @@ p, a, td, th, li {
     padding: 0.5rem 1rem; /* Aún más pequeño para móviles */
   }
 }
+
+/* =====================================================
+   Mapa del Sitio - Mejoras de Layout y Estilo
+   ===================================================== */
+.sitemap-list {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.sitemap-list li {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sitemap-list li:last-child {
+  border-bottom: none;
+}
+
+.sitemap-list a {
+  display: block;
+  padding: 0.85rem 1.25rem;
+  color: #343a40;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, padding-left 0.2s ease;
+  position: relative;
+}
+
+.sitemap-list a::before {
+  content: '\F285'; /* Bootstrap Icon: bi-arrow-right-circle */
+  font-family: 'bootstrap-icons';
+  margin-right: 0.75rem;
+  color: var(--color-secundario);
+}
+
+.sitemap-list a:hover {
+  background-color: #f8f9fa;
+  color: var(--color-primario);
+  padding-left: 1.5rem;
+}
