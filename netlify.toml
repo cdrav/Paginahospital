@@ -18,6 +18,13 @@
   to = "/pqrs/success.html"
   status = 200
 
+# Rule to ensure Netlify Functions are accessible and not overridden by other redirects.
+# This rule "shadows" the functions path, telling Netlify to let requests pass through.
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
 # Configuración de seguridad general (actualizada)
 [[headers]]
   for = "/*"
