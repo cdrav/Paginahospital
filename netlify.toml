@@ -1,9 +1,9 @@
 [build]
   publish = "."
-  # CORRECCIÓN CRÍTICA: Se añade 'npm install' para que Netlify instale
-  # las dependencias (como @google-analytics/data) antes de construir.
-  # Sin esto, la función falla al no encontrar las librerías.
-  command = "npm install && npm run build:search"
+  # COMANDO DE BUILD SIMPLIFICADO PARA DEPURACIÓN:
+  # Nos enfocamos únicamente en instalar las dependencias para que la función
+  # se despliegue correctamente. El script de búsqueda se puede reactivar después.
+  command = "npm install"
 
 [build.environment]
   NODE_VERSION = "20"
