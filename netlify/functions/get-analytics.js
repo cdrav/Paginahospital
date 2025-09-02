@@ -37,12 +37,24 @@ const formatTopPages = (response) => {
     const visits = parseInt(row.metricValues[0].value, 10);
     const normalizedPath = normalizePath(path);
 
+    // Si la página ya existe en el mapa, suma las visitas.
     if (pageData.has(normalizedPath)) {
-      pageData.get(normalizedPath).visits += visits;
+      const existing = pageData.get(normalizedPath);
+      existing.visits += visits;
+      // Si el título existente era solo la ruta (ej. '/contacto') y el nuevo
+      // título es más descriptivo (ej. 'Página de Contacto'), lo actualizamos.
+      if (existing.title === existing.path && title !== path) {
+        existing.title = title;
+      }
     } else {
       pageData.set(normalizedPath, { path: normalizedPath, title, visits });
     }
   });
+
+  // Asegurarse de que la página de inicio tenga un nombre amigable.
+  if (pageData.has('/') && (pageData.get('/').title === '/' || pageData.get('/').title === '')) {
+    pageData.get('/').title = 'Página de Inicio';
+  }
 
   // Convierte el mapa a un array, ordena por visitas y toma el top 5
   return Array.from(pageData.values()).sort((a, b) => b.visits - a.visits).slice(0, 5);
@@ -215,12 +227,12 @@ const handler = async (event, context) => {
     const browsers = formatDimensionData(browsersResponse);
     const totalVisits = formatSingleMetric(lifetimeVisitorsResponse); // Renombrado para coincidir con el ID del frontend
     const monthlyVisits = formatSingleMetric(monthlyVisitsResponse);
-    const sixMonthTrend = formatMonthlyVisits(sixMonthTrendResponse);
+    const monthlyTrend = formatMonthlyVisits(sixMonthTrendResponse); // Renombrado para coincidir con el frontend
 
     const responsePayload = {
       totalVisits,
       monthlyVisits,
-      sixMonthTrend,
+      monthlyTrend,
       topPages,
       dailyVisits,
       devices,
