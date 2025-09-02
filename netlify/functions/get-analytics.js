@@ -38,6 +38,19 @@ const formatDailyVisits = (response) => {
   });
 };
 
+// Formatea la respuesta de dispositivos o navegadores en un objeto {clave: valor}.
+const formatDimensionData = (response) => {
+  if (!response || !response[0] || !response[0].rows) return {};
+  const data = {};
+  response[0].rows.forEach(row => {
+    // Usar 'Desconocido' si el valor de la dimensión está vacío o es '(not set)'
+    const dimensionValue = row.dimensionValues[0].value || '(not set)';
+    const metricValue = parseInt(row.metricValues[0].value, 10);
+    data[dimensionValue] = (data[dimensionValue] || 0) + metricValue;
+  });
+  return data;
+};
+
 // --- Manejador de la Función ---
 
 const handler = async (event, context) => {
@@ -80,8 +93,8 @@ const handler = async (event, context) => {
     });
     const analyticsDataClient = new BetaAnalyticsDataClient({ auth });
 
-    // 3. Realizar consultas a la API en paralelo (optimizado a 2 llamadas)
-    const [topPagesResponse, dailyVisitsResponse] = await Promise.all([
+    // 3. Realizar consultas a la API en paralelo (ahora 4 llamadas)
+    const [topPagesResponse, dailyVisitsResponse, devicesResponse, browsersResponse] = await Promise.all([
       // Consulta para las páginas más visitadas
       analyticsDataClient.runReport({
         property: `properties/${propertyId}`,
@@ -98,12 +111,31 @@ const handler = async (event, context) => {
         dimensions: [{ name: 'date' }],
         metrics: [{ name: 'totalUsers' }],
         orderBys: [{ dimension: { dimensionName: 'date' } }]
+      }),
+      // Consulta para dispositivos
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'deviceCategory' }],
+        metrics: [{ name: 'totalUsers' }],
+        orderBys: [{ metric: { metricName: 'totalUsers' }, desc: true }]
+      }),
+      // Consulta para navegadores
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'browser' }],
+        metrics: [{ name: 'totalUsers' }],
+        orderBys: [{ metric: { metricName: 'totalUsers' }, desc: true }],
+        limit: 6 // Top 5 + 'otros'
       })
     ]);
 
     // 4. Formatear y procesar la respuesta
     const dailyVisits = formatDailyVisits(dailyVisitsResponse);
     const topPages = formatTopPages(topPagesResponse);
+    const devices = formatDimensionData(devicesResponse);
+    const browsers = formatDimensionData(browsersResponse);
 
     // Calcular el total de visitantes sumando las visitas diarias
     const totalVisitors = dailyVisits.reduce((sum, day) => sum + day.visits, 0);
@@ -112,6 +144,8 @@ const handler = async (event, context) => {
       totalVisitors,
       topPages,
       dailyVisits,
+      devices,
+      browsers,
       lastUpdate: new Date().toISOString()
     };
 

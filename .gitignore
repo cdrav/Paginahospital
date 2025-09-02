@@ -3,3 +3,6 @@ node_modules/
 # Ignorar el índice de búsqueda local, se generará en el build
 search-index.json
 
+
+# Local Netlify folder
+.netlify
