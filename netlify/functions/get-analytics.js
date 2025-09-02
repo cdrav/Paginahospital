@@ -35,7 +35,11 @@ const formatTopPages = (response) => {
 
   response[0].rows.forEach(row => {
     const path = row.dimensionValues[0].value;
-    const title = row.dimensionValues[1].value || path; // Usar ruta como fallback
+    // Asegurarse de que el título no sea '(not set)' o vacío.
+    let title = row.dimensionValues[1].value;
+    if (!title || title.toLowerCase() === '(not set)') {
+        title = path; // Usar la ruta como fallback si el título no es útil.
+    }
     const visits = parseInt(row.metricValues[0].value, 10);
     const normalizedPath = normalizePath(path);
 
@@ -43,7 +47,7 @@ const formatTopPages = (response) => {
     if (pageData.has(normalizedPath)) {
       const existing = pageData.get(normalizedPath);
       existing.visits += visits;
-      // Prefiere el título más largo y descriptivo, evitando que se quede con uno genérico.
+      // Prefiere el título más largo y descriptivo, evitando que se quede con uno genérico como la ruta.
       if (title.length > existing.title.length && title !== path) {
         existing.title = title;
       }
