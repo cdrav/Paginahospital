@@ -43,10 +43,13 @@ const formatTopPages = (response) => {
 
 const formatDailyVisits = (response) => {
   if (!response || !response[0] || !response[0].rows) return [];
-  return response[0].rows.map(row => ({
-    date: row.dimensionValues[0].value,
-    visits: parseInt(row.metricValues[0].value)
-  }));
+  return response[0].rows.map(row => {
+    const dateStr = row.dimensionValues[0].value;
+    return {
+      date: `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`, // Formato YYYYMMDD -> YYYY-MM-DD
+      visits: parseInt(row.metricValues[0].value)
+    };
+  });
 };
 
 // Manejador de la función
