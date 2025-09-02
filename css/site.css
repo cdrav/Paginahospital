@@ -1474,3 +1474,61 @@ p, a, td, th, li {
   transform: translateY(-4px);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
+
+/* =====================================================
+   Carrusel Principal - Botones de Acción
+   ===================================================== */
+
+/*
+  Contenedor del botón. Lo centramos horizontalmente y lo posicionamos
+  en la parte inferior para no interferir con el contenido principal de la imagen.
+*/
+#carouselHospital .carousel-caption {
+  position: absolute;
+  bottom: 10%; /* Un poco más abajo para mejor visibilidad */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Ancho relativo para adaptarse */
+  max-width: 500px; /* Ancho máximo para que no sea demasiado grande en pantallas anchas */
+  padding: 0; /* Quitamos padding para que el botón defina el espacio */
+  text-align: center; /* Centra el botón dentro del caption */
+  display: block !important; /* Asegura visibilidad en todos los tamaños */
+}
+
+/* Estilo del botón de acción del carrusel - más pequeño y refinado */
+.carousel-action-btn {
+  background-color: rgba(6, 150, 129, 0.9); /* Verde institucional con transparencia */
+  border: 1px solid rgba(255, 255, 255, 0.7); /* Borde más sutil */
+  color: #fff;
+  font-weight: 600; /* Un poco menos grueso */
+  padding: 0.6rem 1.25rem; /* Padding reducido para un botón más pequeño */
+  border-radius: 50px;
+  text-transform: none; /* Quitamos mayúsculas para un look más amigable */
+  letter-spacing: 0;
+  font-size: clamp(0.85rem, 1.2vw, 1rem); /* Tamaño de fuente ligeramente más pequeño */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block; /* Asegura que el botón no ocupe todo el ancho */
+  white-space: nowrap; /* Evita que el texto del botón se parta */
+}
+
+.carousel-action-btn:hover {
+  background-color: #047a67;
+  border-color: #fff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+/* Ajustes para pantallas muy pequeñas (móviles en vertical) */
+@media (max-width: 576px) {
+  #carouselHospital .carousel-caption {
+    bottom: 8%; /* Un poco más abajo en móviles */
+  }
+
+  .carousel-action-btn {
+    width: 80%; /* Ocupa un buen ancho pero deja márgenes */
+    padding: 0.5rem 1rem; /* Aún más pequeño para móviles */
+  }
+}
