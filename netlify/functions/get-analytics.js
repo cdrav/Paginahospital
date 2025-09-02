@@ -35,7 +35,11 @@ const formatTopPages = (response) => {
 
   response[0].rows.forEach(row => {
     const path = row.dimensionValues[0].value;
-    const title = row.dimensionValues[1].value || path; // Usar ruta como fallback
+    // Asegurarse de que el título no sea '(not set)' o vacío.
+    let title = row.dimensionValues[1].value;
+    if (!title || title.toLowerCase() === '(not set)') {
+        title = path; // Usar la ruta como fallback si el título no es útil.
+    }
     const visits = parseInt(row.metricValues[0].value, 10);
     const normalizedPath = normalizePath(path);
 
@@ -43,7 +47,7 @@ const formatTopPages = (response) => {
     if (pageData.has(normalizedPath)) {
       const existing = pageData.get(normalizedPath);
       existing.visits += visits;
-      // Prefiere el título más largo y descriptivo, evitando que se quede con uno genérico.
+      // Prefiere el título más largo y descriptivo, evitando que se quede con uno genérico como la ruta.
       if (title.length > existing.title.length && title !== path) {
         existing.title = title;
       }
@@ -52,15 +56,13 @@ const formatTopPages = (response) => {
     }
   });
 
+  // Asegurarse de que la página de inicio tenga un nombre amigable, sin importar el título que traiga.
+  if (pageData.has('/')) {
+    pageData.get('/').title = 'Página de Inicio';
+  }
+
   // Convierte el mapa a un array para poder manipularlo y ordenarlo.
   const pagesArray = Array.from(pageData.values());
-
-  // Búsqueda y reemplazo explícito del título para la página de inicio.
-  // Esto es más robusto que modificar el mapa directamente.
-  const homePageIndex = pagesArray.findIndex(p => p.path === '/');
-  if (homePageIndex > -1) {
-    pagesArray[homePageIndex].title = 'Página de Inicio';
-  }
 
   // Ordena por visitas y toma el top 5
   return pagesArray.sort((a, b) => b.visits - a.visits).slice(0, 5);
