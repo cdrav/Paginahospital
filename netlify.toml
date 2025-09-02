@@ -1,9 +1,6 @@
 [build]
   publish = "."
-  # COMANDO DE BUILD SIMPLIFICADO PARA DEPURACIÓN:
-  # Nos enfocamos únicamente en instalar las dependencias para que la función
-  # se despliegue correctamente. El script de búsqueda se puede reactivar después.
-  command = "npm install"
+  command = "npm install && npm run build:search"
 
 [build.environment]
   NODE_VERSION = "20"
