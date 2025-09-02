@@ -38,6 +38,25 @@ const formatDailyVisits = (response) => {
   });
 };
 
+// Formatea una respuesta de métrica única (como total de visitas).
+const formatSingleMetric = (response) => {
+  if (!response || !response[0] || !response[0].rows || response[0].rows.length === 0) {
+    return 0;
+  }
+  return parseInt(response[0].rows[0].metricValues[0].value, 10);
+};
+
+// Formatea la respuesta de visitas mensuales para el gráfico de tendencia.
+const formatMonthlyVisits = (response) => {
+  if (!response || !response[0] || !response[0].rows) return [];
+  return response[0].rows.map(row => ({
+    // La API devuelve el mes como un número (1-12). Lo formateamos a 'YYYY-MM'.
+    date: `${row.dimensionValues[0].value}-${String(row.dimensionValues[1].value).padStart(2, '0')}`,
+    visits: parseInt(row.metricValues[0].value, 10)
+  }));
+};
+
+
 // Formatea la respuesta de dispositivos o navegadores en un objeto {clave: valor}.
 const formatDimensionData = (response) => {
   if (!response || !response[0] || !response[0].rows) return {};
@@ -76,6 +95,14 @@ const handler = async (event, context) => {
     };
   }
 
+  // Helper para obtener el primer día del mes actual en formato YYYY-MM-DD
+  const getFirstDayOfMonth = () => {
+      const date = new Date();
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      return `${yyyy}-${mm}-01`;
+  };
+
   try {
     // 1. Validar variables de entorno DENTRO del handler
     const envValidationError = validateEnvVars();
@@ -93,8 +120,16 @@ const handler = async (event, context) => {
     });
     const analyticsDataClient = new BetaAnalyticsDataClient({ auth });
 
-    // 3. Realizar consultas a la API en paralelo (ahora 4 llamadas)
-    const [topPagesResponse, dailyVisitsResponse, devicesResponse, browsersResponse] = await Promise.all([
+    // 3. Realizar todas las consultas a la API en paralelo
+    const [
+      topPagesResponse,
+      dailyVisitsResponse,
+      devicesResponse,
+      browsersResponse,
+      lifetimeVisitorsResponse,
+      monthlyVisitsResponse,
+      sixMonthTrendResponse
+    ] = await Promise.all([
       // Consulta para las páginas más visitadas
       analyticsDataClient.runReport({
         property: `properties/${propertyId}`,
@@ -128,6 +163,26 @@ const handler = async (event, context) => {
         metrics: [{ name: 'totalUsers' }],
         orderBys: [{ metric: { metricName: 'totalUsers' }, desc: true }],
         limit: 6 // Top 5 + 'otros'
+      }),
+      // Consulta para visitas totales (lifetime)
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '2023-01-01', endDate: 'today' }], // Fecha de inicio del seguimiento
+        metrics: [{ name: 'totalUsers' }],
+      }),
+      // Consulta para visitas de este mes
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: getFirstDayOfMonth(), endDate: 'today' }],
+        metrics: [{ name: 'totalUsers' }],
+      }),
+      // Consulta para tendencia de los últimos 6 meses
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '180daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'year' }, { name: 'month' }],
+        metrics: [{ name: 'totalUsers' }],
+        orderBys: [{ dimension: { dimensionName: 'year' } }, { dimension: { dimensionName: 'month' } }]
       })
     ]);
 
@@ -136,12 +191,14 @@ const handler = async (event, context) => {
     const topPages = formatTopPages(topPagesResponse);
     const devices = formatDimensionData(devicesResponse);
     const browsers = formatDimensionData(browsersResponse);
-
-    // Calcular el total de visitantes sumando las visitas diarias
-    const totalVisitors = dailyVisits.reduce((sum, day) => sum + day.visits, 0);
+    const totalVisitors = formatSingleMetric(lifetimeVisitorsResponse);
+    const monthlyVisits = formatSingleMetric(monthlyVisitsResponse);
+    const sixMonthTrend = formatMonthlyVisits(sixMonthTrendResponse);
 
     const responsePayload = {
       totalVisitors,
+      monthlyVisits,
+      sixMonthTrend,
       topPages,
       dailyVisits,
       devices,
