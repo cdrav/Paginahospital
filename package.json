@@ -2,9 +2,9 @@
   "name": "paginahospital",
   "version": "1.0.0",
   "description": "Sitio web del Hospital Departamental San Antonio con búsqueda y estadísticas.",
-  "main": "build-search-index.js",
+  "main": "index.html",
   "scripts": {
-    "build:search": "node build-search-index.js",
+    "build:search": "node scripts/build-search-index.js",
     "netlify:dev": "netlify dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
