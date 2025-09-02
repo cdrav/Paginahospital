@@ -18,11 +18,6 @@
   to = "/pqrs/success.html"
   status = 200
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 # Configuración de seguridad general (actualizada)
 [[headers]]
   for = "/*"
