@@ -4,8 +4,7 @@
   functions = "netlify/functions" # Directorio de las funciones serverless
 
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_VERSION = "9"
+  NODE_VERSION = "20"
 
 # Configuración de redirección después del envío del formulario
 [[redirects]]
