@@ -1,16 +1,20 @@
 {
-  "dependencies": {
-    "cheerio": "^1.1.2",
-    "glob": "^11.0.3",
-    "lunr": "^2.3.9",
-    "lunr-languages": "^1.14.0"
-  },
   "name": "paginahospital",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sitio web del Hospital Departamental San Antonio con búsqueda y estadísticas.",
   "main": "build-search-index.js",
   "scripts": {
+    "build:search": "node build-search-index.js",
+    "netlify:dev": "netlify dev",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google-analytics/data": "^4.2.0",
+    "cheerio": "^1.1.2",
+    "glob": "^11.0.3",
+    "google-auth-library": "^9.4.1",
+    "lunr": "^2.3.9",
+    "lunr-languages": "^1.14.0"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,7 @@
 [build]
   publish = "."
-  command = ""
+  command = "npm install && npm run build:search"
+  functions = "netlify/functions" # Directorio de las funciones serverless
 
 [build.environment]
   NODE_VERSION = "18"
