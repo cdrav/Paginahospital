@@ -19,11 +19,33 @@ function validateEnvVars() {
 // Formatea la respuesta de las páginas más visitadas.
 const formatTopPages = (response) => {
   if (!response || !response[0] || !response[0].rows) return [];
-  return response[0].rows.map(row => ({
-    path: row.dimensionValues[0].value,
-    title: row.dimensionValues[1].value,
-    visits: parseInt(row.metricValues[0].value, 10)
-  }));
+
+  const pageData = new Map();
+
+  // Normaliza las rutas para agruparlas (ej: /pagina y /pagina.html son la misma)
+  const normalizePath = (path) => {
+    let normalized = path.toLowerCase().replace(/\.html$/, '');
+    if (normalized.length > 1 && normalized.endsWith('/')) {
+      normalized = normalized.slice(0, -1);
+    }
+    return normalized || '/'; // Asegura que la raíz no quede vacía
+  };
+
+  response[0].rows.forEach(row => {
+    const path = row.dimensionValues[0].value;
+    const title = row.dimensionValues[1].value || path; // Usar ruta como fallback
+    const visits = parseInt(row.metricValues[0].value, 10);
+    const normalizedPath = normalizePath(path);
+
+    if (pageData.has(normalizedPath)) {
+      pageData.get(normalizedPath).visits += visits;
+    } else {
+      pageData.set(normalizedPath, { path: normalizedPath, title, visits });
+    }
+  });
+
+  // Convierte el mapa a un array, ordena por visitas y toma el top 5
+  return Array.from(pageData.values()).sort((a, b) => b.visits - a.visits).slice(0, 5);
 };
 
 // Formatea la respuesta de las visitas diarias.
@@ -136,7 +158,7 @@ const handler = async (event, context) => {
         dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
         dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
         metrics: [{ name: 'screenPageViews' }],
-        limit: 5,
+        limit: 25, // Aumentado para capturar variaciones y normalizar
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }]
       }),
       // Consulta para visitas diarias (de aquí sacaremos el total también)
@@ -191,12 +213,12 @@ const handler = async (event, context) => {
     const topPages = formatTopPages(topPagesResponse);
     const devices = formatDimensionData(devicesResponse);
     const browsers = formatDimensionData(browsersResponse);
-    const totalVisitors = formatSingleMetric(lifetimeVisitorsResponse);
+    const totalVisits = formatSingleMetric(lifetimeVisitorsResponse); // Renombrado para coincidir con el ID del frontend
     const monthlyVisits = formatSingleMetric(monthlyVisitsResponse);
     const sixMonthTrend = formatMonthlyVisits(sixMonthTrendResponse);
 
     const responsePayload = {
-      totalVisitors,
+      totalVisits,
       monthlyVisits,
       sixMonthTrend,
       topPages,
