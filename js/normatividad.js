@@ -1,18 +1,24 @@
 // js/normatividad.js
 
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   const form = document.querySelector('main form.search-form');
-  if (!form) return;
-
   const input = document.getElementById('buscarNormatividad');
   const liveStatus = document.getElementById('search-live-status');
   const noResultsMsg = document.getElementById('no-results-msg');
   const contentRoot = document.getElementById('normatividadTabsContent');
+  const tabLinksContainer = document.getElementById('normatividadTabs');
   const clearBtn = document.getElementById('search-clear-btn');
 
-  if (!input || !contentRoot) return;
+  if (!form || !input || !contentRoot || !tabLinksContainer) {
+    console.error('Faltan elementos esenciales para la búsqueda en Normatividad. Saliendo.');
+    return;
+  }
+
+  const allItems = Array.from(contentRoot.querySelectorAll('.list-group-item'));
+  const allTabLinks = Array.from(tabLinksContainer.querySelectorAll('.nav-link'));
+  const allTabPanes = Array.from(contentRoot.querySelectorAll('.tab-pane'));
 
   // --- Helpers ---
   const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -24,8 +30,10 @@
   const clearHighlights = (root) => {
     root.querySelectorAll('mark.search-hit').forEach((mark) => {
       const parent = mark.parentNode;
-      parent.replaceChild(document.createTextNode(mark.textContent), mark);
-      parent.normalize(); // Merges adjacent text nodes
+      if (parent) {
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      }
     });
   };
 
@@ -44,25 +52,34 @@
     }
     const re = new RegExp(escapeRegExp(term), 'gi');
     texts.forEach((textNode) => {
-      const span = document.createElement('span');
-      span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
-      textNode.parentNode.replaceChild(span, textNode);
+      const parent = textNode.parentNode;
+      if (parent) {
+        const span = document.createElement('span');
+        span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
+        parent.replaceChild(span, textNode);
+      }
     });
   };
 
   // --- Filtering Logic ---
-  const allItems = Array.from(contentRoot.querySelectorAll('.list-group-item'));
-
   const resetFilters = () => {
+    console.log('Reseteando filtros...');
     allItems.forEach(show);
+    allTabLinks.forEach(link => show(link.parentElement)); // Show the <li> container
+    show(contentRoot); // Asegurarse de que el contenido sea visible
     hide(noResultsMsg);
     if (liveStatus) liveStatus.textContent = '';
     clearHighlights(contentRoot);
+    
     // Al limpiar, volver a la primera pestaña para una experiencia consistente
-    const firstTabTrigger = document.querySelector('#normatividadTabs .nav-link');
+    const firstTabTrigger = allTabLinks[0];
     if (firstTabTrigger) {
-      const tab = bootstrap.Tab.getInstance(firstTabTrigger) || new bootstrap.Tab(firstTabTrigger);
-      tab.show();
+      try {
+        const tab = bootstrap.Tab.getInstance(firstTabTrigger) || new bootstrap.Tab(firstTabTrigger);
+        tab.show();
+      } catch (e) {
+        console.error("Error al mostrar la pestaña de Bootstrap:", e);
+      }
     }
   };
 
@@ -75,49 +92,61 @@
     }
 
     clearHighlights(contentRoot);
+    show(contentRoot); // Mostrar contenido antes de filtrar
     hide(noResultsMsg);
 
-    const matches = allItems.filter(item => norm(item.textContent).includes(term));
+    let totalMatches = 0;
+    let firstMatchedTabLink = null;
 
-    // Ocultar TODOS los items primero. Esto limpia el estado anterior.
-    allItems.forEach(hide);
+    allTabPanes.forEach((pane) => {
+      const itemsInPane = Array.from(pane.querySelectorAll('.list-group-item'));
+      let matchesInPane = 0;
 
-    if (liveStatus) {
-      liveStatus.textContent = matches.length === 0
-        ? 'No se encontraron resultados.'
-        : `${matches.length} resultado${matches.length === 1 ? '' : 's'} encontrados.`;
-    }
-
-    if (matches.length === 0) {
-      show(noResultsMsg);
-      return 0;
-    }
-
-    // Esta función se encarga de mostrar y resaltar solo los resultados.
-    const displayMatches = () => {
-      matches.forEach(item => {
-        show(item);
-        highlightInElement(item, termRaw);
+      itemsInPane.forEach(item => {
+        if (norm(item.textContent).includes(term)) {
+          show(item);
+          highlightInElement(item, termRaw);
+          matchesInPane++;
+        } else {
+          hide(item);
+        }
       });
-    };
 
-    const firstMatchEl = matches[0];
-    const targetTabPane = firstMatchEl.closest('.tab-pane');
-    
-    // Si la pestaña del resultado ya está activa, mostramos los resultados directamente.
-    if (targetTabPane.classList.contains('active')) {
-      displayMatches();
+      const tabLink = tabLinksContainer.querySelector(`.nav-link[data-bs-target="#${pane.id}"]`);
+      if (tabLink) {
+        if (matchesInPane > 0) {
+          show(tabLink.parentElement); // Show the <li>
+          totalMatches += matchesInPane;
+          if (!firstMatchedTabLink) {
+            firstMatchedTabLink = tabLink;
+          }
+        } else {
+          hide(tabLink.parentElement); // Hide the <li>
+        }
+      }
+    });
+
+    if (totalMatches === 0) {
+      show(noResultsMsg);
+      hide(contentRoot); // Ocultar el contenedor de pestañas si no hay resultados
+      allTabLinks.forEach(link => show(link.parentElement)); // Pero mantener las pestañas visibles
+      if (liveStatus) liveStatus.textContent = 'No se encontraron resultados.';
     } else {
-      // Si no, esperamos a que la pestaña se muestre y LUEGO mostramos los resultados.
-      const tabTrigger = document.querySelector(`.nav-tabs .nav-link[data-bs-target="#${targetTabPane.id}"]`);
-      if (tabTrigger) {
-        tabTrigger.addEventListener('shown.bs.tab', displayMatches, { once: true });
-        const tab = bootstrap.Tab.getInstance(tabTrigger) || new bootstrap.Tab(tabTrigger);
-        tab.show();
+      if (liveStatus) {
+        liveStatus.textContent = `${totalMatches} resultado${totalMatches === 1 ? '' : 's'} encontrados.`;
+      }
+      // Activate the first tab that has matches
+      if (firstMatchedTabLink) {
+        try {
+          const tab = bootstrap.Tab.getInstance(firstMatchedTabLink) || new bootstrap.Tab(firstMatchedTabLink);
+          tab.show();
+        } catch (e) {
+          console.error("Error al mostrar la pestaña de Bootstrap:", e);
+        }
       }
     }
 
-    return matches.length;
+    return totalMatches;
   };
 
   // --- Event Listeners ---
@@ -132,6 +161,7 @@
 
   input.addEventListener('keydown', (ev) => {
     if (ev.key === 'Escape') {
+      ev.preventDefault();
       input.value = '';
       resetFilters();
       if (clearBtn) hide(clearBtn);
@@ -146,4 +176,17 @@
       input.focus();
     });
   }
-})();
+
+  // Si el usuario hace clic en una pestaña, se asume que quiere cancelar la búsqueda.
+  allTabLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (input.value.trim() !== '') {
+        input.value = '';
+        resetFilters();
+        if (clearBtn) hide(clearBtn);
+      }
+    });
+  });
+
+  console.log('Script de normatividad.js inicializado.');
+});
