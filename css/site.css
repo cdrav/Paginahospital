@@ -1571,3 +1571,158 @@ p, a, td, th, li {
   color: var(--color-primario);
   padding-left: 1.5rem;
 }
+
+/* =====================================================
+   Página de Hospitalización - Diseño Elegante
+   ===================================================== */
+
+.section-title-hosp {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  color: var(--color-primario);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-secundario);
+  display: inline-block;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: var(--radius);
+  height: 100%;
+}
+
+.feature-icon {
+  font-size: 1.75rem;
+  color: var(--color-secundario);
+  flex-shrink: 0;
+}
+
+.feature-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primario);
+  margin-bottom: 0.25rem;
+}
+
+.feature-text {
+  font-size: 0.95rem;
+  color: var(--color-texto-sec);
+  margin-bottom: 0;
+}
+
+.room-card {
+  border: 1px solid #e9ecef;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.room-card .card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
+
+.room-features {
+  padding-left: 0;
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.room-features li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.room-features i {
+  color: var(--color-secundario);
+  margin-right: 0.5rem;
+}
+
+.process-step-card {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  height: 100%;
+  position: relative;
+}
+
+.step-number {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primario);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: 3px solid #fff;
+}
+
+.step-title {
+  margin-top: 1.5rem;
+  font-weight: 700;
+}
+
+.additional-service-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.additional-service-card i {
+  font-size: 2.5rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.sidebar-card .sidebar-title {
+  color: var(--color-primario);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-card .sidebar-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.sidebar-card .sidebar-list li {
+  margin-bottom: 1rem;
+}
+
+.sidebar-card .sidebar-list strong {
+  color: #343a40;
+}
+
+.sidebar-card .sidebar-list span {
+  color: var(--color-texto-sec);
+  font-size: 0.95rem;
+}
+
+.emergency-card {
+  border-width: 2px !important;
+}
+
+.emergency-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
