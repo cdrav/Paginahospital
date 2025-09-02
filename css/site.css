@@ -1430,3 +1430,47 @@ p, a, td, th, li {
   }
 }
   
+/* =====================================================
+   Estadísticas - Mejoras de Proporcionalidad y Layout
+   ===================================================== */
+
+.statistics-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Estilo para el breadcrumb en la página de estadísticas */
+#breadcrumb-container .breadcrumb {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e9ecef;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+}
+
+#breadcrumb-container .breadcrumb-item a {
+  color: var(--color-primario);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#breadcrumb-container .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+#breadcrumb-container .breadcrumb-item.active {
+  color: #495057;
+  font-weight: 600;
+}
+
+#breadcrumb-container .breadcrumb-item+.breadcrumb-item::before {
+  color: #6c757d;
+}
+
+/* Tarjetas de estadísticas con un hover más sutil */
+.stat-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}

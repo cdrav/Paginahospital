@@ -37,13 +37,12 @@ const formatTopPages = (response) => {
     const visits = parseInt(row.metricValues[0].value, 10);
     const normalizedPath = normalizePath(path);
 
-    // Si la página ya existe en el mapa, suma las visitas.
+    // Si la página ya existe en el mapa, suma las visitas y mejora el título si es posible.
     if (pageData.has(normalizedPath)) {
       const existing = pageData.get(normalizedPath);
       existing.visits += visits;
-      // Si el título existente era solo la ruta (ej. '/contacto') y el nuevo
-      // título es más descriptivo (ej. 'Página de Contacto'), lo actualizamos.
-      if (existing.title === existing.path && title !== path) {
+      // Prefiere el título más largo y descriptivo, evitando que se quede con uno genérico.
+      if (title.length > existing.title.length && title !== path) {
         existing.title = title;
       }
     } else {
@@ -51,8 +50,8 @@ const formatTopPages = (response) => {
     }
   });
 
-  // Asegurarse de que la página de inicio tenga un nombre amigable.
-  if (pageData.has('/') && (pageData.get('/').title === '/' || pageData.get('/').title === '')) {
+  // Asegurarse de que la página de inicio tenga un nombre amigable, sin importar el título que traiga.
+  if (pageData.has('/')) {
     pageData.get('/').title = 'Página de Inicio';
   }
 
