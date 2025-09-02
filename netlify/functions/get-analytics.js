@@ -24,7 +24,9 @@ const formatTopPages = (response) => {
 
   // Normaliza las rutas para agruparlas (ej: /pagina y /pagina.html son la misma)
   const normalizePath = (path) => {
-    let normalized = path.toLowerCase().replace(/\.html$/, '');
+    // Elimina query strings y hashes, luego normaliza
+    const cleanedPath = path.split('?')[0].split('#')[0];
+    let normalized = cleanedPath.toLowerCase().replace(/\.html$/, '');
     if (normalized.length > 1 && normalized.endsWith('/')) {
       normalized = normalized.slice(0, -1);
     }
