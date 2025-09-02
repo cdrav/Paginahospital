@@ -7,38 +7,65 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hospital Departamental San Antonio</title>
+    <title>Estadísticas - Hospital Departamental San Antonio</title>
     <meta name="description" content="Estadísticas de uso y visitas del portal web del Hospital Departamental San Antonio.">
     <!-- El manifest se carga desde partials/header.html -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/site.css" />
-   
+  <!-- Chart.js para gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+</head>
 <body>
   <div id="header-placeholder"></div>
 
   <!-- Encabezado -->
-  <header class="bg-light py-5">
+  <header class="bg-light py-4 py-md-5">
     <div class="container">
-      <div class="text-center">
-        <h1 class="display-5 fw-bold text-primary">Estadísticas del Sitio Web</h1>
-        <p class="lead text-muted">Información sobre el uso y visitas a nuestro portal web</p>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Estadísticas del Sitio</h1>
+        <div class="d-flex align-items-center gap-2">
+          <div id="userInfo" class="text-muted small d-none"></div>
+          <button id="authorize_button" class="btn btn-primary">
+            <i class="fas fa-sign-in-alt me-2"></i>Iniciar sesión con Google
+          </button>
+          <button id="updateStatsBtn" class="btn btn-secondary d-none">
+            <i class="fas fa-sync-alt me-2"></i>Actualizar
+          </button>
+          <button id="signout_button" class="btn btn-outline-secondary d-none">
+            <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
+          </button>
+        </div>
       </div>
+      <div id="loading" class="d-none mt-3">
+        <div class="d-flex align-items-center text-primary">
+          <div class="spinner-border spinner-border-sm me-2" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <small>Cargando datos actualizados...</small>
+        </div>
+      </div>
+      <div id="lastUpdate" class="text-muted small mt-2"></div>
+      <div id="errorMessage" class="alert alert-danger d-none mt-2" role="alert"></div>
     </div>
   </header>
 
   <!-- Contenido principal -->
-  <main class="py-5">
+  <main class="py-4">
     <div class="container">
-      <div class="row g-4">
+      <div class="row g-4 mb-4">
         <!-- Total de visitas -->
         <div class="col-md-4">
-          <div class="card h-100 stat-card text-center p-4">
+          <div class="card h-100 stat-card text-center p-3 p-md-4">
             <div class="stat-icon text-primary">
               <i class="bi bi-people-fill"></i>
             </div>
-            <div class="stat-number" id="totalVisits">15,728</div>
+            <div class="stat-number text-primary" id="totalVisits">-</div>
             <div class="stat-label">Visitas Totales</div>
             <p class="small text-muted mt-2 mb-0">Desde el inicio del sitio web</p>
           </div>
@@ -46,60 +73,67 @@
 
         <!-- Visitas del mes actual -->
         <div class="col-md-4">
-          <div class="card h-100 stat-card text-center p-4">
+          <div class="card h-100 stat-card text-center p-3 p-md-4">
             <div class="stat-icon text-success">
               <i class="bi bi-calendar-check"></i>
             </div>
-            <div class="stat-number" id="monthlyVisits">1,245</div>
+            <div class="stat-number text-success" id="monthlyVisits">-</div>
             <div class="stat-label">Visitas este mes</div>
-            <p class="small text-muted mt-2 mb-0">Agosto 2025</p>
+            <p class="small text-muted mt-2 mb-0"><span id="currentMonth"></span> <span id="currentYear"></span></p>
           </div>
         </div>
 
         <!-- Páginas más visitadas -->
         <div class="col-md-4">
-          <div class="card h-100 stat-card text-center p-4">
+          <div class="card h-100 stat-card text-center p-3 p-md-4">
             <div class="stat-icon text-info">
               <i class="bi bi-graph-up"></i>
             </div>
-            <div class="stat-number">Top 5</div>
+            <div class="stat-number text-info">Top 5</div>
             <div class="stat-label">Páginas más visitadas</div>
-            <div class="mt-3 text-start small">
-              <div class="d-flex justify-content-between mb-2">
-                <span>1. Inicio</span>
-                <span class="text-muted">4,523</span>
-              </div>
-              <div class="d-flex justify-content-between mb-2">
-                <span>2. Citas médicas</span>
-                <span class="text-muted">3,217</span>
-              </div>
-              <div class="d-flex justify-content-between mb-2">
-                <span>3. Urgencias</span>
-                <span class="text-muted">2,845</span>
-              </div>
-              <div class="d-flex justify-content-between mb-2">
-                <span>4. Consulta externa</span>
-                <span class="text-muted">2,156</span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>5. Resultados de laboratorio</span>
-                <span class="text-muted">1,987</span>
+            <div class="mt-3 text-start small" id="topPagesList">
+              <div class="text-center py-3">
+                <div class="spinner-border spinner-border-sm text-muted" role="status">
+                  <span class="visually-hidden">Cargando...</span>
+                </div>
+                <span class="ms-2">Cargando datos...</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Última actualización -->
-      <div class="last-update mt-5">
-        <div class="d-flex align-items-center justify-content-between">
-          <div>
-            <h5 class="mb-1">Última actualización</h5>
-            <p class="mb-0 text-muted" id="lastUpdate">4 de agosto de 2025, 12:30 PM</p>
+      <!-- Gráfico de visitas -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title mb-4">Visitas por día (últimos 30 días)</h5>
+          <div class="chart-container" style="position: relative; height:300px;">
+            <canvas id="visitsChart"></canvas>
           </div>
-          <button class="btn btn-outline-primary" onclick="updateStats()">
-            <i class="bi bi-arrow-clockwise me-2"></i>Actualizar
-          </button>
+        </div>
+      </div>
+      
+      <!-- Dispositivos y navegadores -->
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-4">Dispositivos</h5>
+              <div class="chart-container" style="position: relative; height:250px;">
+                <canvas id="devicesChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-4">Navegadores</h5>
+              <div class="chart-container" style="position: relative; height:250px;">
+                <canvas id="browsersChart"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -122,15 +156,34 @@
 <!-- Footer parcial -->
 <div id="footer-placeholder"></div>
 
-<!-- Scripts optimizados con defer -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<!-- Scripts de la aplicación -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Carga de parciales y scripts del sitio -->
+<script src="js/layout.js"></script>
 <script src="js/utils.js" defer></script>
-<script src="js/layout.js" defer></script>
 <script src="js/navbar.js" defer></script>
 <script src="js/accesibilidad.js" defer></script>
 <script src="js/accessibility-styles.js" defer></script>
 <script src="js/busqueda.js" defer></script>
-<script src="js/main.js" defer></script>
 <script src="js/breadcrumb.js" defer></script>
+<script src="js/main.js" defer></script>
+
+<!-- Script específico de la página de estadísticas -->
+<script src="js/estadisticas.js" defer></script>
+
+<script>
+  // Inicializar componentes menores que no dependen de parciales
+  document.addEventListener('DOMContentLoaded', function() {
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const now = new Date();
+    const currentMonth = document.getElementById('currentMonth');
+    const currentYear = document.getElementById('currentYear');
+    
+    if (currentMonth) currentMonth.textContent = months[now.getMonth()];
+    if (currentYear) currentYear.textContent = now.getFullYear();
+  });
+</script>
 </body>
 </html>
