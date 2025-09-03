@@ -24,17 +24,20 @@ const formatTopPages = (response) => {
 
   // Función para obtener un título descriptivo de la ruta
   const getPageTitleFromPath = (path) => {
-    if (!path || path === '/') return 'Página de Inicio';
-    
-    // Eliminar parámetros de consulta y fragmentos
-    const cleanPath = path.split('?')[0].split('#')[0];
-    
-    // Si es la raíz, ya lo manejamos arriba
+    // Primero, normalizamos el path para manejar casos como '//' o '/index.html'
+    let cleanPath = (path || '/').replace(/\/+/g, '/').split('?')[0].split('#')[0];
+    if (cleanPath === '/index.html') {
+      cleanPath = '/';
+    }
+
     if (cleanPath === '/') return 'Página de Inicio';
     
     // Eliminar la barra inicial y la extensión .html si existe
     let title = cleanPath.replace(/^\//, '').replace(/\.html$/, '');
     
+    // Si después de limpiar queda vacío, es una página sin título válido
+    if (!title.trim()) return 'Página sin título';
+
     // Reemplazar guiones y guiones bajos con espacios
     title = title.replace(/[-_]/g, ' ');
     
@@ -43,22 +46,30 @@ const formatTopPages = (response) => {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
     
-    return title || 'Página sin título';
+    return title;
   };
 
   response[0].rows.forEach(row => {
     const path = row.dimensionValues[0].value;
     let title = row.dimensionValues[1].value;
     
-    // Si el título no es válido, generamos uno a partir de la ruta
-    if (!title || title === '(not set)' || title === '(none)') {
+    // Normalizar el path para usarlo como clave y para agrupar
+    let normalizedPath = (path || '/').replace(/\/+/g, '/').split('?')[0].split('#')[0];
+    if (normalizedPath === '/index.html') {
+      normalizedPath = '/';
+    }
+
+    // Si el título no es válido, está vacío, es igual a la ruta, o es un título genérico, generamos uno nuevo.
+    const isInvalidTitle = !title || !title.trim() || title === '(not set)' || title === '(none)' || title.trim() === path.trim() || title === 'Hospital Departamental San Antonio';
+
+    if (isInvalidTitle) {
       title = getPageTitleFromPath(path);
     }
     
     const visits = parseInt(row.metricValues[0].value, 10);
-    const normalizedPath = path.split('?')[0].split('#')[0]; // Solo limpiamos parámetros, sin normalizar
 
-    // Si la página ya existe en el mapa, suma las visitas
+    // Si la página ya existe en el mapa, suma las visitas.
+    // No sobreescribimos el título, asumimos que el primero que llega (el de más visitas) es el bueno.
     if (pageData.has(normalizedPath)) {
       const existing = pageData.get(normalizedPath);
       existing.visits += visits;
@@ -71,7 +82,7 @@ const formatTopPages = (response) => {
     }
   });
 
-  // Asegurarse de que la página de inicio siempre tenga un título amigable
+  // Asegurarse de que la página de inicio siempre tenga el título correcto.
   if (pageData.has('/')) {
     pageData.get('/').title = 'Página de Inicio';
   }
