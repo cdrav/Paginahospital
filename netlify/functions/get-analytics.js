@@ -22,41 +22,56 @@ const formatTopPages = (response) => {
 
   const pageData = new Map();
 
-  // Normaliza las rutas para agruparlas (ej: /pagina y /pagina.html son la misma)
-  const normalizePath = (path) => {
-    // Elimina query strings y hashes, luego normaliza
-    const cleanedPath = path.split('?')[0].split('#')[0];
-    let normalized = cleanedPath.toLowerCase().replace(/\.html$/, '');
-    if (normalized.length > 1 && normalized.endsWith('/')) {
-      normalized = normalized.slice(0, -1);
-    }
-    return normalized || '/'; // Asegura que la raíz no quede vacía
+  // Función para obtener un título descriptivo de la ruta
+  const getPageTitleFromPath = (path) => {
+    if (!path || path === '/') return 'Página de Inicio';
+    
+    // Eliminar parámetros de consulta y fragmentos
+    const cleanPath = path.split('?')[0].split('#')[0];
+    
+    // Si es la raíz, ya lo manejamos arriba
+    if (cleanPath === '/') return 'Página de Inicio';
+    
+    // Eliminar la barra inicial y la extensión .html si existe
+    let title = cleanPath.replace(/^\//, '').replace(/\.html$/, '');
+    
+    // Reemplazar guiones y guiones bajos con espacios
+    title = title.replace(/[-_]/g, ' ');
+    
+    // Capitalizar primera letra de cada palabra
+    title = title.split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    
+    return title || 'Página sin título';
   };
 
   response[0].rows.forEach(row => {
     const path = row.dimensionValues[0].value;
-    // Asegurarse de que el título no sea '(not set)' o vacío.
     let title = row.dimensionValues[1].value;
-    if (!title || title.toLowerCase() === '(not set)') {
-        title = path; // Usar la ruta como fallback si el título no es útil.
+    
+    // Si el título no es válido, generamos uno a partir de la ruta
+    if (!title || title === '(not set)' || title === '(none)') {
+      title = getPageTitleFromPath(path);
     }
+    
     const visits = parseInt(row.metricValues[0].value, 10);
-    const normalizedPath = normalizePath(path);
+    const normalizedPath = path.split('?')[0].split('#')[0]; // Solo limpiamos parámetros, sin normalizar
 
-    // Si la página ya existe en el mapa, suma las visitas y mejora el título si es posible.
+    // Si la página ya existe en el mapa, suma las visitas
     if (pageData.has(normalizedPath)) {
       const existing = pageData.get(normalizedPath);
       existing.visits += visits;
-      // Prefiere el título más largo y descriptivo, evitando que se quede con uno genérico como la ruta.
-      if (title.length > existing.title.length && title !== path) {
-        existing.title = title;
-      }
     } else {
-      pageData.set(normalizedPath, { path: normalizedPath, title, visits });
+      pageData.set(normalizedPath, { 
+        path: normalizedPath, 
+        title: title,
+        visits: visits 
+      });
     }
   });
 
-  // Asegurarse de que la página de inicio tenga un nombre amigable, sin importar el título que traiga.
+  // Asegurarse de que la página de inicio siempre tenga un título amigable
   if (pageData.has('/')) {
     pageData.get('/').title = 'Página de Inicio';
   }
