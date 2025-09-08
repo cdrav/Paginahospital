@@ -8,6 +8,28 @@ const raw_private_key = process.env.GOOGLE_PRIVATE_KEY;
 
 // --- Funciones de Ayuda ---
 
+// Normaliza una ruta, eliminando .html, index.html, query params y hashes.
+const normalizePath = (path) => {
+  let p = (path || '/').replace(/\/+/g, '/').split('?')[0].split('#')[0];
+  if (p.endsWith('/index.html')) {
+    p = p.slice(0, -10); // remove 'index.html' -> /folder/
+  }
+  if (p.endsWith('.html')) {
+    p = p.slice(0, -5); // remove '.html'
+  }
+  if (p.endsWith('/index')) {
+    p = p.slice(0, -5); // remove 'index'
+  }
+  // Si después de quitar /index.html queda algo como /folder/, quitar la última barra
+  if (p.length > 1 && p.endsWith('/')) {
+    p = p.slice(0, -1);
+  }
+  if (p === '') {
+    p = '/';
+  }
+  return p;
+};
+
 // Valida que las variables de entorno necesarias existan.
 function validateEnvVars() {
   if (!propertyId) return 'La variable de entorno GA_PROPERTY_ID no está configurada.';
@@ -24,16 +46,12 @@ const formatTopPages = (response) => {
 
   // Función para obtener un título descriptivo de la ruta
   const getPageTitleFromPath = (path) => {
-    // Primero, normalizamos el path para manejar casos como '//' o '/index.html'
-    let cleanPath = (path || '/').replace(/\/+/g, '/').split('?')[0].split('#')[0];
-    if (cleanPath === '/index.html') {
-      cleanPath = '/';
-    }
+    const cleanPath = normalizePath(path);
 
     if (cleanPath === '/') return 'Página de Inicio';
     
     // Eliminar la barra inicial y la extensión .html si existe
-    let title = cleanPath.replace(/^\//, '').replace(/\.html$/, '');
+    let title = cleanPath.replace(/^\//, '');
     
     // Si después de limpiar queda vacío, es una página sin título válido
     if (!title.trim()) return 'Página sin título';
@@ -53,11 +71,7 @@ const formatTopPages = (response) => {
     const path = row.dimensionValues[0].value;
     let title = row.dimensionValues[1].value;
     
-    // Normalizar el path para usarlo como clave y para agrupar
-    let normalizedPath = (path || '/').replace(/\/+/g, '/').split('?')[0].split('#')[0];
-    if (normalizedPath === '/index.html') {
-      normalizedPath = '/';
-    }
+    const normalizedPath = normalizePath(path);
 
     // Si el título no es válido, está vacío, es igual a la ruta, o es un título genérico, generamos uno nuevo.
     const isInvalidTitle = !title || !title.trim() || title === '(not set)' || title === '(none)' || title.trim() === path.trim() || title === 'Hospital Departamental San Antonio';

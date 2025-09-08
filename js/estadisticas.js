@@ -1,147 +1,193 @@
 document.addEventListener('DOMContentLoaded', () => {
-  loadAnalyticsData();
-  initializeDateDisplay();
-});
+  const API_URL = '/.netlify/functions/get-analytics';
 
-function initializeDateDisplay() {
-  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
-                 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  const now = new Date();
+  const loadingEl = document.getElementById('loading');
+  const errorEl = document.getElementById('errorMessage');
+  const lastUpdateEl = document.getElementById('lastUpdate');
+
+  // Elementos para las estadísticas
+  const totalVisitsEl = document.getElementById('totalVisits');
+  const monthlyVisitsEl = document.getElementById('monthlyVisits');
+  const topPagesListEl = document.getElementById('topPagesList');
   const currentMonthEl = document.getElementById('currentMonth');
   const currentYearEl = document.getElementById('currentYear');
+
+  // Contextos de los gráficos
+  const visitsChartCtx = document.getElementById('visitsChart')?.getContext('2d');
+  const devicesChartCtx = document.getElementById('devicesChart')?.getContext('2d');
+  const browsersChartCtx = document.getElementById('browsersChart')?.getContext('2d');
+  const monthlyTrendChartCtx = document.getElementById('monthlyTrendChart')?.getContext('2d');
+
+  // Instancias de los gráficos (para poder destruirlas antes de redibujar)
+  let charts = {};
+
+  // Función para mostrar errores
+  const showError = (message) => {
+    if (loadingEl) loadingEl.classList.add('d-none');
+    if (errorEl) {
+      errorEl.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i> ${message}`;
+      errorEl.classList.remove('d-none');
+    }
+  };
   
-  if (currentMonthEl) currentMonthEl.textContent = months[now.getMonth()];
-  if (currentYearEl) currentYearEl.textContent = now.getFullYear();
-}
+  // Función para formatear números
+  const formatNumber = (num) => num.toLocaleString('es-CO');
 
-async function loadAnalyticsData() {
-  const loadingDiv = document.getElementById('loading');
-  const errorDiv = document.getElementById('errorMessage');
-  const lastUpdateDiv = document.getElementById('lastUpdate');
-
-  try {
-    loadingDiv.classList.remove('d-none');
-    errorDiv.classList.add('d-none');
-
-    const response = await fetch('/.netlify/functions/get-analytics');
-    if (!response.ok) {
-      throw new Error(`Error del servidor: ${response.statusText}`);
-    }
-    const stats = await response.json();
-
-    // Poblar los datos en la página
-    populateDashboard(stats);
-
-    // Actualizar fecha de última carga
-    if (lastUpdateDiv && stats.lastUpdate) {
-      lastUpdateDiv.textContent = `Datos actualizados el: ${new Date(stats.lastUpdate).toLocaleString('es-CO')}`;
+  // Función para renderizar la lista de páginas más visitadas
+  const renderTopPages = (pages) => {
+    if (!topPagesListEl || !pages || pages.length === 0) {
+      if (topPagesListEl) {
+        topPagesListEl.innerHTML = '<div class="alert alert-light text-center p-2">No hay datos de páginas más visitadas.</div>';
+      }
+      return;
     }
 
-  } catch (error) {
-    console.error('Error al cargar las estadísticas:', error);
-    if (errorDiv) {
-      errorDiv.textContent = 'No se pudieron cargar las estadísticas. Por favor, intente más tarde.';
-      errorDiv.classList.remove('d-none');
-    }
-  } finally {
-    if (loadingDiv) {
-      loadingDiv.classList.add('d-none');
-    }
-  }
-}
-
-function populateDashboard(stats) {
-  const formatNumber = (num) => parseInt(num).toLocaleString('es-CO');
-
-  // Tarjetas principales
-  document.getElementById('totalVisits').textContent = formatNumber(stats.totalVisits);
-  document.getElementById('monthlyVisits').textContent = formatNumber(stats.monthlyVisits);
-
-  // Lista de páginas más visitadas
-  const topPagesList = document.getElementById('topPagesList');
-  topPagesList.innerHTML = stats.topPages.map(page => `
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <a href="${page.path}" target="_blank" class="text-decoration-none text-dark small" title="${page.path}">
-        ${page.name || page.path}
+    const listHtml = pages.map(page => {
+      const pageUrl = page.path.startsWith('/') ? page.path : `/${page.path}`;
+      
+      return `
+      <a href="${pageUrl}" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
+        <span class="text-truncate" title="${page.title}">
+          ${page.title}
+        </span>
+        <span class="badge bg-info-subtle text-info-emphasis rounded-pill">${formatNumber(page.visits)}</span>
       </a>
-      <span class="badge bg-light text-dark">${formatNumber(page.visits)}</span>
-    </div>
-  `).join('');
+    `;
+    }).join('');
 
-  // Renderizar gráficos
-  renderVisitsChart(stats.dailyVisits);
-  renderDevicesChart(stats.devices);
-  renderBrowsersChart(stats.browsers);
-}
+    topPagesListEl.innerHTML = `<div class="list-group list-group-flush">${listHtml}</div>`;
+  };
 
-function renderVisitsChart(dailyVisits) {
-  const ctx = document.getElementById('visitsChart').getContext('2d');
-  const labels = dailyVisits.map(item => new Date(item.date).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' }));
-  const data = dailyVisits.map(item => item.visits);
-
-  if (window.visitsChartInstance) window.visitsChartInstance.destroy();
-  window.visitsChartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Usuarios',
-        data: data,
-        borderColor: '#0d6efd',
-        backgroundColor: 'rgba(13, 110, 253, 0.1)',
-        fill: true,
-        tension: 0.4,
-      }]
-    },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
-
-function renderDevicesChart(devices) {
-  const ctx = document.getElementById('devicesChart').getContext('2d');
-  const labels = Object.keys(devices).map(label => label.charAt(0).toUpperCase() + label.slice(1)); // Capitalize
-  const data = Object.values(devices);
-
-  if (window.devicesChartInstance) window.devicesChartInstance.destroy();
-  window.devicesChartInstance = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: data,
-        backgroundColor: ['#0d6efd', '#198754', '#ffc107'],
-      }]
-    },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
-
-function renderBrowsersChart(browsers) {
-  const ctx = document.getElementById('browsersChart').getContext('2d');
-  // Limitar a los 5 navegadores principales
-  const topBrowsers = Object.entries(browsers)
-    .sort(([,a],[,b]) => b - a)
-    .slice(0, 5);
-
-  const labels = topBrowsers.map(([key]) => key);
-  const data = topBrowsers.map(([, value]) => value);
-
-  if (window.browsersChartInstance) window.browsersChartInstance.destroy();
-  window.browsersChartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Usuarios',
-        data: data,
-        backgroundColor: ['#0dcaf0', '#6f42c1', '#d63384', '#fd7e14', '#20c997'],
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      indexAxis: 'y',
-      plugins: { legend: { display: false } }
+  // Función para destruir un gráfico existente
+  const destroyChart = (chartId) => {
+    if (charts[chartId]) {
+      charts[chartId].destroy();
     }
-  });
-}
+  };
+
+  // Función para renderizar el gráfico de visitas diarias
+  const renderVisitsChart = (dailyVisits) => {
+    if (!visitsChartCtx) return;
+    destroyChart('visitsChart');
+    charts.visitsChart = new Chart(visitsChartCtx, {
+      type: 'line',
+      data: {
+        labels: dailyVisits.map(item => new Date(item.date).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' })),
+        datasets: [{
+          label: 'Visitas diarias',
+          data: dailyVisits.map(item => item.visits),
+          borderColor: '#069681',
+          backgroundColor: 'rgba(6, 150, 129, 0.1)',
+          fill: true,
+          tension: 0.3,
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  };
+
+  // Función para renderizar el gráfico de dispositivos
+  const renderDevicesChart = (devices) => {
+    if (!devicesChartCtx) return;
+    destroyChart('devicesChart');
+    charts.devicesChart = new Chart(devicesChartCtx, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(devices),
+        datasets: [{
+          data: Object.values(devices),
+          backgroundColor: ['#069681', '#17a2b8', '#ffc107'],
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  };
+
+  // Función para renderizar el gráfico de navegadores
+  const renderBrowsersChart = (browsers) => {
+    if (!browsersChartCtx) return;
+    destroyChart('browsersChart');
+    charts.browsersChart = new Chart(browsersChartCtx, {
+      type: 'pie',
+      data: {
+        labels: Object.keys(browsers),
+        datasets: [{
+          data: Object.values(browsers),
+          backgroundColor: ['#069681', '#17a2b8', '#ffc107', '#dc3545', '#6c757d', '#f8f9fa'],
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  };
+
+  // Función para renderizar el gráfico de tendencia mensual
+  const renderMonthlyTrendChart = (monthlyTrend) => {
+    if (!monthlyTrendChartCtx) return;
+    destroyChart('monthlyTrendChart');
+    charts.monthlyTrendChart = new Chart(monthlyTrendChartCtx, {
+      type: 'bar',
+      data: {
+        labels: monthlyTrend.map(item => new Date(item.date + '-02').toLocaleString('es-CO', { month: 'long', year: 'numeric' })),
+        datasets: [{
+          label: 'Visitas mensuales',
+          data: monthlyTrend.map(item => item.visits),
+          backgroundColor: 'rgba(6, 150, 129, 0.7)',
+          borderColor: '#069681',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  };
+
+  // Función principal para obtener y renderizar los datos
+  const fetchAndRenderAnalytics = async () => {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.details || `El servidor respondió con el estado ${response.status}`);
+      }
+      const data = await response.json();
+
+      // Ocultar carga y mostrar fecha de actualización
+      if (loadingEl) loadingEl.classList.add('d-none');
+      if (lastUpdateEl) {
+        lastUpdateEl.textContent = `Actualizado: ${new Date(data.lastUpdate).toLocaleString('es-CO')}`;
+      }
+
+      // Poblar las tarjetas de estadísticas
+      if (totalVisitsEl) totalVisitsEl.textContent = formatNumber(data.totalVisits);
+      if (monthlyVisitsEl) monthlyVisitsEl.textContent = formatNumber(data.monthlyVisits);
+      
+      const now = new Date();
+      if (currentMonthEl) {
+        const monthName = now.toLocaleString('es-CO', { month: 'long' });
+        currentMonthEl.textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+      }
+      if (currentYearEl) currentYearEl.textContent = now.getFullYear();
+
+      // Renderizar las páginas más visitadas (AQUÍ ESTÁ LA CORRECCIÓN)
+      renderTopPages(data.topPages);
+
+      // Renderizar los gráficos
+      renderVisitsChart(data.dailyVisits);
+      renderDevicesChart(data.devices);
+      renderBrowsersChart(data.browsers);
+      renderMonthlyTrendChart(data.monthlyTrend);
+
+    } catch (error) {
+      console.error('Error al obtener datos de analíticas:', error);
+      showError(error.message);
+    }
+  };
+
+  // Iniciar la carga de datos
+  fetchAndRenderAnalytics();
+});
