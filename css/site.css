@@ -1786,7 +1786,7 @@ p, a, td, th, li {
   cursor: pointer;
   background-color: #000;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
