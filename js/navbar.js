@@ -31,7 +31,6 @@ function initializeNavbar() {
   });
 
   // --- Lógica de Navegación en Menú Móvil ---
-  // Esta es la solución definitiva para la redirección.
   navbarCollapse.addEventListener('click', function(event) {
       // Solo actuar si el menú está abierto
       if (!navbarCollapse.classList.contains('show')) return;

@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     </nav>
   `;
 
-  // Insertar el breadcrumb en el contenedor designado o en la ubicación predeterminada
+  // Inserta el breadcrumb en el contenedor designado o en la ubicación predeterminada
   const breadcrumbContainer = document.getElementById('breadcrumb-container');
   
   if (breadcrumbContainer) {
-    // Insertar en el contenedor designado
+    // Inserta en el contenedor designado
     breadcrumbContainer.innerHTML = breadcrumbHtml;
   } else {
     // Si no hay contenedor específico, intentar insertar después del header o antes del contenido principal

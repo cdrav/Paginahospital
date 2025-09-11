@@ -377,7 +377,7 @@ section > p {
   flex-shrink: 0;
 }
 
-/* En móvil/tablet puede envolver; en desktop forzamos una sola línea */
+/* En móvil/tablet puede envolver; en desktop forzar una sola línea */
 .navbar .navbar-nav { flex-wrap: wrap; gap: .15rem .4rem; }
 
 /* Tamaños de logo y fuentes responsivos para el navbar, de menor a mayor */
@@ -766,7 +766,7 @@ section > p {
 .hover-card { transition: transform .2s ease, box-shadow .2s ease; }
 .hover-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.12); }
 
-/* Enlaces de interés: cajas de logos institucionales (reemplazo de estilos inline) */
+/* Enlaces de interés: cajas de logos institucionales */
 .institution-logo-box {
   width: 120px;
   height: 120px;
@@ -1773,11 +1773,164 @@ p, a, td, th, li {
   margin-bottom: 1rem;
 }
 
-/* Directorio Institucional */
-.directorio-card-img {
-  height: 250px;
+/* --- START: Directory Card Image Fix --- */
+
+/* 1. Wrapper to enforce aspect ratio (3:4) */
+.directorio-img-wrapper {
+  position: relative;
+  /* 4/3 aspect ratio (height is 133.33% of width) */
+  padding-top: 133.33%; 
+  background-color: #e9ecef; /* Placeholder color */
+}
+
+/* 2. The image itself, positioned to fill the wrapper */
+.directorio-img-wrapper .card-img-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: top;
+}
+
+/* --- END: Directory Card Image Fix --- */
+
+/* Uniformidad y ajuste de texto en tarjetas de directorio */
+.directorio-card-col .card-title {
+  /* Asegura espacio vertical para alinear títulos (aprox. 2 líneas) */
+  min-height: 3em; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.directorio-card-col .card-text.fw-semibold { /* Estilo para el cargo */
+  /* Asegura espacio vertical para alinear cargos (aprox. 2 líneas) */
+  min-height: 3.2em;
+}
+
+/* Solución definitiva para botones de correo con texto largo (Julián y Victor) */
+.directorio-email-btn {
+  /* Usar Flexbox para alinear ícono y texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  
+  /* Ajustes de texto y tamaño */
+  font-size: 0.78rem;
+  line-height: 1.4;
+  min-height: 3.6em;
+  padding: 0.4em 0.5em;
+}
+
+.directorio-email-btn .email-text {
+  /* Forzar el quiebre de palabras largas (correos) */
+  word-break: break-all;
+}
+
+/* Directorio Institucional - Estilo Organigrama */
+.organigrama {
+  position: relative;
+}
+
+.org-level {
+  margin-bottom: 30px;
+}
+
+/* Tarjetas principales (Gerente, Subgerentes) */
+.directorio-card-principal .card-body {
+  background-color: #f0faf9;
+}
+.directorio-card-principal .card-title {
+  color: var(--color-primario);
+}
+
+/* Nivel 1 (Gerente) */
+.org-level-1 .row > div {
+  max-width: 400px; /* Ancho de una tarjeta */
+}
+
+/* Nivel Asesores */
+.org-level-asesores .row > .col {
+  max-width: 400px;
+}
+
+/* Nivel 2 (Subgerentes) */
+.org-level-2 .row > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.org-level-2 .row .row {
+  max-width: 400px;
+  flex-grow: 1; /* Asegura que el contenedor de la tarjeta crezca para llenar el espacio */
+}
+
+/* Solución definitiva para alinear tarjetas de subgerentes */
+.org-level-2 .row .row > .col {
+  display: flex; /* Convierte la columna en un contenedor flex para que la tarjeta h-100 se estire */
+}
+
+/* Nivel 4 (Departamentos) - Ancho de tarjetas para coincidir con las superiores */
+.org-level-3 .directorio-card-col {
+  max-width: 400px;
+}
+
+/* Conectores del organigrama */
+.org-connector-container {
+  position: relative;
+  height: 30px;
+  margin-bottom: 30px;
+}
+.org-connector-down {
+  width: 2px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 auto;
+}
+.org-connector-across {
+  position: absolute;
+  top: 28px;
+  left: 25%;
+  right: 25%;
+  height: 2px;
+  background-color: #ccc;
+}
+.org-branch {
+  position: relative;
+}
+.org-connector-up {
+  width: 2px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 auto -2px auto;
+}
+.org-level-3-connectors {
+  height: 30px;
+  margin-bottom: 30px;
+}
+.org-connector-down-small {
+  width: 2px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 auto;
+}
+
+/* Ocultar conectores en móvil para un layout más simple */
+@media (max-width: 767.98px) {
+  .org-connector-container,
+  .org-connector-up,
+  .org-level-3-connectors {
+    display: none;
+  }
+  .org-level {
+    margin-bottom: 15px;
+  }
+  .organigrama .col-lg-6 {
+    margin-bottom: 2rem;
+  }
 }
 
 /* Lazy load YouTube videos */
