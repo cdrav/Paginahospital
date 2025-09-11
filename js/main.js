@@ -9,7 +9,9 @@
       if (!videoId) return;
 
       // Set placeholder image
-      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+      // Usamos 'maxresdefault.jpg' para la máxima calidad (16:9). 
+      // Si un video no la tuviera, se podría usar 'sddefault.jpg' como alternativa.
+      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
       video.style.backgroundImage = `url('${thumbnailUrl}')`;
 
       // Add play button
