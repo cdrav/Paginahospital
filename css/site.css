@@ -1782,7 +1782,6 @@ p, a, td, th, li {
 
 /* Lazy load YouTube videos */
 .lazy-youtube {
-  position: relative;
   cursor: pointer;
   background-color: #000;
   display: block; /* Cambiado de flex a block */
