@@ -1,5 +1,39 @@
-// main.js - Utilidades de interfaz para Google Translate
+// main.js - Utilidades de interfaz para Google Translate y otras mejoras
 (function () {
+  // --- Lazy Load YouTube Videos ---
+  function initializeLazyYouTube() {
+    const lazyYouTubeVideos = document.querySelectorAll('.lazy-youtube');
+    
+    lazyYouTubeVideos.forEach(video => {
+      const videoId = video.dataset.youtubeId;
+      if (!videoId) return;
+
+      // Set placeholder image
+      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+      video.style.backgroundImage = `url('${thumbnailUrl}')`;
+
+      // Add play button
+      const playButton = document.createElement('div');
+      playButton.className = 'play-button';
+      video.appendChild(playButton);
+
+      // Add click listener
+      video.addEventListener('click', function() {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('title', this.title || 'Video de YouTube'); // Use existing title
+        
+        // Replace placeholder with iframe
+        this.innerHTML = '';
+        this.appendChild(iframe);
+        this.classList.remove('lazy-youtube'); // Remove class to prevent re-triggering
+      }, { once: true });
+    });
+  }
+
   // Función para configurar el botón de traducción
   function setupTranslateButton() {
     const btn = document.getElementById('translate-now');
@@ -85,13 +119,15 @@
   }
 
   // Inicialización cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      setupTranslateButton();
-      observeTranslateWidget();
-    });
-  } else {
+  function initializeSiteFeatures() {
     setupTranslateButton();
     observeTranslateWidget();
+    initializeLazyYouTube();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSiteFeatures);
+  } else {
+    initializeSiteFeatures();
   }
 })();
