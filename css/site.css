@@ -1772,3 +1772,11 @@ p, a, td, th, li {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
+
+/* Directorio Institucional */
+.directorio-card-img {
+  height: 250px;
+  object-fit: cover;
+  object-position: top;
+}
+
