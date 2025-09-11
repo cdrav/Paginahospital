@@ -8,11 +8,19 @@
       const videoId = video.dataset.youtubeId;
       if (!videoId) return;
 
-      // Set placeholder image
-      // Usamos 'maxresdefault.jpg' para la máxima calidad (16:9). 
-      // Si un video no la tuviera, se podría usar 'sddefault.jpg' como alternativa.
-      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-      video.style.backgroundImage = `url('${thumbnailUrl}')`;
+      // Crear un elemento <img> para la miniatura para un mejor control y accesibilidad.
+      const thumbnail = document.createElement('img');
+      thumbnail.src = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+      thumbnail.alt = video.title || 'Vista previa del video';
+      thumbnail.classList.add('lazy-youtube-thumbnail');
+      
+      // Fallback por si la miniatura de máxima resolución no existe.
+      thumbnail.onerror = function() {
+        this.onerror = null; // Prevenir bucles infinitos si esta también falla.
+        this.src = `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`;
+      };
+
+      video.appendChild(thumbnail);
 
       // Add play button
       const playButton = document.createElement('div');
