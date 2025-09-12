@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Nivel 2: Asesores calidad y control interno
        { nombre: "Paulo Castillo Ferreira", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "paulo-castillo-ferreira.jpg", area: "asesor" },
        { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.jpg", area: "asesor" },
+       { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.jpg", area: "asesor" },
 
         // Nivel 3: Subgerencias
         { nombre: "Yaraví Maite Llanos", cargo: "Subgerente Administrativa", email: "subgerencia@hdsa.gov.co", foto: "yaravi-maite llanos.jpg", area: "subgerencia_admin" },
@@ -30,13 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Yeimi Carolina Espinoza", cargo: "Ruta Desnutrición", email: "rutadesnutricion@hdsa.gov.co", foto: "yeimi-carolina espinoza.jpg", area: "asistencial" },
         
         // Nivel 5: Área Administrativa
-        { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.jpg", area: "administrativa" },
         { nombre: "Stephany Arango", cargo: "Tesorera", email: "tesoreria@hdsa.gov.co", foto: "Stephany-Arango.jpg", area: "administrativa" },
         { nombre: "Rosa Maria Clavijo", cargo: "Contadora", email: "contabilidad@hdsa.gov.co", foto: "rosa-maria-clavijo.jpg", area: "administrativa" },
         { nombre: "Oscar Orley Romero", cargo: "Talento Humano", email: "talentohumano@hdsa.gov.co", foto: "oscar-orley-romero.jpg", area: "administrativa" },
         { nombre: "Olga Martinez", cargo: "Contratación", email: "contratacion@hdsa.gov.co", foto: "olga-martinez.jpg", area: "administrativa" },
         { nombre: "Sandra Milena Chaverra", cargo: "Jefe de Almacén", email: "almacen@hdsa.gov.co", foto: "sandra-chaverra.jpg", area: "administrativa" },
-        { nombre: "Dolly Asevena Alvarado", cargo: "Coordinadora Servicios Generales", email: "serv.generales@hdsa.gov.co", foto: "dolor-alvarado.jpg", area: "administrativa" },
+        { nombre: "Dolly Asevena Alvarado", cargo: "Coordinadora Servicios Generales", email: "serv.generales@hdsa.gov.co", foto: "dolly-asevena-alvarado.jpg", area: "administrativa" },
         { nombre: "Wilmar Benitez", cargo: "Jefe de Mantenimiento", email: "mantenimiento@hdsa.gov.co", foto: "wilmar-benitez.jpg", area: "administrativa" },
         { nombre: "Claudia Lorena Salazar", cargo: "Gestión Documental", email: "gestiondocumental@hdsa.gov.co", foto: "Claudia-lorena-salazar.jpg", area: "administrativa" },
         { nombre: "Eliana Bermudez", cargo: "Coordinadora SIAU", email: "coord.siau@hdsa.gov.co", foto: "eliana-bermudez.jpg", area: "administrativa" },

@@ -38,17 +38,96 @@
     </section>
 
     <!-- Contenido principal -->
-    <main class="container my-5 d-flex align-items-center" style="min-height: 50vh;">
-      <div class="row w-100">
-        <div class="col-md-8 mx-auto text-center">
-          <div class="card border-0 shadow-sm">
-            <div class="card-body p-5">
-              <i class="bi bi-tools display-3 text-brand mb-4"></i>
-              <h2 class="h4 fw-bold mb-3">Contenido en Actualización</h2>
-              <p class="text-muted mb-0">Estamos trabajando para mejorar esta sección. Muy pronto encontrarás aquí el directorio institucional completo. ¡Gracias por tu paciencia!</p>
+    <main class="container my-5">
+      <!-- Barra de búsqueda -->
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+          <div class="input-group input-group-lg shadow-sm">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+            <input type="text" id="directorio-search" class="form-control border-start-0" placeholder="Buscar por nombre o cargo...">
+          </div>
+        </div>
+      </div>
+    
+      <!-- Estructura del Organigrama -->
+      <div class="organigrama">
+        <!-- Nivel 1: Gerente -->
+        <div class="org-level org-level-1">
+          <div class="row justify-content-center" id="directorio-gerente">
+            <!-- Tarjeta del Gerente se inserta aquí -->
+          </div>
+        </div>
+
+        <!-- Líneas de conexión -->
+        <div class="org-connector-container">
+          <div class="org-connector-down"></div>
+        </div>
+
+        <!-- Nivel 2: Asesores -->
+        <div class="org-level org-level-asesores">
+          <div class="row justify-content-center g-4" id="directorio-asesores">
+            <!-- Tarjetas de Asesores se insertan aquí -->
+          </div>
+        </div>
+
+        <!-- Líneas de conexión -->
+        <div class="org-connector-container">
+          <div class="org-connector-down"></div>
+          <div class="org-connector-across"></div>
+        </div>
+
+        <!-- Nivel 3: Subgerencias -->
+        <div class="org-level org-level-2">
+          <div class="row">
+            <div class="col-md-6 text-center org-branch">
+              <div class="org-connector-up"></div>
+              <div class="row justify-content-center" id="directorio-subgerencia-admin">
+                <!-- Tarjeta Subgerencia Administrativa -->
+              </div>
+            </div>
+            <div class="col-md-6 text-center org-branch">
+              <div class="org-connector-up"></div>
+              <div class="row justify-content-center" id="directorio-subgerencia-cientifica">
+                <!-- Tarjeta Subgerencia Científica -->
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Líneas de conexión -->
+        <div class="org-level org-level-3-connectors">
+          <div class="row">
+            <div class="col-md-6 text-center"><div class="org-connector-down-small"></div></div>
+            <div class="col-md-6 text-center"><div class="org-connector-down-small"></div></div>
+          </div>
+        </div>
+
+        <!-- Nivel 4: Departamentos -->
+        <div class="org-level org-level-3">
+          <div class="row g-5">
+            <!-- Columna Administrativa -->
+            <div class="col-lg-6">
+              <h2 class="h4 fw-bold text-center text-brand mb-4">Área Administrativa</h2>
+              <div class="row row-cols-1 g-4 justify-content-center" id="directorio-administrativos">
+                <!-- Tarjetas del personal administrativo -->
+              </div>
+            </div>
+            <!-- Columna Asistencial -->
+            <div class="col-lg-6">
+              <h2 class="h4 fw-bold text-center text-brand mb-4">Área Asistencial</h2>
+              <div class="row row-cols-1 g-4 justify-content-center" id="directorio-asistenciales">
+                <!-- Tarjetas del personal asistencial -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje de no resultados -->
+      <div id="no-results-message" class="text-center my-5 d-none">
+        <i class="bi bi-search-heart display-4 text-muted"></i>
+        <h3 class="mt-3">No se encontraron resultados</h3>
+        <p class="text-muted">Intenta con otro nombre o cargo.</p>
       </div>
     </main>
 
@@ -65,7 +144,7 @@
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/breadcrumb.js" defer></script>
-<!-- Script específico para el directorio (deshabilitado temporalmente) -->
-<!-- <script src="js/directorio.js" defer></script> -->
+<!-- Script específico para el directorio -->
+<script src="js/directorio.js" defer></script>
 </body>
 </html>
