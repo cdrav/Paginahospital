@@ -180,7 +180,7 @@ const searchConfig = {
             return results;
         } catch (error) {
             console.error('Error al realizar la búsqueda:', error);
-            this.showError('Ocurrió un error al realizar la búsqueda. Por favor, intente con otros términos.');
+            this.showError('Ocurrió un error al realizar la búsqueda. Por favor, intente con otros términos, revise la ortografía o intente más tarde.');
             return [];
         }
     },
@@ -318,7 +318,7 @@ const searchConfig = {
     }
 };
 
-/**
+/**  librerias se carga localmente para evitar errores en la consola, lunr.js no se carga desde CDN  
  * Espera a que una variable global (como una librería cargada desde un CDN) esté disponible.
  * @param {string} name - El nombre de la variable global a esperar (ej. 'lunr').
  * @param {number} [timeout=3000] - Tiempo máximo de espera en milisegundos.
