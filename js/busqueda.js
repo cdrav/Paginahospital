@@ -318,7 +318,7 @@ const searchConfig = {
     }
 };
 
-/**  librerias se carga localmente para evitar errores en la consola, lunr.js no se carga desde CDN  
+/**  librerias se carga localmente para evitar errores en la consola, lunr.js 
  * Espera a que una variable global (como una librería cargada desde un CDN) esté disponible.
  * @param {string} name - El nombre de la variable global a esperar (ej. 'lunr').
  * @param {number} [timeout=3000] - Tiempo máximo de espera en milisegundos.
