@@ -1,0 +1,7 @@
+# Archivo robots.txt para https://hdsa.gov.co
+# Permite a todos los rastreadores acceder a todo el sitio.
+User-agent: *
+Allow: /
+
+# Ubicación del Sitemap
+Sitemap: https://hdsa.gov.co/sitemap_index.xml
