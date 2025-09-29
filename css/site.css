@@ -640,6 +640,26 @@ section > p {
   object-fit: contain;
   object-position: center;
 }
+
+/* Ajuste para las imágenes del carrusel principal */
+#carouselHospital .carousel-item img {
+  height: 60vh; /* Altura relativa a la ventana gráfica */
+  min-height: 300px; /* Altura mínima para pantallas pequeñas */
+  max-height: 700px; /* Altura máxima para pantallas grandes */
+  object-fit: cover; /* Cubre el área sin deformar la imagen */
+  object-position: center; /* Centra la imagen */
+  width: 100%;
+}
+
+/* Estilo para imágenes de carrusel dentro de tarjetas de noticias */
+.news-carousel-img {
+  height: 200px; /* Altura fija para consistencia */
+  object-fit: contain; /* Muestra la imagen completa sin recortar */
+  background-color: #f8f9fa; /* Fondo claro para imágenes que no llenan el espacio */
+  width: 100%;
+}
+
+
 /* Controles discretos en desktop, ocultos en móviles */
 .fullwidth-carousel .carousel-control-prev,
 .fullwidth-carousel .carousel-control-next { filter: none; }
