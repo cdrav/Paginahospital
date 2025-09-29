@@ -1,6 +1,13 @@
-# Redirecciones para el formulario PQRS
-/pqrs/gracias    /pqrs/success.html    200
-/thanks.html     /pqrs/success.html    200
+# Redirecciones Permanentes (301) de URLs antiguas a nuevas
 
-# Redirección general para SPA (Single Page Application)
-/*    /index.html    200
+# Redirigir la antigua página de "rayos-x" a la nueva de "diagnostico"
+/servicios/rayos-x/    /diagnostico.html    301
+
+# Redirigir URLs de noticias antiguas (basadas en fecha) a la página general de noticias
+/2023/*    /noticias.html    301
+/2024/*    /noticias.html    301
+/2019/*    /noticias.html    301
+
+# Redirigir URLs de categorías y autores de WordPress a la página de inicio o de noticias
+/category/*    /noticias.html    301
+/author/*      /index.html       301
