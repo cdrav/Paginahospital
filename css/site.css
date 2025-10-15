@@ -1162,6 +1162,65 @@ section > p {
 }
 
 /* =====================================================
+   Estilos para la tarjeta del Consultorio Rosa
+   ===================================================== */
+.consultorio-rosa-card {
+    background: linear-gradient(135deg, #fcf9fd 0%, #f3e8ff 100%);
+    border: 1px solid #e8d6f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.consultorio-rosa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(108, 52, 131, 0.15);
+    border-color: #d2b4de;
+}
+
+.consultorio-rosa-card .btn {
+    transition: all 0.3s ease;
+    background-color: #8e44ad;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.consultorio-rosa-card .btn:hover {
+    background-color: #7d3c98;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
+}
+
+.consultorio-rosa-card .bi-heart-pulse-fill {
+    color: #8e44ad;
+    transition: transform 0.3s ease;
+}
+
+.consultorio-rosa-card:hover .bi-heart-pulse-fill {
+    transform: scale(1.1);
+}
+
+.consultorio-rosa-card ul li {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.consultorio-rosa-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 8px;
+    height: 8px;
+    background-color: #8e44ad;
+    border-radius: 50%;
+}
+
+/* =====================================================
    Estilos del Footer y Barra Final
    ===================================================== */
 

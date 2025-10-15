@@ -1,0 +1,269 @@
+/* Paleta de colores lila para el Consultorio Rosa */
+:root {
+  --color-lila: #8e44ad;
+  --color-lila-claro: #e8d6f0;
+  --color-lila-oscuro: #6c3483;
+  --color-fondo: #fcf9fd;
+  --color-texto: #4a235a;
+  --color-borde: #d2b4de;
+}
+
+/* Estilos generales */
+body[data-page-title="Consultorio Rosa"] {
+  color: var(--color-texto);
+  position: relative; /* Crea un contexto de apilamiento */
+  isolation: isolate; /* Evita que el z-index negativo se vaya detrás del todo */
+}
+
+/* Capa de color de fondo */
+body[data-page-title="Consultorio Rosa"]::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-fondo);
+  z-index: -2; 
+}
+
+/* Fondo con patrón de rosas sutil */
+body[data-page-title="Consultorio Rosa"]::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e8d6f0' fill-opacity='0.4' stroke='%23e8d6f0' stroke-width='1' stroke-linecap='round'%3E%3Ccircle cx='25' cy='25' r='1.5' fill-opacity='0.8'/%3E%3Cline x1='25' y1='27' x2='25' y2='35'/%3E%3Cline x1='25' y1='35' x2='20' y2='40'/%3E%3Cline x1='25' y1='35' x2='30' y2='40'/%3E%3Cline x1='25' y1='35' x2='22' y2='32'/%3E%3Cline x1='25' y1='35' x2='28' y2='32'/%3E%3Ccircle cx='90' cy='85' r='1.5' fill-opacity='0.8'/%3E%3Cline x1='90' y1='87' x2='90' y2='95'/%3E%3Cline x1='90' y1='95' x2='85' y2='100'/%3E%3Cline x1='90' y1='95' x2='95' y2='100'/%3E%3Cline x1='90' y1='95' x2='87' y2='92'/%3E%3Cline x1='90' y1='95' x2='93' y2='92'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100px;
+  z-index: -1; /* Se coloca entre el color de fondo y el contenido */
+  opacity: 0.9; /* Aumento de la opacidad para que el patrón sea más visible */
+  pointer-events: none;
+}
+
+/* Contenedor principal con efecto de desenfoque de fondo */
+body[data-page-title="Consultorio Rosa"] main.container {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(3px);
+  border-radius: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(142, 68, 173, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Estilos para el banner del Consultorio Rosa */
+.hero-rosa-banner {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Altura del 60% de la ventana */
+  min-height: 450px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.hero-rosa-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Muestra la imagen completa sin recortar */
+  background-color: #fcf9fd; /* Fondo para rellenar el espacio sobrante */
+  object-position: center center; /* Centra la imagen para un mejor encuadre general */
+  filter: none; /* Se quita el filtro para mostrar la imagen con su brillo original */
+}
+
+.hero-rosa-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* Se oculta el degradado oscuro */
+}
+
+.hero-rosa-content {
+  display: none; /* Se oculta el contenedor del texto */
+}
+
+.hero-rosa-content h1, .hero-rosa-content p {
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Títulos de sección */
+.text-brand {
+  color: var(--color-lila-oscuro) !important;
+}
+
+/* Tarjeta de "¿Qué es?" */
+.card.shadow-sm.border-0 {
+  background-color: #fff;
+  border-radius: 1rem;
+}
+
+.alert-info {
+  background-color: var(--color-lila-claro);
+  color: var(--color-texto);
+  border-color: var(--color-borde);
+}
+
+/* Tarjeta de "¿Qué es?" con efecto hover */
+.info-card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.info-card-hover:hover {
+  transform: scale(1.02); /* Efecto de maximización sutil */
+  box-shadow: 0 12px 28px rgba(142, 68, 173, 0.18) !important; /* Sombra más pronunciada */
+}
+
+/* Sección de tarjetas de violencia */
+#tipos-violencia {
+  padding: 2rem 1rem;
+}
+
+/* Estilos para el llamado a la acción (CTA) */
+.cta-rosa {
+  background: linear-gradient(135deg, var(--color-lila), var(--color-lila-oscuro));
+  color: white;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(142, 68, 173, 0.25);
+}
+
+.cta-rosa .lead {
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-light-rosa {
+  background-color: #fff;
+  color: var(--color-lila-oscuro);
+  font-weight: 700;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-light-rosa:hover {
+  background-color: #f8f9fa;
+  color: var(--color-lila-oscuro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Tarjeta individual de violencia */
+.violence-card {
+  border: none;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-top: 4px solid var(--color-lila);
+}
+
+.violence-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(142, 68, 173, 0.15);
+}
+
+/* Cuerpo de la tarjeta */
+.violence-card .card-body {
+  padding: 1.75rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Icono */
+/* Icono de la tarjeta */
+.violence-card .card-icon {
+  font-size: 2.2rem;
+  margin: 0 auto 1.25rem;
+  color: var(--color-lila);
+  display: block;
+  transition: transform 0.3s ease;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  background: rgba(142, 68, 173, 0.1);
+  border-radius: 50%;
+}
+
+.violence-card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Título de la tarjeta */
+.violence-card .card-title {
+  color: var(--color-lila-oscuro);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  min-height: 3.2em; /* Espacio para 2 líneas de texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Texto de la tarjeta */
+.violence-card .card-text {
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1;
+  padding: 0 0.5rem;
+}
+
+/* Pie de la tarjeta */
+.violence-card .card-footer {
+  background-color: #f9f9f9;
+  border-top: 1px solid #f0f0f0;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #666;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* Colores de borde superiores para cada tipo de violencia */
+.card-fisica { border-top-color: #e74c3c; }
+.card-psicologica { border-top-color: #8e44ad; }
+.card-sexual { border-top-color: #e67e22; }
+.card-economica { border-top-color: #3498db; }
+.card-simbolica { border-top-color: #2ecc71; }
+.card-institucional { border-top-color: #1abc9c; }
+/* Colores de íconos para cada tipo de violencia */
+.card-fisica .card-icon { color: #e74c3c; background-color: rgba(231, 76, 60, 0.1); }
+.card-psicologica .card-icon { color: #8e44ad; background-color: rgba(142, 68, 173, 0.1); }
+.card-sexual .card-icon { color: #e67e22; background-color: rgba(230, 126, 34, 0.1); }
+.card-economica .card-icon { color: #3498db; background-color: rgba(52, 152, 219, 0.1); }
+.card-simbolica .card-icon { color: #2ecc71; background-color: rgba(46, 204, 113, 0.1); }
+.card-institucional .card-icon { color: #1abc9c; background-color: rgba(26, 188, 156, 0.1); }
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .hero-rosa-banner {
+    height: 50vh;
+    min-height: 400px;
+  }
+  .hero-rosa-content h1 {
+    font-size: 2.5rem;
+  }
+  .hero-rosa-content p {
+    font-size: 1.2rem;
+  }
+  .violence-card .card-title {
+    min-height: auto; /* Permitir que el título se ajuste en móviles */
+  }
+}
