@@ -642,13 +642,15 @@ section > p {
 }
 
 /* Ajuste para las imágenes del carrusel principal */
+/* Se establece una altura máxima para evitar que las imágenes sean demasiado grandes en pantallas de escritorio,
+   pero se permite que la altura se ajuste automáticamente para mantener la proporción. */
 #carouselHospital .carousel-item img {
-  height: 60vh; /* Altura relativa a la ventana gráfica */
-  min-height: 300px; /* Altura mínima para pantallas pequeñas */
-  max-height: 700px; /* Altura máxima para pantallas grandes */
-  object-fit: cover; /* Cubre el área sin deformar la imagen */
+  height: auto; /* Permite que la altura se ajuste para mantener la proporción */
+  max-height: 75vh; /* Limita la altura máxima en pantallas grandes */
+  object-fit: contain; /* Asegura que toda la imagen sea visible sin recortes */
   object-position: center; /* Centra la imagen */
   width: 100%;
+  background-color: #e9ecef; /* Color de fondo para las barras laterales si la imagen no llena el espacio */
 }
 
 /* Estilo para imágenes de carrusel dentro de tarjetas de noticias */
