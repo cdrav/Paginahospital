@@ -251,6 +251,35 @@ body[data-page-title="Consultorio Rosa"] main.container {
 .card-simbolica .card-icon { color: #2ecc71; background-color: rgba(46, 204, 113, 0.1); }
 .card-institucional .card-icon { color: #1abc9c; background-color: rgba(26, 188, 156, 0.1); }
 
+/* Estilos para la vista previa de artículos */
+.article-preview-pane {
+  position: absolute;
+  z-index: 1050;
+  width: 320px;
+  max-height: 250px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  display: none; /* Se controla por JS */
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.article-preview-pane .preview-title {
+  font-weight: 700;
+  color: var(--color-lila-oscuro);
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: 0.5rem;
+}
+
+.article-preview-pane .preview-content {
+  max-height: 160px;
+  overflow-y: auto;
+}
 /* Ajustes responsivos */
 @media (max-width: 768px) {
   .hero-rosa-banner {
