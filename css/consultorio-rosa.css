@@ -280,6 +280,16 @@ body[data-page-title="Consultorio Rosa"] main.container {
   max-height: 160px;
   overflow-y: auto;
 }
+
+/* Estilos para la nueva galería de imágenes */
+.gallery-image {
+  height: 60vh; /* Altura del 60% de la ventana */
+  max-height: 500px; /* Altura máxima para no ser demasiado grande */
+  object-fit: contain; /* Muestra la imagen completa sin recortar */
+  object-position: center;
+  background-color: #f8f9fa;
+}
+
 /* Ajustes responsivos */
 @media (max-width: 768px) {
   .hero-rosa-banner {
