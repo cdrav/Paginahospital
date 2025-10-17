@@ -788,6 +788,10 @@ section > p {
 .hover-card { transition: transform .2s ease, box-shadow .2s ease; }
 .hover-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.12); }
 
+/* Enlaces de interés: tarjetas hover suaves */
+.hover-card { transition: transform .2s ease, box-shadow .2s ease; }
+.hover-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.12); }
+
 /* Enlaces de interés: cajas de logos institucionales */
 .institution-logo-box {
   width: 120px;
