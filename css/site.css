@@ -1560,6 +1560,14 @@ p, a, td, th, li {
     transition: bottom 0.4s ease-out;
   }
 }
+
+/* Ajuste adicional para la barra de accesibilidad en móviles cuando el banner de cookies está visible */
+@media (max-width: 768px) {
+  body.cookie-banner-visible .accessibility-buttons-container {
+    bottom: 140px; /* Ajusta esta altura si el banner de cookies cambia de tamaño */
+    transition: bottom 0.3s ease-in-out;
+  }
+}
   
 /* =====================================================
    Estadísticas - Mejoras de Proporcionalidad y Layout

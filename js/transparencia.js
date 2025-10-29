@@ -21,7 +21,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
 
   // Clicks en el sidebar
   // Nota: el desplazamiento y la lógica de "una sección a la vez" se manejan
-  // en el segundo bloque (captura true). Aquí no intervenimos para evitar dobles scrolls.
+  // en el segundo bloque (captura true). se evitan dobles scrolls.
   sidebar?.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;

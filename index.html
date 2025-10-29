@@ -129,82 +129,74 @@
     <div class="container text-center">
         <h2>Noticias y Eventos</h2>
         <p>Mantente al día con las últimas novedades y actividades del Hospital Departamental San Antonio.</p>
-
-          <!-- Tarjeta destacada del Consultorio Rosado -->
-          <div class="col-12 mb-4 mt-4">
-            <div class="card h-100 shadow-lg border-0 overflow-hidden hover-card" style="background: linear-gradient(135deg, #fff0f7 0%, #fdebf3 100%); border-left: 5px solid #d63384;">
-                <div class="row g-0 h-100">
-                    <div class="col-md-7 d-flex flex-column order-md-2">
-                        <div class="card-body text-center text-md-start p-4 p-md-5">
-                            <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-4">
-                                <i class="bi bi-bandaid-fill me-3" style="font-size: 2.5rem; color: #d63384;"></i>
-                                <h2 class="card-title mb-0 fw-bold" style="color: #a12363;">Consultorio Rosado</h2>
-                            </div>
-                            <p class="lead mb-4 fw-semibold" style="color: #c71f75;">La detección temprana del cáncer de mama salva vidas.</p>
-                            <div class="mb-4" style="color: #581537;">
-                                <p>Te ofrecemos un espacio seguro y especializado para el cuidado integral de tu salud:</p>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Programas de tamizaje y detección temprana.</li>
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Mamografías y ecografías con tecnología avanzada.</li>
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Acompañamiento profesional y humano.</li>
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Educación sobre el autoexamen de mama.</li>
-                                </ul>
-                            </div>
-                            <div class="mt-auto">
-                                <a href="consultorio-rosado.html" class="btn btn-lg fw-bold px-4" style="background-color: #d63384; color: white; border: none; transition: all 0.3s;">
-                                    Más Información <i class="bi bi-arrow-right ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5 order-md-1">
-                        <img src="imagenes/consultario-rosado-imagenes/galeria/DSC_0270.jpg" class="img-fluid h-100 w-100" alt="Consultorio Rosado - Detección temprana de cáncer de mama" style="object-fit: cover; min-height: 300px;">
-                    </div>
-                </div>
+        
+        <!-- Carrusel para Consultorios Rosado y Rosa -->
+        <div id="consultoriosCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#consultoriosCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Consultorio Rosado"></button>
+                <button type="button" data-bs-target="#consultoriosCarousel" data-bs-slide-to="1" aria-label="Consultorio Rosa"></button>
             </div>
-        </div>
-
-          <!-- Convocatoria Psiquiatría -->
-        <div class="row g-4 mt-3">
-        <!-- Tarjeta destacada del Consultorio Rosa -->
-        <div class="col-12 mb-4">
-            <div class="card h-100 shadow-lg border-0 overflow-hidden consultorio-rosa-card">
-                <div class="row g-0 h-100">
-                    <div class="col-md-5">
-                        <img src="imagenes/consultorio-rosa/consultorio-rosa-banner.jpg" class="img-fluid h-100 w-100" alt="Consultorio Rosa - Atención a víctimas de violencia de género" style="object-fit: cover; min-height: 300px;">
-                    </div>
-                    <div class="col-md-7 d-flex flex-column">
-                        <div class="card-body text-center text-md-start p-4 p-md-5">
-                            <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-4">
-                                <i class="bi bi-shield-check-fill me-3" style="font-size: 2.5rem; color: #8e44ad;"></i>
-                                <h2 class="card-title mb-0 fw-bold" style="color: #4a235a;">Consultorio Rosa</h2>
-                            </div>
-                            <p class="lead mb-4 fw-semibold" style="color: #6c3483;">Atención integral, segura y confidencial para personas víctimas de violencias basadas en género</p>
-                            <div class="mb-4" style="color: #4a235a;">
-                                <p>En el Hospital Departamental San Antonio ofrecemos un espacio seguro con atención integral que incluye:</p>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="bi bi-shield-check me-2 text-primary"></i>Atención médica especializada</li>
-                                    <li class="mb-2"><i class="bi bi-shield-check me-2 text-primary"></i>Apoyo psicológico y emocional</li>
-                                    <li class="mb-2"><i class="bi bi-shield-check me-2 text-primary"></i>Acompañamiento social</li>
-                                    <li class="mb-2"><i class="bi bi-shield-check me-2 text-primary"></i>Asesoría legal y rutas de atención</li>
-                                    <li class="mb-2"><i class="bi bi-shield-check me-2 text-primary"></i>Protección de derechos sin discriminación</li>
-                                </ul>
-                                <div class="alert alert-light mt-3 mb-0" style="background-color: #f8f0fc; border-left: 4px solid #8e44ad;">
-                                    <i class="bi bi-info-circle-fill me-2" style="color: #8e44ad;"></i>
-                                    <small>Servicio respaldado por la Ley 1257 de 2008 y la Ley 1719 de 2014</small>
+            <div class="carousel-inner">
+                <!-- Slide 1: Consultorio Rosado -->
+                <div class="carousel-item active">
+                    <div class="card h-100 shadow-lg border-0 overflow-hidden" style="background: linear-gradient(135deg, #fff0f7 0%, #fdebf3 100%); border-left: 5px solid #d63384;">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-7 d-flex flex-column order-md-2">
+                                <div class="card-body text-center text-md-start p-4 p-md-5">
+                                    <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-4">
+                                        <i class="bi bi-bandaid-fill me-3" style="font-size: 2.5rem; color: #d63384;"></i>
+                                        <h2 class="card-title mb-0 fw-bold" style="color: #a12363;">Consultorio Rosado</h2>
+                                    </div>
+                                    <p class="lead mb-4 fw-semibold" style="color: #c71f75;">La detección temprana del cáncer de mama salva vidas.</p>
+                                    <div class="mb-4" style="color: #581537;">
+                                        <p>Te ofrecemos un espacio seguro y especializado para el cuidado integral de tu salud:</p>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Programas de tamizaje y detección temprana.</li>
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Mamografías y ecografías con tecnología avanzada.</li>
+                                            <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color: #d63384;"></i>Acompañamiento profesional y humano.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <a href="consultorio-rosado.html" class="btn btn-lg fw-bold px-4" style="background-color: #d63384; color: white; border: none; transition: all 0.3s;">
+                                            Más Información <i class="bi bi-arrow-right ms-2"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mt-auto">
-                                <a href="consultorio-rosa.html" class="btn btn-lg fw-bold px-4" style="background-color: #8e44ad; color: white; border: none; transition: all 0.3s;">
-                                    Conocer más <i class="bi bi-arrow-right ms-2"></i>
-                                </a>
+                            <div class="col-md-5 order-md-1">
+                                <img src="imagenes/consultario-rosado-imagenes/galeria/DSC_0270.jpg" class="img-fluid h-100 w-100" alt="Consultorio Rosado - Detección temprana de cáncer de mama" style="object-fit: cover; min-height: 300px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2: Consultorio Rosa -->
+                <div class="carousel-item">
+                    <div class="card h-100 shadow-lg border-0 overflow-hidden consultorio-rosa-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <img src="imagenes/consultorio-rosa/consultorio-rosa-banner.jpg" class="img-fluid h-100 w-100" alt="Consultorio Rosa - Atención a víctimas de violencia de género" style="object-fit: cover; min-height: 300px;">
+                            </div>
+                            <div class="col-md-7 d-flex flex-column">
+                                <div class="card-body text-center text-md-start p-4 p-md-5">
+                                    <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-4">
+                                        <i class="bi bi-shield-check-fill me-3" style="font-size: 2.5rem; color: #8e44ad;"></i>
+                                        <h2 class="card-title mb-0 fw-bold" style="color: #4a235a;">Consultorio Rosa</h2>
+                                    </div>
+                                    <p class="lead mb-4 fw-semibold" style="color: #6c3483;">Atención integral, segura y confidencial para personas víctimas de violencias basadas en género.</p>
+                                    <div class="mt-auto">
+                                        <a href="consultorio-rosa.html" class="btn btn-lg fw-bold px-4" style="background-color: #8e44ad; color: white; border: none; transition: all 0.3s;">
+                                            Conocer más <i class="bi bi-arrow-right ms-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
+        <div class="row g-4 mt-3">
         <!-- Nueva Noticia Reel Facebook -->
         <div class="col-md-6 col-lg-4">
           <div class="card h-100 shadow-sm hover-card">
