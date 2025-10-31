@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="col directorio-card-col">
             <div class="card h-100 text-center shadow-sm border-0 hover-card ${cardClass}">
               <div class="directorio-img-wrapper">
-                <img src="/imagenes/Fotos-directorio-institucional/${persona.foto}" class="card-img-top" alt="Foto de ${persona.nombre}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/imagenes/Fotos-directorio-institucional/placeholder.jpg';">
+                <img src="/imagenes/Fotos-directorio-institucional/${persona.foto}" class="card-img-top" alt="Foto de ${persona.nombre}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/imagenes/Fotos-directorio-institucional/placeholder.webp';">
               </div>
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title fw-bold">${persona.nombre}</h5>
