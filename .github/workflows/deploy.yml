@@ -2,6 +2,7 @@ name: Despliegue en GitHub Pages
 
 permissions:
   id-token: write
+  pages: write
   contents: read
 
 on:
