@@ -1,0 +1,43 @@
+name: Despliegue en GitHub Pages
+
+on:
+  push:
+    branches: ["main"] # Cambia a tu rama principal si es diferente
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias y generar índice
+        run: |
+          npm ci
+          npm run build:search
+
+      # ----------------------------------------------------------------------
+      # Paso clave: Configurar Pages y subir artefacto
+      # ----------------------------------------------------------------------
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir artefactos de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # El sitio de Pages publicará el contenido de esta carpeta.
+          # Asegúrate de que el resultado de tu build (incluyendo index.html
+          # y el índice de búsqueda) esté en la raíz.
+          path: './'
+
+      # ----------------------------------------------------------------------
+      # Paso clave: Desplegar a Pages
+      # ----------------------------------------------------------------------
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
