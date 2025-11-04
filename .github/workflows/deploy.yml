@@ -1,5 +1,9 @@
 name: Despliegue en GitHub Pages
 
+permissions:
+  id-token: write
+  contents: read
+
 on:
   push:
     branches: ["main"] # Cambia a tu rama principal si es diferente
