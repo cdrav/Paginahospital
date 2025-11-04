@@ -156,7 +156,7 @@ const formatDimensionData = (response) => {
 const handler = async (event, context) => {
   // Configuración de CORS
   const headers = {
-    'Access-Control-Allow-Origin': '*', // O un dominio específico: 'https://hdsa.gov.co'
+    'Access-Control-Allow-Origin': '*', // O un dominio específico: 'https://www.hdsa.gov.co'
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Content-Type': 'application/json',
