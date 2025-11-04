@@ -114,7 +114,7 @@ const formatDailyVisits = (response) => {
   return response[0].rows.map(row => {
     const dateStr = row.dimensionValues[0].value;
     return {
-      date: `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`,
+      date: `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`, // Formato YYYYMMDD -> YYYY-MM-DD
       visits: parseInt(row.metricValues[0].value, 10)
     };
   });
