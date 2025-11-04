@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- ¡CAMBIO IMPORTANTE! ---
-  // Reemplaza 'TU-SITIO-EN-NETLIFY.netlify.app' con la URL real de tu sitio en Netlify.
-  const API_URL = 'https://pagina-hospital.netlify.app/';
+  // URL de la función de Netlify para obtener datos de Google Analytics
+  const API_URL = 'https://paginawebhospital.netlify.app/.netlify/functions/get-analytics';
 
   const loadingEl = document.getElementById('loading');
   const errorEl = document.getElementById('errorMessage');
