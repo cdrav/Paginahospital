@@ -1,6 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const API_URL = '/.netlify/functions/get-analytics';
+// URL de la función de Netlify
+const NETLIFY_FUNCTION_URL = 'https://pagina-hospital.netlify.app/.netlify/functions/get-analytics';
 
+document.addEventListener('DOMContentLoaded', async () => {
   const loadingEl = document.getElementById('loading');
   const errorEl = document.getElementById('errorMessage');
   const lastUpdateEl = document.getElementById('lastUpdate');
@@ -18,8 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const browsersChartCtx = document.getElementById('browsersChart')?.getContext('2d');
   const monthlyTrendChartCtx = document.getElementById('monthlyTrendChart')?.getContext('2d');
 
-  // Instancias de los gráficos (para poder destruirlas antes de redibujar)
+  // Instancias de los gráficos
   let charts = {};
+  
+  // Datos de ejemplo (se reemplazarán con datos reales de la API)
+  let analyticsData = {
+    totalVisits: 0,
+    monthlyVisits: 0,
+    dailyVisits: [],
+    devices: {},
+    browsers: {},
+    topPages: [],
+    monthlyTrend: []
+  };
 
   // Función para mostrar errores
   const showError = (message) => {
@@ -146,23 +158,121 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Función para obtener datos de la función de Netlify
+  async function fetchAnalyticsData() {
+    try {
+      const response = await fetch(NETLIFY_FUNCTION_URL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error al obtener datos de estadísticas');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error al obtener datos de estadísticas:', error);
+      showError('No se pudieron cargar las estadísticas. Por favor, inténtalo de nuevo más tarde.');
+      return null;
+    }
+  }
+
+  // Función para procesar los datos de la API de Netlify
+  function processAnalyticsData(apiData) {
+    if (!apiData || !apiData.success) {
+      console.error('Datos de API no válidos:', apiData);
+      return analyticsData; // Devolver datos vacíos si no hay datos
+    }
+
+    // Los datos ya vienen formateados de la función de Netlify
+    const {
+      totalVisits = 0,
+      monthlyVisits = 0,
+      dailyVisits = [],
+      devices = {},
+      browsers = {},
+      topPages = [],
+      monthlyTrend = []
+    } = apiData.data || {};
+
+    // Si no hay visitas diarias pero sí hay datos en la respuesta, intentar formatearlos
+    if (dailyVisits.length === 0 && apiData.data) {
+      // Intenta extraer datos de la respuesta de la API
+      if (apiData.data.rows) {
+        // Formato de respuesta de GA4
+        return {
+          totalVisits: apiData.data.totals?.[0]?.metricValues?.[0]?.value || 0,
+          monthlyVisits: 0, // Se calcula abajo
+          dailyVisits: apiData.data.rows.map(row => ({
+            date: row.dimensionValues?.[0]?.value || '',
+            visits: parseInt(row.metricValues?.[0]?.value || 0)
+          })),
+          devices: {},
+          browsers: {},
+          topPages: [],
+          monthlyTrend: []
+        };
+      }
+    }
+
+    // Si los datos vienen directamente de la API de GA4 sin procesar
+    if (apiData.rows) {
+      const dailyVisits = apiData.rows.map(row => ({
+        date: row.dimensionValues?.[0]?.value || '',
+        visits: parseInt(row.metricValues?.[0]?.value || 0)
+      }));
+
+      return {
+        totalVisits: apiData.totals?.[0]?.metricValues?.[0]?.value || 0,
+        monthlyVisits: dailyVisits.reduce((sum, day) => sum + day.visits, 0),
+        dailyVisits,
+        devices: {},
+        browsers: {},
+        topPages: [],
+        monthlyTrend: [],
+        lastUpdate: new Date().toISOString()
+      };
+    }
+
+    // Si los datos ya vienen procesados de la función de Netlify
+    return {
+      totalVisits: apiData.data?.totalVisits || 0,
+      monthlyVisits: apiData.data?.monthlyVisits || 0,
+      dailyVisits: apiData.data?.dailyVisits || [],
+      devices: apiData.data?.devices || {},
+      browsers: apiData.data?.browsers || {},
+      topPages: apiData.data?.topPages || [],
+      monthlyTrend: apiData.data?.monthlyTrend || [],
+      lastUpdate: new Date().toISOString()
+    };
+  }
+
   // Función principal para obtener y renderizar los datos
   const fetchAndRenderAnalytics = async () => {
     try {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.details || `El servidor respondió con el estado ${response.status}`);
-      }
-      const data = await response.json();
+      // Mostrar indicador de carga
+      if (loadingEl) loadingEl.classList.remove('d-none');
+      if (errorEl) errorEl.classList.add('d-none');
+      
+      // Obtener datos de la función de Netlify
+      const responseData = await fetchAnalyticsData();
+      
+      // Procesar los datos para mostrarlos en la interfaz
+      const data = processAnalyticsData(responseData);
 
       // Ocultar carga y mostrar fecha de actualización
       if (loadingEl) loadingEl.classList.add('d-none');
       if (lastUpdateEl) {
-        lastUpdateEl.textContent = `Actualizado: ${new Date(data.lastUpdate).toLocaleString('es-CO')}`;
+        lastUpdateEl.textContent = `Actualizado: ${new Date().toLocaleString('es-CO')}`;
       }
 
-      // Poblar las tarjetas de estadísticas
+      // Actualizar la interfaz con los datos
       if (totalVisitsEl) totalVisitsEl.textContent = formatNumber(data.totalVisits);
       if (monthlyVisitsEl) monthlyVisitsEl.textContent = formatNumber(data.monthlyVisits);
       
@@ -173,18 +283,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (currentYearEl) currentYearEl.textContent = now.getFullYear();
 
-      // Renderizar las páginas más visitadas (AQUÍ ESTÁ LA CORRECCIÓN)
+      // Renderizar las páginas más visitadas
       renderTopPages(data.topPages);
 
-      // Renderizar los gráficos
-      renderVisitsChart(data.dailyVisits);
-      renderDevicesChart(data.devices);
-      renderBrowsersChart(data.browsers);
-      renderMonthlyTrendChart(data.monthlyTrend);
+      // Renderizar los gráficos solo si hay datos
+      if (data.dailyVisits && data.dailyVisits.length > 0) {
+        renderVisitsChart(data.dailyVisits);
+      }
+      
+      if (data.devices && Object.keys(data.devices).length > 0) {
+        renderDevicesChart(data.devices);
+      }
+      
+      if (data.browsers && Object.keys(data.browsers).length > 0) {
+        renderBrowsersChart(data.browsers);
+      }
+      
+      if (data.monthlyTrend && data.monthlyTrend.length > 0) {
+        renderMonthlyTrendChart(data.monthlyTrend);
+      }
 
     } catch (error) {
       console.error('Error al obtener datos de analíticas:', error);
-      showError(error.message);
+      showError('No se pudieron cargar las estadísticas. Por favor, verifica tu conexión e inténtalo de nuevo.');
     }
   };
 
