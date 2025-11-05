@@ -44,7 +44,7 @@
       <!-- Mensaje de éxito/error del envío -->
       <div id="form-message" class="alert d-none" role="alert"></div>
       
-      <form name="pqrs-form" method="POST" action="pqrs/success.html" enctype="multipart/form-data" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" class="needs-validation" novalidate>
+      <form name="pqrs-form" method="POST" action="/api/pqrs" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" class="needs-validation" novalidate netlify="netlify">
         <!-- Campos requeridos por Netlify -->
         <input type="hidden" name="form-name" value="pqrs-form">
         <input type="hidden" name="_subject" value="Nueva PQRS desde el sitio web">

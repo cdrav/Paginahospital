@@ -3,29 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('form[name="pqrs-form"]');
   if (!form) return; // Salir si no hay formulario
 
-  // --- INICIO: CÓDIGO DE MANTENIMIENTO ---
-  // Este bloque deshabilita el formulario y muestra un aviso.
-  // Para reactivar el formulario, simplemente elimina o comenta este bloque.
   
-  const maintenanceHTML = `
-    <div class="container py-5 text-center">
-      <div class="card shadow-sm p-4 p-md-5" style="max-width: 700px; margin: auto;">
-        <i class="bi bi-tools" style="font-size: 3rem; color: #ffc107;"></i>
-        <h2 class="card-title fw-bold mt-3">Formulario en Mantenimiento</h2>
-        <p class="card-text text-muted lead mt-2">
-          Actualmente estamos realizando mejoras en nuestro sistema de PQRS.
-        </p>
-        <p class="card-text">
-          Para cualquier solicitud urgente, por favor comuníquese a través de nuestros otros <a href="/mecanismos-de-contacto.html">canales de contacto</a>. Disculpe las molestias.
-        </p>
-      </div>
-    </div>
-  `;
-
-  form.innerHTML = maintenanceHTML; // Reemplaza el contenido del formulario con el mensaje.
-  return; // Detiene la ejecución del resto del script para este formulario.
-  // --- FIN: CÓDIGO DE MANTENIMIENTO ---
-
   const submitBtn = document.getElementById('submit-btn');
   const spinner = submitBtn?.querySelector('.spinner-border');
   const btnText = submitBtn?.querySelector('.btn-text');

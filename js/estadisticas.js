@@ -1,5 +1,5 @@
 // URL de la función de Netlify
-const NETLIFY_FUNCTION_URL = 'https://pagina-estadisticas-pqrs.netlify.app/.netlify/functions/get-analytics';
+const NETLIFY_FUNCTION_URL = 'https://pagina-estadisticas-pqrs.netlify.app/.netlify/functions/get-analytics';  
 
 document.addEventListener('DOMContentLoaded', async () => {
   const loadingEl = document.getElementById('loading');
