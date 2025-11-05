@@ -158,13 +158,14 @@ const handler = async (event, context) => {
   
   // Configuración de CORS mejorada
   const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Origin': 'https://www.hdsa.gov.co',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, Expires, Pragma, Cache-Control',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Credentials': true,
+    'Access-Control-Allow-Credentials': 'true',
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-cache, no-store, must-revalidate',
-    'X-Content-Type-Options': 'nosniff'
+    'Vary': 'Origin',
+    'Access-Control-Max-Age': '86400' // 24 horas
   };
 
   // Manejar solicitud OPTIONS para CORS preflight

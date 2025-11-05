@@ -1,9 +1,30 @@
-// Manejo del envío del formulario PQRS
+// Manejo del formulario PQRS
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('form[name="pqrs-form"]');
   if (!form) return; // Salir si no hay formulario
 
+  // Mostrar mensaje de mantenimiento
+  const maintenanceHTML = `
+    <div class="alert alert-warning mt-4">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-tools fs-3 me-3"></i>
+        <div>
+          <h4 class="alert-heading">¡Estamos en mantenimiento!</h4>
+          <p class="mb-0">El formulario de PQRS se encuentra temporalmente en mantenimiento para mejoras. Por favor, inténtalo nuevamente más tarde o contáctanos a través de nuestros otros canales de comunicación.</p>
+          <hr>
+          <p class="mb-0">Disculpa las molestias. Estamos trabajando para brindarte un mejor servicio.</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Reemplazar el formulario con el mensaje de mantenimiento
+  form.outerHTML = maintenanceHTML;
   
+  // Salir ya que el resto del código no es necesario
+  return;
+
+  // El resto del código original (deshabilitado por el return anterior)
   const submitBtn = document.getElementById('submit-btn');
   const spinner = submitBtn?.querySelector('.spinner-border');
   const btnText = submitBtn?.querySelector('.btn-text');

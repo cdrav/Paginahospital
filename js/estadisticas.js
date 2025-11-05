@@ -318,15 +318,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout de 10 segundos
         
+        // Usar el modo 'cors' y solo los encabezados necesarios
         const response = await fetch(NETLIFY_FUNCTION_URL, {
           method: 'GET',
+          mode: 'cors',
           headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0'
+            'Accept': 'application/json'
           },
-          credentials: 'omit', // Cambiado de 'same-origin' a 'omit' para evitar problemas de CORS
+          credentials: 'omit',
           signal: controller.signal
         });
         
