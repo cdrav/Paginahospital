@@ -43,29 +43,44 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
   
   // Función para formatear números
-  const formatNumber = (num) => num.toLocaleString('es-CO');
+  const formatNumber = (num) => {
+    // Asegurarse de que el valor sea un número
+    const number = typeof num === 'string' ? parseInt(num, 10) : num;
+    // Verificar si el número es válido
+    if (isNaN(number)) return '0';
+    return number.toLocaleString('es-CO');
+  };
 
   // Función para renderizar la lista de páginas más visitadas
   const renderTopPages = (pages) => {
-    if (!topPagesListEl || !pages || pages.length === 0) {
-      if (topPagesListEl) {
-        topPagesListEl.innerHTML = '<div class="alert alert-light text-center p-2">No hay datos de páginas más visitadas.</div>';
-      }
+    if (!topPagesListEl) return;
+    
+    // Verificar si no hay páginas o si es un array vacío
+    if (!pages || !Array.isArray(pages) || pages.length === 0) {
+      topPagesListEl.innerHTML = '<div class="alert alert-light text-center p-2">No hay datos de páginas más visitadas.</div>';
       return;
     }
 
-    const listHtml = pages.map(page => {
+    // Tomar solo las primeras 5 páginas para mostrar
+    const topFivePages = pages.slice(0, 5);
+    
+    const listHtml = topFivePages.map(page => {
+      // Asegurarse de que la página tenga los campos necesarios
+      if (!page || !page.path || !page.title) return '';
+      
       const pageUrl = page.path.startsWith('/') ? page.path : `/${page.path}`;
+      // Usar views si está disponible, de lo contrario usar visits
+      const visits = page.views || page.visits || 0;
       
       return `
       <a href="${pageUrl}" target="_blank" rel="noopener" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2">
         <span class="text-truncate" title="${page.title}">
           ${page.title}
         </span>
-        <span class="badge bg-info-subtle text-info-emphasis rounded-pill">${formatNumber(page.visits)}</span>
+        <span class="badge bg-info-subtle text-info-emphasis rounded-pill">${formatNumber(visits)}</span>
       </a>
     `;
-    }).join('');
+    }).filter(Boolean).join(''); // Filtrar elementos vacíos
 
     topPagesListEl.innerHTML = `<div class="list-group list-group-flush">${listHtml}</div>`;
   };
