@@ -161,20 +161,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Función para obtener datos de la función de Netlify
   async function fetchAnalyticsData() {
     try {
+      console.log('Solicitando datos a:', NETLIFY_FUNCTION_URL);
       const response = await fetch(NETLIFY_FUNCTION_URL, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json'
-        }
+        },
+        // Añadimos credenciales 'same-origin' para asegurar que se envíen las cookies si es necesario
+        credentials: 'same-origin'
       });
 
+      console.log('Respuesta recibida, estado:', response.status);
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error al obtener datos de estadísticas');
+        let errorMessage = `Error HTTP: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch (e) {
+          // Si no podemos parsear el error como JSON, usamos el texto plano
+          const text = await response.text();
+          errorMessage = text || errorMessage;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
+      console.log('Datos recibidos de la API:', data);
       return data;
     } catch (error) {
       console.error('Error al obtener datos de estadísticas:', error);
@@ -185,43 +198,50 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Función para procesar los datos de la API de Netlify
   function processAnalyticsData(apiData) {
-    if (!apiData || !apiData.success) {
-      console.error('Datos de API no válidos:', apiData);
-      return analyticsData; // Devolver datos vacíos si no hay datos
+    console.log('Datos recibidos de la API:', apiData);
+    
+    // Si no hay datos, devolver estructura vacía
+    if (!apiData) {
+      console.error('No se recibieron datos de la API');
+      return analyticsData;
     }
 
-    // Los datos ya vienen formateados de la función de Netlify
-    const {
-      totalVisits = 0,
-      monthlyVisits = 0,
-      dailyVisits = [],
-      devices = {},
-      browsers = {},
-      topPages = [],
-      monthlyTrend = []
-    } = apiData.data || {};
-
-    // Si no hay visitas diarias pero sí hay datos en la respuesta, intentar formatearlos
-    if (dailyVisits.length === 0 && apiData.data) {
-      // Intenta extraer datos de la respuesta de la API
-      if (apiData.data.rows) {
-        // Formato de respuesta de GA4
-        return {
-          totalVisits: apiData.data.totals?.[0]?.metricValues?.[0]?.value || 0,
-          monthlyVisits: 0, // Se calcula abajo
-          dailyVisits: apiData.data.rows.map(row => ({
-            date: row.dimensionValues?.[0]?.value || '',
-            visits: parseInt(row.metricValues?.[0]?.value || 0)
-          })),
-          devices: {},
-          browsers: {},
-          topPages: [],
-          monthlyTrend: []
-        };
-      }
+    // Si la respuesta tiene un error, mostrarlo
+    if (apiData.error) {
+      console.error('Error en la respuesta de la API:', apiData.error);
+      showError(apiData.error);
+      return analyticsData;
     }
 
-    // Si los datos vienen directamente de la API de GA4 sin procesar
+    // Si los datos vienen en el formato esperado (con data y success)
+    if (apiData.success !== undefined && apiData.data) {
+      return {
+        totalVisits: apiData.data.totalVisits || 0,
+        monthlyVisits: apiData.data.monthlyVisits || 0,
+        dailyVisits: apiData.data.dailyVisits || [],
+        devices: apiData.data.devices || {},
+        browsers: apiData.data.browsers || {},
+        topPages: apiData.data.topPages || [],
+        monthlyTrend: apiData.data.monthlyTrend || [],
+        lastUpdate: apiData.data.lastUpdate || new Date().toISOString()
+      };
+    }
+    
+    // Si los datos vienen directamente (sin el wrapper success/data)
+    if (apiData.totalVisits !== undefined) {
+      return {
+        totalVisits: apiData.totalVisits || 0,
+        monthlyVisits: apiData.monthlyVisits || 0,
+        dailyVisits: Array.isArray(apiData.dailyVisits) ? apiData.dailyVisits : [],
+        devices: apiData.devices || {},
+        browsers: apiData.browsers || {},
+        topPages: Array.isArray(apiData.topPages) ? apiData.topPages : [],
+        monthlyTrend: Array.isArray(apiData.monthlyTrend) ? apiData.monthlyTrend : [],
+        lastUpdate: apiData.lastUpdate || new Date().toISOString()
+      };
+    }
+
+    // Si los datos vienen en formato de filas (formato GA4)
     if (apiData.rows) {
       const dailyVisits = apiData.rows.map(row => ({
         date: row.dimensionValues?.[0]?.value || '',
@@ -231,7 +251,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return {
         totalVisits: apiData.totals?.[0]?.metricValues?.[0]?.value || 0,
         monthlyVisits: dailyVisits.reduce((sum, day) => sum + day.visits, 0),
-        dailyVisits,
+        dailyVisits: dailyVisits,
         devices: {},
         browsers: {},
         topPages: [],
@@ -240,17 +260,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       };
     }
 
-    // Si los datos ya vienen procesados de la función de Netlify
-    return {
-      totalVisits: apiData.data?.totalVisits || 0,
-      monthlyVisits: apiData.data?.monthlyVisits || 0,
-      dailyVisits: apiData.data?.dailyVisits || [],
-      devices: apiData.data?.devices || {},
-      browsers: apiData.data?.browsers || {},
-      topPages: apiData.data?.topPages || [],
-      monthlyTrend: apiData.data?.monthlyTrend || [],
-      lastUpdate: new Date().toISOString()
-    };
+    console.error('Formato de datos no reconocido:', apiData);
+    return analyticsData;
   }
 
   // Función principal para obtener y renderizar los datos
