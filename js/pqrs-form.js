@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Validación del formulario
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
     
     // Validación de campos requeridos
@@ -47,7 +47,39 @@ document.addEventListener('DOMContentLoaded', function() {
       submitBtn.disabled = true;
     }
     
-    // Envío según entorno
+    try {
+      // Crear FormData para el envío
+      const formData = new FormData(form);
+      
+      // Agregar el nombre del formulario
+      formData.append('form-name', 'pqrs-form');
+      
+      // Enviar datos a Netlify
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Redirigir a la página de éxito
+        window.location.href = '/pqrs/success.html';
+      } else {
+        throw new Error('Error al enviar el formulario');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showMessage('Error al enviar el formulario. Por favor, inténtalo de nuevo más tarde.', 'danger');
+    } finally {
+      // Restaurar botón
+      if (spinner && btnText && submitBtn) {
+        spinner.classList.add('d-none');
+        btnText.textContent = 'Enviar mensaje';
+        submitBtn.disabled = false;
+      }
+    }
     if (isLocal) {
       // Entorno local: no hay backend que acepte POST. Simulamos éxito.
       console.log('Entorno local: simulando envío y redirigiendo a la página de éxito.');

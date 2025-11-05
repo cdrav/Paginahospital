@@ -154,12 +154,17 @@ const formatDimensionData = (response) => {
 // --- Manejador de la Función ---
 
 const handler = async (event, context) => {
-  // Configuración de CORS
+  console.log('Solicitud recibida:', event.httpMethod, event.path);
+  
+  // Configuración de CORS mejorada
   const headers = {
-    'Access-Control-Allow-Origin': '*', // O un dominio específico: 'https://www.hdsa.gov.co'
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json',
+    'Access-Control-Allow-Credentials': true,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'X-Content-Type-Options': 'nosniff'
   };
 
   // Manejar solicitud OPTIONS para CORS preflight

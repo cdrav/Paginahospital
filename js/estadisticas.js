@@ -307,42 +307,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
-  // Función para obtener datos de la función de Netlify
-  async function fetchAnalyticsData() {
-    try {
-      console.log('Solicitando datos a:', NETLIFY_FUNCTION_URL);
-      const response = await fetch(NETLIFY_FUNCTION_URL, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        // Añadimos credenciales 'same-origin' para asegurar que se envíen las cookies si es necesario
-        credentials: 'same-origin'
-      });
-
-      console.log('Respuesta recibida, estado:', response.status);
-      
-      if (!response.ok) {
-        let errorMessage = `Error HTTP: ${response.status}`;
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        } catch (e) {
-          // Si no podemos parsear el error como JSON, usamos el texto plano
-          const text = await response.text();
-          errorMessage = text || errorMessage;
+  // Función para obtener datos de la función de Netlify con reintentos
+  async function fetchAnalyticsData(maxRetries = 3, retryDelay = 1000) {
+    let lastError;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`[Intento ${attempt}/${maxRetries}] Solicitando datos a:`, NETLIFY_FUNCTION_URL);
+        
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout de 10 segundos
+        
+        const response = await fetch(NETLIFY_FUNCTION_URL, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          },
+          credentials: 'omit', // Cambiado de 'same-origin' a 'omit' para evitar problemas de CORS
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        console.log('Respuesta recibida, estado:', response.status);
+        
+        if (!response.ok) {
+          let errorMessage = `Error HTTP: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            // Si no podemos parsear el error como JSON, usamos el texto plano
+            const text = await response.text();
+            errorMessage = text || errorMessage;
+          }
+          throw new Error(errorMessage);
         }
-        throw new Error(errorMessage);
-      }
 
-      const data = await response.json();
-      console.log('Datos recibidos de la API:', data);
-      return data;
-    } catch (error) {
-      console.error('Error al obtener datos de estadísticas:', error);
-      showError('No se pudieron cargar las estadísticas. Por favor, inténtalo de nuevo más tarde.');
-      return null;
+        const data = await response.json();
+        console.log('Datos recibidos de la API:', data);
+        return data;
+        
+      } catch (error) {
+        lastError = error;
+        console.error(`Error en el intento ${attempt}:`, error);
+        
+        // Si no es el último intento, esperamos antes de reintentar
+        if (attempt < maxRetries) {
+          console.log(`Reintentando en ${retryDelay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, retryDelay));
+        }
+      }
     }
+    
+    // Si llegamos aquí, todos los intentos fallaron
+    console.error('Todos los intentos fallaron:', lastError);
+    showError('No se pudieron cargar las estadísticas. Por favor, inténtalo de nuevo más tarde.');
+    return null;
   }
 
   // Función para procesar los datos de la API de Netlify
