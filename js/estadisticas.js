@@ -92,24 +92,85 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  // Función para formatear fechas en formato YYYYMMDD a fecha legible
+  const formatChartDate = (dateStr) => {
+    try {
+      // Si la fecha ya está en formato ISO o similar, usarla directamente
+      if (dateStr.includes('-') || dateStr.includes('/')) {
+        return new Date(dateStr).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' });
+      }
+      
+      // Si la fecha está en formato YYYYMMDD (ej: 20251001)
+      if (/^\d{8}$/.test(dateStr)) {
+        const year = dateStr.substring(0, 4);
+        const month = parseInt(dateStr.substring(4, 6), 10) - 1; // Los meses en JS van de 0 a 11
+        const day = dateStr.substring(6, 8);
+        const date = new Date(year, month, day);
+        return date.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' });
+      }
+      
+      return dateStr; // Devolver el valor original si no coincide con ningún formato conocido
+    } catch (e) {
+      console.error('Error al formatear fecha:', dateStr, e);
+      return dateStr; // Devolver el valor original en caso de error
+    }
+  };
+
   // Función para renderizar el gráfico de visitas diarias
   const renderVisitsChart = (dailyVisits) => {
-    if (!visitsChartCtx) return;
+    if (!visitsChartCtx || !dailyVisits || dailyVisits.length === 0) {
+      console.error('No hay datos de visitas diarias o el contexto del gráfico no está disponible');
+      return;
+    }
+    
+    // Ordenar las fechas en orden ascendente
+    const sortedVisits = [...dailyVisits].sort((a, b) => {
+      return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);
+    });
+    
+    // Filtrar solo los últimos 3 meses (septiembre a noviembre 2025)
+    const filteredVisits = sortedVisits.filter(item => {
+      if (!item.date) return false;
+      const dateStr = item.date.toString();
+      // Filtrar solo fechas de septiembre (09), octubre (10) y noviembre (11) de 2025
+      return dateStr.startsWith('202509') || 
+             dateStr.startsWith('202510') || 
+             dateStr.startsWith('202511');
+    });
+
     destroyChart('visitsChart');
     charts.visitsChart = new Chart(visitsChartCtx, {
       type: 'line',
       data: {
-        labels: dailyVisits.map(item => new Date(item.date).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' })),
+        labels: filteredVisits.map(item => formatChartDate(item.date)),
         datasets: [{
           label: 'Visitas diarias',
-          data: dailyVisits.map(item => item.visits),
+          data: filteredVisits.map(item => item.visits || 0),
           borderColor: '#069681',
           backgroundColor: 'rgba(6, 150, 129, 0.1)',
           fill: true,
           tension: 0.3,
         }]
       },
-      options: { responsive: true, maintainAspectRatio: false }
+      options: { 
+        responsive: true, 
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Fecha'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Número de visitas'
+            },
+            beginAtZero: true
+          }
+        }
+      }
     });
   };
 
@@ -147,17 +208,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
+  // Función para formatear el período mensual
+  const formatMonthlyPeriod = (period) => {
+    if (!period) return '';
+    
+    // Si el período ya está formateado (ej: "sept 2025"), convertirlo a mayúscula la primera letra
+    if (typeof period === 'string' && period.match(/^[a-z]{3,9} \d{4}$/i)) {
+      return period.charAt(0).toUpperCase() + period.slice(1);
+    }
+    
+    // Si es una fecha en formato YYYY-MM o similar
+    if (typeof period === 'string' && period.match(/^\d{4}-\d{1,2}/)) {
+      const [year, month] = period.split('-').map(Number);
+      const date = new Date(year, month - 1, 1);
+      return date.toLocaleString('es-CO', { month: 'long', year: 'numeric' });
+    }
+    
+    // Si no reconocemos el formato, devolver el valor original
+    return period;
+  };
+
   // Función para renderizar el gráfico de tendencia mensual
   const renderMonthlyTrendChart = (monthlyTrend) => {
     if (!monthlyTrendChartCtx) return;
+    
+    // Ordenar los meses cronológicamente
+    const sortedTrend = [...(monthlyTrend || [])].sort((a, b) => {
+      return (a.period || '').localeCompare(b.period || '') || 
+             (a.date || '').localeCompare(b.date || '');
+    });
+    
+    // Filtrar solo los últimos 3 meses (septiembre a noviembre 2025)
+    const filteredTrend = sortedTrend.filter(item => {
+      const period = (item.period || '').toLowerCase();
+      return period.includes('sept 2025') || 
+             period.includes('oct 2025') || 
+             period.includes('nov 2025') ||
+             (item.date && (
+               item.date.toString().includes('2025-09') ||
+               item.date.toString().includes('2025-10') ||
+               item.date.toString().includes('2025-11')
+             ));
+    });
+
+    // Si no hay datos, mostrar un mensaje
+    if (filteredTrend.length === 0) {
+      console.warn('No hay datos de tendencia mensual para mostrar');
+      return;
+    }
+
     destroyChart('monthlyTrendChart');
     charts.monthlyTrendChart = new Chart(monthlyTrendChartCtx, {
       type: 'bar',
       data: {
-        labels: monthlyTrend.map(item => new Date(item.date + '-02').toLocaleString('es-CO', { month: 'long', year: 'numeric' })),
+        labels: filteredTrend.map(item => 
+          formatMonthlyPeriod(item.period) || 
+          (item.date ? formatMonthlyPeriod(item.date) : '')
+        ),
         datasets: [{
           label: 'Visitas mensuales',
-          data: monthlyTrend.map(item => item.visits),
+          data: filteredTrend.map(item => item.visits || 0),
           backgroundColor: 'rgba(6, 150, 129, 0.7)',
           borderColor: '#069681',
           borderWidth: 1
@@ -167,7 +277,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          y: { beginAtZero: true }
+          y: { 
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Número de visitas'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Mes'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `Visitas: ${context.raw.toLocaleString('es-CO')}`;
+              }
+            }
+          }
         }
       }
     });
