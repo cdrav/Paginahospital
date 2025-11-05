@@ -228,16 +228,35 @@ document.addEventListener('DOMContentLoaded', async () => {
       return analyticsData;
     }
 
+    // Función para procesar las páginas más visitadas
+    const processTopPages = (pages) => {
+      if (!Array.isArray(pages)) return [];
+      
+      return pages.map(page => {
+        // Si el objeto page es una cadena o no tiene las propiedades esperadas, lo ignoramos
+        if (typeof page !== 'object' || page === null) return null;
+        
+        // Asegurarse de que existan las propiedades necesarias
+        return {
+          path: page.path || '',
+          title: page.title || 'Sin título',
+          // Usar views o visits, convertir a número y asegurar que sea un número válido
+          visits: Math.max(0, parseInt(page.views || page.visits || 0, 10)) || 0,
+          views: Math.max(0, parseInt(page.views || page.visits || 0, 10)) || 0
+        };
+      }).filter(Boolean); // Eliminar elementos nulos o inválidos
+    };
+
     // Si los datos vienen en el formato esperado (con data y success)
     if (apiData.success !== undefined && apiData.data) {
       return {
-        totalVisits: apiData.data.totalVisits || 0,
-        monthlyVisits: apiData.data.monthlyVisits || 0,
-        dailyVisits: apiData.data.dailyVisits || [],
-        devices: apiData.data.devices || {},
-        browsers: apiData.data.browsers || {},
-        topPages: apiData.data.topPages || [],
-        monthlyTrend: apiData.data.monthlyTrend || [],
+        totalVisits: parseInt(apiData.data.totalVisits) || 0,
+        monthlyVisits: parseInt(apiData.data.monthlyVisits) || 0,
+        dailyVisits: Array.isArray(apiData.data.dailyVisits) ? apiData.data.dailyVisits : [],
+        devices: typeof apiData.data.devices === 'object' ? apiData.data.devices : {},
+        browsers: typeof apiData.data.browsers === 'object' ? apiData.data.browsers : {},
+        topPages: processTopPages(apiData.data.topPages),
+        monthlyTrend: Array.isArray(apiData.data.monthlyTrend) ? apiData.data.monthlyTrend : [],
         lastUpdate: apiData.data.lastUpdate || new Date().toISOString()
       };
     }
@@ -245,12 +264,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Si los datos vienen directamente (sin el wrapper success/data)
     if (apiData.totalVisits !== undefined) {
       return {
-        totalVisits: apiData.totalVisits || 0,
-        monthlyVisits: apiData.monthlyVisits || 0,
+        totalVisits: parseInt(apiData.totalVisits) || 0,
+        monthlyVisits: parseInt(apiData.monthlyVisits) || 0,
         dailyVisits: Array.isArray(apiData.dailyVisits) ? apiData.dailyVisits : [],
-        devices: apiData.devices || {},
-        browsers: apiData.browsers || {},
-        topPages: Array.isArray(apiData.topPages) ? apiData.topPages : [],
+        devices: typeof apiData.devices === 'object' ? apiData.devices : {},
+        browsers: typeof apiData.browsers === 'object' ? apiData.browsers : {},
+        topPages: processTopPages(apiData.topPages),
         monthlyTrend: Array.isArray(apiData.monthlyTrend) ? apiData.monthlyTrend : [],
         lastUpdate: apiData.lastUpdate || new Date().toISOString()
       };
@@ -260,11 +279,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (apiData.rows) {
       const dailyVisits = apiData.rows.map(row => ({
         date: row.dimensionValues?.[0]?.value || '',
-        visits: parseInt(row.metricValues?.[0]?.value || 0)
+        visits: Math.max(0, parseInt(row.metricValues?.[0]?.value || 0, 10))
       }));
 
       return {
-        totalVisits: apiData.totals?.[0]?.metricValues?.[0]?.value || 0,
+        totalVisits: Math.max(0, parseInt(apiData.totals?.[0]?.metricValues?.[0]?.value || 0, 10)),
         monthlyVisits: dailyVisits.reduce((sum, day) => sum + day.visits, 0),
         dailyVisits: dailyVisits,
         devices: {},
