@@ -28,7 +28,7 @@
 
 
 
-  // Script de EmailJS
+  <!-- Script de EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     // Inicialización de EmailJS con tu User ID
@@ -61,43 +61,43 @@
       
       // Preparar datos del formulario
       const templateParams = {
-          // Nombres de variables deben coincidir EXACTAMENTE con los de la plantilla
-          TipoDeSolicitud: formProps.TipoDeSolicitud || 'No especificado',
-          Fecha: fechaActual,
-          TipoDeDocumento: formProps.TipoDeDocumento || 'No especificado',
-          NumeroDeDocumento: formProps.NumeroDeDocumento || 'No especificado',
-          Nombres: formProps.Nombres || 'No especificado',
-          Apellidos: formProps.Apellidos || 'No especificado',
-          Telefono: formProps.Telefono || 'No especificado',
-          CorreoElectronico: formProps.CorreoElectronico || 'No especificado',
-          Direccion: formProps.Direccion || 'No especificado',
-          Municipio: formProps.Municipio || 'No especificado',
-          Departamento: formProps.Departamento || 'No especificado',
-          Asunto: formProps.Asunto || 'Sin asunto',
-          Descripcion: formProps.Descripcion || 'Sin descripción',
-          to_email: "ventanillaunica@hdsa.gov.co",
-          reply_to: formProps.CorreoElectronico || 'ventanillaunica@hdsa.gov.co',
-          timestamp: new Date().getTime()
-        };
-        
-        // Enviar el correo con los parámetros
-        return emailjs.send("service_dxylc2z", "template_3qcvx07", templateParams);
-      })
-      .then(function(response) {
-        // Mostrar mensaje de éxito
-        const messageDiv = document.getElementById('form-message');
-        messageDiv.className = 'alert alert-success';
-        messageDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>¡Su PQRS ha sido enviada exitosamente! Nos pondremos en contacto contigo pronto.';
-        messageDiv.classList.remove('d-none');
-        
-        // Limpiar formulario
-        document.getElementById('pqrs-form').reset();
-        
-        // Desplazarse al mensaje
-        messageDiv.scrollIntoView({ behavior: 'smooth' });
-      }, function(error) {
-        // Mostrar mensaje de error
-        const messageDiv = document.getElementById('form-message');
+        // Nombres de variables deben coincidir EXACTAMENTE con los de la plantilla
+        TipoDeSolicitud: formProps.TipoDeSolicitud || 'No especificado',
+        Fecha: fechaActual,
+        TipoDeDocumento: formProps.TipoDeDocumento || 'No especificado',
+        NumeroDeDocumento: formProps.NumeroDeDocumento || 'No especificado',
+        Nombres: formProps.Nombres || 'No especificado',
+        Apellidos: formProps.Apellidos || 'No especificado',
+        Telefono: formProps.Telefono || 'No especificado',
+        CorreoElectronico: formProps.CorreoElectronico || 'No especificado',
+        Direccion: formProps.Direccion || 'No especificado',
+        Municipio: formProps.Municipio || 'No especificado',
+        Departamento: formProps.Departamento || 'No especificado',
+        Asunto: formProps.Asunto || 'Sin asunto',
+        Descripcion: formProps.Descripcion || 'Sin descripción',
+        to_email: "ventanillaunica@hdsa.gov.co",
+        reply_to: formProps.CorreoElectronico || 'ventanillaunica@hdsa.gov.co',
+        timestamp: new Date().getTime()
+      };
+      
+      // Enviar el correo con los parámetros
+      emailjs.send("service_dxylc2z", "template_3qcvx07", templateParams)
+        .then(function(response) {
+          // Mostrar mensaje de éxito
+          const messageDiv = document.getElementById('form-message');
+          messageDiv.className = 'alert alert-success';
+          messageDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>¡Su PQRS ha sido enviada exitosamente! Nos pondremos en contacto contigo pronto.';
+          messageDiv.classList.remove('d-none');
+          
+          // Limpiar formulario
+          document.getElementById('pqrs-form').reset();
+          
+          // Desplazarse al mensaje
+          messageDiv.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(function(error) {
+          // Mostrar mensaje de error
+          const messageDiv = document.getElementById('form-message');
         messageDiv.className = 'alert alert-danger';
         messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Error al enviar el formulario. Por favor, inténtalo de nuevo más tarde.';
         messageDiv.classList.remove('d-none');
@@ -346,11 +346,32 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/layout.js"></script>
   <script src="js/busqueda.js"></script>
-  <script src="js/accesibilidad.js"></script>
-  <script src="js/accessibility-styles.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/pqrs-form.js"></script>
   <script src="js/cookie-consent.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/navbar.js" defer></script>
+  <script src="js/accesibilidad.js" defer></script>
+  <script src="js/accessibility-styles.js" defer></script>
+  <script src="js/busqueda.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/cookie-banner.js" defer></script>
   
+  <script>
+    // Inicialización de componentes de Bootstrap
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+      
+      // Inicializar popovers
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+      });
+    });
+  </script>
 </body>
 </html>

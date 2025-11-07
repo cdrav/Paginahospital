@@ -1,15 +1,26 @@
 // js/directorio.js
 
-document.addEventListener('DOMContentLoaded', () => {
+// Función para verificar si una imagen existe
+async function verificarImagen(url) {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;
+    } catch (error) {
+        console.error('Error al verificar la imagen:', url, error);
+        return false;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
     // Datos del personal con área jerárquica.
     const directorioData = [
         // Nivel 1: Gerencia
         { nombre: "Mauricio Saldarriaga", cargo: "Gerente", email: "gerencia@hdsa.gov.co", foto: "mauricio-saldarriaga.webp", area: "gerencia" },
 
         // Nivel 2: Asesores calidad y control interno
-       { nombre: "Paulo Castillo Ferreira", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "paulo-castillo-ferreira.webp", area: "asesor" },
-       { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.webp", area: "asesor" },
-       { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.webp", area: "asesor" },
+        { nombre: "Paulo Castillo Ferreira", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "paulo-castillo-ferreira.webp", area: "asesor" },
+        { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.webp", area: "asesor" },
+        { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.webp", area: "asesor" },
 
         // Nivel 3: Subgerencias
         { nombre: "Yaraví Maite Llanos", cargo: "Subgerente Administrativa", email: "subgerencia@hdsa.gov.co", foto: "yaravi-maite-llanos.webp", area: "subgerencia_admin" },
@@ -23,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Diana Marcela Benitez", cargo: "Jefe enfermería Promoción y Prevención", email: "pyp@hdsa.gov.co", foto: "diana-marcela-benitez.webp", area: "asistencial" },
         { nombre: "Dubisa Alvarez", cargo: "Jefe de Enfermería", email: "urgencias@hdsa.gov.co", foto: "dubisa-alvarez.webp", area: "asistencial" },
         { nombre: "Lina Maria Madrid", cargo: "Terapia Física", email: "apterapeutico@hdsa.gov.co", foto: "lina-maria-madrid.webp", area: "asistencial" },
-        { nombre: "Lorena Nieto", cargo: "Jefe Enfermería Hospitalización ", email: "urgencias@hdsa.gov.co", foto: "lorena-nieto.webp", area: "asistencial" },
+        { nombre: "Lorena Nieto", cargo: "Jefe Enfermería Hospitalización", email: "urgencias@hdsa.gov.co", foto: "lorena-nieto.webp", area: "asistencial" },
         { nombre: "Maria Camila Zapata", cargo: "Coordinadora Odontología", email: "odontologia@hdsa.gov.co", foto: "maria-camila-zapata.webp", area: "asistencial" },
         { nombre: "Sebastian Sarria", cargo: "Biomédico", email: "mantenimiento@hdsa.gov.co", foto: "sebastian-sarria.webp", area: "asistencial" },
         { nombre: "Amalia Diaz", cargo: "Tecnóloga de Radiología", email: "radiologia@hdsa.gov.co", foto: "amalia-diaz.webp", area: "asistencial" },
@@ -43,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Isabel Canizales", cargo: "Coordinadora Facturación", email: "facturacion@hdsa.gov.co", foto: "isabel-canizales.webp", area: "administrativa" },
         { nombre: "Luis Nieto", cargo: "Coordinador de Estadística", email: "coord.estadistica@hdsa.gov.co", foto: "luis-nieto.webp", area: "administrativa" },
         { nombre: "Robert Giraldo", cargo: "Coordinador de Sistemas", email: "coord.sistemas@hdsa.gov.co", foto: "robert-giraldo.webp", area: "administrativa" },
-        { nombre: "Rodrigo Torres", cargo: "Presupuesto", email: "presupuesto@hdsa.gov.co", foto: "rodrigo-torres.webp", area: "administrativa" },
-        
+        { nombre: "Rodrigo Torres", cargo: "Presupuesto", email: "presupuesto@hdsa.gov.co", foto: "rodrigo-torres.webp", area: "administrativa" }
     ];
 
     const searchInput = document.getElementById('directorio-search');
@@ -57,7 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminContainer = document.getElementById('directorio-administrativos');
     const asistencialContainer = document.getElementById('directorio-asistenciales');
 
-    function crearTarjeta(persona, esPrincipal = false) {
+    // Función para crear tarjeta con manejo mejorado de imágenes
+    async function crearTarjeta(persona, esPrincipal = false) {
         const cardClass = esPrincipal ? 'directorio-card-principal' : '';
         const emailButton = persona.email 
             ? `<a href="mailto:${persona.email}" class="btn btn-outline-brand btn-sm rounded-pill directorio-email-btn w-100">
@@ -67,11 +78,24 @@ document.addEventListener('DOMContentLoaded', () => {
                  <i class="bi bi-envelope-slash me-1"></i> No disponible
                </button>`;
 
+        // Ruta de la imagen
+        const imgPath = `/imagenes/Fotos-directorio-institucional/${persona.foto}`;
+        
+        // Verificar si la imagen existe
+        const imagenExiste = await verificarImagen(imgPath);
+        const imgSrc = imagenExiste ? imgPath : '/imagenes/Fotos-directorio-institucional/placeholder.webp';
+
         return `
           <div class="col directorio-card-col">
             <div class="card h-100 text-center shadow-sm border-0 hover-card ${cardClass}">
               <div class="directorio-img-wrapper">
-                <img src="/imagenes/Fotos-directorio-institucional/${persona.foto}" class="card-img-top" alt="Foto de ${persona.nombre}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/imagenes/Fotos-directorio-institucional/placeholder.webp';">
+                <img src="${imgSrc}" 
+                     class="card-img-top" 
+                     alt="Foto de ${persona.nombre}" 
+                     loading="lazy" 
+                     decoding="async"
+                     onerror="this.onerror=null; this.src='/imagenes/Fotos-directorio-institucional/placeholder.webp';"
+                     style="object-fit: cover; width: 100%; height: 200px;">
               </div>
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title fw-bold">${persona.nombre}</h5>
@@ -88,7 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    function poblarDirectorio() {
+    // Función para poblar el directorio con manejo asíncrono
+    async function poblarDirectorio() {
         if (!gerenteContainer) return; // Si no están los contenedores, no hacer nada
 
         const gerente = directorioData.find(p => p.area === 'gerencia');
@@ -98,15 +123,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const administrativos = directorioData.filter(p => p.area === 'administrativa');
         const asistenciales = directorioData.filter(p => p.area === 'asistencial');
 
-        if (gerente) gerenteContainer.innerHTML = crearTarjeta(gerente, true);
-        if (asesoresContainer && asesores.length > 0) {
-            asesoresContainer.innerHTML = asesores.map(p => crearTarjeta(p, true)).join('');
-        }
-        if (subAdmin) subAdminContainer.innerHTML = crearTarjeta(subAdmin, true);
-        if (subCientifica) subCientificaContainer.innerHTML = crearTarjeta(subCientifica, true);
+        try {
+            // Cargar el gerente
+            if (gerente) {
+                gerenteContainer.innerHTML = await crearTarjeta(gerente, true);
+            }
+            
+            // Cargar asesores
+            if (asesoresContainer && asesores.length > 0) {
+                const asesoresHTML = await Promise.all(asesores.map(p => crearTarjeta(p, true)));
+                asesoresContainer.innerHTML = asesoresHTML.join('');
+            }
+            
+            // Cargar subgerentes
+            if (subAdmin) {
+                subAdminContainer.innerHTML = await crearTarjeta(subAdmin, true);
+            }
+            
+            if (subCientifica) {
+                subCientificaContainer.innerHTML = await crearTarjeta(subCientifica, true);
+            }
 
-        adminContainer.innerHTML = administrativos.map(p => crearTarjeta(p)).join('');
-        asistencialContainer.innerHTML = asistenciales.map(p => crearTarjeta(p)).join('');
+            // Cargar personal administrativo y asistencial
+            const adminHTML = await Promise.all(administrativos.map(p => crearTarjeta(p)));
+            adminContainer.innerHTML = adminHTML.join('');
+            
+            const asistencialHTML = await Promise.all(asistenciales.map(p => crearTarjeta(p)));
+            asistencialContainer.innerHTML = asistencialHTML.join('');
+            
+        } catch (error) {
+            console.error('Error al cargar el directorio:', error);
+            
+            // Mostrar mensaje de error en la interfaz
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'alert alert-danger';
+            errorMessage.textContent = 'Error al cargar el directorio. Por favor, recarga la página.';
+            
+            if (gerenteContainer) {
+                gerenteContainer.parentNode.insertBefore(errorMessage, gerenteContainer.nextSibling);
+            } else if (document.querySelector('main')) {
+                document.querySelector('main').prepend(errorMessage);
+            }
+        }
     }
 
     function configurarFiltro() {
@@ -139,6 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    poblarDirectorio();
+    // Iniciar la carga del directorio
+    poblarDirectorio().then(() => {
+        console.log('Directorio cargado exitosamente');
+    }).catch(error => {
+        console.error('Error al cargar el directorio:', error);
+    });
+    
     configurarFiltro();
 });
