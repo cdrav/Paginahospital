@@ -21,7 +21,89 @@
     <link rel="stylesheet" href="css/cookie-banner.css" />
 </head>
 
+
 <body>
+
+
+
+
+
+  // Script de EmailJS
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    // Inicialización de EmailJS con tu User ID
+    (function() {
+      emailjs.init("gcybOcZM8nYnJy19f"); // Public Key de EmailJS
+    })();
+
+    // Función para enviar el formulario
+    function sendEmail(e) {
+      e.preventDefault();
+      
+      // Mostrar carga
+      const submitBtn = document.getElementById('submit-btn');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
+      submitBtn.disabled = true;
+
+      // Obtener los datos del formulario
+      const formData = new FormData(e.target);
+      const formProps = Object.fromEntries(formData);
+      
+      // Enviar el correo
+      emailjs.send("service_dxylc2z", "template_mvzt8uz", {
+        tipo_solicitud: formProps.TipoDeSolicitud,
+        fecha: formProps.Fecha,
+        tipo_documento: formProps.TipoDeDocumento,
+        numero_documento: formProps.NumeroDeDocumento,
+        nombres: formProps.Nombres,
+        apellidos: formProps.Apellidos,
+        telefono: formProps.Telefono,
+        email: formProps.CorreoElectronico,
+        direccion: formProps.Direccion,
+        municipio: formProps.Municipio,
+        departamento: formProps.Departamento,
+        asunto: formProps.Asunto,
+        descripcion: formProps.Descripcion,
+        adjuntos: formProps.Archivos ? 'Sí' : 'No',
+        to_email: "ventanillaunica@hdsa.gov.co" // Correo oficial para recepción de PQRS
+      })
+      .then(function(response) {
+        // Mostrar mensaje de éxito
+        const messageDiv = document.getElementById('form-message');
+        messageDiv.className = 'alert alert-success';
+        messageDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>¡Su PQRS ha sido enviada exitosamente! Nos pondremos en contacto contigo pronto.';
+        messageDiv.classList.remove('d-none');
+        
+        // Limpiar formulario
+        document.getElementById('pqrs-form').reset();
+        
+        // Desplazarse al mensaje
+        messageDiv.scrollIntoView({ behavior: 'smooth' });
+      }, function(error) {
+        // Mostrar mensaje de error
+        const messageDiv = document.getElementById('form-message');
+        messageDiv.className = 'alert alert-danger';
+        messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Error al enviar el formulario. Por favor, inténtalo de nuevo más tarde.';
+        messageDiv.classList.remove('d-none');
+        console.error('Error al enviar el correo:', error);
+      })
+      .finally(() => {
+        // Restaurar el botón
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      });
+    }
+    
+    // Asignar el evento de envío al formulario
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('pqrs-form');
+      if (form) {
+        form.addEventListener('submit', sendEmail);
+      }
+    });
+  </script>
+
   <!-- Header incluido -->
   <div id="header-placeholder"></div>
 
@@ -44,20 +126,9 @@
       <!-- Mensaje de éxito/error del envío -->
       <div id="form-message" class="alert d-none" role="alert"></div>
       
-      <form name="pqrs-form" method="POST" action="/api/pqrs" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" class="needs-validation" novalidate netlify="netlify">
-        <!-- Campos requeridos por Netlify -->
-        <input type="hidden" name="form-name" value="pqrs-form">
-        <input type="hidden" name="_subject" value="Nueva PQRS desde el sitio web">
-        
-        <!-- Campo honeypot para spam -->
-        <div class="d-none">
-          <label>No llenar este campo si eres humano: <input name="bot-field"></label>
-        </div>
-        
-        <!-- Configuración de Netlify -->
-        <input type="hidden" name="_language" value="es">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_format" value="plain">
+      <form id="pqrs-form" class="needs-validation" novalidate>
+        <!-- Token CSRF (opcional, para protección adicional) -->
+        <input type="hidden" name="_token" id="csrf-token">
 
         <!-- Información Básica -->
         <div class="form-section">

@@ -1,5 +1,5 @@
 // URLs para enlaces externos
-const CENTRO_RELEVO_URL = "https://www.centroderelevo.gov.co/632/w3-propertyvalue-15254.html";
+const CENTRO_RELEVO_URL = "https://www.signosenred.gov.co/";
 const ENCUESTA_ACCESIBILIDAD_URL = "encuesta-accesibilidad.html";
 
 // Función para mostrar notificaciones mejoradas
@@ -27,9 +27,9 @@ function showNotification(message, type = 'info') {
     }
 }
 
-// Función para abrir Centro de Relevo
+// Función para abrir signos en red
 function openCentroRelevo() {
-    showNotification('Abriendo Centro de Relevo para personas sordas...', 'centro-relevo');
+    showNotification('Abriendo Signos en red...', 'signos-en-red');
     setTimeout(() => {
         window.open(CENTRO_RELEVO_URL, '_blank');
     }, 500);

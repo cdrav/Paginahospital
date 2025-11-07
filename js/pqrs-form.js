@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Reemplazar el formulario con el mensaje de mantenimiento
   form.outerHTML = maintenanceHTML;
+  // --- INICIO: Bloque de mantenimiento eliminado ---
+  // El código de mantenimiento que deshabilitaba el formulario ha sido eliminado para reactivarlo.
+  // --- FIN: Bloque de mantenimiento eliminado ---
   
   // Salir ya que el resto del código no es necesario
   return;
@@ -30,6 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const btnText = submitBtn?.querySelector('.btn-text');
   const formMessage = document.getElementById('form-message');
   const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  /*
+   * --- MODO DE ENVÍO TRADICIONAL ---
+   * Se ha comentado el código de envío por JavaScript (AJAX) para utilizar
+   * el envío estándar del navegador. Esto es compatible con el plan gratuito
+   * de Formspree, que redirigirá al usuario a su propia página de "gracias".
+   *
+   * La validación de campos se seguirá manejando con los estilos de Bootstrap
+   * que se activan a continuación.
+   */
 
   // Función para mostrar mensajes
   function showMessage(message, type) {
