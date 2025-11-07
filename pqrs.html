@@ -59,26 +59,29 @@
         minute: '2-digit'
       });
       
-      // Enviar el correo
-      emailjs.send("service_dxylc2z", "template_3qcvx07", {
-        // Nombres de variables deben coincidir EXACTAMENTE con los de la plantilla
-        TipoDeSolicitud: formProps.TipoDeSolicitud || 'No especificado',
-        Fecha: fechaActual,
-        TipoDeDocumento: formProps.TipoDeDocumento || 'No especificado',
-        NumeroDeDocumento: formProps.NumeroDeDocumento || 'No especificado',
-        Nombres: formProps.Nombres || 'No especificado',
-        Apellidos: formProps.Apellidos || 'No especificado',
-        Telefono: formProps.Telefono || 'No especificado',
-        CorreoElectronico: formProps.CorreoElectronico || 'No especificado',
-        Direccion: formProps.Direccion || 'No especificado',
-        Municipio: formProps.Municipio || 'No especificado',
-        Departamento: formProps.Departamento || 'No especificado',
-        Asunto: formProps.Asunto || 'Sin asunto',
-        Descripcion: formProps.Descripcion || 'Sin descripción',
-        ArchivosAdjuntos: formProps.ArchivosAdjuntos ? 'Sí' : 'No',
-        to_email: "ventanillaunica@hdsa.gov.co",
-        reply_to: formProps.CorreoElectronico || 'ventanillaunica@hdsa.gov.co',
-        timestamp: new Date().getTime()
+      // Preparar datos del formulario
+      const templateParams = {
+          // Nombres de variables deben coincidir EXACTAMENTE con los de la plantilla
+          TipoDeSolicitud: formProps.TipoDeSolicitud || 'No especificado',
+          Fecha: fechaActual,
+          TipoDeDocumento: formProps.TipoDeDocumento || 'No especificado',
+          NumeroDeDocumento: formProps.NumeroDeDocumento || 'No especificado',
+          Nombres: formProps.Nombres || 'No especificado',
+          Apellidos: formProps.Apellidos || 'No especificado',
+          Telefono: formProps.Telefono || 'No especificado',
+          CorreoElectronico: formProps.CorreoElectronico || 'No especificado',
+          Direccion: formProps.Direccion || 'No especificado',
+          Municipio: formProps.Municipio || 'No especificado',
+          Departamento: formProps.Departamento || 'No especificado',
+          Asunto: formProps.Asunto || 'Sin asunto',
+          Descripcion: formProps.Descripcion || 'Sin descripción',
+          to_email: "ventanillaunica@hdsa.gov.co",
+          reply_to: formProps.CorreoElectronico || 'ventanillaunica@hdsa.gov.co',
+          timestamp: new Date().getTime()
+        };
+        
+        // Enviar el correo con los parámetros
+        return emailjs.send("service_dxylc2z", "template_3qcvx07", templateParams);
       })
       .then(function(response) {
         // Mostrar mensaje de éxito
@@ -270,12 +273,6 @@
             <div class="invalid-feedback">
               Por favor proporcione una descripción detallada.
             </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="archivos" class="form-label">Documentos de soporte (opcional)</label>
-            <input type="file" class="form-control" id="archivos" name="ArchivosAdjuntos" multiple>
-            <div class="form-text">Puede adjuntar hasta 5 archivos (PDF, JPG, PNG) con un tamaño máximo de 5MB cada uno.</div>
           </div>
 
           <div class="mb-4">
