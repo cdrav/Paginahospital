@@ -44,95 +44,104 @@
     });
   }
 
+  // Función para cargar el script de Google Translate
+  function loadGoogleTranslateScript(callback) {
+    // Verificar si ya está cargado
+    if (window.google && window.google.translate) {
+      if (callback) callback();
+      return;
+    }
+    
+    // Crear el script
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    script.defer = true;
+    
+    // Manejar errores
+    script.onerror = function() {
+      console.warn('Error al cargar Google Translate');
+      if (callback) callback(new Error('No se pudo cargar el traductor'));
+    };
+    
+    // Agregar a la página
+    document.head.appendChild(script);
+    
+    // Configurar la función de inicialización global
+    window.googleTranslateElementInit = function() {
+      if (window.google && window.google.translate) {
+        new google.translate.TranslateElement({
+          pageLanguage: 'es',
+          includedLanguages: 'en,fr,pt',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+        
+        // Ocultar el banner de Google
+        const googleBanner = document.querySelector('.goog-te-banner-frame');
+        if (googleBanner) {
+          googleBanner.style.display = 'none';
+        }
+        
+        if (callback) callback();
+      } else if (callback) {
+        callback(new Error('Google Translate no está disponible'));
+      }
+    };
+  }
+
   // Función para configurar el botón de traducción
   function setupTranslateButton() {
     const btn = document.getElementById('translate-now');
     if (!btn) return;
     
-    // Si ya tiene el listener, salir
-    if (btn.getAttribute('data-gt-listener') === '1') return;
+    // Mostrar el botón
+    btn.style.display = 'inline-block';
     
-    btn.addEventListener('click', function() {
-      const lang = this.getAttribute('data-lang') || 'en';
-      const combo = document.querySelector('.goog-te-combo');
+    // Configurar evento de clic
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
       
-      if (combo) {
-        combo.value = lang;
-        combo.dispatchEvent(new Event('change'));
-      } else {
-        console.warn('No se encontró el selector de idioma de Google Translate');
-        // Intentar forzar la recarga del widget
-        if (window.google && google.translate && google.translate.TranslateElement) {
-          new google.translate.TranslateElement({
-            pageLanguage: 'es',
-            includedLanguages: 'en',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-          }, 'google_translate_element');
+      // Mostrar indicador de carga
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...';
+      btn.disabled = true;
+      
+      // Cargar el script de Google Translate
+      loadGoogleTranslateScript(function(error) {
+        // Restaurar el botón
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        
+        if (error) {
+          console.error('Error al cargar el traductor:', error);
+          alert('No se pudo cargar el traductor. Por favor, intente de nuevo más tarde.');
+          return;
         }
-      }
+        
+        // Mostrar/ocultar el selector de idiomas
+        const translateElement = document.getElementById('google_translate_element');
+        if (translateElement) {
+          translateElement.style.display = translateElement.style.display === 'none' ? 'block' : 'none';
+        }
+      });
     });
-    
-    // Marcar que ya tiene el listener
-    btn.setAttribute('data-gt-listener', '1');
   }
   
-  // Función para verificar y corregir la visibilidad del selector
-  function checkAndFixTranslateElement() {
-    const el = document.getElementById('google_translate_element');
-    if (!el) return;
-    
-    // Asegurar que el contenedor sea visible
-    el.style.display = 'inline-block';
-    el.style.visibility = 'visible';
-    
-    // Verificar si el selector está presente
-    const combo = document.querySelector('.goog-te-combo');
-    if (combo) {
-      combo.style.display = 'block';
-      combo.style.visibility = 'visible';
-    }
-  }
-  
-  // Optimización: Usar MutationObserver en lugar de setInterval para el widget de Google Translate
-  function observeTranslateWidget() {
-    const targetNode = document.getElementById('google_translate_element');
-    if (!targetNode) {
-      // Si el elemento no existe aún, reintentar en un momento.
-      // Esto es un fallback por si el script se ejecuta antes de que el layout.js inserte el header.
-      setTimeout(observeTranslateWidget, 100);
-      return;
-    }
-
-    // Función a ejecutar cuando se detectan mutaciones
-    const callback = function(mutationsList, observer) {
-      // El widget de Google a menudo se envuelve en un iframe o modifica sus hijos.
-      // Simplemente corremos nuestra función de corrección cada vez que cambia.
-      checkAndFixTranslateElement();
-      
-      // Opcional: si sabemos que el widget solo se carga una vez, podemos desconectar el observador.
-      // Pero es más seguro dejarlo activo por si hay cambios dinámicos.
-      // observer.disconnect();
-    };
-
-    // Crear una instancia de observador
-    const observer = new MutationObserver(callback);
-
-    // Configuración del observador: vigilar cambios en los hijos del elemento
-    const config = { childList: true, subtree: true };
-
-    // Empezar a observar el nodo objetivo
-    observer.observe(targetNode, config);
-
-    // Ejecutar una vez al inicio por si el widget ya está presente
-    checkAndFixTranslateElement();
-  }
-
   // Inicialización cuando el DOM esté listo
   function initializeSiteFeatures() {
-    setupTranslateButton();
-    observeTranslateWidget();
     initializeLazyYouTube();
+    
+    // Crear contenedor para el traductor si no existe
+    if (!document.getElementById('google_translate_element')) {
+      const translateDiv = document.createElement('div');
+      translateDiv.id = 'google_translate_element';
+      translateDiv.style.display = 'none';
+      document.body.appendChild(translateDiv);
+    }
+    
+    // Configurar el botón de traducción
+    setupTranslateButton();
   }
 
   if (document.readyState === 'loading') {

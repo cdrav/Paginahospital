@@ -1,12 +1,35 @@
 // js/directorio.js
 
 // Función para verificar si una imagen existe
-async function verificarImagen(url) {
+async function verificarImagen(nombreArchivo) {
+    // Ruta base donde se encuentran las imágenes
+    const rutaBase = '/imagenes/Fotos-directorio-institucional/';
+    const rutaCompleta = rutaBase + nombreArchivo;
+    
+    // Verificar si el nombre del archivo está vacío o es undefined
+    if (!nombreArchivo) {
+        console.warn('Nombre de archivo de imagen no proporcionado');
+        return false;
+    }
+    
     try {
-        const response = await fetch(url, { method: 'HEAD' });
-        return response.ok;
+        // Intentar cargar la imagen
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = rutaCompleta;
+            
+            // Timeout para evitar que la promesa quede colgada
+            setTimeout(() => {
+                if (!img.complete) {
+                    console.warn('Timeout al cargar la imagen:', nombreArchivo);
+                    resolve(false);
+                }
+            }, 1000);
+        });
     } catch (error) {
-        console.error('Error al verificar la imagen:', url, error);
+        console.error('Error al verificar la imagen:', nombreArchivo, error);
         return false;
     }
 }
@@ -78,12 +101,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                  <i class="bi bi-envelope-slash me-1"></i> No disponible
                </button>`;
 
-        // Ruta de la imagen
-        const imgPath = `/imagenes/Fotos-directorio-institucional/${persona.foto}`;
+        // Usar el nombre del archivo directamente
+        const nombreArchivo = persona.foto || 'placeholder.webp';
         
         // Verificar si la imagen existe
-        const imagenExiste = await verificarImagen(imgPath);
-        const imgSrc = imagenExiste ? imgPath : '/imagenes/Fotos-directorio-institucional/placeholder.webp';
+        const imagenExiste = await verificarImagen(nombreArchivo);
+        const rutaBase = '/imagenes/Fotos-directorio-institucional/';
+        const imgSrc = imagenExiste ? (rutaBase + nombreArchivo) : (rutaBase + 'placeholder.webp');
 
         return `
           <div class="col directorio-card-col">
@@ -94,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                      alt="Foto de ${persona.nombre}" 
                      loading="lazy" 
                      decoding="async"
-                     onerror="this.onerror=null; this.src='/imagenes/Fotos-directorio-institucional/placeholder.webp';"
+                     onerror="this.onerror=null; this.src='${rutaBase}placeholder.webp';"
                      style="object-fit: cover; width: 100%; height: 200px;">
               </div>
               <div class="card-body d-flex flex-column">
