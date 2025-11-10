@@ -1941,14 +1941,10 @@ p, a, td, th, li {
 }
 
 /* Nivel 1 (Gerente) */
-.org-level-1 .row > div {
-  max-width: 400px; /* Ancho de una tarjeta */
-}
+/* .org-level-1 .row > div { max-width: 400px; } */
 
 /* Nivel Asesores */
-.org-level-asesores .row > .col {
-  max-width: 400px;
-}
+/* .org-level-asesores .row > .col { max-width: 400px; } */
 
 /* Nivel 2 (Subgerentes) */
 .org-level-2 .row > div {
@@ -1956,8 +1952,9 @@ p, a, td, th, li {
   flex-direction: column;
   align-items: center;
 }
-.org-level-2 .row .row {
-  max-width: 400px;
+/* .org-level-2 .row .row { max-width: 400px; } */
+/* La siguiente regla se mantiene porque es para flex-grow, no max-width */
+ .org-level-2 .row .row {
   flex-grow: 1; /* Asegura que el contenedor de la tarjeta crezca para llenar el espacio */
 }
 
@@ -1966,29 +1963,6 @@ p, a, td, th, li {
   display: flex; /* Convierte la columna en un contenedor flex para que la tarjeta h-100 se estire */
 }
 
-/* Nivel 4 (Departamentos) - Ancho de tarjetas para coincidir con las superiores */
-/*.org-level-3 .directorio-card-col {
-  max-width: 400px;
-}*/
-
-/* Conectores del organigrama */
-.org-connector-container {
-
-}
-
-/* Nivel 1 (Gerente) */
-/* Nivel Asesores */
-/* Nivel 2 (Subgerentes) */
-/* Nivel 4 (Departamentos) - Ancho de tarjetas para coincidir con las superiores */
-
-/* Conectores del organigrama */
-/* Tarjetas principales (Gerente, Subgerentes) */
-
-/* Conectores del organigrama */
-  position: relative;
-  height: 30px;
-  margin-bottom: 30px;
-}
 .org-connector-down {
   width: 2px;
   height: 30px;
