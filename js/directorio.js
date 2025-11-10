@@ -1,6 +1,6 @@
 // js/directorio.js
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Datos del personal con área jerárquica.
     const directorioData = [
         // Nivel 1: Gerencia
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const emailButton = persona.email 
             ? `<a href="mailto:${persona.email}" class="btn btn-outline-brand btn-sm rounded-pill directorio-email-btn w-100">
                  <i class="bi bi-envelope me-1"></i><span class="email-text">${persona.email}</span>
-               </a>`
+               </a>` 
             : `<button class="btn btn-outline-secondary btn-sm rounded-pill" disabled>
                  <i class="bi bi-envelope-slash me-1"></i> No disponible
                </button>`;
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Función para poblar el directorio con manejo asíncrono
-    function poblarDirectorio() {
+   function poblarDirectorio() {
         if (!gerenteContainer) return; // Si no están los contenedores, no hacer nada
 
         const gerente = directorioData.find(p => p.area === 'gerencia');
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const administrativos = directorioData.filter(p => p.area === 'administrativa');
         const asistenciales = directorioData.filter(p => p.area === 'asistencial');
         
-        // Generar el HTML de las tarjetas de forma síncrona
+       // Generar el HTML de las tarjetas de forma síncrona
         if (gerente) {
             gerenteContainer.innerHTML = crearTarjeta(gerente, true);
         }
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function configurarFiltro() {
+   function configurarFiltro() {
         if (!searchInput) return;
 
         searchInput.addEventListener('keyup', () => {
@@ -168,6 +168,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Iniciar la carga del directorio
-    poblarDirectorio();
+   poblarDirectorio();
     configurarFiltro();
 });
