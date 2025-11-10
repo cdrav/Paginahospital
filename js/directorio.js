@@ -1,39 +1,5 @@
 // js/directorio.js
 
-// Función para verificar si una imagen existe
-async function verificarImagen(nombreArchivo) {
-    // Ruta base donde se encuentran las imágenes
-    const rutaBase = '/imagenes/Fotos-directorio-institucional/';
-    const rutaCompleta = rutaBase + nombreArchivo;
-    
-    // Verificar si el nombre del archivo está vacío o es undefined
-    if (!nombreArchivo) {
-        console.warn('Nombre de archivo de imagen no proporcionado');
-        return false;
-    }
-    
-    try {
-        // Intentar cargar la imagen
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = rutaCompleta;
-            
-            // Timeout para evitar que la promesa quede colgada
-            setTimeout(() => {
-                if (!img.complete) {
-                    console.warn('Timeout al cargar la imagen:', nombreArchivo);
-                    resolve(false);
-                }
-            }, 1000);
-        });
-    } catch (error) {
-        console.error('Error al verificar la imagen:', nombreArchivo, error);
-        return false;
-    }
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
     // Datos del personal con área jerárquica.
     const directorioData = [
@@ -91,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const asistencialContainer = document.getElementById('directorio-asistenciales');
 
     // Función para crear tarjeta con manejo mejorado de imágenes
-    async function crearTarjeta(persona, esPrincipal = false) {
+    function crearTarjeta(persona, esPrincipal = false) {
         const cardClass = esPrincipal ? 'directorio-card-principal' : '';
         const emailButton = persona.email 
             ? `<a href="mailto:${persona.email}" class="btn btn-outline-brand btn-sm rounded-pill directorio-email-btn w-100">
@@ -103,24 +69,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Usar el nombre del archivo directamente
         const nombreArchivo = persona.foto || 'placeholder.webp';
-        
-        // Verificar si la imagen existe
-        const imagenExiste = await verificarImagen(nombreArchivo);
         const rutaBase = '/imagenes/Fotos-directorio-institucional/';
-        const imgSrc = imagenExiste ? (rutaBase + nombreArchivo) : (rutaBase + 'placeholder.webp');
+        const imgSrc = rutaBase + nombreArchivo;
+        
+        // HTML simplificado y robusto para la imagen
+        // 1. Se asigna el 'src' directamente para que el navegador la cargue.
+        // 2. 'loading="lazy"' le dice al navegador que la cargue solo cuando esté cerca de ser visible.
+        // 3. 'onerror' es un salvavidas: si la imagen principal falla, intenta cargar el placeholder.
+        //    'this.onerror=null;' evita bucles infinitos si el placeholder también falla.
+        const placeholderSrc = rutaBase + 'placeholder.webp';
+        const imageHtml = `
+            <img src="${imgSrc}"
+                 loading="lazy"
+                 class="card-img-top directorio-image" 
+                 alt="Foto de ${persona.nombre}" 
+                 onerror="this.onerror=null; this.src='${placeholderSrc}';">
+        `;
 
         return `
           <div class="col directorio-card-col">
             <div class="card h-100 text-center shadow-sm border-0 hover-card ${cardClass}">
-              <div class="directorio-img-wrapper">
-                <img src="${imgSrc}" 
-                     class="card-img-top" 
-                     alt="Foto de ${persona.nombre}" 
-                     loading="lazy" 
-                     decoding="async"
-                     onerror="this.onerror=null; this.src='${rutaBase}placeholder.webp';"
-                     style="object-fit: cover; width: 100%; height: 200px;">
-              </div>
+              <div class="directorio-img-wrapper">${imageHtml}</div>
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title fw-bold">${persona.nombre}</h5>
                 <p class="card-text text-brand fw-semibold mb-2">${persona.cargo}</p>
@@ -137,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Función para poblar el directorio con manejo asíncrono
-    async function poblarDirectorio() {
+    function poblarDirectorio() {
         if (!gerenteContainer) return; // Si no están los contenedores, no hacer nada
 
         const gerente = directorioData.find(p => p.area === 'gerencia');
@@ -146,48 +115,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         const subCientifica = directorioData.find(p => p.area === 'subgerencia_cientifica');
         const administrativos = directorioData.filter(p => p.area === 'administrativa');
         const asistenciales = directorioData.filter(p => p.area === 'asistencial');
-
-        try {
-            // Cargar el gerente
-            if (gerente) {
-                gerenteContainer.innerHTML = await crearTarjeta(gerente, true);
-            }
-            
-            // Cargar asesores
-            if (asesoresContainer && asesores.length > 0) {
-                const asesoresHTML = await Promise.all(asesores.map(p => crearTarjeta(p, true)));
-                asesoresContainer.innerHTML = asesoresHTML.join('');
-            }
-            
-            // Cargar subgerentes
-            if (subAdmin) {
-                subAdminContainer.innerHTML = await crearTarjeta(subAdmin, true);
-            }
-            
-            if (subCientifica) {
-                subCientificaContainer.innerHTML = await crearTarjeta(subCientifica, true);
-            }
-
-            // Cargar personal administrativo y asistencial
-            const adminHTML = await Promise.all(administrativos.map(p => crearTarjeta(p)));
-            adminContainer.innerHTML = adminHTML.join('');
-            
-            const asistencialHTML = await Promise.all(asistenciales.map(p => crearTarjeta(p)));
-            asistencialContainer.innerHTML = asistencialHTML.join('');
-            
-        } catch (error) {
-            console.error('Error al cargar el directorio:', error);
-            
-            // Mostrar mensaje de error en la interfaz
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'alert alert-danger';
-            errorMessage.textContent = 'Error al cargar el directorio. Por favor, recarga la página.';
-            
-            if (gerenteContainer) {
-                gerenteContainer.parentNode.insertBefore(errorMessage, gerenteContainer.nextSibling);
-            } else if (document.querySelector('main')) {
-                document.querySelector('main').prepend(errorMessage);
-            }
+        
+        // Generar el HTML de las tarjetas de forma síncrona
+        if (gerente) {
+            gerenteContainer.innerHTML = crearTarjeta(gerente, true);
+        }
+        if (asesoresContainer && asesores.length > 0) {
+            asesoresContainer.innerHTML = asesores.map(p => crearTarjeta(p, true)).join('');
+        }
+        if (subAdmin) {
+            subAdminContainer.innerHTML = crearTarjeta(subAdmin, true);
+        }
+        if (subCientifica) {
+            subCientificaContainer.innerHTML = crearTarjeta(subCientifica, true);
+        }
+        if (adminContainer) {
+            adminContainer.innerHTML = administrativos.map(p => crearTarjeta(p)).join('');
+        }
+        if (asistencialContainer) {
+            asistencialContainer.innerHTML = asistenciales.map(p => crearTarjeta(p)).join('');
         }
     }
 
@@ -222,11 +168,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Iniciar la carga del directorio
-    poblarDirectorio().then(() => {
-        console.log('Directorio cargado exitosamente');
-    }).catch(error => {
-        console.error('Error al cargar el directorio:', error);
-    });
-    
+    poblarDirectorio();
     configurarFiltro();
 });
