@@ -1967,12 +1967,24 @@ p, a, td, th, li {
 }
 
 /* Nivel 4 (Departamentos) - Ancho de tarjetas para coincidir con las superiores */
-.org-level-3 .directorio-card-col {
+/*.org-level-3 .directorio-card-col {
   max-width: 400px;
-}
+}*/
 
 /* Conectores del organigrama */
 .org-connector-container {
+
+}
+
+/* Nivel 1 (Gerente) */
+/* Nivel Asesores */
+/* Nivel 2 (Subgerentes) */
+/* Nivel 4 (Departamentos) - Ancho de tarjetas para coincidir con las superiores */
+
+/* Conectores del organigrama */
+/* Tarjetas principales (Gerente, Subgerentes) */
+
+/* Conectores del organigrama */
   position: relative;
   height: 30px;
   margin-bottom: 30px;
