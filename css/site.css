@@ -1871,8 +1871,8 @@ p, a, td, th, li {
 /* 1. Wrapper to enforce aspect ratio (3:4) */
 .directorio-img-wrapper {
   position: relative;
-  /* 4/3 aspect ratio (height is 133.33% of width) */
-  padding-top: 133.33%; 
+  /* Establece una relación de aspecto de retrato (3:4). La altura será el 133.33% del ancho. */
+  padding-top: 133.33%;
   background-color: #e9ecef; /* Placeholder color */
 }
 
@@ -1883,10 +1883,9 @@ p, a, td, th, li {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: contain; /* Muestra la imagen completa sin recortar, manteniendo su proporción. */
+  object-position: center; /* Centra la imagen dentro del espacio disponible */
 }
-
 /* --- END: Directory Card Image Fix --- */
 
 /* Uniformidad y ajuste de texto en tarjetas de directorio */
@@ -1898,18 +1897,8 @@ p, a, td, th, li {
   justify-content: center;
 }
 
-.directorio-card-col .card-text.fw-semibold { /* Estilo para el cargo */
-  /* Asegura espacio vertical para alinear cargos (aprox. 2 líneas) */
-  min-height: 3.2em;
-}
-
-/* Solución definitiva para botones de correo con texto largo (Julián y Victor) */
-.directorio-email-btn {
-  /* Usar Flexbox para alinear ícono y texto */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3em;
+/* Ajuste para el cargo para mejorar la alineación vertical */
+.directorio-card-col .card-text.fw-semibold {
   
   /* Ajustes de texto y tamaño */
   font-size: 0.78rem;
@@ -1918,9 +1907,9 @@ p, a, td, th, li {
   padding: 0.4em 0.5em;
 }
 
-.directorio-email-btn .email-text {
-  /* Forzar el quiebre de palabras largas (correos) */
-  word-break: break-all;
+/* Solución para que el botón de email no se estire innecesariamente */
+.directorio-email-btn {
+  font-size: 0.78rem;
 }
 
 /* Directorio Institucional - Estilo Organigrama */
@@ -1938,6 +1927,13 @@ p, a, td, th, li {
 }
 .directorio-card-principal .card-title {
   color: var(--color-primario);
+}
+
+/* Ajuste final de proporcionalidad para la tarjeta del Gerente */
+.directorio-card-col .card { /* Aplica el ancho máximo a todas las tarjetas del directorio */
+  max-width: 350px; /* Limita el ancho máximo de la tarjeta */
+  margin-left: auto;  /* Centra la tarjeta horizontalmente */
+  margin-right: auto; /* Centra la tarjeta horizontalmente */
 }
 
 /* Nivel 1 (Gerente) */
