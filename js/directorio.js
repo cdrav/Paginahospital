@@ -4,46 +4,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Datos del personal con área jerárquica.
     const directorioData = [
         // Nivel 1: Gerencia
-        { nombre: "Mauricio Saldarriaga", cargo: "Gerente", email: "gerencia@hdsa.gov.co", foto: "mauricio-saldarriaga.JPEG", area: "gerencia" },
+        { nombre: "Mauricio Saldarriaga", cargo: "Gerente", email: "gerencia@hdsa.gov.co", foto: "mauricio-saldarriaga.jpeg", area: "gerencia" },
 
         // Nivel 2: Asesores calidad y control interno
-        { nombre: "Paulo Castillo Ferreira", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "paulo-castillo-ferreira.JPG", area: "asesor" },
-        { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.JPG", area: "asesor" },
-        { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.JPG", area: "asesor" },
+        { nombre: "Paulo Castillo Ferreira", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "paulo-castillo-ferreira.jpg", area: "asesor" },
+        { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.jpg", area: "asesor" },
+        { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.jpg", area: "asesor" },
 
         // Nivel 3: Subgerencias
-        { nombre: "Yaravi Maite Llanos", cargo: "Subgerente Administrativa", email: "subgerencia@hdsa.gov.co", foto: "yaravi-maite llanos.JPG", area: "subgerencia_admin" },
-        { nombre: "Victor Rengifo", cargo: "Subdirector Científico", email: "subdireccioncientifica@hdsa.gov.co", foto: "victor-rengifo.JPG", area: "subgerencia_cientifica" },
+        { nombre: "Yaravi Maite Llanos", cargo: "Subgerente Administrativa", email: "subgerencia@hdsa.gov.co", foto: "yaravi-maite llanos.jpg", area: "subgerencia_admin" },
+        { nombre: "Victor Rengifo", cargo: "Subdirector Científico", email: "subdireccioncientifica@hdsa.gov.co", foto: "victor-rengifo.jpg", area: "subgerencia_cientifica" },
 
         // Nivel 4: Área Asistencial / Científica
-        { nombre: "Gilberto Taborda", cargo: "Auditor Medico", email: "auditormedico@hdsa.gov.co", foto: "gilberto-taborda.JPG", area: "asistencial" },
-        { nombre: "Julian Humberto Velez", cargo: "Coordinador Médico", email: "coordinacionmedica@hdsa.gov.co", foto: "julian-humberto-velez.JPG", area: "asistencial" },
-        { nombre: "Claudia Velez", cargo: "Jefe de Cirugía", email: "cirugia@hdsa.gov.co", foto: "claudia-velez.JPG", area: "asistencial" },
-        { nombre: "Daniela Moreno Murcia", cargo: "Coordinadora de Laboratorio", email: "laboratorio@hdsa.gov.co", foto: "daniela-moreno-murcia.JPG", area: "asistencial" },
-        { nombre: "Diana Marcela Benitez", cargo: "Jefe enfermería Promoción y Prevención", email: "pyp@hdsa.gov.co", foto: "diana-marcela-benitez.JPG", area: "asistencial" },
-        { nombre: "Dubisa Alvarez", cargo: "Jefe de Enfermería", email: "urgencias@hdsa.gov.co", foto: "dubisa-alvarez.JPG", area: "asistencial" },
-        { nombre: "Lina Maria Madrid", cargo: "Terapia Física", email: "apterapeutico@hdsa.gov.co", foto: "lina-maria-madrid.JPG", area: "asistencial" },
-        { nombre: "Lorena Nieto", cargo: "Jefe Enfermería Hospitalización", email: "urgencias@hdsa.gov.co", foto: "lorena-nieto.JPG", area: "asistencial" },
-        { nombre: "Maria Camila Zapata", cargo: "Coordinadora Odontología", email: "odontologia@hdsa.gov.co", foto: "maria-camila-zapata.JPG", area: "asistencial" },
-        { nombre: "Sebastian Sarria", cargo: "Biomédico", email: "mantenimiento@hdsa.gov.co", foto: "sebastian-sarria.JPG", area: "asistencial" },
-        { nombre: "Amalia Diaz", cargo: "Tecnóloga de Radiología", email: "radiologia@hdsa.gov.co", foto: "amalia-diaz.JPG", area: "asistencial" },
-        { nombre: "Lorena Rios", cargo: "Seguridad y Salud en el Trabajo", email: "medicinalaboral@hdsa.gov.co", foto: "lorena-rios.JPG", area: "asistencial" },
-        { nombre: "Yeimi Carolina Espinoza", cargo: "Jefe enfermería Ruta Desnutrición", email: "rutadesnutricion@hdsa.gov.co", foto: "yeimi-carolina espinoza.JPG", area: "asistencial" },
+        { nombre: "Gilberto Taborda", cargo: "Auditor Medico", email: "auditormedico@hdsa.gov.co", foto: "gilberto-taborda.jpg", area: "asistencial" },
+        { nombre: "Julian Humberto Velez", cargo: "Coordinador Médico", email: "coordinacionmedica@hdsa.gov.co", foto: "julian-humberto-velez.jpg", area: "asistencial" },
+        { nombre: "Claudia Velez", cargo: "Jefe de Cirugía", email: "cirugia@hdsa.gov.co", foto: "claudia-velez.jpg", area: "asistencial" },
+        { nombre: "Daniela Moreno Murcia", cargo: "Coordinadora de Laboratorio", email: "laboratorio@hdsa.gov.co", foto: "daniela-moreno-murcia.jpg", area: "asistencial" },
+        { nombre: "Diana Marcela Benitez", cargo: "Jefe enfermería Promoción y Prevención", email: "pyp@hdsa.gov.co", foto: "diana-marcela-benitez.jpg", area: "asistencial" },
+        { nombre: "Dubisa Alvarez", cargo: "Jefe de Enfermería", email: "urgencias@hdsa.gov.co", foto: "dubisa-alvarez.jpg", area: "asistencial" },
+        { nombre: "Lina Maria Madrid", cargo: "Terapia Física", email: "apterapeutico@hdsa.gov.co", foto: "lina-maria-madrid.jpg", area: "asistencial" },
+        { nombre: "Lorena Nieto", cargo: "Jefe Enfermería Hospitalización", email: "urgencias@hdsa.gov.co", foto: "lorena-nieto.jpg", area: "asistencial" },
+        { nombre: "Maria Camila Zapata", cargo: "Coordinadora Odontología", email: "odontologia@hdsa.gov.co", foto: "maria-camila-zapata.jpg", area: "asistencial" },
+        { nombre: "Sebastian Sarria", cargo: "Biomédico", email: "mantenimiento@hdsa.gov.co", foto: "sebastian-sarria.jpg", area: "asistencial" },
+        { nombre: "Amalia Diaz", cargo: "Tecnóloga de Radiología", email: "radiologia@hdsa.gov.co", foto: "amalia-diaz.jpg", area: "asistencial" },
+        { nombre: "Lorena Rios", cargo: "Seguridad y Salud en el Trabajo", email: "medicinalaboral@hdsa.gov.co", foto: "lorena-rios.jpg", area: "asistencial" },
+        { nombre: "Yeimi Carolina Espinoza", cargo: "Jefe enfermería Ruta Desnutrición", email: "rutadesnutricion@hdsa.gov.co", foto: "yeimi-carolina-espinoza.jpg", area: "asistencial" },
         
         // Nivel 5: Área Administrativa
-        { nombre: "Stephany Arango", cargo: "Tesorera", email: "tesoreria@hdsa.gov.co", foto: "stephany-arango.JPG", area: "administrativa" },
-        { nombre: "Rosa Maria Clavijo", cargo: "Contadora", email: "contabilidad@hdsa.gov.co", foto: "rosa-maria-clavijo.JPG", area: "administrativa" },
-        { nombre: "Oscar Orley Romero", cargo: "Talento Humano", email: "talentohumano@hdsa.gov.co", foto: "oscar-orley-romero.JPG", area: "administrativa" },
-        { nombre: "Olga Martinez", cargo: "Contratación", email: "contratacion@hdsa.gov.co", foto: "olga-martinez.JPG", area: "administrativa" },
-        { nombre: "Sandra Milena Chaverra", cargo: "Jefe de Almacén", email: "almacen@hdsa.gov.co", foto: "sandra-chaverra.JPG", area: "administrativa" },
-        { nombre: "Dolly Asevena Alvarado", cargo: "Coordinadora Servicios Generales", email: "serv.generales@hdsa.gov.co", foto: "dolly-asevena-alvarado.JPG", area: "administrativa" },
-        { nombre: "Wilmar Benitez", cargo: "Jefe de Mantenimiento", email: "mantenimiento@hdsa.gov.co", foto: "wilmar-benitez.JPG", area: "administrativa" },
-        { nombre: "Claudia Lorena Salazar", cargo: "Gestión Documental", email: "gestiondocumental@hdsa.gov.co", foto: "claudia-lorena-salazar.JPG", area: "administrativa" },
-        { nombre: "Eliana Bermudez", cargo: "Coordinadora SIAU", email: "coord.siau@hdsa.gov.co", foto: "eliana-bermudez.JPG", area: "administrativa" },
-        { nombre: "Isabel Canizales", cargo: "Coordinadora Facturación", email: "facturacion@hdsa.gov.co", foto: "isabel-canizales.JPG", area: "administrativa" },
-        { nombre: "Luis Nieto", cargo: "Coordinador de Estadística", email: "coord.estadistica@hdsa.gov.co", foto: "luis-nieto.JPG", area: "administrativa" },
-        { nombre: "Robert Giraldo", cargo: "Coordinador de Sistemas", email: "coord.sistemas@hdsa.gov.co", foto: "robert-giraldo.JPG", area: "administrativa" },
-        { nombre: "Rodrigo Torres", cargo: "Presupuesto", email: "presupuesto@hdsa.gov.co", foto: "rodrigo-torres.JPG", area: "administrativa" }
+        { nombre: "Stephany Arango", cargo: "Tesorera", email: "tesoreria@hdsa.gov.co", foto: "stephany-arango.jpg", area: "administrativa" },
+        { nombre: "Rosa Maria Clavijo", cargo: "Contadora", email: "contabilidad@hdsa.gov.co", foto: "rosa-maria-clavijo.jpg", area: "administrativa" },
+        { nombre: "Oscar Orley Romero", cargo: "Talento Humano", email: "talentohumano@hdsa.gov.co", foto: "oscar-orley-romero.jpg", area: "administrativa" },
+        { nombre: "Olga Martinez", cargo: "Contratación", email: "contratacion@hdsa.gov.co", foto: "olga-martinez.jpg", area: "administrativa" },
+        { nombre: "Sandra Milena Chaverra", cargo: "Jefe de Almacén", email: "almacen@hdsa.gov.co", foto: "sandra-chaverra.jpg", area: "administrativa" },
+        { nombre: "Dolly Asevena Alvarado", cargo: "Coordinadora Servicios Generales", email: "serv.generales@hdsa.gov.co", foto: "dolly-asevena-alvarado.jpg", area: "administrativa" },
+        { nombre: "Wilmar Benitez", cargo: "Jefe de Mantenimiento", email: "mantenimiento@hdsa.gov.co", foto: "wilmar-benitez.jpg", area: "administrativa" },
+        { nombre: "Claudia Lorena Salazar", cargo: "Gestión Documental", email: "gestiondocumental@hdsa.gov.co", foto: "claudia-lorena-salazar.jpg", area: "administrativa" },
+        { nombre: "Eliana Bermudez", cargo: "Coordinadora SIAU", email: "coord.siau@hdsa.gov.co", foto: "eliana-bermudez.jpg", area: "administrativa" },
+        { nombre: "Isabel Canizales", cargo: "Coordinadora Facturación", email: "facturacion@hdsa.gov.co", foto: "isabel-canizales.jpg", area: "administrativa" },
+        { nombre: "Luis Nieto", cargo: "Coordinador de Estadística", email: "coord.estadistica@hdsa.gov.co", foto: "luis-nieto.jpg", area: "administrativa" },
+        { nombre: "Robert Giraldo", cargo: "Coordinador de Sistemas", email: "coord.sistemas@hdsa.gov.co", foto: "robert-giraldo.jpg", area: "administrativa" },
+        { nombre: "Rodrigo Torres", cargo: "Presupuesto", email: "presupuesto@hdsa.gov.co", foto: "rodrigo-torres.jpg", area: "administrativa" }
     ];
 
     const searchInput = document.getElementById('directorio-search');
