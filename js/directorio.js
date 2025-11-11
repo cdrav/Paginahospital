@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Usar el nombre del archivo directamente
         const nombreArchivo = persona.foto || 'placeholder.webp';
-        const rutaBase = 'imagenes/Fotos-directorio-institucional/';
+        const rutaBase = '/imagenes/Fotos-directorio-institucional/';
         const imgSrc = rutaBase + nombreArchivo;
         
         // HTML simplificado y robusto para la imagen
