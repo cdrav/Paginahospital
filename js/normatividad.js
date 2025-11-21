@@ -189,4 +189,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   console.log('Script de normatividad.js inicializado.');
+  
+  // Inicializar pestañas de Bootstrap
+  var tabEls = [].slice.call(document.querySelectorAll('button[data-bs-toggle="tab"]'));
+  tabEls.forEach(function(tabEl) {
+    new bootstrap.Tab(tabEl);
+  });
 });
