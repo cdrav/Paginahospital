@@ -2076,3 +2076,40 @@ p, a, td, th, li {
   border-color: transparent transparent transparent #fff;
   margin-left: 5px;
 }
+
+/* =====================================================
+   Estilos personalizados para la sección Participa
+   ===================================================== */
+
+.hero-participa {
+    background: url('../imagenes/participa.jpg') no-repeat center center/cover;
+    min-height: 300px; /* Ajusta esta altura si es necesario */
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.content-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.participa-feature {
+    padding: 2.5rem 0;
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(26, 159, 143, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: #1a9f8f;
+}
