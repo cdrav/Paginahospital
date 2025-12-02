@@ -18,6 +18,64 @@
     <link rel="stylesheet" href="css/accesibilidad.css?v=1.1" />
     <link rel="stylesheet" href="css/accessibility-buttons.css" />
     <link rel="stylesheet" href="css/transparencia.css" />
+    <style>
+      .organigrama-nuevo {
+        list-style-type: none;
+        padding-left: 0;
+        position: relative;
+      }
+      .organigrama-nuevo ul {
+        padding-left: 20px;
+        list-style-type: none;
+      }
+      .organigrama-nuevo li {
+        margin-top: 15px;
+        position: relative;
+      }
+      .organigrama-card {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-left: 5px solid #164443;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: box-shadow 0.3s ease;
+      }
+      .organigrama-card:hover {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+      .organigrama-card h6 {
+        color: #164443;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .organigrama-card .descripcion {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 12px;
+      }
+      .organigrama-card .responsable-info p {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: #495057;
+      }
+      .organigrama-card .responsable-info strong {
+        color: #343a40;
+      }
+      .organigrama-card .responsable-info a {
+        color: #0d6efd;
+        text-decoration: none;
+      }
+      .organigrama-card .responsable-info a:hover {
+        text-decoration: underline;
+      }
+      .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+      }
+      .table th {
+        background-color: #e9ecef;
+      }
+    </style>
    </head>
  <body data-page-title="Transparencia y Acceso a la Información Pública">
 
@@ -84,8 +142,8 @@
                   <div class="accordion-body p-2">
                     <div class="d-grid gap-2">
                       <a class="btn btn-outline-brand btn-sm text-start" href="#mision-vision-valores">Misión, Visión, Funciones y Deberes</a>
-                      <a class="btn btn-outline-brand btn-sm text-start" href="#estructura-organica">1.1 Estructura Orgánica - Organigrama</a>
-                      <a class="btn btn-outline-brand btn-sm text-start" href="#mapas-cartas">1.2 Mapas y Manual de procesos y procedimientos</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#estructura-organica">1.1 Estructura Orgánica</a>
+                      <a class="btn btn-outline-brand btn-sm text-start" href="#mapas-cartas">1.2 Mapas y Procesos</a>
                       <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-institucional">1.3 Directorio Institucional</a>
                       <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-entidades">1.4 Directorio de Entidades</a>
                       <a class="btn btn-outline-brand btn-sm text-start" href="#directorio-personal">1.5 Directorio de Servidores Públicos, Empleados o Contratistas</a>
@@ -267,10 +325,10 @@
           <div class="col-lg-4 col-md-6">
             <div class="card h-100 shadow-sm border-0 hover-card card-transition">
               <div class="card-body text-center p-4">
-                <i class="bi bi-map mb-3 card-icon"></i>
+                <i class="bi bi-building mb-3 card-icon"></i>
                 <h6 class="card-title fw-bold mb-3 card-title-custom">1.3 Directorio Institucional</h6>
                 <p class="card-text text-muted mb-4 card-text-custom">Información de contacto de las dependencias.</p>
-                <a href="#directorio-institucional" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-person-lines me-1"></i>Ver</a>
+                <a href="#directorio-institucional" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-eye me-1"></i>Ver Directorio</a>
               </div>
             </div>
           </div>
@@ -285,19 +343,153 @@
         <div class="card border-0 shadow-sm">
           <div class="card-body p-4">
             <h3 class="h5 fw-bold mb-3"><i class="bi bi-diagram-3 me-2"></i>1.1 Estructura Orgánica - Organigrama</h3>
-            <p class="text-muted mb-3">Consulta la estructura institucional y su organigrama.</p>
-            
-            <!-- Vista previa del organigrama -->
-            <div class="text-center mb-4 border rounded p-3 bg-light">
-              <a href="/imagenes/vista-previa-del-organigrama.jpg" target="_blank" title="Haz clic para ver la imagen completa">
-                <img src="/imagenes/vista-previa-del-organigrama.jpg" alt="Vista previa del Organigrama del Hospital" class="img-fluid rounded" style="max-height: 500px; cursor: pointer;">
-              </a>
-            </div>
+            <p class="text-muted mb-4">A continuación se presenta la estructura orgánica del Hospital Departamental San Antonio.</p>
 
-            <div class="d-flex flex-wrap gap-2 mb-4">
-              <a href="documentos/organigrama-hospital.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill"><i class="bi bi-download me-1"></i>Descargar Organigrama (PDF)</a>
+            <ul class="organigrama-nuevo">
+              <li>
+                <div class="organigrama-card">
+                  <h6>Junta Directiva</h6>
+                  <p class="descripcion">Máximo órgano de dirección y administración del hospital, responsable de definir las políticas y planes generales de la institución.</p>
+                  <div class="responsable-info">
+                    <p><strong>Responsable:</strong> Presidente de la Junta Directiva</p>
+                    <p><strong>Correo:</strong> <a href="mailto:gerencia@hdsa.gov.co">gerencia@hdsa.gov.co</a></p>
+                    <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 101</p>
+                  </div>
+                </div>
+                <ul>
+                  <li>
+                    <div class="organigrama-card">
+                      <h6>Gerencia</h6>
+                      <p class="descripcion">Responsable de la gestión y representación legal del hospital, ejecuta las decisiones de la Junta Directiva y dirige la operación general.</p>
+                      <div class="responsable-info">
+                        <p><strong>Responsable:</strong> Mauricio Saldarriaga</p>
+                        <p><strong>Correo:</strong> <a href="mailto:gerencia@hdsa.gov.co">gerencia@hdsa.gov.co</a></p>
+                        <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 101</p>
+                      </div>
+                    </div>
+                    <ul>
+                      <li>
+                        <div class="organigrama-card">
+                          <h6>Oficina Asesora de Planeación</h6>
+                          <p class="descripcion">Encargada de la formulación, seguimiento y evaluación de los planes, programas y proyectos institucionales.</p>
+                          <div class="responsable-info">
+                            <p><strong>Responsable:</strong> Paulo Castillo Ferreira (Jefe Oficina de Calidad)</p>
+                            <p><strong>Correo:</strong> <a href="mailto:asesorcalidad@hdsa.gov.co">asesorcalidad@hdsa.gov.co</a></p>
+                            <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 101</p>
+                         </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="organigrama-card">
+                          <h6>Oficina de Control Interno</h6>
+                          <p class="descripcion">Evalúa de forma independiente el sistema de control interno del hospital, velando por la eficiencia y legalidad de los procesos.</p>
+                          <div class="responsable-info">
+                            <p><strong>Responsable:</strong> Zoraida Idarraga</p>
+                            <p><strong>Correo:</strong> controlinterno@hdsa.gov.co</p>
+                            <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 101</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="organigrama-card">
+                          <h6>Asesoría Jurídica</h6>
+                          <p class="descripcion">Brinda soporte y asesoría legal en todos los procesos contractuales, administrativos y misionales de la entidad.</p>
+                          <div class="responsable-info">
+                            <p><strong>Responsable:</strong> Julian Hernandez</p>
+                            <p><strong>Correo:</strong> <a href="mailto:notificacionesjudiciales@hdsa.gov.co">notificacionesjudiciales@hdsa.gov.co</a></p>
+                            <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 101</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="organigrama-card">
+                          <h6>Subgerencia Administrativa y Financiera</h6>
+                          <p class="descripcion">Dirige los procesos de apoyo para la gestión de recursos financieros, talento humano, recursos físicos y tecnológicos.</p>
+                          <div class="responsable-info">
+                            <p><strong>Responsable:</strong> Yaravi Maite Llanos (Subgerente Administrativa)</p>
+                            <p><strong>Correo:</strong> <a href="mailto:subgerencia@hdsa.gov.co">subgerencia@hdsa.gov.co</a></p>
+                            <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 106</p>
+                          </div>
+                        </div>
+                        <ul>
+                          <li>
+                            <div class="organigrama-card">
+                              <h6>Gestión Financiera</h6>
+                              <p class="descripcion">Administra los recursos financieros, contabilidad, presupuesto, tesorería y facturación de la entidad.</p>
+                              <div class="responsable-info">
+                                <p><strong>Responsable:</strong> Rosa Maria Clavijo</p>
+                                <p><strong>Correo:</strong> <a href="mailto:contabilidad@hdsa.gov.co">contabilidad@hdsa.gov.co</a></p>
+                                <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 152</p>
+                         </div>
+                            </div>
+                          </li>
+                           <li>
+                            <div class="organigrama-card">
+                              <h6>Gestión del Talento Humano</h6>
+                              <p class="descripcion">Gestiona la vinculación, desarrollo, nómina y bienestar del personal del hospital.</p>
+                              <div class="responsable-info">
+                                <p><strong>Responsable:</strong> Oscar Orley Romero (Talento Humano)</p>
+                                <p><strong>Correo:</strong> <a href="mailto:talentohumano@hdsa.gov.co">talentohumano@hdsa.gov.co</a></p>
+                                <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 208</p>
+                         </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="organigrama-card">
+                              <h6>Gestión de Recursos Físicos</h6>
+                              <p class="descripcion">Administra el almacén, los servicios generales y el mantenimiento de la infraestructura y equipos.</p>
+                              <div class="responsable-info">
+                                <p><strong>Responsable:</strong> Sandra Milena Chaverra (Jefe de Almacén)</p>
+                                <p><strong>Responsable:</strong> Dolly Asevena Alvarado (Coordinadora Servicios Generales)</p>
+                                <p><strong>Responsable:</strong> Wilmar Benitez (Jefe de Mantenimiento)</p>
+                                <p><strong>Correo:</strong> <a href="mailto:almacen@hdsa.gov.co">almacen@hdsa.gov.co</a></p>
+                                <p><strong>Correo:</strong> <a href="mailto:serv.generales@hdsa.gov.co">serv.generales@hdsa.gov.co</a></p>
+                                <p><strong>Correo:</strong> <a href="mailto:mantenimiento@hdsa.gov.co">mantenimiento@hdsa.gov.co</a></p>
+                                <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 126</p>
+                              </div>
+                            </div>
+                          </li>
+                           <li>
+                            <div class="organigrama-card">
+                              <h6>Gestión de la Información</h6>
+                              <p class="descripcion">Maneja la gestión documental, estadística, sistemas de información (informática) y atención al usuario (SIAU).</p>
+                              <div class="responsable-info">
+                                <p><strong>Responsable:</strong> Claudia Lorena Salazar (Gestión Documental)</p>
+                                <p><strong>Responsable:</strong> Luis Nieto (Coordinador de Estadística)</p>
+                                <p><strong>Responsable:</strong> Eliana Bermudez (Coordinadora SIAU)</p>
+                                <p><strong>Responsable:</strong> Robert Giraldo (Coordinador de Sistemas)</p>
+                                <p><strong>Correo:</strong> <a href="mailto:coord.estadistica@hdsa.gov.co">coord.estadistica@hdsa.gov.co</a></p>
+                                <p><strong>Correo:</strong> <a href="mailto:gestiondocumental@hdsa.gov.co">gestiondocumental@hdsa.gov.co</a></p>
+                                <p><strong>Correo:</strong> <a href="mailto:coord.siau@hdsa.gov.co">coord.siau@hdsa.gov.co</a></p>
+                                <p><strong>Correo:</strong> <a href="mailto:coord.sistemas@hdsa.gov.co">coord.sistemas@hdsa.gov.co</a></p>
+                                <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 112</p>
+                         </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="organigrama-card">
+                          <h6>Subdirección Científica</h6>
+                          <p class="descripcion">Coordina y supervisa la prestación de todos los servicios asistenciales, garantizando la calidad y oportunidad en la atención.</p>
+                          <div class="responsable-info">
+                            <p><strong>Responsable:</strong> Victor Rengifo</p>
+                            <p><strong>Correo:</strong> <a href="mailto:subdireccioncientifica@hdsa.gov.co">subdireccioncientifica@hdsa.gov.co</a></p>
+                            <p><strong>Tel:</strong> 602 891 2317 <strong>Ext.</strong> 107</p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="d-flex flex-wrap gap-2 mt-4">
+                <a href="documentos/organigrama-hospital.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
+                    <i class="bi bi-download me-1"></i>Descargar organigrama original (PDF)
+                </a>
             </div>
-            <p class="text-muted small mb-4">Archivo PDF (193 KB). Requiere visor PDF.</p>
             
             <!-- Sección de Documentos de Seguridad y Salud en el Trabajo -->
             <div class="mt-4 pt-3 border-top">
@@ -501,17 +693,189 @@
       <section id="directorio-institucional" class="anchor-target py-4">
         <div class="card border-0 shadow-sm">
           <div class="card-body p-4">
-            <h3 class="h5 fw-bold mb-3"><i class="bi bi-person-lines-fill me-2"></i>1.3 Directorio Institucional</h3>
-            <p class="text-muted mb-3">Información de contacto de las dependencias.</p>
-            <div class="d-flex flex-wrap gap-2">
-              <a href="directorio-institucional.html" class="btn btn-brand btn-sm rounded-pill">
-                <i class="bi bi-eye me-1"></i>Ver Directorio Institucional
-              </a>
-              <a href="documentos/directorio-institucional.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
-                <i class="bi bi-file-earmark-pdf me-1"></i>Descargar Directorio (PDF)
-              </a>
+            <h3 class="h5 fw-bold mb-3"><i class="bi bi-building me-2"></i>1.3 Directorio Institucional</h3>
+            <p class="text-muted mb-4">Mecanismos de contacto y ubicación de nuestras sedes para una comunicación efectiva con la entidad.</p>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm border-0"><div class="card-body">
+                        <h4 class="h5 fw-bold mb-3 text-brand"><i class="bi bi-telephone-fill me-2"></i>Contacto Principal</h4>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><strong>PBX:</strong> +57 602 891 2317</li>
+                            <li class="mb-2"><strong>Correo Institucional:</strong> <a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></li>
+                            <li><strong>PQRSD:</strong> <a href="pqrs.html" class="text-decoration-none">Radicar PQRSD aquí</a></li>
+                        </ul>
+                    </div></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm border-0"><div class="card-body">
+                        <h4 class="h5 fw-bold mb-3 text-brand"><i class="bi bi-geo-alt-fill me-2"></i>Sede Principal</h4>
+                        <p class="mb-0">Avenida Santander No. 10 -50, Roldanillo, Valle del Cauca</p>
+                        <div class="mt-3 ratio ratio-16x9">
+                            <iframe src="https://www.google.com/maps?q=Hospital%20Departamental%20San%20Antonio%20Roldanillo&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
+                        </div>
+                    </div></div>
+                </div>
             </div>
-            <p class="text-muted small mt-2 mb-0">Consulta el directorio en la página o descárgalo en formato PDF.</p>
+
+            <h4 class="h5 fw-bold mb-3 text-brand"><i class="bi bi-hospital-fill me-2"></i>Nuestros Puestos de Salud</h4>
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm border-0"><div class="card-body"><h5 class="fw-bold mb-2">Puesto de  salud sede San Sebastián</h5><p class="mb-0 text-muted">Calle 11c #2a-79, Roldanillo</p></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm border-0"><div class="card-body"><h5 class="fw-bold mb-2">Puesto de Salud sede El Rey</h5><p class="mb-0 text-muted">Calle 7 con carrera 4 norte, Roldanillo</p></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm border-0"><div class="card-body"><h5 class="fw-bold mb-2">Puesto de salud Sede Nueva EPS</h5><p class="mb-0 text-muted">Carrera 10 Calle 9, Roldanillo</p></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm border-0"><div class="card-body"><h5 class="fw-bold mb-2">Puesto de Saludn sede La Asunción</h5><p class="mb-0 text-muted">Carrera 9 5-16B, Roldanillo</p></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm border-0"><div class="card-body"><h5 class="fw-bold mb-2">Puesto de Salud sede Llanitos</h5><p class="mb-0 text-muted">Carrera. 9 #549, Roldanillo</p></div></div></div>
+            </div>
+
+            <hr class="my-4">
+
+            <div>
+              <h4 class="h5 fw-bold mb-3"><i class="bi bi-diagram-3-fill me-2"></i>Directorio de Funcionarios (Organigrama Visual)</h4>
+              <p class="text-muted">Explora la estructura jerárquica del hospital con el directorio fotográfico de nuestros líderes y responsables de área.</p>
+              <div class="d-flex flex-wrap gap-2 mt-3">
+                <a href="directorio-institucional.html" class="btn btn-brand btn-sm rounded-pill">
+                  <i class="bi bi-person-bounding-box me-1"></i>Ver Organigrama con Fotos
+                </a>
+              </div>
+            </div>
+
+            <div class="accordion" id="directorioFuncionariosAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFuncionarios">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFuncionarios" aria-expanded="true" aria-controls="collapseFuncionarios">
+                    <i class="bi bi-person-lines-fill me-2"></i><strong>Directorio de Funcionarios</strong>
+                  </button>
+                </h2>
+                <div id="collapseFuncionarios" class="accordion-collapse collapse show" aria-labelledby="headingFuncionarios" data-bs-parent="#directorioFuncionariosAccordion">
+                  <div class="accordion-body">
+                    <p class="text-muted">Consulta el directorio de nuestros colaboradores, sus cargos y correos de contacto. Utiliza el buscador para filtrar la tabla.</p>
+                    
+                    <!-- Barra de búsqueda para la tabla -->
+                    <div class="mb-3">
+                      <input type="text" id="tabla-funcionarios-search" class="form-control" placeholder="Buscar por nombre, cargo, servicio o correo...">
+                    </div>
+
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover table-sm">
+                        <thead>
+                          <tr>
+                            <th>Nombres y Apellidos</th>
+                            <th>Cargo</th>
+                            <th>Servicio</th>
+                            <th>E-Mail</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tabla-funcionarios-body">
+                          <tr><td>SANDRA MILENA CHAVERRA GIRALDO</td><td>Almacenista General</td><td>ADMINISTRATIVO</td><td><a href="mailto:almacen@hdsa.gov.co">almacen@hdsa.gov.co</a></td></tr>
+                          <tr><td>ZORAYDA IDARRAGA MURILLO</td><td>Asesor Control Interno</td><td>ADMINISTRATIVO</td><td><a href="mailto:controlinterno@hdsa.gov.co">controlinterno@hdsa.gov.co</a></td></tr>
+                          <tr><td>DIANA CORNELIA CLAVIJO DAVALOS</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DURLEY PATRICIA GARZON GARZON</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>HECTOR FABIO QUINTERO MUÑOZ</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>JUAN DAVID GARCIA VARELA</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:cartera@hdsa.gov.co">cartera@hdsa.gov.co</a></td></tr>
+                          <tr><td>NHORA ELCY AGUILAR ROJAS</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:talentohumano@hdsa.gov.co">talentohumano@hdsa.gov.co</a></td></tr>
+                          <tr><td>ROBERT ANTONIO GIRALDO RUIZ</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:coord.sistemas@hdsa.gov.co">coord.sistemas@hdsa.gov.co</a></td></tr>
+                          <tr><td>RODRIGO TORRES AGUADO</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:presupuesto@hdsa.gov.co">presupuesto@hdsa.gov.co</a></td></tr>
+                          <tr><td>YENIFER PEREZ VILLAFAÑE</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:contratacion@hdsa.gov.co">contratacion@hdsa.gov.co</a></td></tr>
+                          <tr><td>YULIANA ROJAS ARBOLEDA</td><td>Auxiliar Area Salud</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DOLLY ASEVENA ALVARADO CONTRERAS</td><td>Auxiliar de Servicios Generales</td><td>ADMINISTRATIVO</td><td><a href="mailto:serv.generales@hdsa.gov.co">serv.generales@hdsa.gov.co</a></td></tr>
+                          <tr><td>LUZ EDITH AGUIRRE CARDONA</td><td>Auxiliar de Servicios Generales</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MAURICIO SALDARRIAGA VINASCO</td><td>Gerente</td><td>ADMINISTRATIVO</td><td><a href="mailto:gerencia@hdsa.gov.co">gerencia@hdsa.gov.co</a></td></tr>
+                          <tr><td>GILBERTO TABORDA PELAEZ</td><td>Medico General</td><td>ADMINISTRATIVO</td><td><a href="mailto:auditormedico@hdsa.gov.co">auditormedico@hdsa.gov.co</a></td></tr>
+                          <tr><td>JUAN SEBASTIAN ESPINOSA ESPINOSA</td><td>Medico General</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>HENRY ALBERTO BUCHELI VITERI</td><td>Operario</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DIANA MILENA ZULETA VASQUEZ</td><td>Profesional Universitario</td><td>ADMINISTRATIVO</td><td><a href="mailto:cartera@hdsa.gov.co">cartera@hdsa.gov.co</a></td></tr>
+                          <tr><td>GLORIA ZULEIMA GIRALDO ARBELAEZ</td><td>Secretario</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MAGNOLIA MARTINEZ MORENO</td><td>Secretario</td><td>ADMINISTRATIVO</td><td><a href="mailto:hdsa@hospital.gov.co">hdsa@hospital.gov.co</a></td></tr>
+                          <tr><td>VICTOR MAURICIO RENGIFO HURTADO</td><td>Subdirector Cientifico</td><td>ADMINISTRATIVO</td><td><a href="mailto:subdireccioncientifica@hdsa.gov.co">subdireccioncientifica@hdsa.gov.co</a></td></tr>
+                          <tr><td>YARAVI MAITE LLANOS GOMEZ</td><td>Subgerente</td><td>ADMINISTRATIVO</td><td><a href="mailto:subgerencia@hdsa.gov.co">subgerencia@hdsa.gov.co</a></td></tr>
+                          <tr><td>OSCAR ORLEY ROMERO ARIAS</td><td>TALENTO HUMANO</td><td>ADMINISTRATIVO</td><td><a href="mailto:talentohumano@hdsa.gov.co">talentohumano@hdsa.gov.co</a></td></tr>
+                          <tr><td>LUIS AGOBERTO NIETO GONZALEZ</td><td>Tecnico Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:coord.estadistica@hdsa.gov.co">coord.estadistica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA ISABEL CANIZALES RIVEROS</td><td>Tecnico Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:facturacion@hdsa.gov.co">facturacion@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA EDITH RIOS PATIÑO</td><td>Tecnico Area Salud</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>STEPFANIE JULIETH ARANGO PIEDRAHITA</td><td>Tesorero General</td><td>ADMINISTRATIVO</td><td><a href="mailto:tesoreria@hdsa.gov.co">tesoreria@hdsa.gov.co</a></td></tr>
+                          <tr><td>CONSUELO JARAMILLO GONZALEZ</td><td>Auxiliar Administrativo</td><td>AMBULATORIOS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>LORENA ANDREA RIOS MARTINEZ</td><td>Medico Especialista</td><td>AMBULATORIOS</td><td><a href="mailto:medicinalaboral@hdsa.gov.co">medicinalaboral@hdsa.gov.co</a></td></tr>
+                          <tr><td>LINA MARIA MADRID CASTILLO</td><td>TERAPIA FISICA</td><td>APOYO TERAPEUTICO</td><td><a href="mailto:apterapeutico@hdsa.gov.co">apterapeutico@hdsa.gov.co</a></td></tr>
+                          <tr><td>BEATRIZ EUGENIA GONZALEZ ZAPATA</td><td>Auxiliar Area Salud</td><td>CENTROS Y PUESTOS DE SALUD</td><td><a href="mailto:pyp@hdsa.gov.co">pyp@hdsa.gov.co</a></td></tr>
+                          <tr><td>ARGENIS PARRA MORENO</td><td>Auxiliar Area Salud</td><td>CIRUGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DIANA MARCELA PIEDRAHITA ISAZA</td><td>Auxiliar Area Salud</td><td>CIRUGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MONICA VIVIANA CARDENAS LAVERDE</td><td>Auxiliar Area Salud</td><td>CIRUGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>RICARDO MARMOLEJO MILLAN</td><td>Enfermero</td><td>CIRUGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>SANDRA LORENA SOTO HENAO</td><td>Profesional Universitario Area Salud</td><td>DIAGNOSTICO Y TERAPEUTICO - OTROS</td><td><a href="mailto:apterapeutico@hdsa.gov.co">apterapeutico@hdsa.gov.co</a></td></tr>
+                          <tr><td>AMALIA DIAZ RAMIREZ</td><td>Tecnico Area Salud</td><td>DIAGNOSTICO Y TERAPEUTICO - OTROS</td><td><a href="mailto:radiologia@hdsa.gov.co">radiologia@hdsa.gov.co</a></td></tr>
+                          <tr><td>JULIAN ANDRES TORRES SARRIA</td><td>Auxiliar Administrativo</td><td>FACTURACION Y CAJA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MAGDALENA GONZALEZ OSORIO</td><td>Auxiliar Area Salud</td><td>HOSPITALIZACION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>SANDRA DANIELA ORTIZ CAMELO</td><td>Auxiliar Area Salud</td><td>HOSPITALIZACION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>SANDRA MILENA ROZO CUERVO</td><td>Auxiliar Area Salud</td><td>HOSPITALIZACION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>SARA DEL PILAR VELASQUEZ CARRILLO</td><td>Auxiliar Area Salud</td><td>HOSPITALIZACION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>YEIMI CAROLINA ESPINOSA SANDOVAL</td><td>Enfermero</td><td>HOSPITALIZACION</td><td><a href="mailto:rutadesnutricion@hdsa.gov.co">rutadesnutricion@hdsa.gov.co</a></td></tr>
+                          <tr><td>ANA TERESA SARRIA AYALA</td><td>Auxiliar Area Salud</td><td>LABORATORIO CLINICO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>OLGA LUCIA BENITEZ SANCHEZ</td><td>Auxiliar Area Salud</td><td>ADMINISTRATIVO</td><td><a href="mailto:secretariasubcientifica@hdsa.gov.co">secretariasubcientifica@hdsa.gov.co</a></td></tr>
+                          <tr><td>ANA ISABEL BOLIVAR PEREIRA</td><td>Profesional Universitario Area Salud</td><td>LABORATORIO CLINICO</td><td><a href="mailto:laboratorio@hdsa.gov.co">laboratorio@hdsa.gov.co</a></td></tr>
+                          <tr><td>DANIELA MORENO MURCIA</td><td>Profesional Universitario Area Salud</td><td>LABORATORIO CLINICO</td><td><a href="mailto:laboratorio@hdsa.gov.co">laboratorio@hdsa.gov.co</a></td></tr>
+                          <tr><td>MONICA DANIELA PARRA FLOREZ</td><td>Auxiliar Area Salud</td><td>OBSERVACION GINECO-OBSTETRICIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>GINA PAOLA BENITEZ RODRIGUEZ</td><td>Auxiliar Administrativo</td><td>ADMINISTRATIVO</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DIANA BERTILDA MEDINA</td><td>Auxiliar Area Salud</td><td>ODONTOLOGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>HEIDI DAYANA GONZALEZ VELEZ</td><td>Auxiliar Area Salud</td><td>ODONTOLOGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>NATHALIA MONDRAGON GOMEZ</td><td>Auxiliar Area Salud</td><td>ODONTOLOGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>LAURA MARIA ROJAS RAMIREZ</td><td>Odontologo</td><td>ODONTOLOGIA</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA CAMILA AGUDELO ZAPATA</td><td>Odontologo</td><td>ODONTOLOGIA</td><td><a href="mailto:coord.odontologia@hdsa.gov.co">coord.odontologia@hdsa.gov.co</a></td></tr>
+                          <tr><td>ANA JOAQUINA SANCHEZ ORTIZ</td><td>Auxiliar de Servicios Generales</td><td>OTROS SERVICIOS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>ALFREDO LEMOS</td><td>Celador</td><td>OTROS SERVICIOS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>YONH JAIRO VELEZ GIRALDO</td><td>Conductor</td><td>OTROS SERVICIOS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DIANA PATRICIA MUÑOZ VALENCIA</td><td>Operario</td><td>OTROS SERVICIOS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>JOSE DARIO VASQUEZ GALVEZ</td><td>Operario</td><td>OTROS SERVICIOS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>WILMAR BENITEZ SANCHEZ</td><td>Operario</td><td>OTROS SERVICIOS</td><td><a href="mailto:mantenimiento@hdsa.gov.co">mantenimiento@hdsa.gov.co</a></td></tr>
+                          <tr><td>ELIANA BERMUDEZ TORO</td><td>Tecnico Area Salud</td><td>OTROS SERVICIOS</td><td><a href="mailto:siau@hdsa.gov.co">siau@hdsa.gov.co</a></td></tr>
+                          <tr><td>ANYELI ANDREA PARRA BARRIOS</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:trabajosocial@hdsa.gov.co">trabajosocial@hdsa.gov.co</a></td></tr>
+                          <tr><td>DIANA MARCELA GARCIA MONSALVE</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>FANERY PADILLA PEÑA</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:vacunacion@hdsa.gov.co">vacunacion@hdsa.gov.co</a></td></tr>
+                          <tr><td>JOHANA PAOLA ROMERO CUERVO</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>KELLY JOHANA DE AVILA ACEVEDO</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:mamografia@hdsa.gov.co">mamografia@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA MAGNOLIA CALVO VASCO</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MELVA ARANGO ESCOBAR</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>NEILA ORTIZ ARCILA</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>ROSALIA PEREZ MILLAN</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>SANDRA MILENA RODRIGUEZ GARCIA</td><td>Auxiliar Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA ANGELICA TORRES CASTILLO</td><td>Enfermero</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA EUNICE RUIZ RODRIGUEZ</td><td>Tecnico Area Salud</td><td>PROMOCION Y PREVENCION</td><td><a href="mailto:educacionsalud@hdsa.gov.co">educacionsalud@hdsa.gov.co</a></td></tr>
+                          <tr><td>ALVARO JOSE AYALA BUENO</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>CLAUDIA PATRICIA GALLEGO CASTAÑEDA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>CLAUDIA PATRICIA PADILLA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>CONSUELO VASQUEZ GRANADA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>JESSICA VIVIANA VELASQUEZ COLONIA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>JULIETA SALDARRIAGA LOPEZ</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>LINA MARIA VALENCIA ZAPATA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>LORENA URDINOLA MONDRAGON</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>LUZ YENIFER DIAZ MARTINEZ</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MARIA LILIANA HORTUA RIVERA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>OLGA PATRICIA RAMIREZ PADILLA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>ROBERTULIO GARCIA HENAO</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>TATIANA ARIAS CORDOBA</td><td>Auxiliar Area Salud</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>MIGUEL ANTONIO LOPEZ CRUZ</td><td>Conductor</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>RUBIEL CASTRO OSPINA</td><td>Conductor</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DUBISA ALVAREZ CULMAN</td><td>Enfermero</td><td>URGENCIAS</td><td><a href="mailto:urgencias@hdsa.gov.co">urgencias@hdsa.gov.co</a></td></tr>
+                          <tr><td>LORENA NIETO BETANCOURT</td><td>Enfermero</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>CESAR EDUARDO BERMUDEZ MONDRAGON</td><td>Medico General</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>CRISTINA MARIA CASTILLO AYALA</td><td>Medico General</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>GERMAN ANDRES BECERRA RENGIFO</td><td>Medico General</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>JULIAN HUMBERTO VELEZ VARELA</td><td>Medico General</td><td>URGENCIAS</td><td><a href="mailto:coordinacionmedica@hdsa.gov.co">coordinacionmedica@hdsa.gov.co</a></td></tr>
+                          <tr><td>RODRIGO ANDRES TRUJILLO MORENO</td><td>Medico General</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>DANIELA ROLDAN PINO</td><td>Profesional Servicio Social Obligatorio</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>FRANCISCO JAVIER HORMAZA DE LA CRUZ</td><td>Profesional Servicio Social Obligatorio</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>IVAN ANDRES MOYA MENA</td><td>Profesional Servicio Social Obligatorio</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>LAURA NATALIA SALDARRIAGA BLANDON</td><td>Profesional Servicio Social Obligatorio</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                          <tr><td>VALENTINA LICETH GUTIERREZ NARANJO</td><td>Profesional Servicio Social Obligatorio</td><td>URGENCIAS</td><td><a href="mailto:ventanillaunica@hdsa.gov.co">ventanillaunica@hdsa.gov.co</a></td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div id="no-results" class="alert alert-warning d-none mt-3" role="alert">
+                      No se encontraron funcionarios que coincidan con la búsqueda.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -520,7 +884,8 @@
       <section id="directorio-personal" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-people me-2"></i>1.5 Directorio de Servidores Públicos, Empleados o Contratistas</h3>
-          <div class="d-flex flex-wrap gap-2 mb-1">
+          <p class="text-muted">Consulta la información de servidores públicos en las plataformas nacionales.</p>
+          <div class="d-flex flex-wrap gap-2 mt-3">
             <a href="https://www.funcionpublica.gov.co/dafpIndexerBHV/login/auth" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm rounded-pill">
               <i class="bi bi-box-arrow-up-right me-1"></i> Consultar directorio en Función Pública
             </a>
@@ -528,7 +893,6 @@
               <i class="bi bi-box-arrow-up-right me-1"></i> Sigep II
             </a>
           </div>
-          <p class="text-muted small mb-0">Enlaces externos al Directorio de Servidores Públicos (DAFP) y al SIGEP II. Se abrirán en una nueva pestaña.</p>
         </div></div>
       </section>
 
@@ -914,6 +1278,19 @@
               </div>
             </div>
 
+            <!-- Política de Anticorrupción -->
+            <div class="list-group-item px-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>Política de Anticorrupción y Atención al Ciudadano</strong>
+                  <div class="text-muted small">Consulte nuestro plan y compromiso con la transparencia y la atención al ciudadano.</div>
+                </div>
+                <a href="documentos/planeacion/2024/plan-anticorrupcion-y-atencion-al-ciudadano-paac-2023.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill">
+                  <i class="bi bi-file-earmark-text me-1"></i>Ver Política
+                </a>
+              </div>
+            </div>
+
             <!-- Derechos de los Ciudadanos - Carta de Trato Digno -->
             <div class="list-group-item px-0">
               <div class="d-flex justify-content-between align-items-start">
@@ -966,6 +1343,26 @@
       <section id="entes-vigilancia" class="anchor-target py-4">
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <h3 class="h5 fw-bold mb-2"><i class="bi bi-shield-check me-2"></i>1.10 Entes y Autoridades de Vigilancia</h3>
+
+          <!-- Mecanismos Internos de Supervisión -->
+          <div class="mb-4 pt-2">
+            <h4 class="h6 fw-bold mb-3 text-brand"><i class="bi bi-eye-fill me-2"></i>Mecanismos Internos de Supervisión y Vigilancia</h4>
+            <div class="card bg-light border-2 border-start border-primary border-0">
+              <div class="card-body">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start">
+                  <div>
+                    <h5 class="h6 fw-bold">Oficina de Control Interno</h5>
+                    <p class="text-muted mb-2 mb-sm-0">Encargada de la supervisión, notificación y vigilancia interna de la entidad.</p>
+                  </div>
+                  <span class="text-muted small mt-2 mt-sm-0 flex-shrink-0"><i class="bi bi-envelope me-1"></i>controlinterno@hdsa.gov.co</span>
+                </div>
+                <hr>
+                <p class="mb-0 small"><strong>Responsable:</strong> Zoraida Idarraga<br><span class="text-muted">Jefe Oficina de Control Interno</span></p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="h6 fw-bold mb-3 text-brand"><i class="bi bi-building-fill-check me-2"></i>Entes Externos de Vigilancia</h4>
           <p class="text-muted">Entidades que ejercen inspección, vigilancia, control y orientación sobre la E.S.E Hospital Departamental San Antonio de Roldanillo.</p>
 
           <div class="table-responsive">
@@ -1969,34 +2366,30 @@
         <h2 class="h5 fw-bold mb-3">6. Participa</h2>
         <div class="card border-0 shadow-sm"><div class="card-body p-4">
           <p class="text-muted">Selecciona un componente para ver el detalle en la página dedicada de participación.</p>
-          <ul class="list-group list-group-flush">
+          <ul class="list-group list-group-flush">           
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.1 Información General del Menú Participa</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="Participa.html#slide-1">Ver</a>
+              <div><strong>6.1 Participación para el Diagnóstico e Identificación de Problemas</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa.html">Ver</a>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.2 Participación para el Diagnóstico e Identificación de Problemas</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/diagnostico_identificacion_problemas.html">Ver</a>
+              <div><strong>6.2 Planeación y Presupuesto Participativo</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa.html">Ver</a>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.3 Planeación y Presupuesto Participativo</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/planeacion_presupuesto_participativo.html">Ver</a>
+              <div><strong>6.3 Consulta Ciudadana</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa.html">Ver</a>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.4 Consulta Ciudadana</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/consulta_ciudadana.html">Ver</a>
+              <div><strong>6.4 Colaboración e Innovación</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa.html">Ver</a>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.5 Colaboración e Innovación</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/colaboracion_innovacion_abierta.html">Ver</a>
+              <div><strong>6.5 Rendición de Cuentas</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa.html">Ver</a>
             </li>
             <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.6 Rendición de Cuentas</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/rendicion_de_cuentas.html">Ver</a>
-            </li>
-            <li class="list-group-item px-0 d-flex justify-content-between align-items-start">
-              <div><strong>6.7 Control Social</strong></div>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa/control_social.html">Ver</a>
+              <div><strong>6.6 Control Social</strong></div>
+              <a class="btn btn-sm btn-outline-brand rounded-pill" href="participa.html">Ver</a>
             </li>
           </ul>
         </div></div>
@@ -2079,6 +2472,29 @@
 <script src="js/accessibility-styles.js" defer></script>
 <script src="js/transparencia.js" defer></script>
 <script src="js/busqueda.js" defer></script>
-<script src="js/main.js" defer></script>
+<script src="js/main.js" defer></script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('tabla-funcionarios-search');
+    const tableBody = document.getElementById('tabla-funcionarios-body');
+    const noResultsMessage = document.getElementById('no-results');
+    const rows = tableBody.getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function () {
+      const filter = searchInput.value.toUpperCase();
+      let found = false;
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const text = rows[i].textContent || rows[i].innerText;
+        if (text.toUpperCase().indexOf(filter) > -1) {
+          rows[i].style.display = '';
+          found = true;
+        } else {
+          rows[i].style.display = 'none';
+        }
+      }
+      noResultsMessage.classList.toggle('d-none', found);
+    });
+  });
+</script>
 </body>
 </html>

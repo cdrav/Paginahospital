@@ -1,0 +1,204 @@
+/* Estilos para el organigrama interactivo */
+.organigrama-container {
+  font-family: 'Poppins', sans-serif;
+  margin: 2rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.organigrama {
+  min-width: 100%;
+  display: inline-block;
+  padding: 1rem 0;
+}
+
+.org-level {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.org-node {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+  margin: 0.5rem;
+  width: 280px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.org-node:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.org-node-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.org-node-title {
+  font-weight: 700;
+  color: #164443;
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.org-node-position {
+  color: #069681;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.org-node-body {
+  font-size: 0.85rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.org-node-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #666;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f5f5f5;
+}
+
+.org-node-email {
+  color: #069681;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.org-node-email:hover {
+  color: #0b5ed7;
+  text-decoration: underline;
+}
+
+.org-node-extension {
+  background: #f8f9fa;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+/* Líneas de conexión */
+.org-connector {
+  position: relative;
+  height: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.org-connector::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 20px;
+  background-color: #069681;
+}
+
+/* Niveles jerárquicos */
+.org-level-1 .org-node {
+  background: #f8f9fa;
+  border: 2px solid #164443;
+}
+
+.org-level-2 .org-node {
+  background: #f0f8f7;
+  border-left: 4px solid #069681;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .org-node {
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .org-level {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Efecto de hover mejorado */
+.org-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(6, 150, 129, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.org-node:hover::before {
+  opacity: 1;
+}
+
+/* Estilo para la vista de detalle */
+.org-node-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: #f9f9f9;
+  border-radius: 0 0 8px 8px;
+  margin: 0 -1.25rem -1.25rem;
+  padding: 0 1.25rem;
+}
+
+.org-node.active .org-node-detail {
+  max-height: 200px;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #eee;
+  margin-top: 0.75rem;
+}
+
+/* Botón para ver más/menos */
+.org-node-toggle {
+  background: none;
+  border: none;
+  color: #069681;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0;
+  font-weight: 500;
+}
+
+.org-node-toggle:hover {
+  text-decoration: underline;
+}
+
+.org-node-toggle i {
+  margin-left: 0.25rem;
+  transition: transform 0.3s ease;
+}
+
+.org-node.active .org-node-toggle i {
+  transform: rotate(180deg);
+}

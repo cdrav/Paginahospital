@@ -129,14 +129,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);
     });
     
-    // Filtrar solo los últimos 3 meses (septiembre a noviembre 2025)
+    // Filtrar solo los últimos 4 meses (septiembre a diciembre 2025)
     const filteredVisits = sortedVisits.filter(item => {
       if (!item.date) return false;
       const dateStr = item.date.toString();
-      // Filtrar solo fechas de septiembre (09), octubre (10) y noviembre (11) de 2025
+      // Filtrar solo fechas de septiembre (09), octubre (10), noviembre (11) and december (12) de 2025
       return dateStr.startsWith('202509') || 
              dateStr.startsWith('202510') || 
-             dateStr.startsWith('202511');
+             dateStr.startsWith('202511') || dateStr.startsWith('202512');
     });
 
     destroyChart('visitsChart');
@@ -239,21 +239,26 @@ document.addEventListener('DOMContentLoaded', async () => {
              (a.date || '').localeCompare(b.date || '');
     });
     
-    // Filtrar solo los últimos 3 meses (septiembre a noviembre 2025)
+    // --- CORRECCIÓN ---
+    // Filtrar dinámicamente los últimos 6 meses, incluyendo el actual.
+    const hoy = new Date();
+    const mesesAFiltrar = [];
+    for (let i = 0; i < 6; i++) {
+        const fecha = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1);
+        const nombreMes = fecha.toLocaleString('es-CO', { month: 'short' }).replace('.', '').toLowerCase();
+        const anio = fecha.getFullYear();
+        mesesAFiltrar.push(`${nombreMes} ${anio}`);
+    }
+
     const filteredTrend = sortedTrend.filter(item => {
-      const period = (item.period || '').toLowerCase();
-      return period.includes('sept 2025') || 
-             period.includes('oct 2025') || 
-             period.includes('nov 2025') ||
-             (item.date && (
-               item.date.toString().includes('2025-09') ||
-               item.date.toString().includes('2025-10') ||
-               item.date.toString().includes('2025-11')
-             ));
+        const period = (item.period || '').toLowerCase();
+        // Comprobar si el 'period' (ej: "nov 2025") está en nuestra lista de meses a filtrar.
+        return mesesAFiltrar.some(mesAnio => period.includes(mesAnio));
     });
 
     // Si no hay datos, mostrar un mensaje
     if (filteredTrend.length === 0) {
+      monthlyTrendChartCtx.canvas.parentElement.innerHTML = '<div class="alert alert-light text-center p-2">No hay suficientes datos para mostrar la tendencia mensual.</div>';
       console.warn('No hay datos de tendencia mensual para mostrar');
       return;
     }
