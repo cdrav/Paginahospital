@@ -21,12 +21,7 @@
     <link rel="stylesheet" href="css/cookie-banner.css" />
 </head>
 
-
 <body>
-
-
-
-
 
   <!-- Script de EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -63,6 +58,7 @@
       const templateParams = {
         // Nombres de variables deben coincidir EXACTAMENTE con los de la plantilla
         TipoDeSolicitud: formProps.TipoDeSolicitud || 'No especificado',
+        RazonSocial: formProps.RazonSocial || 'No aplica',
         Fecha: fechaActual,
         TipoDeDocumento: formProps.TipoDeDocumento || 'No especificado',
         NumeroDeDocumento: formProps.NumeroDeDocumento || 'No especificado',
@@ -115,6 +111,42 @@
       const form = document.getElementById('pqrs-form');
       if (form) {
         form.addEventListener('submit', sendEmail);
+
+        // Lógica para el checkbox de solicitud anónima
+        const anonimoCheck = document.getElementById('anonimo-check');
+        const datosPersonalesContainer = document.getElementById('datos-personales-container');
+        const camposPersonales = datosPersonalesContainer.querySelectorAll('input, select');
+
+        // Función para actualizar el estado de los campos
+        const toggleCamposPersonales = () => {
+          const esAnonimo = anonimoCheck.checked;
+          
+          // Ocultar o mostrar el contenedor de datos personales
+          datosPersonalesContainer.style.display = esAnonimo ? 'none' : 'block';
+
+          // Iterar sobre los campos para hacerlos requeridos o no
+          camposPersonales.forEach(campo => {
+            // No modificar el campo de Razón Social
+            if (campo.id === 'razonSocial') return;
+
+            if (esAnonimo) {
+              campo.removeAttribute('required');
+              campo.value = ''; // Limpiar campos al marcar como anónimo
+            } else {
+              // Solo volver a poner 'required' a los que lo tenían originalmente
+              const label = document.querySelector(`label[for="${campo.id}"]`);
+              if (label && label.classList.contains('required-field')) {
+                campo.setAttribute('required', 'required');
+              }
+            }
+          });
+        };
+
+        // Añadir el listener al checkbox
+        anonimoCheck.addEventListener('change', toggleCamposPersonales);
+
+        // Ejecutar la función al cargar la página por si el checkbox está pre-marcado
+        toggleCamposPersonales();
       }
     });
   </script>
@@ -133,6 +165,28 @@
 
       <h1 class="mb-4">Peticiones, Quejas, Reclamos, Sugerencias y Denuncias (PQRSD)</h1>
       
+      <!-- INICIO: Instructivo de diligenciamiento -->
+      <div class="card bg-light-subtle border-primary-subtle mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-primary d-flex align-items-center"><i class="bi bi-lightbulb-fill me-2"></i>¿Cómo diligenciar el formulario?</h5>
+          <p class="card-text">Siga estos pasos para registrar su solicitud de manera correcta:</p>
+          <ol class="list-group list-group-numbered list-group-flush">
+            <li class="list-group-item bg-transparent">
+              <strong>Solicitud Anónima:</strong> Si desea presentar una queja o denuncia sin identificarse, marque la casilla <strong class="text-primary">"Deseo presentar esta solicitud de forma anónima"</strong>. Al hacerlo, los campos de datos personales se ocultarán automáticamente.
+            </li>
+            <li class="list-group-item bg-transparent">
+              <strong>Datos del Solicitante:</strong>
+              <ul class="mt-2" style="padding-left: 1.2rem;">
+                <li>Si actúa en nombre de una <strong>empresa</strong>, por favor ingrese el nombre en el campo <strong>"Razón Social"</strong>.</li>
+                <li>Si es una <strong>persona natural</strong>, complete sus nombres, apellidos y demás datos de contacto. Estos campos son obligatorios a menos que la solicitud sea anónima.</li>
+              </ul>
+            </li>
+            <li class="list-group-item bg-transparent"><strong>Detalles y Envío:</strong> Complete el asunto y la descripción de su solicitud, acepte la política de tratamiento de datos y haga clic en "Enviar PQRSD".</li>
+          </ol>
+        </div>
+      </div>
+      <!-- FIN: Instructivo de diligenciamiento -->
+
       <div class="info-box">
         <h5><i class="bi bi-info-circle-fill me-2"></i>Información importante</h5>
         <p class="mb-0">Este formulario está destinado para que los usuarios del Hospital Departamental San Antonio presenten sus peticiones, quejas, reclamos, sugerencias y denuncias. Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
@@ -149,6 +203,12 @@
         <div class="form-section">
           <h2 class="form-title">Información Básica</h2>
           
+          <!-- Checkbox para solicitud anónima -->
+          <div class="form-check mb-4 bg-light p-3 rounded-3 border">
+            <input class="form-check-input" type="checkbox" id="anonimo-check">
+            <label class="form-check-label fw-bold" for="anonimo-check">Deseo presentar esta solicitud de forma anónima.</label>
+          </div>
+
           <div class="row g-3">
             <div class="col-md-6">
               <label for="tipoSolicitud" class="form-label required-field">Tipo de solicitud</label>
@@ -173,82 +233,76 @@
               </div>
             </div>
 
-            <div class="col-md-4">
-              <label for="tipoDocumento" class="form-label required-field">Tipo de documento</label>
-              <select class="form-select" id="tipoDocumento" name="TipoDeDocumento" required>
-                <option value="" selected disabled>Seleccione</option>
-                <option value="cedula">Cédula de Ciudadanía</option>
-                <option value="tarjeta">Tarjeta de Identidad</option>
-                <option value="cedula_extranjeria">Cédula de Extranjería</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="otro">Otro</option>
-              </select>
-              <div class="invalid-feedback">
-                Por favor seleccione el tipo de documento.
-              </div>
-            </div>
+            <!-- Contenedor para datos personales que se puede ocultar -->
+            <div id="datos-personales-container">
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="razonSocial" class="form-label">Razón Social (si aplica)</label>
+                  <input type="text" class="form-control" id="razonSocial" name="RazonSocial" placeholder="Nombre de la empresa">
+                </div>
 
-            <div class="col-md-8">
-              <label for="numeroDocumento" class="form-label required-field">Número de documento</label>
-              <input type="text" class="form-control" id="numeroDocumento" name="NumeroDeDocumento" required>
-              <div class="invalid-feedback">
-                Por favor ingrese su número de documento.
-              </div>
-            </div>
+                <div class="col-md-6">
+                  <label for="nombres" class="form-label required-field">Nombres completos (persona natural)</label>
+                  <input type="text" class="form-control" id="nombres" name="Nombres">
+                  <div class="invalid-feedback">
+                    Por favor ingrese sus nombres completos.
+                  </div>
+                </div>
 
-            <div class="col-md-6">
-              <label for="nombres" class="form-label required-field">Nombres completos</label>
-              <input type="text" class="form-control" id="nombres" name="Nombres" required>
-              <div class="invalid-feedback">
-                Por favor ingrese sus nombres completos.
-              </div>
-            </div>
+                <div class="col-md-6">
+                  <label for="apellidos" class="form-label required-field">Apellidos completos (persona natural)</label>
+                  <input type="text" class="form-control" id="apellidos" name="Apellidos">
+                  <div class="invalid-feedback">
+                    Por favor ingrese sus apellidos completos.
+                  </div>
+                </div>
 
-            <div class="col-md-6">
-              <label for="apellidos" class="form-label required-field">Apellidos completos</label>
-              <input type="text" class="form-control" id="apellidos" name="Apellidos" required>
-              <div class="invalid-feedback">
-                Por favor ingrese sus apellidos completos.
-              </div>
-            </div>
+                <div class="col-md-4">
+                  <label for="tipoDocumento" class="form-label required-field">Tipo de documento</label>
+                  <select class="form-select" id="tipoDocumento" name="TipoDeDocumento">
+                    <option value="" selected disabled>Seleccione</option>
+                    <option value="cedula">Cédula de Ciudadanía</option>
+                    <option value="tarjeta">Tarjeta de Identidad</option>
+                    <option value="cedula_extranjeria">Cédula de Extranjería</option>
+                    <option value="pasaporte">Pasaporte</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Por favor seleccione el tipo de documento.
+                  </div>
+                </div>
 
-            <div class="col-md-6">
-              <label for="telefono" class="form-label required-field">Teléfono de contacto</label>
-              <input type="tel" class="form-control" id="telefono" name="Telefono" required>
-              <div class="invalid-feedback">
-                Por favor ingrese un número de teléfono válido.
-              </div>
-            </div>
+                <div class="col-md-8">
+                  <label for="numeroDocumento" class="form-label required-field">Número de documento</label>
+                  <input type="text" class="form-control" id="numeroDocumento" name="NumeroDeDocumento">
+                  <div class="invalid-feedback">
+                    Por favor ingrese su número de documento.
+                  </div>
+                </div>
 
-            <div class="col-md-6">
-              <label for="email" class="form-label required-field">Correo electrónico</label>
-              <input type="email" class="form-control" id="email" name="CorreoElectronico" required>
-              <div class="invalid-feedback">
-                Por favor ingrese un correo electrónico válido.
-              </div>
-            </div>
+                <div class="col-md-6">
+                  <label for="telefono" class="form-label required-field">Teléfono de contacto</label>
+                  <input type="tel" class="form-control" id="telefono" name="Telefono">
+                  <div class="invalid-feedback">
+                    Por favor ingrese un número de teléfono válido.
+                  </div>
+                </div>
 
-            <div class="col-12">
-              <label for="direccion" class="form-label required-field">Dirección de residencia</label>
-              <input type="text" class="form-control" id="direccion" name="Direccion" required>
-              <div class="invalid-feedback">
-                Por favor ingrese su dirección de residencia.
-              </div>
-            </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label required-field">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" name="CorreoElectronico" placeholder="ejemplo@correo.com">
+                  <div class="invalid-feedback">
+                    Por favor ingrese un correo electrónico válido.
+                  </div>
+                </div>
 
-            <div class="col-md-6">
-              <label for="municipio" class="form-label required-field">Municipio</label>
-              <input type="text" class="form-control" id="municipio" name="Municipio" required>
-              <div class="invalid-feedback">
-                Por favor ingrese su municipio de residencia.
-              </div>
-            </div>
+                <div class="col-12">
+                  <label for="direccion" class="form-label">Dirección de residencia</label>
+                  <input type="text" class="form-control" id="direccion" name="Direccion">
+                </div>
 
-            <div class="col-md-6">
-              <label for="departamento" class="form-label required-field">Departamento</label>
-              <input type="text" class="form-control" id="departamento" name="Departamento" required>
-              <div class="invalid-feedback">
-                Por favor ingrese su departamento de residencia.
+                <div class="col-md-6"><label for="municipio" class="form-label">Municipio</label><input type="text" class="form-control" id="municipio" name="Municipio"></div>
+                <div class="col-md-6"><label for="departamento" class="form-label">Departamento</label><input type="text" class="form-control" id="departamento" name="Departamento"></div>
               </div>
             </div>
           </div>
