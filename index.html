@@ -1099,27 +1099,19 @@
 <!-- Script para mostrar el modal de Navidad (Remover para quitar el tema de Navidad) -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const navidadModalEl = document.getElementById('navidadModal');
-    const videoNavidad = document.getElementById('videoNavidad');
+    var navidadModalEl = document.getElementById('navidadModal');
+    var videoNavidad = document.getElementById('videoNavidad');
 
     if (navidadModalEl && videoNavidad) {
-      const navidadModal = new bootstrap.Modal(navidadModalEl);
-
-      // Función para intentar reproducir el video
-      const playVideo = () => {
-        videoNavidad.play().catch(error => {
-          console.warn("La reproducción automática fue bloqueada por el navegador. El video comenzará en silencio o requerirá interacción del usuario.", error);
-          // El video ya tiene el atributo 'muted', por lo que debería reproducirse en silencio.
-        });
-      };
-
-      // Cuando el modal se muestre, intentar reproducir el video
-      navidadModalEl.addEventListener('shown.bs.modal', playVideo);
-
+      var navidadModal = new bootstrap.Modal(navidadModalEl);
+      
       // Cuando el video termine, ocultar el modal
-      videoNavidad.addEventListener('ended', () => navidadModal.hide());
+      videoNavidad.addEventListener('ended', function() {
+        navidadModal.hide();
+      });
 
-      // Finalmente, mostrar el modal
+      // Mostrar el modal. El video intentará reproducirse automáticamente
+      // gracias a los atributos 'autoplay' y 'muted'.
       navidadModal.show();
     }
   });

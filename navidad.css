@@ -15,7 +15,7 @@ body {
 
 /* --- Modal de Navidad --- */
 .modal-navidad .modal-content {
-  background-color: transparent;
+  background-color: #212529; /* Fondo oscuro para que el video sea visible */
   border: none;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
