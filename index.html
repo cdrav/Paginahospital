@@ -44,10 +44,8 @@
       <div class="modal-body">
         <!-- Video de Navidad Local -->
         <!-- IMPORTANTE: Crea una carpeta 'videos' y guarda tu video como 'video-navidad.mp4' -->
-        <video id="videoNavidad" class="w-100" style="border-radius: 15px;" controls autoplay muted playsinline>
-          <source src="videos/video-navidad.mp4" type="video/mp4">
-          Tu navegador no soporta la etiqueta de video.
-        </video>
+        <!-- Fallback a imagen mientras se soluciona el video -->
+        <img src="imagenes/imagenes-index-noticias/imagenes-noticias/diciembre.jpeg" alt="Felices Fiestas les desea el Hospital Departamental San Antonio" class="w-100" style="border-radius: 15px;">
       </div>
       <div class="modal-footer">
         <p>El Hospital les desea felices fiestas en salud y paz con nuestro entorno.</p>
@@ -1100,18 +1098,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var navidadModalEl = document.getElementById('navidadModal');
-    var videoNavidad = document.getElementById('videoNavidad');
-
-    if (navidadModalEl && videoNavidad) {
+    if (navidadModalEl) {
       var navidadModal = new bootstrap.Modal(navidadModalEl);
-      
-      // Cuando el video termine, ocultar el modal
-      videoNavidad.addEventListener('ended', function() {
-        navidadModal.hide();
-      });
-
-      // Mostrar el modal. El video intentará reproducirse automáticamente
-      // gracias a los atributos 'autoplay' y 'muted'.
+      // Simplemente mostrar el modal con la imagen
       navidadModal.show();
     }
   });
