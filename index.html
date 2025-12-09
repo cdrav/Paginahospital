@@ -19,6 +19,8 @@
  <link rel="stylesheet" href="css/accesibilidad.css?v=1.1">
  <link rel="stylesheet" href="css/accessibility-buttons.css">
  <link rel="stylesheet" href="css/cookie-banner.css" />
+ <!-- Estilos Navideños (Remover o comentar esta línea para quitar el tema de Navidad) -->
+ <link rel="stylesheet" href="navidad.css">
  <style>
   .fullwidth-carousel .carousel-item img.carousel-img {
     height: 600px; /* Ajusta esta altura según sea necesario */
@@ -29,6 +31,31 @@
 </head>
 
 <body>
+<!-- Efecto de nieve (Remover para quitar el tema de Navidad) -->
+<div class="snow"></div>
+
+<!-- Modal de Navidad (Remover para quitar el tema de Navidad) -->
+<div class="modal fade modal-navidad" id="navidadModal" tabindex="-1" aria-labelledby="navidadModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Video de Navidad Local -->
+        <!-- IMPORTANTE: Crea una carpeta 'videos' y guarda tu video como 'video-navidad.mp4' -->
+        <video id="videoNavidad" class="w-100" style="border-radius: 15px;" controls autoplay>
+          <source src="videos/video-navidad.mp4" type="video/mp4">
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+      </div>
+      <div class="modal-footer">
+        <p>El Hospital les desea felices fiestas en salud y paz con nuestro entorno.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Header incluido -->
 <div id="header-placeholder"></div>
 
@@ -1068,5 +1095,26 @@
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/cookie-consent.js" defer></script>
+
+<!-- Script para mostrar el modal de Navidad (Remover para quitar el tema de Navidad) -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var navidadModalEl = document.getElementById('navidadModal');
+    if (navidadModalEl) {
+      var navidadModal = new bootstrap.Modal(navidadModalEl);
+      var videoNavidad = document.getElementById('videoNavidad');
+
+      // Mostrar el modal al cargar la página
+      navidadModal.show();
+
+      // Cuando el video termine, ocultar el modal
+      if (videoNavidad) {
+        videoNavidad.addEventListener('ended', function() {
+          navidadModal.hide();
+        });
+      }
+    }
+  });
+</script>
 </body>
 </html>

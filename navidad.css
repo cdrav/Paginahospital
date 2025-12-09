@@ -1,0 +1,174 @@
+/* Importar fuente navideña de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap');
+
+/*
+ * Estilos para el Tema de Navidad
+ * Para desactivar el tema, simplemente remueve la línea que carga este archivo en el index.html.
+ */
+
+/* Fondo festivo para la página */
+body {
+  background-color: #3a506b; /* Azul noche para que el patrón sea visible */
+  background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/xmas-flat.png'); /* Patrón con figuras navideñas sutiles */
+  background-attachment: fixed;
+}
+
+/* --- Modal de Navidad --- */
+.modal-navidad .modal-content {
+  background-color: transparent;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.modal-navidad .modal-body iframe {
+  border-radius: 12px;
+}
+
+.modal-navidad .modal-body {
+  padding: 0;
+}
+
+.modal-navidad .modal-footer {
+  border-top: none;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.modal-navidad .modal-header {
+  border-bottom: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.modal-navidad .btn-close {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 0.5em;
+  opacity: 1;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.modal-navidad img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+/* --- Efecto de Nieve --- */
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url('https://www.transparenttextures.com/patterns/snow.png'), url('https://www.transparenttextures.com/patterns/snow.png');
+  animation: snow-fall 10s linear infinite;
+}
+
+@keyframes snow-fall {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 500px 1000px, 700px 1400px;
+  }
+}
+
+/* --- Toques festivos sutiles --- */
+
+/* Cambia el color de los botones principales a un rojo festivo */
+.btn-primary {
+    background-color: #357ABD; /* Azul festivo */
+    border-color: #357ABD;
+}
+
+.btn-primary:hover {
+    background-color: #2a6294;
+    border-color: #2a6294;
+}
+
+/* --- Tipografía y decoración general --- */
+
+/* Aplicar fuente navideña a los títulos */
+h1, h2, h3, .display-3, .display-4 {
+    font-family: 'Mountains of Christmas', cursive;
+    font-weight: 700;
+}
+
+/* Decoración en el encabezado */
+.header-area {
+    border-top: 5px solid #357ABD;
+    border-bottom: 5px solid #1a5a57;
+}
+
+/* Sombra festiva para las tarjetas */
+.card.hover-card:hover, .card.news-card:hover {
+    box-shadow: 0 10px 25px rgba(53, 122, 189, 0.2);
+}
+
+/* --- Decoración con Figuras Navideñas --- */
+
+/* Decorar los títulos de las secciones principales */
+#noticias-eventos h2,
+#nuestros-servicios h2,
+#quienes-somos h2,
+#pqrsd h2,
+#enlaces-interes h2,
+#redes-sociales h2,
+#preguntas-frecuentes h2 {
+    position: relative;
+    display: inline-block; /* Para que los pseudo-elementos se posicionen correctamente */
+    padding: 0 45px; /* Espacio para las figuras */
+}
+
+/* Figura de acebo a la izquierda y derecha del título */
+#noticias-eventos h2::before,
+#noticias-eventos h2::after,
+#nuestros-servicios h2::before,
+#nuestros-servicios h2::after,
+#quienes-somos h2::before,
+#quienes-somos h2::after,
+#pqrsd h2::before,
+#pqrsd h2::after,
+#enlaces-interes h2::before,
+#enlaces-interes h2::after,
+#redes-sociales h2::before,
+#redes-sociales h2::after,
+#preguntas-frecuentes h2::before,
+#preguntas-frecuentes h2::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35px;
+    height: 35px;
+    background-image: url('https://i.imgur.com/p2aV1Am.png'); /* URL de una ramita de acebo */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#noticias-eventos h2::before,
+#nuestros-servicios h2::before,
+#quienes-somos h2::before,
+#pqrsd h2::before,
+#enlaces-interes h2::before,
+#redes-sociales h2::before,
+#preguntas-frecuentes h2::before {
+    left: 0;
+    transform: translateY(-50%) rotate(-25deg);
+}
+
+#noticias-eventos h2::after,
+#nuestros-servicios h2::after,
+#quienes-somos h2::after,
+#pqrsd h2::after,
+#enlaces-interes h2::after,
+#redes-sociales h2::after,
+#preguntas-frecuentes h2::after {
+    right: 0;
+    transform: translateY(-50%) rotate(25deg) scaleX(-1); /* Invertir horizontalmente */
+}
