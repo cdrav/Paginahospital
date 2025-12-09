@@ -44,7 +44,7 @@
       <div class="modal-body">
         <!-- Video de Navidad Local -->
         <!-- IMPORTANTE: Crea una carpeta 'videos' y guarda tu video como 'video-navidad.mp4' -->
-        <video id="videoNavidad" class="w-100" style="border-radius: 15px;" controls autoplay>
+        <video id="videoNavidad" class="w-100" style="border-radius: 15px;" controls autoplay muted playsinline>
           <source src="videos/video-navidad.mp4" type="video/mp4">
           Tu navegador no soporta la etiqueta de video.
         </video>
@@ -1099,20 +1099,28 @@
 <!-- Script para mostrar el modal de Navidad (Remover para quitar el tema de Navidad) -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var navidadModalEl = document.getElementById('navidadModal');
-    if (navidadModalEl) {
-      var navidadModal = new bootstrap.Modal(navidadModalEl);
-      var videoNavidad = document.getElementById('videoNavidad');
+    const navidadModalEl = document.getElementById('navidadModal');
+    const videoNavidad = document.getElementById('videoNavidad');
 
-      // Mostrar el modal al cargar la página
-      navidadModal.show();
+    if (navidadModalEl && videoNavidad) {
+      const navidadModal = new bootstrap.Modal(navidadModalEl);
+
+      // Función para intentar reproducir el video
+      const playVideo = () => {
+        videoNavidad.play().catch(error => {
+          console.warn("La reproducción automática fue bloqueada por el navegador. El video comenzará en silencio o requerirá interacción del usuario.", error);
+          // El video ya tiene el atributo 'muted', por lo que debería reproducirse en silencio.
+        });
+      };
+
+      // Cuando el modal se muestre, intentar reproducir el video
+      navidadModalEl.addEventListener('shown.bs.modal', playVideo);
 
       // Cuando el video termine, ocultar el modal
-      if (videoNavidad) {
-        videoNavidad.addEventListener('ended', function() {
-          navidadModal.hide();
-        });
-      }
+      videoNavidad.addEventListener('ended', () => navidadModal.hide());
+
+      // Finalmente, mostrar el modal
+      navidadModal.show();
     }
   });
 </script>
