@@ -129,7 +129,7 @@ section h2 {
     top: 50%;
     width: 30px;
     height: 30px;
-    background-image: url('https://i.imgur.com/sCqf3mY.png'); /* URL de un copo de nieve verde */
+    background-image: url('https://i.imgur.com/j4Lg1bA.png'); /* URL de un árbol de Navidad verde */
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -154,4 +154,27 @@ section h2 {
 #preguntas-frecuentes h2::after {
     right: 0;
     transform: translateY(-50%);
+}
+
+/* 6. Iconos Navideños para Acordeón (FAQ) */
+/* Ocultar el ícono de flecha por defecto de Bootstrap */
+.accordion-button::after {
+    background-image: none;
+}
+
+/* Reemplazarlo con un copo de nieve de Bootstrap Icons */
+.accordion-button::before {
+    content: "\f586"; /* Código del ícono de estrella (bi-star-fill) */
+    font-family: "bootstrap-icons";
+    font-size: 1.2rem;
+    font-weight: bold !important;
+    color: #1a5a57; /* Verde festivo */
+    margin-right: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Girar el copo de nieve cuando el acordeón está abierto */
+.accordion-button:not(.collapsed)::before {
+    transform: rotate(90deg);
 }
