@@ -2113,3 +2113,42 @@ p, a, td, th, li {
     font-size: 2rem;
     color: #1a9f8f;
 }
+
+/* =====================================================
+   Tarjeta Destacada - Campaña Pólvora
+   ===================================================== */
+.card-destacada-polvora {
+  background: linear-gradient(145deg, #d32f2f, #c62828);
+  color: #fff;
+  border: 2px solid #ffcdd2;
+  box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3);
+}
+
+.card-destacada-polvora .card-title {
+  color: #fff;
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 2rem;
+}
+
+.card-destacada-polvora .card-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card-destacada-polvora .card-footer {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-destacada-polvora .icono-destacado {
+  font-size: 2.5rem;
+  color: #ffeb3b;
+  animation: pulse-warning 1.5s infinite;
+}
+
+@keyframes pulse-warning {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
