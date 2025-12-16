@@ -1,33 +1,28 @@
 /* Importar fuente navideña de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
 /*
- * Estilos para el Tema de Navidad
- * Para desactivar el tema, simplemente remueve la línea que carga este archivo en el index.html.
+ * Estilos para el Tema de Navidad - "Blanca Navidad"
+ * Este tema utiliza un fondo claro para máxima legibilidad.
  */
 
-/* Fondo festivo para la página */
+/* 1. Fondo claro y festivo */
 body {
-  background-color: #3a506b; /* Azul noche para que el patrón sea visible */
-  background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/xmas-flat.png'); /* Patrón con figuras navideñas sutiles */
+  background-color: #f8f9fa; /* Fondo blanco roto */
+  background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/snowflakes.png'); /* Patrón sutil de copos de nieve */
   background-attachment: fixed;
 }
 
-/* --- Modal de Navidad --- */
+/* 2. Modal de Navidad (sin cambios, ya se ve bien) */
 .modal-navidad .modal-content {
-  background-color: #212529; /* Fondo oscuro para que el video sea visible */
+  background-color: #212529;
   border: none;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
-
-.modal-navidad .modal-body iframe {
-  border-radius: 12px;
-}
-
 .modal-navidad .modal-body {
   padding: 0;
 }
-
 .modal-navidad .modal-footer {
   border-top: none;
   justify-content: center;
@@ -35,7 +30,6 @@ body {
   color: white;
   font-size: 1.1rem;
 }
-
 .modal-navidad .modal-header {
   border-bottom: none;
   position: absolute;
@@ -43,7 +37,6 @@ body {
   right: 15px;
   z-index: 10;
 }
-
 .modal-navidad .btn-close {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
@@ -51,13 +44,12 @@ body {
   opacity: 1;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
 .modal-navidad img {
   width: 100%;
   border-radius: 15px;
 }
 
-/* --- Efecto de Nieve --- */
+/* 3. Efecto de nieve (sin cambios) */
 .snow {
   position: fixed;
   top: 0;
@@ -69,7 +61,6 @@ body {
   background-image: url('https://www.transparenttextures.com/patterns/snow.png'), url('https://www.transparenttextures.com/patterns/snow.png');
   animation: snow-fall 10s linear infinite;
 }
-
 @keyframes snow-fall {
   0% {
     background-position: 0 0;
@@ -79,41 +70,34 @@ body {
   }
 }
 
-/* --- Toques festivos sutiles --- */
-
-/* Cambia el color de los botones principales a un rojo festivo */
-.btn-primary {
-    background-color: #357ABD; /* Azul festivo */
-    border-color: #357ABD;
+/* 4. Colores y Tipografía */
+/* Botones principales en rojo navideño */
+.btn-primary, .btn-primary:focus {
+    background-color: #c82f34;
+    border-color: #c82f34;
 }
-
 .btn-primary:hover {
-    background-color: #2a6294;
-    border-color: #2a6294;
+    background-color: #a5272b;
+    border-color: #a5272b;
 }
 
-/* --- Tipografía y decoración general --- */
-
-/* Aplicar fuente navideña a los títulos */
+/* Títulos principales con fuente navideña y color rojo */
 h1, h2, h3, .display-3, .display-4 {
     font-family: 'Mountains of Christmas', cursive;
     font-weight: 700;
 }
+section h2 {
+    color: #c82f34 !important; /* Rojo navideño para todos los títulos de sección */
+}
 
-/* Decoración en el encabezado */
+/* 5. Decoraciones */
+/* Borde del encabezado con colores festivos */
 .header-area {
-    border-top: 5px solid #357ABD;
+    border-top: 5px solid #c82f34;
     border-bottom: 5px solid #1a5a57;
 }
 
-/* Sombra festiva para las tarjetas */
-.card.hover-card:hover, .card.news-card:hover {
-    box-shadow: 0 10px 25px rgba(53, 122, 189, 0.2);
-}
-
-/* --- Decoración con Figuras Navideñas --- */
-
-/* Decorar los títulos de las secciones principales */
+/* Decoración de títulos con copos de nieve */
 #noticias-eventos h2,
 #nuestros-servicios h2,
 #quienes-somos h2,
@@ -122,11 +106,10 @@ h1, h2, h3, .display-3, .display-4 {
 #redes-sociales h2,
 #preguntas-frecuentes h2 {
     position: relative;
-    display: inline-block; /* Para que los pseudo-elementos se posicionen correctamente */
-    padding: 0 45px; /* Espacio para las figuras */
+    display: inline-block;
+    padding: 0 45px;
 }
 
-/* Figura de acebo a la izquierda y derecha del título */
 #noticias-eventos h2::before,
 #noticias-eventos h2::after,
 #nuestros-servicios h2::before,
@@ -144,9 +127,9 @@ h1, h2, h3, .display-3, .display-4 {
     content: '';
     position: absolute;
     top: 50%;
-    width: 35px;
-    height: 35px;
-    background-image: url('https://i.imgur.com/p2aV1Am.png'); /* URL de una ramita de acebo */
+    width: 30px;
+    height: 30px;
+    background-image: url('https://i.imgur.com/sCqf3mY.png'); /* URL de un copo de nieve verde */
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -159,7 +142,7 @@ h1, h2, h3, .display-3, .display-4 {
 #redes-sociales h2::before,
 #preguntas-frecuentes h2::before {
     left: 0;
-    transform: translateY(-50%) rotate(-25deg);
+    transform: translateY(-50%);
 }
 
 #noticias-eventos h2::after,
@@ -170,5 +153,5 @@ h1, h2, h3, .display-3, .display-4 {
 #redes-sociales h2::after,
 #preguntas-frecuentes h2::after {
     right: 0;
-    transform: translateY(-50%) rotate(25deg) scaleX(-1); /* Invertir horizontalmente */
+    transform: translateY(-50%);
 }
