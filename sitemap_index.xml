@@ -39,13 +39,13 @@
 
   <!-- Páginas de Atención y Servicios a la Ciudadanía -->
   <url>
-    <loc>https://hdsa.gov.co/citas-medicas.html</loc>
+    <loc>https://hdsa.gov.co/citasmedicas.html</loc>
     <lastmod>2024-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hdsa.gov.co/Urgencias.html</loc>
+    <loc>https://hdsa.gov.co/urgencias.html</loc>
     <lastmod>2024-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -57,7 +57,7 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hdsa.gov.co/consulta-externa</loc>
+    <loc>https://hdsa.gov.co/consulta-externa.html</loc>
     <lastmod>2024-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -94,6 +94,12 @@
   </url>
   <url>
     <loc>https://hdsa.gov.co/consultorio-rosado.html</loc>
+    <lastmod>2024-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hdsa.gov.co/consultorio-rosa.html</loc>
     <lastmod>2024-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -181,7 +187,7 @@
     <priority>0.60</priority>
   </url>
   <url>
-    <loc>https://hdsa.gov.co/politicas.html</loc>
+    <loc>https://hdsa.gov.co/Politicas.html</loc>
     <lastmod>2024-07-31</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
@@ -191,6 +197,26 @@
     <lastmod>2024-07-31</lastmod>
     <changefreq>monthly</changefreq> <!-- Verificado: 'monthly' es un valor válido. -->
     <priority>0.60</priority>
+  </url>
+
+  <!-- Páginas adicionales -->
+  <url>
+    <loc>https://hdsa.gov.co/encuesta-accesibilidad.html</loc>
+    <lastmod>2024-07-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://hdsa.gov.co/ninos-ninas-adolescentes.html</loc>
+    <lastmod>2024-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hdsa.gov.co/buscar.html</loc>
+    <lastmod>2024-07-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.40</priority>
   </url>
 
 </urlset>
