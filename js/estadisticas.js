@@ -1,6 +1,5 @@
 // URL de la función de Netlify
-const PROXY_URL = 'https://api.allorigins.win/raw?url=';
-const NETLIFY_FUNCTION_URL = `${PROXY_URL}https://pagina-estadisticas-pqrs.netlify.app/.netlify/functions/get-analytics`;
+const NETLIFY_FUNCTION_URL = `https://pagina-estadisticas-pqrs.netlify.app/.netlify/functions/get-analytics`;
 
 document.addEventListener('DOMContentLoaded', async () => {
   const loadingEl = document.getElementById('loading');
@@ -96,9 +95,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Función para formatear fechas en formato YYYYMMDD a fecha legible
   const formatChartDate = (dateStr) => {
     try {
-      // Si la fecha ya está en formato ISO o similar, usarla directamente
-      if (dateStr.includes('-') || dateStr.includes('/')) {
-        return new Date(dateStr).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' });
+      // Si la fecha está en formato YYYY-MM-DD (formato de la API)
+      if (typeof dateStr === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        const [year, month, day] = dateStr.split('-').map(Number);
+        // Crear fecha local explícita (mes es base 0 en JS)
+        const date = new Date(year, month - 1, day);
+        return date.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' });
       }
       
       // Si la fecha está en formato YYYYMMDD (ej: 20251001)
@@ -129,15 +131,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);
     });
     
-    // Filtrar solo los últimos 4 meses (septiembre a diciembre 2025)
-    const filteredVisits = sortedVisits.filter(item => {
-      if (!item.date) return false;
-      const dateStr = item.date.toString();
-      // Filtrar solo fechas de septiembre (09), octubre (10), noviembre (11) and december (12) de 2025
-      return dateStr.startsWith('202509') || 
-             dateStr.startsWith('202510') || 
-             dateStr.startsWith('202511') || dateStr.startsWith('202512');
-    });
+    // Usar los datos devueltos por la API (ya vienen filtrados por los últimos 30 días)
+    const filteredVisits = sortedVisits;
 
     destroyChart('visitsChart');
     charts.visitsChart = new Chart(visitsChartCtx, {
@@ -233,28 +228,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const renderMonthlyTrendChart = (monthlyTrend) => {
     if (!monthlyTrendChartCtx) return;
     
-    // Ordenar los meses cronológicamente
+    // Ordenar los meses cronológicamente usando fechas reales para evitar errores de texto
     const sortedTrend = [...(monthlyTrend || [])].sort((a, b) => {
-      return (a.period || '').localeCompare(b.period || '') || 
-             (a.date || '').localeCompare(b.date || '');
+      // Asumimos formato YYYY-MM, agregamos día para asegurar parsing correcto
+      const dateA = new Date((a.date || '') + '-01');
+      const dateB = new Date((b.date || '') + '-01');
+      return dateA - dateB;
     });
     
-    // --- CORRECCIÓN ---
-    // Filtrar dinámicamente los últimos 6 meses, incluyendo el actual.
-    const hoy = new Date();
-    const mesesAFiltrar = [];
-    for (let i = 0; i < 6; i++) {
-        const fecha = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1);
-        const nombreMes = fecha.toLocaleString('es-CO', { month: 'short' }).replace('.', '').toLowerCase();
-        const anio = fecha.getFullYear();
-        mesesAFiltrar.push(`${nombreMes} ${anio}`);
-    }
-
-    const filteredTrend = sortedTrend.filter(item => {
-        const period = (item.period || '').toLowerCase();
-        // Comprobar si el 'period' (ej: "nov 2025") está en nuestra lista de meses a filtrar.
-        return mesesAFiltrar.some(mesAnio => period.includes(mesAnio));
-    });
+    // Usar los datos devueltos por la API (ya vienen filtrados por los últimos 6 meses)
+    const filteredTrend = sortedTrend;
 
     // Si no hay datos, mostrar un mensaje
     if (filteredTrend.length === 0) {

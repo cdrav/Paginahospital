@@ -73,6 +73,11 @@ const formatTopPages = (response) => {
     
     const normalizedPath = normalizePath(path);
 
+    // Forzar título consistente para la página de inicio antes de procesar
+    if (normalizedPath === '/') {
+      title = 'Página de Inicio';
+    }
+
     // Si el título no es válido, está vacío, es igual a la ruta, o es un título genérico, generamos uno nuevo.
     const isInvalidTitle = !title || !title.trim() || title === '(not set)' || title === '(none)' || title.trim() === path.trim() || title === 'Hospital Departamental San Antonio';
 
@@ -82,24 +87,20 @@ const formatTopPages = (response) => {
     
     const visits = parseInt(row.metricValues[0].value, 10);
 
-    // Si la página ya existe en el mapa, suma las visitas.
-    // No sobreescribimos el título, asumimos que el primero que llega (el de más visitas) es el bueno.
-    if (pageData.has(normalizedPath)) {
-      const existing = pageData.get(normalizedPath);
+    // Agrupar por TÍTULO para evitar duplicados visuales en la lista
+    const key = title.trim();
+
+    if (pageData.has(key)) {
+      const existing = pageData.get(key);
       existing.visits += visits;
     } else {
-      pageData.set(normalizedPath, { 
+      pageData.set(key, { 
         path: normalizedPath, 
-        title: title,
+        title: key,
         visits: visits 
       });
     }
   });
-
-  // Asegurarse de que la página de inicio siempre tenga el título correcto.
-  if (pageData.has('/')) {
-    pageData.get('/').title = 'Página de Inicio';
-  }
 
   // Convierte el mapa a un array para poder manipularlo y ordenarlo.
   const pagesArray = Array.from(pageData.values());
@@ -156,9 +157,20 @@ const formatDimensionData = (response) => {
 const handler = async (event, context) => {
   console.log('Solicitud recibida:', event.httpMethod, event.path);
   
+  // Lista de orígenes permitidos
+  const allowedOrigins = [
+    'https://www.hdsa.gov.co',
+    'https://pagina-estadisticas-pqrs.netlify.app',
+    'http://localhost:5500', // Para desarrollo local
+    'http://127.0.0.1:5500'
+  ];
+  
+  const origin = event.headers.origin || event.headers.Origin;
+  const allowOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+
   // Configuración de CORS mejorada
   const headers = {
-    'Access-Control-Allow-Origin': 'https://www.hdsa.gov.co',
+    'Access-Control-Allow-Origin': allowOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, Expires, Pragma, Cache-Control',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Access-Control-Allow-Credentials': 'true',
