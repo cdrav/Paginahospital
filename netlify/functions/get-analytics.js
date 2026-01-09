@@ -166,7 +166,14 @@ const handler = async (event, context) => {
   ];
   
   const origin = event.headers.origin || event.headers.Origin;
-  const allowOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+  let allowOrigin = allowedOrigins[0]; // Por defecto: producción
+
+  if (origin) {
+    // Permitir orígenes listados explícitamente o cualquier localhost (para desarrollo)
+    if (allowedOrigins.includes(origin) || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
+      allowOrigin = origin;
+    }
+  }
 
   // Configuración de CORS mejorada
   const headers = {
