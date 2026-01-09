@@ -160,6 +160,7 @@ const handler = async (event, context) => {
   // Lista de orígenes permitidos
   const allowedOrigins = [
     'https://www.hdsa.gov.co',
+    'https://hdsa.gov.co',
     'https://pagina-estadisticas-pqrs.netlify.app',
     'http://localhost:5500', // Para desarrollo local
     'http://127.0.0.1:5500'
