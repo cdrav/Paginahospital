@@ -88,10 +88,10 @@
   
   <!-- Botón de Solicitar Cita -->
   <div class="text-center mt-5">
-    <a href="https://citas.hdsa.gov.co/solicitud" target="_blank" class="btn btn-primary btn-lg">
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalCitasNoDisponible">
       <i class="bi bi-calendar-plus me-2"></i>Solicita tu cita
-    </a>
-    <p class="text-muted mt-3">Serás redirigido a nuestro sistema de citas en línea</p>
+    </button>
+    <p class="text-muted mt-3">Haz clic para ver información de contacto</p>
   </div>
 </section>
 
@@ -166,6 +166,32 @@
     </div>
   </div>
 </section>
+
+<!-- Modal Servicio No Disponible -->
+<div class="modal fade" id="modalCitasNoDisponible" tabindex="-1" aria-labelledby="modalCitasNoDisponibleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
+      <div class="modal-header border-bottom-0 pb-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center px-4 pb-5">
+        <div class="mb-3 text-primary">
+          <i class="bi bi-headset" style="font-size: 4rem;"></i>
+        </div>
+        <h3 class="fw-bold mb-3" style="color: #164443;">¡Estamos aquí para ayudarte!</h3>
+        <p class="text-muted mb-4 fs-5">
+          En este momento nuestro servicio de citas web no se encuentra disponible. Pero no te preocupes, puedes agendar tu cita llamándonos directamente.
+        </p>
+        
+        <div class="p-4 rounded-3 bg-light border border-light-subtle">
+          <p class="mb-2 text-uppercase fw-bold text-muted small">Línea de Atención</p>
+          <h4 class="display-6 fw-bold text-primary mb-1">602 891 2317</h4>
+          <p class="fs-5 text-dark mb-0">Ext. 214 y 215</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Botones de Accesibilidad Mejorados -->
 <div class="accessibility-buttons-container" role="toolbar" aria-label="Herramientas de accesibilidad">
