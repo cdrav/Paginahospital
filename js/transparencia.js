@@ -756,3 +756,31 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     });
   }
 })();
+
+// Buscador para la tabla de Directorio de Funcionarios
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('tabla-funcionarios-search');
+    const tableBody = document.getElementById('tabla-funcionarios-body');
+    const noResultsMessage = document.getElementById('no-results');
+
+    if (searchInput && tableBody) {
+      const rows = tableBody.getElementsByTagName('tr');
+
+      searchInput.addEventListener('keyup', function () {
+        const filter = searchInput.value.toUpperCase();
+        let found = false;
+        for (let i = 0; i < rows.length; i++) {
+          const text = rows[i].textContent || rows[i].innerText;
+          if (text.toUpperCase().indexOf(filter) > -1) {
+            rows[i].style.display = '';
+            found = true;
+          } else {
+            rows[i].style.display = 'none';
+          }
+        }
+        if (noResultsMessage) noResultsMessage.classList.toggle('d-none', found);
+      });
+    }
+  });
+})();

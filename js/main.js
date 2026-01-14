@@ -128,6 +128,24 @@
     });
   }
   
+  // Función para inicializar componentes de Bootstrap (Tooltips y Popovers)
+  function initializeBootstrapComponents() {
+    // Verificar si Bootstrap está cargado
+    if (typeof bootstrap !== 'undefined') {
+      // Inicializar tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+      
+      // Inicializar popovers
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+      popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+      });
+    }
+  }
+
   // Inicialización cuando el DOM esté listo
   function initializeSiteFeatures() {
     initializeLazyYouTube();
@@ -142,6 +160,9 @@
     
     // Configurar el botón de traducción
     setupTranslateButton();
+    
+    // Inicializar componentes de Bootstrap
+    initializeBootstrapComponents();
   }
 
   if (document.readyState === 'loading') {

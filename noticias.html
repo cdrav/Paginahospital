@@ -19,26 +19,6 @@
     <link rel="stylesheet" href="css/accesibilidad.css" />
     <link rel="stylesheet" href="css/accessibility-buttons.css" />
     <link rel="stylesheet" href="css/formularios.css" />
-    <style>
-      /* Estilos para los nuevos filtros */
-      .filter-btn-group .btn {
-        border-radius: 50px;
-        font-weight: 600;
-      }
-      /* Estilos para la nueva noticia destacada */
-      .featured-news-card { border: none; }
-      .featured-news-card .card-img { height: 450px; object-fit: cover; border-radius: 0.75rem; }
-      .featured-news-card .card-img-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%); border-radius: 0.75rem; }
-      .news-tag { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-      .featured-news-card .card-title { text-shadow: 0 2px 8px rgba(0,0,0,0.6); 
-      }
-      /* Estilos para las nuevas tarjetas de noticias */
-      .news-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-      .news-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-      .news-card .card-img-top { height: 200px; object-fit: cover; }
-      .news-card .card-body { display: flex; flex-direction: column; }
-      .news-card .card-footer { background-color: transparent; border-top: none; padding-top: 0; }
-    </style>
   </head>
 <body data-page-title="Noticias">
 
@@ -432,30 +412,9 @@
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/breadcrumb.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const filterButtons = document.querySelectorAll('.filter-btn-group .btn');
-    const newsItems = document.querySelectorAll('.news-item');
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        // Manejar estado activo de los botones
-        filterButtons.forEach(btn => btn.classList.remove('btn-primary', 'btn-outline-primary') || btn.classList.add('btn-outline-primary'));
-        this.classList.remove('btn-outline-primary');
-        this.classList.add('btn-primary');
+<!-- Script específico para la página de noticias -->
+<script src="js/noticias.js" defer></script>
 
-        const filter = this.getAttribute('data-filter');
-
-        newsItems.forEach(item => {
-          if (filter === 'all' || item.getAttribute('data-category') === filter) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      });
-    });
-  });
-</script>
 </body>
 </html>

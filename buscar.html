@@ -78,50 +78,6 @@
   
   <!-- Script de búsqueda -->
   <script src="js/busqueda.js" defer></script>
-<script>
-  // Inicializar la búsqueda después de cargar todo
-  document.addEventListener('DOMContentLoaded', async function() {
-    // Obtener el término de búsqueda de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchTerm = urlParams.get('q');
-    
-    if (searchTerm) {
-      document.getElementById('search-term').textContent = searchTerm;
-      
-      // Inicializar la búsqueda
-      try {
-        // Esperar a que se inicialice la búsqueda
-        await searchConfig.initializeSearch();
-        
-        // Realizar la búsqueda
-        const results = await searchConfig.performSearch(searchTerm);
-        
-        // Actualizar el contador de resultados
-        const resultsCount = document.getElementById('results-count');
-        if (resultsCount) {
-          if (results.length > 0) {
-            resultsCount.textContent = `Se encontraron ${results.length} resultados`;
-            resultsCount.className = 'mt-2 text-success';
-          } else {
-            resultsCount.textContent = 'No se encontraron resultados para su búsqueda.';
-            resultsCount.className = 'mt-2 text-warning';
-          }
-        }
-      } catch (error) {
-        console.error('Error en la búsqueda:', error);
-        const resultsContainer = document.getElementById('search-results');
-        if (resultsContainer) {
-          resultsContainer.innerHTML = `
-            <div class="alert alert-danger" role="alert">
-              <i class="bi bi-exclamation-triangle-fill me-2"></i>
-              Ocurrió un error al realizar la búsqueda. Por favor, intente de nuevo.
-            </div>
-          `;
-        }
-      }
-    }
-  });
-</script>
 
 </body>
 </html>

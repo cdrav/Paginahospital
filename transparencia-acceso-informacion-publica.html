@@ -18,64 +18,6 @@
     <link rel="stylesheet" href="css/accesibilidad.css?v=1.1" />
     <link rel="stylesheet" href="css/accessibility-buttons.css" />
     <link rel="stylesheet" href="css/transparencia.css" />
-    <style>
-      .organigrama-nuevo {
-        list-style-type: none;
-        padding-left: 0;
-        position: relative;
-      }
-      .organigrama-nuevo ul {
-        padding-left: 20px;
-        list-style-type: none;
-      }
-      .organigrama-nuevo li {
-        margin-top: 15px;
-        position: relative;
-      }
-      .organigrama-card {
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-left: 5px solid #164443;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        transition: box-shadow 0.3s ease;
-      }
-      .organigrama-card:hover {
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      }
-      .organigrama-card h6 {
-        color: #164443;
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
-      .organigrama-card .descripcion {
-        font-size: 0.9rem;
-        color: #6c757d;
-        margin-bottom: 12px;
-      }
-      .organigrama-card .responsable-info p {
-        font-size: 0.85rem;
-        margin-bottom: 4px;
-        color: #495057;
-      }
-      .organigrama-card .responsable-info strong {
-        color: #343a40;
-      }
-      .organigrama-card .responsable-info a {
-        color: #0d6efd;
-        text-decoration: none;
-      }
-      .organigrama-card .responsable-info a:hover {
-        text-decoration: underline;
-      }
-      .table-hover tbody tr:hover {
-        background-color: #f1f1f1;
-      }
-      .table th {
-        background-color: #e9ecef;
-      }
-    </style>
    </head>
  <body data-page-title="Transparencia y Acceso a la Información Pública">
 
@@ -2545,29 +2487,6 @@
 <script src="js/accessibility-styles.js" defer></script>
 <script src="js/transparencia.js" defer></script>
 <script src="js/busqueda.js" defer></script>
-<script src="js/main.js" defer></script><script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('tabla-funcionarios-search');
-    const tableBody = document.getElementById('tabla-funcionarios-body');
-    const noResultsMessage = document.getElementById('no-results');
-    const rows = tableBody.getElementsByTagName('tr');
-
-    searchInput.addEventListener('keyup', function () {
-      const filter = searchInput.value.toUpperCase();
-      let found = false;
-      for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName('td');
-        const text = rows[i].textContent || rows[i].innerText;
-        if (text.toUpperCase().indexOf(filter) > -1) {
-          rows[i].style.display = '';
-          found = true;
-        } else {
-          rows[i].style.display = 'none';
-        }
-      }
-      noResultsMessage.classList.toggle('d-none', found);
-    });
-  });
-</script>
+<script src="js/main.js" defer></script>
 </body>
 </html>

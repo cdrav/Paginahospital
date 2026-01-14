@@ -176,3 +176,63 @@ section.col-lg-8.col-md-7 { min-width: 0; }
   word-break: break-word;
   overflow-wrap: anywhere;
 }
+
+/* =====================================================
+   Estilos para el Organigrama y Tablas de Funcionarios
+   ===================================================== */
+.organigrama-nuevo {
+  list-style-type: none;
+  padding-left: 0;
+  position: relative;
+}
+.organigrama-nuevo ul {
+  padding-left: 20px;
+  list-style-type: none;
+}
+.organigrama-nuevo li {
+  margin-top: 15px;
+  position: relative;
+}
+.organigrama-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-left: 5px solid #164443;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease;
+}
+.organigrama-card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.organigrama-card h6 {
+  color: #164443;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.organigrama-card .descripcion {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 12px;
+}
+.organigrama-card .responsable-info p {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  color: #495057;
+}
+.organigrama-card .responsable-info strong {
+  color: #343a40;
+}
+.organigrama-card .responsable-info a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+.organigrama-card .responsable-info a:hover {
+  text-decoration: underline;
+}
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.table th {
+  background-color: #e9ecef;
+}

@@ -1568,6 +1568,69 @@ p, a, td, th, li {
     transition: bottom 0.3s ease-in-out;
   }
 }
+
+/* =====================================================
+   Página Niños, Niñas y Adolescentes - Carrusel
+   ===================================================== */
+#actividadesCarousel .img-carousel {
+  max-height: 60vh;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+#actividadesCarousel .carousel-control-prev,
+#actividadesCarousel .carousel-control-next {
+  width: 5%;
+  opacity: 0.8;
+}
+#actividadesCarousel .carousel-control-prev-icon,
+#actividadesCarousel .carousel-control-next-icon {
+  width: 2rem;
+  height: 2rem;
+}
+#actividadesCarousel .carousel-indicators {
+  bottom: -40px;
+}
+#actividadesCarousel .carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+  border: 1px solid #6c757d;
+}
+#actividadesCarousel .carousel-indicators .active {
+  background-color: #0d6efd;
+}
+  
+/* =====================================================
+   Página de Noticias - Filtros y Tarjetas
+   ===================================================== */
+
+.filter-btn-group .btn {
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.featured-news-card { border: none; }
+.featured-news-card .card-img { height: 450px; object-fit: cover; border-radius: 0.75rem; }
+.featured-news-card .card-img-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%); border-radius: 0.75rem; }
+
+.news-tag { 
+  font-size: 0.8rem; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px; 
+}
+
+.featured-news-card .card-title { text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+
+.news-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.news-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.news-card .card-img-top { height: 200px; object-fit: cover; }
+.news-card .card-body { display: flex; flex-direction: column; }
+.news-card .card-footer { background-color: transparent; border-top: none; padding-top: 0; }
   
 /* =====================================================
    Estadísticas - Mejoras de Proporcionalidad y Layout
@@ -2151,4 +2214,3 @@ p, a, td, th, li {
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
-
