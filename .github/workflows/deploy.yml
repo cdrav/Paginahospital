@@ -7,11 +7,18 @@ permissions:
 
 on:
   push:
-    branches: ["main"] # rama principal del proyecto
+    branches: ["main"]
 
+# Esto evita que se cancelen despliegues si haces varios cambios seguidos
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build_and_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del código
@@ -27,22 +34,14 @@ jobs:
           npm ci
           npm run build:search
 
-      # ----------------------------------------------------------------------
-      # Paso clave: Configurar Pages y subir artefacto
-      # ----------------------------------------------------------------------
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Subir artefactos de Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          # El sitio de Pages publicará el contenido de esta carpeta.
-        
           path: './'
 
-      # ----------------------------------------------------------------------
-      # Paso clave: Desplegar a Pages
-      # ----------------------------------------------------------------------
       - name: Desplegar en GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
