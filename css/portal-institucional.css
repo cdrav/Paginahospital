@@ -1,0 +1,67 @@
+/* Estilos para la página de login y el portal institucional */
+
+/* --- Página de Login --- */
+.login-page-bg {
+    background-color: #f0f4f8;
+    background-image: linear-gradient(135deg, #e9f1f8 0%, #f8f9fa 100%);
+}
+
+.login-card {
+    border-radius: 1rem;
+    background-color: #ffffff;
+}
+
+.login-logo {
+    max-width: 100px;
+    height: auto;
+}
+
+.login-main-container {
+    min-height: calc(100vh - 180px);
+}
+
+/* --- Portal Institucional --- */
+.portal-hero {
+    background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-link-card {
+    border-radius: 1rem;
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-link-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(22, 68, 67, 0.15);
+}
+
+.form-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background-color: rgba(6, 150, 129, 0.1);
+    color: var(--color-secundario);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-link-card:hover .form-icon-wrapper {
+    background-color: var(--color-secundario);
+    color: #fff;
+}
+
+.form-link-card .card-title {
+    color: var(--color-primario);
+    font-weight: 700;
+}
+
+.form-link-card .btn {
+    border-radius: 50px;
+    font-weight: 600;
+}

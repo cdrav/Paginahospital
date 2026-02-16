@@ -7,5 +7,5 @@ export const GA_CONFIG = {
   // ID de la propiedad de Google Analytics 4
   PROPERTY_ID: 'TU_PROPERTY_ID',
   // Dominios autorizados (sin https://)
-  AUTHORIZED_DOMAINS: ['tudominio.github.io', 'tudominio.com']
+  AUTHORIZED_DOMAINS: ['cdrav.github.io', 'hdsa.gov.co']
 };

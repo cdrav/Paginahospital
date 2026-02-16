@@ -43,6 +43,30 @@
     // Esperar a que tanto el header como el footer se carguen
     await Promise.all([headerPromise, footerPromise]);
 
+    // --- Inyección dinámica del botón Portal Institucional ---
+    // Busca el ítem de menú "Normatividad" e inserta el Portal después
+    try {
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      let normatividadItem = null;
+
+      for (const link of navLinks) {
+        if (link.textContent && link.textContent.trim().includes('Normatividad')) {
+          normatividadItem = link.closest('.nav-item');
+          break;
+        }
+      }
+
+      if (normatividadItem) {
+        const portalItem = document.createElement('li');
+        portalItem.className = 'nav-item';
+        // Se usa color amarillo (#ffc107) para resaltar sobre el fondo verde
+        portalItem.innerHTML = `<a class="nav-link" href="login-institucional.html" style="color: #ffc107 !important;"><i class="bi bi-person-lock me-1"></i> Portal Institucional</a>`;
+        normatividadItem.after(portalItem);
+      }
+    } catch (e) {
+      console.error("Error inyectando botón del portal:", e);
+    }
+
     // Despachar un evento personalizado para notificar a otros scripts que el layout está listo
     console.log('Parciales cargados, despachando evento.');
     document.dispatchEvent(new CustomEvent('partialsLoaded'));
