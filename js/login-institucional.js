@@ -1,5 +1,5 @@
 import { auth } from './firebase-config.js';
-import { signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
@@ -37,34 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         errorDiv.textContent = "Usuario o contraseña incorrectos.";
                         errorDiv.classList.remove('d-none');
                     }
-                });
-        });
-    }
-
-    // --- Lógica de Recuperación de Contraseña ---
-    const resetForm = document.getElementById('reset-password-form');
-    const resetEmailInput = document.getElementById('reset-email');
-    const resetMessage = document.getElementById('reset-message');
-
-    if (resetForm) {
-        resetForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = resetEmailInput.value.trim();
-            
-            if (!email) return;
-
-            sendPasswordResetEmail(auth, email)
-                .then(() => {
-                    resetMessage.className = 'alert alert-success';
-                    resetMessage.textContent = 'Enlace enviado. Revisa tu bandeja de entrada (y spam).';
-                    resetMessage.classList.remove('d-none');
-                    resetForm.reset();
-                })
-                .catch((error) => {
-                    console.error("Error reset password:", error);
-                    resetMessage.className = 'alert alert-danger';
-                    resetMessage.textContent = 'No se pudo enviar el correo. Verifica que la dirección sea correcta.';
-                    resetMessage.classList.remove('d-none');
                 });
         });
     }

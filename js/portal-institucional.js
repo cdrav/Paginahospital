@@ -17,9 +17,11 @@ onAuthStateChanged(auth, (user) => {
         if (user.email && user.email.toLowerCase() === 'coord.sistemas@hdsa.gov.co') {
             const adminCard = document.getElementById('admin-card');
             const firebaseCard = document.getElementById('firebase-card');
+            const hojaVidaPcCard = document.getElementById('hoja-vida-pc-card');
             
             if (adminCard) adminCard.classList.remove('d-none');
             if (firebaseCard) firebaseCard.classList.remove('d-none');
+            if (hojaVidaPcCard) hojaVidaPcCard.classList.remove('d-none');
         }
     }
 });
