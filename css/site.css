@@ -792,12 +792,17 @@ section > p {
 .btn-orange { background-color: #fd7e14; border-color: #fd7e14; color: #fff; }
 
 /* Enlaces de interés: tarjetas hover suaves */
-.hover-card { transition: transform .2s ease, box-shadow .2s ease; }
-.hover-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.12); }
-
-/* Enlaces de interés: tarjetas hover suaves */
-.hover-card { transition: transform .2s ease, box-shadow .2s ease; }
-.hover-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.12); }
+.hover-card { 
+  transition: transform .3s ease, box-shadow .3s ease; 
+  overflow: hidden; /* Necesario para que la imagen no se salga al hacer zoom */
+}
+.hover-card:hover { 
+  transform: translateY(-6px); 
+  box-shadow: 0 16px 30px rgba(0,0,0,.12); 
+}
+/* Animación de Zoom en la imagen */
+.hover-card .card-img-top { transition: transform 0.5s ease; }
+.hover-card:hover .card-img-top { transform: scale(1.05); }
 
 /* Enlaces de interés: cajas de logos institucionales */
 .institution-logo-box {
