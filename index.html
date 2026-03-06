@@ -799,6 +799,18 @@
     </div>
 </div>
 
+<!-- Modal de Aviso de Vacunación -->
+<div class="modal fade" id="modalInicio" tabindex="-1" aria-labelledby="modalInicioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="background: transparent; border: none;">
+      <div class="modal-body p-0 position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar" style="z-index: 10; background-color: #ffffff; border-radius: 50%; width: 45px; height: 45px; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.3s ease; border: 3px solid #ff0000; color: #ff0000;"></button>
+        <img src="imagenes/imagenes-index-noticias/flyer-2.png" class="img-fluid rounded" alt="Aviso de Jornada de Vacunación">
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Scripts optimizados con defer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 <script src="js/utils.js" defer></script>
@@ -809,5 +821,32 @@
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/cookie-consent.js" defer></script>
+
+<!-- Script para mostrar modal de aviso de vacunación al iniciar -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Verificar si el modal debe mostrarse según la fecha y hora límite
+    function shouldShowModal() {
+      var now = new Date();
+      // Fecha límite: sábado 07 de marzo de 2026 a las 12:00 PM
+      var limitDate = new Date('2026-03-07T12:00:00');
+      
+      // No mostrar si la fecha y hora actual es posterior a la fecha límite
+      if (now >= limitDate) {
+        return false;
+      }
+      
+      return true;
+    }
+    
+    // Mostrar el modal de aviso de vacunación después de 1 segundo si cumple las condiciones
+    setTimeout(function() {
+      if (shouldShowModal()) {
+        var modal = new bootstrap.Modal(document.getElementById('modalInicio'));
+        modal.show();
+      }
+    }, 1000);
+  });
+</script>
 </body>
 </html>

@@ -2,8 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // --- CONFIGURACIÓN DE FIREBASE ---
-// **IMPORTANTE**: Reemplaza este objeto con las credenciales de tu proyecto de Firebase.
-// Puedes encontrarlas en:
 // Consola de Firebase > Configuración del proyecto (⚙️) > General > Tus apps > App web
 const firebaseConfig = {
   apiKey: "AIzaSyBz9WYmEV7Q2_QSY5YpFKvxmubvDVquiSQ",

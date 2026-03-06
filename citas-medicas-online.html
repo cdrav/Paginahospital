@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#164443">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Citas Médicas Online | Hospital Departamental San Antonio</title>
+    <meta name="description" content="Agenda tu cita médica en línea de forma rápida y segura en el Hospital Departamental San Antonio.">
+    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+    <!-- Estilos locales -->
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/accesibilidad.css" />
+    <link rel="stylesheet" href="css/accessibility-buttons.css" />
+    <link rel="stylesheet" href="css/formularios.css" />
+    <link rel="stylesheet" href="css/cookie-banner.css" />
+    
+    <style>
+      :root {
+        --primary-color: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary-color: #8b5cf6;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --warning-color: #f59e0b;
+        --dark: #1f2937;
+        --light: #f9fafb;
+        --gray: #6b7280;
+        --border-radius: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      body {
+        background-color: #f8f9fa; /* Fondo gris muy claro y limpio */
+        min-height: 100vh;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      .modern-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+
+      .hero-modern {
+        text-align: center;
+        color: var(--dark);
+        padding: 3rem 0 1.5rem;
+      }
+
+      @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+        70% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+      }
+
+
+      .hero-modern h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .hero-modern p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray); /* Texto gris suave */
+      }
+
+      .form-card {
+        background: #fff;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #dee2e6; /* Borde sutil para toda la tarjeta */
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .step-wizard {
+        display: flex;
+        justify-content: space-between; /* Distribución uniforme */
+        position: relative;
+        padding: 2rem 1rem;
+        margin-bottom: 0;
+        background-color: #fff;
+        border-bottom: 1px solid #dee2e6; /* Línea separadora */
+      }
+
+      .step-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        flex: 1; /* Distribución equitativa */
+      }
+
+      /* Nuevo contenedor interno para dar estilo de píldora */
+      .step-content-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 1rem;
+        background-color: #fff;
+        border-radius: 50px;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .step-item.active .step-content-wrapper {
+        border-color: var(--primary-color);
+        background-color: #eef2ff; /* Fondo muy suave */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #f3f4f6;
+        color: #6b7280;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .step-item.active .step-number {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      }
+
+      .step-item.completed .step-number {
+        background: var(--success-color);
+        color: white;
+      }
+
+      .step-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .step-item.active .step-label {
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+      
+      .step-item.completed .step-label {
+        color: var(--dark);
+      }
+
+      .step-progress {
+        position: absolute;
+        top: 50%;
+        left: 12.5%; /* Centrado dinámico (100% / 4 items / 2) */
+        right: 12.5%;
+        height: 2px;
+        background: #e9ecef;
+        z-index: 1;
+        transform: translateY(-50%);
+      }
+
+      .step-progress-fill {
+        height: 100%;
+        background: var(--primary-color);
+        transition: var(--transition);
+      }
+
+      .form-content {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        transition: height 0.4s ease-in-out;
+      }
+
+      .form-slider {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start; /* Alineación superior para altura dinámica */
+        width: 400%; /* 4 pasos x 100% */
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      }
+
+      .form-section {
+        flex: 0 0 25%; /* Cada paso ocupa exactamente 1/4 del slider */
+        max-width: 25%;
+        padding: 2rem 1rem;
+        box-sizing: border-box;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .section-subtitle {
+        color: var(--gray);
+        margin-bottom: 2rem;
+      }
+
+      .form-control, .form-select {
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        transition: all 0.2s ease-in-out;
+        background-color: #fff;
+      }
+
+      .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+        background-color: #fff;
+      }
+
+      .form-control.is-invalid {
+        border-color: #dc3545;
+        padding-right: calc(1.5em + 0.75rem);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      }
+
+      .form-control.is-invalid:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .specialty-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .specialty-card {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .specialty-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        transform: scaleX(0);
+        transition: var(--transition);
+      }
+
+      .specialty-card:hover {
+        transform: translateY(-0.25rem);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border-color: var(--primary-color);
+      }
+
+      .specialty-card.selected {
+        border-color: var(--primary-color);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+      }
+
+      .specialty-card.selected::before {
+        transform: scaleX(1);
+      }
+
+      .specialty-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        color: white;
+        font-size: 1.25rem;
+      }
+
+      .doctor-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .doctor-card {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .doctor-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+      }
+
+      .doctor-card.selected {
+        border-color: var(--primary-color);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+      }
+
+      .doctor-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      .doctor-info {
+        flex: 1;
+      }
+
+      .doctor-name {
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 0.25rem;
+      }
+
+      .doctor-specialty {
+        color: var(--gray);
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .doctor-experience {
+        color: var(--primary-color);
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .calendar-container {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 1.25rem;
+        border: 2px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.5rem;
+      }
+
+      .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.875rem;
+        background: white;
+      }
+
+      .calendar-day:hover:not(.disabled) {
+        border-color: var(--primary-color);
+        background: rgba(99, 102, 241, 0.05);
+      }
+
+      .calendar-day.selected {
+        border-color: var(--primary-color);
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .calendar-day.disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+
+      .time-slot {
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        background: white;
+        font-weight: 500;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      }
+
+      .time-slot:hover:not(.disabled) {
+        border-color: var(--primary-color);
+        background: rgba(99, 102, 241, 0.05);
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+      }
+
+      .time-slot.selected {
+        border-color: var(--primary-color);
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.25rem 0.5rem rgba(99, 102, 241, 0.25);
+      }
+
+      .time-slot.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: #f9fafb;
+      }
+
+      .summary-section {
+        background: white;
+        color: var(--dark);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .summary-section::before {
+        display: none;
+      }
+
+      .summary-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn-modern {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-modern::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn-modern:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .btn-primary-modern {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        box-shadow: 0 0.125rem 0.25rem rgba(99, 102, 241, 0.2);
+      }
+
+      .btn-primary-modern:hover {
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.25rem 0.5rem rgba(99, 102, 241, 0.3);
+      }
+
+      .btn-secondary-modern {
+        background: #6c757d;
+        color: white;
+        box-shadow: 0 0.125rem 0.25rem rgba(108, 117, 125, 0.2);
+      }
+
+      .btn-secondary-modern:hover {
+        background: #5a6268;
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.25rem 0.5rem rgba(108, 117, 125, 0.3);
+      }
+
+      .btn-success-modern {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        box-shadow: 0 0.125rem 0.25rem rgba(16, 185, 129, 0.2);
+      }
+
+      .btn-success-modern:hover {
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.25rem 0.5rem rgba(16, 185, 129, 0.3);
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .error-message, .success-message {
+        border-radius: 0.5rem;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+        display: none;
+        align-items: center;
+        gap: 0.75rem;
+        border-left: 4px solid;
+      }
+
+      .error-message {
+        background-color: #f8d7da;
+        border-color: #dc3545;
+        color: #721c24;
+      }
+
+      .success-message {
+        background-color: #d1e7dd;
+        border-color: #198754;
+        color: #0f5132;
+      }
+
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .loading-content {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      .spinner-modern {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e5e7eb;
+        border-top: 4px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .modal-content {
+        border: none;
+        border-radius: 0.75rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+
+      .modal-header {
+        border-bottom: 1px solid #dee2e6;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border-radius: 0.75rem 0.75rem 0 0;
+      }
+
+      .modal-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+
+      .btn-close {
+        filter: brightness(0) invert(1);
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero-modern h1 {
+          font-size: 2rem;
+        }
+        
+        .step-wizard {
+          padding: 1rem 0.75rem;
+        }
+
+        .step-progress {
+          left: 30px;
+          right: 30px;
+        }
+
+        .step-item {
+          min-width: auto;
+        }
+
+        .step-content-wrapper {
+          padding: 0.25rem;
+          border-radius: 50%; /* Círculo en móvil si ocultamos texto */
+        }
+        
+        .step-label {
+          display: none; /* Ocultar texto en móvil para limpieza */
+        }
+        
+        .step-item.active .step-content-wrapper {
+          border-radius: 50px;
+          padding: 0.25rem 0.75rem;
+        }
+
+        .step-item.active .step-label {
+          display: block;
+          font-size: 0.8rem;
+        }
+
+        .form-section {
+          padding: 1.5rem 0.5rem;
+        }
+      }
+    </style>
+   </head>
+<body data-page-title="Citas Médicas Online">
+
+<!-- Header incluido -->
+<div id="header-placeholder"></div>
+
+<!-- Contenedor para el breadcrumb -->
+<div class="modern-container">
+  <div id="breadcrumb-container" class="mt-3">
+    <!-- El breadcrumb se insertará aquí mediante JavaScript -->
+  </div>
+
+  <!-- HERO SECTION MODERNO -->
+  <div class="hero-modern">
+    <h1>Citas Médicas Online</h1>
+    <p>Agenda tu cita médica de forma rápida, segura y desde la comodidad de tu hogar.</p>
+  </div>
+
+  <!-- FORMULARIO MODERNO -->
+  <div class="form-card">
+    <div class="step-wizard">
+      <div class="step-progress">
+        <div class="step-progress-fill" id="progressBar" style="width: 0%;"></div>
+      </div>
+      <div class="step-item active" id="step1">
+        <div class="step-content-wrapper">
+          <div class="step-number">1</div>
+          <div class="step-label">Datos Personales</div>
+        </div>
+      </div>
+      <div class="step-item" id="step2">
+        <div class="step-content-wrapper">
+          <div class="step-number">2</div>
+          <div class="step-label">Especialidad</div>
+        </div>
+      </div>
+      <div class="step-item" id="step3">
+        <div class="step-content-wrapper">
+          <div class="step-number">3</div>
+          <div class="step-label">Fecha y Hora</div>
+        </div>
+      </div>
+      <div class="step-item" id="step4">
+        <div class="step-content-wrapper">
+          <div class="step-number">4</div>
+          <div class="step-label">Confirmación</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensajes de estado (fuera del slider para no afectar la altura) -->
+      <div class="error-message" id="errorMessage">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span id="errorText"></span>
+      </div>
+      
+      <div class="success-message" id="successMessage">
+        <i class="bi bi-check-circle"></i>
+        <span id="successText"></span>
+      </div>
+
+    <div class="form-content">
+      <!-- Formulario -->
+      <form id="citaForm" novalidate>
+        
+        <div class="form-slider">
+        <!-- Paso 1: Datos Personales -->
+        <div class="form-section active" id="paso1">
+          <h2 class="section-title">
+            <i class="bi bi-person-circle"></i>
+            Datos Personales
+          </h2>
+          <p class="section-subtitle">Completa tu información para continuar con el agendamiento</p>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="tipoDocumento" class="form-label">Tipo de Documento *</label>
+              <select class="form-select" id="tipoDocumento" required>
+                <option value="">Seleccione...</option>
+                <option value="CC">Cédula de Ciudadanía</option>
+                <option value="CE">Cédula de Extranjería</option>
+                <option value="PA">Pasaporte</option>
+                <option value="TI">Tarjeta de Identidad</option>
+                <option value="RC">Registro Civil</option>
+              </select>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="numeroDocumento" class="form-label">Número de Documento *</label>
+              <input type="text" class="form-control" id="numeroDocumento" required>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="nombres" class="form-label">Nombres *</label>
+              <input type="text" class="form-control" id="nombres" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="apellidos" class="form-label">Apellidos *</label>
+              <input type="text" class="form-control" id="apellidos" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="genero" class="form-label">Género *</label>
+              <select class="form-select" id="genero" required>
+                <option value="">Seleccione...</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="telefono" class="form-label">Teléfono/Celular *</label>
+              <input type="tel" class="form-control" id="telefono" placeholder="3001234567" required>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="correo" class="form-label">Correo electrónico *</label>
+              <input type="email" class="form-control" id="correo" placeholder="correo@ejemplo.com" required>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="eps" class="form-label">EPS o ARL *</label>
+            <select class="form-select" id="eps" required>
+              <option value="">Seleccione...</option>
+              <option value="NUEVA EPS">NUEVA EPS</option>
+              <option value="SURA">COOSALUD</option>
+              <option value="SURA">SURA</option>
+              <option value="COOMEVA">COOMEVA</option>
+              <option value="SANITAS">SANITAS</option>
+              <option value="SALUDTOTAL">SALUDTOTAL</option>
+              <option value="NUEVA EPS">NUEVA EPS</option>
+              <option value="COMPENSAR">COMPENSAR</option>
+              <option value="FAMISANAR">FAMISANAR</option>
+              <option value="OTRA">OTRA</option>
+            </select>
+          </div>
+          
+          <div class="mb-4">
+            <label for="ordenesMedicas" class="form-label">Adjuntar órdenes médicas (opcional)</label>
+            <input type="file" class="form-control" id="ordenesMedicas" accept=".pdf,.jpg,.jpeg,.png" multiple>
+            <small class="text-muted">Puedes adjuntar múltiples archivos (PDF, JPG, PNG)</small>
+            
+            <!-- Lista de archivos cargados -->
+            <div id="archivosCargados" class="mt-3" style="display: none;">
+              <h6 class="mb-2">Archivos cargados:</h6>
+              <div id="listaArchivos" class="list-group"></div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <div></div>
+            <button type="button" class="btn-modern btn-primary-modern" onclick="siguientePaso(1)">
+              Siguiente <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Paso 2: Especialidad -->
+        <div class="form-section" id="paso2">
+          <h2 class="section-title">
+            <i class="bi bi-hospital"></i>
+            Selecciona la Especialidad
+          </h2>
+          <p class="section-subtitle">Elige la especialidad médica que necesitas</p>
+          
+          <div class="specialty-grid" id="especialidadesContainer">
+            <!-- Las especialidades se cargarán dinámicamente -->
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-modern btn-secondary-modern" onclick="anteriorPaso(2)">
+              <i class="bi bi-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn-modern btn-primary-modern" onclick="siguientePaso(2)" id="btnPaso2" disabled>
+              Siguiente <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Paso 3: Fecha y Hora -->
+        <div class="form-section" id="paso3">
+          <h2 class="section-title">
+            <i class="bi bi-calendar-week"></i>
+            Selecciona Fecha y Hora
+          </h2>
+          <p class="section-subtitle">Elige el día y horario más conveniente para tu cita</p>
+          
+          <!-- Calendario -->
+          <div class="calendar-container mb-4">
+            <div class="calendar-header">
+              <button type="button" id="prevMonthBtn" class="btn btn-sm btn-outline-primary" onclick="mesAnterior()">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <div>
+                <span id="currentMonth">Mes Actual</span>
+                <span id="currentYear">2024</span>
+              </div>
+              <button type="button" id="nextMonthBtn" class="btn btn-sm btn-outline-primary" onclick="siguienteMes()">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+              <!-- El calendario se generará dinámicamente -->
+            </div>
+          </div>
+          
+          <!-- Horarios disponibles -->
+          <div>
+            <h5 class="mb-3">Horarios disponibles</h5>
+            <div class="time-grid" id="horariosContainer">
+              <!-- Los horarios se cargarán dinámicamente -->
+            </div>
+            <div class="alert alert-info mt-3 small">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              <strong>Nota:</strong> La selección de este horario está sujeta a la disponibilidad final de la agenda. Nuestro equipo confirmará su cita.
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-modern btn-secondary-modern" onclick="anteriorPaso(3)">
+              <i class="bi bi-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn-modern btn-primary-modern" onclick="siguientePaso(3)" id="btnPaso3" disabled>
+              Siguiente <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Paso 4: Confirmación -->
+        <div class="form-section" id="paso4">
+          <h2 class="section-title">
+            <i class="bi bi-check-circle"></i>
+            Confirmación de Cita
+          </h2>
+          <p class="section-subtitle">Revisa y confirma los detalles de tu cita médica</p>
+          
+          <div class="summary-section">
+            <div class="summary-content">
+              <h3 class="mb-4 text-center">Resumen de tu Cita</h3>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <h5 class="mb-3">Datos del Paciente</h5>
+                  <p><strong>Nombre:</strong> <span id="confirmNombre"></span></p>
+                  <p><strong>Documento:</strong> <span id="confirmDocumento"></span></p>
+                  <p><strong>Teléfono:</strong> <span id="confirmTelefono"></span></p>
+                  <p><strong>Correo:</strong> <span id="confirmCorreo"></span></p>
+                  <p><strong>EPS:</strong> <span id="confirmEps"></span></p>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <h5 class="mb-3">Detalles de la Cita</h5>
+                  <p><strong>Especialidad:</strong> <span id="confirmEspecialidad"></span></p>
+                  <p><strong>Fecha:</strong> <span id="confirmFecha"></span></p>
+                  <p><strong>Hora:</strong> <span id="confirmHora"></span></p>
+                </div>
+              </div>
+              
+              <div class="mt-4">
+                <label for="motivoConsulta" class="form-label">Motivo de la consulta</label>
+                <textarea class="form-control" id="motivoConsulta" rows="3" placeholder="Describe brevemente el motivo de tu consulta" required></textarea>
+              </div>
+              
+              <div class="mt-4">
+                <label class="form-label">¿El número celular ingresado tiene WhatsApp?</label>
+                <div class="d-flex gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tieneWhatsapp" id="whatsappSi" value="si" required>
+                    <label class="form-check-label" for="whatsappSi">
+                      Sí, tiene WhatsApp
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tieneWhatsapp" id="whatsappNo" value="no" required>
+                    <label class="form-check-label" for="whatsappNo">
+                      No, no tiene WhatsApp
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" id="confirmTerms" required>
+                <label class="form-check-label" for="confirmTerms">
+                  Acepto los términos y condiciones y confirmo que la información proporcionada es correcta.
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-modern btn-secondary-modern" onclick="anteriorPaso(4)">
+              <i class="bi bi-arrow-left"></i> Anterior
+            </button>
+            <button type="submit" class="btn-modern btn-success-modern" id="btnConfirmar" disabled>
+              <i class="bi bi-check-circle"></i> Confirmar Cita
+            </button>
+          </div>
+        </div>
+        </div> <!-- Fin .form-slider -->
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Éxito -->
+<div class="modal fade" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center p-5">
+        <div class="mb-4 text-success">
+          <i class="bi bi-check-circle-fill" style="font-size: 4rem;"></i>
+        </div>
+        <h3 class="fw-bold mb-3">¡recibimos la solicitud!</h3>
+        <p class="text-muted mb-4">se enviara un correo electrónico con todos los detalles.</p>
+        
+        <div class="p-3 bg-light rounded-3 mb-4">
+          <p class="mb-1"><strong>Número de Radicado:</strong> <span id="numeroRadicado"></span></p>
+          <p class="mb-0"><strong>Fecha y Hora:</strong> <span id="fechaConfirmada"></span></p>
+        </div>
+        
+        <div class="d-grid gap-2">
+          <button type="button" class="btn-modern btn-primary-modern" onclick="window.location.href='index.html'">
+            <i class="bi bi-house"></i> Ir al Inicio
+          </button>
+          <button type="button" class="btn-modern btn-secondary-modern" onclick="window.location.reload()">
+            <i class="bi bi-calendar-plus"></i> Agendar Otra Cita
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-content">
+    <div class="spinner-modern"></div>
+    <h5>Procesando tu solicitud...</h5>
+    <p class="text-muted">Por favor espera un momento</p>
+  </div>
+</div>
+        
+<!-- Botones de Accesibilidad -->
+<div class="accessibility-buttons-container" role="toolbar" aria-label="Herramientas de accesibilidad">
+  <button class="btn btn-outline-primary rounded-circle" title="Aumentar texto" aria-label="Aumentar tamaño de texto" data-action="increase-text"><i class="bi bi-zoom-in"></i></button>
+  <button class="btn btn-outline-primary rounded-circle" title="Reducir texto" aria-label="Reducir tamaño de texto" data-action="decrease-text"><i class="bi bi-zoom-out"></i></button>
+  <button class="btn btn-outline-primary rounded-circle" title="Cambiar contraste" aria-label="Cambiar esquema de contraste" data-action="change-contrast"><i class="bi bi-brightness-high"></i></button>
+  <button class="btn btn-outline-primary rounded-circle" title="Restablecer configuración" aria-label="Restablecer Contraste y Texto" data-action="reset-settings"><i class="bi bi-arrow-counterclockwise"></i></button>
+</div>
+
+<!-- Footer parcial -->
+<div id="footer-placeholder"></div>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-consent-banner" class="cookie-banner">
+  <div class="container">
+    <div class="d-md-flex justify-content-between align-items-center">
+      <div class="me-md-3">
+        <h5 class="cookie-title mb-1">Aviso sobre el uso de Cookies</h5>
+        <p class="cookie-text mb-0">
+          Este portal utiliza cookies para mejorar su experiencia de navegación. Al continuar, consideramos que acepta su uso.
+        </p>
+      </div>
+      <div class="mt-3 mt-md-0 flex-shrink-0">
+        <button id="cookie-consent-button" class="btn btn-light w-100">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/accesibilidad.js"></script>
+<script src="js/accessibility-styles.js"></script>
+<script src="js/busqueda.js"></script>
+<script src="js/main.js"></script>
+<script src="js/breadcrumb.js"></script>
+<script src="js/cookie-consent.js"></script>
+<script src="js/citas-medicas-online.js"></script>
+
+</body>
+</html>
