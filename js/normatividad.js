@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const clearBtn = document.getElementById('search-clear-btn');
 
   if (!form || !input || !contentRoot || !tabLinksContainer) {
-    console.error('Faltan elementos esenciales para la búsqueda en Normatividad. Saliendo.');
     return;
   }
 
@@ -63,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Filtering Logic ---
   const resetFilters = () => {
-    console.log('Reseteando filtros...');
     allItems.forEach(show);
     allTabLinks.forEach(link => show(link.parentElement)); // Show the <li> container
     show(contentRoot); // Asegurarse de que el contenido sea visible
@@ -78,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const tab = bootstrap.Tab.getInstance(firstTabTrigger) || new bootstrap.Tab(firstTabTrigger);
         tab.show();
       } catch (e) {
-        console.error("Error al mostrar la pestaña de Bootstrap:", e);
+        // Silenciar error si Bootstrap no está listo, la UI seguirá funcionando.
       }
     }
   };
@@ -141,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
           const tab = bootstrap.Tab.getInstance(firstMatchedTabLink) || new bootstrap.Tab(firstMatchedTabLink);
           tab.show();
         } catch (e) {
-          console.error("Error al mostrar la pestaña de Bootstrap:", e);
+          // Silenciar error si Bootstrap no está listo.
         }
       }
     }
@@ -188,8 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  console.log('Script de normatividad.js inicializado.');
-  
   // Inicializar pestañas de Bootstrap
   var tabEls = [].slice.call(document.querySelectorAll('button[data-bs-toggle="tab"]'));
   tabEls.forEach(function(tabEl) {

@@ -1,16 +1,11 @@
 /**
  * Funcionalidades específicas para la página de Citas Médicas
+ * NOTA: Este es un formulario simple. Para el wizard de varios pasos, ver `citas-medicas-online.js`.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar el selector de fecha con fecha mínima (mañana)
     inicializarSelectorFecha();
-    
-    // Configurar manejadores de eventos para los formularios
     configurarFormularios();
-    
-    // Inicializar funcionalidad de acordeón para las preguntas frecuentes
-    inicializarAcordeonFAQ();
 });
 
 /**
@@ -71,7 +66,11 @@ function manejarEnvioCita(e) {
     
     // Aquí iría la lógica para enviar los datos al servidor
     // Por ahora, solo mostramos un mensaje de éxito
-    mostrarMensaje('Tu solicitud de cita ha sido recibida. Recibirás un correo de confirmación con los detalles.', 'success');
+    if (window.notify) {
+        window.notify('Tu solicitud de cita ha sido recibida. Recibirás un correo de confirmación con los detalles.', { type: 'success' });
+    } else {
+        alert('Tu solicitud de cita ha sido recibida. Recibirás un correo de confirmación con los detalles.');
+    }
     
     // Reiniciar el formulario
     this.reset();
@@ -93,7 +92,11 @@ function manejarConsultaCita(e) {
     
     // Aquí iría la lógica para consultar la cita en el servidor
     // Por ahora, mostramos un mensaje informativo
-    mostrarMensaje('Función de consulta de cita en desarrollo. Próximamente disponible.', 'info');
+    if (window.notify) {
+        window.notify('Función de consulta de cita en desarrollo. Próximamente disponible.', { type: 'info' });
+    } else {
+        alert('Función de consulta de cita en desarrollo. Próximamente disponible.');
+    }
     
     // No reiniciamos el formulario para permitir al usuario intentar de nuevo
     this.classList.remove('was-validated');
@@ -149,10 +152,6 @@ function obtenerMedicosPorEspecialidad(especialidad) {
             { id: 'g1', nombre: 'Dra. Laura Martínez' },
             { id: 'g2', nombre: 'Dra. Sofía Ramírez' }
         ],
-        'cardiologia': [
-            { id: 'c1', nombre: 'Dr. Andrés Vargas' },
-            { id: 'c2', nombre: 'Dra. Patricia Díaz' }
-        ],
         'dermatologia': [
             { id: 'd1', nombre: 'Dra. Carolina Rojas' },
             { id: 'd2', nombre: 'Dr. Javier Molina' }
@@ -160,55 +159,4 @@ function obtenerMedicosPorEspecialidad(especialidad) {
     };
     
     return medicosPorEspecialidad[especialidad] || [];
-}
-
-/**
- * Inicializa la funcionalidad del acordeón de preguntas frecuentes
- */
-function inicializarAcordeonFAQ() {
-    const preguntas = document.querySelectorAll('.accordion-button');
-    
-    preguntas.forEach(pregunta => {
-        pregunta.addEventListener('click', function() {
-            // Cerrar otras preguntas abiertas
-            const preguntaAbierta = document.querySelector('.accordion-button[aria-expanded="true"]');
-            if (preguntaAbierta && preguntaAbierta !== this) {
-                const contenidoId = preguntaAbierta.getAttribute('aria-controls');
-                const contenido = document.getElementById(contenidoId);
-                
-                preguntaAbierta.setAttribute('aria-expanded', 'false');
-                contenido.classList.remove('show');
-            }
-        });
-    });
-}
-
-/**
- * Muestra un mensaje al usuario
- * @param {string} mensaje - Texto del mensaje
- * @param {string} tipo - Tipo de mensaje (success, error, info, warning)
- */
-function mostrarMensaje(mensaje, tipo = 'info') {
-    // Usar utilidad global unificada si está disponible
-    if (window.notify) {
-        // Mapear 'error' a 'danger' para clases Bootstrap
-        const mapped = tipo === 'error' ? 'danger' : tipo;
-        window.notify(mensaje, { type: mapped, timeout: 5000 });
-        return;
-    }
-    // Fallback mínimo si utils.js no ha cargado
-    try {
-        const cont = document.createElement('div');
-        cont.className = `alert alert-${tipo === 'error' ? 'danger' : tipo}`;
-        cont.role = 'alert';
-        cont.style.position = 'fixed';
-        cont.style.top = '1rem';
-        cont.style.right = '1rem';
-        cont.style.zIndex = '1080';
-        cont.textContent = mensaje;
-        document.body.appendChild(cont);
-        setTimeout(() => cont.remove(), 5000);
-    } catch (e) {
-        alert(mensaje);
-    }
 }

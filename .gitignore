@@ -6,3 +6,7 @@ search-index.json
 
 # Local Netlify folder
 .netlify
+
+# Claves de servicio de Firebase (¡No subir al repositorio!)
+service-account.json
+clave-citas-online.json

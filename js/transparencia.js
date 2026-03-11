@@ -1,18 +1,12 @@
-// Transparencia page scripts: smooth scrolling, active link, and dynamic MVVE loader
-
-// La función calcHeaderOffset ahora es global y se carga desde js/utils.js
-// Se asume que window.calcHeaderOffset está disponible.
+// Se asume que window.calcHeaderOffset está disponible globalmente desde js/utils.js
 const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? window.calcHeaderOffset() : 90);
 
 // Scroll suave con compensación y activación de enlaces del sidebar
 (function () {
   const sidebar = document.querySelector('.sidebar-nav');
 
-  function smoothScrollTo(el) {
-    if (!el) return;
-    // Scroll con compensación local sin depender de funciones fuera del ámbito
-    const heading = el.querySelector?.('h2, h3');
-    const targetEl = heading || el;
+  function scrollToWithOffset(targetEl) {
+    if (!targetEl) return;
     const rect = targetEl.getBoundingClientRect();
     const headerOffset = getHeaderOffset();
     const y = rect.top + window.pageYOffset - headerOffset - 4;
@@ -21,12 +15,6 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
 
   // Clicks en el sidebar
   // Nota: el desplazamiento y la lógica de "una sección a la vez" se manejan
-  // en el segundo bloque (captura true). se evitan dobles scrolls.
-  sidebar?.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    // No prevenir ni hacer scroll aquí; solo permitir que el otro handler actúe.
-  });
 
   // Resaltado activo según scroll
   const linkMap = new Map();
@@ -91,18 +79,6 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   const show = (el) => el && el.classList.remove('d-none');
 
   let singleView = true; // modo por defecto
-
-  // Scroll con compensación por header fijo
-  function scrollToWithOffset(el) {
-    if (!el) return;
-    // Alinear el encabezado interno (h2/h3) justo bajo el header fijo
-    const heading = el.querySelector?.('h2, h3');
-    const targetEl = heading || el;
-    const rect = targetEl.getBoundingClientRect();
-    const headerOffset = getHeaderOffset();
-    const y = rect.top + window.pageYOffset - headerOffset - 4;
-    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
-  }
 
   // Utilidades para acordeón lateral
   const accordion = document.getElementById('transpAccordion');
@@ -240,7 +216,10 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     // Defer scroll to next frame to avoid forced reflow
     requestAnimationFrame(() => {
       const target = document.querySelector(hash);
-      if (target) scrollToWithOffset(target);
+      // Alinear el encabezado interno (h2/h3) justo bajo el header fijo
+      const heading = target?.querySelector?.('h2, h3');
+      const targetEl = heading || target;
+      if (targetEl) scrollToWithOffset(targetEl);
     });
     // Actualizar URL sin recargar
     history.replaceState(null, '', hash);
@@ -258,7 +237,9 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     showOnlyBySelector(hash);
     // Defer scroll to next frame
     requestAnimationFrame(() => {
-      scrollToWithOffset(target);
+      const heading = target?.querySelector?.('h2, h3');
+      const targetEl = heading || target;
+      if (targetEl) scrollToWithOffset(targetEl);
     });
     history.replaceState(null, '', hash);
   });
@@ -368,6 +349,17 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   const container = document.getElementById('mvve-container');
   if (!container) return;
 
+  // Utiliza la función de scroll global
+  const scrollToWithOffset = (el) => {
+    if (!el) return;
+    const headerOffset = getHeaderOffset();
+    const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({
+      top: y,
+      behavior: 'smooth'
+    });
+  };
+
   let loaded = false;
   const src = container.getAttribute('data-src');
 
@@ -382,7 +374,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       // Si el hash apunta al ancla dentro del parcial, hacer scroll suave
       if (location.hash === '#mision-vision-valores') {
         const target = document.getElementById('mision-vision-valores');
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (target) scrollToWithOffset(target);
       }
     } catch (e) {
       container.innerHTML =
@@ -402,7 +394,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       ev.preventDefault();
       loadPartial().then(() => {
         const target = document.getElementById('mision-vision-valores');
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (target) scrollToWithOffset(target);
       });
     }
   });
@@ -412,7 +404,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (location.hash === '#mision-vision-valores') {
       loadPartial().then(() => {
         const target = document.getElementById('mision-vision-valores');
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (target) scrollToWithOffset(target);
       });
     }
   });

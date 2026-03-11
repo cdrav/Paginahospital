@@ -1,6 +1,5 @@
 // pqrs-forms.js - Lógica para el formulario de PQRSD
 
-// Inicialización de EmailJS con tu Public Key
 (function() {
   emailjs.init("gcybOcZM8nYnJy19f"); 
 })();

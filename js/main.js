@@ -115,7 +115,12 @@
         
         if (error) {
           console.error('Error al cargar el traductor:', error);
-          alert('No se pudo cargar el traductor. Por favor, intente de nuevo más tarde.');
+          // Usar el sistema de notificaciones del sitio en lugar de un alert.
+          if (window.notify) {
+            window.notify('No se pudo cargar el traduector. Por favor, intente de nuevo más tarde.', { type: 'danger' });
+          } else {
+            alert('No se pudo cargar el traductor. Por favor, intente de nuevo más tarde.');
+          }
           return;
         }
         

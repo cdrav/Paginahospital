@@ -46,8 +46,6 @@ function openEncuestaAccesibilidad() {
 
 // Función para cambiar el tamaño del texto
 function changeTextSize(direction) {
-    console.log('Cambiando tamaño de texto:', direction); // Debug
-    
     const body = document.body;
     const currentSize = parseFloat(getComputedStyle(body).fontSize);
     
@@ -73,12 +71,8 @@ function changeTextSize(direction) {
 
 // Función para cambiar el contraste
 function changeContrast() {
-    console.log('Cambiando contraste'); // Debug
-    
     const body = document.body;
     const currentMode = localStorage.getItem('contrastMode') || 'normal';
-    
-    console.log('Modo actual:', currentMode); // Debug
     
     // Remover clases anteriores
     body.classList.remove('alto-contraste', 'modo-oscuro', 'modo-sepia');
@@ -108,11 +102,8 @@ function changeContrast() {
             message = 'Modo alto contraste activado';
     }
     
-    console.log('Nuevo modo:', newMode); // Debug
-    
     if (newMode !== 'normal') {
         body.classList.add(newMode);
-        console.log('Clase agregada:', newMode); // Debug
     }
     
     localStorage.setItem('contrastMode', newMode);
@@ -121,8 +112,6 @@ function changeContrast() {
 
 // Función para resetear configuración
 function resetSettings() {
-    console.log('Reseteando configuración'); // Debug
-    
     const body = document.body;
     
     // Resetear tamaño de texto
@@ -138,8 +127,6 @@ function resetSettings() {
 
 // Event listener para los botones de accesibilidad
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM cargado, inicializando accesibilidad'); // Debug
-    
     // Cargar configuración guardada
     const savedFontSize = localStorage.getItem('fontSize');
     const savedContrastMode = localStorage.getItem('contrastMode');
@@ -150,19 +137,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (savedContrastMode && savedContrastMode !== 'normal') {
         document.body.classList.add(savedContrastMode);
-        console.log('Modo cargado:', savedContrastMode); // Debug
     }
     
     // Delegación de eventos para los botones
     document.addEventListener('click', function(e) {
         const button = e.target.closest('.accessibility-buttons-container .btn');
         if (!button) return;
-        
-        console.log('Botón clickeado:', button); // Debug
-        
+                
         const action = button.getAttribute('data-action');
-        console.log('Acción:', action); // Debug
-        
         switch (action) {
             case 'increase-text':
                 changeTextSize('increase');
@@ -182,8 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'encuesta-accesibilidad':
                 openEncuestaAccesibilidad();
                 break;
-            default:
-                console.log('Acción no reconocida:', action); // Debug
         }
     });
     
@@ -208,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    console.log('Accesibilidad inicializada correctamente'); // Debug
     // Exponer bandera global para evitar conflictos con otros scripts
     window.ACCESSIBILITY_MANAGED = true;
 });

@@ -68,34 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('orientationchange', applyPosition);
   };
 
-  // Eliminar filtros de imágenes para asegurar la accesibilidad visual
-  const removeImageFilters = () => {
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-      img.style.filter = 'none';
-      img.style.webkitFilter = 'none';
-    });
-  };
-
   // Inicializar las funciones
   initAccessibilityButtons();
-  removeImageFilters();
 
   // Asegurar que los estilos se apliquen incluso si el DOM se modifica dinámicamente
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.addedNodes.length) {
-        initAccessibilityButtons();
-        removeImageFilters();
-      }
-    });
-  });
-
-  // Observar cambios en el body
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-
-  console.log('Estilos de accesibilidad aplicados correctamente');
+  const observer = new MutationObserver(initAccessibilityButtons);
+  observer.observe(document.body, { childList: true, subtree: true });
 });

@@ -3,6 +3,10 @@
  * Maneja el wizard de pasos, validaciones, calendario y simulación de envío.
  */
 
+import { db, storage } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
 // Datos de ejemplo para especialidades (Simulación de API)
 const especialidades = [
     { id: 1, nombre: 'Medicina General', icono: 'bi-stethoscope', descripcion: 'Consulta general para adultos y niños' },
@@ -53,6 +57,7 @@ const especialidades = [
     window.addEventListener('resize', () => setStepView(pasoActual));
 
     // Permitir navegación hacia atrás haciendo clic en los indicadores de paso
+    // y manejar la navegación del calendario con delegación de eventos.
     document.querySelectorAll('.step-item').forEach(stepIndicator => {
       stepIndicator.addEventListener('click', () => {
         const targetStep = parseInt(stepIndicator.id.replace('step', ''), 10);
@@ -62,6 +67,17 @@ const especialidades = [
         }
       });
     });
+
+    // Delegación de eventos para los botones del calendario
+    const calendarHeader = document.querySelector('.calendar-header');
+    if (calendarHeader) {
+      calendarHeader.addEventListener('click', (e) => {
+        const button = e.target.closest('button');
+        if (!button) return;
+        if (button.id === 'prevMonthBtn') mesAnterior();
+        if (button.id === 'nextMonthBtn') siguienteMes();
+      });
+    }
 
   });
 
@@ -153,17 +169,15 @@ const especialidades = [
   
   // --- Calendario y Horarios ---
   
-  // Funciones para navegar el calendario
-  window.siguienteMes = function() {
+  function siguienteMes() {
     fechaMostrada.setMonth(fechaMostrada.getMonth() + 1);
     generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());
   }
   
-  window.mesAnterior = function() {
+  function mesAnterior() {
     fechaMostrada.setMonth(fechaMostrada.getMonth() - 1);
     generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());
   }
-  
   function generarCalendario(year, month) {
     const container = document.getElementById('calendarGrid');
     if (!container) return;
@@ -333,8 +347,7 @@ const especialidades = [
     setStepView(pasoActual);
   }
 
-  // Exponer funciones al scope global para los botones onclick del HTML
-  window.siguientePaso = function(paso) {
+  function siguientePaso(paso) {
     if (!validarPaso(paso)) return;
     
     document.getElementById(`paso${paso}`).classList.remove('active');
@@ -356,7 +369,7 @@ const especialidades = [
     setStepView(pasoActual);
   };
   
-  window.anteriorPaso = function(paso) {
+  function anteriorPaso(paso) {
     document.getElementById(`paso${paso}`).classList.remove('active');
     
     const stepIndicator = document.getElementById(`step${paso}`);
@@ -376,6 +389,21 @@ const especialidades = [
 
     setStepView(pasoActual);
   };
+
+  // Delegación de eventos para los botones de navegación del wizard
+  const formSlider = document.querySelector('.form-slider');
+  if (formSlider) {
+    formSlider.addEventListener('click', (e) => {
+      const button = e.target.closest('button[data-action]');
+      if (!button) return;
+
+      const action = button.dataset.action;
+      const paso = parseInt(button.dataset.step, 10);
+
+      if (action === 'next') siguientePaso(paso);
+      if (action === 'prev') anteriorPaso(paso);
+    });
+  }
 
   function actualizarBarraDeProgreso() {
     const progressBar = document.getElementById('progressBar');
@@ -452,7 +480,7 @@ const especialidades = [
   
   // --- Envío y Confirmación ---
   
-  function confirmarCita(e) {
+  async function confirmarCita(e) {
     e.preventDefault();
     
     // Validación final del paso 4
@@ -460,40 +488,83 @@ const especialidades = [
     const tieneWhatsapp = document.querySelector('input[name="tieneWhatsapp"]:checked');
     
     if (!motivo) {
-        mostrarError('Por favor, describe el motivo de tu consulta');
-        return;
+      mostrarError('Por favor, describe el motivo de tu consulta');
+      return;
     }
     if (!tieneWhatsapp) {
-        mostrarError('Por favor, indica si el número celular tiene WhatsApp');
-        return;
+      mostrarError('Por favor, indica si el número celular tiene WhatsApp');
+      return;
     }
     
     datosCita.motivoConsulta = motivo;
     datosCita.tieneWhatsapp = tieneWhatsapp.value;
-    datosCita.ordenesMedicas = document.getElementById('ordenesMedicas').files;
-  
-    // Simulación de envío
-    document.getElementById('loadingOverlay').style.display = 'flex';
     
-    setTimeout(() => {
+    // Mostrar indicador de carga
+    document.getElementById('loadingOverlay').style.display = 'flex';
+
+    try {
+      // PASO 1: Guardar los datos de la cita (sin los archivos) para obtener un ID.
+      // Esto nos da un ID único para usar como carpeta para los archivos.
+      const dataToSave = {
+        ...datosCita,
+        paciente: { ...datosCita.paciente }, // Crear una copia para evitar problemas de referencia
+        ordenesMedicas: [], // Dejar vacío por ahora, se actualizará después de subir los archivos.
+        status: 'Solicitada', // Estado inicial de la solicitud
+        createdAt: serverTimestamp() // Fecha y hora de creación en el servidor
+      };
+
+      // Guardar el documento en la colección 'citasOnline' de Firestore
+      const docRef = await addDoc(collection(db, "citasOnline"), dataToSave);
+      const citaId = docRef.id;
+
+      // PASO 2: Subir los archivos a Firebase Storage.
+      const ordenesInput = document.getElementById('ordenesMedicas');
+      const files = ordenesInput.files;
+      const uploadedFilesInfo = [];
+
+      if (files.length > 0) {
+        // Usar Promise.all para subir todos los archivos en paralelo.
+        const uploadPromises = Array.from(files).map(file => {
+          const storageRef = ref(storage, `citas/${citaId}/${file.name}`);
+          return uploadBytes(storageRef, file).then(snapshot => {
+            return getDownloadURL(snapshot.ref);
+          }).then(downloadURL => {
+            uploadedFilesInfo.push({
+              name: file.name,
+              url: downloadURL,
+              size: file.size,
+              type: file.type
+            });
+          });
+        });
+
+        await Promise.all(uploadPromises);
+      }
+
+      // PASO 3: Actualizar el documento de la cita con las URLs de los archivos.
+      const citaDocRef = doc(db, "citasOnline", citaId);
+      await updateDoc(citaDocRef, {
+        ordenesMedicas: uploadedFilesInfo
+      });
+
+      // --- Éxito ---
       document.getElementById('loadingOverlay').style.display = 'none';
       
-      const radicado = 'CITA-' + Date.now();
-      document.getElementById('numeroRadicado').textContent = radicado;
+      document.getElementById('numeroRadicado').textContent = citaId; // Usar el ID de Firestore como radicado
       
       const fechaObj = new Date(datosCita.fecha + 'T12:00:00');
-      const fechaCompleta = fechaObj.toLocaleDateString('es-CO', {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-      }) + ' a las ' + datosCita.hora;
+      const fechaCompleta = `${fechaObj.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${datosCita.hora}`;
       
       document.getElementById('fechaConfirmada').textContent = fechaCompleta;
-      document.getElementById('paso4').style.display = 'none';
       
       const modal = new bootstrap.Modal(document.getElementById('modalExito'));
       modal.show();
-      
-      console.log('Datos enviados:', datosCita);
-    }, 2000);
+    } catch (error) {
+      // --- Manejo de Errores ---
+      console.error("Error al guardar la cita y subir archivos: ", error);
+      document.getElementById('loadingOverlay').style.display = 'none';
+      mostrarError('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
+    }
   }
   
   // --- Utilidades de UI ---
