@@ -1,0 +1,71 @@
+/* Solución adicional para evitar parpadeo del desplegable */
+
+/* CSS para desplegables estables */
+.status-select {
+    transition: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.status-select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Evitar que Bootstrap interfiera */
+.status-select:hover {
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Toast para confirmación de estado */
+.toast {
+    background-color: #0f5132;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.toast-header {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.toast-body {
+    background-color: transparent;
+}
+
+/* Prevenir interferencia de otros scripts */
+.status-select::after {
+    content: none !important;
+}
+
+/* Mejorar usabilidad del desplegable */
+.status-select option {
+    padding: 8px 12px;
+    background-color: white;
+    color: #333;
+}
+
+.status-select option:hover {
+    background-color: #f8f9fa;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .status-select {
+        font-size: 0.875rem;
+        padding: 6px 8px;
+    }
+    
+    .toast {
+        position: fixed !important;
+        top: 10px !important;
+        right: 10px !important;
+        left: auto !important;
+        width: calc(100% - 20px) !important;
+        max-width: 300px !important;
+    }
+}

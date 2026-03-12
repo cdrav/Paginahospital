@@ -969,6 +969,19 @@
               </div>
               
               <div class="mt-4">
+                <label for="estadoCita" class="form-label">Estado de la solicitud</label>
+                <select class="form-select" id="estadoCita" required>
+                  <option value="">Selecciona el estado</option>
+                  <option value="Solicitada" selected>Solicitada</option>
+                  <option value="En Proceso">En Proceso</option>
+                  <option value="Confirmada">Confirmada</option>
+                  <option value="Atendida">Atendida</option>
+                  <option value="Cancelada">Cancelada</option>
+                </select>
+                <small class="text-muted">El estado inicial es "Solicitada". Puedes cambiarlo según el progreso.</small>
+              </div>
+              
+              <div class="mt-4">
                 <label class="form-label">¿El número celular ingresado tiene WhatsApp?</label>
                 <div class="d-flex gap-3">
                   <div class="form-check">
@@ -1092,6 +1105,9 @@
 <script src="js/breadcrumb.js"></script>
 <script src="js/cookie-consent.js"></script>
 <script type="module" src="js/citas-medicas-online.js" defer></script>
+<script src="js/citas-cors-fix.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="js/email-service.js" defer></script>
 
 </body>
 </html>

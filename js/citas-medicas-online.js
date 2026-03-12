@@ -517,28 +517,62 @@ const especialidades = [
       const docRef = await addDoc(collection(db, "citasOnline"), dataToSave);
       const citaId = docRef.id;
 
-      // PASO 2: Subir los archivos a Firebase Storage.
+      // PASO 2: Subir los archivos a Firebase Storage con manejo robusto de errores CORS
       const ordenesInput = document.getElementById('ordenesMedicas');
       const files = ordenesInput.files;
       const uploadedFilesInfo = [];
+      let uploadErrors = [];
+      let hasCorsError = false;
 
       if (files.length > 0) {
-        // Usar Promise.all para subir todos los archivos en paralelo.
-        const uploadPromises = Array.from(files).map(file => {
-          const storageRef = ref(storage, `citas/${citaId}/${file.name}`);
-          return uploadBytes(storageRef, file).then(snapshot => {
-            return getDownloadURL(snapshot.ref);
-          }).then(downloadURL => {
+        console.log('Iniciando subida de archivos...');
+        
+        // Intentar subir archivos uno por uno con manejo CORS
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          try {
+            console.log(`Subiendo archivo ${i + 1}/${files.length}: ${file.name}`);
+            const storageRef = ref(storage, `citas/${citaId}/${file.name}`);
+            const snapshot = await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+            
             uploadedFilesInfo.push({
               name: file.name,
               url: downloadURL,
               size: file.size,
               type: file.type
             });
-          });
-        });
+            
+            console.log(`✅ Archivo ${file.name} subido exitosamente`);
+          } catch (fileError) {
+            console.error(`❌ Error subiendo ${file.name}:`, fileError);
+            
+            // Detectar específicamente errores CORS
+            if (fileError.message && fileError.message.includes('CORS') || 
+                fileError.message && fileError.message.includes('blocked by CORS policy') ||
+                fileError.code === 'storage/unauthorized') {
+              hasCorsError = true;
+              console.warn('🚫 Error CORS detectado - archivo no subido');
+            }
+            
+            uploadErrors.push({
+              fileName: file.name,
+              error: fileError.message,
+              isCorsError: hasCorsError
+            });
+          }
+        }
 
-        await Promise.all(uploadPromises);
+        // Si hay errores CORS específicos, mostrar advertencia clara
+        if (hasCorsError) {
+          console.warn('⚠️ Problema CORS detectado - archivos no subidos');
+          
+          // Mostrar advertencia al usuario pero continuar con el proceso
+          mostrarAdvertencia('Los archivos adjuntos no pudieron subirse debido a restricciones de seguridad. Su cita se ha registrado correctamente. Puede enviar los archivos por otros medios.');
+        } else if (uploadErrors.length > 0) {
+          console.warn('⚠️ Algunos archivos no se pudieron subir:', uploadErrors);
+          mostrarError('Algunos archivos no se pudieron subir. Su cita se ha registrado correctamente.');
+        }
       }
 
       // PASO 3: Actualizar el documento de la cita con las URLs de los archivos.
@@ -547,7 +581,7 @@ const especialidades = [
         ordenesMedicas: uploadedFilesInfo
       });
 
-      // --- Éxito ---
+      // --- Éxito con posible advertencia de archivos ---
       document.getElementById('loadingOverlay').style.display = 'none';
       
       document.getElementById('numeroRadicado').textContent = citaId; // Usar el ID de Firestore como radicado
@@ -556,6 +590,12 @@ const especialidades = [
       const fechaCompleta = `${fechaObj.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${datosCita.hora}`;
       
       document.getElementById('fechaConfirmada').textContent = fechaCompleta;
+      
+      // Mostrar advertencia si algunos archivos fallaron
+      if (uploadErrors.length > 0) {
+        const archivosFallidos = uploadErrors.map(err => err.fileName).join(', ');
+        mostrarAdvertencia(`Tu cita fue registrada exitosamente, pero los siguientes archivos no se pudieron adjuntar: ${archivosFallidos}. Por favor, contáctanos para enviarlos por otro medio.`);
+      }
       
       const modal = new bootstrap.Modal(document.getElementById('modalExito'));
       modal.show();
@@ -575,11 +615,40 @@ const especialidades = [
     const box = document.getElementById('errorMessage');
     if(box) {
         box.style.display = 'flex';
-        setTimeout(() => { box.style.display = 'none'; }, 5000);
+        box.className = 'alert alert-danger d-flex align-items-center';
+        setTimeout(() => { 
+            box.style.display = 'none'; 
+        }, 5000);
     }
   }
   
   function ocultarError() {
     const box = document.getElementById('errorMessage');
     if(box) box.style.display = 'none';
+  }
+  
+  function mostrarAdvertencia(mensaje) {
+    const el = document.getElementById('errorText');
+    if(el) el.textContent = mensaje;
+    const box = document.getElementById('errorMessage');
+    if(box) {
+        box.style.display = 'flex';
+        box.className = 'alert alert-warning d-flex align-items-center';
+        setTimeout(() => { 
+            box.style.display = 'none'; 
+        }, 8000);
+    }
+  }
+  
+  function mostrarExito(mensaje) {
+    const el = document.getElementById('errorText');
+    if(el) el.textContent = mensaje;
+    const box = document.getElementById('errorMessage');
+    if(box) {
+        box.style.display = 'flex';
+        box.className = 'alert alert-success d-flex align-items-center';
+        setTimeout(() => { 
+            box.style.display = 'none'; 
+        }, 4000);
+    }
   }
