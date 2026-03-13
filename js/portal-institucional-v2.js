@@ -28,14 +28,19 @@ onAuthStateChanged(auth, (user) => {
             const firebaseCard = document.getElementById('firebase-card');
             const hojaVidaPcCard = document.getElementById('hoja-vida-pc-card');
             const citasAdminCard = document.getElementById('citas-admin-card');
+            const intranetCard = document.getElementById('intranet-card');
             
             if (adminCard) adminCard.classList.remove('d-none');
             if (firebaseCard) firebaseCard.classList.remove('d-none');
             if (hojaVidaPcCard) hojaVidaPcCard.classList.remove('d-none');
             if (citasAdminCard) citasAdminCard.classList.remove('d-none');
+            if (intranetCard) intranetCard.classList.remove('d-none');
 
             // Inicializar el panel de administración de citas
             initCitasAdmin();
+            
+            // Inicializar el módulo de Intranet (Planeación y Calidad)
+            initIntranetPlaneacion();
         }
     }
 });
@@ -51,10 +56,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const mainCardsContainer = document.getElementById('main-cards-container');
+
+    // --- Lógica para mostrar/ocultar paneles ---
+
+    // Panel de Gestión de Citas
+    const citasAdminPanel = document.getElementById('citas-admin-panel');
+    const btnShowCitas = document.getElementById('btn-show-citas-panel');
+    const btnHideCitas = document.getElementById('btn-hide-citas-panel');
+
+    if (btnShowCitas && mainCardsContainer && citasAdminPanel) {
+        btnShowCitas.addEventListener('click', () => {
+            mainCardsContainer.classList.add('d-none');
+            citasAdminPanel.classList.remove('d-none');
+        });
+    }
+    if (btnHideCitas && mainCardsContainer && citasAdminPanel) {
+        btnHideCitas.addEventListener('click', () => {
+            citasAdminPanel.classList.add('d-none');
+            mainCardsContainer.classList.remove('d-none');
+        });
+    }
+
+    // Panel de Intranet (Mapa de Procesos)
+    const intranetPanel = document.getElementById('intranet-panel');
+    const btnShowIntranet = document.getElementById('btn-show-intranet-panel');
+    const btnHideIntranet = document.getElementById('btn-hide-intranet-panel');
+
+    if (btnShowIntranet && mainCardsContainer && intranetPanel) {
+        btnShowIntranet.addEventListener('click', () => {
+            mainCardsContainer.classList.add('d-none');
+            intranetPanel.classList.remove('d-none');
+        });
+    }
+    if (btnHideIntranet && mainCardsContainer && intranetPanel) {
+        btnHideIntranet.addEventListener('click', () => {
+            intranetPanel.classList.add('d-none');
+            mainCardsContainer.classList.remove('d-none');
+        });
+    }
+    
     // Event listeners para los botones de ver detalles y cambiar estado
     document.addEventListener('click', async (e) => {
         if (e.target.closest('.view-details-btn')) {
-            const btn = e.target.closest('.view-details-btn');
+            const btn = e.target.closest('.view-details-btn');    
             const docId = btn.dataset.docId;
             await showCitaDetails(docId);
         }
@@ -62,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.closest('.responder-email-btn')) {
             const btn = e.target.closest('.responder-email-btn');
             const docId = btn.dataset.docId;
-            const pacienteEmail = btn.dataset.email;
+            const pacienteEmail = btn.dataset.email;            
             await showEmailResponseModal(docId, pacienteEmail);
         }
 
@@ -219,20 +264,39 @@ async function showCitaDetails(docId) {
             `;
             
             for (const archivo of cita.ordenesMedicas) {
+                // Determinar tipo de archivo para visualización
+                const isImage = archivo.type.includes('image');
+                const isPdf = archivo.type.includes('pdf');
+                let previewHtml = '';
+
+                if (isImage) {
+                    previewHtml = `<div class="mt-2 text-center bg-light p-2 rounded">
+                        <img src="${archivo.url}" alt="Vista previa" style="max-height: 150px; max-width: 100%; border-radius: 4px; cursor: pointer;" onclick="window.open('${archivo.url}', '_blank')">
+                    </div>`;
+                } else if (isPdf) {
+                    previewHtml = `<div class="mt-2 text-center">
+                        <embed src="${archivo.url}" type="application/pdf" width="100%" height="150px" style="border: 1px solid #ddd; border-radius: 4px;">
+                        <small class="d-block text-muted mt-1">Vista previa PDF</small>
+                    </div>`;
+                }
+
                 archivosHtml += `
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <i class="bi bi-file-earmark me-2"></i>
-                            <strong>${archivo.name}</strong>
-                            <small class="text-muted d-block">
-                                ${formatFileSize(archivo.size)} • ${archivo.type}
-                            </small>
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi ${isImage ? 'bi-file-image' : (isPdf ? 'bi-file-pdf' : 'bi-file-earmark')} me-2"></i>
+                                <strong>${archivo.name}</strong>
+                                <small class="text-muted d-block">
+                                    ${formatFileSize(archivo.size)} • ${archivo.type}
+                                </small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-success descargar-archivo-btn" 
+                                    data-url="${archivo.url}" 
+                                    data-name="${archivo.name}">
+                                <i class="bi bi-download"></i> Descargar
+                            </button>
                         </div>
-                        <button class="btn btn-sm btn-outline-success descargar-archivo-btn" 
-                                data-url="${archivo.url}" 
-                                data-name="${archivo.name}">
-                            <i class="bi bi-download"></i> Descargar
-                        </button>
+                        ${previewHtml}
                     </div>
                 `;
             }
@@ -511,4 +575,105 @@ function formatFileSize(bytes) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// =========================================================================
+// 🏥 MÓDULO INTRANET: PLANEACIÓN Y CALIDAD (MAPA DE PROCESOS)
+// Migración del Excel a Entorno Web Integrado
+// =========================================================================
+
+// Datos del nuevo Mapa de Procesos, organizados por macroprocesos.
+const DATA_PLANEACION = {
+    estrategicos: [
+        { nombre: "Planeación Estratégica", icon: "bi-compass", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/1G_ESTRATEGICA/1P_ESTRATÉGICA" },
+        { nombre: "Gestión de la Legalidad", icon: "bi-bank", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/1G_ESTRATEGICA/2G_LEGALIDAD" }
+    ],
+    misionales: [
+        { nombre: "Gestión de la Salud Pública", icon: "bi-heart-pulse-fill", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/2G_MISIONAL/1G_SALUD_PUBLICA" },
+        { nombre: "Gestión de la Intervención", icon: "bi-scissors", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/2G_MISIONAL/2G_INTERVENCIÓN" },
+        { nombre: "Apoyo Diagnóstico", icon: "bi-eyedropper", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/2G_MISIONAL/3G_APOYO DX" },
+        { nombre: "Apoyo Terapéutico", icon: "bi-bandaid-fill", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/2G_MISIONAL/4G_APOYO_TERAP" }
+    ],
+    administrativos: [
+        { nombre: "Gestión Financiera", icon: "bi-cash-coin", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/3G_ADMINISTRATIVA/1G_FINANCIERA" },
+        { nombre: "Gestión del Talento Humano", icon: "bi-people-fill", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/3G_ADMINISTRATIVA/2G_T_HUMANO" },
+        { nombre: "Gestión de Recursos Físicos", icon: "bi-building-gear", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/3G_ADMINISTRATIVA/3G_REC_FÍSICOS" },
+        { nombre: "Gestión de la Información", icon: "bi-server", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/3G_ADMINISTRATIVA/4G_INFORMACIÓN" }
+    ],
+    control: [
+        { nombre: "Control Integral de Calidad", icon: "bi-check-circle-fill", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/4G_CONTROL/1C_SGC" },
+        { nombre: "Control de la Evaluación", icon: "bi-clipboard-data-fill", url: "file://10.10.1.6/planeacion/HDSA/COMPENDIO_CALIDAD_HDSA/MANUAL DE OPERACIONES HDSA/4G_CONTROL/2C_EVALUACION" }
+    ]
+};
+
+/**
+ * Inicializa el renderizado del módulo de planeación si el contenedor existe.
+ */
+function initIntranetPlaneacion() {
+    const container = document.getElementById('planeacion-intranet-container');
+    if (!container) return;
+    
+    // --- Función para renderizar una tarjeta individual para cada documento ---
+    const renderItemCard = (item, colorClass) => `
+        <div class="col">
+        <div class="card h-100 modern-dashboard-card border-start-0 border-end-0 border-bottom-0 border-5 border-${colorClass}">
+            <div class="card-body d-flex flex-column align-items-center text-center pb-2">
+                <div class="icon-wrapper mb-3 text-${colorClass}">
+                    <i class="bi ${item.icon} fs-1"></i>
+                </div>
+                <h6 class="card-title fw-bold flex-grow-1">${item.nombre}</h6>
+            </div>
+            <div class="card-footer bg-transparent border-0 text-center pt-0 pb-3">
+                <button class="btn btn-sm btn-outline-secondary copy-path-btn" data-path="${item.url}">
+                    <i class="bi bi-clipboard me-1"></i> Copiar Ruta de Acceso
+                        </div>
+                        <h6 class="card-title fw-bold flex-grow-1">${item.nombre}</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+    `;
+
+    // --- Función para renderizar una categoría completa con sus tarjetas ---
+    const renderCategory = (title, items, colorClass, icon) => `
+        <div class="mb-5">
+            <h3 class="mb-4 pb-2 border-bottom"><i class="bi ${icon} me-2 text-${colorClass}"></i>${title}</h3>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                ${items.map(item => renderItemCard(item, colorClass)).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Generar el HTML completo del dashboard
+    container.innerHTML = [
+        renderCategory("Procesos Estratégicos", DATA_PLANEACION.estrategicos, "primary", "bi-diagram-3-fill"),
+        renderCategory("Procesos Misionales", DATA_PLANEACION.misionales, "success", "bi-hospital-fill"),
+        renderCategory("Procesos de Apoyo Administrativo", DATA_PLANEACION.administrativos, "info", "bi-gear-fill"),
+        renderCategory("Procesos de Evaluación y Control", DATA_PLANEACION.control, "warning", "bi-shield-fill-check")
+    ].join('');
+    
+    // Agregar estilos CSS dinámicamente para el nuevo dashboard
+    const style = document.createElement('style');
+    style.textContent = `
+        .modern-dashboard-card {
+            border-radius: 0.75rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .modern-dashboard-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .modern-dashboard-card .icon-wrapper {
+            transition: transform 0.25s ease;
+        }
+        .modern-dashboard-card:hover .icon-wrapper {
+            transform: scale(1.15);
+        }
+        .small-badge {
+            font-size: 0.7rem;
+            padding: .3em .6em;
+        }
+    `;
+    document.head.appendChild(style);
 }

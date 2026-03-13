@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="css/accesibilidad.css" />
     <link rel="stylesheet" href="css/accessibility-buttons.css" />
     <link rel="stylesheet" href="css/portal-select-fix.css" />
-    <!-- Script de lógica del portal (incluye protección de ruta) -->
-    <script type="module" src="js/portal-institucional.js"></script>
 </head>
 <body>
 
@@ -114,6 +112,18 @@
                     </div>
                 </div>
 
+                <!-- Tarjeta para Mapa de Procesos / Intranet (Solo Admin/Interno) -->
+                <div class="col-md-6 col-lg-4 d-none" id="intranet-card">
+                    <div class="card form-link-card h-100">
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="form-icon-wrapper"><i class="bi bi-diagram-3-fill"></i></div>
+                            <h5 class="card-title">Mapa de Procesos</h5>
+                            <p class="card-text text-muted flex-grow-1">Intranet: Manuales, protocolos y documentación del sistema de calidad.</p>
+                            <button id="btn-show-intranet-panel" class="btn btn-outline-primary stretched-link">Acceder a Documentos</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Tarjeta para Gestión de Citas Online (Solo para Admin) -->
                 <div class="col-md-6 col-lg-4 d-none" id="citas-admin-card">
                     <div class="card form-link-card h-100">
@@ -168,6 +178,16 @@
             </div>
         </div>
 
+        <!-- SECCIÓN DE MAPA DE PROCESOS (INTRANET) -->
+        <div id="intranet-panel" class="d-none mt-5">
+            <button id="btn-hide-intranet-panel" class="btn btn-secondary mb-4"><i class="bi bi-arrow-left me-2"></i>Volver al Portal</button>
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold text-brand">Mapa de Procesos Institucional</h2>
+                <p class="lead text-muted">Documentación del Sistema de Gestión de Calidad</p>
+            </div>
+            <div id="planeacion-intranet-container"></div>
+        </div>
+
         <!-- Botón de Cerrar Sesión, ahora fuera del contenedor de tarjetas -->
         <div class="text-center mt-5">
             <button id="logout-button" class="btn btn-danger"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</button>
@@ -202,6 +222,7 @@
     <script src="js/accessibility-styles.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="js/email-service.js" defer></script>
+    <!-- Lógica principal del portal, incluye protección de ruta y gestión de paneles -->
     <script src="js/portal-institucional-v2.js" type="module" defer></script>
     <script src="js/main.js" defer></script>
 </body>

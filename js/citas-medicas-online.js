@@ -509,7 +509,7 @@ const especialidades = [
         ...datosCita,
         paciente: { ...datosCita.paciente }, // Crear una copia para evitar problemas de referencia
         ordenesMedicas: [], // Dejar vacío por ahora, se actualizará después de subir los archivos.
-        status: 'Solicitada', // Estado inicial de la solicitud
+        status: 'Solicitada', // Estado inicial fijo para todas las citas
         createdAt: serverTimestamp() // Fecha y hora de creación en el servidor
       };
 
@@ -527,41 +527,70 @@ const especialidades = [
       if (files.length > 0) {
         console.log('Iniciando subida de archivos...');
         
-        // Intentar subir archivos uno por uno con manejo CORS
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
+        // Obtener fecha actual para organizar carpetas por Año/Mes
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+
+        // Subir archivos en paralelo para mejor rendimiento
+        const uploadPromises = Array.from(files).map(async (file, index) => {
           try {
-            console.log(`Subiendo archivo ${i + 1}/${files.length}: ${file.name}`);
-            const storageRef = ref(storage, `citas/${citaId}/${file.name}`);
-            const snapshot = await uploadBytes(storageRef, file);
+            console.log(`Iniciando subida ${index + 1}/${files.length}: ${file.name}`);
+            
+            // Intentar comprimir si es imagen para ahorrar espacio (Plan Gratuito)
+            const fileToUpload = await comprimirImagen(file);
+            
+            // Estructura organizada: citas/2024/03/ID_CITA/archivo.ext
+            const storageRef = ref(storage, `citas/${year}/${month}/${citaId}/${fileToUpload.name}`);
+            const snapshot = await uploadBytes(storageRef, fileToUpload);
             const downloadURL = await getDownloadURL(snapshot.ref);
             
-            uploadedFilesInfo.push({
-              name: file.name,
+            return {
+              success: true,
+              data: {
+              name: fileToUpload.name,
               url: downloadURL,
-              size: file.size,
-              type: file.type
-            });
-            
-            console.log(`✅ Archivo ${file.name} subido exitosamente`);
+              size: fileToUpload.size,
+              type: fileToUpload.type
+              }
+            };
           } catch (fileError) {
             console.error(`❌ Error subiendo ${file.name}:`, fileError);
-            
+            let isCors = false;
             // Detectar específicamente errores CORS
             if (fileError.message && fileError.message.includes('CORS') || 
                 fileError.message && fileError.message.includes('blocked by CORS policy') ||
                 fileError.code === 'storage/unauthorized') {
+              isCors = true;
+            }
+            
+            return {
+              success: false,
+              error: {
+              fileName: file.name,
+              error: fileError.message,
+              isCorsError: isCors
+              }
+            };
+          }
+        });
+
+        // Esperar a que todas las subidas terminen (éxito o fallo)
+        const results = await Promise.all(uploadPromises);
+
+        // Procesar resultados
+        results.forEach(result => {
+          if (result.success) {
+            uploadedFilesInfo.push(result.data);
+            console.log(`✅ Archivo ${result.data.name} subido exitosamente`);
+          } else {
+            if (result.error.isCorsError) {
               hasCorsError = true;
               console.warn('🚫 Error CORS detectado - archivo no subido');
             }
-            
-            uploadErrors.push({
-              fileName: file.name,
-              error: fileError.message,
-              isCorsError: hasCorsError
-            });
+            uploadErrors.push(result.error);
           }
-        }
+        });
 
         // Si hay errores CORS específicos, mostrar advertencia clara
         if (hasCorsError) {
@@ -605,6 +634,59 @@ const especialidades = [
       document.getElementById('loadingOverlay').style.display = 'none';
       mostrarError('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
     }
+  }
+  
+  /**
+   * Función auxiliar para comprimir imágenes antes de subir
+   * Reduce el tamaño drásticamente para mantener el plan gratuito de Firebase
+   */
+  function comprimirImagen(file) {
+    // Si no es imagen, devolver el archivo original
+    if (!file.type.match(/image.*/)) return Promise.resolve(file);
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          // Configuración de compresión
+          const maxWidth = 1280; // Máximo ancho HD (suficiente para leer documentos)
+          const quality = 0.7;   // Calidad JPG al 70%
+          
+          let width = img.width;
+          let height = img.height;
+
+          // Calcular nuevas dimensiones manteniendo aspecto
+          if (width > maxWidth) {
+            height = Math.round(height * (maxWidth / width));
+            width = maxWidth;
+          }
+
+          // Crear canvas para redimensionar
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Exportar a Blob comprimido (JPEG)
+          canvas.toBlob((blob) => {
+            if (!blob) {
+                resolve(file); // Fallback si falla
+                return;
+            }
+            console.log(`📉 Imagen comprimida: ${(file.size/1024).toFixed(1)}KB -> ${(blob.size/1024).toFixed(1)}KB`);
+            // Crear nuevo archivo manteniendo el nombre original pero forzando .jpg
+            const newName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+            resolve(new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() }));
+          }, 'image/jpeg', quality);
+        };
+        img.onerror = () => resolve(file);
+      };
+      reader.onerror = () => resolve(file);
+    });
   }
   
   // --- Utilidades de UI ---
@@ -652,3 +734,15 @@ const especialidades = [
         }, 4000);
     }
   }
+  
+  // Hacer funciones globales para que puedan ser accedidas desde otros scripts
+  window.siguientePaso = siguientePaso;
+  window.anteriorPaso = anteriorPaso;
+  window.validarPaso = validarPaso;
+  window.actualizarBarraDeProgreso = actualizarBarraDeProgreso;
+  window.cargarResumen = cargarResumen;
+  window.confirmarCita = confirmarCita;
+  window.mostrarError = mostrarError;
+  window.ocultarError = ocultarError;
+  window.mostrarAdvertencia = mostrarAdvertencia;
+  window.mostrarExito = mostrarExito;

@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log('🎭 Modo desarrollo: Simulando envío de cita');
           
           // Simular ID de cita
-          const citaId = 'DEV-' + Date.now();
+          const citaId = 'DEV-' + Date.now(); 
           
           // Ocultar carga
           if (loadingOverlay) loadingOverlay.style.display = 'none';
