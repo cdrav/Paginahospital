@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navegación Simple</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/citas-online.css" />
+</head>
+<body>
+    <div class="modern-container">
+        <div class="form-card">
+            <div class="step-wizard">
+                <div class="step-progress">
+                    <div class="step-progress-fill" id="progressBar" style="width: 0%;"></div>
+                </div>
+                <ol class="step-wizard-list">
+                    <li class="step-item active" id="step1" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Datos Personales</div>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step2" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Especialidad</div>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step3" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Fecha y Hora</div>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step4" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Confirmación</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="form-content">
+                <form id="citaForm" class="cita-form">
+                    <div class="form-slider">
+                        <!-- Paso 1 -->
+                        <div class="form-section active" id="paso1">
+                            <h2 class="section-title">
+                                <i class="bi bi-person-circle"></i>
+                                Paso 1: Datos Personales
+                            </h2>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombres *</label>
+                                    <input type="text" class="form-control" id="nombres" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Correo *</label>
+                                    <input type="email" class="form-control" id="correo" required>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div></div>
+                                <button type="button" class="btn-modern btn-primary-modern" data-action="next" data-step="1">
+                                    Siguiente <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2 -->
+                        <div class="form-section" id="paso2">
+                            <h2 class="section-title">
+                                <i class="bi bi-hospital"></i>
+                                Paso 2: Especialidad
+                            </h2>
+                            <div class="specialty-grid" id="especialidadesContainer">
+                                <div class="specialty-card" data-id="1" data-name="Medicina General">
+                                    <div class="specialty-icon"><i class="bi bi-hospital"></i></div>
+                                    <h5>Medicina General</h5>
+                                    <p class="text-muted">Atención médica general</p>
+                                </div>
+                                <div class="specialty-card" data-id="2" data-name="Pediatría">
+                                    <div class="specialty-icon"><i class="bi bi-emoji-smile"></i></div>
+                                    <h5>Pediatría</h5>
+                                    <p class="text-muted">Cuidado médico infantil</p>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-modern btn-secondary-modern" data-action="prev" data-step="2">
+                                    <i class="bi bi-arrow-left"></i> Anterior
+                                </button>
+                                <button type="button" class="btn-modern btn-primary-modern" data-action="next" data-step="2" id="btnPaso2" disabled>
+                                    Siguiente <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3 -->
+                        <div class="form-section" id="paso3">
+                            <h2 class="section-title">
+                                <i class="bi bi-calendar-week"></i>
+                                Paso 3: Fecha y Hora
+                            </h2>
+                            
+                            <!-- Calendario simple -->
+                            <div class="calendar-container mb-4">
+                                <div class="calendar-header">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="prevMonthBtn">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </button>
+                                    <div>
+                                        <span id="currentMonth">Noviembre</span>
+                                        <span id="currentYear">2024</span>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="nextMonthBtn">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="calendar-grid" id="calendarGrid">
+                                    <!-- El calendario se generará dinámicamente -->
+                                </div>
+                            </div>
+                            
+                            <!-- Horarios disponibles -->
+                            <div>
+                                <h5 class="mb-3">Horarios disponibles</h5>
+                                <div class="time-grid" id="horariosContainer">
+                                    <!-- Los horarios se cargarán dinámicamente -->
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-modern btn-secondary-modern" data-action="prev" data-step="3">
+                                    <i class="bi bi-arrow-left"></i> Anterior
+                                </button>
+                                <button type="button" class="btn-modern btn-primary-modern" data-action="next" data-step="3" id="btnPaso3" disabled>
+                                    Siguiente <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 4 -->
+                        <div class="form-section" id="paso4">
+                            <h2 class="section-title">
+                                <i class="bi bi-check-circle"></i>
+                                Paso 4: Confirmación
+                            </h2>
+                            <p>Confirma tu cita</p>
+                            <div class="form-actions">
+                                <button type="button" class="btn-modern btn-secondary-modern" data-action="prev" data-step="4">
+                                    <i class="bi bi-arrow-left"></i> Anterior
+                                </button>
+                                <button type="submit" class="btn-modern btn-success-modern">
+                                    <i class="bi bi-check-circle"></i> Confirmar Cita
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Versión simplificada para probar solo la navegación
+        let pasoActual = 1;
+        let datosCita = {
+            paciente: {},
+            especialidad: null,
+            fecha: null,
+            hora: null,
+            motivoConsulta: '',
+            tieneWhatsapp: '',
+            ordenesMedicas: null
+        };
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM cargado, iniciando inicialización...');
+            setTimeout(() => {
+                initForm();
+                console.log('Formulario inicializado');
+            }, 100);
+        });
+
+        function initForm() {
+            if (window.formInitialized) {
+                console.log('Formulario ya inicializado, omitiendo...');
+                return;
+            }
+            
+            console.log('Iniciando formulario...');
+            window.formInitialized = true;
+            
+            // Generar calendario inicial
+            generarCalendario(new Date().getFullYear(), new Date().getMonth());
+            
+            // Ajustar vista inicial
+            setTimeout(() => setStepView(pasoActual), 200);
+            
+            // Inicializar navegación
+            setupSimpleNavigation();
+            
+            // Configurar selección de especialidad
+            const especialidadesContainer = document.getElementById('especialidadesContainer');
+            if (especialidadesContainer) {
+                especialidadesContainer.addEventListener('click', (e) => {
+                    const card = e.target.closest('.specialty-card');
+                    if (card) {
+                        seleccionarEspecialidad(card.dataset.id, card.dataset.name, card);
+                    }
+                });
+            }
+            
+            // Configurar navegación del calendario
+            const calendarHeader = document.querySelector('.calendar-header');
+            if (calendarHeader) {
+                calendarHeader.addEventListener('click', (e) => {
+                    const button = e.target.closest('button');
+                    if (!button) return;
+                    if (button.id === 'prevMonthBtn') mesAnterior();
+                    if (button.id === 'nextMonthBtn') siguienteMes();
+                });
+            }
+            
+            console.log('Formulario inicializado completamente');
+        }
+
+        function setupSimpleNavigation() {
+            console.log('=== INICIANDO NAVEGACIÓN ULTRA SIMPLE ===');
+            
+            const waitForButtons = setInterval(() => {
+                const allButtons = document.querySelectorAll('button[data-action]');
+                console.log('Botones encontrados:', allButtons.length);
+                
+                if (allButtons.length > 0) {
+                    clearInterval(waitForButtons);
+                    
+                    allButtons.forEach(button => {
+                        const action = button.dataset.action;
+                        const step = parseInt(button.dataset.step, 10);
+                        
+                        console.log(`Configurando botón: action=${action}, step=${step}`);
+                        
+                        button.removeEventListener('click', button._clickHandler);
+                        
+                        button._clickHandler = (e) => {
+                            e.preventDefault();
+                            console.log(`CLICK SIMPLE: ${action} paso ${step}`);
+                            
+                            if (action === 'next') {
+                                siguientePaso(step);
+                            } else if (action === 'prev') {
+                                anteriorPaso(step);
+                            }
+                        };
+                        
+                        button.addEventListener('click', button._clickHandler);
+                    });
+                    
+                    console.log('=== NAVEGACIÓN CONFIGURADA ===');
+                }
+            }, 100);
+        }
+
+        function setStepView(paso) {
+            const slider = document.querySelector('.form-slider');
+            const formContent = document.querySelector('.form-content');
+            const targetStepElement = document.getElementById(`paso${paso}`);
+
+            console.log(`setStepView llamado: paso=${paso}, slider=${!!slider}, target=${!!targetStepElement}`);
+
+            if (slider && formContent && targetStepElement) {
+                const percentage = (paso - 1) * -25;
+                slider.style.transform = `translateX(${percentage}%)`;
+                
+                const targetHeight = targetStepElement.offsetHeight;
+                formContent.style.height = `${Math.max(targetHeight, 400)}px`;
+                
+                slider.style.display = 'none';
+                slider.offsetHeight;
+                slider.style.display = '';
+                
+                targetStepElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                console.log(`Vista ajustada: paso=${paso}, altura=${targetHeight}px`);
+            } else {
+                console.error('No se encontraron los elementos para ajustar la vista');
+            }
+        }
+
+        function siguientePaso(paso) {
+            console.log('Intentando avanzar desde paso:', paso, 'Paso actual:', pasoActual);
+            
+            if (!validarPaso(paso)) {
+                console.log('Validación falló en paso:', paso);
+                return;
+            }
+            
+            console.log('Validación exitosa, avanzando al paso:', paso + 1);
+            
+            const stepIndicator = document.getElementById(`step${paso}`);
+            if (stepIndicator) {
+                stepIndicator.classList.remove('active');
+                stepIndicator.classList.add('completed');
+                stepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = '<i class="bi bi-check-lg"></i>';
+            }
+            
+            pasoActual = paso + 1;
+            const nextStepIndicator = document.getElementById(`step${pasoActual}`);
+            if (nextStepIndicator) {
+                nextStepIndicator.classList.add('active');
+            }
+            
+            actualizarBarraDeProgreso();
+            setStepView(pasoActual);
+        }
+
+        function anteriorPaso(paso) {
+            const stepIndicator = document.getElementById(`step${paso}`);
+            stepIndicator.classList.remove('active');
+            
+            pasoActual = paso - 1;
+            
+            const prevStepIndicator = document.getElementById(`step${pasoActual}`);
+            prevStepIndicator.classList.remove('completed');
+            prevStepIndicator.classList.add('active');
+            prevStepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = pasoActual;
+            
+            actualizarBarraDeProgreso();
+            setStepView(pasoActual);
+        }
+
+        function validarPaso(paso) {
+            if (paso === 1) {
+                const nombres = document.getElementById('nombres').value;
+                const correo = document.getElementById('correo').value;
+                
+                if (!nombres || !correo) {
+                    alert('Por favor completa todos los campos obligatorios.');
+                    return false;
+                }
+                
+                datosCita.paciente = { nombres, correo };
+                return true;
+            } else if (paso === 2) {
+                if (!datosCita.especialidad) {
+                    alert('Por favor selecciona una especialidad.');
+                    return false;
+                }
+                return true;
+            } else if (paso === 3) {
+                if (!datosCita.fecha || !datosCita.hora) {
+                    alert('Por favor selecciona fecha y hora.');
+                    return false;
+                }
+                return true;
+            }
+            return true;
+        }
+
+        function seleccionarEspecialidad(id, nombre, elemento) {
+            document.querySelectorAll('.specialty-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            elemento.classList.add('selected');
+            datosCita.especialidad = { id, nombre };
+            document.getElementById('btnPaso2').disabled = false;
+        }
+
+        function actualizarBarraDeProgreso() {
+            const progressBar = document.getElementById('progressBar');
+            const totalPasos = 4;
+            progressBar.style.width = `${((pasoActual - 1) / (totalPasos - 1)) * 100}%`;
+        }
+
+        // --- Funciones del Calendario y Horarios ---
+        let fechaMostrada = new Date();
+
+        function siguienteMes() {
+            fechaMostrada.setMonth(fechaMostrada.getMonth() + 1);
+            generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());
+        }
+
+        function mesAnterior() {
+            fechaMostrada.setMonth(fechaMostrada.getMonth() - 1);
+            generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());
+        }
+
+        function generarCalendario(year, month) {
+            const container = document.getElementById('calendarGrid');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const hoy = new Date();
+            const primerDiaDelMes = new Date(year, month, 1);
+            
+            const mesActualStr = primerDiaDelMes.toLocaleDateString('es-CO', { month: 'long' });
+            const anioActualStr = primerDiaDelMes.getFullYear();
+            
+            const elCurrentMonth = document.getElementById('currentMonth');
+            const elCurrentYear = document.getElementById('currentYear');
+            if(elCurrentMonth) elCurrentMonth.textContent = mesActualStr.charAt(0).toUpperCase() + mesActualStr.slice(1);
+            if(elCurrentYear) elCurrentYear.textContent = anioActualStr;
+            
+            const diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            diasSemana.forEach(dia => {
+                const diaHeader = document.createElement('div');
+                diaHeader.className = 'text-center fw-bold small text-muted';
+                diaHeader.textContent = dia;
+                container.appendChild(diaHeader);
+            });
+            
+            const ultimoDia = new Date(year, month + 1, 0);
+            const diaInicio = primerDiaDelMes.getDay();
+            
+            for (let i = 0; i < diaInicio; i++) {
+                container.appendChild(document.createElement('div'));
+            }
+            
+            for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+                const fecha = new Date(year, month, dia);
+                const esDomingo = fecha.getDay() === 0;
+                const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+                const esPasado = fecha < hoySinHora;
+                
+                const dayElement = document.createElement('div');
+                const esHoy = hoy.getFullYear() === year && hoy.getMonth() === month && dia === hoy.getDate();
+                dayElement.className = `calendar-day ${esDomingo || esPasado ? 'disabled' : ''} ${esHoy ? 'today' : ''}`;
+                dayElement.textContent = dia;
+                
+                if (!esDomingo && !esPasado) {
+                    const fechaStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                    dayElement.onclick = (e) => seleccionarFecha(fechaStr, e.currentTarget);
+                }
+                
+                container.appendChild(dayElement);
+            }
+        }
+
+        function seleccionarFecha(fecha, elemento) {
+            document.querySelectorAll('.calendar-day:not(.disabled)').forEach(day => {
+                day.classList.remove('selected');
+            });
+            
+            elemento.classList.add('selected');
+            datosCita.fecha = fecha;
+            
+            // Resetear la hora y deshabilitar el botón "Siguiente" al cambiar de fecha
+            datosCita.hora = null;
+            document.getElementById('btnPaso3').disabled = true;
+            
+            cargarHorarios();
+        }
+
+        function cargarHorarios() {
+            const container = document.getElementById('horariosContainer');
+            container.innerHTML = '';
+            
+            const horarios = [
+                '7:00 AM', '7:30 AM', '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM',
+                '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM',
+                '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM',
+                '4:00 PM', '4:30 PM', '5:00 PM'
+            ];
+            
+            horarios.forEach(hora => {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                slot.innerHTML = hora;
+                slot.onclick = (e) => seleccionarHora(hora, e.currentTarget);
+                container.appendChild(slot);
+            });
+        }
+
+        function seleccionarHora(hora, elemento) {
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            elemento.classList.add('selected');
+            datosCita.hora = hora;
+            document.getElementById('btnPaso3').disabled = false;
+        }
+    </script>
+</body>
+</html>

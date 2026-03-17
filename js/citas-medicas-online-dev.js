@@ -1,10 +1,10 @@
 /**
- * Lógica para el sistema de Citas Médicas Online
+ * Lógica para el sistema de Citas Médicas Online - VERSIÓN DESARROLLO
  * Maneja el wizard de pasos, validaciones, calendario y simulación de envío.
  */
 
-import { db, storage } from './firebase-config.js';
-import { collection, addDoc, serverTimestamp, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { db, storage } from './firebase-config-dev.js';
+import { collection, addDoc, serverTimestamp, doc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // Datos de ejemplo para especialidades (Simulación de API)
@@ -79,10 +79,34 @@ const especialidades = [
       });
     }
 
+    // Delegación de eventos para elementos dinámicos
+    const listaArchivosContainer = document.getElementById('listaArchivos');
+    if (listaArchivosContainer) {
+        listaArchivosContainer.addEventListener('click', (e) => {
+            const removeBtn = e.target.closest('.btn-remove-file');
+            if (removeBtn) {
+                const index = parseInt(removeBtn.dataset.index, 10);
+                eliminarArchivo(index);
+            }
+        });
+    }
+
+    const especialidadesContainer = document.getElementById('especialidadesContainer');
+    if (especialidadesContainer) {
+        especialidadesContainer.addEventListener('click', (e) => {
+            const card = e.target.closest('.specialty-card');
+            if (card) {
+                seleccionarEspecialidad(card.dataset.id, card.dataset.nombre, card);
+            }
+        });
+    }
+    
+    console.log('Formulario inicializado completamente');
   });
 
   // --- Gestión de Archivos ---
-  
+ 
+ 
   function manejarCargaArchivos(e) {
     const archivos = e.target.files;
     const listaArchivos = document.getElementById('listaArchivos');
@@ -94,8 +118,8 @@ const especialidades = [
       
       for (let i = 0; i < archivos.length; i++) {
         const archivo = archivos[i];
-        const itemArchivo = document.createElement('div');
-        itemArchivo.className = 'list-group-item d-flex justify-content-between align-items-center';
+ const itemArchivo = document.createElement('div');
+ itemArchivo.className = 'list-group-item d-flex justify-content-between align-items-center';
         
         const icono = archivo.type.includes('pdf') ? 'bi-file-pdf' : 'bi-file-image';
         
@@ -105,7 +129,7 @@ const especialidades = [
             <span>${archivo.name}</span>
             <small class="text-muted ms-2">(${(archivo.size / 1024).toFixed(1)} KB)</small>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-danger" onclick="eliminarArchivo(${i})">
+          <button type="button" class="btn btn-sm btn-outline-danger btn-remove-file" data-index="${i}">
             <i class="bi bi-trash"></i>
           </button>
         `;
@@ -115,13 +139,11 @@ const especialidades = [
     } else {
       contenedorArchivos.style.display = 'none';
     }
-
     // Recalcular la altura del contenedor para que el botón "Siguiente" no quede oculto
     setStepView(pasoActual);
   }
   
-  // Función global para ser llamada desde el HTML generado dinámicamente
-  window.eliminarArchivo = function(index) {
+  function eliminarArchivo(index) {
     const input = document.getElementById('ordenesMedicas');
     const archivos = Array.from(input.files);
     
@@ -133,31 +155,72 @@ const especialidades = [
     
     const evento = new Event('change', { bubbles: true });
     input.dispatchEvent(evento);
-  };
+  }
   
   // --- Lógica del Wizard y Pasos ---
   
-  function cargarEspecialidades() {
-    const container = document.getElementById('especialidadesContainer');
+  async function cargarEspecialidades() {
+ const container = document.getElementById('especialidadesContainer');
     if (!container) return;
-    container.innerHTML = '';
-    
-    especialidades.forEach(esp => {
-      const card = document.createElement('div');
-      card.className = 'specialty-card';
-      card.onclick = (e) => seleccionarEspecialidad(esp.id, esp.nombre, e.currentTarget);
-      card.innerHTML = `
-        <div class="specialty-icon">
-          <i class="bi ${esp.icono}"></i>
-        </div>
-        <h5>${esp.nombre}</h5>
-        <p class="text-muted">${esp.descripcion}</p>
-      `;
-      container.appendChild(card);
-    });
+    container.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
+    // Datos de ejemplo mientras se resuelve Firebase
+    const especialidadesEjemplo = [
+        { id: '1', nombre: 'Medicina General', icono: 'bi-hospital', descripcion: 'Atención médica general para adultos y niños' },
+        { id: '2', nombre: 'Pediatría', icono: 'bi-emoji-smile', descripcion: 'Cuidado médico especializado para niños' },
+        { id: '3', nombre: 'Ginecología', icono: 'bi-heart', descripcion: 'Salud integral de la mujer' },
+        { id: '4', nombre: 'Ortopedia', icono: 'bi-activity', descripcion: 'Tratamiento de huesos y articulaciones' }
+    ];
+    try {
+        // Intentar cargar desde Firebase primero
+        const q = collection(db, "especialidades");
+        const querySnapshot = await getDocs(q);
+        const especialidades = [];
+        querySnapshot.forEach((doc) => {
+            especialidades.push({ id: doc.id, ...doc.data() });
+        });
+        console.log('Especialidades cargadas desde Firebase:', especialidades);
+        
+        // Si no hay datos en Firebase, usar datos de ejemplo
+        const especialidadesAMostrar = especialidades.length > 0 ? especialidades : especialidadesEjemplo;
+        
+        container.innerHTML = '';
+        especialidadesAMostrar.forEach(esp => {
+            const card = document.createElement('div');
+            card.className = 'specialty-card'; 
+            card.dataset.id = esp.id;
+            card.dataset.nombre = esp.nombre;
+            card.innerHTML = `
+                <div class="specialty-icon"><i class="bi ${esp.icono || 'bi-hospital'}"></i></div>
+                <h5>${esp.nombre}</h5>
+                <p class="text-muted">${esp.descripcion || 'Atención especializada.'}</p>
+            `;
+            container.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error cargando especialidades desde Firestore: ", error);
+        console.log("Usando datos de ejemplo como fallback...");
+        
+        // Usar datos de ejemplo si hay error con Firebase
+        container.innerHTML = '';
+        especialidadesEjemplo.forEach(esp => {
+            const card = document.createElement('div');
+            card.className = 'specialty-card'; 
+            card.dataset.id = esp.id;
+            card.dataset.nombre = esp.nombre;
+            card.innerHTML = `
+                <div class="specialty-icon"><i class="bi ${esp.icono || 'bi-hospital'}"></i></div>
+                <h5>${esp.nombre}</h5>
+                <p class="text-muted">${esp.descripcion || 'Atención especializada.'}</p>
+            `;
+            container.appendChild(card);
+        });
+    }
   }
   
-  function seleccionarEspecialidad(id, nombre, elemento) {
+/**
+ * Selects a specialty card, highlights it, and stores the specialty data.
+ */
+ function seleccionarEspecialidad(id, nombre, elemento) {
     document.querySelectorAll('.specialty-card').forEach(card => {
       card.classList.remove('selected');
     });
@@ -169,7 +232,7 @@ const especialidades = [
   
   // --- Calendario y Horarios ---
   
-  function siguienteMes() {
+ function siguienteMes() {
     fechaMostrada.setMonth(fechaMostrada.getMonth() + 1);
     generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());
   }
@@ -243,11 +306,9 @@ const especialidades = [
     
     elemento.classList.add('selected');
     datosCita.fecha = fecha;
-
     // Resetear la hora y deshabilitar el botón "Siguiente" al cambiar de fecha
     datosCita.hora = null;
     document.getElementById('btnPaso3').disabled = true;
-
     cargarHorarios();
   }
   
@@ -262,26 +323,17 @@ const especialidades = [
       '4:00 PM', '4:30 PM', '5:00 PM'
     ];
     
-    const horariosNoDisponibles = [];
-    
     horarios.forEach(hora => {
       const slot = document.createElement('div');
-      slot.className = `time-slot ${horariosNoDisponibles.includes(hora) ? 'disabled' : ''}`;
+      slot.className = 'time-slot';
       slot.innerHTML = hora;
-      
-      if (!horariosNoDisponibles.includes(hora)) {
-        slot.onclick = (e) => seleccionarHora(hora, e.currentTarget);
-      }
-      
+      slot.onclick = (e) => seleccionarHora(hora, e.currentTarget);
       container.appendChild(slot);
     });
-
-    // Después de cargar los horarios, recalcular la altura para que el botón sea visible
-    setStepView(pasoActual);
   }
   
   function seleccionarHora(hora, elemento) {
-    document.querySelectorAll('.time-slot:not(.disabled)').forEach(slot => {
+    document.querySelectorAll('.time-slot').forEach(slot => {
       slot.classList.remove('selected');
     });
     
@@ -292,128 +344,74 @@ const especialidades = [
   
   // --- Navegación y Validación ---
   
-  /**
-   * Ajusta la vista del carrusel al paso actual.
-   * Mueve el formulario y ajusta la altura del contenedor.
-   * @param {number} paso - El número del paso a mostrar (1-4).
-   */
   function setStepView(paso) {
     const slider = document.querySelector('.form-slider');
     const formContent = document.querySelector('.form-content');
     const targetStepElement = document.getElementById(`paso${paso}`);
 
-    if (slider && formContent && targetStepElement) {
-        // Mover el "track" del formulario
-        const percentage = (paso - 1) * -25; // Cada paso es 25% del ancho total (400%)
-        slider.style.transform = `translateX(${percentage}%)`;
+    console.log(`setStepView llamado: paso=${paso}, slider=${!!slider}, target=${!!targetStepElement}`);
 
-        // Ajustar la altura del contenedor a la del paso actual
-        formContent.style.height = `${targetStepElement.offsetHeight}px`;
+    if (slider && formContent && targetStepElement) {
+      const percentage = (paso - 1) * -25;
+      slider.style.transform = `translateX(${percentage}%)`;
+      
+      const targetHeight = targetStepElement.offsetHeight;
+      formContent.style.height = `${Math.max(targetHeight, 400)}px`;
+      
+      slider.style.display = 'none';
+      slider.offsetHeight;
+      slider.style.display = '';
+      
+      targetStepElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      console.log(`Vista ajustada: paso=${paso}, altura=${targetHeight}px`);
+    } else {
+      console.error('No se encontraron los elementos para ajustar la vista');
     }
   }
 
-  /**
-   * Salta directamente a un paso anterior que ya ha sido completado.
-   * @param {number} targetStep - El número del paso al que se desea saltar.
-   */
   function jumpToStep(targetStep) {
-    if (targetStep >= pasoActual) return; // Solo para retroceder
+    if (targetStep >= pasoActual) return;
 
-    // Ocultar el paso actual
-    document.getElementById(`paso${pasoActual}`).classList.remove('active');
-    document.getElementById(`step${pasoActual}`).classList.remove('active');
+    // Ocultar paso actual
+    const currentStepElement = document.getElementById(`paso${pasoActual}`);
+    if (currentStepElement) {
+      currentStepElement.classList.remove('active');
+    }
 
-    // Marcar los pasos intermedios como no completados
+    // Marcar pasos intermedios como no completados
     for (let i = pasoActual - 1; i >= targetStep; i--) {
       const stepIndicator = document.getElementById(`step${i + 1}`);
       if (stepIndicator) {
-        stepIndicator.classList.remove('active');
-      }
-      const targetIndicator = document.getElementById(`step${i}`);
-      if (targetIndicator) {
-        targetIndicator.classList.remove('completed');
-        targetIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = i;
+        stepIndicator.classList.remove('completed');
+        stepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = i + 1;
       }
     }
 
+    // Actualizar paso actual
     pasoActual = targetStep;
 
-    // Mostrar el paso de destino
-    document.getElementById(`paso${pasoActual}`).classList.add('active');
-    document.getElementById(`step${pasoActual}`).classList.add('active');
+    // Mostrar nuevo paso
+    const targetStepElement = document.getElementById(`paso${pasoActual}`);
+    if (targetStepElement) {
+      targetStepElement.classList.add('active');
+    }
 
-    // Actualizar la barra de progreso y la vista
+    // Actualizar indicadores
+    const targetIndicator = document.getElementById(`step${pasoActual}`);
+    if (targetIndicator) {
+      targetIndicator.classList.add('active');
+    }
+
     actualizarBarraDeProgreso();
     setStepView(pasoActual);
-  }
-
-  function siguientePaso(paso) {
-    if (!validarPaso(paso)) return;
-    
-    document.getElementById(`paso${paso}`).classList.remove('active');
-    
-    const stepIndicator = document.getElementById(`step${paso}`);
-    stepIndicator.classList.remove('active');
-    stepIndicator.classList.add('completed');
-    // Añadir ícono de check al completar
-    stepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = '<i class="bi bi-check-lg"></i>';
-    
-    pasoActual = paso + 1;
-    document.getElementById(`paso${pasoActual}`).classList.add('active');
-    document.getElementById(`step${pasoActual}`).classList.add('active');
-    
-    // Lógica de progreso mejorada (0%, 33%, 66%, 100%)
-    actualizarBarraDeProgreso();
-    if (pasoActual === 4) cargarResumen();
-
-    setStepView(pasoActual);
-  };
-  
-  function anteriorPaso(paso) {
-    document.getElementById(`paso${paso}`).classList.remove('active');
-    
-    const stepIndicator = document.getElementById(`step${paso}`);
-    stepIndicator.classList.remove('active');
-    
-    pasoActual = paso - 1;
-    document.getElementById(`paso${pasoActual}`).classList.add('active');
-    
-    const prevStepIndicator = document.getElementById(`step${pasoActual}`);
-    prevStepIndicator.classList.remove('completed');
-    prevStepIndicator.classList.add('active');
-    // Restaurar el número del paso
-    prevStepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = pasoActual;
-    
-    // Lógica de progreso mejorada (0%, 33%, 66%, 100%)
-    actualizarBarraDeProgreso();
-
-    setStepView(pasoActual);
-  };
-
-  // Delegación de eventos para los botones de navegación del wizard
-  const formSlider = document.querySelector('.form-slider');
-  if (formSlider) {
-    formSlider.addEventListener('click', (e) => {
-      const button = e.target.closest('button[data-action]');
-      if (!button) return;
-
-      const action = button.dataset.action;
-      const paso = parseInt(button.dataset.step, 10);
-
-      if (action === 'next') siguientePaso(paso);
-      if (action === 'prev') anteriorPaso(paso);
-    });
-  }
-
-  function actualizarBarraDeProgreso() {
-    const progressBar = document.getElementById('progressBar');
-    const totalPasos = 4;
-    progressBar.style.width = `${((pasoActual - 1) / (totalPasos - 1)) * 100}%`;
   }
   
   function validarPaso(paso) {
     let valido = true;
     let mensajeError = '';
+    
+    console.log(`=== INICIANDO VALIDACIÓN PASO ${paso} ===`);
     
     if (paso === 1) {
       const campos = ['tipoDocumento', 'numeroDocumento', 'nombres', 'apellidos', 
@@ -421,17 +419,23 @@ const especialidades = [
       
       for (let campo of campos) {
         const elemento = document.getElementById(campo);
-        if (!elemento.value) {
-          elemento.classList.add('is-invalid');
+        console.log(`Validando campo: ${campo}, elemento:`, elemento);
+        if (!elemento || !elemento.value) {
+          if (elemento) elemento.classList.add('is-invalid');
           valido = false;
+          console.log(`❌ Campo vacío o no encontrado: ${campo}`);
         } else {
           elemento.classList.remove('is-invalid');
+          console.log(`✅ Campo válido: ${campo}, valor: ${elemento.value}`);
         }
       }
+      
+      console.log(`Resultado validación: valido=${valido}`);
       
       if (!valido) mensajeError = 'Por favor completa todos los campos obligatorios.';
       
       if (valido) {
+        console.log('Guardando datos del paciente...');
         datosCita.paciente = {
           tipoDocumento: document.getElementById('tipoDocumento').value,
           numeroDocumento: document.getElementById('numeroDocumento').value,
@@ -442,23 +446,88 @@ const especialidades = [
           correo: document.getElementById('correo').value,
           eps: document.getElementById('eps').value
         };
+        console.log('Datos del paciente guardados:', datosCita.paciente);
       }
     } else if (paso === 2) {
       if (!datosCita.especialidad) {
         mensajeError = 'Por favor selecciona una especialidad.';
         valido = false;
+        console.log('❌ No se seleccionó especialidad');
+      } else {
+        console.log('✅ Especialidad seleccionada:', datosCita.especialidad);
       }
     } else if (paso === 3) {
       if (!datosCita.fecha || !datosCita.hora) {
         mensajeError = 'Por favor selecciona fecha y hora para tu cita.';
         valido = false;
+        console.log('❌ No se seleccionó fecha u hora');
+      } else {
+        console.log('✅ Fecha y hora seleccionadas:', datosCita.fecha, datosCita.hora);
       }
     }
+    
+    console.log(`=== FIN VALIDACIÓN PASO ${paso}: valido=${valido} ===`);
     
     if (!valido) mostrarError(mensajeError);
     else ocultarError();
     
     return valido;
+  }
+  
+  function siguientePaso(paso) {
+    console.log('Intentando avanzar desde paso:', paso, 'Paso actual:', pasoActual);
+    
+    if (!validarPaso(paso)) {
+      console.log('Validación falló en paso:', paso);
+      return;
+    }
+    
+    console.log('Validación exitosa, avanzando al paso:', paso + 1);
+    
+    // Actualizar indicador de paso actual
+    const stepIndicator = document.getElementById(`step${paso}`);
+    if (stepIndicator) {
+      stepIndicator.classList.remove('active');
+      stepIndicator.classList.add('completed');
+      stepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = '<i class="bi bi-check-lg"></i>';
+    }
+    
+    // Avanzar al siguiente paso
+    pasoActual = paso + 1;
+    const nextStepIndicator = document.getElementById(`step${pasoActual}`);
+    if (nextStepIndicator) {
+      nextStepIndicator.classList.add('active');
+    }
+    
+    actualizarBarraDeProgreso();
+    
+    // Si llegamos al paso 4, cargar el resumen
+    if (pasoActual === 4) {
+      cargarResumen();
+    }
+    
+    setStepView(pasoActual);
+  }
+  
+  function anteriorPaso(paso) {
+    const stepIndicator = document.getElementById(`step${paso}`);
+    stepIndicator.classList.remove('active');
+    
+    pasoActual = paso - 1;
+    
+    const prevStepIndicator = document.getElementById(`step${pasoActual}`);
+    prevStepIndicator.classList.remove('completed');
+    prevStepIndicator.classList.add('active');
+    prevStepIndicator.querySelector('.step-content-wrapper .step-number').innerHTML = pasoActual;
+    
+    actualizarBarraDeProgreso();
+    setStepView(pasoActual);
+  }
+  
+  function actualizarBarraDeProgreso() {
+    const progressBar = document.getElementById('progressBar');
+    const totalPasos = 4;
+    progressBar.style.width = `${((pasoActual - 1) / (totalPasos - 1)) * 100}%`;
   }
   
   function cargarResumen() {
@@ -469,32 +538,19 @@ const especialidades = [
     document.getElementById('confirmEps').textContent = datosCita.paciente.eps;
     document.getElementById('confirmEspecialidad').textContent = datosCita.especialidad.nombre;
     
-    // Formatear fecha para mostrar (añadiendo T12:00:00 para evitar desfase al parsear)
     const fechaObj = new Date(datosCita.fecha + 'T12:00:00');
     const fechaFormateada = fechaObj.toLocaleDateString('es-CO', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
     document.getElementById('confirmFecha').textContent = fechaFormateada;
     document.getElementById('confirmHora').textContent = datosCita.hora;
+    document.getElementById('confirmMotivo').textContent = datosCita.motivoConsulta || 'No especificado';
   }
   
   // --- Envío y Confirmación ---
   
   async function confirmarCita(e) {
     e.preventDefault();
-    
-    // Verificar si estamos en modo desarrollo para evitar problemas CORS
-    const isLocalhost = window.location.hostname === 'localhost' || 
-                       window.location.hostname === '127.0.0.1' ||
-                       window.location.hostname.includes('localhost') ||
-                       window.location.port === '8000' ||
-                       window.location.protocol === 'file:';
-
-    console.log('🔍 Verificación de entorno:', {
-        hostname: window.location.hostname,
-        port: window.location.port,
-        isLocalhost: isLocalhost
-    });
     
     // Validación final del paso 4
     const motivo = document.getElementById('motivoConsulta').value.trim();
@@ -516,6 +572,19 @@ const especialidades = [
     document.getElementById('loadingOverlay').style.display = 'flex';
 
     try {
+      // Verificar si estamos en modo desarrollo
+      const isLocalhost = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.hostname.includes('localhost') ||
+                         window.location.port === '8000' ||
+                         window.location.protocol === 'file:';
+
+      console.log('🔍 Verificación de entorno en confirmarCita:', {
+          hostname: window.location.hostname,
+          port: window.location.port,
+          isLocalhost: isLocalhost
+      });
+
       // PASO 1: Guardar los datos de la cita (simulado si es localhost)
       const dataToSave = {
         ...datosCita,
@@ -541,12 +610,11 @@ const especialidades = [
         console.log('✅ Cita guardada en Firestore con ID:', citaId);
       }
 
-      // PASO 2: Subir los archivos a Firebase Storage con manejo robusto de errores CORS
+      // PASO 2: Subir los archivos (solo si no estamos en localhost)
       const ordenesInput = document.getElementById('ordenesMedicas');
       const files = ordenesInput.files;
       const uploadedFilesInfo = [];
       let uploadErrors = [];
-      let hasCorsError = false;
 
       if (files.length > 0 && !isLocalhost) {
         console.log('🌐 Iniciando subida de archivos a Firebase Storage...');
@@ -580,20 +648,13 @@ const especialidades = [
             };
           } catch (fileError) {
             console.error(`❌ Error subiendo ${file.name}:`, fileError);
-            let isCors = false;
-            // Detectar específicamente errores CORS
-            if (fileError.message && fileError.message.includes('CORS') || 
-                fileError.message && fileError.message.includes('blocked by CORS policy') ||
-                fileError.code === 'storage/unauthorized') {
-              isCors = true;
-            }
             
             return {
               success: false,
               error: {
               fileName: file.name,
               error: fileError.message,
-              isCorsError: isCors
+              isCorsError: fileError.message && fileError.message.includes('CORS')
               }
             };
           }
@@ -609,7 +670,6 @@ const especialidades = [
             console.log(`✅ Archivo ${result.data.name} subido exitosamente`);
           } else {
             if (result.error.isCorsError) {
-              hasCorsError = true;
               console.warn('🚫 Error CORS detectado - archivo no subido');
             }
             uploadErrors.push(result.error);
@@ -617,14 +677,11 @@ const especialidades = [
         });
 
         // Si hay errores CORS específicos, mostrar advertencia clara
-        if (hasCorsError) {
+        if (uploadErrors.some(err => err.isCorsError)) {
           console.warn('⚠️ Problema CORS detectado - archivos no subidos');
           
           // Mostrar advertencia al usuario pero continuar con el proceso
-          mostrarAdvertencia('Los archivos adjuntos no pudieron subirse debido a restricciones de seguridad. Su cita se ha registrado correctamente. Puede enviar los archivos por otros medios.');
-        } else if (uploadErrors.length > 0) {
-          console.warn('⚠️ Algunos archivos no se pudieron subir:', uploadErrors);
-          mostrarError('Algunos archivos no se pudieron subir. Su cita se ha registrado correctamente.');
+          mostrarAdvertencia('Hay problemas para subir los archivos debido a restricciones de seguridad del navegador. Tu cita será registrada, pero los archivos no se adjuntaron. Por favor, contáctanos para enviar los archivos por otros medios.');
         }
       } else if (files.length > 0 && isLocalhost) {
         console.log('🔧 Modo desarrollo local - Simulando subida de archivos...');
@@ -651,7 +708,7 @@ const especialidades = [
         });
       }
 
-      // PASO 3: Actualizar el documento de la cita con las URLs de los archivos.
+      // PASO 3: Actualizar el documento con la información de los archivos (si se subieron/simularon)
       if (uploadedFilesInfo.length > 0) {
         console.log('Actualizando cita con archivos:', uploadedFilesInfo);
         
@@ -660,102 +717,114 @@ const especialidades = [
           console.log('✅ Actualización simulada con archivos:', uploadedFilesInfo);
         } else {
           console.log('🌐 Modo producción - Actualizando Firestore real...');
-          const citaDocRef = doc(db, "citasOnline", citaId);
-          await updateDoc(citaDocRef, {
+          await updateDoc(doc(db, "citasOnline", citaId), {
             ordenesMedicas: uploadedFilesInfo
           });
           console.log('✅ Firestore actualizado con archivos');
         }
       }
 
-      // --- Éxito con posible advertencia de archivos ---
-      document.getElementById('loadingOverlay').style.display = 'none';
+      // PASO 4: Mostrar éxito y limpiar formulario
+      console.log('✅ Cita confirmada exitosamente');
+      const successMessage = isLocalhost 
+        ? '¡Cita solicitada exitosamente en modo desarrollo! Los archivos fueron simulados.'
+        : '¡Cita solicitada exitosamente! Te contactaremos pronto para confirmar los detalles.';
       
-      document.getElementById('numeroRadicado').textContent = citaId; // Usar el ID de Firestore como radicado
+      console.log('📝 Mensaje de éxito a mostrar:', successMessage);
+      mostrarExito(successMessage);
       
-      const fechaObj = new Date(datosCita.fecha + 'T12:00:00');
-      const fechaCompleta = `${fechaObj.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${datosCita.hora}`;
-      
-      document.getElementById('fechaConfirmada').textContent = fechaCompleta;
-      
-      // Mostrar advertencia si algunos archivos fallaron
-      if (uploadErrors.length > 0) {
-        const archivosFallidos = uploadErrors.map(err => err.fileName).join(', ');
-        mostrarAdvertencia(`Tu cita fue registrada exitosamente, pero los siguientes archivos no se pudieron adjuntar: ${archivosFallidos}. Por favor, contáctanos para enviarlos por otro medio.`);
-      }
-      
-      const modal = new bootstrap.Modal(document.getElementById('modalExito'));
-      modal.show();
+      // Limpiar formulario
+      console.log('🔄 Iniciando limpieza de formulario...');
+      setTimeout(() => {
+        console.log('🧹 Ejecutando limpieza del formulario');
+        const form = document.getElementById('citaForm');
+        if (form) {
+          form.reset();
+          console.log('✅ Formulario reseteado');
+        }
+        
+        jumpToStep(1);
+        console.log('✅ Saltando al paso 1');
+        
+        datosCita = {
+          paciente: {},
+          especialidad: null,
+          fecha: null,
+          hora: null,
+          motivoConsulta: '',
+          tieneWhatsapp: '',
+          ordenesMedicas: null
+        };
+        pasoActual = 1;
+        actualizarBarraDeProgreso();
+        console.log('✅ Variables limpiadas y paso reseteado');
+      }, 2000); // Reducir el timeout para mejor experiencia
+
     } catch (error) {
-      // --- Manejo de Errores ---
-      console.error("Error al guardar la cita y subir archivos: ", error);
-      document.getElementById('loadingOverlay').style.display = 'none';
-      mostrarError('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
+      console.error('❌ Error general al confirmar cita:', error);
+      mostrarError('Ocurrió un error al procesar tu cita. Por favor, inténtalo de nuevo más tarde.');
+    } finally {
+      // Ocultar indicador de carga
+      console.log('🔄 Ocultando indicador de carga...');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+        console.log('✅ Indicador de carga oculto');
+      } else {
+        console.warn('⚠️ No se encontró el indicador de carga');
+      }
     }
   }
   
-  /**
-   * Función auxiliar para comprimir imágenes antes de subir
-   * Reduce el tamaño drásticamente para mantener el plan gratuito de Firebase
-   */
-  function comprimirImagen(file) {
+  // --- Utilidades de Compresión y UI ---
+  
+  async function comprimirImagen(file) {
     // Si no es imagen, devolver el archivo original
-    if (!file.type.match(/image.*/)) return Promise.resolve(file);
-
+    if (!file.type.startsWith('image/')) {
+      return file;
+    }
+    
+    // Si el archivo ya es pequeño, no comprimir
+    if (file.size <= 500 * 1024) { // 500KB
+      return file;
+    }
+    
     return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          // Configuración de compresión
-          const maxWidth = 1280; // Máximo ancho HD (suficiente para leer documentos)
-          const quality = 0.7;   // Calidad JPG al 70%
-          
-          let width = img.width;
-          let height = img.height;
-
-          // Calcular nuevas dimensiones manteniendo aspecto
-          if (width > maxWidth) {
-            height = Math.round(height * (maxWidth / width));
-            width = maxWidth;
-          }
-
-          // Crear canvas para redimensionar
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-
-          // Exportar a Blob comprimido (JPEG)
-          canvas.toBlob((blob) => {
-            if (!blob) {
-                resolve(file); // Fallback si falla
-                return;
-            }
-            console.log(`📉 Imagen comprimida: ${(file.size/1024).toFixed(1)}KB -> ${(blob.size/1024).toFixed(1)}KB`);
-            // Crear nuevo archivo manteniendo el nombre original pero forzando .jpg
-            const newName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
-            resolve(new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() }));
-          }, 'image/jpeg', quality);
-        };
-        img.onerror = () => resolve(file);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Calcular nuevas dimensiones (máximo 1200px de ancho)
+        let width = img.width;
+        let height = img.height;
+        const maxWidth = 1200;
+        
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Dibujar imagen comprimida
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Convertir a blob con calidad reducida
+        canvas.toBlob(resolve, 'image/jpeg', 0.7);
       };
-      reader.onerror = () => resolve(file);
+      
+      img.src = URL.createObjectURL(file);
     });
   }
   
-  // --- Utilidades de UI ---
-  
   function mostrarError(mensaje) {
-    const el = document.getElementById('errorText');
-    if(el) el.textContent = mensaje;
     const box = document.getElementById('errorMessage');
-    if(box) {
+    const text = document.getElementById('errorText');
+    if(box && text) {
+        text.textContent = mensaje;
         box.style.display = 'flex';
-        box.className = 'alert alert-danger d-flex align-items-center';
         setTimeout(() => { 
             box.style.display = 'none'; 
         }, 5000);
@@ -764,16 +833,24 @@ const especialidades = [
   
   function ocultarError() {
     const box = document.getElementById('errorMessage');
-    if(box) box.style.display = 'none';
+    if(box) {
+        box.style.display = 'none';
+    }
   }
   
   function mostrarAdvertencia(mensaje) {
-    const el = document.getElementById('errorText');
-    if(el) el.textContent = mensaje;
     const box = document.getElementById('errorMessage');
-    if(box) {
+    const text = document.getElementById('errorText');
+    if(box && text) {
+        text.textContent = mensaje;
+        box.className = 'alert-overlay';
+        box.innerHTML = `
+            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <div>${mensaje}</div>
+            </div>
+        `;
         box.style.display = 'flex';
-        box.className = 'alert alert-warning d-flex align-items-center';
         setTimeout(() => { 
             box.style.display = 'none'; 
         }, 8000);
@@ -781,12 +858,18 @@ const especialidades = [
   }
   
   function mostrarExito(mensaje) {
-    const el = document.getElementById('errorText');
-    if(el) el.textContent = mensaje;
     const box = document.getElementById('errorMessage');
-    if(box) {
+    const text = document.getElementById('errorText');
+    if(box && text) {
+        text.textContent = mensaje;
+        box.className = 'alert-overlay';
+        box.innerHTML = `
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <div>${mensaje}</div>
+            </div>
+        `;
         box.style.display = 'flex';
-        box.className = 'alert alert-success d-flex align-items-center';
         setTimeout(() => { 
             box.style.display = 'none'; 
         }, 4000);

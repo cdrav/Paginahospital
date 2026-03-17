@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas Médicas Online - Versión Desarrollo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/citas-online.css" />
+</head>
+<body>
+    <!-- Contenido del formulario -->
+    <div class="modern-container">
+        <div class="form-card">
+            <!-- Barra de progreso -->
+            <div class="step-wizard">
+                <div class="step-progress">
+                    <div class="step-progress-fill" id="progressBar" style="width: 0%;"></div>
+                </div>
+                <ol class="step-wizard-list">
+                    <li class="step-item active" id="step1" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Datos Personales</div>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step2" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Especialidad</div>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step3" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Fecha y Hora</div>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step4" role="listitem">
+                        <div class="step-content-wrapper">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Confirmación</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="form-content">
+                <form id="citaForm" class="cita-form">
+                    <div class="form-slider">
+                        <!-- Paso 1 -->
+                        <div class="form-section active" id="paso1">
+                            <h2 class="section-title">
+                                <i class="bi bi-person-circle"></i>
+                                Paso 1: Datos Personales
+                            </h2>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Tipo de documento *</label>
+                                    <select class="form-select" id="tipoDocumento" required>
+                                        <option value="">Selecciona...</option>
+                                        <option value="CC">Cédula de Ciudadanía</option>
+                                        <option value="TI">Tarjeta de Identidad</option>
+                                        <option value="CE">Cédula de Extranjería</option>
+                                        <option value="PA">Pasaporte</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Número de documento *</label>
+                                    <input type="text" class="form-control" id="numeroDocumento" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombres *</label>
+                                    <input type="text" class="form-control" id="nombres" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Apellidos *</label>
+                                    <input type="text" class="form-control" id="apellidos" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Género *</label>
+                                    <select class="form-select" id="genero" required>
+                                        <option value="">Selecciona...</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                        <option value="O">Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Teléfono *</label>
+                                    <input type="tel" class="form-control" id="telefono" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Correo electrónico *</label>
+                                    <input type="email" class="form-control" id="correo" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">EPS *</label>
+                                    <select class="form-select" id="eps" required>
+                                        <option value="">Selecciona...</option>
+                                        <option value="SURA">SURA</option>
+                                        <option value="COOMEVA">COOMEVA</option>
+                                        <option value="SANITAS">SANITAS</option>
+                                        <option value="MEDIMAS">MEDIMAS</option>
+                                        <option value="SALUDTOTAL">SALUDTOTAL</option>
+                                        <option value="NUEVA EPS">NUEVA EPS</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div></div>
+                                <button type="button" class="btn-modern btn-primary-modern" data-action="next" data-step="1">
+                                    Siguiente <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2 -->
+                        <div class="form-section" id="paso2">
+                            <h2 class="section-title">
+                                <i class="bi bi-hospital"></i>
+                                Paso 2: Especialidad
+                            </h2>
+                            <div class="specialty-grid" id="especialidadesContainer">
+                                <!-- Las especialidades se cargarán dinámicamente -->
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-modern btn-secondary-modern" data-action="prev" data-step="2">
+                                    <i class="bi bi-arrow-left"></i> Anterior
+                                </button>
+                                <button type="button" class="btn-modern btn-primary-modern" data-action="next" data-step="2" id="btnPaso2" disabled>
+                                    Siguiente <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3 -->
+                        <div class="form-section" id="paso3">
+                            <h2 class="section-title">
+                                <i class="bi bi-calendar-week"></i>
+                                Paso 3: Fecha y Hora
+                            </h2>
+                            <div class="calendar-container mb-4">
+                                <div class="calendar-header">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="prevMonthBtn">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </button>
+                                    <div>
+                                        <span id="currentMonth">Noviembre</span>
+                                        <span id="currentYear">2024</span>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="nextMonthBtn">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="calendar-grid" id="calendarGrid">
+                                    <!-- El calendario se generará dinámicamente -->
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-3">Horarios disponibles</h5>
+                                <div class="time-grid" id="horariosContainer">
+                                    <!-- Los horarios se cargarán dinámicamente -->
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-modern btn-secondary-modern" data-action="prev" data-step="3">
+                                    <i class="bi bi-arrow-left"></i> Anterior
+                                </button>
+                                <button type="button" class="btn-modern btn-primary-modern" data-action="next" data-step="3" id="btnPaso3" disabled>
+                                    Siguiente <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 4 -->
+                        <div class="form-section" id="paso4">
+                            <h2 class="section-title">
+                                <i class="bi bi-check-circle"></i>
+                                Paso 4: Confirmación
+                            </h2>
+                            <div class="summary-section">
+                                <div class="summary-content">
+                                    <h3 class="mb-4 text-center">Resumen de tu Cita</h3>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h5 class="mb-3">Datos del Paciente</h5>
+                                            <p><strong>Nombre:</strong> <span id="confirmNombre"></span></p>
+                                            <p><strong>Documento:</strong> <span id="confirmDocumento"></span></p>
+                                            <p><strong>Teléfono:</strong> <span id="confirmTelefono"></span></p>
+                                            <p><strong>Correo:</strong> <span id="confirmCorreo"></span></p>
+                                            <p><strong>EPS:</strong> <span id="confirmEps"></span></p>
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <h5 class="mb-3">Detalles de la Cita</h5>
+                                            <div class="mb-3">
+                                                <label class="form-label">Motivo de la consulta *</label>
+                                                <textarea class="form-control" id="motivoConsulta" rows="3" required placeholder="Describe brevemente el motivo de tu consulta..."></textarea>
+                                            </div>
+                                            <p><strong>Especialidad:</strong> <span id="confirmEspecialidad"></span></p>
+                                            <p><strong>Fecha:</strong> <span id="confirmFecha"></span></p>
+                                            <p><strong>Hora:</strong> <span id="confirmHora"></span></p>
+                                            <p><strong>Motivo:</strong> <span id="confirmMotivo"></span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h5 class="mb-3">¿Tienes WhatsApp?</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tieneWhatsapp" id="whatsappSi" value="Sí">
+                                            <label class="form-check-label" for="whatsappSi">Sí</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tieneWhatsapp" id="whatsappNo" value="No">
+                                            <label class="form-check-label" for="whatsappNo">No</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h5 class="mb-3">Adjuntar órdenes médicas (opcional)</h5>
+                                        <input type="file" class="form-control" id="ordenesMedicas" multiple accept=".pdf,.jpg,.jpeg,.png">
+                                        <small class="text-muted">Puedes adjuntar múltiples archivos (PDF, JPG, PNG)</small>
+                                        
+                                        <div id="archivosCargados" style="display: none;">
+                                            <h6 class="mt-3">Archivos seleccionados:</h6>
+                                            <div id="listaArchivos" class="list-group"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="confirmTerms">
+                                            <label class="form-check-label" for="confirmTerms">
+                                                Acepto los términos y condiciones del servicio
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-modern btn-secondary-modern" data-action="prev" data-step="4">
+                                    <i class="bi bi-arrow-left"></i> Anterior
+                                </button>
+                                <button type="submit" class="btn-modern btn-success-modern" id="btnConfirmar" disabled>
+                                    <i class="bi bi-check-circle"></i> Confirmar Cita
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de carga -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Procesando...</span>
+            </div>
+            <h4 class="mt-3">Procesando tu cita...</h4>
+            <p class="text-muted">Por favor espera un momento</p>
+        </div>
+    </div>
+
+    <!-- Mensajes de alerta -->
+    <div id="errorMessage" class="alert-overlay" style="display: none;">
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <div id="errorText"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Usar la configuración de desarrollo -->
+    <script type="module" src="js/firebase-config-dev.js"></script>
+    <script type="module" src="js/citas-medicas-online-dev.js"></script>
+</body>
+</html>

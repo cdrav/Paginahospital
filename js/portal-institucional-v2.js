@@ -1,6 +1,6 @@
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { auth, db, storage } from "./firebase-config.js";
-import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // Protección de ruta: Firebase verifica si hay usuario activo
@@ -128,7 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Confirmar antes de cambiar
             if (confirm(`¿Cambiar estado a "${newStatus}"?`)) {
-                await updateCitaStatus(docId, newStatus);
+                const prevStatus = select.getAttribute('data-original-status');
+                await updateCitaStatus(docId, newStatus, prevStatus);
             } else {
                 // Restaurar el valor original si se cancela
                 const originalStatus = select.getAttribute('data-original-status');
@@ -138,29 +139,124 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Filtros
+    const btnApplyFilters = document.getElementById('btn-apply-filters');
+    if (btnApplyFilters) {
+        btnApplyFilters.addEventListener('click', () => {
+            initCitasAdmin(); // Recargar con los nuevos filtros
+        });
+    }
+    
+    // Búsqueda en tiempo real (debounce para no saturar)
+    const searchInput = document.getElementById('filter-search');
+    let debounceTimer;
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                initCitasAdmin();
+            }, 500);
+        });
+    }
 });
 
 /**
  * Inicializa el panel de administración de citas.
+ * Ahora soporta filtros para optimizar lecturas.
  */
 function initCitasAdmin() {
-    const q = query(collection(db, "citasOnline"), orderBy("createdAt", "desc"));
+    let q = collection(db, "citasOnline");
+    
+    const statusFilter = document.getElementById('filter-status')?.value || 'active';
+    const searchTerm = document.getElementById('filter-search')?.value.toLowerCase() || '';
+
+    // Optimización: Filtrar por estado en Firebase si no es búsqueda de texto
+    // Nota: Firebase tiene limitaciones con múltiples filtros where + orderBy sin índices compuestos.
+    // Para simplificar y mantener flexibilidad sin crear muchos índices manuales, 
+    // descargaremos un lote razonable y filtraremos en cliente lo complejo.
+    
+    // Construcción de Query
+    let constraints = [];
+    
+    if (statusFilter === 'active') {
+        constraints.push(where("status", "in", ["Solicitada", "En Proceso"]));
+    } else if (statusFilter !== 'all') {
+        constraints.push(where("status", "==", statusFilter));
+    }
+
+    // Siempre ordenar por fecha descendente
+    constraints.push(orderBy("createdAt", "desc"));
+    
+    // Limitar resultados para eficiencia (paginación implícita)
+    if (!searchTerm) {
+        constraints.push(limit(50));
+    } else {
+        // Si hay búsqueda, aumentamos el límite para buscar en un set más amplio
+        // En una app real masiva, usaríamos un motor de búsqueda externo como Algolia.
+        constraints.push(limit(100));
+    }
+
+    q = query(q, ...constraints);
     
     // Mostrar spinner de carga
     const loadingSpinner = document.getElementById('citas-loading');
     if (loadingSpinner) loadingSpinner.classList.remove('d-none');
 
+    // Usamos onSnapshot para tiempo real, pero cuidado con los costos si hay muchas escrituras.
     onSnapshot(q, (querySnapshot) => {
         const citas = [];
         querySnapshot.forEach((doc) => {
-            citas.push({ id: doc.id, ...doc.data() });
+            const data = doc.data();
+            // Filtrado en cliente para búsqueda de texto (nombre o documento)
+            if (searchTerm) {
+                const nombreCompleto = `${data.paciente.nombres} ${data.paciente.apellidos}`.toLowerCase();
+                const documento = data.paciente.numeroDocumento || '';
+                if (nombreCompleto.includes(searchTerm) || documento.includes(searchTerm)) {
+                    citas.push({ id: doc.id, ...data });
+                }
+            } else {
+                citas.push({ id: doc.id, ...data });
+            }
         });
+        
+        updateStatistics(citas); // Calcular estadísticas con los datos cargados
         renderCitasTable(citas);
     }, (error) => {
         console.error("Error al cargar citas:", error);
         document.getElementById('citas-table-body').innerHTML = `<tr><td colspan="7" class="text-center text-danger">Error al cargar las solicitudes.</td></tr>`;
         document.getElementById('citas-loading').classList.add('d-none');
     });
+}
+
+/**
+ * Calcula y actualiza las estadísticas del dashboard
+ */
+function updateStatistics(citas) {
+    const stats = {
+        solicitada: 0,
+        proceso: 0,
+        atendida: 0,
+        total: citas.length
+    };
+
+    citas.forEach(cita => {
+        const status = cita.status || 'Solicitada';
+        if (status === 'Solicitada') stats.solicitada++;
+        if (status === 'En Proceso') stats.proceso++;
+        if (status === 'Atendida') stats.atendida++;
+    });
+
+    // Actualizar DOM con animación simple
+    animateValue("stat-solicitada", stats.solicitada);
+    animateValue("stat-proceso", stats.proceso);
+    animateValue("stat-atendida", stats.atendida);
+    animateValue("stat-total", stats.total);
+}
+
+function animateValue(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
 }
 
 /**
@@ -254,6 +350,9 @@ async function showCitaDetails(docId) {
         const cita = docSnap.data();
         const modalBody = document.getElementById('modal-body-content');
         
+        // Renderizar Historial
+        renderHistory(cita.historial);
+
         // Obtener URLs de descarga para los archivos
         let archivosHtml = '';
         if (cita.ordenesMedicas && cita.ordenesMedicas.length > 0) {
@@ -274,9 +373,9 @@ async function showCitaDetails(docId) {
                         <img src="${archivo.url}" alt="Vista previa" style="max-height: 150px; max-width: 100%; border-radius: 4px; cursor: pointer;" onclick="window.open('${archivo.url}', '_blank')">
                     </div>`;
                 } else if (isPdf) {
-                    previewHtml = `<div class="mt-2 text-center">
-                        <embed src="${archivo.url}" type="application/pdf" width="100%" height="150px" style="border: 1px solid #ddd; border-radius: 4px;">
-                        <small class="d-block text-muted mt-1">Vista previa PDF</small>
+                    previewHtml = `<div class="mt-2 text-center bg-light p-2 rounded">
+                        <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 3rem;"></i>
+                        <small class="d-block text-muted mt-1">Vista previa no disponible. <a href="${archivo.url}" target="_blank" rel="noopener">Abrir PDF</a></small>
                     </div>`;
                 }
 
@@ -308,7 +407,7 @@ async function showCitaDetails(docId) {
                     <h6><i class="bi bi-file-earmark-text me-2"></i>Archivos Adjuntos:</h6>
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle me-2"></i>
-                        No hay archivos adjuntos ${cita.corsIssue ? '(problemas técnicos con la subida)' : ''}
+                        No hay archivos adjuntos ${cita.corsIssue ? '(Error de CORS al subir. Revisa la configuración de Firebase Storage)' : ''}
                     </div>
                 </div>
             `;
@@ -366,6 +465,36 @@ async function showCitaDetails(docId) {
             </div>
         `;
     }
+}
+
+/**
+ * Renderiza el historial de acciones en el modal
+ */
+function renderHistory(historial) {
+    const container = document.getElementById('modal-history-section');
+    const timeline = document.getElementById('history-timeline-content');
+    
+    if (!historial || historial.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+
+    container.style.display = 'block';
+    timeline.innerHTML = '';
+
+    // Ordenar historial (más reciente primero)
+    const sortedHistorial = [...historial].sort((a, b) => b.timestamp - a.timestamp);
+
+    sortedHistorial.forEach(item => {
+        const date = item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleString('es-CO') : 'Fecha desconocida';
+        const div = document.createElement('div');
+        div.className = 'history-item border-start border-3 border-secondary ps-3 mb-3';
+        div.innerHTML = `
+            <p class="mb-0 small text-muted">${date} - <strong>${item.user || 'Sistema'}</strong></p>
+            <p class="mb-0">${item.action}</p>
+        `;
+        timeline.appendChild(div);
+    });
 }
 
 /**
@@ -452,80 +581,57 @@ Email: citas@hdsa.gov.co`;
 }
 
 /**
- * Simula el envío de email (requiere configuración backend real).
- */
-async function sendEmailResponse(docId, pacienteEmail) {
-    const subject = document.getElementById('emailSubject').value;
-    const message = document.getElementById('emailMessage').value;
-    const updateStatus = document.getElementById('emailUpdateStatus').checked;
-
-    try {
-        // Mostrar loading
-        const sendBtn = document.getElementById('sendEmailBtn');
-        const originalText = sendBtn.innerHTML;
-        sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
-        sendBtn.disabled = true;
-
-        // Simular envío de email (requiere backend real)
-        console.log('Enviando email:', { to: pacienteEmail, subject, message });
-        
-        // Aquí debería ir la llamada real a tu servicio de email
-        // Por ahora, solo mostramos una confirmación
-        
-        // Actualizar estado si se solicitó
-        if (updateStatus) {
-            await updateDoc(doc(db, "citasOnline", docId), {
-                status: 'En Proceso',
-                emailSent: true,
-                emailSentAt: new Date(),
-                emailSubject: subject
-            });
-        }
-
-        // Éxito
-        alert('✅ Email enviado exitosamente a: ' + pacienteEmail);
-        
-        // Cerrar modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById('modalEmailResponse'));
-        modal.hide();
-
-    } catch (error) {
-        console.error('Error al enviar email:', error);
-        alert('❌ Error al enviar el email. Por favor intente nuevamente.');
-    } finally {
-        // Restaurar botón
-        const sendBtn = document.getElementById('sendEmailBtn');
-        sendBtn.innerHTML = originalText;
-        sendBtn.disabled = false;
-    }
-}
-
-/**
  * Descarga un archivo desde Firebase Storage.
  */
 async function downloadFile(url, fileName) {
+    const btn = document.querySelector(`.descargar-archivo-btn[data-url="${url}"]`);
+    const originalHtml = btn ? btn.innerHTML : '';
     try {
+        if (btn) {
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            btn.disabled = true;
+        }
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('La respuesta de la red no fue correcta.');
+        
+        const blob = await response.blob();
+        const objectUrl = window.URL.createObjectURL(blob);
+        
         const link = document.createElement('a');
-        link.href = url;
+        link.href = objectUrl;
         link.download = fileName;
-        link.target = '_blank';
         document.body.appendChild(link);
         link.click();
+        
+        window.URL.revokeObjectURL(objectUrl);
         document.body.removeChild(link);
     } catch (error) {
-        console.error('Error al descargar archivo:', error);
-        alert('Error al descargar el archivo. Intente nuevamente.');
+        console.error('Error en la descarga directa, abriendo en nueva pestaña:', error);
+        window.open(url, '_blank');
+    } finally {
+        if (btn) {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+        }
     }
 }
 
 /**
  * Actualiza el estado de una cita.
  */
-async function updateCitaStatus(docId, newStatus) {
+async function updateCitaStatus(docId, newStatus, prevStatus) {
     try {
         await updateDoc(doc(db, "citasOnline", docId), {
             status: newStatus,
-            statusUpdatedAt: new Date()
+            statusUpdatedAt: new Date(),
+            // Registro de auditoría (Historial)
+            historial: arrayUnion({
+                action: `Cambio de estado: ${prevStatus} ➔ ${newStatus}`,
+                user: auth.currentUser.email,
+                timestamp: new Date(),
+                type: 'status_change'
+            })
         });
         
         // Actualizar el atributo data-original-status en el DOM
@@ -626,13 +732,10 @@ function initIntranetPlaneacion() {
             <div class="card-footer bg-transparent border-0 text-center pt-0 pb-3">
                 <button class="btn btn-sm btn-outline-secondary copy-path-btn" data-path="${item.url}">
                     <i class="bi bi-clipboard me-1"></i> Copiar Ruta de Acceso
-                        </div>
-                        <h6 class="card-title fw-bold flex-grow-1">${item.nombre}</h6>
-                    </div>
-                </div>
-            </a>
+                </button>
+            </div>
         </div>
-    `;
+    </div>`;
 
     // --- Función para renderizar una categoría completa con sus tarjetas ---
     const renderCategory = (title, items, colorClass, icon) => `
