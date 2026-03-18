@@ -280,6 +280,12 @@ function renderCitasTable(citas) {
     noResults.classList.add('d-none');
 
     citas.forEach(cita => {
+        // Validar que los datos existan
+        if (!cita.paciente || !cita.especialidad) {
+            console.warn('⚠️ Cita con datos incompletos:', cita.id);
+            return; // Saltar esta cita
+        }
+
         const fechaSolicitud = cita.createdAt?.toDate().toLocaleDateString('es-CO') || 'N/A';
         const status = cita.status || 'Solicitada';
         const tieneArchivos = cita.ordenesMedicas && cita.ordenesMedicas.length > 0;
@@ -288,8 +294,8 @@ function renderCitasTable(citas) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><small class="text-muted">${cita.id}</small></td>
-            <td>${cita.paciente.nombres} ${cita.paciente.apellidos}</td>
-            <td>${cita.especialidad.nombre}</td>
+            <td>${cita.paciente.nombres || 'N/A'} ${cita.paciente.apellidos || 'N/A'}</td>
+            <td>${cita.especialidad.nombre || 'N/A'}</td>
             <td>${fechaSolicitud}</td>
             <td>
                 <select class="form-select form-select-sm status-select" data-doc-id="${cita.id}" data-original-status="${status}" aria-label="Cambiar estado">

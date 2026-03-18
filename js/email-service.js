@@ -1,3 +1,14 @@
+// Importar Firebase Firestore
+import { 
+    doc, 
+    updateDoc, 
+    addDoc, 
+    collection, 
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+import { auth, db } from "./firebase-config.js";
+
 // Configuración de EmailJS para pruebas locales
 (function() {
     // Configuración para desarrollo local
@@ -31,6 +42,9 @@ async function sendEmailResponse(docId, pacienteEmail) {
     try {
         // Mostrar loading
         const sendBtn = document.getElementById('sendEmailBtn');
+        if (!sendBtn) {
+            throw new Error('Botón de envío no encontrado');
+        }
         const originalText = sendBtn.innerHTML;
         sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
         sendBtn.disabled = true;
@@ -106,18 +120,39 @@ async function sendEmailResponse(docId, pacienteEmail) {
             status: 'sent'
         });
 
+        // Restaurar botón
+        if (sendBtn) {
+            sendBtn.innerHTML = originalText;
+            sendBtn.disabled = false;
+        }
+        
         // Cerrar modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById('modalEmailResponse'));
-        modal.hide();
-
+        const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
+        if (modal) {
+            modal.hide();
+        }
+        
+        // Limpiar formulario
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailMessage').value = '';
+        document.getElementById('emailUpdateStatus').checked = false;
+        
+        // Actualizar tabla de citas
+        if (typeof loadCitas === 'function') {
+            loadCitas();
+        }
+        
     } catch (error) {
         console.error('❌ Error al enviar email:', error);
-        alert('❌ Error al enviar el email: ' + error.message);
-    } finally {
+        
         // Restaurar botón
         const sendBtn = document.getElementById('sendEmailBtn');
-        sendBtn.innerHTML = originalText;
-        sendBtn.disabled = false;
+        if (sendBtn) {
+            sendBtn.innerHTML = originalText || 'Enviar Email';
+            sendBtn.disabled = false;
+        }
+        
+        alert('❌ Error al enviar email: ' + error.message);
     }
 }
 
