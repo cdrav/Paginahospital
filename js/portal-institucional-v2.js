@@ -289,15 +289,24 @@ function renderCitasTable(citas) {
     };
 
     citas.forEach(cita => {
-        // Validar que los datos existan
-        if (!cita.paciente || !cita.especialidad) {
-            console.warn('⚠️ Cita con datos incompletos:', cita.id);
-            return; // Saltar esta cita
+        // Validación mejorada con más detalles
+        if (!cita.paciente) {
+            console.warn('⚠️ Cita sin datos de paciente:', cita.id, cita);
+            return;
+        }
+        
+        if (!cita.especialidad) {
+            console.warn('⚠️ Cita sin especialidad:', cita.id, cita);
+            return;
         }
 
         const status = cita.status || 'Solicitada';
         if (citasPorEstado[status]) {
             citasPorEstado[status].push(cita);
+        } else {
+            console.warn('⚠️ Estado desconocido:', status, 'para cita:', cita.id);
+            // Agregar a Solicitadas por defecto
+            citasPorEstado['Solicitada'].push(cita);
         }
     });
 
@@ -370,24 +379,68 @@ function renderCitasTable(citas) {
 
 // Función para abrir modal de email
 function openEmailModal(citaId, pacienteEmail) {
+    // Validar que el modal exista
+    const emailModal = document.getElementById('emailModal');
+    if (!emailModal) {
+        console.error('❌ Modal de email no encontrado');
+        alert('Error: Modal de email no disponible. Por favor recargue la página.');
+        return;
+    }
+
+    // Validar elementos del formulario
+    const emailSubject = document.getElementById('emailSubject');
+    const emailMessage = document.getElementById('emailMessage');
+    const emailUpdateStatus = document.getElementById('emailUpdateStatus');
+    
+    if (!emailSubject || !emailMessage || !emailUpdateStatus) {
+        console.error('❌ Elementos del formulario no encontrados');
+        alert('Error: Formulario de email incompleto. Por favor recargue la página.');
+        return;
+    }
+
     // Limpiar formulario
-    document.getElementById('emailSubject').value = '';
-    document.getElementById('emailMessage').value = '';
-    document.getElementById('emailUpdateStatus').checked = false;
+    emailSubject.value = '';
+    emailMessage.value = '';
+    emailUpdateStatus.checked = false;
     
     // Establecer datos de la cita
-    document.getElementById('emailModal').dataset.citaId = citaId;
-    document.getElementById('emailModal').dataset.pacienteEmail = pacienteEmail;
+    emailModal.dataset.citaId = citaId;
+    emailModal.dataset.pacienteEmail = pacienteEmail;
     
     // Mostrar modal
-    const modal = new bootstrap.Modal(document.getElementById('emailModal'));
-    modal.show();
+    try {
+        const modal = new bootstrap.Modal(emailModal);
+        modal.show();
+        console.log('✅ Modal de email abierto para cita:', citaId);
+    } catch (error) {
+        console.error('❌ Error al abrir modal:', error);
+        alert('Error al abrir el modal de email. Por favor recargue la página.');
+    }
 }
 
 // Hacer funciones globalmente accesibles
 window.showCitaDetails = showCitaDetails;
 window.openEmailModal = openEmailModal;
 window.sendEmailResponse = sendEmailResponse;
+
+// Event listener para botón de envío de email
+document.addEventListener('DOMContentLoaded', function() {
+    const sendEmailBtn = document.getElementById('sendEmailBtn');
+    if (sendEmailBtn) {
+        sendEmailBtn.addEventListener('click', async function() {
+            const modal = document.getElementById('emailModal');
+            const citaId = modal.dataset.citaId;
+            const pacienteEmail = modal.dataset.pacienteEmail;
+            
+            if (citaId && pacienteEmail) {
+                await sendEmailResponse(citaId, pacienteEmail);
+            } else {
+                console.error('❌ Datos de cita no disponibles');
+                alert('Error: Datos de la cita no disponibles');
+            }
+        });
+    }
+});
 
 /**
  * Obtiene el badge de estado con estilos apropiados.
