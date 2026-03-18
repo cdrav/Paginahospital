@@ -2,16 +2,16 @@
 (function() {
     // Configuración para desarrollo local
     window.EMAILJS_CONFIG = {
-        isDevelopment: true, // Cambiar a false en producción
-        serviceId: 'service_hdsa', // Reemplazar con tu service ID real
-        templateId: 'template_cita_response', // Reemplazar con tu template ID real
-        publicKey: 'TU_PUBLIC_KEY_AQUI', // Reemplazar con tu public key real
+        isDevelopment: false, // Cambiar a false en producción
+        serviceId: 'service_dxylc2z', // Tu Service ID real
+        templateId: 'template_27m7z1g', // Template ID real configurado
+        publicKey: 'gcybOcZM8nYnJy19f', // Tu Public Key real
         
-        // Configuración de prueba local
+        // Configuración de producción
         testMode: {
-            enabled: true,
+            enabled: false, // Desactivar en producción
             logEmails: true, // Mostrar emails en consola
-            simulateSending: true // Simular envío sin enviar real
+            simulateSending: false // Enviar emails reales
         }
     };
     
@@ -39,14 +39,16 @@ async function sendEmailResponse(docId, pacienteEmail) {
         const emailData = {
             to_email: pacienteEmail,
             from_name: 'Hospital San Antonio',
+            from_email: 'sistemashdsa@gmail.com', // Email remitente
             subject: subject,
             message: message,
-            reply_to: 'citas@hdsa.gov.co',
+            reply_to: 'citas@hdsa.gov.co', // Email del hospital para respuestas
+            bcc: 'sistemashdsa@gmail.com', // Copia oculta para control
             hospital_info: {
                 name: 'Hospital Departamental San Antonio de Roldanillo',
                 phone: '(2) 2295000',
                 address: 'Avenida Santander # 10-50, Roldanillo',
-                email: 'citas@hdsa.gov.co'
+                email: 'citas@hdsa.gov.co' // Email institucional
             }
         };
 
@@ -54,12 +56,15 @@ async function sendEmailResponse(docId, pacienteEmail) {
         if (EMAILJS_CONFIG.isDevelopment && EMAILJS_CONFIG.testMode.enabled) {
             console.log('📧 MODO DESARROLLO - Email no enviado realmente');
             console.log('📋 Datos del email:', emailData);
+            console.log('📧 From:', emailData.from_email);
+            console.log('📧 Reply-To:', emailData.reply_to);
+            console.log('📧 BCC:', emailData.bcc);
             
             // Simular envío exitoso
             await new Promise(resolve => setTimeout(resolve, 1500));
             
             // Mostrar confirmación
-            alert(`✅ MODO PRUEBA: Email simulado enviado a: ${pacienteEmail}\n\nAsunto: ${subject}\n\nMensaje: ${message.substring(0, 100)}...`);
+            alert(`✅ MODO PRUEBA: Email simulado enviado a: ${pacienteEmail}\n\nDesde: ${emailData.from_email}\nResponder a: ${emailData.reply_to}\nCon copia a: ${emailData.bcc}\n\nAsunto: ${subject}\n\nMensaje: ${message.substring(0, 100)}...`);
             
         } else {
             // Modo producción - enviar email real
