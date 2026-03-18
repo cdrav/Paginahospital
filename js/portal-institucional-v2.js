@@ -279,6 +279,15 @@ function renderCitasTable(citas) {
 
     noResults.classList.add('d-none');
 
+    // Agrupar citas por estado para mejor organización
+    const citasPorEstado = {
+        'Solicitada': [],
+        'En Proceso': [],
+        'Confirmada': [],
+        'Atendida': [],
+        'Cancelada': []
+    };
+
     citas.forEach(cita => {
         // Validar que los datos existan
         if (!cita.paciente || !cita.especialidad) {
@@ -286,44 +295,93 @@ function renderCitasTable(citas) {
             return; // Saltar esta cita
         }
 
-        const fechaSolicitud = cita.createdAt?.toDate().toLocaleDateString('es-CO') || 'N/A';
         const status = cita.status || 'Solicitada';
-        const tieneArchivos = cita.ordenesMedicas && cita.ordenesMedicas.length > 0;
-        const statusBadge = getStatusBadge(status);
-
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><small class="text-muted">${cita.id}</small></td>
-            <td>${cita.paciente.nombres || 'N/A'} ${cita.paciente.apellidos || 'N/A'}</td>
-            <td>${cita.especialidad.nombre || 'N/A'}</td>
-            <td>${fechaSolicitud}</td>
-            <td>
-                <select class="form-select form-select-sm status-select" data-doc-id="${cita.id}" data-original-status="${status}" aria-label="Cambiar estado">
-                    <option value="Solicitada" ${status === 'Solicitada' ? 'selected' : ''}>Solicitada</option>
-                    <option value="En Proceso" ${status === 'En Proceso' ? 'selected' : ''}>En Proceso</option>
-                    <option value="Confirmada" ${status === 'Confirmada' ? 'selected' : ''}>Confirmada</option>
-                    <option value="Atendida" ${status === 'Atendida' ? 'selected' : ''}>Atendida</option>
-                    <option value="Cancelada" ${status === 'Cancelada' ? 'selected' : ''}>Cancelada</option>
-                </select>
-            </td>
-            <td>
-                <div class="btn-group btn-group-sm" role="group">
-                    <button class="btn btn-outline-primary view-details-btn" data-doc-id="${cita.id}" data-bs-toggle="modal" data-bs-target="#modalDetallesCita">
-                        <i class="bi bi-eye-fill"></i> Ver
-                    </button>
-                    ${tieneArchivos ? `
-                        <button class="btn btn-outline-success view-details-btn" data-doc-id="${cita.id}" data-bs-toggle="modal" data-bs-target="#modalDetallesCita">
-                            <i class="bi bi-file-earmark-text"></i> Archivos
-                        </button>
-                    ` : ''}
-                    <button class="btn btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-email="${cita.paciente.correo}">
-                        <i class="bi bi-envelope-fill"></i> Responder
-                    </button>
-                </div>
-            </td>
-        `;
-        tableBody.appendChild(tr);
+        if (citasPorEstado[status]) {
+            citasPorEstado[status].push(cita);
+        }
     });
+
+    // Renderizar citas agrupadas por estado
+    let htmlContent = '';
+    Object.keys(citasPorEstado).forEach(status => {
+        if (citasPorEstado[status].length > 0) {
+            htmlContent += `
+                <tr class="table-group-header">
+                    <td colspan="6" class="bg-light text-center fw-bold text-primary py-2">
+                        <i class="bi bi-folder-fill me-2"></i>${status} (${citasPorEstado[status].length})
+                    </td>
+                </tr>
+            `;
+            
+            citasPorEstado[status].forEach(cita => {
+                const fechaSolicitud = cita.createdAt?.toDate().toLocaleDateString('es-CO') || 'N/A';
+                const tieneArchivos = cita.ordenesMedicas && cita.ordenesMedicas.length > 0;
+                const statusBadge = getStatusBadge(status);
+
+                htmlContent += `
+                    <tr class="cita-row" data-status="${status}">
+                        <td><small class="text-muted">${cita.id}</small></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="me-2">
+                                    <i class="bi bi-person-circle text-primary"></i>
+                                </div>
+                                <div>
+                                    <strong>${cita.paciente.nombres || 'N/A'} ${cita.paciente.apellidos || 'N/A'}</strong>
+                                    <small class="d-block text-muted">${cita.paciente.numeroDocumento || 'N/A'}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-info text-white">
+                                <i class="bi bi-hospital me-1"></i>${cita.especialidad.nombre || 'N/A'}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-calendar-event text-muted me-2"></i>
+                                <span>${fechaSolicitud}</span>
+                            </div>
+                        </td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-primary" onclick="showCitaDetails('${cita.id}')">
+                                    <i class="bi bi-eye-fill"></i> Ver
+                                </button>
+                                ${tieneArchivos ? `
+                                    <button class="btn btn-sm btn-outline-success" onclick="showCitaDetails('${cita.id}')">
+                                        <i class="bi bi-file-earmark-fill"></i> Archivos
+                                    </button>
+                                ` : ''}
+                                <button class="btn btn-sm btn-outline-info" onclick="openEmailModal('${cita.id}', '${cita.paciente.email || ''}')">
+                                    <i class="bi bi-envelope-fill"></i> Responder
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+    });
+
+    tableBody.innerHTML = htmlContent;
+}
+
+// Función para abrir modal de email
+function openEmailModal(citaId, pacienteEmail) {
+    // Limpiar formulario
+    document.getElementById('emailSubject').value = '';
+    document.getElementById('emailMessage').value = '';
+    document.getElementById('emailUpdateStatus').checked = false;
+    
+    // Establecer datos de la cita
+    document.getElementById('emailModal').dataset.citaId = citaId;
+    document.getElementById('emailModal').dataset.pacienteEmail = pacienteEmail;
+    
+    // Mostrar modal
+    const modal = new bootstrap.Modal(document.getElementById('emailModal'));
+    modal.show();
 }
 
 /**
