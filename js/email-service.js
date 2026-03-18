@@ -1,14 +1,3 @@
-// Importar Firebase Firestore
-import { 
-    doc, 
-    updateDoc, 
-    addDoc, 
-    collection, 
-    serverTimestamp 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-import { auth, db } from "./firebase-config.js";
-
 // Configuración de EmailJS para pruebas locales
 (function() {
     // Configuración para desarrollo local
@@ -40,6 +29,30 @@ async function sendEmailResponse(docId, pacienteEmail) {
     const updateStatus = document.getElementById('emailUpdateStatus').checked;
 
     try {
+        // Cargar Firebase dinámicamente solo cuando se necesite
+        if (!window.firebaseLoaded) {
+            try {
+                // Cargar módulos Firebase dinámicamente
+                const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+                const configModule = await import("./firebase-config.js");
+                
+                window.firebaseModules = {
+                    doc: firestoreModule.doc,
+                    updateDoc: firestoreModule.updateDoc,
+                    addDoc: firestoreModule.addDoc,
+                    collection: firestoreModule.collection,
+                    serverTimestamp: firestoreModule.serverTimestamp,
+                    auth: configModule.auth,
+                    db: configModule.db
+                };
+                window.firebaseLoaded = true;
+                console.log('✅ Firebase cargado dinámicamente');
+            } catch (error) {
+                console.error('❌ Error cargando Firebase:', error);
+                // Continuar sin Firebase si hay error
+            }
+        }
+
         // Mostrar loading
         const sendBtn = document.getElementById('sendEmailBtn');
         if (!sendBtn) {
@@ -97,8 +110,9 @@ async function sendEmailResponse(docId, pacienteEmail) {
         }
 
         // Actualizar estado si se solicitó
-        if (updateStatus) {
-            await updateDoc(doc(db, "citasOnline", docId), {
+        if (updateStatus && window.firebaseLoaded && window.firebaseModules) {
+            await window.firebaseModules.updateDoc(
+                window.firebaseModules.doc(window.firebaseModules.db, "citasOnline", docId), {
                 status: 'En Proceso',
                 emailSent: true,
                 emailSentAt: new Date(),
@@ -109,16 +123,19 @@ async function sendEmailResponse(docId, pacienteEmail) {
         }
 
         // Registrar log del email
-        await addDoc(collection(db, "emailLogs"), {
-            citaId: docId,
-            pacienteEmail: pacienteEmail,
-            subject: subject,
-            message: message.substring(0, 200) + '...',
-            sentAt: serverTimestamp(),
-            sentBy: auth.currentUser.email,
-            mode: EMAILJS_CONFIG.isDevelopment ? 'development' : 'production',
-            status: 'sent'
-        });
+        if (window.firebaseLoaded && window.firebaseModules) {
+            await window.firebaseModules.addDoc(
+                window.firebaseModules.collection(window.firebaseModules.db, "emailLogs"), {
+                citaId: docId,
+                pacienteEmail: pacienteEmail,
+                subject: subject,
+                message: message.substring(0, 200) + '...',
+                sentAt: window.firebaseModules.serverTimestamp(),
+                sentBy: window.firebaseModules.auth.currentUser.email,
+                mode: EMAILJS_CONFIG.isDevelopment ? 'development' : 'production',
+                status: 'sent'
+            });
+        }
 
         // Restaurar botón
         if (sendBtn) {
@@ -155,6 +172,9 @@ async function sendEmailResponse(docId, pacienteEmail) {
         alert('❌ Error al enviar email: ' + error.message);
     }
 }
+
+// Hacer la función globalmente accesible
+window.sendEmailResponse = sendEmailResponse;
 
 // Función para probar EmailJS localmente
 async function testEmailConfiguration() {
