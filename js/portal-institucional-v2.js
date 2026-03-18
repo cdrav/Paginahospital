@@ -384,6 +384,11 @@ function openEmailModal(citaId, pacienteEmail) {
     modal.show();
 }
 
+// Hacer funciones globalmente accesibles
+window.showCitaDetails = showCitaDetails;
+window.openEmailModal = openEmailModal;
+window.sendEmailResponse = sendEmailResponse;
+
 /**
  * Obtiene el badge de estado con estilos apropiados.
  */
