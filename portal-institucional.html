@@ -356,17 +356,6 @@
                             <label for="emailMessage" class="form-label fw-bold">Mensaje</label>
                             <textarea class="form-control" id="emailMessage" rows="6" placeholder="Escriba su respuesta al paciente..." required></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label for="emailStatusSelect" class="form-label fw-bold">Actualizar Estado de la Cita</label>
-                            <select class="form-select" id="emailStatusSelect">
-                                <option value="Solicitada">Solicitada</option>
-                                <option value="En Proceso">En Proceso (Gestión)</option>
-                                <option value="Confirmada">Confirmada (Cita Asignada)</option>
-                                <option value="Atendida">Atendida</option>
-                                <option value="Cancelada">Cancelada</option>
-                            </select>
-                            <div class="form-text">Seleccione un nuevo estado solo si desea actualizarlo.</div>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -382,6 +371,37 @@
                             <li><button class="dropdown-item" type="button" id="btn-action-webmail"><i class="bi bi-globe me-2"></i>Abrir Webmail Institucional</button></li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Específico para Cambiar Estado -->
+    <div class="modal fade" id="modalCambiarEstado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fs-6 fw-bold">Actualizar Estado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCambiarEstado">
+                        <input type="hidden" id="statusDocId">
+                        <input type="hidden" id="statusPrev">
+                        <div class="mb-3">
+                            <label for="nuevoEstadoSelect" class="form-label small text-muted">Seleccione nuevo estado:</label>
+                            <select class="form-select" id="nuevoEstadoSelect">
+                                <option value="Solicitada">Solicitada</option>
+                                <option value="En Proceso">En Proceso</option>
+                                <option value="Confirmada">Confirmada</option>
+                                <option value="Atendida">Atendida</option>
+                                <option value="Cancelada">Cancelada</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-sm">Guardar Cambio</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

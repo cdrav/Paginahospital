@@ -109,8 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const docId = btn.dataset.docId;
             const radicado = btn.dataset.radicado;
             const pacienteEmail = btn.dataset.email;            
+            openEmailModal(docId, pacienteEmail, radicado);
+        }
+
+        if (e.target.closest('.cambiar-estado-btn')) {
+            const btn = e.target.closest('.cambiar-estado-btn');
+            const docId = btn.dataset.docId;
             const currentStatus = btn.dataset.status;
-            openEmailModal(docId, pacienteEmail, radicado, currentStatus);
+            // Abrir el modal de cambio de estado
+            openStatusModal(docId, currentStatus);
         }
 
         if (e.target.closest('.descargar-archivo-btn')) {
@@ -169,6 +176,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+    
+    // Listener para el formulario del modal de cambio de estado
+    const formCambiarEstado = document.getElementById('formCambiarEstado');
+    if (formCambiarEstado) {
+        formCambiarEstado.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const docId = document.getElementById('statusDocId').value;
+            const newStatus = document.getElementById('nuevoEstadoSelect').value;
+            const prevStatus = document.getElementById('statusPrev').value;
+            
+            // Cerrar modal
+            const modalEl = document.getElementById('modalCambiarEstado');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+
+            // Ejecutar actualización
+            if (newStatus !== prevStatus) {
+                await updateCitaStatus(docId, newStatus, prevStatus);
+            } else {
+                window.notify('No hubo cambios en el estado.', { type: 'info' });
+            }
+        });
+    }
 
     // Filtros
     const btnApplyFilters = document.getElementById('btn-apply-filters');
@@ -493,7 +523,10 @@ function renderCitasTable(citas, totalLoaded) {
                                 <button class="btn btn-sm btn-outline-primary view-details-btn" data-doc-id="${cita.id}">
                                     <i class="bi bi-eye-fill"></i> Ver
                                 </button>
-                                <button class="btn btn-sm btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}" data-status="${cita.status || 'Solicitada'}">
+                                <button class="btn btn-sm btn-outline-warning cambiar-estado-btn" data-doc-id="${cita.id}" data-status="${status}">
+                                    <i class="bi bi-arrow-repeat"></i> Estado
+                                </button>
+                                <button class="btn btn-sm btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}">
                                     <i class="bi bi-envelope-fill"></i> Responder
                                 </button>
                             </div>
@@ -513,9 +546,8 @@ function renderCitasTable(citas, totalLoaded) {
  * @param {string} citaId - El ID del documento de la cita.
  * @param {string} pacienteEmail - El correo del paciente a quien se responderá.
  * @param {string} radicado - El número de radicado visible para el usuario.
- * @param {string} currentStatus - El estado actual de la cita.
  */
-function openEmailModal(citaId, pacienteEmail, radicado, currentStatus) {
+function openEmailModal(citaId, pacienteEmail, radicado) {
     const emailModalEl = document.getElementById('emailModal');
     if (!emailModalEl) {
         console.error('❌ Modal de email no encontrado');
@@ -527,11 +559,10 @@ function openEmailModal(citaId, pacienteEmail, radicado, currentStatus) {
     const emailToInput = document.getElementById('emailTo');
     const emailSubject = document.getElementById('emailSubject');
     const emailMessage = document.getElementById('emailMessage');
-    const emailStatusSelect = document.getElementById('emailStatusSelect');
     const sendEmailBtn = document.getElementById('sendEmailBtn');
     const btnWebmail = document.getElementById('btn-action-webmail');
 
-    if (!emailToInput || !emailSubject || !emailMessage || !emailStatusSelect || !sendEmailBtn) {
+    if (!emailToInput || !emailSubject || !emailMessage || !sendEmailBtn) {
         console.error('❌ Elementos del formulario de email no encontrados');
         alert('Error: Formulario de email incompleto. Por favor recargue la página.');
         return;
@@ -541,17 +572,16 @@ function openEmailModal(citaId, pacienteEmail, radicado, currentStatus) {
     emailToInput.value = pacienteEmail || '';
     emailSubject.value = `Respuesta a su solicitud de cita (Radicado: ${radicado || citaId.substring(0, 8) + '...'})`;
     emailMessage.value = generarPlantillaEmail();
-    emailStatusSelect.value = currentStatus || 'Solicitada'; // Preseleccionar estado actual
 
     // Configurar el botón de envío para esta cita específica.
     // Usar .onclick para sobrescribir listeners anteriores y evitar envíos múltiples.
     sendEmailBtn.onclick = async () => {
-        await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, emailStatusSelect.value, currentStatus, 'mailto');
+        await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, 'mailto');
     };
 
     if (btnWebmail) {
         btnWebmail.onclick = async () => {
-            await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, emailStatusSelect.value, currentStatus, 'webmail');
+            await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, 'webmail');
         };
     }
 
@@ -572,7 +602,7 @@ function openEmailModal(citaId, pacienteEmail, radicado, currentStatus) {
  * 2. Abre el cliente de correo del usuario.
  * 3. Solo registra en historial si hubo cambio de estado.
  */
-async function handleManualEmailResponse(citaId, emailTo, subject, message, newStatus, currentStatus, mode = 'mailto') {
+async function handleManualEmailResponse(citaId, emailTo, subject, message, mode = 'mailto') {
     if (!emailTo) {
         window.notify('El correo del destinatario es obligatorio.', { type: 'danger' });
         return;
@@ -586,11 +616,6 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, newS
     }
 
     try {
-        // 1. Actualizar estado en Firebase SOLO si el usuario eligió uno diferente
-        if (newStatus && newStatus !== currentStatus) {
-            await updateCitaStatus(citaId, newStatus, currentStatus);
-        }
-
         if (mode === 'webmail') {
             // 2b. Modo Webmail: Copiar al portapapeles y abrir enlace
             const clipboardText = `Para: ${emailTo}\nAsunto: ${subject}\n\n${message}`;
@@ -625,6 +650,27 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, newS
             sendEmailBtn.disabled = false;
             sendEmailBtn.innerHTML = originalText;
         }
+    }
+}
+
+/**
+ * Abre el modal independiente para cambiar el estado.
+ */
+function openStatusModal(docId, currentStatus) {
+    const modalEl = document.getElementById('modalCambiarEstado');
+    const inputId = document.getElementById('statusDocId');
+    const inputPrev = document.getElementById('statusPrev');
+    const select = document.getElementById('nuevoEstadoSelect');
+
+    if (modalEl && inputId && select) {
+        inputId.value = docId;
+        inputPrev.value = currentStatus;
+        select.value = currentStatus || 'Solicitada';
+        
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    } else {
+        alert('Error al abrir el modal de estado.');
     }
 }
 
