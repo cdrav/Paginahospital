@@ -410,11 +410,148 @@
     100% { transform: rotate(360deg); }
   }
 
+  /* Corrección específica para que las flechas de los selectores (EPS, Género, etc.) 
+     se vean siempre, especialmente en móviles */
+  .form-content select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 16px 12px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    padding-right: 2.25rem !important; /* Espacio para no escribir sobre la flecha */
+  }
+
+  /* ==========================================================================
+     DISEÑO RESPONSIVO AVANZADO (MOBILE FIRST ADAPTATION)
+     ========================================================================== */
   @media (max-width: 768px) {
-    .step-label {
-      display: none;
+    
+    /* 1. Ajuste de Cabecera (Hero) para evitar solapamiento con menú fijo */
+    .hero-modern {
+      padding-top: 160px; /* Suficiente espacio para TopBar + NavBar + Margen */
+      padding-bottom: 1.5rem;
+      text-align: center;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-    .step-item.active .step-label {
-      display: inline-block;
+    
+    .hero-modern h1 {
+      font-size: 1.6rem; /* Tamaño equilibrado */
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-modern p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* 2. Contenedor y Tarjeta Principal */
+    .modern-container {
+      padding: 0 10px; /* Márgenes laterales mínimos */
+      max-width: 100%;
+    }
+
+    .form-card {
+      border-radius: 12px; /* Bordes menos redondeados para aprovechar espacio */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra más ligera */
+      border: none;
+    }
+
+    /* 3. Wizard de Pasos (Simplificado) */
+    .step-wizard {
+      padding: 1rem 0.5rem;
+    }
+
+    .step-label {
+      display: none !important; /* Ocultar siempre etiquetas en móvil para limpieza */
+    }
+
+    .step-content-wrapper {
+      padding: 0;
+      background: transparent !important;
+      border: none;
+      box-shadow: none !important;
+    }
+
+    .step-item {
+      padding: 0 5px;
+    }
+
+    .step-item.active .step-number {
+      transform: scale(1.2); /* Resaltar más el número activo */
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    }
+
+    /* 4. Especialidades como LISTA (Mejor UX móvil) */
+    .specialty-grid {
+      grid-template-columns: 1fr; /* Una sola columna */
+      gap: 0.75rem;
+    }
+
+    .specialty-card {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      padding: 1rem;
+      min-height: auto;
+      flex-direction: row; /* Icono izquierda, texto derecha */
+    }
+
+    .specialty-icon {
+      margin: 0 1rem 0 0; /* Margen a la derecha del icono */
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0; /* Evitar que el icono se aplaste */
+      font-size: 1.2rem;
+    }
+
+    .specialty-card h5 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .specialty-card p {
+      font-size: 0.85rem;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+
+    /* 5. Botones de Acción (Full Width y Stacked) */
+    .form-actions {
+      flex-direction: column-reverse; /* "Atrás" abajo, "Siguiente" arriba */
+      gap: 0.75rem;
+    }
+
+    .form-actions button {
+      width: 100%; /* Botones de ancho completo fáciles de tocar */
+      padding: 0.9rem; /* Más altos para dedos */
+      font-size: 1rem;
+    }
+
+    /* 6. Campos de Formulario (Touch Friendly) */
+    .form-control, .form-select {
+      height: 50px; /* Inputs más altos */
+      font-size: 16px; /* Evita zoom automático en iOS */
+    }
+    
+    .form-section {
+      padding: 1.5rem 1rem;
+    }
+
+    /* 7. Calendario */
+    .calendar-container {
+      padding: 0.75rem;
+    }
+    
+    .calendar-day {
+      height: 40px; /* Altura fija cómoda */
+      font-size: 0.9rem;
+    }
+    
+    /* Horarios en 3 columnas */
+    .time-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }

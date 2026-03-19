@@ -394,6 +394,56 @@ section > p {
   }
 }
 
+/* =====================================================
+   Mejoras de Responsividad para el Wizard de Citas
+   ===================================================== */
+@media (max-width: 768px) {
+  /* Ajuste de días del calendario para dedos (Touch targets) */
+  .calendar-day {
+    height: 42px !important;
+    line-height: 42px !important;
+    font-size: 0.95rem !important;
+    margin: 2px !important;
+    border-radius: 8px !important;
+  }
+  
+  /* Grilla de horarios responsive y ordenada */
+  #horariosContainer {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 columnas exactas */
+    gap: 8px !important;
+  }
+  
+  .time-slot {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 10px 4px !important;
+    font-size: 0.85rem !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Especialidades en lista vertical para mejor lectura */
+  #especialidadesContainer {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  .specialty-card {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important; /* Permitir altura flexible */
+  }
+
+  /* Asegurar espacio inferior para que los botones de navegación respiren */
+  .step-content-wrapper {
+    padding-bottom: 60px; 
+  }
+}
+
 @media (min-width: 768px) {
   .hospital-logo {
     height: 84px;

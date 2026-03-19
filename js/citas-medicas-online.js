@@ -277,6 +277,10 @@ const especialidades = [
       
       container.appendChild(dayElement);
     }
+
+    // NUEVO: Recalcular altura del contenedor si estamos en el paso del calendario (Paso 3)
+    // Esto previene que el botón "Siguiente" quede oculto si el mes tiene 6 semanas
+    if (pasoActual === 3) setTimeout(() => setStepView(3), 50);
   }
   
   function seleccionarFecha(fecha, elemento) {
@@ -351,7 +355,8 @@ const especialidades = [
         slider.style.transform = `translateX(${percentage}%)`;
 
         // Ajustar la altura del contenedor a la del paso actual
-        formContent.style.height = `${targetStepElement.offsetHeight}px`;
+        // Usar scrollHeight + margen para asegurar que se vea todo el contenido y el botón
+        formContent.style.height = `${targetStepElement.scrollHeight + 30}px`;
     }
   }
 
@@ -410,6 +415,7 @@ const especialidades = [
     if (pasoActual === 4) cargarResumen();
 
     setStepView(pasoActual);
+    scrollToTopWizard();
   };
   
   function anteriorPaso(paso) {
@@ -431,7 +437,22 @@ const especialidades = [
     actualizarBarraDeProgreso();
 
     setStepView(pasoActual);
+    scrollToTopWizard();
   };
+
+  /**
+   * Realiza un scroll suave hacia arriba del formulario al cambiar de paso.
+   * Mejora la experiencia en móviles evitando que el usuario quede al final de la página.
+   */
+  function scrollToTopWizard() {
+    const slider = document.querySelector('.form-slider');
+    const headerOffset = 180; // AUMENTADO: Compensar el nuevo padding superior del hero en móviles
+    if (slider) {
+        const elementPosition = slider.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+  }
 
   // Delegación de eventos para los botones de navegación del wizard
   const formSlider = document.querySelector('.form-slider');
