@@ -622,7 +622,10 @@ const especialidades = [
       let uploadErrors = [];
       let hasCorsError = false;
 
-      if (files.length > 0 && !isLocalhost) {
+      // Envolver la subida de archivos y actualización en un bloque try/catch secundario
+      // Esto evita que un fallo de red en este paso oculte el mensaje de éxito de la cita ya creada.
+      try {
+        if (files.length > 0 && !isLocalhost) {
         console.log('🌐 Iniciando subida de archivos a Firebase Storage...');
         
         // Obtener fecha actual para organizar carpetas por Año/Mes
@@ -740,6 +743,11 @@ const especialidades = [
           });
           console.log('✅ Firestore actualizado con archivos');
         }
+      }
+      } catch (secondaryError) {
+          console.warn("⚠️ Advertencia: La cita se creó, pero hubo un error subiendo archivos o actualizando:", secondaryError);
+          // Agregamos un error genérico a la lista para notificar al usuario en el modal, sin bloquear el éxito.
+          uploadErrors.push({ fileName: 'Adjuntos', error: 'Problema de conexión al finalizar. La cita sí fue agendada.' });
       }
 
       // --- Éxito con posible advertencia de archivos ---
