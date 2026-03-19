@@ -38,6 +38,7 @@ async function sendEmailResponse(docId, pacienteEmail) {
                 
                 window.firebaseModules = {
                     doc: firestoreModule.doc,
+                    getDoc: firestoreModule.getDoc,
                     updateDoc: firestoreModule.updateDoc,
                     addDoc: firestoreModule.addDoc,
                     collection: firestoreModule.collection,
@@ -53,6 +54,21 @@ async function sendEmailResponse(docId, pacienteEmail) {
             }
         }
 
+        // Obtener el nombre del paciente para personalizar el email
+        let patientName = 'paciente'; // Valor por defecto
+        if (window.firebaseLoaded && window.firebaseModules) {
+            try {
+                const citaDocRef = window.firebaseModules.doc(window.firebaseModules.db, "citasOnline", docId);
+                const citaDocSnap = await window.firebaseModules.getDoc(citaDocRef);
+                if (citaDocSnap.exists()) {
+                    const citaData = citaDocSnap.data();
+                    patientName = `${citaData.paciente.nombres || ''} ${citaData.paciente.apellidos || ''}`.trim() || 'paciente';
+                }
+            } catch (e) {
+                console.error("No se pudo obtener el nombre del paciente:", e);
+            }
+        }
+
         // Mostrar loading
         const sendBtn = document.getElementById('sendEmailBtn');
         if (!sendBtn) {
@@ -62,18 +78,21 @@ async function sendEmailResponse(docId, pacienteEmail) {
         sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
         sendBtn.disabled = true;
 
+        console.log(`📧 Intentando enviar email a: ${pacienteEmail}`);
+
         // Datos del email
         const emailData = {
             to_email: pacienteEmail,
             from_name: 'Hospital San Antonio',
-            from_email: 'sistemashdsa@gmail.com', // Email remitente
+            from_email: 'citas@hdsa.gov.co', // Email remitente
             subject: subject,
             message: message,
+            patient_name: patientName, // Variable para el nombre del paciente en la plantilla
             reply_to: 'citas@hdsa.gov.co', // Email del hospital para respuestas
-            bcc: 'sistemashdsa@gmail.com', // Copia oculta para control
+            bcc: 'citas@hdsa.gov.co', // Copia oculta para control centralizado
             hospital_info: {
                 name: 'Hospital Departamental San Antonio de Roldanillo',
-                phone: '(2) 2295000',
+                phone: '(+57) 602 891 2317', // Número de teléfono oficial corregido
                 address: 'Avenida Santander # 10-50, Roldanillo',
                 email: 'citas@hdsa.gov.co' // Email institucional
             }

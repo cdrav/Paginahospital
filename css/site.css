@@ -1689,6 +1689,16 @@ p, a, td, th, li {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo para tarjetas de estadísticas clickables */
+.stat-card-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.stat-card-clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
 /* =====================================================
    Carrusel Principal - Botones de Acción
    ===================================================== */
@@ -2188,4 +2198,3 @@ p, a, td, th, li {
     font-size: 2rem;
     color: #1a9f8f;
 }
-

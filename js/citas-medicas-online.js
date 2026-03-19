@@ -28,6 +28,7 @@ const especialidades = [
     ordenesMedicas: null
   };
   let fechaMostrada = new Date(); // Estado para el mes/año que muestra el calendario
+  let fileAccumulator = new DataTransfer(); // Acumulador para mantener múltiples archivos seleccionados
   
   // Inicialización
   document.addEventListener('DOMContentLoaded', function() {
@@ -38,6 +39,8 @@ const especialidades = [
     const ordenesInput = document.getElementById('ordenesMedicas');
     if (ordenesInput) {
         ordenesInput.addEventListener('change', manejarCargaArchivos);
+        // Reiniciar acumulador al recargar
+        fileAccumulator = new DataTransfer();
     }
   
     const citaForm = document.getElementById('citaForm');
@@ -84,10 +87,46 @@ const especialidades = [
   // --- Gestión de Archivos ---
   
   function manejarCargaArchivos(e) {
-    const archivos = e.target.files;
+    const nuevosArchivos = Array.from(e.target.files);
+    const input = e.target;
+    
+    // Procesar cada archivo nuevo seleccionado
+    nuevosArchivos.forEach(archivo => {
+        // VALIDACIÓN INTELIGENTE DE TAMAÑO
+        const esImagen = archivo.type.startsWith('image/');
+        const limiteSize = esImagen ? 10 * 1024 * 1024 : 2 * 1024 * 1024; // 10MB imágenes, 2MB PDF
+
+        if (archivo.size > limiteSize) {
+            mostrarModalPesoExcedido(archivo.name, archivo.size, limiteSize, esImagen);
+            // No agregamos este archivo al acumulador
+        } else {
+            // Verificar duplicados simples por nombre y tamaño para no agregar el mismo archivo dos veces
+            let existe = false;
+            for (let i = 0; i < fileAccumulator.items.length; i++) {
+                const f = fileAccumulator.files[i];
+                if (f.name === archivo.name && f.size === archivo.size) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                fileAccumulator.items.add(archivo);
+            }
+        }
+    });
+
+    // Actualizar el input con la lista completa acumulada
+    input.files = fileAccumulator.files;
+    
+    // Renderizar la lista visual
+    renderizarListaArchivos();
+  }
+
+  function renderizarListaArchivos() {
     const listaArchivos = document.getElementById('listaArchivos');
     const contenedorArchivos = document.getElementById('archivosCargados');
-    
+    const archivos = fileAccumulator.files;
+
     if (archivos.length > 0) {
       contenedorArchivos.style.display = 'block';
       listaArchivos.innerHTML = '';
@@ -122,17 +161,21 @@ const especialidades = [
   
   // Función global para ser llamada desde el HTML generado dinámicamente
   window.eliminarArchivo = function(index) {
+    // Crear un nuevo DataTransfer sin el archivo eliminado
+    const nuevoDt = new DataTransfer();
+    const archivosActuales = Array.from(fileAccumulator.files);
+    
+    archivosActuales.forEach((archivo, i) => {
+        if (i !== index) nuevoDt.items.add(archivo);
+    });
+    
+    // Actualizar acumulador y el input
+    fileAccumulator = nuevoDt;
     const input = document.getElementById('ordenesMedicas');
-    const archivos = Array.from(input.files);
+    input.files = fileAccumulator.files;
     
-    archivos.splice(index, 1);
-    
-    const dt = new DataTransfer();
-    archivos.forEach(archivo => dt.items.add(archivo));
-    input.files = dt.files;
-    
-    const evento = new Event('change', { bubbles: true });
-    input.dispatchEvent(evento);
+    // Re-renderizar
+    renderizarListaArchivos();
   };
   
   // --- Lógica del Wizard y Pasos ---
@@ -516,10 +559,20 @@ const especialidades = [
     document.getElementById('loadingOverlay').style.display = 'flex';
 
     try {
-      // PASO 1: Guardar los datos de la cita (simulado si es localhost)
+      // PASO 1: Generar un radicado personalizado y guardar los datos de la cita
+      const now = new Date();
+      const year = now.getFullYear().toString().slice(-2);
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const day = now.getDate().toString().padStart(2, '0');
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const customRadicado = `HDSA-${year}${month}${day}-${hours}${minutes}${seconds}`;
+
       const dataToSave = {
         ...datosCita,
         paciente: { ...datosCita.paciente }, // Crear una copia para evitar problemas de referencia
+        radicado: customRadicado, // Guardar el radicado personalizado
         ordenesMedicas: [], // Dejar vacío por ahora, se actualizará después de subir los archivos.
         status: 'Solicitada', // Estado inicial fijo para todas las citas
         createdAt: serverTimestamp() // Fecha y hora de creación en el servidor
@@ -531,14 +584,14 @@ const especialidades = [
         console.log('🔧 Modo desarrollo local - Simulando guardado en Firestore...');
         // Simular ID de documento
         citaId = 'mock_cita_' + Date.now();
-        console.log('✅ Cita simulada con ID:', citaId);
+        console.log('✅ Cita simulada con Radicado:', customRadicado);
         console.log('📝 Datos simulados:', dataToSave);
       } else {
         console.log('🌐 Modo producción - Guardando en Firestore real...');
         // Guardar el documento en la colección 'citasOnline' de Firestore
         const docRef = await addDoc(collection(db, "citasOnline"), dataToSave);
         citaId = docRef.id;
-        console.log('✅ Cita guardada en Firestore con ID:', citaId);
+        console.log('✅ Cita guardada en Firestore con ID:', citaId, 'y Radicado:', customRadicado);
       }
 
       // PASO 2: Subir los archivos a Firebase Storage con manejo robusto de errores CORS
@@ -671,7 +724,7 @@ const especialidades = [
       // --- Éxito con posible advertencia de archivos ---
       document.getElementById('loadingOverlay').style.display = 'none';
       
-      document.getElementById('numeroRadicado').textContent = citaId; // Usar el ID de Firestore como radicado
+      document.getElementById('numeroRadicado').textContent = customRadicado; // Usar el radicado personalizado
       
       const fechaObj = new Date(datosCita.fecha + 'T12:00:00');
       const fechaCompleta = `${fechaObj.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${datosCita.hora}`;
@@ -684,7 +737,14 @@ const especialidades = [
         mostrarAdvertencia(`Tu cita fue registrada exitosamente, pero los siguientes archivos no se pudieron adjuntar: ${archivosFallidos}. Por favor, contáctanos para enviarlos por otro medio.`);
       }
       
-      const modal = new bootstrap.Modal(document.getElementById('modalExito'));
+      const modalElement = document.getElementById('modalExito');
+      const modal = new bootstrap.Modal(modalElement);
+      
+      // Redirigir al inicio cuando se cierre el modal
+      modalElement.addEventListener('hidden.bs.modal', () => {
+          window.location.href = 'index.html';
+      }, { once: true });
+
       modal.show();
     } catch (error) {
       // --- Manejo de Errores ---
@@ -793,86 +853,84 @@ const especialidades = [
     }
   }
   
-  // Sistema de inicialización robusto para resolver el problema de timing
-let initializationAttempts = 0;
-const MAX_ATTEMPTS = 10;
+  /**
+   * Muestra un modal elegante y amigable cuando el archivo es muy pesado.
+   */
+  function mostrarModalPesoExcedido(nombreArchivo, pesoActual, pesoMaximo, esImagen) {
+    const pesoActualMB = (pesoActual / 1024 / 1024).toFixed(1);
+    const pesoMaximoMB = (pesoMaximo / 1024 / 1024).toFixed(0);
+    
+    // Identificador único para el modal
+    const modalId = 'modalPesoArchivo';
+    let modalEl = document.getElementById(modalId);
 
-function initializeWhenReady() {
-    initializationAttempts++;
-    console.log(`🔄 Intento de inicialización ${initializationAttempts}/${MAX_ATTEMPTS}`);
-    
-    const requiredElements = [
-        '.form-slider',
-        '.form-content', 
-        '#paso1',
-        'button[data-action]',
-        '.step-wizard'
-    ];
-    
-    const allReady = requiredElements.every(selector => {
-        const elements = document.querySelectorAll(selector);
-        return elements.length > 0;
-    });
-    
-    if (allReady) {
-        console.log('✅ Todos los elementos requeridos están en el DOM');
-        setupNavigation();
-    } else if (initializationAttempts < MAX_ATTEMPTS) {
-        setTimeout(initializeWhenReady, 200);
-    } else {
-        console.error('❌ No se pudieron encontrar todos los elementos después de múltiples intentos');
-        setupNavigation(); // Forzar inicialización de todos modos
+    // Forzar la eliminación del modal anterior si existe para asegurar que se aplique el nuevo diseño
+    if (modalEl) {
+        modalEl.remove();
     }
-}
 
-function setupNavigation() {
-    console.log('🧭 Configurando navegación robusta...');
-    
-    const buttons = document.querySelectorAll('button[data-action]');
-    console.log(`📋 Encontrados ${buttons.length} botones de navegación`);
-    
-    buttons.forEach((button, index) => {
-        const action = button.dataset.action;
-        const step = parseInt(button.dataset.step, 10);
-        
-        console.log(`🔘 Configurando botón ${index + 1}: ${action} (paso ${step})`);
-        
-        // Eliminar eventos anteriores
-        button.removeEventListener('click', button._clickHandler);
-        
-        // Crear nuevo handler robusto
-        button._clickHandler = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log(`🎯 Click detectado: ${action} en paso ${step}`);
-            
-            if (action === 'next') {
-                siguientePaso(step);
-            } else if (action === 'prev') {
-                anteriorPaso(step);
-            }
-        };
-        
-        // Agregar evento con múltiples opciones para máxima compatibilidad
-        button.addEventListener('click', button._clickHandler, { capture: true });
-        button.onclick = button._clickHandler;
-    });
-    
-    console.log('✅ Navegación configurada correctamente');
-}
+    const modalHtml = `
+        <div class="modal fade" id="${modalId}" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="modal-header border-bottom bg-white p-3">
+                        <h5 class="modal-title fw-bold text-danger">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>Archivo demasiado pesado
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-4 text-center">
+                        <div class="mb-3">
+                            <span class="display-1 text-danger opacity-25">
+                                <i class="bi bi-file-earmark-x"></i>
+                            </span>
+                        </div>
+                        
+                        <h5 class="fw-bold text-dark mb-2 text-break" id="${modalId}-filename"></h5>
+                        
+                        <div class="d-flex justify-content-center gap-3 my-3">
+                            <div class="badge bg-danger bg-opacity-10 text-danger p-2 px-3 rounded-pill border border-danger border-opacity-25">
+                                Pesa: <span id="${modalId}-size" class="fw-bold"></span> MB
+                            </div>
+                            <div class="badge bg-success bg-opacity-10 text-success p-2 px-3 rounded-pill border border-success border-opacity-25">
+                                Máximo: <span id="${modalId}-limit" class="fw-bold"></span> MB
+                            </div>
+                        </div>
 
-// Inicialización cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeWhenReady);
-} else {
-    initializeWhenReady();
-}
+                        <div class="alert alert-light border-start border-4 border-warning text-start shadow-sm mt-4">
+                            <h6 class="fw-bold text-warning-emphasis mb-1">
+                                <i class="bi bi-lightbulb-fill me-2"></i>¿Qué puedo hacer?
+                            </h6>
+                            <p class="mb-0 small text-muted" id="${modalId}-sugerencia"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center border-0 pb-4">
+                        <button type="button" class="btn btn-primary px-5 rounded-pill fw-bold shadow-sm" data-bs-dismiss="modal">
+                            Entendido, intentaré de nuevo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    modalEl = document.getElementById(modalId);
 
-// Fallback adicional
-window.addEventListener('load', () => {
-    setTimeout(initializeWhenReady, 500);
-});
+    document.getElementById(`${modalId}-filename`).textContent = nombreArchivo;
+    document.getElementById(`${modalId}-size`).textContent = pesoActualMB;
+    document.getElementById(`${modalId}-limit`).textContent = pesoMaximoMB;
+    
+    const sugerenciaEl = document.getElementById(`${modalId}-sugerencia`);
+    if (esImagen) {
+        sugerenciaEl.innerHTML = 'Esta imagen es muy pesada. Intenta tomar una <strong>captura de pantalla</strong> de la foto o envíala por WhatsApp y descárgala de nuevo para reducir su tamaño.';
+    } else {
+        sugerenciaEl.innerHTML = 'El archivo supera el límite de 2MB. <strong>Debe comprimir el PDF</strong> antes de subirlo.<br><br><strong>💡 Alternativa más fácil:</strong><br>En lugar de subir el PDF, tome una <strong>FOTO NÍTIDA</strong> del documento con su celular y adjúntela. El sistema optimizará la foto automáticamente.';
+    }
+
+    // Mostrar modal
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+  }
 
 // Hacer funciones globales para que puedan ser accedidas desde otros scripts
   window.siguientePaso = siguientePaso;

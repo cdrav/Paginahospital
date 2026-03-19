@@ -1,6 +1,6 @@
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { auth, db, storage } from "./firebase-config.js";
-import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // Protección de ruta: Firebase verifica si hay usuario activo
@@ -107,8 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.closest('.responder-email-btn')) {
             const btn = e.target.closest('.responder-email-btn');
             const docId = btn.dataset.docId;
+            const radicado = btn.dataset.radicado;
             const pacienteEmail = btn.dataset.email;            
-            await showEmailResponseModal(docId, pacienteEmail);
+            openEmailModal(docId, pacienteEmail, radicado);
         }
 
         if (e.target.closest('.descargar-archivo-btn')) {
@@ -118,6 +119,34 @@ document.addEventListener('DOMContentLoaded', () => {
             await downloadFile(fileUrl, fileName);
         }
     });
+
+    // Event listener para tarjetas de estadísticas clickables
+    const statsDashboard = document.getElementById('stats-dashboard');
+    if (statsDashboard) {
+        statsDashboard.addEventListener('click', (e) => {
+            const card = e.target.closest('.stat-card-clickable');
+            if (!card || !card.dataset.statusFilter) return;
+
+            const filterValue = card.dataset.statusFilter;
+            const statusFilterEl = document.getElementById('filter-status');
+            const searchInputEl = document.getElementById('filter-search');
+            
+            if (statusFilterEl) {
+                statusFilterEl.value = filterValue;
+            }
+            // Limpiar búsqueda de texto al filtrar por tarjeta para evitar conflictos
+            if (searchInputEl) {
+                searchInputEl.value = '';
+            }
+
+            // Recargar la tabla con el nuevo filtro
+            initCitasAdmin();
+
+            // Scroll suave hacia la tabla para ver los resultados
+            const table = document.querySelector('#citas-admin-panel .card.shadow-sm');
+            if (table) table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
 
     // Event listener separado para el cambio de estado (usar change en lugar de click)
     document.addEventListener('change', async (e) => {
@@ -147,6 +176,18 @@ document.addEventListener('DOMContentLoaded', () => {
             initCitasAdmin(); // Recargar con los nuevos filtros
         });
     }
+
+    // Exportar a Excel (.xlsx)
+    const btnExportExcel = document.getElementById('btn-export-excel');
+    if (btnExportExcel) {
+        btnExportExcel.addEventListener('click', exportCitasToExcel);
+    }
+
+    // Exportar a PDF
+    const btnExportPDF = document.getElementById('btn-export-pdf');
+    if (btnExportPDF) {
+        btnExportPDF.addEventListener('click', exportCitasToPDF);
+    }
     
     // Búsqueda en tiempo real (debounce para no saturar)
     const searchInput = document.getElementById('filter-search');
@@ -165,11 +206,17 @@ document.addEventListener('DOMContentLoaded', () => {
  * Inicializa el panel de administración de citas.
  * Ahora soporta filtros para optimizar lecturas.
  */
+let currentCitasData = []; // Variable global para almacenar los datos actuales y poder exportarlos
+let citasQueryLimit = 20; // Límite inicial de citas a cargar (Paginación)
+let unsubscribeCitas = null; // Variable para almacenar la suscripción y poder cancelarla
+
 function initCitasAdmin() {
     let q = collection(db, "citasOnline");
     
     const statusFilter = document.getElementById('filter-status')?.value || 'active';
     const searchTerm = document.getElementById('filter-search')?.value.toLowerCase() || '';
+    const dateFrom = document.getElementById('filter-date-from')?.value;
+    const dateTo = document.getElementById('filter-date-to')?.value;
 
     // Optimización: Filtrar por estado en Firebase si no es búsqueda de texto
     // Nota: Firebase tiene limitaciones con múltiples filtros where + orderBy sin índices compuestos.
@@ -185,15 +232,23 @@ function initCitasAdmin() {
         constraints.push(where("status", "==", statusFilter));
     }
 
+    // Filtro por rango de fechas sobre el campo 'createdAt'
+    if (dateFrom) {
+        constraints.push(where("createdAt", ">=", Timestamp.fromDate(new Date(dateFrom + 'T00:00:00'))));
+    }
+    if (dateTo) {
+        constraints.push(where("createdAt", "<=", Timestamp.fromDate(new Date(dateTo + 'T23:59:59'))));
+    }
+
     // Siempre ordenar por fecha descendente
     constraints.push(orderBy("createdAt", "desc"));
     
     // Limitar resultados para eficiencia (paginación implícita)
+    // Usamos la variable global citasQueryLimit que aumenta al dar clic en "Cargar más"
     if (!searchTerm) {
-        constraints.push(limit(50));
+        constraints.push(limit(citasQueryLimit));
     } else {
         // Si hay búsqueda, aumentamos el límite para buscar en un set más amplio
-        // En una app real masiva, usaríamos un motor de búsqueda externo como Algolia.
         constraints.push(limit(100));
     }
 
@@ -203,11 +258,22 @@ function initCitasAdmin() {
     const loadingSpinner = document.getElementById('citas-loading');
     if (loadingSpinner) loadingSpinner.classList.remove('d-none');
 
+    // Detener el listener anterior si existe para evitar duplicados y fugas de memoria
+    if (unsubscribeCitas) {
+        unsubscribeCitas();
+    }
+
     // Usamos onSnapshot para tiempo real, pero cuidado con los costos si hay muchas escrituras.
-    onSnapshot(q, (querySnapshot) => {
+    unsubscribeCitas = onSnapshot(q, (querySnapshot) => {
         const citas = [];
         querySnapshot.forEach((doc) => {
             const data = doc.data();
+            
+            // Filtrar registros incompletos para evitar errores en reportes y tabla
+            if (!data.paciente || !data.especialidad) {
+                return;
+            }
+
             // Filtrado en cliente para búsqueda de texto (nombre o documento)
             if (searchTerm) {
                 const nombreCompleto = `${data.paciente.nombres} ${data.paciente.apellidos}`.toLowerCase();
@@ -220,14 +286,49 @@ function initCitasAdmin() {
             }
         });
         
+        currentCitasData = citas; // Guardar referencia para exportación
         updateStatistics(citas); // Calcular estadísticas con los datos cargados
-        renderCitasTable(citas);
+        renderCitasTable(citas, querySnapshot.size);
     }, (error) => {
         console.error("Error al cargar citas:", error);
         document.getElementById('citas-table-body').innerHTML = `<tr><td colspan="7" class="text-center text-danger">Error al cargar las solicitudes.</td></tr>`;
         document.getElementById('citas-loading').classList.add('d-none');
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (código existente) ...
+    
+    // Event listener para el botón "Cargar más"
+    const btnLoadMore = document.getElementById('btn-load-more-citas');
+    if (btnLoadMore) {
+        btnLoadMore.addEventListener('click', () => {
+            citasQueryLimit += 20; // Aumentar límite en 20
+            const btnHtml = btnLoadMore.innerHTML;
+            btnLoadMore.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Cargando...';
+            btnLoadMore.disabled = true;
+            
+            // Recargar con nuevo límite
+            // Nota: initCitasAdmin es rápida pero onSnapshot tardará un poco en traer los nuevos datos
+            initCitasAdmin(); 
+            
+            // Restaurar botón (la UI se actualizará cuando llegue el snapshot)
+            setTimeout(() => {
+                btnLoadMore.innerHTML = btnHtml;
+                btnLoadMore.disabled = false;
+            }, 1000);
+        });
+    }
+    
+    // Resetear límite al aplicar filtros nuevos para no cargar de más innecesariamente
+    const btnApplyFilters = document.getElementById('btn-apply-filters');
+    if (btnApplyFilters) {
+        btnApplyFilters.addEventListener('click', () => {
+            citasQueryLimit = 20; // Resetear
+            // initCitasAdmin(); // Ya se llama en el código original
+        });
+    }
+});
 
 /**
  * Calcula y actualiza las estadísticas del dashboard
@@ -236,21 +337,27 @@ function updateStatistics(citas) {
     const stats = {
         solicitada: 0,
         proceso: 0,
+        confirmada: 0,
         atendida: 0,
+        cancelada: 0,
         total: citas.length
     };
 
     citas.forEach(cita => {
         const status = cita.status || 'Solicitada';
         if (status === 'Solicitada') stats.solicitada++;
-        if (status === 'En Proceso') stats.proceso++;
-        if (status === 'Atendida') stats.atendida++;
+        else if (status === 'En Proceso') stats.proceso++;
+        else if (status === 'Confirmada') stats.confirmada++;
+        else if (status === 'Atendida') stats.atendida++;
+        else if (status === 'Cancelada') stats.cancelada++;
     });
 
     // Actualizar DOM con animación simple
     animateValue("stat-solicitada", stats.solicitada);
     animateValue("stat-proceso", stats.proceso);
+    animateValue("stat-confirmada", stats.confirmada);
     animateValue("stat-atendida", stats.atendida);
+    animateValue("stat-cancelada", stats.cancelada);
     animateValue("stat-total", stats.total);
 }
 
@@ -261,11 +368,15 @@ function animateValue(id, value) {
 
 /**
  * Renderiza las filas de la tabla de citas con mejoras.
+ * @param {Array} citas - Datos de las citas
+ * @param {number} totalLoaded - Cantidad total cargada actualmente (para lógica de botón)
  */
-function renderCitasTable(citas) {
+function renderCitasTable(citas, totalLoaded) {
     const tableBody = document.getElementById('citas-table-body');
     const loadingSpinner = document.getElementById('citas-loading');
     const noResults = document.getElementById('citas-no-results');
+    const btnLoadMore = document.getElementById('btn-load-more-citas');
+    const infoText = document.getElementById('citas-showing-info');
 
     if (!tableBody || !loadingSpinner || !noResults) return;
 
@@ -274,10 +385,33 @@ function renderCitasTable(citas) {
 
     if (citas.length === 0) {
         noResults.classList.remove('d-none');
+        if (btnLoadMore) btnLoadMore.classList.add('d-none');
+        if (infoText) infoText.textContent = '';
         return;
     }
 
     noResults.classList.add('d-none');
+    
+    // Lógica del botón "Cargar más"
+    if (btnLoadMore && infoText) {
+        const searchTerm = document.getElementById('filter-search')?.value;
+        
+        if (searchTerm) {
+            // En búsqueda no usamos paginación simple (el límite se maneja en la query de búsqueda)
+            btnLoadMore.classList.add('d-none');
+            infoText.textContent = `Resultados de búsqueda: ${citas.length}`;
+        } else {
+            infoText.textContent = `Mostrando ${citas.length} solicitudes más recientes`;
+            
+            // Si cargamos menos de lo que pedimos (ej. pedimos 20 y llegaron 15), es el final
+            if (totalLoaded !== undefined && totalLoaded < citasQueryLimit) {
+                btnLoadMore.classList.add('d-none');
+                infoText.textContent += ' (Fin de los registros)';
+            } else {
+                btnLoadMore.classList.remove('d-none');
+            }
+        }
+    }
 
     // Agrupar citas por estado para mejor organización
     const citasPorEstado = {
@@ -324,16 +458,16 @@ function renderCitasTable(citas) {
             
             citasPorEstado[status].forEach(cita => {
                 const fechaSolicitud = cita.createdAt?.toDate().toLocaleDateString('es-CO') || 'N/A';
-                const tieneArchivos = cita.ordenesMedicas && cita.ordenesMedicas.length > 0;
                 const statusBadge = getStatusBadge(status);
+                const radicadoToShow = cita.radicado || cita.id;
 
                 htmlContent += `
                     <tr class="cita-row" data-status="${status}">
-                        <td><small class="text-muted">${cita.id}</small></td>
-                        <td>
+                        <td data-label="Radicado"><small class="text-muted fw-bold">${radicadoToShow}</small></td>
+                        <td data-label="Paciente">
                             <div class="d-flex align-items-center">
                                 <div class="me-2">
-                                    <i class="bi bi-person-circle text-primary"></i>
+                                    <i class="bi bi-person-circle text-primary fs-5"></i>
                                 </div>
                                 <div>
                                     <strong>${cita.paciente.nombres || 'N/A'} ${cita.paciente.apellidos || 'N/A'}</strong>
@@ -341,29 +475,24 @@ function renderCitasTable(citas) {
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td data-label="Especialidad">
                             <span class="badge bg-info text-white">
                                 <i class="bi bi-hospital me-1"></i>${cita.especialidad.nombre || 'N/A'}
                             </span>
                         </td>
-                        <td>
+                        <td data-label="Fecha Solicitud">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-calendar-event text-muted me-2"></i>
                                 <span>${fechaSolicitud}</span>
                             </div>
                         </td>
-                        <td>${statusBadge}</td>
-                        <td>
+                        <td data-label="Estado">${statusBadge}</td>
+                        <td data-label="Acciones">
                             <div class="btn-group" role="group">
-                                <button class="btn btn-sm btn-outline-primary" onclick="showCitaDetails('${cita.id}')">
+                                <button class="btn btn-sm btn-outline-primary view-details-btn" data-doc-id="${cita.id}">
                                     <i class="bi bi-eye-fill"></i> Ver
                                 </button>
-                                ${tieneArchivos ? `
-                                    <button class="btn btn-sm btn-outline-success" onclick="showCitaDetails('${cita.id}')">
-                                        <i class="bi bi-file-earmark-fill"></i> Archivos
-                                    </button>
-                                ` : ''}
-                                <button class="btn btn-sm btn-outline-info" onclick="openEmailModal('${cita.id}', '${cita.paciente.email || ''}')">
+                                <button class="btn btn-sm btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}">
                                     <i class="bi bi-envelope-fill"></i> Responder
                                 </button>
                             </div>
@@ -377,39 +506,49 @@ function renderCitasTable(citas) {
     tableBody.innerHTML = htmlContent;
 }
 
-// Función para abrir modal de email
-function openEmailModal(citaId, pacienteEmail) {
-    // Validar que el modal exista
-    const emailModal = document.getElementById('emailModal');
-    if (!emailModal) {
+/**
+ * Abre y configura el modal para enviar una respuesta por email al paciente.
+ * Esta función ahora es la única encargada de manejar el modal de email.
+ * @param {string} citaId - El ID del documento de la cita.
+ * @param {string} pacienteEmail - El correo del paciente a quien se responderá.
+ * @param {string} radicado - El número de radicado visible para el usuario.
+ */
+function openEmailModal(citaId, pacienteEmail, radicado) {
+    const emailModalEl = document.getElementById('emailModal');
+    if (!emailModalEl) {
         console.error('❌ Modal de email no encontrado');
         alert('Error: Modal de email no disponible. Por favor recargue la página.');
         return;
     }
 
-    // Validar elementos del formulario
+    // Obtener elementos del formulario
+    const emailToInput = document.getElementById('emailTo');
     const emailSubject = document.getElementById('emailSubject');
     const emailMessage = document.getElementById('emailMessage');
     const emailUpdateStatus = document.getElementById('emailUpdateStatus');
-    
-    if (!emailSubject || !emailMessage || !emailUpdateStatus) {
-        console.error('❌ Elementos del formulario no encontrados');
+    const sendEmailBtn = document.getElementById('sendEmailBtn');
+
+    if (!emailToInput || !emailSubject || !emailMessage || !emailUpdateStatus || !sendEmailBtn) {
+        console.error('❌ Elementos del formulario de email no encontrados');
         alert('Error: Formulario de email incompleto. Por favor recargue la página.');
         return;
     }
 
-    // Limpiar formulario
-    emailSubject.value = '';
-    emailMessage.value = '';
-    emailUpdateStatus.checked = false;
-    
-    // Establecer datos de la cita
-    emailModal.dataset.citaId = citaId;
-    emailModal.dataset.pacienteEmail = pacienteEmail;
-    
+    // Poblar el formulario con los datos de la cita
+    emailToInput.value = pacienteEmail || '';
+    emailSubject.value = `Respuesta a su solicitud de cita (Radicado: ${radicado || citaId.substring(0, 8) + '...'})`;
+    emailMessage.value = generarPlantillaEmail();
+    emailUpdateStatus.checked = true; // Marcar por defecto
+
+    // Configurar el botón de envío para esta cita específica.
+    // Usar .onclick para sobrescribir listeners anteriores y evitar envíos múltiples.
+    sendEmailBtn.onclick = async () => {
+        await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, emailUpdateStatus.checked);
+    };
+
     // Mostrar modal
     try {
-        const modal = new bootstrap.Modal(emailModal);
+        const modal = bootstrap.Modal.getInstance(emailModalEl) || new bootstrap.Modal(emailModalEl);
         modal.show();
         console.log('✅ Modal de email abierto para cita:', citaId);
     } catch (error) {
@@ -418,29 +557,194 @@ function openEmailModal(citaId, pacienteEmail) {
     }
 }
 
-// Hacer funciones globalmente accesibles
-window.showCitaDetails = showCitaDetails;
-window.openEmailModal = openEmailModal;
-window.sendEmailResponse = sendEmailResponse;
-
-// Event listener para botón de envío de email
-document.addEventListener('DOMContentLoaded', function() {
-    const sendEmailBtn = document.getElementById('sendEmailBtn');
-    if (sendEmailBtn) {
-        sendEmailBtn.addEventListener('click', async function() {
-            const modal = document.getElementById('emailModal');
-            const citaId = modal.dataset.citaId;
-            const pacienteEmail = modal.dataset.pacienteEmail;
-            
-            if (citaId && pacienteEmail) {
-                await sendEmailResponse(citaId, pacienteEmail);
-            } else {
-                console.error('❌ Datos de cita no disponibles');
-                alert('Error: Datos de la cita no disponibles');
-            }
-        });
+/**
+ * Maneja la respuesta manual de correo (mailto) para evitar usar cuota de API.
+ * 1. Actualiza el estado en Firebase.
+ * 2. Abre el cliente de correo del usuario.
+ */
+async function handleManualEmailResponse(citaId, emailTo, subject, message, updateStatus) {
+    if (!emailTo) {
+        alert('El correo es obligatorio.');
+        return;
     }
-});
+
+    const sendEmailBtn = document.getElementById('sendEmailBtn');
+    const originalText = sendEmailBtn.innerHTML;
+    sendEmailBtn.disabled = true;
+    sendEmailBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Procesando...';
+
+    try {
+        // 1. Actualizar estado en Firebase si se solicitó
+        if (updateStatus) {
+            await updateCitaStatus(citaId, 'En Proceso', 'Solicitada (Auto)');
+            
+            // Registrar en historial que se generó respuesta
+            const docRef = doc(db, "citasOnline", citaId);
+            await updateDoc(docRef, {
+                historial: arrayUnion({
+                    action: `Respuesta generada (Cliente Local)`,
+                    user: auth.currentUser.email,
+                    timestamp: new Date(),
+                    details: `Asunto: ${subject}`
+                })
+            });
+        }
+
+        // 2. Abrir cliente de correo (Gmail/Outlook/App por defecto)
+        // Codificar componentes para URL
+        // Se agrega BCC a citas@hdsa.gov.co para asegurar que quede copia en el correo centralizador
+        const mailtoLink = `mailto:${emailTo}?bcc=citas@hdsa.gov.co&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        
+        // Abrir en nueva pestaña/ventana
+        window.open(mailtoLink, '_blank');
+
+        // 3. Cerrar modal y limpiar
+        const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
+        modal.hide();
+        
+        // Notificar al admin
+        alert('✅ Estado actualizado. Se ha abierto su gestor de correo para enviar el mensaje final.');
+
+    } catch (error) {
+        console.error('Error al procesar respuesta manual:', error);
+        alert('Error al actualizar la base de datos, pero puede enviar el correo manualmente.');
+    } finally {
+        sendEmailBtn.disabled = false;
+        sendEmailBtn.innerHTML = originalText;
+    }
+}
+
+/**
+ * Exporta los datos actuales de la tabla a un archivo Excel (.xlsx) profesional.
+ * Incluye filtros automáticos y ajuste de columnas.
+ */
+function exportCitasToExcel() {
+    if (!currentCitasData || currentCitasData.length === 0) {
+        alert("No hay datos para exportar.");
+        return;
+    }
+    
+    if (typeof XLSX === 'undefined') {
+        alert("La librería de Excel no se cargó correctamente. Por favor recargue la página.");
+        return;
+    }
+
+    // Definir encabezados
+    const headers = ["ID/Radicado", "Fecha Solicitud", "Documento", "Paciente", "Teléfono", "Email", "Especialidad", "Fecha Cita", "Hora Cita", "Estado", "Motivo"];
+    
+    // Preparar datos para Excel (Matriz de datos)
+    const data = currentCitasData.map(cita => {
+        return [
+            cita.radicado || cita.id,
+            cita.createdAt?.toDate().toLocaleDateString('es-CO') || '',
+            `${cita.paciente?.tipoDocumento || ''} ${cita.paciente?.numeroDocumento || ''}`,
+            `${cita.paciente?.nombres || ''} ${cita.paciente?.apellidos || ''}`,
+            cita.paciente?.telefono || '',
+            cita.paciente?.correo || '',
+            cita.especialidad?.nombre || 'Sin Especialidad',
+            cita.fecha || '',
+            cita.hora || '',
+            cita.status || '',
+            cita.motivoConsulta || ''
+        ];
+    });
+
+    // Crear libro y hoja de cálculo
+    const wb = XLSX.utils.book_new();
+    // Combinar encabezados y datos
+    const ws_data = [headers, ...data];
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+    // --- MEJORAS VISUALES ---
+    // 1. Agregar AutoFiltro a la primera fila (Encabezados)
+    const range = XLSX.utils.decode_range(ws['!ref']);
+    ws['!autofilter'] = { ref: `A1:${XLSX.utils.encode_col(range.e.c)}1` };
+
+    // 2. Ajustar anchos de columna (aproximados)
+    const wscols = [
+        {wch: 20}, // Radicado
+        {wch: 15}, // Fecha Sol
+        {wch: 15}, // Documento
+        {wch: 30}, // Paciente
+        {wch: 15}, // Teléfono
+        {wch: 25}, // Email
+        {wch: 20}, // Especialidad
+        {wch: 12}, // Fecha Cita
+        {wch: 10}, // Hora
+        {wch: 12}, // Estado
+        {wch: 40}  // Motivo
+    ];
+    ws['!cols'] = wscols;
+
+    // Guardar archivo
+    XLSX.utils.book_append_sheet(wb, ws, "Reporte Citas");
+    XLSX.writeFile(wb, `Reporte_Citas_HDSA_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+
+/**
+ * Exporta los datos actuales de la tabla a un archivo PDF profesional.
+ */
+async function exportCitasToPDF() {
+    const { jsPDF } = window.jspdf;
+    if (typeof jsPDF === 'undefined') {
+        alert("La librería para generar PDF no está disponible. Por favor, recargue la página.");
+        return;
+    }
+    if (!currentCitasData || currentCitasData.length === 0) {
+        alert("No hay datos para exportar a PDF.");
+        return;
+    }
+
+    const doc = new jsPDF({ orientation: 'landscape' });
+
+    const tableData = currentCitasData.map(cita => [
+        cita.radicado || cita.id.substring(0, 8),
+        `${cita.paciente?.nombres || ''} ${cita.paciente?.apellidos || ''}`,
+        cita.paciente?.numeroDocumento || '',
+        cita.especialidad?.nombre || 'Sin Especialidad',
+        cita.createdAt?.toDate().toLocaleDateString('es-CO') || 'N/A',
+        cita.status
+    ]);
+
+    // --- Cargar y añadir logo ---
+    try {
+        const logoUrl = '/imagenes/Logo-hospital.png'; // Ruta al logo
+        const response = await fetch(logoUrl);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        await new Promise(resolve => reader.onload = resolve);
+        const logoDataUrl = reader.result;
+        doc.addImage(logoDataUrl, 'PNG', doc.internal.pageSize.getWidth() - 60, 10, 45, 18);
+    } catch (error) {
+        console.error("No se pudo cargar el logo para el PDF:", error);
+    }
+
+    // --- Encabezado del documento ---
+    doc.setFontSize(18);
+    doc.setTextColor(22, 68, 67); // Color primario
+    doc.text("Reporte de Solicitudes de Citas", 14, 22);
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+    doc.text(`Generado el: ${new Date().toLocaleString('es-CO')}`, 14, 30);
+
+    // --- Tabla de datos ---
+    doc.autoTable({
+        head: [['Radicado', 'Paciente', 'Documento', 'Especialidad', 'Fecha Solicitud', 'Estado']],
+        body: tableData,
+        startY: 38,
+        theme: 'grid',
+        headStyles: { fillColor: [22, 68, 67] }, // Color primario
+        didDrawPage: function (data) {
+            // --- Pie de página con numeración ---
+            const pageCount = doc.internal.getNumberOfPages();
+            doc.setFontSize(10);
+            doc.text(`Página ${data.pageNumber} de ${pageCount}`, data.settings.margin.left, doc.internal.pageSize.height - 10);
+        }
+    });
+
+    doc.save(`reporte_citas_${new Date().toISOString().slice(0,10)}.pdf`);
+}
 
 /**
  * Obtiene el badge de estado con estilos apropiados.
@@ -456,21 +760,44 @@ function getStatusBadge(status) {
     return badges[status] || badges['Solicitada'];
 }
 
+// Hacer funciones clave globalmente accesibles para onclicks (aunque se recomienda delegación)
+window.showCitaDetails = showCitaDetails;
+window.openEmailModal = openEmailModal;
+
+
 /**
  * Muestra los detalles completos de una cita incluyendo archivos.
  */
 async function showCitaDetails(docId) {
+    const modalElement = document.getElementById('modalDetallesCita');
+    const modalBody = document.getElementById('modal-body-content');
+
+    if (!modalElement || !modalBody) {
+        console.error('Elementos del modal no encontrados.');
+        return;
+    }
+
+    // Mostrar spinner y abrir el modal inmediatamente
+    modalBody.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
+    const modalInstance = new bootstrap.Modal(modalElement);
+    modalInstance.show();
+
     try {
         const docRef = doc(db, "citasOnline", docId);
         const docSnap = await getDoc(docRef);
         
         if (!docSnap.exists()) {
-            console.error('No se encontró la cita');
+            modalBody.innerHTML = '<div class="alert alert-warning">No se encontraron los detalles para esta cita.</div>';
             return;
         }
 
-        const cita = docSnap.data();
-        const modalBody = document.getElementById('modal-body-content');
+        const cita = docSnap.data();        
+        
+        // Validación de datos antes de mostrar
+        if (!cita.paciente || !cita.especialidad) {
+             modalBody.innerHTML = '<div class="alert alert-warning">La información de esta cita está incompleta o corrupta y no se puede visualizar.</div>';
+             return;
+        }
         
         // Renderizar Historial
         renderHistory(cita.historial);
@@ -581,7 +908,7 @@ async function showCitaDetails(docId) {
 
     } catch (error) {
         console.error('Error al cargar detalles:', error);
-        document.getElementById('modal-body-content').innerHTML = `
+        modalBody.innerHTML = `
             <div class="alert alert-danger">
                 Error al cargar los detalles de la cita.
             </div>
@@ -596,6 +923,11 @@ function renderHistory(historial) {
     const container = document.getElementById('modal-history-section');
     const timeline = document.getElementById('history-timeline-content');
     
+    if (!container || !timeline) {
+        console.warn('Elementos del historial no encontrados en el modal.');
+        return;
+    }
+
     if (!historial || historial.length === 0) {
         container.style.display = 'none';
         return;
@@ -605,7 +937,7 @@ function renderHistory(historial) {
     timeline.innerHTML = '';
 
     // Ordenar historial (más reciente primero)
-    const sortedHistorial = [...historial].sort((a, b) => b.timestamp - a.timestamp);
+    const sortedHistorial = [...historial].sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
 
     sortedHistorial.forEach(item => {
         const date = item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleString('es-CO') : 'Fecha desconocida';
@@ -619,87 +951,20 @@ function renderHistory(historial) {
     });
 }
 
-/**
- * Muestra el modal para responder por email.
- */
-async function showEmailResponseModal(docId, pacienteEmail) {
-    // Crear modal dinámicamente si no existe
-    let modalEmail = document.getElementById('modalEmailResponse');
-    if (!modalEmail) {
-        const modalHtml = `
-            <div class="modal fade" id="modalEmailResponse" tabindex="-1" aria-labelledby="modalEmailResponseLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalEmailResponseLabel">
-                                <i class="bi bi-envelope-fill me-2"></i>Respuesta por Email
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="emailResponseForm">
-                                <div class="mb-3">
-                                    <label for="emailTo" class="form-label">Para:</label>
-                                    <input type="email" class="form-control" id="emailTo" readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="emailSubject" class="form-label">Asunto:</label>
-                                    <input type="text" class="form-control" id="emailSubject" value="Respuesta a su solicitud de cita médica">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="emailMessage" class="form-label">Mensaje:</label>
-                                    <textarea class="form-control" id="emailMessage" rows="8" required></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="emailUpdateStatus">
-                                        <label class="form-check-label" for="emailUpdateStatus">
-                                            Actualizar estado de la cita a "En Proceso"
-                                        </label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" id="sendEmailBtn">
-                                <i class="bi bi-send-fill me-2"></i>Enviar Email
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-    }
-
-    // Llenar el formulario
-    document.getElementById('emailTo').value = pacienteEmail;
-    document.getElementById('emailMessage').value = generarPlantillaEmail();
-
-    // Event listener para enviar email
-    const sendBtn = document.getElementById('sendEmailBtn');
-    sendBtn.onclick = async () => await sendEmailResponse(docId, pacienteEmail);
-
-    // Mostrar el modal
-    const modal = new bootstrap.Modal(document.getElementById('modalEmailResponse'));
-    modal.show();
-}
 
 /**
  * Genera una plantilla de email predeterminada.
  */
 function generarPlantillaEmail() {
-    return `Estimado/a paciente,
+    // Esta plantilla es solo el CUERPO del mensaje.
+    // El saludo ("Estimado/a [Nombre]") y la firma (datos del hospital)
+    // se gestionan directamente en la plantilla de EmailJS para consistencia.
+    return `Le escribimos en relación con su solicitud de cita médica realizada a través de nuestro portal web.
 
-Le escribimos en relación con su solicitud de cita médica realizada a través de nuestro portal web.
+A continuación, la respuesta a su solicitud:
 
-${new Date().toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
 
-Atentamente,
-Hospital Departamental San Antonio de Roldanillo
-Teléfono: (2) 2295000
-Email: citas@hdsa.gov.co`;
+Fecha de respuesta: ${new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}`;
 }
 
 /**
@@ -804,6 +1069,56 @@ function formatFileSize(bytes) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
+
+// --- FUNCIÓN DE LIMPIEZA (USO ÚNICO) ---
+/**
+ * ⚠️ BORRA TODAS LAS CITAS DE LA BASE DE DATOS.
+ * Para usarla, abre la consola del navegador y ejecuta: `deleteAllCitas()`
+ */
+async function deleteAllCitas() {
+    if (!confirm("⚠️ ¡ADVERTENCIA! ¿Estás seguro de que quieres borrar TODAS las solicitudes de citas? Esta acción es irreversible y limpiará el historial para empezar con los nuevos radicados.")) {
+        console.log("Borrado cancelado por el usuario.");
+        return;
+    }
+
+    console.log("Iniciando borrado de todas las citas...");
+    const loadingSpinner = document.getElementById('citas-loading');
+    if (loadingSpinner) loadingSpinner.classList.remove('d-none');
+
+    try {
+        const q = query(collection(db, "citasOnline"));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            console.log("No hay documentos para borrar.");
+            alert("La base de datos de citas ya está vacía.");
+            if (loadingSpinner) loadingSpinner.classList.add('d-none');
+            return;
+        }
+
+        const deletePromises = [];
+        querySnapshot.forEach((docSnapshot) => {
+            console.log(`Marcando para borrar: ${docSnapshot.id}`);
+            deletePromises.push(deleteDoc(doc(db, "citasOnline", docSnapshot.id)));
+        });
+
+        await Promise.all(deletePromises);
+
+        console.log(`✅ Borrado completado. Se eliminaron ${querySnapshot.size} documentos.`);
+        alert(`✅ Borrado completado. Se eliminaron ${querySnapshot.size} documentos.`);
+        
+        // Recargar la vista para que se vea la tabla vacía
+        initCitasAdmin();
+
+    } catch (error) {
+        console.error("Error durante el borrado masivo:", error);
+        alert("Ocurrió un error durante el borrado. Revisa la consola para más detalles.");
+    } finally {
+        if (loadingSpinner) loadingSpinner.classList.add('d-none');
+    }
+}
+// Exponer la función a la ventana para poder llamarla desde la consola.
+window.deleteAllCitas = deleteAllCitas;
 
 // =========================================================================
 // 🏥 MÓDULO INTRANET: PLANEACIÓN Y CALIDAD (MAPA DE PROCESOS)
