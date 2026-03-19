@@ -357,20 +357,31 @@
                             <textarea class="form-control" id="emailMessage" rows="6" placeholder="Escriba su respuesta al paciente..." required></textarea>
                         </div>
                         <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="emailUpdateStatus" checked>
-                                <label class="form-check-label" for="emailUpdateStatus">
-                                    <strong>Actualizar estado a "En Proceso"</strong> después de enviar el email
-                                </label>
-                            </div>
+                            <label for="emailStatusSelect" class="form-label fw-bold">Actualizar Estado de la Cita</label>
+                            <select class="form-select" id="emailStatusSelect">
+                                <option value="Solicitada">Solicitada</option>
+                                <option value="En Proceso">En Proceso (Gestión)</option>
+                                <option value="Confirmada">Confirmada (Cita Asignada)</option>
+                                <option value="Atendida">Atendida</option>
+                                <option value="Cancelada">Cancelada</option>
+                            </select>
+                            <div class="form-text">Seleccione un nuevo estado solo si desea actualizarlo.</div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="sendEmailBtn">
-                        <i class="bi bi-envelope-forward-fill me-2"></i>Redactar Respuesta (Cliente Local)
-                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" id="sendEmailBtn">
+                            <i class="bi bi-envelope-forward-fill me-2"></i>Responder por Correo
+                        </button>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Opciones de envío</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item" type="button" id="btn-action-webmail"><i class="bi bi-globe me-2"></i>Abrir Webmail Institucional</button></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

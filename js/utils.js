@@ -67,7 +67,7 @@
     closeBtn.addEventListener('click', () => alert.remove());
 
     const content = document.createElement('div');
-    content.textContent = message;
+    content.innerHTML = message; // Permitir HTML simple como <strong>
 
     alert.appendChild(closeBtn);
     alert.appendChild(content);

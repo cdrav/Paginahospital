@@ -109,7 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const docId = btn.dataset.docId;
             const radicado = btn.dataset.radicado;
             const pacienteEmail = btn.dataset.email;            
-            openEmailModal(docId, pacienteEmail, radicado);
+            const currentStatus = btn.dataset.status;
+            openEmailModal(docId, pacienteEmail, radicado, currentStatus);
         }
 
         if (e.target.closest('.descargar-archivo-btn')) {
@@ -492,7 +493,7 @@ function renderCitasTable(citas, totalLoaded) {
                                 <button class="btn btn-sm btn-outline-primary view-details-btn" data-doc-id="${cita.id}">
                                     <i class="bi bi-eye-fill"></i> Ver
                                 </button>
-                                <button class="btn btn-sm btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}">
+                                <button class="btn btn-sm btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}" data-status="${cita.status || 'Solicitada'}">
                                     <i class="bi bi-envelope-fill"></i> Responder
                                 </button>
                             </div>
@@ -512,8 +513,9 @@ function renderCitasTable(citas, totalLoaded) {
  * @param {string} citaId - El ID del documento de la cita.
  * @param {string} pacienteEmail - El correo del paciente a quien se responderá.
  * @param {string} radicado - El número de radicado visible para el usuario.
+ * @param {string} currentStatus - El estado actual de la cita.
  */
-function openEmailModal(citaId, pacienteEmail, radicado) {
+function openEmailModal(citaId, pacienteEmail, radicado, currentStatus) {
     const emailModalEl = document.getElementById('emailModal');
     if (!emailModalEl) {
         console.error('❌ Modal de email no encontrado');
@@ -525,10 +527,11 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
     const emailToInput = document.getElementById('emailTo');
     const emailSubject = document.getElementById('emailSubject');
     const emailMessage = document.getElementById('emailMessage');
-    const emailUpdateStatus = document.getElementById('emailUpdateStatus');
+    const emailStatusSelect = document.getElementById('emailStatusSelect');
     const sendEmailBtn = document.getElementById('sendEmailBtn');
+    const btnWebmail = document.getElementById('btn-action-webmail');
 
-    if (!emailToInput || !emailSubject || !emailMessage || !emailUpdateStatus || !sendEmailBtn) {
+    if (!emailToInput || !emailSubject || !emailMessage || !emailStatusSelect || !sendEmailBtn) {
         console.error('❌ Elementos del formulario de email no encontrados');
         alert('Error: Formulario de email incompleto. Por favor recargue la página.');
         return;
@@ -538,13 +541,19 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
     emailToInput.value = pacienteEmail || '';
     emailSubject.value = `Respuesta a su solicitud de cita (Radicado: ${radicado || citaId.substring(0, 8) + '...'})`;
     emailMessage.value = generarPlantillaEmail();
-    emailUpdateStatus.checked = true; // Marcar por defecto
+    emailStatusSelect.value = currentStatus || 'Solicitada'; // Preseleccionar estado actual
 
     // Configurar el botón de envío para esta cita específica.
     // Usar .onclick para sobrescribir listeners anteriores y evitar envíos múltiples.
     sendEmailBtn.onclick = async () => {
-        await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, emailUpdateStatus.checked);
+        await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, emailStatusSelect.value, currentStatus, 'mailto');
     };
+
+    if (btnWebmail) {
+        btnWebmail.onclick = async () => {
+            await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, emailStatusSelect.value, currentStatus, 'webmail');
+        };
+    }
 
     // Mostrar modal
     try {
@@ -561,56 +570,61 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
  * Maneja la respuesta manual de correo (mailto) para evitar usar cuota de API.
  * 1. Actualiza el estado en Firebase.
  * 2. Abre el cliente de correo del usuario.
+ * 3. Solo registra en historial si hubo cambio de estado.
  */
-async function handleManualEmailResponse(citaId, emailTo, subject, message, updateStatus) {
+async function handleManualEmailResponse(citaId, emailTo, subject, message, newStatus, currentStatus, mode = 'mailto') {
     if (!emailTo) {
-        alert('El correo es obligatorio.');
+        window.notify('El correo del destinatario es obligatorio.', { type: 'danger' });
         return;
     }
 
     const sendEmailBtn = document.getElementById('sendEmailBtn');
-    const originalText = sendEmailBtn.innerHTML;
-    sendEmailBtn.disabled = true;
-    sendEmailBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Procesando...';
+    const originalText = sendEmailBtn ? sendEmailBtn.innerHTML : '';
+    if (sendEmailBtn) {
+        sendEmailBtn.disabled = true;
+        sendEmailBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Procesando...';
+    }
 
     try {
-        // 1. Actualizar estado en Firebase si se solicitó
-        if (updateStatus) {
-            await updateCitaStatus(citaId, 'En Proceso', 'Solicitada (Auto)');
-            
-            // Registrar en historial que se generó respuesta
-            const docRef = doc(db, "citasOnline", citaId);
-            await updateDoc(docRef, {
-                historial: arrayUnion({
-                    action: `Respuesta generada (Cliente Local)`,
-                    user: auth.currentUser.email,
-                    timestamp: new Date(),
-                    details: `Asunto: ${subject}`
-                })
-            });
+        // 1. Actualizar estado en Firebase SOLO si el usuario eligió uno diferente
+        if (newStatus && newStatus !== currentStatus) {
+            await updateCitaStatus(citaId, newStatus, currentStatus);
         }
 
-        // 2. Abrir cliente de correo (Gmail/Outlook/App por defecto)
-        // Codificar componentes para URL
-        // Se agrega BCC a citas@hdsa.gov.co para asegurar que quede copia en el correo centralizador
-        const mailtoLink = `mailto:${emailTo}?bcc=citas@hdsa.gov.co&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        if (mode === 'webmail') {
+            // 2b. Modo Webmail: Copiar al portapapeles y abrir enlace
+            const clipboardText = `Para: ${emailTo}\nAsunto: ${subject}\n\n${message}`;
+            try {
+                await navigator.clipboard.writeText(clipboardText);
+                window.notify('📋 Contenido del correo copiado. Abriendo Webmail...', { type: 'info', timeout: 4000 });
+            } catch (err) {
+                console.error('No se pudo copiar al portapapeles:', err);
+                window.notify('No se pudo copiar el texto automáticamente. Por favor, cópialo manualmente.', { type: 'warning', timeout: 5000 });
+            }
+            window.open('https://pallas.dongee.com:2096/', '_blank');
+        } else {
+            // 2a. Modo Mailto (Default): Abrir cliente de correo
+            // Se agrega BCC a citas@hdsa.gov.co para asegurar que quede copia en el correo centralizador
+            const mailtoLink = `mailto:${emailTo}?bcc=citas@hdsa.gov.co&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            window.open(mailtoLink, '_blank');
+        }
         
-        // Abrir en nueva pestaña/ventana
-        window.open(mailtoLink, '_blank');
 
         // 3. Cerrar modal y limpiar
         const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
         modal.hide();
         
         // Notificar al admin
-        alert('✅ Estado actualizado. Se ha abierto su gestor de correo para enviar el mensaje final.');
+        window.notify('✅ Proceso registrado. Abriendo gestor de correo...', { type: 'success' });
 
     } catch (error) {
         console.error('Error al procesar respuesta manual:', error);
-        alert('Error al actualizar la base de datos, pero puede enviar el correo manualmente.');
+        window.notify('Error al actualizar la base de datos. Puedes enviar el correo manualmente.', { type: 'danger' });
     } finally {
-        sendEmailBtn.disabled = false;
-        sendEmailBtn.innerHTML = originalText;
+        if (sendEmailBtn) {
+            sendEmailBtn.disabled = false;
+            sendEmailBtn.innerHTML = originalText;
+        }
     }
 }
 
@@ -1029,33 +1043,12 @@ async function updateCitaStatus(docId, newStatus, prevStatus) {
         
         console.log(`✅ Estado actualizado a: ${newStatus}`);
         
-        // Mostrar confirmación breve
-        const toast = document.createElement('div');
-        toast.className = 'position-fixed top-0 end-0 p-3';
-        toast.style.zIndex = '9999';
-        toast.innerHTML = `
-            <div class="toast show" role="alert">
-                <div class="toast-header">
-                    <strong class="me-auto">Estado Actualizado</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                </div>
-                <div class="toast-body">
-                    Cita ${docId} cambiada a: <strong>${newStatus}</strong>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(toast);
-        
-        // Remover toast después de 3 segundos
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.parentNode.removeChild(toast);
-            }
-        }, 3000);
+        // Usar el notificador global para consistencia
+        window.notify(`Estado de la cita actualizado a <strong>${newStatus}</strong>.`, { type: 'success' });
         
     } catch (error) {
         console.error('❌ Error al actualizar estado:', error);
-        alert('❌ Error al actualizar el estado. Intente nuevamente.');
+        window.notify('Error al actualizar el estado. Intente nuevamente.', { type: 'danger' });
     }
 }
 
