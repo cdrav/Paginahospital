@@ -743,14 +743,19 @@ const especialidades = [
       }
 
       // --- Éxito con posible advertencia de archivos ---
-      document.getElementById('loadingOverlay').style.display = 'none';
+      const loadingEl = document.getElementById('loadingOverlay');
+      if (loadingEl) loadingEl.style.display = 'none';
       
-      document.getElementById('numeroRadicado').textContent = customRadicado; // Usar el radicado personalizado
-      
+      // Preparar datos para el modal
       const fechaObj = new Date(datosCita.fecha + 'T12:00:00');
       const fechaCompleta = `${fechaObj.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${datosCita.hora}`;
+
+      // Actualizar elementos existentes si están en el DOM
+      const radicadoEl = document.getElementById('numeroRadicado');
+      if (radicadoEl) radicadoEl.textContent = customRadicado;
       
-      document.getElementById('fechaConfirmada').textContent = fechaCompleta;
+      const fechaEl = document.getElementById('fechaConfirmada');
+      if (fechaEl) fechaEl.textContent = fechaCompleta;
       
       // Mostrar advertencia si algunos archivos fallaron
       if (uploadErrors.length > 0) {
@@ -758,7 +763,52 @@ const especialidades = [
         mostrarAdvertencia(`Tu cita fue registrada exitosamente, pero los siguientes archivos no se pudieron adjuntar: ${archivosFallidos}. Por favor, contáctanos para enviarlos por otro medio.`);
       }
       
-      const modalElement = document.getElementById('modalExito');
+      // Garantizar que el modal de éxito existe, si no, crearlo dinámicamente
+      let modalElement = document.getElementById('modalExito');
+      if (!modalElement) {
+          const modalHtml = `
+            <div class="modal fade" id="modalExito" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg rounded-4">
+                        <div class="modal-header border-0 bg-success text-white">
+                            <h5 class="modal-title fw-bold"><i class="bi bi-check-circle-fill me-2"></i>¡Solicitud Exitosa!</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body p-4 text-center">
+                            <div class="mb-4">
+                                <i class="bi bi-calendar-check text-success" style="font-size: 4rem;"></i>
+                            </div>
+                            <h4 class="fw-bold text-brand mb-3">Tu cita ha sido agendada</h4>
+                            <p class="text-muted mb-4">Hemos recibido tu solicitud correctamente.</p>
+                            
+                            <div class="card bg-light border-0 mb-3">
+                                <div class="card-body">
+                                    <p class="mb-1 small text-muted">Número de Radicado:</p>
+                                    <h3 class="fw-bold text-primary mb-3" id="numeroRadicadoDyn">${customRadicado}</h3>
+                                    <p class="mb-1 small text-muted">Fecha y Hora:</p>
+                                    <h5 class="fw-bold text-dark">${fechaCompleta}</h5>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info border-0 d-flex align-items-center" role="alert">
+                                <i class="bi bi-info-circle-fill me-2 fs-4"></i>
+                                <div class="small text-start">
+                                    Te hemos enviado un correo con los detalles. Nuestro equipo te contactará pronto para confirmar.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center border-0 pb-4">
+                            <button type="button" class="btn btn-success px-5 rounded-pill fw-bold shadow-sm" data-bs-dismiss="modal">
+                                Aceptar y Finalizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+          document.body.insertAdjacentHTML('beforeend', modalHtml);
+          modalElement = document.getElementById('modalExito');
+      }
+
       const modal = new bootstrap.Modal(modalElement);
       
       // Redirigir al inicio cuando se cierre el modal
@@ -770,7 +820,8 @@ const especialidades = [
     } catch (error) {
       // --- Manejo de Errores ---
       console.error("Error al guardar la cita y subir archivos: ", error);
-      document.getElementById('loadingOverlay').style.display = 'none';
+      const loadingEl = document.getElementById('loadingOverlay');
+      if (loadingEl) loadingEl.style.display = 'none';
       mostrarError('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
     }
   }
@@ -784,47 +835,57 @@ const especialidades = [
     if (!file.type.match(/image.*/)) return Promise.resolve(file);
 
     return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          // Configuración de compresión
-          const maxWidth = 1280; // Máximo ancho HD (suficiente para leer documentos)
-          const quality = 0.7;   // Calidad JPG al 70%
-          
-          let width = img.width;
-          let height = img.height;
+      try {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              try {
+                  // Configuración de compresión
+                  const maxWidth = 1280; 
+                  const quality = 0.7;
+                  
+                  let width = img.width;
+                  let height = img.height;
 
-          // Calcular nuevas dimensiones manteniendo aspecto
-          if (width > maxWidth) {
-            height = Math.round(height * (maxWidth / width));
-            width = maxWidth;
-          }
+                  if (width > maxWidth) {
+                    height = Math.round(height * (maxWidth / width));
+                    width = maxWidth;
+                  }
 
-          // Crear canvas para redimensionar
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
+                  const canvas = document.createElement('canvas');
+                  canvas.width = width;
+                  canvas.height = height;
+                  const ctx = canvas.getContext('2d');
+                  ctx.drawImage(img, 0, 0, width, height);
 
-          // Exportar a Blob comprimido (JPEG)
-          canvas.toBlob((blob) => {
-            if (!blob) {
-                resolve(file); // Fallback si falla
-                return;
-            }
-            console.log(`📉 Imagen comprimida: ${(file.size/1024).toFixed(1)}KB -> ${(blob.size/1024).toFixed(1)}KB`);
-            // Crear nuevo archivo manteniendo el nombre original pero forzando .jpg
-            const newName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
-            resolve(new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() }));
-          }, 'image/jpeg', quality);
-        };
-        img.onerror = () => resolve(file);
-      };
-      reader.onerror = () => resolve(file);
+                  canvas.toBlob((blob) => {
+                    if (!blob) { resolve(file); return; }
+                    // Intento seguro de crear archivo
+                    try {
+                        const newName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+                        const compressedFile = new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() });
+                        resolve(compressedFile);
+                    } catch (e) {
+                        // Fallback para navegadores móviles antiguos que no soportan constructor File
+                        blob.name = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+                        resolve(blob);
+                    }
+                  }, 'image/jpeg', quality);
+              } catch (e) {
+                  console.warn("Error en compresión (canvas), usando original", e);
+                  resolve(file);
+              }
+            };
+            img.onerror = () => resolve(file);
+          };
+          reader.onerror = () => resolve(file);
+      } catch (error) {
+          console.warn("Error inicializando FileReader, usando original", error);
+          resolve(file);
+      }
     });
   }
   
