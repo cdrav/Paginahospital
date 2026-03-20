@@ -536,6 +536,12 @@
       font-size: 16px; /* Evita zoom automático en iOS */
     }
     
+    /* CORRECCIÓN: Permitir que el área de texto tenga altura automática */
+    textarea.form-control {
+      height: auto !important;
+      min-height: 120px;
+    }
+    
     .form-section {
       padding: 1.5rem 1rem;
     }

@@ -93,7 +93,11 @@ const especialidades = [
     // Procesar cada archivo nuevo seleccionado
     nuevosArchivos.forEach(archivo => {
         // VALIDACIÓN INTELIGENTE DE TAMAÑO
-        const esImagen = archivo.type.startsWith('image/');
+        let esImagen = archivo.type.startsWith('image/');
+        // Fallback: Si el móvil no envía el tipo MIME, verificar por extensión
+        if (!archivo.type && /\.(jpg|jpeg|png|gif|webp|bmp|heic)$/i.test(archivo.name)) {
+            esImagen = true;
+        }
         const limiteSize = esImagen ? 10 * 1024 * 1024 : 2 * 1024 * 1024; // 10MB imágenes, 2MB PDF
 
         if (archivo.size > limiteSize) {
@@ -616,8 +620,10 @@ const especialidades = [
       }
 
       // PASO 2: Subir los archivos a Firebase Storage con manejo robusto de errores CORS
-      const ordenesInput = document.getElementById('ordenesMedicas');
-      const files = ordenesInput.files;
+      // CORRECCIÓN MÓVIL: Usar fileAccumulator directamente. 
+      // Algunos navegadores móviles fallan al leer input.files si fue modificado programáticamente.
+      const files = fileAccumulator.files;
+      
       const uploadedFilesInfo = [];
       let uploadErrors = [];
       let hasCorsError = false;
