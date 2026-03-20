@@ -174,7 +174,7 @@ const especialidades = [
     });
     
     // Actualizar acumulador y el input
-    fileAccumulator = nuevoDt;
+    fileAccumulator = nuevoDt;  
     const input = document.getElementById('ordenesMedicas');
     input.files = fileAccumulator.files;
     
@@ -646,9 +646,11 @@ const especialidades = [
             
             // Intentar comprimir si es imagen para ahorrar espacio (Plan Gratuito)
             const fileToUpload = await comprimirImagen(file);
-            
-            // Estructura organizada: citas/2024/03/ID_CITA/archivo.ext
-            const storageRef = ref(storage, `citas/${year}/${month}/${citaId}/${fileToUpload.name}`);
+            // Asegurar nombre único para evitar sobrescritura (común en móviles: image.jpg)
+            const uniqueName = `${Date.now()}_${fileToUpload.name}`;
+
+            // Estructura organizada: citas/2024/03/ID_CITA/timestamp_archivo.ext
+            const storageRef = ref(storage, `citas/${year}/${month}/${citaId}/${uniqueName}`);
             const snapshot = await uploadBytes(storageRef, fileToUpload);
             const downloadURL = await getDownloadURL(snapshot.ref);
             
@@ -845,61 +847,65 @@ const especialidades = [
    * Reduce el tamaño drásticamente para mantener el plan gratuito de Firebase
    */
   function comprimirImagen(file) {
-    // Si no es imagen, devolver el archivo original
-    if (!file.type.match(/image.*/)) return Promise.resolve(file);
+    // Detección robusta de imagen (tipo MIME o extensión para móviles que no envían MIME)
+    const isImage = file.type.match(/image.*/) || /\.(jpg|jpeg|png|gif|webp|bmp|heic)$/i.test(file.name);
+    
+    if (!isImage) return Promise.resolve(file);
 
     return new Promise((resolve) => {
-      try {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = (event) => {
-            const img = new Image();
-            img.src = event.target.result;
-            img.onload = () => {
+      // OPTIMIZACIÓN DE MEMORIA: Usar createObjectURL en lugar de FileReader (Base64)
+      // Esto evita picos de memoria en móviles que causan cierres inesperados (crashes).
+      const objectUrl = URL.createObjectURL(file);
+      const img = new Image();
+      
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl); // Liberar memoria inmediatamente
+        try {
+            const maxWidth = 1280; 
+            const quality = 0.7;
+            
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+              height = Math.round(height * (maxWidth / width));
+              width = maxWidth;
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob((blob) => {
+              if (!blob) { resolve(file); return; }
               try {
-                  // Configuración de compresión
-                  const maxWidth = 1280; 
-                  const quality = 0.7;
-                  
-                  let width = img.width;
-                  let height = img.height;
-
-                  if (width > maxWidth) {
-                    height = Math.round(height * (maxWidth / width));
-                    width = maxWidth;
-                  }
-
-                  const canvas = document.createElement('canvas');
-                  canvas.width = width;
-                  canvas.height = height;
-                  const ctx = canvas.getContext('2d');
-                  ctx.drawImage(img, 0, 0, width, height);
-
-                  canvas.toBlob((blob) => {
-                    if (!blob) { resolve(file); return; }
-                    // Intento seguro de crear archivo
-                    try {
-                        const newName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
-                        const compressedFile = new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() });
-                        resolve(compressedFile);
-                    } catch (e) {
-                        // Fallback para navegadores móviles antiguos que no soportan constructor File
-                        blob.name = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
-                        resolve(blob);
-                    }
-                  }, 'image/jpeg', quality);
+                  const fileNameNoExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+                  const newName = `${fileNameNoExt}.jpg`;
+                  // Crear archivo optimizado
+                  const compressedFile = new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() });
+                  resolve(compressedFile);
               } catch (e) {
-                  console.warn("Error en compresión (canvas), usando original", e);
-                  resolve(file);
+                  // Fallback para navegadores móviles antiguos
+                  const fileNameNoExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+                  blob.name = `${fileNameNoExt}.jpg`;
+                  resolve(blob);
               }
-            };
-            img.onerror = () => resolve(file);
-          };
-          reader.onerror = () => resolve(file);
-      } catch (error) {
-          console.warn("Error inicializando FileReader, usando original", error);
-          resolve(file);
-      }
+            }, 'image/jpeg', quality);
+        } catch (e) {
+            console.warn("Error en compresión, usando original", e);
+            resolve(file);
+        }
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        console.warn("Imagen no soportada o corrupta, usando original");
+        resolve(file);
+      };
+
+      img.src = objectUrl;
     });
   }
   
