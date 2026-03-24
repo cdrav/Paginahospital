@@ -3,8 +3,8 @@
  * Maneja el wizard de pasos, validaciones, calendario y simulación de envío.
  */
 
-import { db, storage } from './firebase-config.js';
-import { collection, addDoc, serverTimestamp, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { db, storage } from "./firebase-config.js";
+import { collection, addDoc, serverTimestamp, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // Datos de ejemplo para especialidades (Simulación de API)
@@ -584,7 +584,13 @@ const especialidades = [
     document.getElementById('loadingOverlay').style.display = 'flex';
 
     try {
-      // PASO 1: Generar un radicado personalizado y guardar los datos de la cita
+      // --- LÓGICA MEJORADA PARA EVITAR ERRORES DE PERMISOS ---
+      // PASO 1: Generar una referencia de documento (y su ID) ANTES de cualquier escritura.
+      // Esto nos da un ID para organizar los archivos sin necesidad de permisos de 'update'.
+      const newCitaRef = doc(collection(db, "citasOnline"));
+      const citaId = newCitaRef.id;
+
+      // Generar un radicado personalizado para el usuario
       const now = new Date();
       const year = now.getFullYear().toString().slice(-2);
       const month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -594,32 +600,7 @@ const especialidades = [
       const seconds = now.getSeconds().toString().padStart(2, '0');
       const customRadicado = `HDSA-${year}${month}${day}-${hours}${minutes}${seconds}`;
 
-      const dataToSave = {
-        ...datosCita,
-        paciente: { ...datosCita.paciente }, // Crear una copia para evitar problemas de referencia
-        radicado: customRadicado, // Guardar el radicado personalizado
-        ordenesMedicas: [], // Dejar vacío por ahora, se actualizará después de subir los archivos.
-        status: 'Solicitada', // Estado inicial fijo para todas las citas
-        createdAt: serverTimestamp() // Fecha y hora de creación en el servidor
-      };
-
-      let citaId;
-      
-      if (isLocalhost) {
-        console.log('🔧 Modo desarrollo local - Simulando guardado en Firestore...');
-        // Simular ID de documento
-        citaId = 'mock_cita_' + Date.now();
-        console.log('✅ Cita simulada con Radicado:', customRadicado);
-        console.log('📝 Datos simulados:', dataToSave);
-      } else {
-        console.log('🌐 Modo producción - Guardando en Firestore real...');
-        // Guardar el documento en la colección 'citasOnline' de Firestore
-        const docRef = await addDoc(collection(db, "citasOnline"), dataToSave);
-        citaId = docRef.id;
-        console.log('✅ Cita guardada en Firestore con ID:', citaId, 'y Radicado:', customRadicado);
-      }
-
-      // PASO 2: Subir los archivos a Firebase Storage con manejo robusto de errores CORS
+      // PASO 2: Subir los archivos a Firebase Storage usando el ID pre-generado.
       // CORRECCIÓN MÓVIL: Usar fileAccumulator directamente. 
       // Algunos navegadores móviles fallan al leer input.files si fue modificado programáticamente.
       const files = fileAccumulator.files;
@@ -633,11 +614,8 @@ const especialidades = [
       try {
         if (files.length > 0 && !isLocalhost) {
         console.log('🌐 Iniciando subida de archivos a Firebase Storage...');
-        
-        // Obtener fecha actual para organizar carpetas por Año/Mes
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const currentYear = now.getFullYear();
+        const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
 
         // Subir archivos en paralelo para mejor rendimiento
         const uploadPromises = Array.from(files).map(async (file, index) => {
@@ -649,8 +627,8 @@ const especialidades = [
             // Asegurar nombre único para evitar sobrescritura (común en móviles: image.jpg)
             const uniqueName = `${Date.now()}_${fileToUpload.name}`;
 
-            // Estructura organizada: citas/2024/03/ID_CITA/timestamp_archivo.ext
-            const storageRef = ref(storage, `citas/${year}/${month}/${citaId}/${uniqueName}`);
+            // Estructura organizada: citas/YYYY/MM/ID_CITA/timestamp_archivo.ext
+            const storageRef = ref(storage, `citas/${currentYear}/${currentMonth}/${citaId}/${uniqueName}`);
             const snapshot = await uploadBytes(storageRef, fileToUpload);
             const downloadURL = await getDownloadURL(snapshot.ref);
             
@@ -756,6 +734,34 @@ const especialidades = [
           console.warn("⚠️ Advertencia: La cita se creó, pero hubo un error subiendo archivos o actualizando:", secondaryError);
           // Agregamos un error genérico a la lista para notificar al usuario en el modal, sin bloquear el éxito.
           uploadErrors.push({ fileName: 'Adjuntos', error: 'Problema de conexión al finalizar. La cita sí fue agendada.' });
+      }
+
+      // PASO 3: Guardar TODO en Firestore en UNA SOLA operación (setDoc)
+      const dataToSave = {
+        ...datosCita,
+        paciente: { ...datosCita.paciente },
+        radicado: customRadicado,
+        ordenesMedicas: uploadedFilesInfo, // Incluir los archivos ya subidos
+        status: 'Solicitada',
+        createdAt: serverTimestamp(),
+        historial: [ // Añadir el primer registro de historial en la creación
+            {
+                action: `Solicitud de cita creada con radicado ${customRadicado}`,
+                user: 'Sistema (Portal Web)',
+                timestamp: serverTimestamp(),
+                type: 'creation'
+            }
+        ]
+      };
+
+      if (isLocalhost) {
+        console.log('🔧 Modo desarrollo local - Simulando guardado en Firestore con setDoc...');
+        console.log('✅ Cita simulada con ID:', citaId);
+        console.log('📝 Datos a guardar (simulado):', dataToSave);
+      } else {
+        console.log('🌐 Modo producción - Guardando en Firestore real con setDoc...');
+        await setDoc(newCitaRef, dataToSave);
+        console.log('✅ Cita y archivos guardados en Firestore con ID:', citaId);
       }
 
       // --- Éxito con posible advertencia de archivos ---
