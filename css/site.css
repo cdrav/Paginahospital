@@ -1542,6 +1542,39 @@ section.citas-hero > .container {
   color: #b02a37; /* rojo más oscuro en hover */
 }
 
+ /*
+   =====================================================
+   Transparencia - Corrección de Alineación de Listas (v5 - Definitiva)
+   =====================================================
+   Solución robusta para los ítems de lista que son enlaces.
+   1. Se aplica flexbox para alinear los elementos internos.
+   2. Se le indica al texto principal (el nombre del documento) que crezca para usar el espacio disponible.
+   3. Se usa `min-width: 0` en el texto, un truco crucial de flexbox para permitir que el texto largo se ajuste (wrap) en lugar de desbordar y "cortarse".
+   4. Se asegura que los íconos y badges no se deformen.
+ */
+.anchor-target a.list-group-item {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+   text-decoration: none;
+    width: 100%;
+ }
+
+ /* El texto principal (nombre del archivo/documento) debe crecer */
+ .anchor-target a.list-group-item > span:not(.badge),
+ .anchor-target a.list-group-item > strong {
+   flex-grow: 1;
+   min-width: 0; /* Permite que el texto se ajuste y no se corte */
+ }
+
+ /* Los elementos auxiliares (badges, botones, fechas, íconos) no deben crecer ni encogerse */
+ .anchor-target a.list-group-item > .badge,
+ .anchor-target a.list-group-item > .btn,
+ .anchor-target a.list-group-item > small,
+ .anchor-target a.list-group-item > i {
+   flex-shrink: 0;
+ }
+
 .hero-image-responsive {
   height: 250px; /* Altura para móviles */
   object-fit: cover;

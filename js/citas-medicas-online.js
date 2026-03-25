@@ -714,22 +714,6 @@ const especialidades = [
         });
       }
 
-      // PASO 3: Actualizar el documento de la cita con las URLs de los archivos.
-      if (uploadedFilesInfo.length > 0) {
-        console.log('Actualizando cita con archivos:', uploadedFilesInfo);
-        
-        if (isLocalhost) {
-          console.log('🔧 Modo desarrollo local - Simulando actualización en Firestore...');
-          console.log('✅ Actualización simulada con archivos:', uploadedFilesInfo);
-        } else {
-          console.log('🌐 Modo producción - Actualizando Firestore real...');
-          const citaDocRef = doc(db, "citasOnline", citaId);
-          await updateDoc(citaDocRef, {
-            ordenesMedicas: uploadedFilesInfo
-          });
-          console.log('✅ Firestore actualizado con archivos');
-        }
-      }
       } catch (secondaryError) {
           console.warn("⚠️ Advertencia: La cita se creó, pero hubo un error subiendo archivos o actualizando:", secondaryError);
           // Agregamos un error genérico a la lista para notificar al usuario en el modal, sin bloquear el éxito.
@@ -748,7 +732,7 @@ const especialidades = [
             {
                 action: `Solicitud de cita creada con radicado ${customRadicado}`,
                 user: 'Sistema (Portal Web)',
-                timestamp: serverTimestamp(),
+                timestamp: new Date(),
                 type: 'creation'
             }
         ]
