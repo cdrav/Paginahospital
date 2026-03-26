@@ -258,7 +258,7 @@ function initCitasAdmin() {
     let constraints = [];
     
     if (statusFilter === 'active') {
-        constraints.push(where("status", "in", ["Solicitada", "En Proceso"]));
+        constraints.push(where("status", "in", ["Solicitada", "En Proceso", "Confirmada", "Reasignada"]));
     } else if (statusFilter !== 'all') {
         constraints.push(where("status", "==", statusFilter));
     }
@@ -366,28 +366,25 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function updateStatistics(citas) {
     const stats = {
-        solicitada: 0,
-        proceso: 0,
         confirmada: 0,
-        atendida: 0,
+        proceso: 0,
+        reasignada: 0,
         cancelada: 0,
         total: citas.length
     };
 
     citas.forEach(cita => {
-        const status = cita.status || 'Solicitada';
-        if (status === 'Solicitada') stats.solicitada++;
+        const status = cita.status || 'Confirmada';
+        if (status === 'Confirmada') stats.confirmada++;
         else if (status === 'En Proceso') stats.proceso++;
-        else if (status === 'Confirmada') stats.confirmada++;
-        else if (status === 'Atendida') stats.atendida++;
+        else if (status === 'Reasignada') stats.reasignada++;
         else if (status === 'Cancelada') stats.cancelada++;
     });
 
     // Actualizar DOM con animación simple
-    animateValue("stat-solicitada", stats.solicitada);
-    animateValue("stat-proceso", stats.proceso);
     animateValue("stat-confirmada", stats.confirmada);
-    animateValue("stat-atendida", stats.atendida);
+    animateValue("stat-proceso", stats.proceso);
+    animateValue("stat-reasignada", stats.reasignada);
     animateValue("stat-cancelada", stats.cancelada);
     animateValue("stat-total", stats.total);
 }
@@ -446,10 +443,9 @@ function renderCitasTable(citas, totalLoaded) {
 
     // Agrupar citas por estado para mejor organización
     const citasPorEstado = {
-        'Solicitada': [],
-        'En Proceso': [],
         'Confirmada': [],
-        'Atendida': [],
+        'En Proceso': [],
+        'Reasignada': [],
         'Cancelada': []
     };
 
@@ -465,13 +461,13 @@ function renderCitasTable(citas, totalLoaded) {
             return;
         }
 
-        const status = cita.status || 'Solicitada';
+        const status = cita.status || 'Confirmada';
         if (citasPorEstado[status]) {
             citasPorEstado[status].push(cita);
         } else {
             console.warn('⚠️ Estado desconocido:', status, 'para cita:', cita.id);
-            // Agregar a Solicitadas por defecto
-            citasPorEstado['Solicitada'].push(cita);
+            // Agregar a Confirmadas por defecto
+            citasPorEstado['Confirmada'].push(cita);
         }
     });
 
@@ -663,9 +659,14 @@ function openStatusModal(docId, currentStatus) {
     const select = document.getElementById('nuevoEstadoSelect');
 
     if (modalEl && inputId && select) {
+        // Forzamos las opciones correctas para que coincidan con tu flujo de trabajo
+        const opciones = ['Confirmada', 'En Proceso', 'Reasignada', 'Cancelada'];
+        select.innerHTML = opciones.map(opt => 
+            `<option value="${opt}" ${opt === currentStatus ? 'selected' : ''}>${opt}</option>`
+        ).join('');
+
         inputId.value = docId;
         inputPrev.value = currentStatus;
-        select.value = currentStatus || 'Solicitada';
         
         const modal = new bootstrap.Modal(modalEl);
         modal.show();
@@ -811,14 +812,14 @@ async function exportCitasToPDF() {
  */
 function getStatusBadge(status) {
     const badges = {
-        'Solicitada': '<span class="badge bg-warning text-dark">Solicitada</span>',
         'Confirmada': '<span class="badge bg-info">Confirmada</span>',
-        'Cancelada': '<span class="badge bg-danger">Cancelada</span>',
-        'Atendida': '<span class="badge bg-success">Atendida</span>',
-        'En Proceso': '<span class="badge bg-primary">En Proceso</span>'
+        'En Proceso': '<span class="badge bg-primary">En Proceso</span>',
+        'Reasignada': '<span class="badge bg-secondary">Reasignada</span>',
+        'Cancelada': '<span class="badge bg-danger">Cancelada</span>'
     };
-    return badges[status] || badges['Solicitada'];
+    return badges[status] || badges['Confirmada'];
 }
+
 
 // Hacer funciones clave globalmente accesibles para onclicks (aunque se recomienda delegación)
 window.showCitaDetails = showCitaDetails;
