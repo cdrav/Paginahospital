@@ -16,7 +16,14 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   // Clicks en el sidebar
   // Nota: el desplazamiento y la lógica de "una sección a la vez" se manejan
 
-  // Resaltado activo según scroll
+  window.scrollToWithOffset = scrollToWithOffset;
+
+  const activate = (a) => {
+    document.querySelectorAll('.sidebar-nav a').forEach((x) => x.classList.remove('active'));
+    a?.classList.add('active');
+  };
+
+  // Mapeo de anclas a enlaces del sidebar
   const linkMap = new Map();
   document.querySelectorAll('.sidebar-nav a[href^="#"]').forEach((a) => {
     const sel = a.getAttribute('href');
@@ -24,11 +31,6 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     const el = document.querySelector(sel);
     if (el) linkMap.set(el, a);
   });
-
-  const activate = (a) => {
-    document.querySelectorAll('.sidebar-nav a').forEach((x) => x.classList.remove('active'));
-    a?.classList.add('active');
-  };
 
   const io = new IntersectionObserver(
     (entries) => {
@@ -79,6 +81,15 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   const show = (el) => el && el.classList.remove('d-none');
 
   let singleView = true; // modo por defecto
+
+  // Toggle Ver todo / Ver solo esta sección
+  const toggleBtn = document.getElementById('view-mode-toggle');
+  const updateToggleLabel = () => {
+    if (!toggleBtn) return;
+    toggleBtn.innerHTML = singleView
+      ? '<i class="bi bi-layout-text-sidebar-reverse me-1"></i>Ver todo'
+      : '<i class="bi bi-square-half me-1"></i>Ver solo esta sección';
+  };
 
   // Utilidades para acordeón lateral
   const accordion = document.getElementById('transpAccordion');
@@ -200,10 +211,15 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       showOnlyBySelector(secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : '');
       if (secInfoEntidad) show(secInfoEntidad);
     }
+    // Actualizar el botón después de aplicar la vista inicial
+    updateToggleLabel();
   }
 
-  // Aplicar al cargar
-  initialApply();
+  // Aplicar al cargar con un pequeño retraso para asegurar que todo esté renderizado
+  setTimeout(initialApply, 100);
+  
+  // Segunda actualización del botón por si acaso el DOM tardó más en cargar
+  setTimeout(updateToggleLabel, 200);
 
   // Clicks en el sidebar: mostrar solo la sección de destino
   document.addEventListener('click', (e) => {
@@ -213,14 +229,17 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (!hash) return;
     e.preventDefault();
     showOnlyBySelector(hash);
-    // Defer scroll to next frame to avoid forced reflow
-    requestAnimationFrame(() => {
+    // Scroll al objetivo con un pequeño retraso para asegurar que el contenido esté visible
+    setTimeout(() => {
       const target = document.querySelector(hash);
-      // Alinear el encabezado interno (h2/h3) justo bajo el header fijo
-      const heading = target?.querySelector?.('h2, h3');
-      const targetEl = heading || target;
-      if (targetEl) scrollToWithOffset(targetEl);
-    });
+      if (target) {
+        const heading = target?.querySelector?.('h2, h3');
+        const targetEl = heading || target;
+        if (targetEl && window.scrollToWithOffset) {
+          window.scrollToWithOffset(targetEl);
+        }
+      }
+    }, 50);
     // Actualizar URL sin recargar
     history.replaceState(null, '', hash);
   }, true);
@@ -235,12 +254,14 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (!target) return;
     e.preventDefault();
     showOnlyBySelector(hash);
-    // Defer scroll to next frame
-    requestAnimationFrame(() => {
+    // Scroll con retraso para asegurar visibilidad
+    setTimeout(() => {
       const heading = target?.querySelector?.('h2, h3');
       const targetEl = heading || target;
-      if (targetEl) scrollToWithOffset(targetEl);
-    });
+      if (targetEl && window.scrollToWithOffset) {
+        window.scrollToWithOffset(targetEl);
+      }
+    }, 50);
     history.replaceState(null, '', hash);
   });
 
@@ -248,6 +269,19 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   window.addEventListener('hashchange', () => {
     const hash = location.hash;
     showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
+    // Scroll después de un pequeño retraso
+    if (hash) {
+      setTimeout(() => {
+        const target = document.querySelector(hash);
+        if (target) {
+          const heading = target?.querySelector?.('h2, h3');
+          const targetEl = heading || target;
+          if (targetEl && window.scrollToWithOffset) {
+            window.scrollToWithOffset(targetEl);
+          }
+        }
+      }, 50);
+    }
   });
 
   // Integración con búsqueda: cuando el campo queda vacío, re-aplicar modo una sección
@@ -274,15 +308,6 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     });
   }
 
-  // Toggle Ver todo / Ver solo esta sección
-  const toggleBtn = document.getElementById('view-mode-toggle');
-  const updateToggleLabel = () => {
-    if (!toggleBtn) return;
-    toggleBtn.innerHTML = singleView
-      ? '<i class="bi bi-layout-text-sidebar-reverse me-1"></i>Ver todo'
-      : '<i class="bi bi-square-half me-1"></i>Ver solo esta sección';
-  };
-  updateToggleLabel();
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       singleView = !singleView;
@@ -350,15 +375,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   if (!container) return;
 
   // Utiliza la función de scroll global
-  const scrollToWithOffset = (el) => {
-    if (!el) return;
-    const headerOffset = getHeaderOffset();
-    const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-    window.scrollTo({
-      top: y,
-      behavior: 'smooth'
-    });
-  };
+  // La función scrollToWithOffset ya está disponible globalmente desde el primer IIFE
 
   let loaded = false;
   const src = container.getAttribute('data-src');

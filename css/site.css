@@ -324,7 +324,7 @@ section > p {
  * min-width: 0 es crucial para que el flexbox pueda encoger el elemento.
 */
 .navbar .navbar-brand { display: flex; align-items: center; gap: .5rem; min-width: 0; flex-shrink: 1; flex-grow: 0; }
-/* Logo: tamaño mayor y delineado sutil para resaltar sobre el banner */
+/* Logo: optimizado para claridad y buena apariencia */
 .hospital-logo {
   /* Altura responsiva: empieza pequeño en móviles y crece con la pantalla */
   height: 70px; /* Aumentado para mayor presencia */
@@ -332,11 +332,9 @@ section > p {
   background: transparent;
   box-shadow: none;
   border: 0;
-  /* Delineado suave alrededor del contorno + sombra sutil hacia abajo */
-  filter:
-    drop-shadow(0 0 2px rgba(255,255,255,.85))
-    drop-shadow(0 2px 6px rgba(0,0,0,.22));
-  /* Controlar ensanchado del logo sin alterar demasiado su altura */
+  /* Filtro sutil que mejora claridad sin afectar calidad */
+  filter: contrast(1.05) brightness(1.02);
+  /* Controlar escala suave */
   --logo-scale-x: 1;   /* base */
   --logo-scale: 1;     /* escala general */
   transform: translateY(0) scaleX(var(--logo-scale-x)) scale(var(--logo-scale));
@@ -346,9 +344,8 @@ section > p {
 .hospital-logo:hover,
 .hospital-logo:focus-visible {
   transform: translateY(-2px) scaleX(var(--logo-scale-x)) scale(1.08);
-  filter:
-    drop-shadow(0 0 3px rgba(255,255,255,.9))
-    drop-shadow(0 6px 14px rgba(0,0,0,.24));
+  /* Hover mejorado con más claridad y brillo */
+  filter: contrast(1.08) brightness(1.05);
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1; font-family: 'Work Sans', 'Poppins', sans-serif; }
 .hospital-name {
