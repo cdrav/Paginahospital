@@ -726,7 +726,7 @@ const especialidades = [
         paciente: { ...datosCita.paciente },
         radicado: customRadicado,
         ordenesMedicas: uploadedFilesInfo, // Incluir los archivos ya subidos
-        status: 'Solicitada',
+        status: 'Solicitud de Cita',
         createdAt: serverTimestamp(),
         historial: [ // Añadir el primer registro de historial en la creación
             {
