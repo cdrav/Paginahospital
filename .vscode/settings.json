@@ -1,5 +1,14 @@
 {
     "liveServer.settings.port": 5524,
     "CodeGPT.apiKey": "Anthropic",
-    "json.schemaDownload.enable": false
+    "json.schemaDownload.enable": false,
+    "files.exclude": {
+        "**/globalStorage/github.copilot-chat/**": true,
+        "**/node_modules/**": true,
+        "**/.git/**": true
+    },
+    "extensions.ignoreRecommendations": true,
+    "extensions.autoUpdate": false,
+    "typescript.validate.enable": false,
+    "javascript.validate.enable": false
 }
