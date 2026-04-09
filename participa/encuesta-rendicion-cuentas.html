@@ -68,36 +68,6 @@
 
     <main class="container py-5">
         <div class="card form-card">
-            <div class="form-header-custom position-relative">
-                <div class="table-responsive">
-                    <table class="table table-bordered border-secondary mb-0 table-header-institutional" style="font-size: 0.75rem; min-width: 320px;">
-                        <tbody>
-                            <tr>
-                                <td rowspan="4" class="text-center align-middle" style="width: 22%;">
-                                    <img src="/imagenes/HDSACorporativo_2.png" alt="Logo HDSA" class="img-fluid" style="max-height: 110px;">
-                                </td>
-                                <td rowspan="2" class="text-center align-middle fw-bold">
-                                    HOSPITAL DEPARTAMENTAL SAN ANTONIO DE ROLDANILLO
-                                </td>
-                                <td class="text-center align-middle" style="width: 30%;"><strong>CÓDIGO: </strong> </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center align-middle"><strong>VERSIÓN:</strong> 1</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2" class="text-center align-middle fw-bold">
-                                    PLANEACION<br>
-                                    <span class="text-uppercase text-primary">RENDICIÓN DE CUENTAS VIGENCIA 2025 </span>
-                                </td>
-                                <td class="text-center align-middle"><strong>PÁGINA:</strong> 1 de 1</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center align-middle"><strong>FECHA: </strong> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
     <div class="card-body p-4">
     <header class="mb-4">
         <h2 class="h4 fw-bold text-brand">ENCUESTA DE SATISFACCIÓN</h2>
@@ -109,11 +79,11 @@
         <div class="question-group">
             <span class="question-text">1. ¿Por qué medio se enteró de la convocatoria a participar en esta audiencia?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p1" value="web"> Página web de la institución</label>
-                <label class="option"><input type="radio" name="p1" value="radio"> Radio, medio masivo de comunicación</label>
-                <label class="option"><input type="radio" name="p1" value="invitacion"> Invitación directa</label>
-                <label class="option"><input type="radio" name="p1" value="otro"> Otro</label>
-                <input type="text" name="p1_otro" class="form-control mt-2" placeholder="¿Cuál?">
+                <label class="option"><input type="radio" name="p1" value="web" required> Página web de la institución</label>
+                <label class="option"><input type="radio" name="p1" value="radio" required> Radio, medio masivo de comunicación</label>
+                <label class="option"><input type="radio" name="p1" value="invitacion" required> Invitación directa</label>
+                <label class="option"><input type="radio" name="p1" value="otro" required> Otro</label>
+                <input type="text" name="p1_otro" class="form-control mt-2 d-none" placeholder="¿Cuál?">
             </div>
         </div>
 
@@ -123,12 +93,12 @@
         <div class="question-group">
             <span class="question-text">2. ¿Usted se identifica como?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p2" value="usuario"> Usuario del servicio</label>
-                <label class="option"><input type="radio" name="p2" value="familiar"> Familiar de usuario</label>
-                <label class="option"><input type="radio" name="p2" value="funcionario"> Funcionario de la institución</label>
-                <label class="option"><input type="radio" name="p2" value="organizacion"> Representante de organización social</label>
-                <label class="option"><input type="radio" name="p2" value="otro"> Otro</label>
-                <input type="text" name="p2_otro" class="form-control mt-2" placeholder="¿Cuál?">
+                <label class="option"><input type="radio" name="p2" value="usuario" required> Usuario del servicio</label>
+                <label class="option"><input type="radio" name="p2" value="familiar" required> Familiar de usuario</label>
+                <label class="option"><input type="radio" name="p2" value="funcionario" required> Funcionario de la institución</label>
+                <label class="option"><input type="radio" name="p2" value="organizacion" required> Representante de organización social</label>
+                <label class="option"><input type="radio" name="p2" value="otro" required> Otro</label>
+                <input type="text" name="p2_otro" class="form-control mt-2 d-none" placeholder="¿Cuál?">
             </div>
         </div>
 
@@ -136,8 +106,8 @@
         <div class="question-group">
             <span class="question-text">3. ¿Reside en el municipio de Roldanillo?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p3" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p3" value="no"> No</label>
+                <label class="option"><input type="radio" name="p3" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p3" value="no" required> No</label>
             </div>
         </div>
 
@@ -147,10 +117,10 @@
         <div class="question-group">
             <span class="question-text">4. ¿Cómo califica la organización de la Audiencia Pública?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p4" value="excelente"> Excelente</label>
-                <label class="option"><input type="radio" name="p4" value="buena"> Buena</label>
-                <label class="option"><input type="radio" name="p4" value="regular"> Regular</label>
-                <label class="option"><input type="radio" name="p4" value="deficiente"> Deficiente</label>
+                <label class="option"><input type="radio" name="p4" value="excelente" required> Excelente</label>
+                <label class="option"><input type="radio" name="p4" value="buena" required> Buena</label>
+                <label class="option"><input type="radio" name="p4" value="regular" required> Regular</label>
+                <label class="option"><input type="radio" name="p4" value="deficiente" required> Deficiente</label>
             </div>
         </div>
 
@@ -158,9 +128,9 @@
         <div class="question-group">
             <span class="question-text">5. ¿La información presentada fue clara y comprensible?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p5" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p5" value="parcialmente"> Parcialmente</label>
-                <label class="option"><input type="radio" name="p5" value="no"> No</label>
+                <label class="option"><input type="radio" name="p5" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p5" value="parcialmente" required> Parcialmente</label>
+                <label class="option"><input type="radio" name="p5" value="no" required> No</label>
             </div>
         </div>
 
@@ -168,9 +138,9 @@
         <div class="question-group">
             <span class="question-text">6. ¿Considera que los temas abordados fueron relevantes para la comunidad?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p6" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p6" value="parcialmente"> Parcialmente</label>
-                <label class="option"><input type="radio" name="p6" value="no"> No</label>
+                <label class="option"><input type="radio" name="p6" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p6" value="parcialmente" required> Parcialmente</label>
+                <label class="option"><input type="radio" name="p6" value="no" required> No</label>
             </div>
         </div>
 
@@ -178,8 +148,8 @@
         <div class="question-group">
             <span class="question-text">7. ¿El tiempo destinado para la audiencia fue adecuado?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p7" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p7" value="no"> No</label>
+                <label class="option"><input type="radio" name="p7" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p7" value="no" required> No</label>
             </div>
         </div>
 
@@ -189,9 +159,9 @@
         <div class="question-group">
             <span class="question-text">8. ¿La información sobre la gestión financiera fue suficiente y clara?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p8" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p8" value="no"> No</label>
-                <label class="option"><input type="radio" name="p8" value="na"> No aplica</label>
+                <label class="option"><input type="radio" name="p8" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p8" value="no" required> No</label>
+                <label class="option"><input type="radio" name="p8" value="na" required> No aplica</label>
             </div>
         </div>
 
@@ -199,10 +169,10 @@
         <div class="question-group">
             <span class="question-text">9. ¿Cómo califica la información sobre la prestación de servicios de salud?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p9" value="excelente"> Excelente</label>
-                <label class="option"><input type="radio" name="p9" value="buena"> Buena</label>
-                <label class="option"><input type="radio" name="p9" value="regular"> Regular</label>
-                <label class="option"><input type="radio" name="p9" value="deficiente"> Deficiente</label>
+                <label class="option"><input type="radio" name="p9" value="excelente" required> Excelente</label>
+                <label class="option"><input type="radio" name="p9" value="buena" required> Buena</label>
+                <label class="option"><input type="radio" name="p9" value="regular" required> Regular</label>
+                <label class="option"><input type="radio" name="p9" value="deficiente" required> Deficiente</label>
             </div>
         </div>
 
@@ -210,9 +180,9 @@
         <div class="question-group">
             <span class="question-text">10. ¿Considera que se evidencian avances en la calidad del servicio?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p10" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p10" value="no"> No</label>
-                <label class="option"><input type="radio" name="p10" value="ns"> No sabe</label>
+                <label class="option"><input type="radio" name="p10" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p10" value="no" required> No</label>
+                <label class="option"><input type="radio" name="p10" value="ns" required> No sabe</label>
             </div>
         </div>
 
@@ -220,8 +190,8 @@
         <div class="question-group">
             <span class="question-text">11. ¿La información sobre participación ciudadana y atención al usuario fue adecuada?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p11" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p11" value="no"> No</label>
+                <label class="option"><input type="radio" name="p11" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p11" value="no" required> No</label>
             </div>
         </div>
 
@@ -231,8 +201,8 @@
         <div class="question-group">
             <span class="question-text">12. ¿Se brindaron espacios adecuados para la participación?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p12" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p12" value="no"> No</label>
+                <label class="option"><input type="radio" name="p12" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p12" value="no" required> No</label>
             </div>
         </div>
 
@@ -240,9 +210,9 @@
         <div class="question-group">
             <span class="question-text">13. ¿Siente que sus inquietudes fueron escuchadas y atendidas?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p13" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p13" value="no"> No</label>
-                <label class="option"><input type="radio" name="p13" value="parcialmente"> Parcialmente</label>
+                <label class="option"><input type="radio" name="p13" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p13" value="no" required> No</label>
+                <label class="option"><input type="radio" name="p13" value="parcialmente" required> Parcialmente</label>
             </div>
         </div>
 
@@ -250,8 +220,8 @@
         <div class="question-group">
             <span class="question-text">14. ¿Considera que este ejercicio fortalece la transparencia de la institución?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p14" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p14" value="no"> No</label>
+                <label class="option"><input type="radio" name="p14" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p14" value="no" required> No</label>
             </div>
         </div>
 
@@ -261,10 +231,10 @@
         <div class="question-group">
             <span class="question-text">15. ¿Cuál es su nivel de satisfacción general?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p15" value="muy_satisfecho"> Muy satisfecho</label>
-                <label class="option"><input type="radio" name="p15" value="satisfecho"> Satisfecho</label>
-                <label class="option"><input type="radio" name="p15" value="poco_satisfecho"> Poco satisfecho</label>
-                <label class="option"><input type="radio" name="p15" value="insatisfecho"> Insatisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="muy_satisfecho" required> Muy satisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="satisfecho" required> Satisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="poco_satisfecho" required> Poco satisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="insatisfecho" required> Insatisfecho</label>
             </div>
         </div>
 
@@ -272,8 +242,8 @@
         <div class="question-group">
             <span class="question-text">16. ¿Recomendaría participar en futuras rendiciones de cuentas?</span>
             <div class="options-container">
-                <label class="option"><input type="radio" name="p16" value="si"> Sí</label>
-                <label class="option"><input type="radio" name="p16" value="no"> No</label>
+                <label class="option"><input type="radio" name="p16" value="si" required> Sí</label>
+                <label class="option"><input type="radio" name="p16" value="no" required> No</label>
             </div>
         </div>
 
@@ -304,19 +274,88 @@
 </div>
 </main>
 
-<!-- Footer incluido dinámicamente -->
 <div id="footer-placeholder"></div>
 
- <!-- Scripts optimizados con defer -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../js/utils.js" defer></script>
-    <script src="../js/layout.js" defer></script>
-    <script src="../js/navbar.js" defer></script>
-    <script src="../js/accesibilidad.js" defer></script>
-    <script src="../js/accessibility-styles.js" defer></script>
-    <script src="../js/busqueda.js" defer></script>
-    <script src="../js/main.js" defer></script>
-    <script src="../js/breadcrumb.js" defer></script>
-    
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/layout.js" defer></script>
+<script src="../js/navbar.js" defer></script>
+<script src="../js/accesibilidad.js" defer></script>
+<script src="../js/accessibility-styles.js" defer></script>
+<script src="../js/main.js" defer></script>
+<script src="../js/breadcrumb.js" defer></script>
+
+<script>
+    // IMPORTANTE: Asegúrate de que en Google Apps Script la configuración sea "Cualquier Persona" (Anyone)
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgkb3teKou_HFik3fKWQPlrSV9A0q1LdaJTgVeN9gcczQoostPwETLfrzartaw3E2M/exec';
+
+    const form = document.getElementById('rendicionForm');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    // Lógica para mostrar/ocultar campos "Otro"
+    const setupOtroField = (radioName, inputName) => {
+        const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+        const input = document.querySelector(`input[name="${inputName}"]`);
+        
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'otro' && radio.checked) {
+                    input.classList.remove('d-none');
+                    input.required = true;
+                } else {
+                    input.classList.add('d-none');
+                    input.required = false;
+                    input.value = '';
+                }
+            });
+        });
+    };
+
+    setupOtroField('p1', 'p1_otro');
+    setupOtroField('p2', 'p2_otro');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+        form.classList.add('was-validated');
+        return;
+      }
+
+      // Mostrar estado de carga
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
+
+      fetch(SCRIPT_URL, { 
+        method: 'POST', 
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(form))
+      })
+      .then(() => {
+        // Con no-cors asumimos éxito si el envío se realizó.
+        // Si los datos no llegan, es un problema de permisos en el script de Google (401).
+        if (window.notify) {
+          window.notify('¡Gracias! Tus respuestas han sido enviadas correctamente.', { type: 'success', timeout: 5000 });
+        } else {
+          alert('¡Gracias! Tus respuestas han sido enviadas correctamente.');
+        }
+        form.reset();
+        // Ocultar campos otro después de reset
+        document.getElementsByName('p1_otro')[0].classList.add('d-none');
+        document.getElementsByName('p2_otro')[0].classList.add('d-none');
+      })
+      .catch(error => {
+        console.error('Error!', error.message);
+        if (window.notify) window.notify('Hubo un error al enviar la encuesta. Por favor, intenta de nuevo.', { type: 'danger' });
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      });
+    });
+</script>
+
+</body>
 </html>

@@ -1,6 +1,6 @@
 // URLs para enlaces externos
 const CENTRO_RELEVO_URL = "https://www.signosenred.gov.co/";
-const ENCUESTA_ACCESIBILIDAD_URL = "encuesta-accesibilidad.html";
+const ENCUESTA_ACCESIBILIDAD_URL = "/encuesta-accesibilidad.html";
 
 // Función para mostrar notificaciones mejoradas
 function showNotification(message, type = 'info') {
