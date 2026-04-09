@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#164443">
+    <title>Encuesta Rendición de Cuentas 2025 - Hospital Departamental San Antonio</title>
+    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/site.css" />
+    <link rel="stylesheet" href="../css/accesibilidad.css" />
+    <link rel="stylesheet" href="../css/accessibility-buttons.css" />
+    <link rel="stylesheet" href="../css/formularios.css" />
+    <style>
+        .form-header-custom { background-color: #fff; }
+        .section-title { 
+            background-color: #f8f9fa; 
+            color: #164443; 
+            padding: 10px 15px; 
+            border-left: 5px solid #069681; 
+            margin: 25px 0 15px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        .question-group { margin-bottom: 20px; padding: 10px; border-radius: 8px; transition: background 0.3s; }
+        .question-group:hover { background-color: #f0f7f6; }
+        .question-text { font-weight: 600; color: #333; display: block; margin-bottom: 10px; }
+        .option { display: block; margin-bottom: 5px; cursor: pointer; }
+        .form-card { border: none; border-top: 5px solid #069681; }
+        
+        /* Mejora para el contenedor de la tabla en móviles */
+        .table-responsive { border: none; margin-bottom: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+        /* Ajustes de responsividad para pantallas muy pequeñas (ej. Moto G4) */
+        @media (max-width: 575.98px) { /* Bootstrap's 'sm' breakpoint */
+            main.container {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                padding-top: 2rem !important;
+            }
+            .card-body {
+                padding: 1.25rem 0.75rem !important; /* Reduce padding lateral para ganar espacio */
+            }
+            .table-header-institutional td {
+                padding: 4px 2px !important; /* Celdas más compactas */
+            }
+            .table.table-bordered {
+                font-size: 0.6rem !important; /* Fuente mínima para evitar desbordes */
+            }
+            .table.table-bordered img {
+                max-height: 60px !important; /* Logo más pequeño en móviles */
+            }
+            .section-title {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+            .question-text { font-size: 0.95rem; }
+            .option { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body data-page-title="Encuesta Rendición de Cuentas">
+    <div id="header-placeholder"></div>
+    <div id="breadcrumb-container" class="container mt-3"></div>
+
+    <main class="container py-5">
+        <div class="card form-card">
+            <div class="form-header-custom position-relative">
+                <div class="table-responsive">
+                    <table class="table table-bordered border-secondary mb-0 table-header-institutional" style="font-size: 0.75rem; min-width: 320px;">
+                        <tbody>
+                            <tr>
+                                <td rowspan="4" class="text-center align-middle" style="width: 22%;">
+                                    <img src="/imagenes/HDSACorporativo_2.png" alt="Logo HDSA" class="img-fluid" style="max-height: 110px;">
+                                </td>
+                                <td rowspan="2" class="text-center align-middle fw-bold">
+                                    HOSPITAL DEPARTAMENTAL SAN ANTONIO DE ROLDANILLO
+                                </td>
+                                <td class="text-center align-middle" style="width: 30%;"><strong>CÓDIGO: </strong> </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle"><strong>VERSIÓN:</strong> 1</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="text-center align-middle fw-bold">
+                                    PLANEACION<br>
+                                    <span class="text-uppercase text-primary">RENDICIÓN DE CUENTAS VIGENCIA 2025 </span>
+                                </td>
+                                <td class="text-center align-middle"><strong>PÁGINA:</strong> 1 de 1</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle"><strong>FECHA: </strong> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    <div class="card-body p-4">
+    <header class="mb-4">
+        <h2 class="h4 fw-bold text-brand">ENCUESTA DE SATISFACCIÓN</h2>
+        <p class="text-muted"><strong>Objetivo:</strong> Evaluar la claridad y transparencia en la Rendición Pública de Cuentas de la vigencia del 01 de enero al 31 de diciembre del 2025.</p>
+    </header>
+
+    <form id="rendicionForm" class="needs-validation" novalidate>
+        <!-- Pregunta 1 -->
+        <div class="question-group">
+            <span class="question-text">1. ¿Por qué medio se enteró de la convocatoria a participar en esta audiencia?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p1" value="web"> Página web de la institución</label>
+                <label class="option"><input type="radio" name="p1" value="radio"> Radio, medio masivo de comunicación</label>
+                <label class="option"><input type="radio" name="p1" value="invitacion"> Invitación directa</label>
+                <label class="option"><input type="radio" name="p1" value="otro"> Otro</label>
+                <input type="text" name="p1_otro" class="form-control mt-2" placeholder="¿Cuál?">
+            </div>
+        </div>
+
+        <div class="section-title"><i class="bi bi-person-badge"></i> Datos Generales</div>
+
+        <!-- Pregunta 2 -->
+        <div class="question-group">
+            <span class="question-text">2. ¿Usted se identifica como?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p2" value="usuario"> Usuario del servicio</label>
+                <label class="option"><input type="radio" name="p2" value="familiar"> Familiar de usuario</label>
+                <label class="option"><input type="radio" name="p2" value="funcionario"> Funcionario de la institución</label>
+                <label class="option"><input type="radio" name="p2" value="organizacion"> Representante de organización social</label>
+                <label class="option"><input type="radio" name="p2" value="otro"> Otro</label>
+                <input type="text" name="p2_otro" class="form-control mt-2" placeholder="¿Cuál?">
+            </div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="question-group">
+            <span class="question-text">3. ¿Reside en el municipio de Roldanillo?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p3" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p3" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="bi bi-calendar-check"></i> Evaluación del Evento</div>
+
+        <!-- Pregunta 4 -->
+        <div class="question-group">
+            <span class="question-text">4. ¿Cómo califica la organización de la Audiencia Pública?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p4" value="excelente"> Excelente</label>
+                <label class="option"><input type="radio" name="p4" value="buena"> Buena</label>
+                <label class="option"><input type="radio" name="p4" value="regular"> Regular</label>
+                <label class="option"><input type="radio" name="p4" value="deficiente"> Deficiente</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="question-group">
+            <span class="question-text">5. ¿La información presentada fue clara y comprensible?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p5" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p5" value="parcialmente"> Parcialmente</label>
+                <label class="option"><input type="radio" name="p5" value="no"> No</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 6 -->
+        <div class="question-group">
+            <span class="question-text">6. ¿Considera que los temas abordados fueron relevantes para la comunidad?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p6" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p6" value="parcialmente"> Parcialmente</label>
+                <label class="option"><input type="radio" name="p6" value="no"> No</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 7 -->
+        <div class="question-group">
+            <span class="question-text">7. ¿El tiempo destinado para la audiencia fue adecuado?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p7" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p7" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="bi bi-file-earmark-text"></i> Contenido de la Rendición de Cuentas</div>
+
+        <!-- Pregunta 8 -->
+        <div class="question-group">
+            <span class="question-text">8. ¿La información sobre la gestión financiera fue suficiente y clara?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p8" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p8" value="no"> No</label>
+                <label class="option"><input type="radio" name="p8" value="na"> No aplica</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 9 -->
+        <div class="question-group">
+            <span class="question-text">9. ¿Cómo califica la información sobre la prestación de servicios de salud?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p9" value="excelente"> Excelente</label>
+                <label class="option"><input type="radio" name="p9" value="buena"> Buena</label>
+                <label class="option"><input type="radio" name="p9" value="regular"> Regular</label>
+                <label class="option"><input type="radio" name="p9" value="deficiente"> Deficiente</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 10 -->
+        <div class="question-group">
+            <span class="question-text">10. ¿Considera que se evidencian avances en la calidad del servicio?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p10" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p10" value="no"> No</label>
+                <label class="option"><input type="radio" name="p10" value="ns"> No sabe</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 11 -->
+        <div class="question-group">
+            <span class="question-text">11. ¿La información sobre participación ciudadana y atención al usuario fue adecuada?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p11" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p11" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="bi bi-shield-check"></i> Participación y Transparencia</div>
+
+        <!-- Pregunta 12 -->
+        <div class="question-group">
+            <span class="question-text">12. ¿Se brindaron espacios adecuados para la participación?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p12" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p12" value="no"> No</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 13 -->
+        <div class="question-group">
+            <span class="question-text">13. ¿Siente que sus inquietudes fueron escuchadas y atendidas?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p13" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p13" value="no"> No</label>
+                <label class="option"><input type="radio" name="p13" value="parcialmente"> Parcialmente</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 14 -->
+        <div class="question-group">
+            <span class="question-text">14. ¿Considera que este ejercicio fortalece la transparencia de la institución?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p14" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p14" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="bi bi-emoji-smile"></i> Percepción General</div>
+
+        <!-- Pregunta 15 -->
+        <div class="question-group">
+            <span class="question-text">15. ¿Cuál es su nivel de satisfacción general?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p15" value="muy_satisfecho"> Muy satisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="satisfecho"> Satisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="poco_satisfecho"> Poco satisfecho</label>
+                <label class="option"><input type="radio" name="p15" value="insatisfecho"> Insatisfecho</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 16 -->
+        <div class="question-group">
+            <span class="question-text">16. ¿Recomendaría participar en futuras rendiciones de cuentas?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="p16" value="si"> Sí</label>
+                <label class="option"><input type="radio" name="p16" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="bi bi-chat-left-dots"></i> Preguntas Abiertas</div>
+
+        <!-- Preguntas Abiertas -->
+        <div class="question-group">
+            <label class="question-text" for="p17">17. ¿Qué aspectos positivos destacaría de la audiencia?</label>
+            <textarea id="p17" name="p17" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="question-group">
+            <label class="question-text" for="p18">18. ¿Qué aspectos considera que deben mejorar?</label>
+            <textarea id="p18" name="p18" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="question-group">
+            <label class="question-text" for="p19">19. ¿Qué temas le gustaría que se profundizaran en futuras rendiciones?</label>
+            <textarea id="p19" name="p19" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-brand btn-lg w-100">Enviar Formulario</button>
+            <a href="rendicion-cuentas-2025.html" class="btn btn-link text-muted mt-3">Volver a Memorias 2025</a>
+        </div>
+    </form>
+    </div>
+</div>
+</main>
+
+<!-- Footer incluido dinámicamente -->
+<div id="footer-placeholder"></div>
+
+ <!-- Scripts optimizados con defer -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/layout.js" defer></script>
+    <script src="../js/navbar.js" defer></script>
+    <script src="../js/accesibilidad.js" defer></script>
+    <script src="../js/accessibility-styles.js" defer></script>
+    <script src="../js/busqueda.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/breadcrumb.js" defer></script>
+    
+  </body>
+</html>

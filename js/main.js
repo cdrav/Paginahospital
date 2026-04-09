@@ -60,7 +60,8 @@
     
     // Manejar errores
     script.onerror = function() {
-      console.warn('Error al cargar Google Translate');
+      const isLocal = window.location.protocol === 'file:';
+      console.warn('Error al cargar Google Translate.' + (isLocal ? ' Nota: El traductor de Google no funciona al abrir el archivo HTML directamente. Use un servidor local (Live Server).' : ''));
       if (callback) callback(new Error('No se pudo cargar el traductor'));
     };
     
