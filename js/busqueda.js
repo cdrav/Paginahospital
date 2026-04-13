@@ -3,6 +3,17 @@ const searchConfig = {
     lunrIndex: null,
     dataStore: {}, // Para mapear URL a datos completos de la página
     isInitialized: false,
+    MAX_RESULTS: 20,
+    categories: {
+        transparencia: { label: 'Transparencia', icon: 'bi-shield-check', color: '#164443' },
+        servicios: { label: 'Servicios de Salud', icon: 'bi-heart-pulse', color: '#dc3545' },
+        normatividad: { label: 'Normatividad', icon: 'bi-journal-text', color: '#6f42c1' },
+        participacion: { label: 'Participación', icon: 'bi-people', color: '#198754' },
+        pqrs: { label: 'PQRSD', icon: 'bi-chat-square-text', color: '#fd7e14' },
+        noticias: { label: 'Noticias', icon: 'bi-newspaper', color: '#0d6efd' },
+        institucional: { label: 'Institucional', icon: 'bi-building', color: '#20c997' },
+        general: { label: 'General', icon: 'bi-info-circle', color: '#6c757d' }
+    },
     initializationPromise: null,
     
     // Inicialización
@@ -141,6 +152,23 @@ const searchConfig = {
         }
     },
 
+    // Categoriza una URL según la sección del sitio
+    categorizeUrl: function(url) {
+        url = (url || '').toLowerCase();
+        if (url.includes('transparencia')) return 'transparencia';
+        if (url.includes('urgencias') || url.includes('consulta-externa') || url.includes('laboratorio') ||
+            url.includes('hospitalizacion') || url.includes('partos') || url.includes('cuidado-oral') ||
+            url.includes('diagnostico') || url.includes('promocion-prevencion') || url.includes('consultorio') ||
+            url.includes('citas') || url.includes('historia-clinica')) return 'servicios';
+        if (url.includes('normatividad')) return 'normatividad';
+        if (url.includes('participa')) return 'participacion';
+        if (url.includes('pqrs')) return 'pqrs';
+        if (url.includes('noticias')) return 'noticias';
+        if (url.includes('portal-institucional') || url.includes('directorio-institucional') ||
+            url.includes('estadisticas') || url.includes('asociaciones')) return 'institucional';
+        return 'general';
+    },
+
     // Muestra un mensaje de error en la interfaz
     showError: function(message) {
         const resultsContainer = document.getElementById('search-results');
@@ -247,7 +275,11 @@ const searchConfig = {
         if (!resultsContainer || !resultsCount || !searchTermElement || !noResultsElement) return;
 
         searchTermElement.textContent = `"${term}"`;
-        resultsCount.textContent = `Se encontraron ${count} resultados.`;
+        let msg = `Se encontraron ${count} resultados.`;
+        if (isLimited) {
+            msg += ` Mostrando los ${this.MAX_RESULTS} más relevantes.`;
+        }
+        resultsCount.textContent = msg;
 
         if (count === 0) {
             noResultsElement.classList.remove('d-none');
@@ -265,45 +297,90 @@ const searchConfig = {
             return;
         }
 
-        console.log('Mostrando resultados:', results);
-        this.updateResultsMessage(term, results.length);
-        
-        let html = '';
-        
-        if (results.length === 0) {
-            // El mensaje de "no resultados" se maneja en updateResultsMessage
-            return;
-        } else {
-            // Mostrar los resultados sin agrupar primero para depuración
-            results.forEach(result => {
-                const pageData = this.dataStore[result.ref] || {};
-                const pageTitle = pageData.title || 'Sin título';
-                const pageContent = pageData.content || '';
-                const url = result.ref;
-                
-                // Generar un extracto del contenido de la página que contenga el término de búsqueda
-                const excerpt = this.getExcerpt(pageContent, term);
-                
-                html += `
-                    <div class="card search-result-card mb-4">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0">
-                                <a href="${url}" class="text-decoration-none">${pageTitle}</a>
-                                <small class="text-muted d-block">${url}</small>
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="search-snippet">
-                                ${excerpt}
-                                <div class="text-muted small mt-2">Relevancia: ${(result.score * 100).toFixed(2)}%</div>
+        // Excluir páginas irrelevantes de los resultados
+        results = results.filter(r => !r.ref.includes('buscar.html'));
+
+        const isLimited = results.length > this.MAX_RESULTS;
+        const displayResults = results.slice(0, this.MAX_RESULTS);
+
+        this.updateResultsMessage(term, results.length, isLimited);
+
+        if (displayResults.length === 0) return;
+
+        // Categorizar resultados
+        const byCategory = {};
+        displayResults.forEach(result => {
+            const cat = this.categorizeUrl(result.ref);
+            if (!byCategory[cat]) byCategory[cat] = [];
+            byCategory[cat].push(result);
+        });
+
+        // Botones de filtro por categoría
+        let html = '<div class="d-flex flex-wrap gap-2 mb-4" role="toolbar" aria-label="Filtrar resultados por categoría">';
+        html += `<button class="btn btn-sm btn-brand rounded-pill search-filter-btn active" data-filter="all">
+            <i class="bi bi-grid-3x3-gap me-1"></i>Todos <span class="badge bg-white text-dark ms-1">${displayResults.length}</span>
+        </button>`;
+
+        Object.entries(byCategory).forEach(([cat, items]) => {
+            const cfg = this.categories[cat] || this.categories.general;
+            html += `<button class="btn btn-sm btn-outline-secondary rounded-pill search-filter-btn" data-filter="${cat}">
+                <i class="${cfg.icon} me-1"></i>${cfg.label} <span class="badge bg-secondary ms-1">${items.length}</span>
+            </button>`;
+        });
+        html += '</div>';
+
+        // Tarjetas de resultados
+        displayResults.forEach(result => {
+            const pageData = this.dataStore[result.ref] || {};
+            const pageTitle = pageData.title || 'Sin título';
+            const pageContent = pageData.content || '';
+            const url = result.ref;
+            const cat = this.categorizeUrl(url);
+            const cfg = this.categories[cat] || this.categories.general;
+            const excerpt = this.getExcerpt(pageContent, term);
+
+            html += `
+                <div class="card search-result-card mb-3 border-0 shadow-sm" data-category="${cat}">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                                 style="width:42px;height:42px;background:${cfg.color}15;">
+                                <i class="${cfg.icon}" style="color:${cfg.color};font-size:1.2rem;"></i>
+                            </div>
+                            <div class="flex-grow-1" style="min-width:0;">
+                                <h6 class="mb-1">
+                                    <a href="${url}" class="text-decoration-none">${this.highlightTerm(pageTitle, term)}</a>
+                                </h6>
+                                <span class="badge rounded-pill mb-2" style="background:${cfg.color}18;color:${cfg.color};font-size:.7rem;font-weight:500;">${cfg.label}</span>
+                                <p class="text-muted small mb-0">${excerpt}</p>
                             </div>
                         </div>
                     </div>
-                `;
-            });
+                </div>`;
+        });
+
+        if (isLimited) {
+            html += `<p class="text-muted text-center small mt-3">Mostrando los ${this.MAX_RESULTS} resultados más relevantes de ${results.length} encontrados.</p>`;
         }
-        
+
         resultsContainer.innerHTML = html;
+
+        // Funcionalidad de filtros por categoría
+        resultsContainer.querySelectorAll('.search-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                resultsContainer.querySelectorAll('.search-filter-btn').forEach(b => {
+                    b.classList.remove('active', 'btn-brand');
+                    b.classList.add('btn-outline-secondary');
+                });
+                btn.classList.add('active', 'btn-brand');
+                btn.classList.remove('btn-outline-secondary');
+
+                resultsContainer.querySelectorAll('.search-result-card').forEach(card => {
+                    card.classList.toggle('d-none', filter !== 'all' && card.dataset.category !== filter);
+                });
+            });
+        });
     },
     
     // Agrupa los resultados por página

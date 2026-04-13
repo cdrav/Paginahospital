@@ -1,5 +1,5 @@
 {
-    "liveServer.settings.port": 5525,
+    "liveServer.settings.port": 5526,
     "CodeGPT.apiKey": "Anthropic",
     "json.schemaDownload.enable": false,
     "files.exclude": {

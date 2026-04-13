@@ -285,7 +285,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   });
 
   // Integración con búsqueda: cuando el campo queda vacío, re-aplicar modo una sección
-  const searchInput = document.querySelector('form.search-form input[name="q"]');
+  const searchInput = document.querySelector('main form.search-form input[name="q"]');
   const reapplySingleView = () => {
     if (!searchInput) return;
     if ((searchInput.value || '').trim() === '') {
@@ -511,11 +511,9 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   ];
 
   const clearHighlights = (root) => {
-    highlightTargets.forEach((sel) => {
-      root.querySelectorAll(sel).forEach((el) => {
-        if (!el) return;
-        el.innerHTML = el.textContent;
-      });
+    root.querySelectorAll('[data-original-html]').forEach((el) => {
+      el.innerHTML = el.getAttribute('data-original-html');
+      el.removeAttribute('data-original-html');
     });
   };
 
@@ -523,6 +521,9 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (!el || !rawTerm) return;
     const term = rawTerm.trim();
     if (!term) return;
+    if (!el.hasAttribute('data-original-html')) {
+      el.setAttribute('data-original-html', el.innerHTML);
+    }
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
     const texts = [];
     let node;
@@ -551,7 +552,6 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     // Tarjetas 1.x
     if (secInfoEntidad) {
       secInfoEntidad.querySelectorAll('.card').forEach(show);
-      show(secInfoEntidad);
     }
     // Secciones 2-9
     const isInSingleView = getViewModeState();
@@ -565,18 +565,21 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       accordions.forEach(acc => {
         const items = Array.from(acc.querySelectorAll('.accordion-item'));
         items.forEach((item, index) => {
-          // The default state in the HTML is the first item open.
           if (index === 0) expandAccordionItem(item);
           else collapseAccordionItem(item);
         });
       });
 
-      // Para evitar el parpadeo, solo mostramos la sección si NO estamos en modo de vista única.
-      // Si estamos en vista única, el gestor de vistas se encargará de mostrar la sección correcta.
       if (!isInSingleView) {
         show(section);
+      } else {
+        hide(section);
       }
     });
+    // Restaurar visibilidad de secInfoEntidad según el modo de vista
+    if (secInfoEntidad) {
+      show(secInfoEntidad);
+    }
     if (liveStatus) liveStatus.textContent = '';
     clearHighlights(contentRoot);
   };
