@@ -120,6 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
             openStatusModal(docId, currentStatus);
         }
 
+        if (e.target.closest('.btn-notas-solicitud')) {
+            const btn = e.target.closest('.btn-notas-solicitud');
+            const docId = btn.dataset.docId;
+            // Abrir el modal de notas (Bootstrap permite abrir uno sobre otro o cerrar el anterior)
+            openNotesModal(docId);
+        }
+
         if (e.target.closest('.descargar-archivo-btn')) {
             const btn = e.target.closest('.descargar-archivo-btn');
             const fileUrl = btn.dataset.url;
@@ -177,6 +184,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // Listener para el selector de especialidades
+    const filterSpecialty = document.getElementById('filter-specialty');
+    if (filterSpecialty) {
+        filterSpecialty.addEventListener('change', () => {
+            citasQueryLimit = 20;
+            initCitasAdmin();
+        });
+    }
+
+    // Listener para el formulario de notas de gestión
+    const formNotasCita = document.getElementById('formNotasCita');
+    if (formNotasCita) {
+        formNotasCita.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const docId = document.getElementById('notesDocId').value;
+            const notes = document.getElementById('citaNotasText').value;
+            
+            await saveCitaNotes(docId, notes);
+            
+            const modalEl = document.getElementById('modalNotasCita');
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.hide();
+            
+            // Refrescar el modal de detalles para ver las notas recién guardadas
+            showCitaDetails(docId);
+        });
+    }
+
     // Listener para el formulario del modal de cambio de estado
     const formCambiarEstado = document.getElementById('formCambiarEstado');
     if (formCambiarEstado) {
@@ -245,15 +280,11 @@ function initCitasAdmin() {
     let q = collection(db, "citasOnline");
     
     const statusFilter = document.getElementById('filter-status')?.value || 'active';
+    const specialtyFilter = document.getElementById('filter-specialty')?.value || 'all'; // Captura el filtro de especialidad
     const searchTerm = document.getElementById('filter-search')?.value.toLowerCase() || '';
     const dateFrom = document.getElementById('filter-date-from')?.value;
     const dateTo = document.getElementById('filter-date-to')?.value;
 
-    // Optimización: Filtrar por estado en Firebase si no es búsqueda de texto
-    // Nota: Firebase tiene limitaciones con múltiples filtros where + orderBy sin índices compuestos.
-    // Para simplificar y mantener flexibilidad sin crear muchos índices manuales, 
-    // descargaremos un lote razonable y filtraremos en cliente lo complejo.
-    
     // Construcción de Query
     let constraints = [];
     
@@ -263,24 +294,8 @@ function initCitasAdmin() {
         constraints.push(where("status", "==", statusFilter));
     }
 
-    // Filtro por rango de fechas sobre el campo 'createdAt'
-    if (dateFrom) {
-        constraints.push(where("createdAt", ">=", Timestamp.fromDate(new Date(dateFrom + 'T00:00:00'))));
-    }
-    if (dateTo) {
-        constraints.push(where("createdAt", "<=", Timestamp.fromDate(new Date(dateTo + 'T23:59:59'))));
-    }
-
-    // Siempre ordenar por fecha descendente
-    constraints.push(orderBy("createdAt", "desc"));
-    
-    // Limitar resultados para eficiencia (paginación implícita)
-    // Usamos la variable global citasQueryLimit que aumenta al dar clic en "Cargar más"
-    if (!searchTerm) {
-        constraints.push(limit(citasQueryLimit));
-    } else {
-        // Si hay búsqueda, aumentamos el límite para buscar en un set más amplio
-        constraints.push(limit(100));
+    if (specialtyFilter !== 'all') { // Aplica el filtro en la consulta de Firebase
+        constraints.push(where("especialidad.nombre", "==", specialtyFilter));
     }
 
     q = query(q, ...constraints);
@@ -326,40 +341,6 @@ function initCitasAdmin() {
         document.getElementById('citas-loading').classList.add('d-none');
     });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    // ... (código existente) ...
-    
-    // Event listener para el botón "Cargar más"
-    const btnLoadMore = document.getElementById('btn-load-more-citas');
-    if (btnLoadMore) {
-        btnLoadMore.addEventListener('click', () => {
-            citasQueryLimit += 20; // Aumentar límite en 20
-            const btnHtml = btnLoadMore.innerHTML;
-            btnLoadMore.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Cargando...';
-            btnLoadMore.disabled = true;
-            
-            // Recargar con nuevo límite
-            // Nota: initCitasAdmin es rápida pero onSnapshot tardará un poco en traer los nuevos datos
-            initCitasAdmin(); 
-            
-            // Restaurar botón (la UI se actualizará cuando llegue el snapshot)
-            setTimeout(() => {
-                btnLoadMore.innerHTML = btnHtml;
-                btnLoadMore.disabled = false;
-            }, 1000);
-        });
-    }
-    
-    // Resetear límite al aplicar filtros nuevos para no cargar de más innecesariamente
-    const btnApplyFilters = document.getElementById('btn-apply-filters');
-    if (btnApplyFilters) {
-        btnApplyFilters.addEventListener('click', () => {
-            citasQueryLimit = 20; // Resetear
-            // initCitasAdmin(); // Ya se llama en el código original
-        });
-    }
-});
 
 /**
  * Calcula y actualiza las estadísticas del dashboard
@@ -830,6 +811,57 @@ function getStatusBadge(status) {
 window.showCitaDetails = showCitaDetails;
 window.openEmailModal = openEmailModal;
 
+/**
+ * Abre el modal para agregar notas a la cita.
+ */
+async function openNotesModal(docId) {
+    const modalEl = document.getElementById('modalNotasCita');
+    const inputId = document.getElementById('notesDocId');
+    const textarea = document.getElementById('citaNotasText');
+    const modalTitle = document.getElementById('modalNotasCitaLabel');
+
+    if (modalEl && inputId && textarea) {
+        inputId.value = docId;
+        textarea.value = 'Cargando...';
+        
+        try {
+            const docRef = doc(db, "citasOnline", docId);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const existingNotes = docSnap.data().gestionNotes || '';
+                textarea.value = existingNotes;
+                if (modalTitle) {
+                    modalTitle.innerHTML = existingNotes ? '<i class="bi bi-pencil-square me-2"></i>Editar Notas de Gestión' : '<i class="bi bi-journal-text me-2"></i>Notas de la Solicitud';
+                }
+            }
+        } catch (error) {
+            console.error("Error al cargar notas:", error);
+            textarea.value = '';
+        }
+
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    }
+}
+
+async function saveCitaNotes(docId, notes) {
+    try {
+        await updateDoc(doc(db, "citasOnline", docId), {
+            gestionNotes: notes,
+            notesUpdatedAt: new Date(),
+            historial: arrayUnion({
+                action: `Notas de gestión actualizadas por el administrador`,
+                user: auth.currentUser.email,
+                timestamp: new Date(),
+                type: 'notes_update'
+            })
+        });
+        window.notify('Notas guardadas exitosamente.', { type: 'success' });
+    } catch (error) {
+        console.error('Error al guardar notas:', error);
+        window.notify('Error al guardar las notas.', { type: 'danger' });
+    }
+}
 
 /**
  * Muestra los detalles completos de una cita incluyendo archivos.
@@ -867,6 +899,24 @@ async function showCitaDetails(docId) {
         
         // Renderizar Historial
         renderHistory(cita.historial);
+
+        // Renderizar Notas de Gestión si existen
+        const notasGestionHtml = cita.gestionNotes ? `
+            <div class="mt-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-journal-text me-2"></i>Notas de Gestión Administrativa:</h6>
+                    <button class="btn btn-sm btn-link text-primary p-0 btn-notas-solicitud" data-doc-id="${docId}" title="Editar notas">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </button>
+                </div>
+                <div class="alert alert-warning py-2 small shadow-sm border-start border-4 border-warning">
+                    ${cita.gestionNotes}
+                    <div class="text-end mt-1 border-top pt-1 text-muted" style="font-size: 0.7rem;">
+                        Última actualización: ${cita.notesUpdatedAt ? cita.notesUpdatedAt.toDate().toLocaleString('es-CO') : 'N/A'}
+                    </div>
+                </div>
+            </div>
+        ` : '';
 
         // Obtener URLs de descarga para los archivos
         let archivosHtml = '';
@@ -960,10 +1010,16 @@ async function showCitaDetails(docId) {
                 </div>
             </div>
             
+            ${notasGestionHtml}
+
             ${archivosHtml}
             
             <div class="mt-3">
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn btn-outline-secondary btn-notas-solicitud" data-doc-id="${docId}" id="btnPrincipalNotas">
+                        <i class="bi ${cita.gestionNotes ? 'bi-pencil-square' : 'bi-journal-plus'} me-2"></i>
+                        ${cita.gestionNotes ? 'Modificar notas' : 'Notas de la solicitud'}
+                    </button>
                     <button class="btn btn-primary responder-email-btn" data-doc-id="${docId}" data-email="${cita.paciente.correo}">
                         <i class="bi bi-envelope-fill me-2"></i>Responder por Email
                     </button>

@@ -208,7 +208,7 @@
             <div class="card mb-4 border-0 shadow-sm bg-light">
                 <div class="card-body">
                     <form id="filter-form" class="row g-3 align-items-center">
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md-4 col-lg-2">
                             <label for="filter-status" class="form-label fw-bold">Estado</label>
                             <select class="form-select" id="filter-status">
                                 <option value="all">Todos los estados</option>
@@ -220,6 +220,17 @@
                                 <option value="Cancelada">Cancelada</option>
                             </select>
                         </div>
+                        <div class="col-md-4 col-lg-2">
+                            <label for="filter-specialty" class="form-label fw-bold">Especialidad</label>
+                            <select class="form-select" id="filter-specialty">
+                                <option value="all">Todas</option>
+                                <option value="Medicina General">Medicina General</option>
+                                <option value="Pediatría">Pediatría</option>
+                                <option value="Ginecología">Ginecología</option>
+                                <option value="Medicina Interna">Medicina Interna</option>
+                                <option value="Cirugía General">Cirugía General</option>
+                            </select>
+                        </div>
                         <div class="col-md-3 col-lg-2">
                             <label for="filter-date-from" class="form-label fw-bold">Desde</label>
                             <input type="date" class="form-control" id="filter-date-from">
@@ -228,7 +239,7 @@
                             <label for="filter-date-to" class="form-label fw-bold">Hasta</label>
                             <input type="date" class="form-control" id="filter-date-to">
                         </div>
-                        <div class="col-md-12 col-lg-5">
+                        <div class="col-md-12 col-lg-4">
                             <label for="filter-search" class="form-label fw-bold">Buscar Paciente</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="filter-search" placeholder="Nombre o Cédula...">
@@ -400,6 +411,30 @@
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-sm">Guardar Cambio</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar notas a la solicitud -->
+    <div class="modal fade" id="modalNotasCita" tabindex="-1" aria-labelledby="modalNotasCitaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold" id="modalNotasCitaLabel"><i class="bi bi-journal-text me-2"></i>Notas de la Solicitud</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNotasCita">
+                        <input type="hidden" id="notesDocId">
+                        <div class="mb-3">
+                            <label for="citaNotasText" class="form-label fw-bold">Observaciones de la gestión:</label>
+                            <textarea class="form-control" id="citaNotasText" rows="6" placeholder="Escriba aquí las notas sobre la atención de esta solicitud..."></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Guardar Notas</button>
                         </div>
                     </form>
                 </div>
