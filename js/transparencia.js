@@ -71,11 +71,10 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   const contentRoot = document.querySelector('section.col-lg-8.col-md-7');
   if (!contentRoot) return;
 
-  const secInfoEntidad = contentRoot.querySelector('section[aria-labelledby="sec-info-entidad"]');
   const anchorSections = Array.from(contentRoot.querySelectorAll('section.anchor-target'));
   const mvveContainer = document.getElementById('mvve-container');
 
-  const allSections = [mvveContainer, secInfoEntidad, ...anchorSections].filter(Boolean);
+  const allSections = anchorSections;
 
   const hide = (el) => el && el.classList.add('d-none');
   const show = (el) => el && el.classList.remove('d-none');
@@ -104,9 +103,9 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     let groupIndex = 1;
     if (/^seccion-(\d+)/.test(id)) {
       const n = parseInt(id.match(/^seccion-(\d+)/)[1], 10);
-      if (n >= 2 && n <= 9) groupIndex = n;
+      if (n >= 1 && n <= 10) groupIndex = n;
     } else {
-      groupIndex = 1; // 1.x
+      groupIndex = 1; // 1.x sub-sections
     }
     collapseIds.forEach((cid, idx) => {
       const el = document.getElementById(cid);
@@ -152,16 +151,12 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     }
     if (singleView) {
       allSections.forEach(hide);
-      // Caso especial 1.1 (contenido dinámico): el ancla real es #mision-vision-valores dentro de mvveContainer
-      const isMvve = sel === '#mision-vision-valores';
-      if (isMvve && mvveContainer) {
-        show(mvveContainer);
-      } else if (target && allSections.includes(target)) {
+      if (target && allSections.includes(target)) {
         show(target);
       } else if (targetSection && allSections.includes(targetSection)) {
         show(targetSection);
-      } else if (secInfoEntidad) {
-        show(secInfoEntidad);
+      } else {
+        show(allSections[0]);
       }
     } else {
       // Ver todo: asegurar todas visibles
@@ -208,8 +203,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (hash && document.querySelector(hash)) {
       showOnlyBySelector(hash);
     } else {
-      showOnlyBySelector(secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : '');
-      if (secInfoEntidad) show(secInfoEntidad);
+      showOnlyBySelector('#seccion-1');
     }
     // Actualizar el botón después de aplicar la vista inicial
     updateToggleLabel();
@@ -228,6 +222,12 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     const hash = a.getAttribute('href');
     if (!hash) return;
     e.preventDefault();
+    // Limpiar búsqueda activa para restaurar ítems internos
+    const si = document.querySelector('main form.search-form input[name="q"]');
+    if (si && si.value.trim()) {
+      si.value = '';
+      si.dispatchEvent(new Event('input', { bubbles: true }));
+    }
     showOnlyBySelector(hash);
     // Scroll al objetivo con un pequeño retraso para asegurar que el contenido esté visible
     setTimeout(() => {
@@ -253,6 +253,12 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     const target = document.querySelector(hash) || (hash === '#mision-vision-valores' ? mvveContainer : null);
     if (!target) return;
     e.preventDefault();
+    // Limpiar búsqueda activa para restaurar ítems internos
+    const si = document.querySelector('main form.search-form input[name="q"]');
+    if (si && si.value.trim()) {
+      si.value = '';
+      si.dispatchEvent(new Event('input', { bubbles: true }));
+    }
     showOnlyBySelector(hash);
     // Scroll con retraso para asegurar visibilidad
     setTimeout(() => {
@@ -268,7 +274,13 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   // Responder a navegación del navegador (atrás/adelante) y otros cambios de hash
   window.addEventListener('hashchange', () => {
     const hash = location.hash;
-    showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
+    // Limpiar búsqueda activa al navegar
+    const si = document.querySelector('main form.search-form input[name="q"]');
+    if (si && si.value.trim()) {
+      si.value = '';
+      si.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    showOnlyBySelector(hash || '#seccion-1');
     // Scroll después de un pequeño retraso
     if (hash) {
       setTimeout(() => {
@@ -290,7 +302,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (!searchInput) return;
     if ((searchInput.value || '').trim() === '') {
       const hash = location.hash;
-      showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
+      showOnlyBySelector(hash || '#seccion-1');
     }
   };
   if (searchInput) {
@@ -315,7 +327,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       // Reaplicar vista actual
       const hash = location.hash;
       if (singleView) {
-        showOnlyBySelector(hash || (secInfoEntidad ? '#'+(secInfoEntidad.id || secInfoEntidad.getAttribute('aria-labelledby')) : ''));
+        showOnlyBySelector(hash || '#seccion-1');
       } else {
         // Ver todo
         allSections.forEach(show);
@@ -324,12 +336,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   }
 
   // Botones Anterior / Siguiente dinámicos
-  const sectionsInOrder = (() => {
-    // Incluir 1.1 al inicio para navegación secuencial
-    const arr = [];
-    if (mvveContainer) arr.push(mvveContainer);
-    return [...arr, ...anchorSections];
-  })();
+  const sectionsInOrder = anchorSections;
   sectionsInOrder.forEach((section, idx) => {
     const nav = document.createElement('div');
     nav.className = 'd-flex justify-content-between align-items-center gap-2 mt-3';
@@ -481,15 +488,17 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     }
     if (collapse) collapse.classList.remove('show');
   };
-  // Mostrar/ocultar el botón de limpiar según el contenido del input
-  if (clearBtn) {
-    input.addEventListener('input', () => {
-      clearBtn.classList.toggle('d-none', !input.value);
-    });
-  }
+  // Mostrar/ocultar el botón de limpiar y restaurar página al vaciar el campo
+  input.addEventListener('input', () => {
+    if (clearBtn) clearBtn.classList.toggle('d-none', !input.value);
+    // Cuando el input queda vacío (por backspace u otro medio), restaurar filtros
+    if ((input.value || '').trim() === '') {
+      resetFilters();
+      input.dispatchEvent(new CustomEvent('search:cleared', { bubbles: true }));
+    }
+  });
 
-  // Secciones: 1 (tarjetas), 2-9 (anchor-target con list-group)
-  const secInfoEntidad = contentRoot.querySelector('section[aria-labelledby="sec-info-entidad"]');
+  // Secciones 1-10 (anchor-target con list-group)
   const anchorSections = Array.from(contentRoot.querySelectorAll('section.anchor-target'));
 
   // Helpers
@@ -549,11 +558,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     return toggleBtn ? toggleBtn.textContent.includes('Ver todo') : true;
   };
   const resetFilters = () => {
-    // Tarjetas 1.x
-    if (secInfoEntidad) {
-      secInfoEntidad.querySelectorAll('.card').forEach(show);
-    }
-    // Secciones 2-9
+    // Secciones 1-10
     const isInSingleView = getViewModeState();
 
     anchorSections.forEach((section) => {
@@ -576,10 +581,6 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
         hide(section);
       }
     });
-    // Restaurar visibilidad de secInfoEntidad según el modo de vista
-    if (secInfoEntidad) {
-      show(secInfoEntidad);
-    }
     if (liveStatus) liveStatus.textContent = '';
     clearHighlights(contentRoot);
   };
@@ -596,29 +597,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     // Limpiar resaltados anteriores
     clearHighlights(contentRoot);
 
-    // Filtrar tarjetas 1.x
-    if (secInfoEntidad) {
-      const cards = Array.from(secInfoEntidad.querySelectorAll('.card'));
-      let sectionMatches = 0;
-      cards.forEach((card) => {
-        const text = norm(card.textContent);
-        const match = text.includes(term);
-        if (match) {
-          show(card);
-          sectionMatches++;
-          totalMatches++;
-          // Resaltar en título y texto de la tarjeta
-          highlightInElement(card.querySelector('.card-title'), termRaw);
-          highlightInElement(card.querySelector('.card-text'), termRaw);
-        } else {
-          hide(card);
-        }
-      });
-      // Si ninguna tarjeta coincide, oculta la sección 1
-      if (sectionMatches === 0) hide(secInfoEntidad); else show(secInfoEntidad);
-    }
-
-    // Filtrar secciones 2-9: considerar encabezado y sus ítems internos
+    // Filtrar secciones 1-10: considerar encabezado y sus ítems internos
     anchorSections.forEach((section) => {
       const items = Array.from(section.querySelectorAll('.list-group-item'));
       let visibleInSection = 0;
@@ -701,6 +680,21 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
           totalMatches++;
         }
       }
+      // Fallback: búsqueda amplia en texto completo de la sección (para contenido mixto como seccion-1)
+      if (visibleInSection === 0) {
+        const fullText = norm(section.textContent);
+        if (fullText.includes(term)) {
+          visibleInSection++;
+          totalMatches++;
+          items.forEach(show);
+          // Resaltar en encabezados internos que coincidan
+          section.querySelectorAll('h3, h4, h5, h6, p, strong').forEach(el => {
+            if (norm(el.textContent).includes(term)) {
+              highlightInElement(el, termRaw);
+            }
+          });
+        }
+      }
       // Ocultar sección si no hay ítems visibles
       if (visibleInSection === 0) hide(section); else show(section);
     });
@@ -731,7 +725,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
 
     // Defer read/scroll to avoid forced reflow
     requestAnimationFrame(() => {
-      const firstVisible = contentRoot.querySelector('.card:not(.d-none), .list-group-item:not(.d-none)'); // READ
+      const firstVisible = contentRoot.querySelector('section.anchor-target:not(.d-none)'); // READ
       if (count > 0 && firstVisible) {
         firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' }); // WRITE
       } else if (liveStatus && q) {
@@ -748,7 +742,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
       const count = filterPage(q); // WRITE
       // Defer read/scroll
       requestAnimationFrame(() => {
-        const firstVisible = contentRoot.querySelector('.card:not(.d-none), .list-group-item:not(.d-none)'); // READ
+        const firstVisible = contentRoot.querySelector('section.anchor-target:not(.d-none)'); // READ
         if (count > 0 && firstVisible) {
           firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' }); // WRITE
         }
