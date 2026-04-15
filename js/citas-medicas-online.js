@@ -556,6 +556,7 @@ const especialidades = [
                        window.location.hostname === '127.0.0.1' ||
                        window.location.hostname.includes('localhost') ||
                        window.location.port === '8000' ||
+                       window.location.port === '8080' ||
                        window.location.protocol === 'file:';
 
     console.log('🔍 Verificación de entorno:', {
@@ -581,7 +582,14 @@ const especialidades = [
     datosCita.tieneWhatsapp = tieneWhatsapp.value;
     
     // Mostrar indicador de carga
-    document.getElementById('loadingOverlay').style.display = 'flex';
+    const loadingOv = document.getElementById('loadingOverlay');
+    if (loadingOv) loadingOv.style.display = 'flex';
+
+    // Safety timeout: ocultar overlay si pasan 15s sin respuesta (evita pantalla gris permanente)
+    const safetyTimer = setTimeout(() => {
+      if (loadingOv) loadingOv.style.display = 'none';
+      mostrarError('La solicitud está tardando demasiado. Por favor, verifica tu conexión e inténtalo de nuevo.');
+    }, 15000);
 
     try {
       // --- LÓGICA MEJORADA PARA EVITAR ERRORES DE PERMISOS ---
@@ -749,6 +757,7 @@ const especialidades = [
       }
 
       // --- Éxito con posible advertencia de archivos ---
+      clearTimeout(safetyTimer);
       const loadingEl = document.getElementById('loadingOverlay');
       if (loadingEl) loadingEl.style.display = 'none';
       
@@ -825,6 +834,7 @@ const especialidades = [
       modal.show();
     } catch (error) {
       // --- Manejo de Errores ---
+      clearTimeout(safetyTimer);
       console.error("Error al guardar la cita y subir archivos: ", error);
       const loadingEl = document.getElementById('loadingOverlay');
       if (loadingEl) loadingEl.style.display = 'none';

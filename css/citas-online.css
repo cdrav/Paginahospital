@@ -1,7 +1,8 @@
 :root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary-color: #8b5cf6;
+    --primary-color: #164443;
+    --primary-dark: #0f3332;
+    --secondary-color: #22a7a0;
+    --accent-color: #2dd4bf;
     --success-color: #10b981;
     --danger-color: #ef4444;
     --warning-color: #f59e0b;
@@ -29,6 +30,10 @@
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .hero-modern p {
@@ -39,9 +44,9 @@
 
   .form-card {
     background: #fff;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid #dee2e6; /* Borde sutil para toda la tarjeta */
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(22, 68, 67, 0.08);
+    border: 1px solid #e5e7eb;
     overflow: hidden;
     margin-bottom: 2rem;
   }
@@ -84,9 +89,9 @@
   }
 
   .step-item.active .step-content-wrapper {
-    border-color: var(--primary-color);
-    background-color: #eef2ff; /* Fondo muy suave */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: var(--secondary-color);
+    background-color: #f0fdfa;
+    box-shadow: 0 4px 6px -1px rgba(22, 68, 67, 0.1);
   }
 
   .step-number {
@@ -105,9 +110,9 @@
   }
 
   .step-item.active .step-number {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 0 3px rgba(34, 167, 160, 0.2);
   }
 
   .step-item.completed .step-number {
@@ -123,7 +128,7 @@
   }
 
   .step-item.active .step-label {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: 700;
   }
   
@@ -144,8 +149,9 @@
 
   .step-progress-fill {
     height: 100%;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     transition: var(--transition);
+    border-radius: 2px;
   }
 
   .form-content {
@@ -200,26 +206,31 @@
     padding: 1.5rem;
     text-align: center;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(22, 68, 67, 0.06);
   }
 
   .specialty-card:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(22, 68, 67, 0.12);
+    border-color: var(--secondary-color);
   }
 
   .specialty-card.selected {
-    border-color: var(--primary-color);
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+    border-color: var(--secondary-color);
+    background: linear-gradient(135deg, #f0fdfa, #e0f7f5);
+    box-shadow: 0 0 0 3px rgba(34, 167, 160, 0.15);
+  }
+  .specialty-card.selected .specialty-icon {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(22, 68, 67, 0.25);
   }
 
   .specialty-icon {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     display: flex;
@@ -227,7 +238,8 @@
     justify-content: center;
     margin: 0 auto 1rem;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
   }
 
   .calendar-container {
@@ -268,14 +280,21 @@
   }
 
   .calendar-day:hover:not(.disabled) {
-    border-color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.05);
+    border-color: var(--secondary-color);
+    background: rgba(34, 167, 160, 0.06);
   }
 
   .calendar-day.selected {
-    border-color: var(--primary-color);
-    background: var(--primary-color);
+    border-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
+    box-shadow: 0 4px 12px rgba(22, 68, 67, 0.25);
+  }
+
+  .calendar-day.today {
+    border-color: var(--accent-color);
+    font-weight: 700;
+    color: var(--secondary-color);
   }
 
   .calendar-day.disabled {
@@ -303,15 +322,16 @@
   }
 
   .time-slot:hover:not(.disabled) {
-    border-color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.05);
-    transform: translateY(-0.125rem);
+    border-color: var(--secondary-color);
+    background: rgba(34, 167, 160, 0.06);
+    transform: translateY(-2px);
   }
 
   .time-slot.selected {
-    border-color: var(--primary-color);
-    background: var(--primary-color);
+    border-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
+    box-shadow: 0 4px 12px rgba(22, 68, 67, 0.2);
   }
 
   .summary-section {
@@ -338,6 +358,10 @@
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
   }
+  .btn-primary-modern:hover {
+    box-shadow: 0 6px 16px rgba(22, 68, 67, 0.3);
+    transform: translateY(-1px);
+  }
 
   .btn-secondary-modern {
     background: #6c757d;
@@ -347,6 +371,10 @@
   .btn-success-modern {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
+  }
+  .btn-success-modern:hover {
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+    transform: translateY(-1px);
   }
 
   .form-actions {
@@ -480,8 +508,8 @@
     }
 
     .step-item.active .step-number {
-      transform: scale(1.2); /* Resaltar más el número activo */
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+      transform: scale(1.2);
+      box-shadow: 0 0 0 4px rgba(34, 167, 160, 0.2);
     }
 
     /* 4. Especialidades como LISTA (Mejor UX móvil) */
