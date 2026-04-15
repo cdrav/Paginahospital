@@ -146,59 +146,71 @@
 
         <!-- SECCIÓN DE GESTIÓN DE CITAS ONLINE (Solo para Admin) -->
         <div id="citas-admin-panel" class="d-none mt-5">
-            <button id="btn-hide-citas-panel" class="btn btn-secondary mb-4"><i class="bi bi-arrow-left me-2"></i>Volver al Portal</button>
-            <div class="text-center mb-4">
-                <h2 class="display-6 fw-bold">Gestión de Citas Online</h2>
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <button id="btn-hide-citas-panel" class="btn btn-outline-secondary rounded-pill px-3"><i class="bi bi-arrow-left me-2"></i>Volver al Portal</button>
+                <a href="manual-gestion-citas.html" target="_blank" class="btn btn-outline-info rounded-pill px-3"><i class="bi bi-question-circle me-2"></i>Manual de Ayuda</a>
+            </div>
+            <div class="text-center mb-5">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width:72px;height:72px;background:linear-gradient(135deg,#164443,#22a7a0);">
+                    <i class="bi bi-calendar2-check text-white" style="font-size:2rem;"></i>
+                </div>
+                <h2 class="display-6 fw-bold" style="color:#164443;">Gestión de Citas Online</h2>
                 <p class="lead text-muted">Seguimiento y administración de las solicitudes de citas recibidas desde la web.</p>
             </div>
 
             <!-- Panel de Estadísticas (Dashboard) -->
             <div id="stats-dashboard" class="row g-3 mb-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card stat-card-clickable bg-warning text-dark h-100" data-status-filter="Solicitada">
-                        <div class="card-body text-center">
-                            <h6 class="card-title">Solicitudes Pendientes</h6>
-                            <h2 class="display-4 fw-bold" id="stat-solicitada">0</h2>
+                <div class="col-6 col-lg-2">
+                    <div class="card stat-card-clickable bg-warning text-white h-100" data-status-filter="Solicitud de Cita">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-clock-history d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <h6 class="card-title mb-1">Pendientes</h6>
+                            <h2 class="display-5 fw-bold mb-0" id="stat-solicitud">0</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-primary text-white h-100" data-status-filter="En Proceso">
-                        <div class="card-body text-center">
-                            <h6 class="card-title">En Proceso</h6>
-                            <h2 class="display-4 fw-bold" id="stat-proceso">0</h2>
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-gear-wide-connected d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <h6 class="card-title mb-1">En Proceso</h6>
+                            <h2 class="display-5 fw-bold mb-0" id="stat-proceso">0</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-info text-white h-100" data-status-filter="Confirmada">
-                        <div class="card-body text-center">
-                            <h6 class="card-title">Confirmadas</h6>
-                            <h2 class="display-4 fw-bold" id="stat-confirmada">0</h2>
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-check2-circle d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <h6 class="card-title mb-1">Confirmadas</h6>
+                            <h2 class="display-5 fw-bold mb-0" id="stat-confirmada">0</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card stat-card-clickable bg-success text-white h-100" data-status-filter="Atendida">
-                        <div class="card-body text-center">
-                            <h6 class="card-title">Atendidas</h6>
-                            <h2 class="display-4 fw-bold" id="stat-atendida">0</h2>
+                <div class="col-6 col-lg-2">
+                    <div class="card stat-card-clickable bg-success text-white h-100" data-status-filter="Reasignada">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-arrow-repeat d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <h6 class="card-title mb-1">Reasignadas</h6>
+                            <h2 class="display-5 fw-bold mb-0" id="stat-reasignada">0</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-danger text-white h-100" data-status-filter="Cancelada">
-                        <div class="card-body text-center">
-                            <h6 class="card-title">Canceladas</h6>
-                            <h2 class="display-4 fw-bold" id="stat-cancelada">0</h2>
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-x-circle d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <h6 class="card-title mb-1">Canceladas</h6>
+                            <h2 class="display-5 fw-bold mb-0" id="stat-cancelada">0</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card stat-card-clickable bg-light h-100 border-primary" data-status-filter="all">
-                        <div class="card-body text-center">
-                            <h6 class="card-title text-primary">Total Citas (filtradas)</h6>
-                            <h2 class="display-4 fw-bold text-primary" id="stat-total">0</h2>
+                <div class="col-6 col-lg-2">
+                    <div class="card stat-card-clickable bg-light h-100" data-status-filter="all" style="border:2px solid #164443 !important;">
+                        <div class="card-body text-center py-3">
+                            <i class="bi bi-bar-chart-line d-block mb-1" style="font-size:1.5rem;color:#164443;opacity:.85;"></i>
+                            <h6 class="card-title mb-1" style="color:#164443;">Total</h6>
+                            <h2 class="display-5 fw-bold mb-0" style="color:#164443;" id="stat-total">0</h2>
                         </div>
                     </div>
                 </div>
@@ -212,11 +224,11 @@
                             <label for="filter-status" class="form-label fw-bold">Estado</label>
                             <select class="form-select" id="filter-status">
                                 <option value="all">Todos los estados</option>
-                                <option value="active" selected>Activos (Solicitada/En Proceso)</option>
-                                <option value="Solicitada">Solicitada</option>
+                                <option value="active" selected>Activos (Pendientes/En Proceso)</option>
+                                <option value="Solicitud de Cita">Solicitud de Cita</option>
                                 <option value="En Proceso">En Proceso</option>
                                 <option value="Confirmada">Confirmada</option>
-                                <option value="Atendida">Atendida</option>
+                                <option value="Reasignada">Reasignada</option>
                                 <option value="Cancelada">Cancelada</option>
                             </select>
                         </div>

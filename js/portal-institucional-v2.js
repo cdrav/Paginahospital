@@ -11,19 +11,27 @@ onAuthStateChanged(auth, (user) => {
     } else {
         console.log("Usuario autenticado:", user.email);
         
-        // Mostrar mensaje de bienvenida
+        // Mostrar mensaje de bienvenida personalizado por rol
         const welcomeElement = document.getElementById('user-welcome');
-        if (welcomeElement) welcomeElement.textContent = `Hola, ${user.email}`;
+        const userEmail = (user.email || '').toLowerCase();
+        if (welcomeElement) {
+            const friendlyNames = {
+                'citas@hdsa.gov.co': 'Gestora de Citas',
+                'coord.sistemas@hdsa.gov.co': 'Administrador'
+            };
+            const displayName = friendlyNames[userEmail] || user.email;
+            welcomeElement.textContent = `Bienvenido(a), ${displayName}`;
+        }
 
-        // --- Lógica de Administrador ---
-        // Lista de correos autorizados para ver los paneles de administración.
-        const ADMIN_EMAILS = [
-            'coord.sistemas@hdsa.gov.co',
-            'citas@hdsa.gov.co', // Nuevo correo institucional para citas
-        ];
+        // --- Lógica de roles por correo ---
+        const SUPER_ADMIN_EMAILS = ['coord.sistemas@hdsa.gov.co'];
+        const CITAS_EMAILS = ['citas@hdsa.gov.co'];
 
-        // Comprueba si el usuario actual está en la lista de administradores.
-        if (user.email && ADMIN_EMAILS.includes(user.email.toLowerCase())) {
+        const isSuperAdmin = SUPER_ADMIN_EMAILS.includes(userEmail);
+        const isCitasUser = CITAS_EMAILS.includes(userEmail);
+
+        if (isSuperAdmin) {
+            // Super Admin: ve TODOS los módulos
             const adminCard = document.getElementById('admin-card');
             const firebaseCard = document.getElementById('firebase-card');
             const hojaVidaPcCard = document.getElementById('hoja-vida-pc-card');
@@ -36,11 +44,23 @@ onAuthStateChanged(auth, (user) => {
             if (citasAdminCard) citasAdminCard.classList.remove('d-none');
             if (intranetCard) intranetCard.classList.remove('d-none');
 
-            // Inicializar el panel de administración de citas
             initCitasAdmin();
-            
-            // Inicializar el módulo de Intranet (Planeación y Calidad)
             initIntranetPlaneacion();
+
+        } else if (isCitasUser) {
+            // Usuario de Citas: solo ve el módulo de gestión de citas
+            const citasAdminCard = document.getElementById('citas-admin-card');
+            if (citasAdminCard) citasAdminCard.classList.remove('d-none');
+
+            initCitasAdmin();
+
+            // Auto-abrir el panel de citas directamente
+            const mainCardsContainer = document.getElementById('main-cards-container');
+            const citasAdminPanel = document.getElementById('citas-admin-panel');
+            if (mainCardsContainer && citasAdminPanel) {
+                mainCardsContainer.classList.add('d-none');
+                citasAdminPanel.classList.remove('d-none');
+            }
         }
     }
 });

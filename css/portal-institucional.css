@@ -145,14 +145,14 @@
     right: -60px;
 }
 .stat-card-clickable .card-title {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     opacity: 0.9;
 }
-.stat-card-clickable .display-4 {
-    font-size: 2.75rem;
+.stat-card-clickable .display-5 {
+    font-size: 2.25rem;
     font-weight: 800;
 }
 
@@ -267,8 +267,8 @@
     .portal-hero .display-4 {
         font-size: 1.75rem;
     }
-    .stat-card-clickable .display-4 {
-        font-size: 2rem;
+    .stat-card-clickable .display-5 {
+        font-size: 1.75rem;
     }
     .form-icon-wrapper {
         width: 60px;

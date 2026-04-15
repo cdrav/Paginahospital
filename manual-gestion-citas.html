@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - Gestión de Citas Online | HDSA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+    <style>
+        :root { --brand: #164443; --accent: #22a7a0; --light-accent: #e0f7f5; }
+        body { font-family: 'Poppins', sans-serif; color: #374151; line-height: 1.8; }
+        .manual-hero {
+            background: linear-gradient(135deg, #0f3332 0%, #164443 40%, #1a6b62 100%);
+            color: #fff; padding: 3rem 0; position: relative; overflow: hidden;
+        }
+        .manual-hero::after {
+            content: ''; position: absolute; top: -60%; right: -15%; width: 450px; height: 450px;
+            border-radius: 50%; background: radial-gradient(circle, rgba(34,167,160,0.15) 0%, transparent 70%);
+        }
+        .sidebar-nav { position: sticky; top: 90px; }
+        .sidebar-nav a {
+            display: block; padding: 0.6rem 1rem; margin-bottom: 0.25rem;
+            color: #4b5563; text-decoration: none; border-radius: 8px;
+            font-size: 0.9rem; transition: all 0.2s ease;
+        }
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: var(--light-accent); color: var(--brand); font-weight: 600;
+        }
+        .section-title {
+            color: var(--brand); font-weight: 700; padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--accent); margin-bottom: 1.5rem; scroll-margin-top: 100px;
+        }
+        .step-box {
+            background: #fff; border: 1px solid #e5e7eb; border-radius: 16px;
+            padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
+            border-left: 4px solid var(--accent); transition: box-shadow 0.2s ease;
+        }
+        .step-box:hover { box-shadow: 0 4px 16px rgba(22,68,67,0.08); }
+        .step-number {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%; font-weight: 700; font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--brand), var(--accent)); color: #fff;
+            margin-right: 0.75rem; flex-shrink: 0;
+        }
+        .tip-box {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fbbf24;
+            border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
+        }
+        .tip-box i { color: #f59e0b; }
+        .warning-box {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2); border: 1px solid #f87171;
+            border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
+        }
+        .warning-box i { color: #ef4444; }
+        .info-box {
+            background: linear-gradient(135deg, #f0fdfa, var(--light-accent)); border: 1px solid var(--accent);
+            border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
+        }
+        .info-box i { color: var(--accent); }
+        .badge-status { padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
+        .badge-solicitud { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+        .badge-proceso { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
+        .badge-confirmada { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; }
+        .badge-reasignada { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .badge-cancelada { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+        .shortcut-key {
+            display: inline-block; background: #f3f4f6; border: 1px solid #d1d5db;
+            border-radius: 6px; padding: 0.15rem 0.5rem; font-size: 0.8rem; font-weight: 600; color: #374151;
+        }
+        .print-only { display: none; }
+        @media print {
+            .sidebar-nav, .manual-hero, .no-print { display: none !important; }
+            .print-only { display: block; }
+            .section-title { break-before: page; }
+            body { font-size: 12pt; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="manual-hero">
+    <div class="container position-relative" style="z-index:1;">
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="imagenes/Logo-hospital.png" alt="Logo HDSA" style="height:50px;" onerror="this.style.display='none'">
+            <div>
+                <h1 class="fw-bold mb-0" style="font-size:1.75rem;">Manual de Usuario</h1>
+                <p class="mb-0 opacity-75">Módulo de Gestión de Citas Online</p>
+            </div>
+        </div>
+        <p class="mb-0 small opacity-75">Hospital Departamental San Antonio de Roldanillo &bull; Versión 1.0 &bull; Abril 2026</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 no-print">
+            <nav class="sidebar-nav">
+                <p class="fw-bold text-uppercase small text-muted mb-2">Contenido</p>
+                <a href="#acceso"><i class="bi bi-door-open me-2"></i>Acceso al módulo</a>
+                <a href="#dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+                <a href="#tabla"><i class="bi bi-table me-2"></i>Tabla de solicitudes</a>
+                <a href="#ver-detalle"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                <a href="#cambiar-estado"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a>
+                <a href="#responder"><i class="bi bi-envelope me-2"></i>Responder por email</a>
+                <a href="#notas"><i class="bi bi-journal-text me-2"></i>Notas de gestión</a>
+                <a href="#filtros"><i class="bi bi-funnel me-2"></i>Filtros y búsqueda</a>
+                <a href="#exportar"><i class="bi bi-download me-2"></i>Exportar informes</a>
+                <a href="#estados"><i class="bi bi-tags me-2"></i>Estados de una cita</a>
+                <a href="#faq"><i class="bi bi-question-circle me-2"></i>Preguntas frecuentes</a>
+                <hr>
+                <a href="#" onclick="window.print();return false;"><i class="bi bi-printer me-2"></i>Imprimir manual</a>
+            </nav>
+        </div>
+
+        <!-- Contenido -->
+        <div class="col-lg-9">
+
+            <!-- 1. ACCESO -->
+            <h2 id="acceso" class="section-title"><i class="bi bi-door-open me-2"></i>1. Acceso al Módulo</h2>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">1</span>
+                    <div>
+                        <strong>Abre tu navegador</strong> (Google Chrome recomendado) y ve a la página del hospital.
+                    </div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">2</span>
+                    <div>
+                        Haz clic en <strong>"Portal Institucional"</strong> en el menú de navegación, o ingresa directamente a:<br>
+                        <code class="d-inline-block mt-1 px-2 py-1 bg-light rounded">portal-institucional.html</code>
+                    </div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">3</span>
+                    <div>
+                        Ingresa tus credenciales:
+                        <ul class="mb-0 mt-1">
+                            <li><strong>Correo:</strong> citas@hdsa.gov.co</li>
+                            <li><strong>Contraseña:</strong> la que te fue asignada</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">4</span>
+                    <div>
+                        Al iniciar sesión, el módulo de <strong>Gestión de Citas Online</strong> se abrirá automáticamente. Verás el dashboard con las estadísticas y la tabla de solicitudes.
+                    </div>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Nota:</strong> Tu usuario solo tiene acceso al módulo de citas. No verás los demás formularios del portal.
+            </div>
+
+            <!-- 2. DASHBOARD -->
+            <h2 id="dashboard" class="section-title mt-5"><i class="bi bi-speedometer2 me-2"></i>2. Dashboard de Estadísticas</h2>
+            <p>Al ingresar verás <strong>6 tarjetas de colores</strong> con las estadísticas en tiempo real:</p>
+            <div class="row g-2 mb-3">
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;"><strong>Pendientes</strong><br>Citas recién solicitadas</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;"><strong>En Proceso</strong><br>Citas siendo gestionadas</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;"><strong>Confirmadas</strong><br>Citas con fecha asignada</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;"><strong>Reasignadas</strong><br>Cambiadas de fecha/hora</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;"><strong>Canceladas</strong><br>Citas que no se realizaron</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 border" style="color:#164443;"><strong>Total</strong><br>Suma de todas las citas</div></div>
+            </div>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb-fill me-2"></i>
+                <strong>Consejo:</strong> Haz <strong>clic en cualquier tarjeta</strong> para filtrar la tabla y ver solo las citas de ese estado. Por ejemplo, clic en "Pendientes" mostrará solo las solicitudes nuevas.
+            </div>
+
+            <!-- 3. TABLA -->
+            <h2 id="tabla" class="section-title mt-5"><i class="bi bi-table me-2"></i>3. Tabla de Solicitudes</h2>
+            <p>Debajo del dashboard verás la tabla principal con todas las solicitudes. Cada fila muestra:</p>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr><th>Columna</th><th>Descripción</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Radicado</strong></td><td>Número único de la solicitud (ej: CITA-2026-001)</td></tr>
+                    <tr><td><strong>Paciente</strong></td><td>Nombre completo y número de documento</td></tr>
+                    <tr><td><strong>Especialidad</strong></td><td>Especialidad médica solicitada</td></tr>
+                    <tr><td><strong>Fecha Solicitud</strong></td><td>Fecha en que el paciente envió la solicitud</td></tr>
+                    <tr><td><strong>Estado</strong></td><td>Estado actual de la cita (ver sección de estados)</td></tr>
+                    <tr><td><strong>Acciones</strong></td><td>Botones para gestionar la cita</td></tr>
+                </tbody>
+            </table>
+            <p>Las solicitudes están <strong>agrupadas por estado</strong> con encabezados de color para facilitar la lectura.</p>
+
+            <!-- 4. VER DETALLE -->
+            <h2 id="ver-detalle" class="section-title mt-5"><i class="bi bi-eye me-2"></i>4. Ver Detalle de una Cita</h2>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">1</span>
+                    <div>Busca la cita en la tabla y haz clic en el botón <span class="badge bg-primary"><i class="bi bi-eye-fill"></i> Ver</span></div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">2</span>
+                    <div>
+                        Se abrirá una ventana modal con toda la información:
+                        <ul class="mt-1 mb-0">
+                            <li><strong>Datos del paciente:</strong> documento, nombre, teléfono, correo, EPS, WhatsApp</li>
+                            <li><strong>Detalles de la cita:</strong> especialidad, fecha, hora, estado</li>
+                            <li><strong>Motivo de consulta:</strong> lo que escribió el paciente</li>
+                            <li><strong>Archivos adjuntos:</strong> órdenes médicas (imágenes o PDF)</li>
+                            <li><strong>Notas de gestión:</strong> las notas que tú hayas agregado</li>
+                            <li><strong>Historial:</strong> registro de todos los cambios realizados</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb-fill me-2"></i>
+                <strong>Consejo:</strong> Desde esta ventana puedes hacer clic en las imágenes adjuntas para verlas en tamaño completo, o descargar archivos PDF.
+            </div>
+
+            <!-- 5. CAMBIAR ESTADO -->
+            <h2 id="cambiar-estado" class="section-title mt-5"><i class="bi bi-arrow-repeat me-2"></i>5. Cambiar el Estado de una Cita</h2>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">1</span>
+                    <div>Haz clic en el botón <span class="badge bg-warning text-dark"><i class="bi bi-arrow-repeat"></i> Estado</span> en la fila de la cita.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">2</span>
+                    <div>Se abrirá un modal donde puedes seleccionar el <strong>nuevo estado</strong> del desplegable.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">3</span>
+                    <div>Haz clic en <strong>"Guardar cambio"</strong>. El cambio queda registrado en el historial con tu correo y la fecha.</div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Importante:</strong> Cada cambio de estado queda registrado en el historial de la cita. Asegúrate de seleccionar el estado correcto antes de guardar.
+            </div>
+
+            <!-- 6. RESPONDER POR EMAIL -->
+            <h2 id="responder" class="section-title mt-5"><i class="bi bi-envelope me-2"></i>6. Responder al Paciente por Email</h2>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">1</span>
+                    <div>Haz clic en el botón <span class="badge bg-info text-white"><i class="bi bi-envelope-fill"></i> Responder</span> en la fila de la cita.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">2</span>
+                    <div>
+                        Se abrirá un formulario con:
+                        <ul class="mt-1 mb-0">
+                            <li><strong>Para:</strong> el correo del paciente (pre-llenado)</li>
+                            <li><strong>Asunto:</strong> con el número de radicado (pre-llenado)</li>
+                            <li><strong>Mensaje:</strong> una plantilla de respuesta que puedes editar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">3</span>
+                    <div>
+                        Tienes dos opciones para enviar:
+                        <ul class="mt-1 mb-0">
+                            <li><strong>Enviar con Outlook/App de correo:</strong> abre tu aplicación de correo local con los datos pre-cargados</li>
+                            <li><strong>Abrir Webmail:</strong> copia el contenido al portapapeles y abre el webmail institucional para que pegues y envíes desde ahí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Nota:</strong> El correo se envía con copia oculta (BCC) a citas@hdsa.gov.co para que siempre quede registro.
+            </div>
+
+            <!-- 7. NOTAS -->
+            <h2 id="notas" class="section-title mt-5"><i class="bi bi-journal-text me-2"></i>7. Notas de Gestión</h2>
+            <p>Las notas son un campo libre donde puedes documentar cualquier información relevante sobre la gestión de una cita.</p>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">1</span>
+                    <div>Abre el detalle de la cita (botón <strong>Ver</strong>) y haz clic en <strong>"Notas de la solicitud"</strong>.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">2</span>
+                    <div>Escribe tus notas en el campo de texto. Por ejemplo: <em>"Se llamó al paciente, confirmó asistencia. Se asignó cita con Dr. López el 20/04."</em></div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">3</span>
+                    <div>Haz clic en <strong>"Guardar notas"</strong>. La nota quedará visible en el detalle de la cita con la fecha de actualización.</div>
+                </div>
+            </div>
+
+            <!-- 8. FILTROS -->
+            <h2 id="filtros" class="section-title mt-5"><i class="bi bi-funnel me-2"></i>8. Filtros y Búsqueda</h2>
+            <p>Debajo del dashboard hay una barra de filtros con las siguientes opciones:</p>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr><th>Filtro</th><th>Qué hace</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Estado</strong></td><td>Filtra por estado específico o muestra "Activos" (pendientes + en proceso)</td></tr>
+                    <tr><td><strong>Especialidad</strong></td><td>Filtra por la especialidad médica solicitada</td></tr>
+                    <tr><td><strong>Desde / Hasta</strong></td><td>Rango de fechas para buscar solicitudes en un período específico</td></tr>
+                    <tr><td><strong>Buscar Paciente</strong></td><td>Busca por nombre o número de documento del paciente</td></tr>
+                </tbody>
+            </table>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb-fill me-2"></i>
+                <strong>Consejo:</strong> La búsqueda por nombre funciona en tiempo real mientras escribes. No necesitas presionar Enter.
+            </div>
+
+            <!-- 9. EXPORTAR -->
+            <h2 id="exportar" class="section-title mt-5"><i class="bi bi-download me-2"></i>9. Exportar Informes</h2>
+            <p>Puedes exportar los datos visibles en la tabla en dos formatos:</p>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number"><i class="bi bi-file-earmark-excel"></i></span>
+                    <div>
+                        <strong>Excel (.xlsx)</strong><br>
+                        Haz clic en <strong>"Exportar Informe" → "Como Excel"</strong>. Se descargará un archivo con todas las columnas, filtros automáticos y anchos ajustados.
+                    </div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number"><i class="bi bi-file-earmark-pdf"></i></span>
+                    <div>
+                        <strong>PDF</strong><br>
+                        Haz clic en <strong>"Exportar Informe" → "Como PDF"</strong>. Se generará un PDF con el logo del hospital, la fecha de generación y la tabla de datos.
+                    </div>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Nota:</strong> El informe exporta los datos <strong>actualmente filtrados</strong>. Si quieres exportar todo, asegúrate de que el filtro de estado esté en "Todos".
+            </div>
+
+            <!-- 10. ESTADOS -->
+            <h2 id="estados" class="section-title mt-5"><i class="bi bi-tags me-2"></i>10. Estados de una Cita</h2>
+            <p>Cada solicitud de cita pasa por un flujo de estados. Este es el significado de cada uno:</p>
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr><th style="width:180px;">Estado</th><th>Significado</th><th>¿Qué hacer?</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge-status badge-solicitud">Solicitud de Cita</span></td>
+                        <td>El paciente acaba de enviar su solicitud desde la web.</td>
+                        <td>Revisar los datos, validar la especialidad y contactar al paciente para confirmar.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-status badge-proceso">En Proceso</span></td>
+                        <td>La solicitud está siendo gestionada (se verificó disponibilidad, se llamó al paciente, etc.)</td>
+                        <td>Continuar la gestión. Agregar notas con los avances. Cambiar a "Confirmada" cuando se asigne fecha.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-status badge-confirmada">Confirmada</span></td>
+                        <td>La cita tiene fecha y hora asignada y el paciente fue notificado.</td>
+                        <td>Enviar correo de confirmación al paciente con los detalles definitivos.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-status badge-reasignada">Reasignada</span></td>
+                        <td>La cita fue cambiada de fecha, hora o especialidad.</td>
+                        <td>Notificar al paciente sobre el cambio y agregar notas explicativas.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-status badge-cancelada">Cancelada</span></td>
+                        <td>La cita fue cancelada por el paciente o por el hospital.</td>
+                        <td>Registrar el motivo en las notas. Si fue error, se puede reasignar.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb-fill me-2"></i>
+                <strong>Flujo recomendado:</strong> Solicitud de Cita → En Proceso → Confirmada. Si hay cambios, usar "Reasignada". Solo usar "Cancelada" si la cita no se va a realizar.
+            </div>
+
+            <!-- 11. FAQ -->
+            <h2 id="faq" class="section-title mt-5"><i class="bi bi-question-circle me-2"></i>11. Preguntas Frecuentes</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
+                    <h3 class="accordion-header"><button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">¿Qué hago si un paciente me llama para saber el estado de su cita?</button></h3>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Usa el campo <strong>"Buscar Paciente"</strong> en los filtros para encontrarlo por nombre o cédula. Abre el detalle con el botón "Ver" para consultar toda la información.</div>
+                    </div>
+                </div>
+                <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
+                    <h3 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">¿Puedo cambiar el estado de una cita que ya está cancelada?</button></h3>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Sí, puedes cambiar el estado de cualquier cita. Si hubo un error, puedes cambiarla de "Cancelada" a "Reasignada" o al estado que corresponda. Todo queda registrado en el historial.</div>
+                    </div>
+                </div>
+                <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
+                    <h3 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">¿Los datos se actualizan en tiempo real?</button></h3>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Sí, el sistema usa <strong>Firebase en tiempo real</strong>. Si un paciente envía una nueva solicitud mientras estás viendo la tabla, aparecerá automáticamente sin necesidad de refrescar la página.</div>
+                    </div>
+                </div>
+                <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
+                    <h3 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">¿Qué hago si veo un error o la página no carga?</button></h3>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <ol class="mb-0">
+                                <li>Presiona <span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Shift</span> + <span class="shortcut-key">R</span> para recargar sin caché.</li>
+                                <li>Si el problema persiste, cierra sesión y vuelve a ingresar.</li>
+                                <li>Si sigue sin funcionar, comunícate con el área de Sistemas: <strong>coord.sistemas@hdsa.gov.co</strong></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
+                    <h3 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">¿Cómo cierro sesión?</button></h3>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Haz clic en el botón <strong>"Cerrar Sesión"</strong> ubicado en la parte superior del portal. Serás redirigido a la página de login.</div>
+                    </div>
+                </div>
+                <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
+                    <h3 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">¿Puedo usar el sistema desde el celular?</button></h3>
+                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Sí, el módulo es <strong>responsivo</strong> y funciona en celulares y tablets. Sin embargo, para una mejor experiencia se recomienda usar un computador de escritorio.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOPORTE -->
+            <div class="mt-5 p-4 rounded-3 text-center" style="background:linear-gradient(135deg, #f0fdfa, #e0f7f5); border:1px solid #22a7a0;">
+                <i class="bi bi-headset" style="font-size:2.5rem;color:#22a7a0;"></i>
+                <h4 class="fw-bold mt-2" style="color:#164443;">¿Necesitas ayuda adicional?</h4>
+                <p class="text-muted mb-2">Comunícate con el área de Sistemas para soporte técnico.</p>
+                <p class="mb-0"><strong>coord.sistemas@hdsa.gov.co</strong> &bull; Ext. 209</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
