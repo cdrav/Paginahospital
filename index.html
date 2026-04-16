@@ -33,6 +33,27 @@
 <!-- Header incluido -->
 <div id="header-placeholder"></div>
 
+<!-- Modal de Rendición de Cuentas -->
+<div class="modal fade" id="modalRendicionCuentas" tabindex="-1" aria-labelledby="modalRendicionCuentasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 overflow-hidden" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+      <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar" style="z-index:10; background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 0.7rem; opacity: 1;"></button>
+      <div class="modal-body p-0">
+        <a href="https://hdsa.gov.co/participa/rendicion-cuentas-2025.html" style="display:block;">
+          <img src="imagenes/imagenes-index-noticias/Rendicion-de-cuentas.jpeg" alt="Rendición de Cuentas 2025" class="w-100" style="display:block;">
+        </a>
+        <div class="text-center p-4" style="background: linear-gradient(135deg, #164443, #1a5c5a);">
+          <h4 class="text-white fw-bold mb-2"><i class="bi bi-megaphone-fill me-2"></i>Rendición de Cuentas 2025</h4>
+          <p class="text-white-50 mb-3">Conoce los resultados de nuestra gestión. Tu participación es importante.</p>
+          <a href="https://hdsa.gov.co/participa/rendicion-cuentas-2025.html" class="btn btn-lg rounded-pill px-5 fw-bold" style="background: linear-gradient(135deg, #22a7a0, #2ed8cf); color: #fff; border: none; box-shadow: 0 4px 15px rgba(34,167,160,0.4); transition: all 0.3s ease;">
+            <i class="bi bi-arrow-right-circle-fill me-2"></i>Ir a Rendición de Cuentas
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <main class="main-content p-0">
   <h1 class="visually-hidden">Hospital Departamental San Antonio — Sitio Oficial</h1>
   <!-- Carrusel Full Width -->
@@ -1070,6 +1091,25 @@
         this.style.boxShadow = '0 4px 15px rgba(0,82,155,0.2)';
         this.style.transition = 'all 0.3s ease';
       });
+    }
+  });
+</script>
+
+<!-- Script para mostrar modal de Rendición de Cuentas al inicio -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Solo mostrar una vez por sesión para no molestar al usuario
+    if (!sessionStorage.getItem('modalRendicionVisto')) {
+      const modalEl = document.getElementById('modalRendicionCuentas');
+      if (modalEl) {
+        setTimeout(function() {
+          const modal = new bootstrap.Modal(modalEl);
+          modal.show();
+        }, 800);
+        modalEl.addEventListener('hidden.bs.modal', function() {
+          sessionStorage.setItem('modalRendicionVisto', 'true');
+        });
+      }
     }
   });
 </script>

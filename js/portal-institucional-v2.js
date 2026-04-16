@@ -44,6 +44,10 @@ onAuthStateChanged(auth, (user) => {
             if (citasAdminCard) citasAdminCard.classList.remove('d-none');
             if (intranetCard) intranetCard.classList.remove('d-none');
 
+            // Mostrar botón de borrar registros solo para admin
+            const btnAdminDeleteAll = document.getElementById('btn-admin-delete-all');
+            if (btnAdminDeleteAll) btnAdminDeleteAll.classList.remove('d-none');
+
             initCitasAdmin();
             initIntranetPlaneacion();
 
@@ -273,6 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnExportPDF = document.getElementById('btn-export-pdf');
     if (btnExportPDF) {
         btnExportPDF.addEventListener('click', exportCitasToPDF);
+    }
+
+    // Botón de borrar todos los registros (solo visible para admin)
+    const btnAdminDeleteAll = document.getElementById('btn-admin-delete-all');
+    if (btnAdminDeleteAll) {
+        btnAdminDeleteAll.addEventListener('click', deleteAllCitas);
     }
     
     // Búsqueda en tiempo real (debounce para no saturar)
@@ -561,7 +571,7 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
     const emailSubject = document.getElementById('emailSubject');
     const emailMessage = document.getElementById('emailMessage');
     const sendEmailBtn = document.getElementById('sendEmailBtn');
-    const btnWebmail = document.getElementById('btn-action-webmail');
+    const btnWhatsapp = document.getElementById('btn-action-whatsapp');
 
     if (!emailToInput || !emailSubject || !emailMessage || !sendEmailBtn) {
         console.error('❌ Elementos del formulario de email no encontrados');
@@ -572,7 +582,7 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
     // Poblar el formulario con los datos de la cita
     emailToInput.value = pacienteEmail || '';
     emailSubject.value = `Respuesta a su solicitud de cita (Radicado: ${radicado || citaId.substring(0, 8) + '...'})`;
-    emailMessage.value = generarPlantillaEmail();
+    emailMessage.value = generarPlantillaEmail(radicado || citaId);
 
     // Configurar el botón de envío para esta cita específica.
     // Usar .onclick para sobrescribir listeners anteriores y evitar envíos múltiples.
@@ -580,9 +590,10 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
         await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, 'mailto');
     };
 
-    if (btnWebmail) {
-        btnWebmail.onclick = async () => {
-            await handleManualEmailResponse(citaId, emailToInput.value, emailSubject.value, emailMessage.value, 'webmail');
+    // Botón de WhatsApp: preparado para cuando la institución adquiera un número
+    if (btnWhatsapp) {
+        btnWhatsapp.onclick = () => {
+            handleWhatsAppResponse(citaId, emailMessage.value);
         };
     }
 
@@ -617,23 +628,10 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, mode
     }
 
     try {
-        if (mode === 'webmail') {
-            // 2b. Modo Webmail: Copiar al portapapeles y abrir enlace
-            const clipboardText = `Para: ${emailTo}\nAsunto: ${subject}\n\n${message}`;
-            try {
-                await navigator.clipboard.writeText(clipboardText);
-                window.notify('📋 Contenido del correo copiado. Abriendo Webmail...', { type: 'info', timeout: 4000 });
-            } catch (err) {
-                console.error('No se pudo copiar al portapapeles:', err);
-                window.notify('No se pudo copiar el texto automáticamente. Por favor, cópialo manualmente.', { type: 'warning', timeout: 5000 });
-            }
-            window.open('https://pallas.dongee.com:2096/', '_blank');
-        } else {
-            // 2a. Modo Mailto (Default): Abrir cliente de correo
-            // Se agrega BCC a citas@hdsa.gov.co para asegurar que quede copia en el correo centralizador
-            const mailtoLink = `mailto:${emailTo}?bcc=citas@hdsa.gov.co&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-            window.open(mailtoLink, '_blank');
-        }
+        // Modo Mailto: Abrir cliente de correo
+        // Se agrega BCC a citas@hdsa.gov.co para asegurar que quede copia en el correo centralizador
+        const mailtoLink = `mailto:${emailTo}?bcc=citas@hdsa.gov.co&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        window.open(mailtoLink, '_blank');
         
 
         // 3. Cerrar modal y limpiar
@@ -1097,16 +1095,23 @@ function renderHistory(historial) {
 /**
  * Genera una plantilla de email predeterminada.
  */
-function generarPlantillaEmail() {
+function generarPlantillaEmail(radicado) {
     // Esta plantilla es solo el CUERPO del mensaje.
     // El saludo ("Estimado/a [Nombre]") y la firma (datos del hospital)
     // se gestionan directamente en la plantilla de EmailJS para consistencia.
     return `Le escribimos en relación con su solicitud de cita médica realizada a través de nuestro portal web.
 
+Número de Radicado: ${radicado || 'N/A'}
+
 A continuación, la respuesta a su solicitud:
 
 
-Fecha de respuesta: ${new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+Fecha de respuesta: ${new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}
+
+---
+Hospital Departamental San Antonio - E.S.E.
+Roldanillo, Valle del Cauca
+Teléfono: 602 891 2317 Ext. 214 - 215`;
 }
 
 /**
@@ -1191,54 +1196,111 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-// --- FUNCIÓN DE LIMPIEZA (USO ÚNICO) ---
+// --- FUNCIÓN DE WHATSAPP (PREPARADA PARA USO FUTURO) ---
 /**
- * ⚠️ BORRA TODAS LAS CITAS DE LA BASE DE DATOS.
- * Para usarla, abre la consola del navegador y ejecuta: `deleteAllCitas()`
+ * Abre WhatsApp con el mensaje prellenado para responder al paciente.
+ * Requiere que la institución configure el número de WhatsApp institucional.
  */
-async function deleteAllCitas() {
-    if (!confirm("⚠️ ¡ADVERTENCIA! ¿Estás seguro de que quieres borrar TODAS las solicitudes de citas? Esta acción es irreversible y limpiará el historial para empezar con los nuevos radicados.")) {
-        console.log("Borrado cancelado por el usuario.");
+function handleWhatsAppResponse(citaId, message) {
+    // Número institucional de WhatsApp (configurar cuando esté disponible)
+    const WHATSAPP_INSTITUCIONAL = ''; // Ej: '576028912317'
+
+    if (!WHATSAPP_INSTITUCIONAL) {
+        window.notify('⚠️ El servicio de WhatsApp institucional aún no está habilitado. Cuando la institución adquiera un número, se configurará aquí.', { type: 'warning', timeout: 5000 });
         return;
     }
 
-    console.log("Iniciando borrado de todas las citas...");
+    // Buscar el teléfono del paciente en los datos cargados
+    const cita = currentCitasData.find(c => c.id === citaId);
+    const pacienteTel = cita?.paciente?.telefono || '';
+
+    if (!pacienteTel) {
+        window.notify('No se encontró el número de teléfono del paciente.', { type: 'danger' });
+        return;
+    }
+
+    // Formatear número (agregar código de país si no lo tiene)
+    let phone = pacienteTel.replace(/\D/g, '');
+    if (phone.length === 10 && phone.startsWith('3')) {
+        phone = '57' + phone;
+    }
+
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+
+    // Cerrar modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
+    if (modal) modal.hide();
+
+    window.notify('✅ Abriendo WhatsApp...', { type: 'success' });
+}
+
+// --- FUNCIÓN DE LIMPIEZA ADMINISTRATIVA (SOLO ADMIN) ---
+/**
+ * ⚠️ BORRA TODAS LAS CITAS DE LA BASE DE DATOS.
+ * Solo accesible para el rol coord.sistemas desde el botón en la interfaz.
+ * Requiere doble confirmación para evitar borrados accidentales.
+ */
+async function deleteAllCitas() {
+    // PRIMERA CONFIRMACIÓN
+    if (!confirm('⚠️ ¡ADVERTENCIA!\n\n¿Estás seguro de que quieres borrar TODAS las solicitudes de citas?\n\nEsta acción es IRREVERSIBLE y eliminará todos los registros de Firebase.')) {
+        console.log('Borrado cancelado por el usuario (primera confirmación).');
+        return;
+    }
+
+    // SEGUNDA CONFIRMACIÓN (más explícita)
+    const confirmText = prompt('⛔ CONFIRMACIÓN FINAL\n\nEscribe "BORRAR TODO" (en mayúsculas) para confirmar la eliminación de todos los registros:');
+    if (confirmText !== 'BORRAR TODO') {
+        window.notify('Borrado cancelado. No se escribió la confirmación correcta.', { type: 'info' });
+        console.log('Borrado cancelado por el usuario (segunda confirmación).');
+        return;
+    }
+
+    console.log('Iniciando borrado de todas las citas...');
     const loadingSpinner = document.getElementById('citas-loading');
+    const btnDelete = document.getElementById('btn-admin-delete-all');
+    
     if (loadingSpinner) loadingSpinner.classList.remove('d-none');
+    if (btnDelete) {
+        btnDelete.disabled = true;
+        btnDelete.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Borrando...';
+    }
 
     try {
-        const q = query(collection(db, "citasOnline"));
+        const q = query(collection(db, 'citasOnline'));
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
-            console.log("No hay documentos para borrar.");
-            alert("La base de datos de citas ya está vacía.");
-            if (loadingSpinner) loadingSpinner.classList.add('d-none');
+            console.log('No hay documentos para borrar.');
+            window.notify('La base de datos de citas ya está vacía.', { type: 'info' });
             return;
         }
 
         const deletePromises = [];
         querySnapshot.forEach((docSnapshot) => {
             console.log(`Marcando para borrar: ${docSnapshot.id}`);
-            deletePromises.push(deleteDoc(doc(db, "citasOnline", docSnapshot.id)));
+            deletePromises.push(deleteDoc(doc(db, 'citasOnline', docSnapshot.id)));
         });
 
         await Promise.all(deletePromises);
 
         console.log(`✅ Borrado completado. Se eliminaron ${querySnapshot.size} documentos.`);
-        alert(`✅ Borrado completado. Se eliminaron ${querySnapshot.size} documentos.`);
+        window.notify(`✅ Borrado completado. Se eliminaron ${querySnapshot.size} registros de Firebase.`, { type: 'success', timeout: 6000 });
         
         // Recargar la vista para que se vea la tabla vacía
         initCitasAdmin();
 
     } catch (error) {
-        console.error("Error durante el borrado masivo:", error);
-        alert("Ocurrió un error durante el borrado. Revisa la consola para más detalles.");
+        console.error('Error durante el borrado masivo:', error);
+        window.notify('Error durante el borrado. Revisa la consola para más detalles.', { type: 'danger' });
     } finally {
         if (loadingSpinner) loadingSpinner.classList.add('d-none');
+        if (btnDelete) {
+            btnDelete.disabled = false;
+            btnDelete.innerHTML = '<i class="bi bi-trash3-fill me-2"></i>Borrar todos los registros';
+        }
     }
 }
-// Exponer la función a la ventana para poder llamarla desde la consola.
 window.deleteAllCitas = deleteAllCitas;
 
 // =========================================================================

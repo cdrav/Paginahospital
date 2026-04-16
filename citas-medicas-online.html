@@ -271,9 +271,13 @@
             <div class="time-grid" id="horariosContainer">
               <!-- Los horarios se cargarán dinámicamente -->
             </div>
-            <div class="alert alert-info mt-3 small">
-              <i class="bi bi-info-circle-fill me-2"></i>
-              <strong>Nota:</strong> La selección de este horario está sujeta a la disponibilidad final de la agenda. Nuestro equipo confirmará su cita.
+            <div class="mt-4 p-3 text-center" style="background: linear-gradient(135deg, #fff8e1, #fff3cd); border: 2px solid #ffc107; border-radius: 14px; box-shadow: 0 3px 12px rgba(255,193,7,0.15);">
+              <i class="bi bi-exclamation-triangle-fill d-block mb-2" style="font-size: 1.8rem; color: #e65100;"></i>
+              <p class="fw-bold mb-1" style="color: #e65100; font-size: 1rem;">Importante sobre el horario</p>
+              <p class="mb-0" style="color: #5d4037; font-size: 0.95rem; line-height: 1.6;">
+                El horario que selecciones es una <strong>preferencia</strong>, no una confirmación definitiva.<br>
+                Nuestro equipo verificará la <strong>disponibilidad de la agenda</strong> y te contactará para confirmar tu cita.
+              </p>
             </div>
           </div>
           
@@ -294,6 +298,18 @@
             Confirmación de Cita
           </h2>
           <p class="section-subtitle">Revisa y confirma los detalles de tu cita médica</p>
+
+          <!-- Aviso importante sobre disponibilidad -->
+          <div class="aviso-disponibilidad mb-4" style="background: linear-gradient(135deg, #fff8e1, #fff3cd); border: 2px solid #ffc107; border-radius: 16px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 15px rgba(255,193,7,0.2);">
+            <div style="font-size: 2.5rem; color: #e65100; margin-bottom: 0.5rem;">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <h4 class="fw-bold mb-2" style="color: #e65100;">Información Importante</h4>
+            <p class="mb-0 fs-6" style="color: #5d4037; line-height: 1.6;">
+              La fecha y hora seleccionadas representan su <strong>preferencia</strong>, pero <strong>no garantizan</strong> la asignación definitiva de la cita.<br>
+              Nuestro equipo de agendamiento se comunicará con usted para <strong>confirmar la disponibilidad real</strong> de la agenda médica.
+            </p>
+          </div>
           
           <div class="summary-section">
             <div class="summary-content">
@@ -387,6 +403,40 @@
           </button>
           <button type="button" class="btn-modern btn-secondary-modern" onclick="window.location.reload()">
             <i class="bi bi-calendar-plus"></i> Agendar Otra Cita
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Informativo de Disponibilidad (se muestra al llegar al paso 4) -->
+<div class="modal fade" id="modalDisponibilidad" tabindex="-1" aria-labelledby="modalDisponibilidadLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0" style="border-radius: 20px; overflow: hidden;">
+      <div class="modal-body text-center p-0">
+        <div style="background: linear-gradient(135deg, #e65100, #ff8f00); padding: 2rem 1.5rem;">
+          <i class="bi bi-calendar-event text-white" style="font-size: 3.5rem;"></i>
+          <h3 class="text-white fw-bold mt-2 mb-0">Antes de confirmar</h3>
+        </div>
+        <div class="p-4">
+          <div class="mb-3">
+            <i class="bi bi-info-circle-fill" style="font-size: 2rem; color: #e65100;"></i>
+          </div>
+          <h5 class="fw-bold mb-3" style="color: #164443;">La hora seleccionada es una preferencia</h5>
+          <p class="text-muted mb-3" style="font-size: 1.05rem; line-height: 1.7;">
+            El horario que elegiste <strong>no es una confirmación definitiva</strong>. 
+            Nuestro equipo de agendamiento verificará la <strong>disponibilidad real de la agenda médica</strong> 
+            y se comunicará contigo para confirmar la fecha y hora exacta de tu cita.
+          </p>
+          <div class="p-3 rounded-3 mb-3" style="background: #f0fdfa; border: 1px solid #22a7a0;">
+            <p class="mb-0 small" style="color: #164443;">
+              <i class="bi bi-telephone-fill me-1"></i> Te contactaremos al teléfono o correo registrado para confirmar tu cita.
+            </p>
+          </div>
+          <button type="button" class="btn btn-lg w-100 rounded-pill fw-bold" data-bs-dismiss="modal" 
+                  style="background: linear-gradient(135deg, #164443, #22a7a0); color: #fff; padding: 0.75rem;">
+            <i class="bi bi-check-circle me-2"></i>Entendido, continuar
           </button>
         </div>
       </div>

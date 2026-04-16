@@ -105,11 +105,12 @@
                 <a href="#tabla"><i class="bi bi-table me-2"></i>Tabla de solicitudes</a>
                 <a href="#ver-detalle"><i class="bi bi-eye me-2"></i>Ver detalle</a>
                 <a href="#cambiar-estado"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a>
-                <a href="#responder"><i class="bi bi-envelope me-2"></i>Responder por email</a>
+                <a href="#responder"><i class="bi bi-envelope me-2"></i>Responder por email/WhatsApp</a>
                 <a href="#notas"><i class="bi bi-journal-text me-2"></i>Notas de gestión</a>
                 <a href="#filtros"><i class="bi bi-funnel me-2"></i>Filtros y búsqueda</a>
                 <a href="#exportar"><i class="bi bi-download me-2"></i>Exportar informes</a>
                 <a href="#estados"><i class="bi bi-tags me-2"></i>Estados de una cita</a>
+                <a href="#borrar-registros"><i class="bi bi-trash3 me-2"></i>Borrar registros (Admin)</a>
                 <a href="#faq"><i class="bi bi-question-circle me-2"></i>Preguntas frecuentes</a>
                 <hr>
                 <a href="#" onclick="window.print();return false;"><i class="bi bi-printer me-2"></i>Imprimir manual</a>
@@ -251,8 +252,8 @@
                 <strong>Importante:</strong> Cada cambio de estado queda registrado en el historial de la cita. Asegúrate de seleccionar el estado correcto antes de guardar.
             </div>
 
-            <!-- 6. RESPONDER POR EMAIL -->
-            <h2 id="responder" class="section-title mt-5"><i class="bi bi-envelope me-2"></i>6. Responder al Paciente por Email</h2>
+            <!-- 6. RESPONDER POR EMAIL / WHATSAPP -->
+            <h2 id="responder" class="section-title mt-5"><i class="bi bi-envelope me-2"></i>6. Responder al Paciente por Email o WhatsApp</h2>
             <div class="step-box">
                 <div class="d-flex align-items-start">
                     <span class="step-number">1</span>
@@ -276,10 +277,10 @@
                 <div class="d-flex align-items-start">
                     <span class="step-number">3</span>
                     <div>
-                        Tienes dos opciones para enviar:
+                        Tienes dos opciones para responder:
                         <ul class="mt-1 mb-0">
-                            <li><strong>Enviar con Outlook/App de correo:</strong> abre tu aplicación de correo local con los datos pre-cargados</li>
-                            <li><strong>Abrir Webmail:</strong> copia el contenido al portapapeles y abre el webmail institucional para que pegues y envíes desde ahí</li>
+                            <li><strong><i class="bi bi-envelope-fill text-primary me-1"></i>Responder por Correo:</strong> abre tu aplicación de correo (Outlook u otra) con los datos pre-cargados (destinatario, asunto y mensaje).</li>
+                            <li><strong><i class="bi bi-whatsapp text-success me-1"></i>Responder por WhatsApp:</strong> abre WhatsApp Web con el mensaje prellenado para enviar al número del paciente. <em>(Este servicio se habilitará cuando la institución adquiera un número de WhatsApp institucional)</em></li>
                         </ul>
                     </div>
                 </div>
@@ -396,8 +397,44 @@
                 <strong>Flujo recomendado:</strong> Solicitud de Cita → En Proceso → Confirmada. Si hay cambios, usar "Reasignada". Solo usar "Cancelada" si la cita no se va a realizar.
             </div>
 
-            <!-- 11. FAQ -->
-            <h2 id="faq" class="section-title mt-5"><i class="bi bi-question-circle me-2"></i>11. Preguntas Frecuentes</h2>
+            <!-- 11. BORRAR REGISTROS (ADMIN) -->
+            <h2 id="borrar-registros" class="section-title mt-5"><i class="bi bi-trash3 me-2"></i>11. Borrar Todos los Registros (Solo Administrador)</h2>
+            <div class="warning-box mb-3">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Función exclusiva del Administrador (coord.sistemas).</strong> Esta opción NO es visible para el usuario de citas (citas@hdsa.gov.co). Solo utilice esta función en casos extremos.
+            </div>
+            <p>Si necesita limpiar completamente la base de datos de citas (por ejemplo, al iniciar un nuevo período o por pruebas), puede hacerlo directamente desde la interfaz sin necesidad de acceder a la consola del navegador.</p>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">1</span>
+                    <div>Haz clic en el botón <span class="badge bg-danger"><i class="bi bi-trash3-fill"></i> Borrar todos los registros</span> ubicado en la barra superior del módulo de citas.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">2</span>
+                    <div><strong>Primera confirmación:</strong> Aparecerá un diálogo de advertencia preguntando si está seguro. Haz clic en <strong>"Aceptar"</strong> para continuar.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">3</span>
+                    <div><strong>Segunda confirmación:</strong> Se te pedirá que escribas <strong>"BORRAR TODO"</strong> (en mayúsculas exactas) para confirmar. Si no lo escribes correctamente, el borrado se cancela.</div>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="d-flex align-items-start">
+                    <span class="step-number">4</span>
+                    <div>El sistema eliminará todos los registros de Firebase y la tabla quedará vacía. Se mostrará una notificación con la cantidad de registros eliminados.</div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>¡Acción irreversible!</strong> Una vez borrados, los registros no se pueden recuperar. Asegúrese de exportar un informe (Excel o PDF) antes de borrar si necesita conservar el historial.
+            </div>
+
+            <!-- 12. FAQ -->
+            <h2 id="faq" class="section-title mt-5"><i class="bi bi-question-circle me-2"></i>12. Preguntas Frecuentes</h2>
             <div class="accordion" id="faqAccordion">
                 <div class="accordion-item border-0 mb-2 shadow-sm rounded-3 overflow-hidden">
                     <h3 class="accordion-header"><button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">¿Qué hago si un paciente me llama para saber el estado de su cita?</button></h3>

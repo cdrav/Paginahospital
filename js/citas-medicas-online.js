@@ -416,7 +416,15 @@ const especialidades = [
     
     // Lógica de progreso mejorada (0%, 33%, 66%, 100%)
     actualizarBarraDeProgreso();
-    if (pasoActual === 4) cargarResumen();
+    if (pasoActual === 4) {
+      cargarResumen();
+      // Mostrar modal informativo sobre disponibilidad de horario
+      const modalDisp = document.getElementById('modalDisponibilidad');
+      if (modalDisp) {
+        const modal = new bootstrap.Modal(modalDisp);
+        modal.show();
+      }
+    }
 
     setStepView(pasoActual);
     scrollToTopWizard();
