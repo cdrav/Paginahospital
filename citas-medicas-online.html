@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="css/formularios.css" />
     <link rel="stylesheet" href="css/cookie-banner.css" />
     <link rel="stylesheet" href="css/citas-online.css" />
-    
    </head>
 <body data-page-title="Citas Médicas Online">
 
@@ -41,34 +40,56 @@
     <h1>Citas Médicas Online</h1>
     <p>Agenda tu cita médica de forma rápida, segura y desde la comodidad de tu hogar.</p>
   </div>
+</div>
 
-  <!-- SERVICIO NO DISPONIBLE (quitar este bloque al habilitar) -->
-  <div class="form-card">
-    <div class="text-center py-5 px-4">
-      <div class="mb-3" style="color: #22a7a0;">
-        <i class="bi bi-headset" style="font-size: 4rem;"></i>
-      </div>
-      <h3 class="fw-bold mb-3" style="color: #164443;">Citas Médicas Online</h3>
-      <p class="text-muted mb-4 fs-5">
-        En este momento nuestro servicio de citas web no se encuentra disponible.<br>
-        Estamos trabajando para habilitarlo nuevamente.<br>
-        Puedes agendar tu cita llamándonos directamente.
-      </p>
-      <div class="p-4 rounded-3 bg-light border border-light-subtle d-inline-block">
-        <p class="mb-2 text-uppercase fw-bold text-muted small">Línea de Atención</p>
-        <h4 class="display-6 fw-bold" style="color: #164443;">602 891 2317</h4>
-        <p class="fs-5 text-dark mb-0">Ext. 214 y 215</p>
-      </div>
-      <div class="mt-4">
-        <a href="tel:6028912317" class="btn btn-lg rounded-pill px-4" style="background: linear-gradient(135deg, #164443, #22a7a0); color: #fff;">
-          <i class="bi bi-telephone-fill me-2"></i>Llamar Ahora
-        </a>
+  <!-- Contenedor principal como las otras páginas -->
+  <main class="container my-5">
+    <!-- BLOQUEO TEMPORAL DE ACCESO -->
+    <div id="access-gate" class="text-center py-5">
+      <div class="form-card p-5 mx-auto" style="max-width: 450px;">
+        <div class="mb-4 text-primary">
+          <i class="bi bi-lock-fill" style="font-size: 3rem;"></i>
+        </div>
+        <h4 class="fw-bold mb-3">Acceso Restringido</h4>
+        <p class="text-muted mb-4">Este servicio se encuentra en fase de pruebas. Ingrese la clave de acceso para continuar.</p>
+        <div class="mb-3">
+          <input type="password" id="dev-password" class="form-control form-control-lg text-center" placeholder="Contraseña">
+        </div>
+        <button type="button" id="btn-unlock" class="btn btn-primary btn-lg w-100 rounded-pill">
+          Habilitar Servicio
+        </button>
+        <p id="unlock-error" class="text-danger mt-3 small" style="display: none;">Contraseña incorrecta.</p>
       </div>
     </div>
-  </div>
 
-  <!-- FORMULARIO COMPLETO (oculto hasta habilitación oficial) -->
-  <div id="formulario-citas-oculto" style="display:none;">
+    <div id="citas-content-wrapper" style="display: none;">
+    <!-- SERVICIO NO DISPONIBLE (oculto para pruebas locales) -->
+    <div class="form-card" style="display:none;">
+      <div class="text-center py-5 px-4">
+        <div class="mb-3" style="color: #22a7a0;">
+          <i class="bi bi-headset" style="font-size: 4rem;"></i>
+        </div>
+        <h3 class="fw-bold mb-3" style="color: #164443;">Citas Médicas Online</h3>
+        <p class="text-muted mb-4 fs-5">
+          En este momento nuestro servicio de citas web no se encuentra disponible.<br>
+          Estamos trabajando para habilitarlo nuevamente.<br>
+          Puedes agendar tu cita llamándonos directamente.
+        </p>
+        <div class="p-4 rounded-3 bg-light border border-light-subtle d-inline-block">
+          <p class="mb-2 text-uppercase fw-bold text-muted small">Línea de Atención</p>
+          <h4 class="display-6 fw-bold" style="color: #164443;">602 891 2317</h4>
+          <p class="fs-5 text-dark mb-0">Ext. 214 y 215</p>
+        </div>
+        <div class="mt-4">
+          <a href="tel:6028912317" class="btn btn-lg rounded-pill px-4" style="background: linear-gradient(135deg, #164443, #22a7a0); color: #fff;">
+            <i class="bi bi-telephone-fill me-2"></i>Llamar Ahora
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO COMPLETO (habilitado para pruebas locales) -->
+    <div id="formulario-citas-oculto">
   <div class="form-card">
     <div class="step-wizard">
       <div class="step-progress">
@@ -452,7 +473,8 @@
     <p class="text-muted">Por favor espera un momento</p>
   </div>
 </div>
-  </div><!-- FIN formulario-citas-oculto -->
+    </div> <!-- Fin #citas-content-wrapper -->
+    </main> <!-- Cerrar el contenedor principal -->
         
 <!-- Botones de Accesibilidad -->
 <div class="accessibility-buttons-container" role="toolbar" aria-label="Herramientas de accesibilidad">
@@ -485,10 +507,12 @@
 <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- DESHABILITADO: descomentar cuando se habilite el servicio de citas online
+    <!-- HABILITADO PARA PRUEBAS LOCALES -->
     <script type="module" src="js/firebase-config.js"></script>
     <script type="module" src="js/citas-medicas-online.js"></script>
-    -->
+    
+    <!-- Layout: carga header y footer -->
+    <script src="js/layout.js"></script>
     <script src="js/accesibilidad.js"></script>
     <script src="js/accessibility-styles.js"></script>
     <script src="js/busqueda.js"></script>

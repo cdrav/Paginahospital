@@ -397,10 +397,14 @@ section > p {
 @media (max-width: 768px) {
   /* Ajuste de días del calendario para dedos (Touch targets) */
   .calendar-day {
-    height: 42px !important;
-    line-height: 42px !important;
-    font-size: 0.95rem !important;
-    margin: 2px !important;
+    height: auto !important;
+    aspect-ratio: 1;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem !important;
+    margin: 0 !important;
     border-radius: 8px !important;
   }
   
@@ -1447,6 +1451,41 @@ main {
 .participa-card:hover .participa-icon-wrap { background-color: var(--color-secundario); color: #fff; }
 .participa-icon-wrap i { font-size: 2rem; line-height: 1; }
 .participa-card .card-title { color: var(--color-primario); }
+
+/* =====================================================
+   Citas Médicas - Banner (hero)
+   ===================================================== */
+section.citas-hero {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  padding: 60px 0; /* espacio vertical para el contenido */
+  color: #fff; /* texto blanco sobre banner */
+  background-color: #0f3332; /* color de respaldo por si no carga la imagen */
+  background-image: url('/imagenes/citas-medicas-banner.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+section.citas-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none; /* Sin overlay: mostrar imagen original sin oscurecer */
+}
+section.citas-hero > .container {
+  position: relative;
+  z-index: 1; /* sobre el overlay */
+}
+@media (max-width: 991.98px) {
+  section.citas-hero { min-height: 300px; padding: 48px 0; }
+}
+@media (max-width: 767.98px) {
+  section.citas-hero { min-height: 260px; padding: 36px 0; }
+}
+@media (max-width: 575.98px) {
+  section.citas-hero { min-height: 220px; padding: 28px 0; }
+}
 
 /* =====================================================
    Transparencia: Sidebar y anclas internas

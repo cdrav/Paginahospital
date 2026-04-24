@@ -156,9 +156,11 @@
 
   .form-content {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     transition: height 0.4s ease-in-out;
+    /* Asegurar que el footer no sea afectado */
+    margin-bottom: 2rem;
   }
 
   .form-slider {
@@ -408,8 +410,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.8);
     display: none;
     align-items: center;
     justify-content: center;
@@ -450,6 +451,11 @@
     padding-right: 2.25rem !important; /* Espacio para no escribir sobre la flecha */
   }
 
+  /* Estilo para el bloqueo de acceso */
+  #access-gate .form-card {
+    border: 2px solid var(--secondary-color);
+  }
+
   /* ==========================================================================
      DISEÑO RESPONSIVO AVANZADO (MOBILE FIRST ADAPTATION)
      ========================================================================== */
@@ -477,7 +483,7 @@
 
     /* 2. Contenedor y Tarjeta Principal */
     .modern-container {
-      padding: 0 10px; /* Márgenes laterales mínimos */
+      padding: 0 5px; /* Reducir margen externo */
       max-width: 100%;
     }
 
@@ -485,6 +491,11 @@
       border-radius: 12px; /* Bordes menos redondeados para aprovechar espacio */
       box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra más ligera */
       border: none;
+    }
+
+    /* Reducir espacio en los pasos para ganar ancho en móviles pequeños */
+    .form-section {
+      padding: 1.5rem 0.5rem;
     }
 
     /* 3. Wizard de Pasos (Simplificado) */
@@ -576,16 +587,16 @@
 
     /* 7. Calendario */
     .calendar-container {
-      padding: 0.75rem;
+      padding: 0.5rem;
+    }
+
+    .calendar-grid {
+      gap: 3px; /* Reducir hueco entre días */
     }
     
     .calendar-day {
-      height: 40px; /* Altura fija cómoda */
-      font-size: 0.9rem;
-    }
-    
-    /* Horarios en 3 columnas */
-    .time-grid {
-      grid-template-columns: repeat(3, 1fr);
+      font-size: 0.8rem;
     }
   }
+
+  /* Asegurar que el footer siempre sea visible */

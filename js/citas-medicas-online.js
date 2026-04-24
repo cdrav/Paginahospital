@@ -32,6 +32,35 @@ const especialidades = [
   
   // Inicialización
   document.addEventListener('DOMContentLoaded', function() {
+    // --- VALIDACIÓN DE ACCESO TEMPORAL ---
+    const accessGate = document.getElementById('access-gate');
+    const contentWrapper = document.getElementById('citas-content-wrapper');
+    const passInput = document.getElementById('dev-password');
+    const unlockBtn = document.getElementById('btn-unlock');
+    const errorMsg = document.getElementById('unlock-error');
+    const PASS_CORRECTA = 'Hdsa891900';
+
+    function checkAccess() {
+      if (sessionStorage.getItem('dev_access_granted') === 'true') {
+        if (accessGate) accessGate.remove();
+        if (contentWrapper) contentWrapper.style.display = 'block';
+        setStepView(pasoActual); // Ajustar altura del wizard una vez visible
+      }
+    }
+
+    if (unlockBtn) {
+      unlockBtn.addEventListener('click', () => {
+        if (passInput.value === PASS_CORRECTA) {
+          sessionStorage.setItem('dev_access_granted', 'true');
+          checkAccess();
+        } else {
+          errorMsg.style.display = 'block';
+          passInput.classList.add('is-invalid');
+        }
+      });
+    }
+    checkAccess();
+
     cargarEspecialidades();
     generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());
     
@@ -358,9 +387,9 @@ const especialidades = [
         const percentage = (paso - 1) * -25; // Cada paso es 25% del ancho total (400%)
         slider.style.transform = `translateX(${percentage}%)`;
 
-        // Ajustar la altura del contenedor a la del paso actual
-        // Usar scrollHeight + margen para asegurar que se vea todo el contenido y el botón
-        formContent.style.height = `${targetStepElement.scrollHeight + 30}px`;
+        // Ajustar la altura del contenedor al contenido del paso actual
+        const contentHeight = targetStepElement.scrollHeight + 30;
+        formContent.style.height = `${contentHeight}px`;
     }
   }
 
