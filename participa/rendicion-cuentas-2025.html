@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -9,17 +8,116 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Rendición de Cuentas 2025 - Hospital Departamental San Antonio</title>
-    <meta name="description" content="Memorias de la rendición de cuentas del año 2025 del Hospital Departamental San Antonio.">
+    <meta name="description" content="Memorias de la audiencia pública de rendición de cuentas vigencia 2025 del Hospital Departamental San Antonio de Roldanillo.">
     <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
-    <!-- El manifest se carga desde partials/header.html -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
-    <!-- Hojas de estilos -->
     <link rel="stylesheet" href="../css/site.css" />
     <link rel="stylesheet" href="../css/accesibilidad.css" />
     <link rel="stylesheet" href="../css/accessibility-buttons.css" />
     <link rel="stylesheet" href="../css/formularios.css" />
+    <style>
+      .hero-rendicion {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        min-height: 320px;
+        background: linear-gradient(135deg, #164443 0%, #22a7a0 100%);
+      }
+      .hero-rendicion img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        opacity: 0.3;
+      }
+      .hero-rendicion .hero-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        color: #fff;
+      }
+      .hero-rendicion .hero-overlay h1 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      }
+      .hero-rendicion .hero-overlay p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        max-width: 600px;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      }
+      .section-title {
+        position: relative;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #164443, #22a7a0);
+        border-radius: 2px;
+      }
+      .video-wrapper {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      }
+      .doc-card {
+        border: none;
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: #fff;
+      }
+      .doc-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      }
+      .doc-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+      }
+      .gallery-img {
+        border-radius: 10px;
+        object-fit: cover;
+        height: 220px;
+        width: 100%;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .gallery-img:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      }
+      .timeline-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #164443, #22a7a0);
+        color: #fff;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+    </style>
   </head>
   <body data-page-title="Rendición de Cuentas 2025">
     <!-- Header incluido -->
@@ -30,46 +128,214 @@
       <!-- El breadcrumb se insertará aquí mediante JavaScript -->
     </div>
 
-    <main class="py-5">
+    <main class="py-4">
       <div class="container">
-        <h1 class="h3 fw-bold mb-4" data-page-title>Rendición de Cuentas 2025</h1>
-        
-        <div class="card shadow-sm">
-          <div class="card-body p-4">
-            <h2 class="h5 card-title fw-bold">Memorias del Evento</h2>
-            <p class="card-text text-muted">A continuación, encontrará los documentos, presentaciones y material audiovisual correspondiente a la audiencia pública de rendición de cuentas de la vigencia 2025.</p>
 
-            <!-- Espacio para imagen de invitación/flyer si lo tienes -->
-            <!-- 
-            <div class="text-center my-4">
-                <img src="/documentos/rendicion-de-cuentas/2025/invitacion-2025.jpg" alt="Rendición de Cuentas 2025" class="img-fluid rounded shadow-sm" style="max-height: 450px;">
-            </div>
-            -->
-            
-            <h4 class="h6 fw-bold mt-4 mb-3">Archivos relacionados:</h4>
-            <div class="d-flex flex-wrap gap-2">
-              <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="/documentos/rendicion-de-cuentas/2025/reglamento-rendición-de-cuentas2026.pdf">
-                <i class="bi bi-file-earmark-pdf me-1"></i>Reglamento rendicion de cuentas 
-              </a>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="/documentos/rendicion-de-cuentas/2025/invitacion rendicion de cuentas 2026.pdf">
-                <i class="bi bi-file-earmark-pdf me-1"></i>Invitacion rendicion de cuentas 
-              </a>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" target="_blank" rel="noopener" href="/documentos/rendicion-de-cuentas/2025/inscripcion-de-preguntas-rendicion-de-cuentas-2026.pdf">
-                <i class="bi bi-file-earmark-pdf me-1"></i>Inscripcion de preguntas rendicion de cuentas 
-              </a>
-              <a class="btn btn-sm btn-outline-brand rounded-pill" href="encuesta-rendicion-cuentas.html">
-                <i class="bi bi-file-earmark-text me-1"></i>Encuesta de rendicion de cuentas 
-              </a>
-            </div>
-            <p class="text-muted small mt-3 mb-0">
-              Los documentos están en formato PDF. Requiere un visor de PDF.
+        <!-- ═══════════ HERO BANNER ═══════════ -->
+        <div class="hero-rendicion shadow-lg mb-5">
+          <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1945.webp" alt="Gerente presentando el informe de gestión - Rendición de Cuentas 2025" loading="lazy" decoding="async">
+          <div class="hero-overlay">
+            <span class="badge rounded-pill px-3 py-2 mb-3" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); font-size: 0.85rem;">
+              <i class="bi bi-megaphone-fill me-1"></i> Audiencia P&uacute;blica
+            </span>
+            <h1 data-page-title>Rendici&oacute;n de Cuentas 2025</h1>
+            <p class="mb-0">Informe de gesti&oacute;n presentado ante la comunidad por el Hospital Departamental San Antonio de Roldanillo &mdash; Vigencia 2025</p>
+          </div>
+        </div>
+
+        <!-- ═══════════ INTRODUCCIÓN ═══════════ -->
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center">
+            <p class="text-muted" style="font-size: 1.05rem;">
+              Teniendo en cuenta la Circular 08 de 14 de septiembre de 2018, emitida por la <strong>SUPERSALUD</strong> en su numeral 1.2.1, se presenta el informe ante la comunidad en la Audiencia P&uacute;blica de Rendici&oacute;n de Cuentas, conformado por el siguiente esquema que se podr&aacute; consultar a continuaci&oacute;n.
             </p>
           </div>
         </div>
 
-        <div class="mt-4">
-          <a class="btn btn-outline-brand" href="rendicion_de_cuentas.html"><i class="bi bi-arrow-left me-2"></i>Volver a Rendición de Cuentas</a>
+        <!-- ═══════════ VIDEO DEL EVENTO ═══════════ -->
+        <section class="mb-5">
+          <h2 class="h4 fw-bold section-title"><i class="bi bi-play-circle me-2" style="color: #22a7a0;"></i>Video del Informe de Gesti&oacute;n</h2>
+          <div class="video-wrapper">
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/ZVSmjKSdSBI" title="Rendición de Cuentas 2025 - Hospital Departamental San Antonio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <p class="text-muted small mt-2"><i class="bi bi-info-circle me-1"></i>Transmisi&oacute;n de la audiencia p&uacute;blica de rendici&oacute;n de cuentas vigencia 2025.</p>
+        </section>
+
+        <!-- ═══════════ GALERÍA FOTOGRÁFICA ═══════════ -->
+        <section class="mb-5">
+          <h2 class="h4 fw-bold section-title"><i class="bi bi-camera me-2" style="color: #22a7a0;"></i>Galer&iacute;a Fotogr&aacute;fica</h2>
+          <p class="text-muted mb-4">Momentos destacados de la audiencia p&uacute;blica de rendici&oacute;n de cuentas.</p>
+          <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1945.webp" class="gallery-img shadow-sm" alt="Gerente presentando el informe de gesti&oacute;n 2025" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="0" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1868.webp" class="gallery-img shadow-sm" alt="Asistentes a la rendici&oacute;n de cuentas 2025" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="1" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1886.webp" class="gallery-img shadow-sm" alt="P&uacute;blico presente en el evento" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="2" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1912.webp" class="gallery-img shadow-sm" alt="Presentaci&oacute;n de resultados de gesti&oacute;n" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="3" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1918.webp" class="gallery-img shadow-sm" alt="Mesa directiva del evento" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="4" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1935.webp" class="gallery-img shadow-sm" alt="Intervenci&oacute;n de participantes" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="5" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1970.webp" class="gallery-img shadow-sm" alt="Cierre del evento de rendici&oacute;n de cuentas" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="6" loading="lazy" decoding="async">
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_E2023.webp" class="gallery-img shadow-sm" alt="Registro fotogr&aacute;fico del evento" data-bs-toggle="modal" data-bs-target="#galeriaRendicionModal" data-bs-slide-to="7" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </section>
+
+        <!-- Modal Galería -->
+        <div class="modal fade" id="galeriaRendicionModal" tabindex="-1" aria-labelledby="galeriaRendicionLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0" style="border-radius: 16px; overflow: hidden;">
+              <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="galeriaRendicionLabel"><i class="bi bi-images me-2"></i>Galer&iacute;a &mdash; Rendici&oacute;n de Cuentas 2025</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body p-3">
+                <div id="carouselRendicion" class="carousel slide" data-bs-ride="false">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1945.webp" class="d-block w-100 rounded" alt="Gerente presentando el informe" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1868.webp" class="d-block w-100 rounded" alt="Asistentes al evento" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1886.webp" class="d-block w-100 rounded" alt="P&uacute;blico presente" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1912.webp" class="d-block w-100 rounded" alt="Presentaci&oacute;n de resultados" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1918.webp" class="d-block w-100 rounded" alt="Mesa directiva" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1935.webp" class="d-block w-100 rounded" alt="Intervenci&oacute;n de participantes" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1970.webp" class="d-block w-100 rounded" alt="Cierre del evento" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_E2023.webp" class="d-block w-100 rounded" alt="Registro fotogr&aacute;fico" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselRendicion" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselRendicion" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- ═══════════ NOTA DE PRENSA ═══════════ -->
+        <section class="mb-5">
+          <h2 class="h4 fw-bold section-title"><i class="bi bi-newspaper me-2" style="color: #22a7a0;"></i>Nota de Prensa</h2>
+          <div class="card doc-card shadow-sm p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="doc-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); color: #2e7d32;">
+                <i class="bi bi-file-earmark-richtext"></i>
+              </div>
+              <div class="flex-grow-1">
+                <h5 class="fw-bold mb-1">Nota de Prensa &mdash; Evento Informe de Gesti&oacute;n 2025</h5>
+                <p class="text-muted small mb-3">Comunicado oficial sobre la realizaci&oacute;n de la audiencia p&uacute;blica de rendici&oacute;n de cuentas del Hospital Departamental San Antonio.</p>
+                <a href="/documentos/rendicion-de-cuentas/2025/Nota-prensa-Evento-Informe-Gestión-2025.pdf"_blank" rel="noopener" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                  <i class="bi bi-download me-1"></i>Descargar Nota de Prensa
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════ DOCUMENTOS RELACIONADOS ═══════════ -->
+        <section class="mb-5">
+          <h2 class="h4 fw-bold section-title"><i class="bi bi-folder2-open me-2" style="color: #22a7a0;"></i>Documentos Relacionados</h2>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <a href="/documentos/rendicion-de-cuentas/2025/reglamento-rendici%C3%B3n-de-cuentas2026.pdf" target="_blank" rel="noopener" class="text-decoration-none">
+                <div class="card doc-card shadow-sm p-3 h-100">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="doc-icon" style="background: linear-gradient(135deg, #fce4ec, #f8bbd0); color: #c62828;">
+                      <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-1 text-dark">Reglamento de Rendici&oacute;n de Cuentas</h6>
+                      <span class="text-muted small">Documento PDF</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6">
+              <a href="/documentos/rendicion-de-cuentas/2025/invitacion%20rendicion%20de%20cuentas%202026.pdf" target="_blank" rel="noopener" class="text-decoration-none">
+                <div class="card doc-card shadow-sm p-3 h-100">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="doc-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1565c0;">
+                      <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-1 text-dark">Invitaci&oacute;n Rendici&oacute;n de Cuentas</h6>
+                      <span class="text-muted small">Documento PDF</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6">
+              <a href="/documentos/rendicion-de-cuentas/2025/inscripcion-de-preguntas-rendicion-de-cuentas-2026.pdf" target="_blank" rel="noopener" class="text-decoration-none">
+                <div class="card doc-card shadow-sm p-3 h-100">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="doc-icon" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); color: #e65100;">
+                      <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-1 text-dark">Inscripci&oacute;n de Preguntas</h6>
+                      <span class="text-muted small">Formato para inscripci&oacute;n de propuestas o preguntas</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6">
+              <a href="encuesta-rendicion-cuentas.html" class="text-decoration-none">
+                <div class="card doc-card shadow-sm p-3 h-100">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="doc-icon" style="background: linear-gradient(135deg, #e8eaf6, #c5cae9); color: #283593;">
+                      <i class="bi bi-clipboard-check"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-1 text-dark">Encuesta de Rendici&oacute;n de Cuentas</h6>
+                      <span class="text-muted small">Participa con tu opini&oacute;n</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════ BOTÓN VOLVER ═══════════ -->
+        <div class="mt-4 mb-3">
+          <a class="btn btn-outline-brand rounded-pill px-4" href="rendicion_de_cuentas.html"><i class="bi bi-arrow-left me-2"></i>Volver a Rendici&oacute;n de Cuentas</a>
+        </div>
+
       </div>
     </main>
 
@@ -86,5 +352,18 @@
     <script src="../js/busqueda.js" defer></script>
     <script src="../js/main.js" defer></script>
     <script src="../js/breadcrumb.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('galeriaRendicionModal');
+        modal.addEventListener('show.bs.modal', function(e) {
+          var trigger = e.relatedTarget;
+          if (trigger && trigger.dataset.bsSlideTo !== undefined) {
+            var carousel = document.getElementById('carouselRendicion');
+            var bsCarousel = bootstrap.Carousel.getOrCreateInstance(carousel);
+            bsCarousel.to(parseInt(trigger.dataset.bsSlideTo));
+          }
+        });
+      });
+    </script>
   </body>
 </html>

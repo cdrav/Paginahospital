@@ -4,14 +4,14 @@
   "description": "Portal institucional del Hospital Departamental San Antonio de Roldanillo",
   "icons": [
     {
-      "src": "imagenes/Logo-hospital.png",
+      "src": "imagenes/Logo-hospital.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
-      "src": "imagenes/Logo-hospital.png",
+      "src": "imagenes/Logo-hospital.webp",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ],
   "start_url": "https://hdsa.gov.co",

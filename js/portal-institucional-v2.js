@@ -133,7 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const docId = btn.dataset.docId;
             const radicado = btn.dataset.radicado;
             const pacienteEmail = btn.dataset.email;            
-            openEmailModal(docId, pacienteEmail, radicado);
+            const especialidad = btn.dataset.especialidad;
+            openEmailModal(docId, pacienteEmail, radicado, especialidad);
         }
 
         if (e.target.closest('.cambiar-estado-btn')) {
@@ -530,15 +531,15 @@ function renderCitasTable(citas, totalLoaded) {
                         </td>
                         <td data-label="Estado">${statusBadge}</td>
                         <td data-label="Acciones">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-sm btn-outline-primary view-details-btn" data-doc-id="${cita.id}">
-                                    <i class="bi bi-eye-fill"></i> Ver
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-primary view-details-btn rounded-pill px-3 shadow-sm border-0 d-inline-flex align-items-center" data-doc-id="${cita.id}" title="Ver detalles completos">
+                                    <i class="bi bi-eye-fill me-1"></i> Ver
                                 </button>
-                                <button class="btn btn-sm btn-outline-warning cambiar-estado-btn" data-doc-id="${cita.id}" data-status="${status}">
-                                    <i class="bi bi-arrow-repeat"></i> Estado
+                                <button class="btn btn-sm btn-light border cambiar-estado-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-status="${status}" title="Cambiar Estado">
+                                    <i class="bi bi-arrow-repeat text-warning"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-info responder-email-btn" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}">
-                                    <i class="bi bi-envelope-fill"></i> Responder
+                                <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}" data-especialidad="${cita.especialidad.nombre}" title="Responder Email">
+                                    <i class="bi bi-envelope-at text-info"></i>
                                 </button>
                             </div>
                         </td>
@@ -557,8 +558,9 @@ function renderCitasTable(citas, totalLoaded) {
  * @param {string} citaId - El ID del documento de la cita.
  * @param {string} pacienteEmail - El correo del paciente a quien se responderá.
  * @param {string} radicado - El número de radicado visible para el usuario.
+ * @param {string} especialidad - La especialidad de la cita para sugerir plantillas.
  */
-function openEmailModal(citaId, pacienteEmail, radicado) {
+function openEmailModal(citaId, pacienteEmail, radicado, especialidad) {
     const emailModalEl = document.getElementById('emailModal');
     if (!emailModalEl) {
         console.error('❌ Modal de email no encontrado');
@@ -579,10 +581,60 @@ function openEmailModal(citaId, pacienteEmail, radicado) {
         return;
     }
 
+    // --- NUEVO: Gestión de Plantillas por Especialidad ---
+    const templates = {
+        'General': {
+            subject: `Información sobre su solicitud de cita (Radicado: ${radicado})`,
+            body: generarPlantillaEmail(radicado)
+        },
+        'Medicina General': {
+            subject: `Confirmación Cita Medicina General (Radicado: ${radicado})`,
+            body: `Le informamos que su solicitud para Medicina General está en proceso. Por favor esté atento a su teléfono para la confirmación de la hora exacta.\n\nRecuerde que debe presentarse 15 minutos antes con su documento original.\n\nRadicado: ${radicado}`
+        },
+        'Pediatría': {
+            subject: `Requisitos Cita Pediatría (Radicado: ${radicado})`,
+            body: `Para la atención del menor, es indispensable presentar Registro Civil original, carné de vacunas actualizado y estar acompañado por un adulto responsable.\n\nRadicado: ${radicado}`
+        },
+        'Ginecología': {
+            subject: `Preparación Cita Ginecología (Radicado: ${radicado})`,
+            body: `Le recordamos que para la toma de citología no debe tener el periodo menstrual, no haber tenido relaciones sexuales 48 horas antes y no haber aplicado óvulos o cremas vaginales.\n\nRadicado: ${radicado}`
+        },
+        'Cirugía General': {
+            subject: `Cita Valoración Cirugía (Radicado: ${radicado})`,
+            body: `Para su valoración, debe traer todos los exámenes diagnósticos previos (ecografías, laboratorios) relacionados con su consulta.\n\nRadicado: ${radicado}`
+        }
+    };
+
+    // Inyectar el selector de plantillas si no existe en el modal
+    let templateGroup = document.getElementById('templateSelectorGroup');
+    if (!templateGroup) {
+        templateGroup = document.createElement('div');
+        templateGroup.id = 'templateSelectorGroup';
+        templateGroup.className = 'mb-3';
+        templateGroup.innerHTML = `
+            <label class="form-label small fw-bold text-muted"><i class="bi bi-magic me-1"></i>Plantilla sugerida:</label>
+            <select id="templateSelect" class="form-select form-select-sm border-primary shadow-sm">
+                ${Object.keys(templates).map(name => `<option value="${name}">${name}</option>`).join('')}
+            </select>
+        `;
+        emailSubject.closest('.mb-3').insertAdjacentElement('beforebegin', templateGroup);
+
+        document.getElementById('templateSelect').addEventListener('change', (e) => {
+            const selected = templates[e.target.value] || templates['General'];
+            emailSubject.value = selected.subject;
+            emailMessage.value = selected.body;
+        });
+    }
+    
+    // Ajustar el selector al abrir el modal según la especialidad de la cita
+    const select = document.getElementById('templateSelect');
+    const templateKey = templates[especialidad] ? especialidad : 'General';
+    select.value = templateKey;
+
     // Poblar el formulario con los datos de la cita
     emailToInput.value = pacienteEmail || '';
-    emailSubject.value = `Respuesta a su solicitud de cita (Radicado: ${radicado || citaId.substring(0, 8) + '...'})`;
-    emailMessage.value = generarPlantillaEmail(radicado || citaId);
+    emailSubject.value = templates[templateKey].subject;
+    emailMessage.value = templates[templateKey].body;
 
     // Configurar el botón de envío para esta cita específica.
     // Usar .onclick para sobrescribir listeners anteriores y evitar envíos múltiples.
@@ -633,6 +685,38 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, mode
         const mailtoLink = `mailto:${emailTo}?bcc=citas@hdsa.gov.co&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
         window.open(mailtoLink, '_blank');
         
+        // --- NUEVA LÓGICA: Registrar la acción en Firebase ---
+        const citaDocRef = doc(db, "citasOnline", citaId);
+        const citaDocSnap = await getDoc(citaDocRef);
+        let currentStatus = 'Solicitud de Cita'; // Estado por defecto
+        if (citaDocSnap.exists()) {
+            currentStatus = citaDocSnap.data().status || currentStatus;
+        }
+
+        let newStatus = currentStatus;
+        // Si la cita está en estado "Solicitud de Cita", la movemos a "En Proceso"
+        if (currentStatus === 'Solicitud de Cita') {
+            newStatus = 'En Proceso';
+        }
+
+        await updateDoc(citaDocRef, {
+            status: newStatus,
+            emailResponseInitiatedAt: new Date(), // Marca de tiempo de la respuesta iniciada
+            emailResponseSubject: subject,
+            emailResponseMessagePreview: message.substring(0, 500) + '...', // Guarda una vista previa del mensaje
+            historial: arrayUnion({
+                action: `Respuesta por email iniciada (mailto) a ${emailTo}. Asunto: "${subject}"`,
+                user: auth.currentUser.email,
+                timestamp: new Date(),
+                type: 'email_response_initiated'
+            })
+        });
+
+        // Si el estado cambió, también registramos ese cambio en el historial
+        if (newStatus !== currentStatus) {
+            await updateDoc(citaDocRef, { historial: arrayUnion({ action: `Cambio de estado: ${currentStatus} ➔ ${newStatus} (automático por respuesta email)`, user: auth.currentUser.email, timestamp: new Date(), type: 'status_change_auto' }) });
+        }
+        // --- FIN NUEVA LÓGICA ---
 
         // 3. Cerrar modal y limpiar
         const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
@@ -640,6 +724,9 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, mode
         
         // Notificar al admin
         window.notify('✅ Proceso registrado. Abriendo gestor de correo...', { type: 'success' });
+
+        // Refrescar la tabla para reflejar el cambio de estado
+        initCitasAdmin();
 
     } catch (error) {
         console.error('Error al procesar respuesta manual:', error);
@@ -772,7 +859,7 @@ async function exportCitasToPDF() {
 
     // --- Cargar y añadir logo ---
     try {
-        const logoUrl = '/imagenes/Logo-hospital.png'; // Ruta al logo
+        const logoUrl = '/imagenes/Logo-hospital.webp'; // Ruta al logo
         const response = await fetch(logoUrl);
         const blob = await response.blob();
         const reader = new FileReader();
@@ -997,51 +1084,69 @@ async function showCitaDetails(docId) {
         }
 
         modalBody.innerHTML = `
-            <div class="row">
+            <div class="row g-3">
+                <!-- Sección Paciente -->
                 <div class="col-md-6">
-                    <h6><i class="bi bi-person-fill me-2"></i>Información del Paciente</h6>
-                    <table class="table table-sm">
-                        <tr><td><strong>Documento:</strong></td><td>${cita.paciente.tipoDocumento} ${cita.paciente.numeroDocumento}</td></tr>
-                        <tr><td><strong>Nombre:</strong></td><td>${cita.paciente.nombres} ${cita.paciente.apellidos}</td></tr>
-                        <tr><td><strong>Teléfono:</strong></td><td>${cita.paciente.telefono}</td></tr>
-                        <tr><td><strong>Correo:</strong></td><td>${cita.paciente.correo}</td></tr>
-                        <tr><td><strong>EPS:</strong></td><td>${cita.paciente.eps}</td></tr>
-                        <tr><td><strong>WhatsApp:</strong></td><td>${cita.tieneWhatsapp}</td></tr>
-                    </table>
+                    <div class="card h-100 border-0 bg-light-subtle shadow-sm">
+                        <div class="card-header bg-white border-bottom-0 pt-3">
+                            <h6 class="fw-bold mb-0 text-primary"><i class="bi bi-person-badge-fill me-2"></i>Información del Paciente</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2"><strong>Nombre:</strong><br>${cita.paciente.nombres} ${cita.paciente.apellidos}</div>
+                            <div class="mb-2"><strong>Documento:</strong><br>${cita.paciente.tipoDocumento} ${cita.paciente.numeroDocumento}</div>
+                            <div class="mb-2"><strong>Teléfono:</strong><br><a href="tel:${cita.paciente.telefono}" class="text-decoration-none">${cita.paciente.telefono}</a> ${cita.tieneWhatsapp === 'si' ? '<i class="bi bi-whatsapp text-success ms-1"></i>' : ''}</div>
+                            <div class="mb-2"><strong>Correo:</strong><br><a href="mailto:${cita.paciente.correo}" class="text-decoration-none">${cita.paciente.correo}</a></div>
+                            <div class="mb-0"><strong>EPS/Entidad:</strong><br><span class="badge bg-secondary-subtle text-secondary-emphasis">${cita.paciente.eps}</span></div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Sección Cita -->
                 <div class="col-md-6">
-                    <h6><i class="bi bi-calendar-fill me-2"></i>Detalles de la Cita</h6>
-                    <table class="table table-sm">
-                        <tr><td><strong>Especialidad:</strong></td><td>${cita.especialidad.nombre}</td></tr>
-                        <tr><td><strong>Fecha:</strong></td><td>${cita.fecha}</td></tr>
-                        <tr><td><strong>Hora:</strong></td><td>${cita.hora}</td></tr>
-                        <tr><td><strong>Estado:</strong></td><td>${getStatusBadge(cita.status)}</td></tr>
-                        <tr><td><strong>Solicitada:</strong></td><td>${cita.createdAt?.toDate().toLocaleString('es-CO')}</td></tr>
-                    </table>
+                    <div class="card h-100 border-0 bg-light-subtle shadow-sm">
+                        <div class="card-header bg-white border-bottom-0 pt-3">
+                            <h6 class="fw-bold mb-0 text-primary"><i class="bi bi-calendar-check-fill me-2"></i>Detalles de la Solicitud</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2"><strong>Radicado:</strong><br><code class="fw-bold">${cita.radicado || docId}</code></div>
+                            <div class="mb-2"><strong>Especialidad:</strong><br>${cita.especialidad.nombre}</div>
+                            <div class="mb-2"><strong>Preferencia:</strong><br><i class="bi bi-calendar3 me-1"></i> ${cita.fecha} <i class="bi bi-clock ms-2 me-1"></i> ${cita.hora}</div>
+                            <div class="mb-2"><strong>Estado Actual:</strong><br>${getStatusBadge(cita.status)}</div>
+                            <div class="mb-0"><strong>Solicitada el:</strong><br><small class="text-muted">${cita.createdAt?.toDate().toLocaleString('es-CO')}</small></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="mt-3">
-                <h6><i class="bi bi-chat-text me-2"></i>Motivo de Consulta</h6>
-                <div class="alert alert-light">
+            <!-- Motivo -->
+            <div class="card mt-3 border-0 bg-light shadow-sm">
+                <div class="card-body py-2 px-3">
+                    <h6 class="fw-bold mb-1 text-primary small"><i class="bi bi-chat-text-fill me-2"></i>Motivo de Consulta</h6>
                     ${cita.motivoConsulta}
                 </div>
             </div>
             
             ${notasGestionHtml}
 
-            ${archivosHtml}
-            
+            <!-- Archivos -->
             <div class="mt-3">
-                <div class="d-flex gap-2 flex-wrap">
-                    <button class="btn btn-outline-secondary btn-notas-solicitud" data-doc-id="${docId}" id="btnPrincipalNotas">
+                ${archivosHtml}
+            </div>
+            
+            <div class="modal-footer px-0 pb-0 mt-4 border-top-0 d-flex justify-content-between">
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm rounded-pill btn-notas-solicitud" data-doc-id="${docId}" id="btnPrincipalNotas">
                         <i class="bi ${cita.gestionNotes ? 'bi-pencil-square' : 'bi-journal-plus'} me-2"></i>
-                        ${cita.gestionNotes ? 'Modificar notas' : 'Notas de la solicitud'}
+                        ${cita.gestionNotes ? 'Modificar Notas' : 'Añadir Notas'}
                     </button>
-                    <button class="btn btn-primary responder-email-btn" data-doc-id="${docId}" data-email="${cita.paciente.correo}">
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-light btn-sm rounded-pill px-3 border" data-bs-dismiss="modal">
+                        Cerrar
+                    </button>
+                    <button class="btn btn-primary btn-sm rounded-pill px-4 responder-email-btn" data-doc-id="${docId}" data-radicado="${cita.radicado || docId}" data-email="${cita.paciente.correo}" data-especialidad="${cita.especialidad.nombre}">
                         <i class="bi bi-envelope-fill me-2"></i>Responder por Email
                     </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         `;

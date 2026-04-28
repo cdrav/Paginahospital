@@ -1391,7 +1391,7 @@ main {
   /* Altura mínima responsiva para mantener proporción visual */
   min-height: clamp(220px, 30vw, 420px);
   background-color: transparent;
-  background-image: url('/imagenes/promoción-y prevención-banner.jpg');
+  background-image: url('/imagenes/promoción-y prevención-banner.webp');
   background-repeat: no-repeat;
   background-position: center;         /* Mejor equilibrio visual */
   background-size: cover;            /* Ocupa todo el área sin bandas */
@@ -1417,8 +1417,8 @@ main {
   height: 400px; /* Altura estándar para banners internos */
   min-height: clamp(220px, 30vw, 420px);
   background-color: var(--color-primario); /* Color de respaldo */
-  /* NOTA: Se recomienda crear una imagen 'participa-banner.jpg' de aprox. 1920x500px */
-  background-image: url('/imagenes/participa-banner.jpg');
+  /* NOTA: Se recomienda crear una imagen 'participa-banner.webp' de aprox. 1920x500px */
+  background-image: url('/imagenes/participa-banner.webp');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -1462,7 +1462,7 @@ section.citas-hero {
   padding: 60px 0; /* espacio vertical para el contenido */
   color: #fff; /* texto blanco sobre banner */
   background-color: #0f3332; /* color de respaldo por si no carga la imagen */
-  background-image: url('/imagenes/citas-medicas-banner.jpg');
+  background-image: url('/imagenes/citas-medicas-banner.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -2251,7 +2251,7 @@ p, a, td, th, li {
    ===================================================== */
 
 .hero-participa {
-    background: url('../imagenes/participa.jpg') no-repeat center center/cover;
+    background: url('../imagenes/participa.webp') no-repeat center center/cover;
     min-height: 300px; /* Ajusta esta altura si es necesario */
     position: relative;
     margin-bottom: 3rem;

@@ -12,6 +12,7 @@
 *.jpg -text
 *.jpeg -text
 *.gif -text
+*.webp -text
 *.svg -text
 *.ico -text
 *.pdf -text

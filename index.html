@@ -25,14 +25,6 @@
     object-fit: cover;
     object-position: center;
   }
-  .card-rendicion:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: 0 16px 45px rgba(22,68,67,0.35) !important;
-  }
-  .card-rendicion:hover .btn-ver-instagram {
-    background: linear-gradient(135deg, #2ed8cf, #22a7a0) !important;
-    transform: scale(1.03);
-  }
  </style>
 </head>
 
@@ -56,7 +48,7 @@
   <div class="carousel-inner">
     <!-- Slide 1 - Banner de Bienvenida -->
     <div class="carousel-item active">
-      <img src="imagenes/imagen bienvenidos.jpg"
+      <img src="imagenes/imagen bienvenidos.webp"
            class="d-block w-100 carousel-img"
            loading="lazy" decoding="async"
            alt="Bienvenidos al Hospital Departamental San Antonio">
@@ -64,7 +56,7 @@
     
     <!-- Slide 3 - consultorio rosado  -->
     <div class="carousel-item">
-      <img src="/imagenes/Consultorio-rosado-2.jpg"
+      <img src="/imagenes/Consultorio-rosado-2.webp"
            class="d-block w-100 carousel-img"
            loading="lazy" decoding="async"
            alt="Equipo médico del hospital">
@@ -77,7 +69,7 @@
     
     <!-- Slide 3 - Tercera Imagen -->
     <div class="carousel-item">
-      <img src="/imagenes/citas-medicas-banner.jpg"
+      <img src="/imagenes/citas-medicas-banner.webp"
            class="d-block w-100 carousel-img"
            loading="lazy" decoding="async"
            alt="Tecnología médica avanzada">
@@ -99,59 +91,100 @@
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
-<section id="noticias-eventos" class="mb-5">
-    <div class="container text-center">
-        <h2>Noticias y Eventos</h2>
-        <p>Mantente al día con las últimas novedades y actividades del Hospital Departamental San Antonio.</p>
+<section id="noticias-eventos" class="mb-5 py-5" style="background: linear-gradient(180deg, #f8fffe 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="text-center mb-5">
+          <span class="badge rounded-pill px-3 py-2 mb-3" style="background: linear-gradient(135deg, #164443, #22a7a0); font-size: 0.85rem;"><i class="bi bi-newspaper me-1"></i> Actualidad HDSA</span>
+          <h2 class="fw-bold">Noticias y Eventos</h2>
+          <p class="text-muted mx-auto" style="max-width: 600px;">Mantente al d&iacute;a con las &uacute;ltimas novedades y actividades del Hospital Departamental San Antonio.</p>
+        </div>
 
-        <div class="row g-4 mt-3">
-        <!-- INICIO: Tarjeta Rendición de Cuentas 2025 (Instagram) -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <a href="https://www.instagram.com/reel/DXNPQt1jhlp/?igsh=MXVuMWx6eGRqNHBjeg==" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-            <div class="card card-rendicion h-100 border-0 overflow-hidden" style="border-radius: 16px; box-shadow: 0 8px 30px rgba(22,68,67,0.2); transition: all 0.3s ease;">
-              <div class="position-relative">
-                <img src="imagenes/imagenes-index-noticias/Rendicion-de-cuentas.jpeg" class="card-img-top" alt="Rendición de Cuentas 2025" style="height: 220px; object-fit: cover;">
-                <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, transparent 40%, rgba(22,68,67,0.85) 100%);"></div>
-                <span class="position-absolute top-0 start-0 m-2 badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); font-size: 0.8rem;">
-                  <i class="bi bi-instagram me-1"></i> Video en Instagram
-                </span>
-                <span class="position-absolute top-0 end-0 m-2 badge bg-danger rounded-pill px-3 py-2 fw-bold" style="animation: pulse 2s infinite; font-size: 0.8rem;">
-                  <i class="bi bi-megaphone-fill me-1"></i> NUEVO
-                </span>
-                <div class="position-absolute bottom-0 start-0 p-3 text-white">
-                  <div style="font-size: 2.2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5);"><i class="bi bi-play-circle-fill"></i></div>
+        <!-- Tarjeta Destacada: Rendici&oacute;n de Cuentas 2025 -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card border-0 shadow-lg overflow-hidden hover-card" style="border-radius: 16px; background: linear-gradient(135deg, #164443 0%, #1a5c5a 50%, #22a7a0 100%);">
+              <div class="row g-0 align-items-center">
+                <div class="col-md-5">
+                  <img src="documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1945.webp" class="w-100 h-100" alt="Gerente presentando el informe de gestión - Rendici&oacute;n de Cuentas 2025" style="object-fit: cover; min-height: 260px;">
                 </div>
-              </div>
-              <div class="card-body d-flex flex-column" style="background: linear-gradient(135deg, #164443, #1a5c5a);">
-                <h5 class="card-title fw-bold text-white mb-2"><i class="bi bi-megaphone-fill me-2"></i>Rendición de Cuentas 2025</h5>
-                <p class="text-white-50 small flex-grow-1">Conoce los resultados de la gestión del Hospital Departamental San Antonio. Tu participación ciudadana es fundamental para la transparencia institucional.</p>
-                <div class="mt-auto">
-                  <span class="btn btn-sm rounded-pill px-4 fw-bold w-100 btn-ver-instagram" style="background: linear-gradient(135deg, #22a7a0, #2ed8cf); color: #fff; border: none; transition: all 0.3s ease;">
-                    <i class="bi bi-instagram me-2"></i>Ver video en Instagram
-                  </span>
+                <div class="col-md-7 d-flex">
+                  <div class="card-body d-flex flex-column justify-content-center p-4 p-lg-5 text-white">
+                    <span class="badge rounded-pill align-self-start mb-3 px-3 py-2" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); font-size: 0.8rem;"><i class="bi bi-megaphone-fill me-1"></i>Audiencia P&uacute;blica</span>
+                    <h3 class="card-title fw-bold mb-2" style="font-size: 1.6rem;">Rendici&oacute;n de Cuentas &mdash; Vigencia 2025</h3>
+                    <p class="mb-3" style="opacity: 0.9;">El Hospital Departamental San Antonio present&oacute; ante la comunidad su informe de gesti&oacute;n de la vigencia 2025. Consulta el video, la galer&iacute;a fotogr&aacute;fica y todos los documentos del evento.</p>
+                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                      <a href="participa/rendicion-cuentas-2025.html" class="btn btn-light btn-sm fw-bold rounded-pill px-4">
+                        <i class="bi bi-eye me-1"></i> Ver Rendici&oacute;n de Cuentas
+                      </a>
+                      <a href="https://www.youtube.com/watch?v=ZVSmjKSdSBI" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-play-circle me-1"></i> Ver Video
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
-        <!-- FIN: Tarjeta Rendición de Cuentas -->
 
-        <!-- INICIO: Tarjeta de Convocatoria Laboral SST -->
+        <!-- Tarjeta Destacada: Capacitaci&oacute;n (ancho completo, horizontal) -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-8">
+            <div class="card border-0 shadow overflow-hidden hover-card h-100" style="border-radius: 16px;">
+              <div class="row g-0 h-100">
+                <div class="col-md-6">
+                  <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1660.webp" class="w-100 h-100" alt="Capacitaci&oacute;n en violencia de g&eacute;nero y primeros auxilios psicol&oacute;gicos" style="object-fit: cover; min-height: 280px;">
+                </div>
+                <div class="col-md-6 d-flex">
+                  <div class="card-body d-flex flex-column justify-content-center p-4">
+                    <span class="badge bg-danger rounded-pill align-self-start mb-2 px-3 py-1" style="font-size: 0.75rem;"><i class="bi bi-star-fill me-1"></i>Destacado</span>
+                    <h4 class="card-title fw-bold mb-3">Capacitaci&oacute;n en Violencia de G&eacute;nero</h4>
+                    <p class="card-text text-muted small">Capacitaci&oacute;n dirigida a personal m&eacute;dico, enfermer&iacute;a, psicolog&iacute;a, trabajo social y equipos b&aacute;sicos de salud, orientada en tipos de violencia y primeros auxilios psicol&oacute;gicos, con apoyo de la Secretar&iacute;a de la Mujer de la Gobernaci&oacute;n del Valle.</p>
+                    <div class="mt-auto">
+                      <button class="btn btn-primary btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#galeriaCapacitacionModal">
+                        <i class="bi bi-images me-1"></i> Ver Galer&iacute;a
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consultorio Rosa - junto a la destacada -->
+          <div class="col-lg-4">
+            <div class="card h-100 border-0 shadow hover-card text-white overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, #8e44ad, #6c3483);">
+              <div class="card-body d-flex flex-column text-center justify-content-center p-4">
+                <div class="mb-3" style="opacity: 0.2; font-size: 5rem; position: absolute; top: -10px; right: -10px;"><i class="bi bi-heart-pulse-fill"></i></div>
+                <div class="mb-3">
+                  <i class="bi bi-shield-check-fill" style="font-size: 3.5rem;"></i>
+                </div>
+                <h5 class="card-title fw-bold mb-2">Consultorio Rosa</h5>
+                <p class="fw-light mb-4" style="opacity: 0.9;">Atenci&oacute;n integral y segura para v&iacute;ctimas de violencias de g&eacute;nero.</p>
+                <div class="mt-auto">
+                  <a href="consultorio-rosa.html" class="btn btn-light btn-sm fw-bold rounded-pill px-4">Conocer M&aacute;s <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid de noticias secundarias -->
+        <div class="row g-4">
+
+        <!-- Convocatoria Laboral SST -->
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm news-card">
+            <div class="card h-100 shadow-sm news-card border-0" style="border-radius: 12px;">
                 <div class="card-body d-flex flex-column">
                     <div class="text-center mb-3">
-                        <i class="bi bi-briefcase-fill text-brand" style="font-size: 2.5rem;"></i>
+                        <i class="bi bi-briefcase-fill" style="font-size: 2.5rem; color: #164443;"></i>
                     </div>
                     <h5 class="card-title text-center fw-bold">¡Convocatoria Laboral SST!</h5>
                     <p class="card-text text-muted text-center small">
                         ¡El #HDSARoldanillo busca talento para fortalecer su equipo de Seguridad y Salud en el Trabajo!
                     </p>
         
-                    <!-- Acordeón para las vacantes -->
                     <div class="accordion accordion-flush mt-3" id="vacantesAccordion">
-                        
-                        <!-- Profesional en SST -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingProfesionalSST">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProfesionalSST" aria-expanded="false" aria-controls="collapseProfesionalSST">
@@ -161,16 +194,14 @@
                             <div id="collapseProfesionalSST" class="accordion-collapse collapse" aria-labelledby="headingProfesionalSST" data-bs-parent="#vacantesAccordion">
                                 <div class="accordion-body py-2">
                                     <ul class="list-unstyled small text-start">
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Líder de equipo</li>
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Gestión intersectorial</li>
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Evaluación de estándares mínimos</li>
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Análisis de condiciones de salud</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>L&iacute;der de equipo</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Gesti&oacute;n intersectorial</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Evaluaci&oacute;n de est&aacute;ndares m&iacute;nimos</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>An&aacute;lisis de condiciones de salud</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-        
-                        <!-- Fisioterapeuta -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingFisio">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFisio" aria-expanded="false" aria-controls="collapseFisio">
@@ -180,15 +211,13 @@
                             <div id="collapseFisio" class="accordion-collapse collapse" aria-labelledby="headingFisio" data-bs-parent="#vacantesAccordion">
                                 <div class="accordion-body py-2">
                                     <ul class="list-unstyled small text-start">
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Análisis de morbilidad</li>
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Implementación del SVE biomecánico</li>
-                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Seguimiento a rehabilitación</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>An&aacute;lisis de morbilidad</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Implementaci&oacute;n del SVE biomec&aacute;nico</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Seguimiento a rehabilitaci&oacute;n</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-        
-                        <!-- Otros perfiles -->
                         <div class="accordion-item">
                           <h2 class="accordion-header" id="headingOtros">
                               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOtros" aria-expanded="false" aria-controls="collapseOtros">
@@ -197,7 +226,7 @@
                           </h2>
                           <div id="collapseOtros" class="accordion-collapse collapse" aria-labelledby="headingOtros" data-bs-parent="#vacantesAccordion">
                               <div class="accordion-body py-2 text-start">
-                                  <p class="small text-muted">Buscamos también Psicólogo(a), Fonoaudiólogo(a) y Tecnólogos especialistas en SST. Para ver todos los detalles, haz clic en el botón "Ver detalles" en la noticia de convocatoria.</p>
+                                  <p class="small text-muted">Buscamos tambi&eacute;n Psic&oacute;logo(a), Fonoaudi&oacute;logo(a) y Tecn&oacute;logos especialistas en SST.</p>
                                   <button class="btn btn-link btn-sm p-0" data-bs-toggle="modal" data-bs-target="#modalConvocatoria">Ver todos los perfiles</button>
                               </div>
                           </div>
@@ -205,47 +234,25 @@
                     </div>
         
                     <div class="mt-auto pt-3 text-center">
-                        <p class="fw-bold mb-2">¡Únete al hospital referente del #NorteDelValle!</p>
-                        <div class="alert alert-info py-2">
+                        <div class="alert alert-info py-2 mb-0" style="border-radius: 10px;">
                             <i class="bi bi-info-circle-fill me-1"></i>
                             <small>Interesados, traer hoja de vida a las instalaciones del hospital.</small>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer bg-transparent border-0 text-center">
-                    <span class="badge bg-light text-dark me-1">#ConvocatoriaLaboral</span>
-                    <span class="badge bg-light text-dark me-1">#HDSA</span>
-                    <span class="badge bg-light text-dark">#SST</span>
-                </div>
             </div>
-        </div>
-        <!-- FIN: Tarjeta de Convocatoria Laboral SST -->
-
-        <!-- Nueva Noticia Capacitación 25 de febrero 2026 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card">
-            <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1661.jpeg" class="card-img-top" alt="Capacitación en violencia de género y primeros auxilios psicológicos" style="height: 200px; object-fit: cover; background-color: #f8f9fa;">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title fw-bold">Capacitación en Violencia de Género</h5>
-              <p class="card-text text-muted small">Capacitación el día 25 de febrero de 2026 dirigida a personal médico, enfermería, psicología, trabajo social y equipos básicos de salud orientada en tipos de violencia y primeros auxilios psicológicos en violencias basada en género, con apoyo de la Secretaría de la Mujer Equidad de Género y Diversidad Sexual de la Gobernación del Valle.</p>
-              <div class="mt-auto">
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#galeriaCapacitacionModal">
-                  Ver Galería <i class="bi bi-images"></i>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- Noticia Internacional - Mastitis Necrotizante -->
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card">
-            <img src="imagenes/imagenes-index-noticias/noticia-internacional/imagen-noticia-internacional.jpg" class="card-img-top" alt="Mastitis Necrotizante - Noticia Internacional" style="height: 200px; object-fit: cover; background-color: #f8f9fa;">
+          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 12px;">
+            <img src="imagenes/imagenes-index-noticias/noticia-internacional/imagen-noticia-internacional.webp" class="card-img-top" alt="Mastitis Necrotizante - Noticia Internacional" style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;">
             <div class="card-body d-flex flex-column">
+              <span class="badge bg-info align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.7rem;"><i class="bi bi-journal-medical me-1"></i>Investigaci&oacute;n</span>
               <h5 class="card-title fw-bold">Mastitis Necrotizante: Estudio de caso</h5>
-              <p class="card-text flex-grow-1">La mastitis necrotizante es una complicación poco común en mujeres lactantes, con potencial de causar daño severo. Streptococcus pneumoniae, habitualmente asociado a infecciones respiratorias y meningitis, rara vez se identifica en infecciones mamarias.</p>
+              <p class="card-text text-muted small flex-grow-1">Complicaci&oacute;n poco com&uacute;n en mujeres lactantes. Streptococcus pneumoniae, asociado a infecciones respiratorias, rara vez se identifica en infecciones mamarias.</p>
               <div class="mt-auto">
-                <a href="https://revistainfectio.org/P_OJS/index.php/infectio/article/view/1255" target="_blank" class="btn btn-primary w-100">Leer más <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+                <a href="https://revistainfectio.org/P_OJS/index.php/infectio/article/view/1255" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3">Leer art&iacute;culo <i class="bi bi-box-arrow-up-right ms-1"></i></a>
               </div>
             </div>
           </div>
@@ -253,50 +260,36 @@
 
         <!-- Noticia Equipos APS -->
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card">
-            <img src="/imagenes/imagenes-index-noticias/noticia-aps.jpg" class="card-img-top" alt="Equipos APS del hospital atendiendo a la comunidad" style="height: 200px; object-fit: cover; background-color: #f8f9fa;">
+          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 12px;">
+            <img src="/imagenes/imagenes-index-noticias/noticia-aps.webp" class="card-img-top" alt="Equipos APS del hospital atendiendo a la comunidad" style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;">
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title fw-bold">Atención de nuestros equipos APS</h5>
-              <p class="card-text text-muted small">Los Grupos de Atención Primaria en Salud-APS ya están en los barrios de Roldanillo, trabajando junto a la comunidad para fortalecer la promoción, prevención y el cuidado cercano en salud.En este video te presentamos a cada uno de los equipos y los sectores donde estarán operando.</p>
+              <span class="badge align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.7rem; background-color: #164443;"><i class="bi bi-people-fill me-1"></i>Comunidad</span>
+              <h5 class="card-title fw-bold">Atenci&oacute;n de nuestros equipos APS</h5>
+              <p class="card-text text-muted small flex-grow-1">Los Grupos de Atenci&oacute;n Primaria en Salud ya est&aacute;n en los barrios de Roldanillo, fortaleciendo la promoci&oacute;n, prevenci&oacute;n y el cuidado cercano en salud.</p>
               <div class="mt-auto">
-                <a href="https://www.facebook.com/reel/1751769838832170?locale=es_LA" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm">
-                  Ver en Facebook <i class="bi bi-facebook"></i>
+                <a href="https://www.facebook.com/reel/1751769838832170?locale=es_LA" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                  <i class="bi bi-facebook me-1"></i> Ver en Facebook
                 </a>
               </div>
             </div>
           </div>
         </div>
-        
-        <!-- Tarjeta Destacada - Consultorio Rosa -->
+
+        <!-- Prevenci&oacute;n de la Desnutrici&oacute;n -->
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card text-white" style="background: linear-gradient(135deg, #8e44ad, #6c3483);">
-            <div class="card-body d-flex flex-column text-center justify-content-center p-4">
-              <div class="mb-3">
-                <i class="bi bi-shield-check-fill" style="font-size: 3rem;"></i>
+            <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 12px;">
+              <img src="imagenes/imagenes-index-noticias/noticias-tarjeta1.webp" class="card-img-top" alt="Prevenci&oacute;n de la desnutrici&oacute;n infantil" style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;">
+              <div class="card-body d-flex flex-column">
+                <span class="badge bg-success align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.7rem;"><i class="bi bi-heart-pulse me-1"></i>PyP</span>
+                <h5 class="card-title fw-bold">Prevenci&oacute;n de la Desnutrici&oacute;n</h5>
+                <p class="card-text text-muted small flex-grow-1">Implementamos jornadas de tamizaje y educaci&oacute;n para prevenir la desnutrici&oacute;n infantil. ¡Cuidar su futuro es nuestra prioridad!</p>
+                <div class="mt-auto">
+                  <a href="promocion-prevencion.html" class="btn btn-outline-primary btn-sm rounded-pill px-3">Leer m&aacute;s <i class="bi bi-arrow-right"></i></a>
+                </div>
               </div>
-              <h5 class="card-title fw-bold">Consultorio Rosa</h5>
-              <p class="fw-semibold">Atención integral y segura para víctimas de violencias de género.</p>
             </div>
-            <div class="card-footer bg-transparent border-0 pb-3 text-center">
-              <a href="consultorio-rosa.html" class="btn btn-light btn-sm fw-bold">Conocer Más</a>
-            </div>
-          </div>
         </div>
 
-          
-        <!-- Noticia 4 (Placeholder) -->
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm hover-card">
-              <img src="imagenes/imagenes-index-noticias/noticias-tarjeta1.jpg" class="card-img-top" alt="Imagen de la noticia 1" style="height: 200px; object-fit: cover;">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">Prevención de la Desnutrición</h5>
-                <p class="card-text text-muted small">Implementamos jornadas de tamizaje y educación para prevenir la desnutrición infantil. ¡Cuidar su futuro es nuestra prioridad!</p>
-              </div>
-              <div class="card-footer bg-transparent border-0 pb-3">
-                <a href="promocion-prevencion.html" class="btn btn-outline-primary btn-sm">Leer más <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
       </div>
 
         <div class="text-center mt-5">
@@ -314,7 +307,7 @@
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/urgencias-imagen-servicios.jpeg" class="card-img-top" alt="Imagen de Urgencias" loading="lazy" decoding="async">
+        <img src="imagenes/urgencias-imagen-servicios.webp" class="card-img-top" alt="Imagen de Urgencias" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Urgencias 24/7</h5>
           <a href="urgencias.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -324,7 +317,7 @@
     </div>
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/cuidado-oral-servicios.jpg" class="card-img-top" alt="Imagen de Cuidado Oral" loading="lazy" decoding="async">
+        <img src="imagenes/cuidado-oral-servicios.webp" class="card-img-top" alt="Imagen de Cuidado Oral" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Cuidado Oral</h5>
           <a href="cuidado-oral.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -333,7 +326,7 @@
     </div>
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/diagnostico-servicios.jpg" class="card-img-top" alt="Imagen de Diagnóstico" loading="lazy" decoding="async">
+        <img src="imagenes/diagnostico-servicios.webp" class="card-img-top" alt="Imagen de Diagnóstico" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Diagnóstico</h5>
           <a href="diagnostico.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -342,7 +335,7 @@
     </div>
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/hopsitalizacion-servicios.jpg" class="card-img-top" alt="Imagen de Hospitalización" loading="lazy" decoding="async">
+        <img src="imagenes/hopsitalizacion-servicios.webp" class="card-img-top" alt="Imagen de Hospitalización" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Hospitalización</h5>
           <a href="hospitalizacion.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -351,7 +344,7 @@
     </div>
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/laboratorio-servicios.jpg" class="card-img-top" alt="Imagen de Laboratorio" loading="lazy" decoding="async">
+        <img src="imagenes/laboratorio-servicios.webp" class="card-img-top" alt="Imagen de Laboratorio" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Laboratorio</h5>
           <a href="laboratorio.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -360,7 +353,7 @@
     </div>
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/partos-servicios.jpg" class="card-img-top" alt="Imagen de Partos" loading="lazy" decoding="async">
+        <img src="imagenes/partos-servicios.webp" class="card-img-top" alt="Imagen de Partos" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Partos</h5>
           <a href="partos.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -369,7 +362,7 @@
     </div>
     <div class="col">
       <div class="card h-100 overflow-hidden shadow-sm border-0 servicios">
-        <img src="imagenes/Promocion-y prevencion-servicios.jpg" class="card-img-top" alt="Imagen de Promoción y Prevención" loading="lazy" decoding="async">
+        <img src="imagenes/Promocion-y prevencion-servicios.webp" class="card-img-top" alt="Imagen de Promoción y Prevención" loading="lazy" decoding="async">
         <div class="card-body d-flex flex-column p-4">
           <h5 class="card-title">Promoción y Prevención</h5>
           <a href="promocion-prevencion.html" class="btn btn-overlay mt-2 align-self-start">Más información <i class="bi bi-arrow-right"></i></a>
@@ -396,13 +389,13 @@
       <div id="historiaCarousel" class="carousel slide shadow-sm rounded overflow-hidden history-carousel" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="imagenes/panoramica del hospital.jpg" alt="Vista panorámica del hospital" class="d-block w-100" loading="lazy" decoding="async">
+            <img src="imagenes/panoramica del hospital.webp" alt="Vista panorámica del hospital" class="d-block w-100" loading="lazy" decoding="async">
           </div>
           <div class="carousel-item">
-            <img src="imagenes/imagen-hospital-antigua.jpeg" alt="Historia del hospital" class="d-block w-100" loading="lazy" decoding="async">
+            <img src="imagenes/imagen-hospital-antigua.webp" alt="Historia del hospital" class="d-block w-100" loading="lazy" decoding="async">
           </div>
           <div class="carousel-item">
-            <img src="imagenes/imagen-hopsital-antigua2.jpeg" alt="Evolución del hospital" class="d-block w-100" loading="lazy" decoding="async">
+            <img src="imagenes/imagen-hopsital-antigua2.webp" alt="Evolución del hospital" class="d-block w-100" loading="lazy" decoding="async">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#historiaCarousel" data-bs-slide="prev">
@@ -543,7 +536,7 @@
               <a href="https://www.roldanillo-valle.gov.co/" target="_blank" class="card h-100 shadow-sm border-0 text-center hover-card text-decoration-none animated-card">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <div class="mb-4 institution-logo-box is-green">
-                    <img src="imagenes/logo Alcaldia de Roldanillo.png" alt="Logo Alcaldía de Roldanillo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/logo Alcaldia de Roldanillo.webp" alt="Logo Alcaldía de Roldanillo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-building fallback-icon text-success"></i>
                   </div>
                   <h5 class="card-title fw-bold mb-3 text-primary">Alcaldía de Roldanillo</h5>
@@ -560,7 +553,7 @@
               <div class="card h-100 shadow-sm border-0 text-center hover-card animated-card" data-animation-delay="0.2s">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <a href="https://www.valledelcauca.gov.co/" target="_blank" class="mb-4 institution-logo-box is-red d-block text-decoration-none" aria-label="Visitar sitio de la Gobernación del Valle">
-                    <img src="imagenes/logo gobernacion valle del cauca.png" alt="Logo Gobernación del Valle del Cauca" class="img-fluid-contain shadow-sm-light" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/logo gobernacion valle del cauca.webp" alt="Logo Gobernación del Valle del Cauca" class="img-fluid-contain shadow-sm-light" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-geo-alt-fill fallback-icon text-danger"></i>
                   </a>
                   <h5 class="card-title fw-bold mb-3 text-primary">Gobernación del Valle</h5>
@@ -599,7 +592,7 @@
               <div class="card h-100 shadow-sm border-0 text-center hover-card animated-card" data-animation-delay="0.2s">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <a href="https://www.gov.co/" target="_blank" class="mb-4 institution-logo-box is-blue2 pad-8 d-block text-decoration-none" aria-label="Visitar sitio Gov.co">
-                    <img src="imagenes/logo_gov_digital-1-1600x323.png" alt="Logo Portal Único del Estado Colombiano" class="img-fluid-contain gov-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/logo_gov_digital-1-1600x323.webp" alt="Logo Portal Único del Estado Colombiano" class="img-fluid-contain gov-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-globe2 fallback-icon" style="color: #3366cc;"></i>
                   </a>
                   <h5 class="card-title fw-bold mb-3 text-primary">Gov.co</h5>
@@ -621,7 +614,7 @@
               <div class="card h-100 shadow-sm border-0 text-center hover-card animated-card">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <a href="https://www.procuraduria.gov.co/Pages/Inicio.aspx" target="_blank" class="mb-4 institution-logo-box is-gray d-block text-decoration-none" aria-label="Visitar sitio de la Procuraduría">
-                    <img src="imagenes/Logo_Procuraduria_Colombia.png" alt="Logo Procuraduría General de la Nación" class="img-fluid-contain shadow-sm-light" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/Logo_Procuraduria_Colombia.webp" alt="Logo Procuraduría General de la Nación" class="img-fluid-contain shadow-sm-light" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-bank fallback-icon text-secondary"></i>
                   </a>
                   <h5 class="card-title fw-bold mb-3 text-primary">Procuraduría</h5>
@@ -638,7 +631,7 @@
               <div class="card h-100 shadow-sm border-0 text-center hover-card">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <a href="https://www.contraloria.gov.co/" target="_blank" class="mb-4 institution-logo-box is-success d-block text-decoration-none" aria-label="Visitar sitio de la Contraloría">
-                    <img src="imagenes/contraloria logo.jpg" alt="Logo Contraloría General de la República" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/contraloria logo.webp" alt="Logo Contraloría General de la República" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-eye-fill fallback-icon text-success"></i>
                   </a>
                   <h5 class="card-title fw-bold mb-3 text-primary">Contraloría</h5>
@@ -660,7 +653,7 @@
               <a href="https://www.suin-juriscol.gov.co/" target="_blank" class="card h-100 shadow-sm border-0 text-center hover-card text-decoration-none animated-card" aria-label="Visitar sitio de SUIN-JURISCOL">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <div class="mb-4 institution-logo-box is-info">
-                    <img src="imagenes/logo-suin.png" alt="Logo SUIN-JURISCOL" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/logo-suin.webp" alt="Logo SUIN-JURISCOL" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-journal-bookmark-fill fallback-icon text-info"></i>
                   </div>
                   <h5 class="card-title fw-bold mb-3 text-primary">Suin-Juriscol</h5>
@@ -677,7 +670,7 @@
               <a href="https://www.funcionpublica.gov.co/" target="_blank" class="card h-100 shadow-sm border-0 text-center hover-card text-decoration-none animated-card" aria-label="Visitar sitio de SUIT">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <div class="mb-4 institution-logo-box is-warning">
-                    <img src="imagenes/logo-suit.png" alt="Logo SUIT - Sistema Único de Información de Trámites" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="imagenes/logo-suit.webp" alt="Logo SUIT - Sistema Único de Información de Trámites" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <i class="bi bi-card-list fallback-icon text-warning"></i>
                   </div>
                   <h5 class="card-title fw-bold mb-3 text-primary">SUIT</h5>
@@ -867,28 +860,28 @@
           <div class="carousel-inner">
             <!-- Imagen 1  -->
             <div class="carousel-item active">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1661.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1661.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1660.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1660.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1659.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1659.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1656.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1656.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1655.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1655.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1654.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1654.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1652.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1652.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1651.jpeg" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
+              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1651.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#galeriaCapacitacionCarousel" data-bs-slide="prev">
@@ -1013,7 +1006,7 @@
     <div class="modal-content" style="background: transparent; border: none;">
       <div class="modal-body p-0 position-relative">
         <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar" style="z-index: 10; background-color: #ffffff; border-radius: 50%; width: 45px; height: 45px; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.3s ease; border: 3px solid #ff0000; color: #ff0000;"></button>
-        <img src="imagenes/imagenes-index-noticias/flyer-2.png" class="img-fluid rounded" alt="Aviso de Jornada de Vacunación">
+        <img src="imagenes/imagenes-index-noticias/flyer-2.webp" class="img-fluid rounded" alt="Aviso de Jornada de Vacunación">
       </div>
     </div>
   </div>
@@ -1113,23 +1106,5 @@
   });
 </script>
 
-<!-- Script para mostrar modal de Rendición de Cuentas al inicio -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Solo mostrar una vez por sesión para no molestar al usuario
-    if (!sessionStorage.getItem('modalRendicionVisto')) {
-      const modalEl = document.getElementById('modalRendicionCuentas');
-      if (modalEl) {
-        setTimeout(function() {
-          const modal = new bootstrap.Modal(modalEl);
-          modal.show();
-        }, 800);
-        modalEl.addEventListener('hidden.bs.modal', function() {
-          sessionStorage.setItem('modalRendicionVisto', 'true');
-        });
-      }
-    }
-  });
-</script>
 </body>
 </html>

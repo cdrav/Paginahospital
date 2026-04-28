@@ -404,6 +404,32 @@
     color: #721c24;
   }
 
+  /* Indicadores visuales de validación prominentes */
+  .form-control.is-invalid, .form-select.is-invalid {
+    background-color: #fff8f8 !important; /* Fondo rojizo sutil */
+    border-width: 2px !important;
+  }
+
+  /* Para contenedores que no son inputs (Especialidades, Calendario) */
+  .is-invalid-container {
+    border: 2px solid var(--danger-color) !important;
+    border-radius: var(--border-radius);
+    background-color: rgba(239, 68, 68, 0.03);
+    padding: 10px;
+    animation: step-shake 0.4s ease-in-out;
+  }
+
+  @keyframes step-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-4px); }
+  }
+
+  .step-shake {
+    animation: step-shake 0.4s ease-in-out;
+  }
+
   .loading-overlay {
     position: fixed;
     top: 0;

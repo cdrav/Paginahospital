@@ -111,6 +111,17 @@ const especialidades = [
       });
     }
 
+    // Limpiar error de inputs al escribir (Mejora UX)
+    const camposObligatorios = ['tipoDocumento', 'numeroDocumento', 'nombres', 'apellidos', 
+                                 'genero', 'telefono', 'correo', 'eps'];
+    camposObligatorios.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', () => el.classList.remove('is-invalid'));
+        el.addEventListener('change', () => el.classList.remove('is-invalid'));
+      }
+    });
+
   });
 
   // --- Gestión de Archivos ---
@@ -241,6 +252,10 @@ const especialidades = [
     elemento.classList.add('selected');
     datosCita.especialidad = { id, nombre };
     document.getElementById('btnPaso2').disabled = false;
+
+    // Limpiar indicador de error visual si existía
+    const container = document.getElementById('especialidadesContainer');
+    if (container) container.classList.remove('is-invalid-container');
   }
   
   // --- Calendario y Horarios ---
@@ -324,6 +339,10 @@ const especialidades = [
     elemento.classList.add('selected');
     datosCita.fecha = fecha;
 
+    // Limpiar indicador de error del calendario
+    const calGrid = document.getElementById('calendarGrid');
+    if (calGrid) calGrid.classList.remove('is-invalid-container');
+
     // Resetear la hora y deshabilitar el botón "Siguiente" al cambiar de fecha
     datosCita.hora = null;
     document.getElementById('btnPaso3').disabled = true;
@@ -368,6 +387,10 @@ const especialidades = [
     elemento.classList.add('selected');
     datosCita.hora = hora;
     document.getElementById('btnPaso3').disabled = false;
+
+    // Limpiar indicador de error de horarios
+    const horContainer = document.getElementById('horariosContainer');
+    if (horContainer) horContainer.classList.remove('is-invalid-container');
   }
   
   // --- Navegación y Validación ---
@@ -520,6 +543,11 @@ const especialidades = [
     let valido = true;
     let mensajeError = '';
     
+    // Limpiar estados de error previos en contenedores especiales
+    ['especialidadesContainer', 'calendarGrid', 'horariosContainer'].forEach(id => {
+      document.getElementById(id)?.classList.remove('is-invalid-container');
+    });
+
     if (paso === 1) {
       const campos = ['tipoDocumento', 'numeroDocumento', 'nombres', 'apellidos', 
                      'genero', 'telefono', 'correo', 'eps'];
@@ -552,15 +580,27 @@ const especialidades = [
       if (!datosCita.especialidad) {
         mensajeError = 'Por favor selecciona una especialidad.';
         valido = false;
+        document.getElementById('especialidadesContainer')?.classList.add('is-invalid-container');
       }
     } else if (paso === 3) {
       if (!datosCita.fecha || !datosCita.hora) {
         mensajeError = 'Por favor selecciona fecha y hora para tu cita.';
         valido = false;
+        if (!datosCita.fecha) document.getElementById('calendarGrid')?.classList.add('is-invalid-container');
+        if (!datosCita.hora) document.getElementById('horariosContainer')?.classList.add('is-invalid-container');
       }
     }
     
-    if (!valido) mostrarError(mensajeError);
+    if (!valido) {
+      mostrarError(mensajeError);
+      // Efecto visual de sacudida (shake) en la sección actual para llamar la atención
+      const activeSection = document.getElementById(`paso${paso}`);
+      if (activeSection) {
+        activeSection.classList.remove('step-shake');
+        void activeSection.offsetWidth; // Truco para reiniciar la animación de CSS
+        activeSection.classList.add('step-shake');
+      }
+    }
     else ocultarError();
     
     return valido;
@@ -669,7 +709,7 @@ const especialidades = [
             
             // Intentar comprimir si es imagen para ahorrar espacio (Plan Gratuito)
             const fileToUpload = await comprimirImagen(file);
-            // Asegurar nombre único para evitar sobrescritura (común en móviles: image.jpg)
+            // Asegurar nombre único para evitar sobrescritura (común en móviles: image.webp)
             const uniqueName = `${Date.now()}_${fileToUpload.name}`;
 
             // Estructura organizada: citas/YYYY/MM/ID_CITA/timestamp_archivo.ext
