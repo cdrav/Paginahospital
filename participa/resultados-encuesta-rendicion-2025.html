@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#164443">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Resultados Encuesta Rendici&oacute;n de Cuentas 2025 - Hospital Departamental San Antonio</title>
+    <meta name="description" content="Resultados de la encuesta de satisfacci&oacute;n de la audiencia p&uacute;blica de rendici&oacute;n de cuentas vigencia 2025.">
+    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/site.css" />
+    <link rel="stylesheet" href="../css/accesibilidad.css" />
+    <link rel="stylesheet" href="../css/accessibility-buttons.css" />
+    <link rel="stylesheet" href="../css/formularios.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+      .kpi-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.25rem;
+        text-align: center;
+        border: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .kpi-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      }
+      .kpi-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+      }
+      .kpi-value {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #164443;
+        line-height: 1.1;
+      }
+      .kpi-detail {
+        font-size: 0.78rem;
+        color: #22a7a0;
+        margin-top: 0.35rem;
+      }
+      .chart-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: none;
+        height: 100%;
+      }
+      .chart-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #164443;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .chart-title .icon {
+        font-size: 1.1rem;
+      }
+      .chart-container-donut {
+        position: relative;
+        height: 260px;
+      }
+      .chart-container-bar {
+        position: relative;
+        height: 260px;
+      }
+      .section-title-dash {
+        position: relative;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+      .section-title-dash::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #164443, #22a7a0);
+        border-radius: 2px;
+      }
+      .binary-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .binary-item:last-child {
+        border-bottom: none;
+      }
+      .binary-label {
+        font-size: 0.82rem;
+        color: #495057;
+        min-width: 280px;
+        flex-shrink: 0;
+      }
+      .binary-bar-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .binary-percent {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #164443;
+        min-width: 50px;
+        text-align: right;
+      }
+      .binary-bar {
+        flex: 1;
+        height: 10px;
+        background: #e9ecef;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .binary-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #164443, #22a7a0);
+        border-radius: 5px;
+        transition: width 0.8s ease;
+      }
+      .responses-table {
+        width: 100%;
+        font-size: 0.82rem;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      .responses-table thead th {
+        background: #164443;
+        color: #fff;
+        padding: 0.75rem;
+        font-weight: 600;
+        font-size: 0.78rem;
+        border: none;
+      }
+      .responses-table thead th:first-child {
+        border-radius: 8px 0 0 0;
+      }
+      .responses-table thead th:last-child {
+        border-radius: 0 8px 0 0;
+      }
+      .responses-table tbody td {
+        padding: 0.65rem 0.75rem;
+        border-bottom: 1px solid #f0f0f0;
+        color: #495057;
+        vertical-align: top;
+      }
+      .responses-table tbody tr:hover {
+        background: #f8fffe;
+      }
+      .response-card-mobile {
+        display: none;
+      }
+      .response-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+      }
+      .response-card-date {
+        font-size: 0.75rem;
+        color: #22a7a0;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .response-card-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #164443;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .response-card-text {
+        font-size: 0.82rem;
+        color: #495057;
+        margin-bottom: 0.5rem;
+      }
+      @media (max-width: 767px) {
+        .binary-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.25rem;
+        }
+        .binary-label {
+          min-width: auto;
+        }
+        .binary-bar-wrapper {
+          width: 100%;
+        }
+        .responses-table-wrapper table {
+          display: none;
+        }
+        .response-card-mobile {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body data-page-title="Resultados Encuesta - Rendici&oacute;n de Cuentas 2025">
+    <!-- Header incluido -->
+    <div id="header-placeholder"></div>
+
+    <!-- Contenedor para el breadcrumb -->
+    <div id="breadcrumb-container" class="container mt-3"></div>
+
+    <main class="py-4">
+      <div class="container">
+
+        <!-- ═══════════ ENCABEZADO ═══════════ -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+          <div>
+            <h1 class="h3 fw-bold mb-1" data-page-title><i class="bi bi-bar-chart-line me-2" style="color: #22a7a0;"></i>Encuesta de Satisfacci&oacute;n</h1>
+            <p class="text-muted mb-0">Audiencia P&uacute;blica de Rendici&oacute;n de Cuentas &mdash; Vigencia 2025</p>
+          </div>
+          <div class="d-flex gap-2 mt-2 mt-md-0">
+            <span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #164443, #22a7a0); font-size: 0.8rem;"><i class="bi bi-clipboard-data me-1"></i>Resultados</span>
+            <span class="badge rounded-pill bg-light text-dark border px-3 py-2" style="font-size: 0.8rem;"><i class="bi bi-calendar3 me-1"></i>Abril 2026</span>
+          </div>
+        </div>
+
+        <!-- ═══════════ KPI ROW ═══════════ -->
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-4 col-lg">
+            <div class="kpi-card shadow-sm h-100">
+              <div class="kpi-label">Total Encuestas</div>
+              <div class="kpi-value" id="kpi-total">&mdash;</div>
+              <div class="kpi-detail" id="kpi-total-detail">Cargando...</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg">
+            <div class="kpi-card shadow-sm h-100">
+              <div class="kpi-label">Muy Satisfechos</div>
+              <div class="kpi-value" id="kpi-satisfaccion">&mdash;</div>
+              <div class="kpi-detail" id="kpi-satisfaccion-detail">Cargando...</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg">
+            <div class="kpi-card shadow-sm h-100">
+              <div class="kpi-label">Residentes Roldanillo</div>
+              <div class="kpi-value" id="kpi-residentes">&mdash;</div>
+              <div class="kpi-detail" id="kpi-residentes-detail">Cargando...</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-6 col-lg">
+            <div class="kpi-card shadow-sm h-100">
+              <div class="kpi-label">Recomendar&iacute;an</div>
+              <div class="kpi-value" id="kpi-recomienda">&mdash;</div>
+              <div class="kpi-detail" id="kpi-recomienda-detail">Cargando...</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg">
+            <div class="kpi-card shadow-sm h-100">
+              <div class="kpi-label">Organizaci&oacute;n Excelente</div>
+              <div class="kpi-value" id="kpi-org">&mdash;</div>
+              <div class="kpi-detail" id="kpi-org-detail">Cargando...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ DONUT CHARTS ═══════════ -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-broadcast"></i></span> P1. &iquest;Por qu&eacute; medio se enter&oacute; de la convocatoria?</div>
+              <div class="chart-container-donut">
+                <canvas id="chart-medio"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-people"></i></span> P2. &iquest;Usted se identifica como?</div>
+              <div class="chart-container-donut">
+                <canvas id="chart-tipo"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-house"></i></span> P3. &iquest;Reside en el municipio de Roldanillo?</div>
+              <div class="chart-container-donut">
+                <canvas id="chart-residencia"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ BAR CHARTS ═══════════ -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-star"></i></span> P4. Calificaci&oacute;n de la Audiencia P&uacute;blica</div>
+              <div class="chart-container-bar">
+                <canvas id="chart-organizacion"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-hospital"></i></span> P9. Prestaci&oacute;n de servicios de salud</div>
+              <div class="chart-container-bar">
+                <canvas id="chart-servicios"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-emoji-smile"></i></span> P15. Nivel de satisfacci&oacute;n general</div>
+              <div class="chart-container-bar">
+                <canvas id="chart-satisfaccion"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ BINARY QUESTIONS ═══════════ -->
+        <div class="chart-card shadow-sm mb-4">
+          <div class="chart-title"><span class="icon"><i class="bi bi-check-circle"></i></span> Indicadores de Respuesta Positiva &mdash; % que respondi&oacute; &ldquo;S&iacute;&rdquo;</div>
+          <div id="binary-grid"></div>
+        </div>
+
+        <!-- ═══════════ CROSS ANALYSIS ═══════════ -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-bar-chart"></i></span> Satisfacci&oacute;n por Medio de Convocatoria</div>
+              <div class="chart-container-bar">
+                <canvas id="chart-medio-satisfaccion"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-card shadow-sm">
+              <div class="chart-title"><span class="icon"><i class="bi bi-graph-up"></i></span> Satisfacci&oacute;n por Tipo de Participante</div>
+              <div class="chart-container-bar">
+                <canvas id="chart-tipo-satisfaccion"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ OPEN RESPONSES ═══════════ -->
+        <div class="chart-card shadow-sm mb-4">
+          <div class="chart-title"><span class="icon"><i class="bi bi-chat-left-text"></i></span> P17, P18, P19 &mdash; Respuestas Abiertas Destacadas</div>
+          <div class="responses-table-wrapper">
+            <div class="table-responsive">
+              <table class="responses-table">
+                <thead>
+                  <tr>
+                    <th style="width:120px">Fecha</th>
+                    <th>P17. Aspectos positivos de la audiencia</th>
+                    <th>P18. Aspectos que deben mejorar</th>
+                    <th>P19. Temas a profundizar en futuras rendiciones</th>
+                  </tr>
+                </thead>
+                <tbody id="responses-body"></tbody>
+              </table>
+            </div>
+            <div class="response-card-mobile" id="responses-mobile"></div>
+          </div>
+        </div>
+
+        <!-- ═══════════ BOTÓN VOLVER ═══════════ -->
+        <div class="mt-4 mb-3">
+          <a class="btn btn-outline-brand rounded-pill px-4" href="rendicion-cuentas-2025.html"><i class="bi bi-arrow-left me-2"></i>Volver a Rendici&oacute;n de Cuentas 2025</a>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer parcial -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts optimizados con defer -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/layout.js" defer></script>
+    <script src="../js/navbar.js" defer></script>
+    <script src="../js/accesibilidad.js" defer></script>
+    <script src="../js/accessibility-styles.js" defer></script>
+    <script src="../js/busqueda.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/breadcrumb.js" defer></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/app.js"></script>
+  </body>
+</html>
