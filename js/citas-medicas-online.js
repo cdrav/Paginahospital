@@ -13,7 +13,8 @@ const especialidades = [
     { id: 2, nombre: 'Pediatría', icono: 'bi-heart-pulse', descripcion: 'Atención especializada para niños' },
     { id: 3, nombre: 'Ginecología', icono: 'bi-gender-female', descripcion: 'Salud de la mujer' },
     { id: 4, nombre: 'Medicina Interna', icono: 'bi-hospital', descripcion: 'Enfermedades de adultos' },
-    { id: 5, nombre: 'Cirugía General', icono: 'bi-scissors', descripcion: 'Procedimientos quirúrgicos' }
+    { id: 5, nombre: 'Cirugía General', icono: 'bi-scissors', descripcion: 'Procedimientos quirúrgicos' },
+    { id: 6, nombre: 'Medicina Familiar', icono: 'bi-hospital', descripcion: 'Consulta con medico familiar'}
   ];
   
   // Variables globales de estado

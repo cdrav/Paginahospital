@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await saveCitaNotes(docId, notes);
             
             const modalEl = document.getElementById('modalNotasCita');
-            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
             modal.hide();
             
             // Refrescar el modal de detalles para ver las notas recién guardadas
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Cerrar modal
             const modalEl = document.getElementById('modalCambiarEstado');
-            const modal = bootstrap.Modal.getInstance(modalEl);
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
             modal.hide();
 
             // Ejecutar actualización
@@ -538,7 +538,7 @@ function renderCitasTable(citas, totalLoaded) {
                                 <button class="btn btn-sm btn-light border cambiar-estado-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-status="${status}" title="Cambiar Estado">
                                     <i class="bi bi-arrow-repeat text-warning"></i>
                                 </button>
-                                <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}" data-especialidad="${cita.especialidad.nombre}" title="Responder Email">
+                                <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}" data-especialidad="${cita.especialidad.nombre}" data-status="${status}" data-fecha="${cita.fecha || ''}" data-hora="${cita.hora || ''}" title="Responder Email">
                                     <i class="bi bi-envelope-at text-info"></i>
                                 </button>
                             </div>
@@ -559,8 +559,11 @@ function renderCitasTable(citas, totalLoaded) {
  * @param {string} pacienteEmail - El correo del paciente a quien se responderá.
  * @param {string} radicado - El número de radicado visible para el usuario.
  * @param {string} especialidad - La especialidad de la cita para sugerir plantillas.
+ * @param {string} currentStatus - El estado actual de la cita para preselección.
+ * @param {string} fecha - La fecha de la cita solicitada.
+ * @param {string} hora - La hora de la cita solicitada.
  */
-function openEmailModal(citaId, pacienteEmail, radicado, especialidad) {
+function openEmailModal(citaId, pacienteEmail, radicado, especialidad, currentStatus, fecha, hora) {
     const emailModalEl = document.getElementById('emailModal');
     if (!emailModalEl) {
         console.error('❌ Modal de email no encontrado');
@@ -587,22 +590,48 @@ function openEmailModal(citaId, pacienteEmail, radicado, especialidad) {
             subject: `Información sobre su solicitud de cita (Radicado: ${radicado})`,
             body: generarPlantillaEmail(radicado)
         },
+        'Cita Cancelada': {
+            subject: `Notificación de Cancelación de Cita (Radicado: ${radicado})`,
+            body: `Estimado usuario, le informamos que su solicitud de cita para la especialidad de ${especialidad} ha sido CANCELADA.\n\nSi requiere mayor información o desea realizar una nueva solicitud, por favor comuníquese a nuestra central de citas.\n\nRadicado: ${radicado}`
+        },
+        'Cita Reasignada': {
+            subject: `Reasignación de su Cita Médica (Radicado: ${radicado})`,
+            body: `Le informamos que su cita médica para ${especialidad} ha sido REASIGNADA. Nuestro equipo se pondrá en contacto con usted para confirmar los nuevos detalles de fecha y hora.\n\nPor favor esté atento a su teléfono.\n\nRadicado: ${radicado}`
+        },
+        // --- PLANTILLAS DE CONFIRMACIÓN COMBINADAS ---
+        'Confirmada - Medicina General': {
+            subject: `CONFIRMACIÓN Cita Medicina General (Radicado: ${radicado})`,
+            body: `Estimado usuario, su cita de MEDICINA GENERAL ha sido CONFIRMADA.\n\nFecha: ${fecha}\nHora: ${hora}\n\nREQUISITOS: Presentarse 20 minutos antes con documento original y copias de órdenes vigentes.\n\nRadicado: ${radicado}`
+        },
+        'Confirmada - Pediatría': {
+            subject: `CONFIRMACIÓN Cita Pediatría (Radicado: ${radicado})`,
+            body: `Estimado usuario, la cita de PEDIATRÍA del menor ha sido CONFIRMADA.\n\nFecha: ${fecha}\nHora: ${hora}\n\nREQUISITOS OBLIGATORIOS:\n1. Registro Civil original.\n2. Carné de vacunas.\n3. Acompañante legal.\n\nRadicado: ${radicado}`
+        },
+        'Confirmada - Ginecología': {
+            subject: `CONFIRMACIÓN Cita Ginecología (Radicado: ${radicado})`,
+            body: `Estimado usuario, su cita de GINECOLOGÍA ha sido CONFIRMADA.\n\nFecha: ${fecha}\nHora: ${hora}\n\nPREPARACIÓN:\n- No estar en periodo menstrual.\n- 48 horas sin relaciones sexuales ni óvulos/cremas.\n\nRadicado: ${radicado}`
+        },
+        'Confirmada - Medicina Interna': {
+            subject: `CONFIRMACIÓN Cita Medicina Interna (Radicado: ${radicado})`,
+            body: `Estimado usuario, su cita de MEDICINA INTERNA ha sido CONFIRMADA.\n\nFecha: ${fecha}\nHora: ${hora}\n\nREQUISITOS: Traer resultados de laboratorios recientes y listado de medicamentos actuales.\n\nRadicado: ${radicado}`
+        },
+        'Confirmada - Cirugía General': {
+            subject: `CONFIRMACIÓN Valoración Cirugía (Radicado: ${radicado})`,
+            body: `Estimado usuario, su cita de CIRUGÍA GENERAL ha sido CONFIRMADA.\n\nFecha: ${fecha}\nHora: ${hora}\n\nREQUISITOS: Traer todos los exámenes diagnósticos previos (ecografías, Rayos X, laboratorios).\n\nRadicado: ${radicado}`
+        },
+        // --- PLANTILLAS BASE POR ESPECIALIDAD ---
         'Medicina General': {
-            subject: `Confirmación Cita Medicina General (Radicado: ${radicado})`,
+            subject: `Trámite Cita Medicina General (Radicado: ${radicado})`,
             body: `Le informamos que su solicitud para Medicina General está en proceso. Por favor esté atento a su teléfono para la confirmación de la hora exacta.\n\nRecuerde que debe presentarse 15 minutos antes con su documento original.\n\nRadicado: ${radicado}`
         },
         'Pediatría': {
-            subject: `Requisitos Cita Pediatría (Radicado: ${radicado})`,
+            subject: `Información Cita Pediatría (Radicado: ${radicado})`,
             body: `Para la atención del menor, es indispensable presentar Registro Civil original, carné de vacunas actualizado y estar acompañado por un adulto responsable.\n\nRadicado: ${radicado}`
         },
         'Ginecología': {
-            subject: `Preparación Cita Ginecología (Radicado: ${radicado})`,
+            subject: `Información Cita Ginecología (Radicado: ${radicado})`,
             body: `Le recordamos que para la toma de citología no debe tener el periodo menstrual, no haber tenido relaciones sexuales 48 horas antes y no haber aplicado óvulos o cremas vaginales.\n\nRadicado: ${radicado}`
         },
-        'Cirugía General': {
-            subject: `Cita Valoración Cirugía (Radicado: ${radicado})`,
-            body: `Para su valoración, debe traer todos los exámenes diagnósticos previos (ecografías, laboratorios) relacionados con su consulta.\n\nRadicado: ${radicado}`
-        }
     };
 
     // Inyectar el selector de plantillas si no existe en el modal
@@ -627,9 +656,21 @@ function openEmailModal(citaId, pacienteEmail, radicado, especialidad) {
     }
     
     // Ajustar el selector al abrir el modal según la especialidad de la cita
-    const select = document.getElementById('templateSelect');
-    const templateKey = templates[especialidad] ? especialidad : 'General';
-    select.value = templateKey;
+    // Lógica de preselección inteligente
+    let templateKey = 'General';
+    const confirmKey = `Confirmada - ${especialidad}`;
+
+    if (currentStatus === 'Confirmada' && templates[confirmKey]) {
+        templateKey = confirmKey;
+    } else if (currentStatus === 'Cancelada') {
+        templateKey = 'Cita Cancelada';
+    } else if (currentStatus === 'Reasignada') {
+        templateKey = 'Cita Reasignada';
+    } else if (templates[especialidad]) {
+        templateKey = especialidad;
+    }
+
+    templateSelect.value = templateKey;
 
     // Poblar el formulario con los datos de la cita
     emailToInput.value = pacienteEmail || '';
@@ -651,7 +692,7 @@ function openEmailModal(citaId, pacienteEmail, radicado, especialidad) {
 
     // Mostrar modal
     try {
-        const modal = bootstrap.Modal.getInstance(emailModalEl) || new bootstrap.Modal(emailModalEl);
+        const modal = bootstrap.Modal.getOrCreateInstance(emailModalEl);
         modal.show();
         console.log('✅ Modal de email abierto para cita:', citaId);
     } catch (error) {
@@ -719,8 +760,9 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, mode
         // --- FIN NUEVA LÓGICA ---
 
         // 3. Cerrar modal y limpiar
-        const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
-        modal.hide();
+        const modalInstance = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
+        if (modalInstance) modalInstance.hide();
+        forceModalCleanup();
         
         // Notificar al admin
         window.notify('✅ Proceso registrado. Abriendo gestor de correo...', { type: 'success' });
@@ -758,7 +800,7 @@ function openStatusModal(docId, currentStatus) {
         inputId.value = docId;
         inputPrev.value = currentStatus;
         
-        const modal = new bootstrap.Modal(modalEl);
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
         modal.show();
     } else {
         alert('Error al abrir el modal de estado.');
@@ -944,7 +986,7 @@ async function openNotesModal(docId) {
             textarea.value = '';
         }
 
-        const modal = new bootstrap.Modal(modalEl);
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
         modal.show();
     }
 }
@@ -982,8 +1024,12 @@ async function showCitaDetails(docId) {
 
     // Mostrar spinner y abrir el modal inmediatamente
     modalBody.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
-    const modalInstance = new bootstrap.Modal(modalElement);
-    modalInstance.show();
+    
+    const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+    // Si el modal ya está visible (ej. lo re-llamamos tras editar notas), no necesitamos llamar a show() de nuevo
+    if (!modalElement.classList.contains('show')) {
+        modalInstance.show();
+    }
 
     try {
         const docRef = doc(db, "citasOnline", docId);
@@ -1144,7 +1190,7 @@ async function showCitaDetails(docId) {
                     <button type="button" class="btn btn-light btn-sm rounded-pill px-3 border" data-bs-dismiss="modal">
                         Cerrar
                     </button>
-                    <button class="btn btn-primary btn-sm rounded-pill px-4 responder-email-btn" data-doc-id="${docId}" data-radicado="${cita.radicado || docId}" data-email="${cita.paciente.correo}" data-especialidad="${cita.especialidad.nombre}">
+                    <button class="btn btn-primary btn-sm rounded-pill px-4 responder-email-btn" data-doc-id="${docId}" data-radicado="${cita.radicado || docId}" data-email="${cita.paciente.correo}" data-especialidad="${cita.especialidad.nombre}" data-status="${cita.status}" data-fecha="${cita.fecha || ''}" data-hora="${cita.hora || ''}">
                         <i class="bi bi-envelope-fill me-2"></i>Responder por Email
                     </button>
                 </div>

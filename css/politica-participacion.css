@@ -1,0 +1,197 @@
+/* Estilos para Política de Participación Social en Salud */
+
+.hero-section {
+    background: linear-gradient(135deg, #164443 0%, #22a7a0 100%);
+    color: white;
+    padding: 3rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.year-selector {
+    background: rgba(255,255,255,0.15);
+    border-radius: 30px;
+    padding: 0.5rem;
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.year-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.year-btn.active,
+.year-btn:hover {
+    background: white;
+    color: #164443;
+}
+
+.section-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.section-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #164443, #22a7a0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.document-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #22a7a0;
+    transition: all 0.3s ease;
+}
+
+.document-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.gallery-item {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: scale(1.03);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Corrección del acordeón - texto alineado */
+.accordion-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.25rem;
+}
+
+.accordion-button i {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}
+
+.accordion-button strong {
+    flex-grow: 1;
+    margin-right: auto;
+}
+
+.accordion-button .folder-badge {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, #164443, #22a7a0);
+    color: white;
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+}
+
+.accordion-button:not(.collapsed) .folder-badge {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.folder-badge {
+    background: #e9ecef;
+    color: #164443;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.year-content {
+    display: none;
+}
+
+.year-content.active {
+    display: block;
+}
+
+.breadcrumb-custom {
+    background: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .section-card {
+        padding: 1.5rem;
+    }
+    
+    .year-selector {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .accordion-button {
+        flex-wrap: wrap;
+    }
+    
+    .accordion-button strong {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .accordion-button .folder-badge {
+        margin-left: 2rem;
+    }
+}

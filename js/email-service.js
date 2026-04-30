@@ -22,10 +22,6 @@
     }
 })();
 
-// Función mejorada para enviar emails con soporte local
-async function sendEmailResponse(docId, pacienteEmail) {
-    const subject = document.getElementById('emailSubject').value;
-    const message = document.getElementById('emailMessage').value;
 async function sendEmailResponse(docId, pacienteEmail, subject, message) { // Added subject and message as parameters
     const updateStatus = document.getElementById('emailUpdateStatus').checked;
 
