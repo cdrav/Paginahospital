@@ -2282,3 +2282,19 @@ p, a, td, th, li {
     font-size: 2rem;
     color: #1a9f8f;
 }
+
+/* =====================================================
+   Carrusel Principal - Index
+   ===================================================== */
+.fullwidth-carousel .carousel-item img.carousel-img {
+    height: 600px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* =====================================================
+   Navbar - Componentes (reemplaza inline styles)
+   ===================================================== */
+.hospital-logo { object-fit: contain; }
+.navbar-lema { font-size: 0.9rem; white-space: nowrap; }
+.navbar-search-desktop { width: 280px; }
