@@ -327,7 +327,7 @@ section > p {
 /* Logo: optimizado para claridad y buena apariencia */
 .hospital-logo {
   /* Altura responsiva: empieza pequeño en móviles y crece con la pantalla */
-  height: 70px; /* Aumentado para mayor presencia */
+  height: 50px; /* Base para móviles pequeños */
   width: auto;
   background: transparent;
   box-shadow: none;
@@ -387,7 +387,7 @@ section > p {
 /* Tamaños de logo y fuentes responsivos para el navbar, de menor a mayor */
 @media (min-width: 576px) {
   .hospital-logo {
-    height: 60px;
+    height: 65px;
   }
 }
 
@@ -704,7 +704,7 @@ section > p {
    pero se permite que la altura se ajuste automáticamente para mantener la proporción. */
 #carouselHospital .carousel-item img {
   height: auto; /* Permite que la altura se ajuste para mantener la proporción */
-  max-height: 75vh; /* Limita la altura máxima en pantallas grandes */
+  max-height: 70vh; /* Limita la altura máxima en pantallas grandes */
   object-fit: contain; /* Asegura que toda la imagen sea visible sin recortes */
   object-position: center; /* Centra la imagen */
   width: 100%;
@@ -1710,7 +1710,7 @@ p, a, td, th, li {
 }
 
 .featured-news-card { border: none; }
-.featured-news-card .card-img { height: 450px; object-fit: cover; border-radius: 0.75rem; }
+.featured-news-card .card-img { height: clamp(300px, 50vh, 450px); object-fit: cover; border-radius: 0.75rem; }
 .featured-news-card .card-img-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%); border-radius: 0.75rem; }
 
 .news-tag { 
@@ -2287,7 +2287,9 @@ p, a, td, th, li {
    Carrusel Principal - Index
    ===================================================== */
 .fullwidth-carousel .carousel-item img.carousel-img {
-    height: 600px;
+    height: auto;
+    min-height: 250px;
+    max-height: 600px;
     object-fit: cover;
     object-position: center;
 }
