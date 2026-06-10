@@ -310,7 +310,7 @@ section > p {
 .top-bar .translate-widget { color: #fff; }
 
 /* Navbar */
-.navbar { background: var(--color-primario); border-bottom: 1px solid rgba(255,255,255,.15); }
+.navbar { background: var(--color-primario); border-bottom: 1px solid rgba(255,255,255,.15); z-index: 1030; }
 /* Aislar el contexto para que el blending del logo no afecte otros elementos */
 .navbar .navbar-brand { isolation: isolate; }
 /* Limitar ancho como container para centrar contenido */
@@ -379,6 +379,16 @@ section > p {
 /* Asegurar que el botón del menú no se encoja */
 .navbar-toggler {
   flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.3); /* Borde más visible */
+  padding: 0.5rem 0.75rem; /* Padding más generoso para mejor tocabilidad */
+}
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255,255,255,0.25); /* Focus visible */
+  border-color: rgba(255,255,255,0.6);
+}
+.navbar-toggler-icon {
+  width: 1.5em;
+  height: 1.5em;
 }
 
 /* En móvil/tablet puede envolver; en desktop forzar una sola línea */
@@ -474,9 +484,14 @@ section > p {
   }
   .navbar .navbar-brand {
     gap: .25rem; /* Espacio entre logo y texto más pequeño */
+    max-width: 70%; /* Limitar ancho máximo para evitar superposición con botón de menú */
   }
   .hospital-name {
-    font-size: 0.75rem; /* Forzar un tamaño de fuente mínimo más pequeño */
+    font-size: 0.7rem; /* Forzar un tamaño de fuente mínimo más pequeño */
+    letter-spacing: 0.2px; /* Reducir letter-spacing para mejor ajuste */
+  }
+  .navbar-toggler {
+    padding: 0.25rem 0.5rem; /* Reducir padding del botón de menú */
   }
 }
 
@@ -487,14 +502,14 @@ section > p {
   .navbar .navbar-brand { padding-top: .25rem; padding-bottom: .25rem; }
   /* Ensanchado más notorio en escritorio */
   .hospital-logo { --logo-scale-x: 1.10; }
-  /* Mantener layout horizontal del menú en UNA sola línea */
-  .navbar .navbar-nav { flex-direction: row; align-items: center; gap: .2rem .55rem; flex-wrap: nowrap; }
+  /* Permitir wrap en pantallas muy grandes para evitar corte de elementos */
+  .navbar .navbar-nav { flex-direction: row; align-items: center; gap: .2rem .55rem; flex-wrap: wrap; justify-content: center; }
   .navbar .nav-link { white-space: nowrap; }
   .navbar .nav-link { width: auto; border-radius: 0; }
   .navbar .nav-link:hover, .navbar .nav-link:focus { background: transparent; }
 
   /* Alinear el buscador a la derecha en la fila superior */
-  .navbar .nav-top .search-form { margin-left: auto; flex: 0 0 auto; width: clamp(260px, 24vw, 500px); min-width: 220px; }
+  .navbar .nav-top .search-form { margin-left: auto; flex: 0 0 auto; width: clamp(260px, 20vw, 400px); min-width: 220px; }
 
   /* Centrar el grupo de navegación entre marca y buscador */
   .navbar .container-fluid { display: flex; align-items: stretch; flex-direction: column; }
@@ -503,6 +518,12 @@ section > p {
 
   /* Altura y sombra del header para separarlo del contenido */
   .navbar { min-height: 86px; box-shadow: 0 4px 18px rgba(0,0,0,.08); }
+}
+
+/* Ajuste adicional para pantallas muy grandes (1400px+) para evitar corte */
+@media (min-width: 1400px) {
+  .navbar .navbar-nav { gap: .3rem .6rem; }
+  .navbar .nav-link { padding: .5rem .9rem; }
 }
 
 /* Dropdown: estilo coherente y apertura por hover en desktop */
