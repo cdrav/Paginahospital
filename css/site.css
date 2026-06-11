@@ -864,17 +864,46 @@ section > p {
 .btn-orange { background-color: #fd7e14; border-color: #fd7e14; color: #fff; }
 
 /* Enlaces de interés: tarjetas hover suaves */
-.hover-card { 
-  transition: transform .3s ease, box-shadow .3s ease; 
+.hover-card {
+  transition: transform .3s ease, box-shadow .3s ease;
   overflow: hidden; /* Necesario para que la imagen no se salga al hacer zoom */
 }
-.hover-card:hover { 
-  transform: translateY(-6px); 
-  box-shadow: 0 16px 30px rgba(0,0,0,.12); 
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(0,0,0,.12);
 }
 /* Animación de Zoom en la imagen */
 .hover-card .card-img-top { transition: transform 0.5s ease; }
 .hover-card:hover .card-img-top { transform: scale(1.05); }
+
+/* Efecto de zoom en tarjeta destacada */
+.zoom-card {
+  transition: transform .3s ease, box-shadow .3s ease;
+  overflow: hidden;
+}
+.zoom-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+.zoom-card .card-title {
+  transition: font-size .3s ease, transform .3s ease;
+}
+.zoom-card:hover .card-title {
+  font-size: 1.15em;
+  transform: translateY(-2px);
+}
+.zoom-card .card-text {
+  transition: font-size .3s ease;
+}
+.zoom-card:hover .card-text {
+  font-size: 1.05em;
+}
+.zoom-card img {
+  transition: transform .4s ease;
+}
+.zoom-card:hover img {
+  transform: scale(1.08);
+}
 
 /* Enlaces de interés: cajas de logos institucionales */
 .institution-logo-box {

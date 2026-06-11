@@ -663,11 +663,11 @@ const especialidades = [
     const loadingOv = document.getElementById('loadingOverlay');
     if (loadingOv) loadingOv.style.display = 'flex';
 
-    // Safety timeout: ocultar overlay si pasan 15s sin respuesta (evita pantalla gris permanente)
+    // Aumentamos el tiempo a 30s y añadimos limpieza del timer
     const safetyTimer = setTimeout(() => {
       if (loadingOv) loadingOv.style.display = 'none';
       mostrarError('La solicitud está tardando demasiado. Por favor, verifica tu conexión e inténtalo de nuevo.');
-    }, 15000);
+    }, 30000);
 
     try {
       // --- LÓGICA MEJORADA PARA EVITAR ERRORES DE PERMISOS ---
@@ -801,6 +801,7 @@ const especialidades = [
       }
 
       } catch (secondaryError) {
+          clearTimeout(safetyTimer);
           console.warn("⚠️ Advertencia: La cita se creó, pero hubo un error subiendo archivos o actualizando:", secondaryError);
           // Agregamos un error genérico a la lista para notificar al usuario en el modal, sin bloquear el éxito.
           uploadErrors.push({ fileName: 'Adjuntos', error: 'Problema de conexión al finalizar. La cita sí fue agendada.' });

@@ -422,6 +422,10 @@ function waitForGlobal(name, timeout = 3000) {
 // Inicializar la búsqueda cuando el DOM esté listo
 // Esperar a que el header/footer se carguen para asegurar que el formulario de búsqueda exista.
 document.addEventListener('partialsLoaded', async () => {
+    // Verificar si el script de lunr realmente existe en el documento
+    if (!document.querySelector('script[src*="lunr"]')) {
+        console.warn("Lunr.js no detectado. La búsqueda podría no funcionar.");
+    }
     searchConfig.init();
     
     if (window.location.pathname.endsWith('buscar.html')) {

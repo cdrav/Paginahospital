@@ -34,11 +34,16 @@
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
-    // Usar rutas absolutas desde la raíz del sitio ('/') para que funcione
-    // correctamente desde cualquier subdirectorio (como /participa/).
-    // Esto asume que el sitio se sirve desde la raíz del dominio.
-    const headerPromise = loadPartial("#header-placeholder", "/partials/header.html");
-    const footerPromise = loadPartial("#footer-placeholder", "/partials/footer.html");
+    // Detección inteligente de la ruta base para evitar errores 404 en subdirectorios
+    const getBasePath = () => {
+      const path = window.location.pathname;
+      if (path.includes('/Paginahospital/')) return '/Paginahospital/';
+      return '/';
+    };
+    
+    const basePath = getBasePath();
+    const headerPromise = loadPartial("#header-placeholder", `${basePath}partials/header.html`);
+    const footerPromise = loadPartial("#footer-placeholder", `${basePath}partials/footer.html`);
 
     // Esperar a que tanto el header como el footer se carguen
     await Promise.all([headerPromise, footerPromise]);
