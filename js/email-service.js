@@ -47,7 +47,7 @@ async function sendEmailResponse(docId, pacienteEmail, subject, message) { // Ad
                 console.log('✅ Firebase cargado dinámicamente');
             } catch (error) {
                 console.error('❌ Error cargando Firebase:', error);
-                // Continuar sin Firebase si hay error
+                window.firebaseLoadError = error;
             }
         }
 
@@ -180,13 +180,19 @@ async function sendEmailResponse(docId, pacienteEmail, subject, message) { // Ad
         console.error('❌ Error al enviar email:', error);
         
         // Restaurar botón
-        const sendBtn = document.getElementById('sendEmailBtn');
-        if (sendBtn) {
-            sendBtn.innerHTML = originalText || 'Enviar Email';
-            sendBtn.disabled = false;
+        const sendBtnRestore = document.getElementById('sendEmailBtn');
+        if (sendBtnRestore) {
+            sendBtnRestore.innerHTML = 'Enviar Email';
+            sendBtnRestore.disabled = false;
         }
         
-        alert('❌ Error al enviar email: ' + error.message);
+        let userMessage = 'Error al enviar email.';
+        if (window.firebaseLoadError) {
+            userMessage += ' No se pudo conectar con la base de datos.';
+        } else if (error.message) {
+            userMessage += ' ' + error.message;
+        }
+        alert('❌ ' + userMessage);
     }
 }
 

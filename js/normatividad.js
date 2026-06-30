@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const tab = bootstrap.Tab.getInstance(firstTabTrigger) || new bootstrap.Tab(firstTabTrigger);
         tab.show();
       } catch (e) {
-        // Silenciar error si Bootstrap no está listo, la UI seguirá funcionando.
+        console.warn('No se pudo activar la pestaña inicial (Bootstrap puede no estar listo):', e.message);
       }
     }
   };
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
           const tab = bootstrap.Tab.getInstance(firstMatchedTabLink) || new bootstrap.Tab(firstMatchedTabLink);
           tab.show();
         } catch (e) {
-          // Silenciar error si Bootstrap no está listo.
+          console.warn('No se pudo activar la pestaña de resultados (Bootstrap puede no estar listo):', e.message);
         }
       }
     }

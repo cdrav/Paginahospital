@@ -76,6 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutButton.addEventListener('click', () => {
             signOut(auth).then(() => {
                 window.location.href = 'login-institucional.html';
+            }).catch((error) => {
+                console.error('Error al cerrar sesión:', error);
+                window.notify('Error al cerrar sesión. Intente nuevamente.', { type: 'danger' });
             });
         });
     }
@@ -762,7 +765,11 @@ async function handleManualEmailResponse(citaId, emailTo, subject, message, mode
         // 3. Cerrar modal y limpiar
         const modalInstance = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
         if (modalInstance) modalInstance.hide();
-        forceModalCleanup();
+        // Remove leftover modal backdrop if Bootstrap didn't clean it up
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('padding-right');
         
         // Notificar al admin
         window.notify('✅ Proceso registrado. Abriendo gestor de correo...', { type: 'success' });
@@ -984,6 +991,7 @@ async function openNotesModal(docId) {
         } catch (error) {
             console.error("Error al cargar notas:", error);
             textarea.value = '';
+            window.notify('No se pudieron cargar las notas existentes.', { type: 'warning' });
         }
 
         const modal = bootstrap.Modal.getOrCreateInstance(modalEl);

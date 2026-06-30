@@ -801,10 +801,8 @@ const especialidades = [
       }
 
       } catch (secondaryError) {
-          clearTimeout(safetyTimer);
-          console.warn("⚠️ Advertencia: La cita se creó, pero hubo un error subiendo archivos o actualizando:", secondaryError);
-          // Agregamos un error genérico a la lista para notificar al usuario en el modal, sin bloquear el éxito.
-          uploadErrors.push({ fileName: 'Adjuntos', error: 'Problema de conexión al finalizar. La cita sí fue agendada.' });
+          console.warn("⚠️ Advertencia: Hubo un error subiendo archivos:", secondaryError);
+          uploadErrors.push({ fileName: 'Adjuntos', error: 'Problema de conexión al subir archivos. La cita se registrará sin adjuntos.' });
       }
 
       // PASO 3: Guardar TODO en Firestore en UNA SOLA operación (setDoc)

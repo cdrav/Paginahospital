@@ -325,12 +325,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!response.ok) {
           let errorMessage = `Error HTTP: ${response.status}`;
           try {
-            const errorData = await response.json();
-            errorMessage = errorData.error || errorMessage;
-          } catch (e) {
-            // Si no podemos parsear el error como JSON, usamos el texto plano
-            const text = await response.text();
-            errorMessage = text || errorMessage;
+            const responseText = await response.text();
+            try {
+              const errorData = JSON.parse(responseText);
+              errorMessage = errorData.error || errorMessage;
+            } catch (_jsonErr) {
+              errorMessage = responseText || errorMessage;
+            }
+          } catch (_readErr) {
+            // Body could not be read at all; keep the HTTP status message
           }
           throw new Error(errorMessage);
         }

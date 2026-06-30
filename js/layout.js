@@ -29,7 +29,9 @@
       });
     } catch (err) {
       console.error(`[layout] Error cargando parcial ${url}:`, err);
-      // No rechazar la promesa, solo registrar el error
+      if (target) {
+        target.innerHTML = `<div class="alert alert-warning m-2" role="alert"><i class="bi bi-exclamation-triangle-fill me-2"></i>No se pudo cargar esta sección. <a href="javascript:location.reload()">Recargar página</a></div>`;
+      }
     }
   }
 
@@ -70,6 +72,7 @@
       }
     } catch (e) {
       console.error("Error inyectando botón del portal:", e);
+      // Non-critical UI element — log only, navigation remains functional
     }
 
     // Despachar un evento personalizado para notificar a otros scripts que el layout está listo

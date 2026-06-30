@@ -33,11 +33,17 @@ const searchConfig = {
         
         this.initializationPromise = new Promise(async (resolve, reject) => {
             try {
-                await this.loadSearchData();
+                const result = await this.loadSearchData();
+                if (result === false) {
+                    this.initializationPromise = null;
+                    reject(new Error('El índice de búsqueda no se pudo cargar'));
+                    return;
+                }
                 this.isInitialized = true;
                 resolve();
             } catch (error) {
                 console.error('Error al inicializar la búsqueda:', error);
+                this.initializationPromise = null;
                 this.showError('No se pudo cargar la funcionalidad de búsqueda. Por favor, intente recargar la página.');
                 reject(error);
             }

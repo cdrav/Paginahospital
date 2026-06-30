@@ -1,7 +1,11 @@
 // pqrs-forms.js - Lógica para el formulario de PQRSD
 
 (function() {
-  emailjs.init("gcybOcZM8nYnJy19f"); 
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("gcybOcZM8nYnJy19f");
+  } else {
+    console.error('EmailJS no está disponible. El formulario PQRS no podrá enviar correos.');
+  }
 })();
 
 // Función para enviar el formulario
@@ -49,6 +53,17 @@ function sendEmail(e) {
     timestamp: new Date().getTime()
   };
   
+  // Verificar disponibilidad de EmailJS antes de enviar
+  if (typeof emailjs === 'undefined') {
+    const messageDiv = document.getElementById('form-message');
+    messageDiv.className = 'alert alert-danger';
+    messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>El servicio de correo no está disponible. Por favor, recargue la página e intente de nuevo.';
+    messageDiv.classList.remove('d-none');
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+    return;
+  }
+
   // Enviar el correo con los parámetros
   emailjs.send("service_dxylc2z", "template_3qcvx07", templateParams)
     .then(function(response) {

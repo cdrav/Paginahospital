@@ -401,8 +401,9 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
         if (target) scrollToWithOffset(target);
       }
     } catch (e) {
+      console.error('Error cargando parcial de Misión/Visión/Valores:', e);
       container.innerHTML =
-        '<div class="container"><div class="alert alert-warning">No fue posible cargar la información en este momento.</div></div>';
+        '<div class="container"><div class="alert alert-warning"><i class="bi bi-exclamation-triangle-fill me-2"></i>No fue posible cargar la información en este momento. <a href="javascript:location.reload()">Reintentar</a></div></div>';
     }
   };
 
