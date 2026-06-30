@@ -141,15 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!searchInput) return;
 
         searchInput.addEventListener('keyup', () => {
-            const filter = searchInput.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            const filter = SharedUtils.normalizeText(searchInput.value);
             const cards = document.querySelectorAll('.directorio-card-col');
             let visibleCount = 0;
             
             cards.forEach(cardCol => {
                 const nameElement = cardCol.querySelector('.card-title');
                 const positionElement = cardCol.querySelector('.card-text');
-                const name = nameElement ? nameElement.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") : "";
-                const position = positionElement ? positionElement.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "") : "";
+                const name = SharedUtils.normalizeText(nameElement ? nameElement.textContent : '');
+                const position = SharedUtils.normalizeText(positionElement ? positionElement.textContent : '');
 
                 if (name.includes(filter) || position.includes(filter)) {
                     cardCol.style.display = '';

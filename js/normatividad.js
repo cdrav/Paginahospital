@@ -19,46 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const allTabLinks = Array.from(tabLinksContainer.querySelectorAll('.nav-link'));
   const allTabPanes = Array.from(contentRoot.querySelectorAll('.tab-pane'));
 
-  // --- Helpers ---
-  const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const show = (el) => el && el.classList.remove('d-none');
-  const hide = (el) => el && el.classList.add('d-none');
-
-  // --- Highlighting ---
-  const clearHighlights = (root) => {
-    root.querySelectorAll('mark.search-hit').forEach((mark) => {
-      const parent = mark.parentNode;
-      if (parent) {
-        parent.replaceChild(document.createTextNode(mark.textContent), mark);
-        parent.normalize();
-      }
-    });
-  };
-
-  const highlightInElement = (el, rawTerm) => {
-    if (!el || !rawTerm) return;
-    const term = rawTerm.trim();
-    if (!term) return;
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    const texts = [];
-    let node;
-    while ((node = walker.nextNode())) {
-      const value = node.nodeValue;
-      if (value && norm(value).includes(norm(term))) {
-        texts.push(node);
-      }
-    }
-    const re = new RegExp(escapeRegExp(term), 'gi');
-    texts.forEach((textNode) => {
-      const parent = textNode.parentNode;
-      if (parent) {
-        const span = document.createElement('span');
-        span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
-        parent.replaceChild(span, textNode);
-      }
-    });
-  };
+  // --- Helpers: use shared utilities from SharedUtils ---
+  const norm = SharedUtils.normalizeText;
+  const show = SharedUtils.showElement;
+  const hide = SharedUtils.hideElement;
+  const clearHighlights = SharedUtils.clearHighlights;
+  const highlightInElement = SharedUtils.highlightInElement;
 
   // --- Filtering Logic ---
   const resetFilters = () => {

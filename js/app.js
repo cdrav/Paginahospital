@@ -56,194 +56,71 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── 1. Medio de Convocatoria (Donut) ───
   const medioData = countBy('p1');
   const medioLabels = { web: 'Página web institucional', invitacion: 'Invitación directa', radio: 'Radio / medio masivo' };
-  new Chart(document.getElementById('chart-medio'), {
-    type: 'doughnut',
-    data: {
-      labels: Object.keys(medioData).map(k => medioLabels[k] || k),
-      datasets: [{
-        data: Object.values(medioData),
-        backgroundColor: palette1,
-        borderWidth: 0,
-        hoverOffset: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.label}: ${ctx.raw} (${pct(ctx.raw, total)}%)`
-          }
-        }
-      }
-    }
-  });
+  SharedUtils.createDoughnutChart(
+    document.getElementById('chart-medio'),
+    Object.keys(medioData).map(k => medioLabels[k] || k),
+    Object.values(medioData),
+    palette1,
+    total
+  );
 
   // ─── 2. Tipo de Participante (Donut) ───
   const tipoData = countBy('p2');
   const tipoLabels = { funcionario: 'Funcionario institución', usuario: 'Usuario del servicio', organizacion: 'Rep. organización social', otro: 'Otro', familiar: 'Familiar de usuario' };
-  new Chart(document.getElementById('chart-tipo'), {
-    type: 'doughnut',
-    data: {
-      labels: Object.keys(tipoData).map(k => tipoLabels[k] || k),
-      datasets: [{
-        data: Object.values(tipoData),
-        backgroundColor: palette2,
-        borderWidth: 0,
-        hoverOffset: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.label}: ${ctx.raw} (${pct(ctx.raw, total)}%)`
-          }
-        }
-      }
-    }
-  });
+  SharedUtils.createDoughnutChart(
+    document.getElementById('chart-tipo'),
+    Object.keys(tipoData).map(k => tipoLabels[k] || k),
+    Object.values(tipoData),
+    palette2,
+    total
+  );
 
   // ─── 3. Residencia en Roldanillo (Donut) ───
   const resData = countBy('p3');
   const resLabels = { si: 'Sí', no: 'No' };
-  new Chart(document.getElementById('chart-residencia'), {
-    type: 'doughnut',
-    data: {
-      labels: Object.keys(resData).map(k => resLabels[k] || k),
-      datasets: [{
-        data: Object.values(resData),
-        backgroundColor: ['#16a34a', '#ef4444'],
-        borderWidth: 0,
-        hoverOffset: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.label}: ${ctx.raw} (${pct(ctx.raw, total)}%)`
-          }
-        }
-      }
-    }
-  });
+  SharedUtils.createDoughnutChart(
+    document.getElementById('chart-residencia'),
+    Object.keys(resData).map(k => resLabels[k] || k),
+    Object.values(resData),
+    ['#16a34a', '#ef4444'],
+    total
+  );
 
   // ─── 4. Calificación Organización (Bar) ───
   const orgData = countBy('p4');
   const orgLabelsMap = { excelente: 'Excelente', buena: 'Buena', regular: 'Regular', deficiente: 'Deficiente' };
   const orgKeys = ['excelente', 'buena', 'regular', 'deficiente'].filter(k => orgData[k]);
-  new Chart(document.getElementById('chart-organizacion'), {
-    type: 'bar',
-    data: {
-      labels: orgKeys.map(k => orgLabelsMap[k]),
-      datasets: [{
-        label: 'Respuestas',
-        data: orgKeys.map(k => orgData[k]),
-        backgroundColor: orgKeys.map((_, i) => palette1[i]),
-        borderRadius: 6,
-        borderSkipped: false,
-        barPercentage: 0.6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.raw} respuestas (${pct(ctx.raw, total)}%)`
-          }
-        }
-      },
-      scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { stepSize: 5 } },
-        x: { grid: { display: false } }
-      }
-    }
-  });
+  SharedUtils.createBarChart(
+    document.getElementById('chart-organizacion'),
+    orgKeys.map(k => orgLabelsMap[k]),
+    orgKeys.map(k => orgData[k]),
+    orgKeys.map((_, i) => palette1[i]),
+    total
+  );
 
   // ─── 5. Prestación de Servicios (Bar) ───
   const servData = countBy('p9');
   const servLabelsMap = { excelente: 'Excelente', buena: 'Buena', regular: 'Regular', deficiente: 'Deficiente' };
   const servKeys = ['excelente', 'buena', 'regular', 'deficiente'].filter(k => servData[k]);
-  new Chart(document.getElementById('chart-servicios'), {
-    type: 'bar',
-    data: {
-      labels: servKeys.map(k => servLabelsMap[k]),
-      datasets: [{
-        label: 'Respuestas',
-        data: servKeys.map(k => servData[k]),
-        backgroundColor: servKeys.map((_, i) => paletteGreen[i] || palette1[i]),
-        borderRadius: 6,
-        borderSkipped: false,
-        barPercentage: 0.6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.raw} respuestas (${pct(ctx.raw, total)}%)`
-          }
-        }
-      },
-      scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { stepSize: 5 } },
-        x: { grid: { display: false } }
-      }
-    }
-  });
+  SharedUtils.createBarChart(
+    document.getElementById('chart-servicios'),
+    servKeys.map(k => servLabelsMap[k]),
+    servKeys.map(k => servData[k]),
+    servKeys.map((_, i) => paletteGreen[i] || palette1[i]),
+    total
+  );
 
   // ─── 6. Nivel de Satisfacción General (Bar) ───
   const satData = countBy('p15');
   const satLabelsMap = { muy_satisfecho: 'Muy satisfecho', satisfecho: 'Satisfecho', poco_satisfecho: 'Poco satisfecho', insatisfecho: 'Insatisfecho' };
   const satOrder = ['muy_satisfecho', 'satisfecho', 'poco_satisfecho', 'insatisfecho'].filter(k => satData[k]);
-  new Chart(document.getElementById('chart-satisfaccion'), {
-    type: 'bar',
-    data: {
-      labels: satOrder.map(k => satLabelsMap[k]),
-      datasets: [{
-        label: 'Respuestas',
-        data: satOrder.map(k => satData[k]),
-        backgroundColor: paletteSatisfaction.slice(0, satOrder.length),
-        borderRadius: 6,
-        borderSkipped: false,
-        barPercentage: 0.6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => `${ctx.raw} respuestas (${pct(ctx.raw, total)}%)`
-          }
-        }
-      },
-      scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { stepSize: 5 } },
-        x: { grid: { display: false } }
-      }
-    }
-  });
+  SharedUtils.createBarChart(
+    document.getElementById('chart-satisfaccion'),
+    satOrder.map(k => satLabelsMap[k]),
+    satOrder.map(k => satData[k]),
+    paletteSatisfaction.slice(0, satOrder.length),
+    total
+  );
 
   // ─── 7. Binary Questions (Sí/No) ───
   const binaryQuestions = [

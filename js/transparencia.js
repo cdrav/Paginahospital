@@ -501,56 +501,12 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
   // Secciones 1-10 (anchor-target con list-group)
   const anchorSections = Array.from(contentRoot.querySelectorAll('section.anchor-target'));
 
-  // Helpers
-  // Normaliza texto y elimina diacríticos (compatible ampliamente)
-  const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-  // Resalta coincidencias envolviendo el texto en <mark class="search-hit">
-  const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-  // Limpia resaltados devolviendo HTML a su texto plano en elementos objetivo
-  const highlightTargets = [
-    '.card-title',
-    '.card-text',
-    'li .text-muted',
-    'li strong',
-    '.anchor-target h2',
-    '.anchor-target h3',
-    '.anchor-target p'
-  ];
-
-  const clearHighlights = (root) => {
-    root.querySelectorAll('[data-original-html]').forEach((el) => {
-      el.innerHTML = el.getAttribute('data-original-html');
-      el.removeAttribute('data-original-html');
-    });
-  };
-
-  const highlightInElement = (el, rawTerm) => {
-    if (!el || !rawTerm) return;
-    const term = rawTerm.trim();
-    if (!term) return;
-    if (!el.hasAttribute('data-original-html')) {
-      el.setAttribute('data-original-html', el.innerHTML);
-    }
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    const texts = [];
-    let node;
-    while ((node = walker.nextNode())) {
-      const value = node.nodeValue;
-      if (!value) continue;
-      if (norm(value).includes(norm(term))) texts.push(node);
-    }
-    const re = new RegExp(escapeRegExp(term), 'gi');
-    texts.forEach((textNode) => {
-      const span = document.createElement('span');
-      span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
-      textNode.parentNode.replaceChild(span, textNode);
-    });
-  };
-
-  const show = (el) => el.classList.remove('d-none');
-  const hide = (el) => el.classList.add('d-none');
+  // Helpers: use shared utilities from SharedUtils
+  const norm = SharedUtils.normalizeText;
+  const clearHighlights = SharedUtils.clearHighlights;
+  const highlightInElement = SharedUtils.highlightInElement;
+  const show = SharedUtils.showElement;
+  const hide = SharedUtils.hideElement;
 
   const getViewModeState = () => {
     const toggleBtn = document.getElementById('view-mode-toggle');

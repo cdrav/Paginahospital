@@ -104,15 +104,12 @@
       e.preventDefault();
       
       // Mostrar indicador de carga
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...';
-      btn.disabled = true;
+      SharedUtils.setButtonLoading(btn, 'Cargando...');
       
       // Cargar el script de Google Translate
       loadGoogleTranslateScript(function(error) {
         // Restaurar el botón
-        btn.innerHTML = originalText;
-        btn.disabled = false;
+        SharedUtils.restoreButton(btn);
         
         if (error) {
           console.error('Error al cargar el traductor:', error);

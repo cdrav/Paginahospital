@@ -10,16 +10,14 @@ function sendEmail(e) {
   
   // Mostrar carga
   const submitBtn = document.getElementById('submit-btn');
-  const originalText = submitBtn.innerHTML;
-  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
-  submitBtn.disabled = true;
+  SharedUtils.setButtonLoading(submitBtn, 'Enviando...');
 
   // Obtener los datos del formulario
   const formData = new FormData(e.target);
   const formProps = Object.fromEntries(formData);
   
   // Obtener la fecha actual formateada
-  const fechaActual = new Date().toLocaleDateString('es-ES', {
+  const fechaActual = SharedUtils.formatDateES(new Date(), {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -74,8 +72,7 @@ function sendEmail(e) {
   })
   .finally(() => {
     // Restaurar el botón
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
+    SharedUtils.restoreButton(submitBtn);
   });
 }
 

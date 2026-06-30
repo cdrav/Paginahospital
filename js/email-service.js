@@ -71,9 +71,7 @@ async function sendEmailResponse(docId, pacienteEmail, subject, message) { // Ad
         if (!sendBtn) {
             throw new Error('Botón de envío no encontrado');
         }
-        const originalText = sendBtn.innerHTML;
-        sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
-        sendBtn.disabled = true;
+        SharedUtils.setButtonLoading(sendBtn, 'Enviando...');
 
         console.log(`📧 Intentando enviar email a: ${pacienteEmail}`);
 
@@ -155,10 +153,7 @@ async function sendEmailResponse(docId, pacienteEmail, subject, message) { // Ad
         }
 
         // Restaurar botón
-        if (sendBtn) {
-            sendBtn.innerHTML = originalText;
-            sendBtn.disabled = false;
-        }
+        SharedUtils.restoreButton(sendBtn);
         
         // Cerrar modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('emailModal'));
@@ -181,10 +176,7 @@ async function sendEmailResponse(docId, pacienteEmail, subject, message) { // Ad
         
         // Restaurar botón
         const sendBtn = document.getElementById('sendEmailBtn');
-        if (sendBtn) {
-            sendBtn.innerHTML = originalText || 'Enviar Email';
-            sendBtn.disabled = false;
-        }
+        SharedUtils.restoreButton(sendBtn, 'Enviar Email');
         
         alert('❌ Error al enviar email: ' + error.message);
     }
