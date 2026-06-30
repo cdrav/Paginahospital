@@ -65,5 +65,9 @@ async function buildSearchIndex() {
     }
 }
 
-buildSearchIndex();
+if (require.main === module) {
+  buildSearchIndex();
+}
+
+module.exports = { extractContent, buildSearchIndex };
 

@@ -158,4 +158,8 @@ async function main() {
   console.log(`   Ahorro: ${formatBytes(totalIn - totalOut)} (${totalIn > 0 ? ((1 - totalOut/totalIn) * 100).toFixed(1) : 0}%)\n`);
 }
 
-main().catch(err => { console.error('Error:', err); process.exit(1); });
+if (require.main === module) {
+  main().catch(err => { console.error('Error:', err); process.exit(1); });
+}
+
+module.exports = { shouldSkipDir, walkDir, formatBytes, findNewImages, convertImage, updateReferences };

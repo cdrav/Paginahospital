@@ -334,4 +334,13 @@ const handler = async (event, context) => {
   }
 };
 
-module.exports = { handler };
+module.exports = {
+  handler,
+  normalizePath,
+  validateEnvVars,
+  formatTopPages,
+  formatDailyVisits,
+  formatSingleMetric,
+  formatMonthlyTrend,
+  formatDimensionData,
+};
