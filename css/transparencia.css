@@ -116,7 +116,7 @@ body[data-page-title="Transparencia y Acceso a la Información Pública"] .sideb
  /* Estilos para el HERO de la página de Transparencia */
  .hero-section-transparencia {
    background-color: #f8f9fa; /* Un gris muy claro para un contraste suave */
-   padding: clamp(2rem, 5vw, 4rem) 1rem;
+   padding: clamp(1rem, 2vw, 1.5rem) 1rem;
    color: #212529; /* Color de texto oscuro por defecto */
    position: relative;
    /* overflow: hidden; */ /* Se comenta para evitar que el texto se corte */
@@ -127,29 +127,50 @@ body[data-page-title="Transparencia y Acceso a la Información Pública"] .sideb
  .hero-section-transparencia h1 {
    color: var(--brand-main);
    text-shadow: none;
-   line-height: 1.4; /* Aumenta el espaciado vertical para mejor legibilidad */
+   line-height: 1.3;
+   font-size: clamp(1.25rem, 1.5vw, 1.5rem);
  }
  
  .hero-section-transparencia .hero-lead {
-   margin: 1rem auto 0;
-   max-width: 800px;
-   font-size: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
-   line-height: 1.6;
+   margin: 0.5rem auto 0;
+   max-width: 900px;
+   font-size: clamp(0.85rem, 0.9rem + 0.2vw, 0.95rem);
+   line-height: 1.4;
    color: #495057; /* Gris oscuro para el texto, mejora la legibilidad */
    text-shadow: none;
    padding: 0 1rem;
  }
  
  .hero-section-transparencia .hero-icon {
-   font-size: 3rem;
+   font-size: 2rem;
    color: var(--brand-main); /* Color de marca para el ícono */
-   margin-top: 1rem;
+   margin-top: 0.5rem;
  }
 
 /* Alinear sidebar sticky con la altura real del header/nav */
 .sidebar-nav { scroll-margin-top: 110px; }
 /* Unificar con altura del header fijo (110px) usando mayor especificidad */
-body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky { top: 110px; }
+body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky { 
+  top: 110px;
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
+}
+
+/* Estilizar scrollbar del sidebar */
+body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky::-webkit-scrollbar {
+  width: 6px;
+}
+body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky::-webkit-scrollbar-thumb {
+  background: #164443;
+  border-radius: 3px;
+}
+body[data-page-title="Transparencia y Acceso a la Información Pública"] aside .position-sticky::-webkit-scrollbar-thumb:hover {
+  background: #0f3332;
+}
 
 /* Tarjetas dentro de la grilla principal: márgenes y tipografía proporcionados */
 .card-title-custom {
