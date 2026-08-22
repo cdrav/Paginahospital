@@ -28,7 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
   motivoSelect.addEventListener('change', actualizarMotivoOtro);
 
   form.addEventListener('reset', function () {
-    setTimeout(actualizarMotivoOtro, 0);
+    setTimeout(function () {
+      actualizarMotivoOtro();
+      tbody.querySelectorAll('tr.equipo-row').forEach((fila) => {
+        fila.querySelector('[name="marcaOtra"]').classList.add('d-none');
+        fila.querySelector('[name="marcaOtra"]').removeAttribute('required');
+      });
+    }, 0);
   });
 
   function actualizarBotonesEliminar() {
@@ -46,6 +52,20 @@ document.addEventListener('DOMContentLoaded', function () {
       fila.remove();
       actualizarBotonesEliminar();
     });
+
+    const marcaSelect = fila.querySelector('[name="marca"]');
+    const marcaOtraInput = fila.querySelector('[name="marcaOtra"]');
+    marcaSelect.addEventListener('change', () => {
+      const esOtra = marcaSelect.value === 'Otra';
+      marcaOtraInput.classList.toggle('d-none', !esOtra);
+      if (esOtra) {
+        marcaOtraInput.setAttribute('required', 'required');
+      } else {
+        marcaOtraInput.removeAttribute('required');
+        marcaOtraInput.value = '';
+      }
+    });
+
     tbody.appendChild(fila);
     actualizarBotonesEliminar();
   }
@@ -58,9 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function recolectarEquipos() {
     const equipos = [];
     tbody.querySelectorAll('tr.equipo-row').forEach((fila) => {
+      const marcaSelect = fila.querySelector('[name="marca"]');
+      const marcaOtraInput = fila.querySelector('[name="marcaOtra"]');
+      const marca = marcaSelect.value === 'Otra' ? marcaOtraInput.value.trim() : marcaSelect.value.trim();
       equipos.push({
         tipo: fila.querySelector('[name="tipo"]').value.trim(),
-        marca: fila.querySelector('[name="marca"]').value.trim(),
+        marca: marca,
         placa: fila.querySelector('[name="placa"]').value.trim(),
         estado: fila.querySelector('[name="estado"]').value.trim(),
         accesorios: fila.querySelector('[name="accesorios"]').value.trim()

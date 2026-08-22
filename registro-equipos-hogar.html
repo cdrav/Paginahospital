@@ -221,7 +221,22 @@
         <div class="invalid-feedback">Requerido</div>
       </td>
       <td>
-        <input type="text" class="form-control" name="marca" required>
+        <select class="form-select" name="marca" required>
+          <option value="" selected disabled>Seleccione</option>
+          <option value="Lenovo">Lenovo</option>
+          <option value="HP">HP</option>
+          <option value="Dell">Dell</option>
+          <option value="Asus">Asus</option>
+          <option value="Acer">Acer</option>
+          <option value="Samsung">Samsung</option>
+          <option value="Epson">Epson</option>
+          <option value="Canon">Canon</option>
+          <option value="Brother">Brother</option>
+          <option value="APC">APC</option>
+          <option value="Apple">Apple</option>
+          <option value="Otra">Otra</option>
+        </select>
+        <input type="text" class="form-control mt-1 d-none" name="marcaOtra" placeholder="¿Cuál?" aria-label="Especifique la marca">
         <div class="invalid-feedback">Requerido</div>
       </td>
       <td>
