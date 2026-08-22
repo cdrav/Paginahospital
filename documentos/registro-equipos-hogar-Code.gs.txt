@@ -1,0 +1,130 @@
+/**
+ * Google Apps Script para el formulario "Registro de Equipos para Trabajo en Casa".
+ *
+ * Este script es INDEPENDIENTE (no está atado a la hoja de cálculo): se crea
+ * desde https://script.google.com/ y se conecta a la hoja mediante su ID.
+ * Por eso, aunque la hoja aún no tenga la pestaña correcta, el script la
+ * crea automáticamente la primera vez que alguien envía el formulario.
+ *
+ * INSTALACIÓN:
+ * 1. Vaya a https://script.google.com/ > Nuevo proyecto.
+ * 2. Borre el contenido del editor (Code.gs) y pegue TODO este archivo.
+ * 3. Verifique que la constante SPREADSHEET_ID de abajo corresponda a la hoja:
+ *    https://docs.google.com/spreadsheets/d/1fTXYTS0jPuGUNQamyiTv42ReCdpl2-dpnJ8CYrdA5-U/edit
+ * 4. Guarde el proyecto (ícono de disquete) y póngale un nombre, ej. "Registro Equipos Hogar".
+ * 5. Menú Implementar > Nueva implementación.
+ *    - Tipo: "Aplicación web".
+ *    - Descripción: "Registro equipos hogar".
+ *    - Ejecutar como: "Yo (su cuenta)".
+ *    - Quién tiene acceso: "Cualquier usuario" (Anyone).
+ * 6. Clic en "Implementar" y autorice los permisos que solicite Google
+ *    (pedirá acceso a la hoja de cálculo indicada arriba).
+ * 7. Copie la "URL de la aplicación web" (termina en /exec).
+ * 8. Pegue esa URL en el archivo js/equipos-hogar-form.js del sitio,
+ *    reemplazando el valor de la constante EQUIPOS_SCRIPT_URL.
+ *
+ * Nota: si en el futuro edita este script, debe crear una "Nueva implementación"
+ * (o Implementar > Gestionar implementaciones > editar) para que los cambios
+ * queden activos; guardar el archivo solo no actualiza la URL ya publicada.
+ */
+
+var SPREADSHEET_ID = '1fTXYTS0jPuGUNQamyiTv42ReCdpl2-dpnJ8CYrdA5-U';
+var SHEET_NAME = 'Registro de Equipos';
+
+var HEADERS = [
+  'ID Solicitud',
+  'Fecha y hora de registro',
+  'Fecha de salida',
+  'Nombres y Apellidos',
+  'Cédula',
+  'Cargo',
+  'Área/Dependencia',
+  'Correo electrónico',
+  'Teléfono',
+  'Motivo del traslado',
+  'Jefe inmediato / Autoriza',
+  'Tipo de equipo',
+  'Marca',
+  'Placa de inventario',
+  'Estado del equipo al salir',
+  'Accesorios incluidos',
+  'N° de equipo en la solicitud',
+  'Observaciones generales'
+];
+
+function getOrCreateSheet_() {
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+  }
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function getNextRequestId_(sheet) {
+  var lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return 1; // solo encabezados, o vacía
+
+  var ids = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+  var max = 0;
+  ids.forEach(function (row) {
+    var n = Number(row[0]);
+    if (!isNaN(n) && n > max) max = n;
+  });
+  return max + 1;
+}
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    var sheet = getOrCreateSheet_();
+
+    var data = JSON.parse(e.postData.contents);
+    var equipos = (data.equipos && data.equipos.length) ? data.equipos : [{}];
+    var requestId = getNextRequestId_(sheet);
+    var timestamp = new Date();
+
+    equipos.forEach(function (item, index) {
+      sheet.appendRow([
+        requestId,
+        timestamp,
+        data.fechaSalida || '',
+        data.nombres || '',
+        data.cedula || '',
+        data.cargo || '',
+        data.area || '',
+        data.correo || '',
+        data.telefono || '',
+        data.motivo || '',
+        data.jefeInmediato || '',
+        item.tipo || '',
+        item.marca || '',
+        item.placa || '',
+        item.estado || '',
+        item.accesorios || '',
+        (index + 1) + ' de ' + equipos.length,
+        data.observaciones || ''
+      ]);
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({ result: 'success', id: requestId }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ result: 'error', error: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doGet() {
+  // Al abrir la URL /exec en el navegador también se crea la pestaña y los
+  // encabezados si aún no existen, útil para verificar la instalación.
+  getOrCreateSheet_();
+  return ContentService.createTextOutput('El servicio de Registro de Equipos está activo. Use POST para enviar datos.');
+}
