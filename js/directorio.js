@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Mauricio Saldarriaga", cargo: "Gerente", email: "gerencia@hdsa.gov.co", foto: "mauricio-saldarriaga.webp", area: "gerencia" },
 
         // Nivel 2: Asesores calidad y control interno
-        { nombre: "Paulo Castillo Ferreira", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "paulo-castillo-ferreira.webp", area: "asesor" },
+        { nombre: "En actualización", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: null, area: "asesor" },
         { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.webp", area: "asesor" },
         { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.webp", area: "asesor" },
 
         // Nivel 3: Subgerencias
         { nombre: "Yaravi Maite Llanos", cargo: "Subgerente Administrativa", email: "subgerencia@hdsa.gov.co", foto: "yaravi-maite llanos.webp", area: "subgerencia_admin" },
-        { nombre: "Victor Rengifo", cargo: "Subdirector Científico", email: "subdireccioncientifica@hdsa.gov.co", foto: "victor-rengifo.webp", area: "subgerencia_cientifica" },
+        { nombre: "German Andrés Becerra", cargo: "Subdirector Científico", email: "subdireccioncientifica@hdsa.gov.co", foto: null, area: "subgerencia_cientifica" },
 
         // Nivel 4: Área Asistencial / Científica
         { nombre: "Gilberto Taborda", cargo: "Auditor Medico", email: "auditormedico@hdsa.gov.co", foto: "gilberto-taborda.webp", area: "asistencial" },
