@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Sandra Milena Chaverra", cargo: "Jefe de Almacén", email: "almacen@hdsa.gov.co", foto: "sandra-chaverra.webp", area: "administrativa" },
         { nombre: "Dolly Asevena Alvarado", cargo: "Coordinadora Servicios Generales", email: "serv.generales@hdsa.gov.co", foto: "dolly-asevena-alvarado.webp", area: "administrativa" },
         { nombre: "Wilmar Benitez", cargo: "Jefe de Mantenimiento", email: "mantenimiento@hdsa.gov.co", foto: "wilmar-benitez.webp", area: "administrativa" },
-        { nombre: "Claudia Lorena Salazar", cargo: "Gestión Documental", email: "gestiondocumental@hdsa.gov.co", foto: "Claudia-lorena-salazar.webp", area: "administrativa" },
+        { nombre: "Francisco Javier Angulo", cargo: "Gestión Documental", email: "gestiondocumental@hdsa.gov.co", foto: "Francisco-gestion-documental.webp", area: "administrativa" },
         { nombre: "Eliana Bermudez", cargo: "Coordinadora SIAU", email: "coord.siau@hdsa.gov.co", foto: "eliana-bermudez.webp", area: "administrativa" },
         { nombre: "Isabel Canizales", cargo: "Coordinadora Facturación", email: "facturacion@hdsa.gov.co", foto: "isabel-canizales.webp", area: "administrativa" },
         { nombre: "Luis Nieto", cargo: "Coordinador de Estadística", email: "coord.estadistica@hdsa.gov.co", foto: "luis-nieto.webp", area: "administrativa" },
