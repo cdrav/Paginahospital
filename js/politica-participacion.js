@@ -25,6 +25,6 @@ function showYear(year) {
 
 // Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
-    // Asegurar que el año 2025 esté activo por defecto
-    showYear('2025');
+    // Asegurar que el año 2026 esté activo por defecto
+    showYear('2026');
 });

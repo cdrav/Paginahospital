@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-.hero-section::before {
+/* .hero-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -17,7 +17,7 @@
     bottom: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
     opacity: 0.3;
-}
+} */
 
 .year-selector {
     background: rgba(255,255,255,0.15);
@@ -28,19 +28,27 @@
 }
 
 .year-btn {
-    background: transparent;
-    border: none;
-    color: white;
+    background: rgba(255,255,255,0.9);
+    border: 2px solid white;
+    color: #164443;
     padding: 0.5rem 1.5rem;
     border-radius: 20px;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
-.year-btn.active,
+.year-btn.active {
+    background: white;
+    color: #164443;
+    border-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
 .year-btn:hover {
     background: white;
     color: #164443;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .section-card {

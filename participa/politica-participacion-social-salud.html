@@ -29,41 +29,39 @@
     <!-- Contenedor para el breadcrumb -->
     <div id="breadcrumb-container" class="container mt-3"></div>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container position-relative">
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Selector de Año -->
+        <div class="section-card mb-4">
             <div class="row align-items-center">
                 <div class="col-lg-8">
-                    <h1 class="display-5 fw-bold mb-3">
-                        <i class="bi bi-heart-pulse me-3"></i>Política de Participación Social en Salud
-                    </h1>
-                    <p class="lead mb-4">
+                    <h2 class="fw-bold mb-3">
+                        <i class="bi bi-heart-pulse me-2" style="color: #22a7a0;"></i>
+                        Política de Participación Social en Salud
+                    </h2>
+                    <p class="text-muted mb-2">
                         Documentación oficial de las actividades, actas, capacitaciones y campañas 
                         realizadas en cumplimiento de la Política de Participación Social en Salud.
                     </p>
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        <span class="badge bg-white text-dark">
-                            <i class="bi bi-folder-fill me-1 text-success"></i>97 documentos 2025
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-success">
+                            <i class="bi bi-folder-fill me-1"></i>97 documentos 2025
                         </span>
-                        <span class="badge bg-white text-dark">
-                            <i class="bi bi-check-circle-fill me-1 text-primary"></i>Información verificada
+                        <span class="badge bg-primary">
+                            <i class="bi bi-check-circle-fill me-1"></i>Información verificada
                         </span>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center">
-                    <!-- Selector de Año -->
-                    <div class="year-selector mb-3">
-                        <button class="year-btn active" data-year="2025" onclick="showYear('2025')">2025</button>
-                        <button class="year-btn" data-year="2026" onclick="showYear('2026')">2026</button>
+                    <div class="year-selector mb-2" style="display: inline-flex !important; visibility: visible !important;">
+                        <button class="year-btn active" data-year="2026" onclick="showYear('2026')" style="display: inline-block !important; visibility: visible !important;">2026</button>
+                        <button class="year-btn" data-year="2025" onclick="showYear('2025')" style="display: inline-block !important; visibility: visible !important;">2025</button>
                     </div>
-                    <p class="small opacity-75">Seleccione el año para ver la documentación</p>
+                    <p class="small text-muted">Seleccione el año para ver la documentación</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Main Content -->
-    <main class="container my-5">
         <!-- Introducción -->
         <div class="section-card">
             <div class="row align-items-center">
@@ -96,7 +94,7 @@
         </div>
 
         <!-- CONTENIDO AÑO 2025 -->
-        <div id="year-2025" class="year-content active">
+        <div id="year-2025" class="year-content">
             <div class="breadcrumb-custom">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
@@ -733,7 +731,7 @@
         </div>
 
         <!-- CONTENIDO AÑO 2026 -->
-        <div id="year-2026" class="year-content">
+        <div id="year-2026" class="year-content active">
             <div class="breadcrumb-custom">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
@@ -743,18 +741,253 @@
                 </nav>
             </div>
 
-            <div class="section-card text-center py-5">
-                <div class="section-icon mx-auto mb-3">
-                    <i class="bi bi-calendar-plus"></i>
+            <h3 class="fw-bold mb-4">
+                <i class="bi bi-calendar-check me-2" style="color: #22a7a0;"></i>
+                Documentación Año 2026
+            </h3>
+
+            <!-- Acordeón de Secciones -->
+            <div class="accordion" id="accordion2026">
+                
+                <!-- 1. COMITÉ DE ÉTICA HOSPITALARIO 2026 -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#comite-etica-2026">
+                            <i class="bi bi-shield-check"></i>
+                            <strong>1. Comité de Ética Hospitalario 2026</strong>
+                            <span class="folder-badge">3 documentos</span>
+                        </button>
+                    </h2>
+                    <div id="comite-etica-2026" class="accordion-collapse collapse show" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Documentación del Comité de Ética Hospitalario del año 2026.</p>
+                            
+                            <div class="document-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-file-earmark-pdf text-danger me-3 fs-4"></i>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Comité de Ética Hospitalaria</h6>
+                                        <p class="text-muted small mb-0">PDF - 3.2 MB</p>
+                                    </div>
+                                    <a href="../documentos/politica-de-participacion-social-en-salud/PPSS 2026/COMITE DE ETICA HOSPITALARIO 2026/comite-etica-hospitalaria.pdf" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-download"></i> Descargar
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="document-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-file-earmark-pdf text-danger me-3 fs-4"></i>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Resolución 000365 Nov 2017 Comité de Ética Hospitalaria</h6>
+                                        <p class="text-muted small mb-0">PDF - 1.0 MB</p>
+                                    </div>
+                                    <a href="../documentos/politica-de-participacion-social-en-salud/PPSS 2026/COMITE DE ETICA HOSPITALARIO 2026/resolucion-000365-nov-2017-comite-de-etica-hospitalaria.pdf" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-download"></i> Descargar
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="document-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-file-earmark-pdf text-danger me-3 fs-4"></i>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Resolución 000487 Actualización Comité de Ética HDSA</h6>
+                                        <p class="text-muted small mb-0">PDF - 4.6 MB</p>
+                                    </div>
+                                    <a href="../documentos/politica-de-participacion-social-en-salud/PPSS 2026/COMITE DE ETICA HOSPITALARIO 2026/resolución-000487-actualización-comite-de-ética-hdsa.pdf" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-download"></i> Descargar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="fw-bold mb-3">Documentación Año 2026</h3>
-                <p class="text-muted mb-4">
-                    Esta sección se habilitará durante el año 2026 para publicar la documentación 
-                    de la Política de Participación Social en Salud correspondiente a ese período.
-                </p>
-                <div class="alert alert-info mx-auto" style="max-width: 600px;">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    La información se actualizará conforme se vayan generando los documentos durante la vigencia 2026.
+
+                <!-- 2. CAPACITACIÓN A FUNCIONARIOS -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#capacitacion-funcionarios-2026">
+                            <i class="bi bi-briefcase"></i>
+                            <strong>2. Capacitación a Funcionarios en Participación Social</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="capacitacion-funcionarios-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Informes de capacitación al personal del hospital en temas de participación social - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ENFOQUE DIFERENCIAL -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#enfoque-diferencial-2026">
+                            <i class="bi bi-people-fill"></i>
+                            <strong>3. Enfoque Diferencial</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="enfoque-diferencial-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Capacitaciones y evidencias del enfoque diferencial y trato digno con enfoque étnico - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DISEÑO MATERIAL DEBERES Y DERECHOS -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#diseno-material-2026">
+                            <i class="bi bi-palette"></i>
+                            <strong>4. Diseño Material Deberes y Derechos</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="diseno-material-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Material de diseño sobre deberes y derechos de los usuarios del servicio de salud - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. DIVULGACIÓN DEBERES Y DERECHOS -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#divulgacion-deberes-2026">
+                            <i class="bi bi-bullhorn"></i>
+                            <strong>5. Divulgación Deberes y Derechos</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="divulgacion-deberes-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Informes de divulgación y educación sobre deberes y derechos de los usuarios - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. CAPACITACIÓN USUARIOS PARTICIPACIÓN SOCIAL -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#capacitacion-usuarios-2026">
+                            <i class="bi bi-person-workspace"></i>
+                            <strong>6. Capacitación Usuarios Participación Social y Comunitaria</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="capacitacion-usuarios-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Programa de capacitación dirigido a usuarios y comunidad en participación social y comunitaria en salud - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. TALLERES CULTURA DE BIENESTAR -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#talleres-bienestar-2026">
+                            <i class="bi bi-emoji-smile"></i>
+                            <strong>7. Talleres Cultura de Bienestar</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="talleres-bienestar-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Talleres de promoción de la cultura de bienestar y salud mental para usuarios y comunidad - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. CAMPAÑAS DE PYP Y PÁGINA WEB -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#campanas-pyp-2026">
+                            <i class="bi bi-megaphone"></i>
+                            <strong>8. Campañas de Promoción y Prevención (PYP) y Página Web</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="campanas-pyp-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Campañas de promoción y prevención en salud realizadas durante el año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. RENDICIÓN DE CUENTAS ASOCIACIÓN USUARIOS -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rendicion-asociacion-2026">
+                            <i class="bi bi-file-earmark-bar-graph"></i>
+                            <strong>9. Rendición de Cuentas Asociación de Usuarios</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="rendicion-asociacion-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Documentación de rendición de cuentas de la Asociación de Usuarios - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. ASOCIACIÓN DE USUARIOS -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#asociacion-usuarios-2026">
+                            <i class="bi bi-people-fill"></i>
+                            <strong>10. Asociación de Usuarios</strong>
+                            <span class="folder-badge">Próximamente</span>
+                        </button>
+                    </h2>
+                    <div id="asociacion-usuarios-2026" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Documentación de la Asociación de Usuarios del Hospital Departamental San Antonio - E.S.E. - Año 2026.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11. SEGUIMIENTO Y PROGRAMACIÓN DE PPSC -->
+                <div class="accordion-item section-card">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#seguimiento-ppsc">
+                            <i class="bi bi-graph-up"></i>
+                            <strong>11. Seguimiento y Programación de PPSC</strong>
+                            <span class="folder-badge">2 documentos</span>
+                        </button>
+                    </h2>
+                    <div id="seguimiento-ppsc" class="accordion-collapse collapse" data-bs-parent="#accordion2026">
+                        <div class="accordion-body">
+                            <p class="text-muted mb-3">Documentación de seguimiento y programación de la Política de Participación Social en Salud - Año 2026.</p>
+                            
+                            <div class="document-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-file-earmark-image text-primary me-3 fs-4"></i>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Programación PPSS 2026</h6>
+                                        <p class="text-muted small mb-0">PNG - 81 KB</p>
+                                    </div>
+                                    <a href="../documentos/politica-de-participacion-social-en-salud/PPSS 2026/SEGUIMIENTO Y PROGRAMACION DE PPSC/programacion-ppss-2026.PNG" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="document-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-file-earmark-image text-primary me-3 fs-4"></i>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Seguimiento PPSS 2025</h6>
+                                        <p class="text-muted small mb-0">PNG - 84 KB</p>
+                                    </div>
+                                    <a href="../documentos/politica-de-participacion-social-en-salud/PPSS 2026/SEGUIMIENTO Y PROGRAMACION DE PPSC/seguimiento-ppss-2025.PNG" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
