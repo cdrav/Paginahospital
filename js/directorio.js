@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Mauricio Saldarriaga", cargo: "Gerente", email: "gerencia@hdsa.gov.co", foto: "mauricio-saldarriaga.webp", area: "gerencia" },
 
         // Nivel 2: Asesores calidad y control interno
-        { nombre: "En actualización", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: null, area: "asesor" },
+        { nombre: "Manuela Hernandez Vargas", cargo: "Jefe Oficina de Calidad", email: "asesorcalidad@hdsa.gov.co", foto: "manuela-calidad.webp", area: "asesor" },
         { nombre: "Zoraida Idarraga", cargo: "Jefe Oficina de Control Interno", email: "controlinterno@hdsa.gov.co", foto: "zoraida-idarraga.webp", area: "asesor" },
         { nombre: "Julian Hernandez", cargo: "Asesor Jurídico", email: "notificacionesjudiciales@hdsa.gov.co", foto: "julian-hernandez.webp", area: "asesor" },
 
