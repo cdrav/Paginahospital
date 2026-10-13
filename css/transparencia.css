@@ -257,3 +257,24 @@ section.col-lg-8.col-md-7 { min-width: 0; }
 .table th {
   background-color: #e9ecef;
 }
+
+/* Normatividad: columna de año y tamaño alineadas en todas las listas */
+#normatividadTabsContent .list-group-item > span:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-right: 1rem;
+}
+#normatividadTabsContent .list-group-item > span.d-flex,
+#normatividadTabsContent .list-group-item > .badge {
+  flex-shrink: 0;
+}
+#normatividadTabsContent .list-group-item .badge.bg-secondary {
+  min-width: 3.5rem;
+}
+#normatividadTabsContent .list-group-item .badge.text-bg-light {
+  min-width: 5.5rem;
+}
+/* Ítems sin badge de tamaño (Políticas/Manuales): reservar ese espacio para que el año quede en la misma columna */
+#normatividadTabsContent .list-group-item > .badge.bg-secondary:last-child {
+  margin-right: 6rem;
+}
