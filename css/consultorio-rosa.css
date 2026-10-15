@@ -51,43 +51,16 @@ body[data-page-title="Consultorio Rosa"] main.container {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Estilos para el banner del Consultorio Rosa */
+/* Banner del Consultorio Rosa: la imagen ya incluye el título, se muestra completa */
 .hero-rosa-banner {
-  position: relative;
-  width: 100%;
-  height: 60vh; /* Altura del 60% de la ventana */
-  min-height: 450px;
-  overflow: hidden;
   margin-bottom: 2rem;
+  background-color: var(--color-fondo);
 }
 
 .hero-rosa-img {
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain; /* Muestra la imagen completa sin recortar */
-  background-color: #fcf9fd; /* Fondo para rellenar el espacio sobrante */
-  object-position: center center; /* Centra la imagen para un mejor encuadre general */
-  filter: none; /* Se quita el filtro para mostrar la imagen con su brillo original */
-}
-
-.hero-rosa-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none; /* Se oculta el degradado oscuro */
-}
-
-.hero-rosa-content {
-  display: none; /* Se oculta el contenedor del texto */
-}
-
-.hero-rosa-content h1, .hero-rosa-content p {
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  height: auto;
 }
 
 /* Títulos de sección */
@@ -105,17 +78,6 @@ body[data-page-title="Consultorio Rosa"] main.container {
   background-color: var(--color-lila-claro);
   color: var(--color-texto);
   border-color: var(--color-borde);
-}
-
-/* Tarjeta de "¿Qué es?" con efecto hover */
-.info-card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.info-card-hover:hover {
-  transform: scale(1.02); /* Efecto de maximización sutil */
-  box-shadow: 0 12px 28px rgba(142, 68, 173, 0.18) !important; /* Sombra más pronunciada */
 }
 
 /* Sección de tarjetas de violencia */
@@ -151,6 +113,43 @@ body[data-page-title="Consultorio Rosa"] main.container {
   color: var(--color-lila-oscuro);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Documento de Violencias Basadas en Género */
+.documento-vbg-card {
+  border-left: 5px solid var(--color-lila) !important;
+}
+
+.documento-vbg-icon {
+  font-size: 3.5rem;
+  color: var(--color-lila);
+  display: inline-block;
+}
+
+.btn-rosa {
+  background-color: var(--color-lila);
+  color: #fff;
+  font-weight: 600;
+  border: 2px solid var(--color-lila);
+}
+
+.btn-rosa:hover {
+  background-color: var(--color-lila-oscuro);
+  border-color: var(--color-lila-oscuro);
+  color: #fff;
+}
+
+.btn-outline-rosa {
+  color: var(--color-lila-oscuro);
+  font-weight: 600;
+  border: 2px solid var(--color-lila);
+  background-color: transparent;
+}
+
+.btn-outline-rosa:hover {
+  background-color: var(--color-lila-claro);
+  color: var(--color-lila-oscuro);
+  border-color: var(--color-lila);
 }
 
 /* Tarjeta individual de violencia */
@@ -236,20 +235,20 @@ body[data-page-title="Consultorio Rosa"] main.container {
   line-height: 1.4;
 }
 
-/* Colores de borde superiores para cada tipo de violencia */
-.card-fisica { border-top-color: #e74c3c; }
-.card-psicologica { border-top-color: #8e44ad; }
-.card-sexual { border-top-color: #e67e22; }
-.card-economica { border-top-color: #3498db; }
-.card-simbolica { border-top-color: #2ecc71; }
-.card-institucional { border-top-color: #1abc9c; }
-/* Colores de íconos para cada tipo de violencia */
-.card-fisica .card-icon { color: #e74c3c; background-color: rgba(231, 76, 60, 0.1); }
-.card-psicologica .card-icon { color: #8e44ad; background-color: rgba(142, 68, 173, 0.1); }
-.card-sexual .card-icon { color: #e67e22; background-color: rgba(230, 126, 34, 0.1); }
-.card-economica .card-icon { color: #3498db; background-color: rgba(52, 152, 219, 0.1); }
-.card-simbolica .card-icon { color: #2ecc71; background-color: rgba(46, 204, 113, 0.1); }
-.card-institucional .card-icon { color: #1abc9c; background-color: rgba(26, 188, 156, 0.1); }
+/* Colores de cada tipo de violencia, dentro de la paleta lila/rosa */
+.card-fisica { --tipo-color: #c2185b; }
+.card-psicologica { --tipo-color: #8e44ad; }
+.card-sexual { --tipo-color: #ad1457; }
+.card-economica { --tipo-color: #6c3483; }
+.card-simbolica { --tipo-color: #9c27b0; }
+.card-institucional { --tipo-color: #5e35b1; }
+
+.violence-card { border-top-color: var(--tipo-color, var(--color-lila)); }
+.violence-card .card-icon {
+  color: var(--tipo-color, var(--color-lila));
+  background-color: rgba(142, 68, 173, 0.1);
+  background-color: color-mix(in srgb, var(--tipo-color, var(--color-lila)) 12%, transparent);
+}
 
 /* Estilos para la vista previa de artículos */
 .article-preview-pane {
@@ -292,17 +291,52 @@ body[data-page-title="Consultorio Rosa"] main.container {
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
-  .hero-rosa-banner {
-    height: 50vh;
-    min-height: 400px;
-  }
-  .hero-rosa-content h1 {
-    font-size: 2.5rem;
-  }
-  .hero-rosa-content p {
-    font-size: 1.2rem;
-  }
   .violence-card .card-title {
     min-height: auto; /* Permitir que el título se ajuste en móviles */
+  }
+}
+/* Botón de salida rápida */
+.salida-rapida {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1040;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem 0.7rem 0.8rem;
+  background-color: #c2185b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 0 0.75rem 0.75rem 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease, padding 0.2s ease;
+}
+
+.salida-rapida:hover,
+.salida-rapida:focus-visible {
+  background-color: #8e0e42;
+  padding-left: 1.2rem;
+}
+
+.salida-rapida:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -5px;
+}
+
+.salida-rapida i {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .salida-rapida {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .salida-rapida span {
+    display: none;
   }
 }

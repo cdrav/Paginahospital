@@ -25,16 +25,16 @@
 <div id="header-placeholder"></div>
 <div id="breadcrumb-container" class="container mt-3"></div>
 
+<!-- Botón de salida rápida (también con la tecla Esc dos veces) -->
+<button type="button" id="salida-rapida" class="salida-rapida" aria-label="Salida rápida: salir de esta página" title="Salir rápidamente de esta página (o presiona Esc dos veces)">
+  <i class="bi bi-box-arrow-left" aria-hidden="true"></i>
+  <span>Salida rápida</span>
+</button>
+
 <!-- Hero Section -->
-<header class="position-relative hero-rosa-banner">
-  <img src="/imagenes/consultorio-rosa/consultorio-rosa-index.webp" alt="Banner del Consultorio Rosa con una mano extendida en señal de apoyo" class="hero-rosa-img">
-  <div class="hero-rosa-overlay"></div>
-  <div class="container position-relative text-center text-white">
-    <div class="hero-rosa-content">
-      <h1 class="display-4 fw-bold mb-3">Consultorio Rosa</h1>
-      <p class="lead" style="max-width: 800px; margin: 0 auto;">Un espacio seguro de atención integral y confidencial para personas víctimas de violencias basadas en género.</p>
-    </div>
-  </div>
+<header class="hero-rosa-banner">
+  <img src="/imagenes/consultorio-rosa/consultorio-rosa-index.webp" alt="Conoce nuestro Consultorio Rosa: equipo de profesionales del Consultorio Rosa del Hospital Departamental San Antonio" class="hero-rosa-img" width="2134" height="557" fetchpriority="high">
+  <h1 class="visually-hidden">Consultorio Rosa</h1>
 </header> 
 
 <!-- Main Content -->
@@ -43,7 +43,7 @@
   <section class="mb-5">
     <div class="row justify-content-center">
       <div class="col-lg-10">
-        <div class="card shadow-sm border-0 info-card-hover">
+        <div class="card shadow-sm border-0">
           <div class="card-body p-4 p-md-5">
             <h2 class="text-center fw-bold mb-4 text-brand">¿Qué es el Consultorio Rosa?</h2>
             <p class="text-muted">El Consultorio Rosa es una estrategia del Valle del Cauca que brinda <strong>atención integral, segura y confidencial</strong> a personas víctimas de violencias basadas en género. Funciona en hospitales públicos y ofrece apoyo médico, psicológico, social y legal, sin revictimizar a quienes buscan ayuda.</p>
@@ -58,47 +58,72 @@
     </div>
   </section>
 
+  <!-- Documento sobre Violencias Basadas en Género -->
+  <section id="documento-vbg" class="mb-5">
+    <h2 class="text-center fw-bold mb-5 text-brand">Violencias Basadas en Género</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card shadow-sm border-0 documento-vbg-card">
+          <div class="card-body p-4 p-md-5 d-md-flex align-items-center gap-4">
+            <i class="bi bi-file-earmark-pdf-fill documento-vbg-icon mb-3 mb-md-0"></i>
+            <div class="flex-grow-1">
+              <h5 class="fw-bold text-brand mb-2">Violencias Basadas en Género – Corte a septiembre de 2026</h5>
+              <p class="text-muted mb-3 mb-md-0">Consulta el documento informativo del Consultorio Rosa sobre violencias basadas en género.</p>
+            </div>
+            <div class="d-flex flex-column flex-sm-row flex-md-column gap-2 flex-shrink-0">
+              <a href="documentos/consultorio-rosa/Diapositiva-VBG-A-septiembre-2026.pdf" target="_blank" rel="noopener" class="btn btn-rosa">
+                <i class="bi bi-eye me-2"></i>Ver documento
+              </a>
+              <a href="documentos/consultorio-rosa/Diapositiva-VBG-A-septiembre-2026.pdf" download class="btn btn-outline-rosa">
+                <i class="bi bi-download me-2"></i>Descargar PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Sección de Galería de Imágenes -->
   <section class="my-5">
     <h2 class="text-center fw-bold mb-5 text-brand">Galería de Imágenes</h2>
     <div class="row justify-content-center">
       <div class="col-lg-10">
-        <div id="galeriaConsultorioRosa" class="carousel slide shadow-lg" data-bs-ride="carousel" data-bs-interval="3000">
+        <div id="galeriaConsultorioRosa" class="carousel slide shadow-lg">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="4" aria-label="Slide 5"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="5" aria-label="Slide 6"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="6" aria-label="Slide 7"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="7" aria-label="Slide 8"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="8" aria-label="Slide 9"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="9" aria-label="Slide 10"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="10" aria-label="Slide 11"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="11" aria-label="Slide 12"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="12" aria-label="Slide 13"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="13" aria-label="Slide 14"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="14" aria-label="Slide 15"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="15" aria-label="Slide 16"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="16" aria-label="Slide 17"></button>
-            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="17" aria-label="Slide 18"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Foto 1 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="1" aria-label="Foto 2 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="2" aria-label="Foto 3 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="3" aria-label="Foto 4 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="4" aria-label="Foto 5 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="5" aria-label="Foto 6 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="6" aria-label="Foto 7 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="7" aria-label="Foto 8 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="8" aria-label="Foto 9 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="9" aria-label="Foto 10 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="10" aria-label="Foto 11 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="11" aria-label="Foto 12 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="12" aria-label="Foto 13 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="13" aria-label="Foto 14 de 15"></button>
+            <button type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide-to="14" aria-label="Foto 15 de 15"></button>
           </div>
           <div class="carousel-inner rounded-3">
-            <div class="carousel-item active"><img src="/imagenes/consultorio-rosa/galeria/DSC_9767-Mejorado-NR.webp" class="d-block w-100 gallery-image" alt="Imagen 1 del Consultorio Rosa" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9772.webp" class="d-block w-100 gallery-image" alt="Imagen 2 del Consultorio Rosa" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9778.webp" class="d-block w-100 gallery-image" alt="Imagen 3 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9782.webp" class="d-block w-100 gallery-image" alt="Imagen 4 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9787.webp" class="d-block w-100 gallery-image" alt="Imagen 5 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9791.webp" class="d-block w-100 gallery-image" alt="Imagen 6 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9810.webp" class="d-block w-100 gallery-image" alt="Imagen 7 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9815.webp" class="d-block w-100 gallery-image" alt="Imagen 9 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/Imagen de WhatsApp 2025-09-25 a las 10.35.01_f1a9fa1f.webp" class="d-block w-100 gallery-image" alt="Imagen 10 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093440.webp" class="d-block w-100 gallery-image" alt="Imagen 14 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093449.webp" class="d-block w-100 gallery-image" alt="Imagen 15 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093658.webp" class="d-block w-100 gallery-image" alt="Imagen 16 de la galería" loading="lazy" decoding="async"></div>
-            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093711.webp" class="d-block w-100 gallery-image" alt="Imagen 17 de la galería" loading="lazy" decoding="async"></div>
-           
+            <div class="carousel-item active"><img src="/imagenes/consultorio-rosa/galeria/DSC_9767-Mejorado-NR.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 1 de 15" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9772.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 2 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9778.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 3 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9782.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 4 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9787.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 5 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9791.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 6 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9810.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 7 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9813.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 8 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/DSC_9815.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 9 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/Imagen de WhatsApp 2025-09-25 a las 10.35.01_f1a9fa1f.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 10 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093440.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 11 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093449.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 12 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093658.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 13 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093711.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 14 de 15" loading="lazy" decoding="async"></div>
+            <div class="carousel-item"><img src="/imagenes/consultorio-rosa/galeria/IMG_20250925_093721.webp" class="d-block w-100 gallery-image" alt="Consultorio Rosa del Hospital Departamental San Antonio, foto 15 de 15" loading="lazy" decoding="async"></div>
+          </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#galeriaConsultorioRosa" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
@@ -241,5 +266,6 @@
 <script src="js/breadcrumb.js" defer></script>
 <script src="js/cookie-consent.js" defer></script>
 <script src="js/article-preview.js" defer></script>
+<script src="js/salida-rapida.js" defer></script>
 </body>
 </html>
