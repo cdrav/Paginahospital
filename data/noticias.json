@@ -1,0 +1,409 @@
+[
+  {
+    "id": "cuidar-a-quienes-cuidan",
+    "fecha": "2026-10-15",
+    "categoria": "evento",
+    "etiqueta": "Atención Humanizada",
+    "inicio": true,
+    "destacada": true,
+    "titulo": "Cuidar a quienes cuidan también es parte de nuestra atención humanizada",
+    "resumen": "Espacios de capacitación y sensibilización para nuestro talento humano, con el Comité de Bienestar Social y el Equipo Psicosocial, para cuidar la salud mental después del terremoto.",
+    "imagen": "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial.webp",
+    "galeria": [
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial.webp",
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial2.webp",
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial3.webp",
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial4.webp",
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial5.webp",
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial6.webp",
+      "/imagenes/imagenes-index-noticias/noticias-index/Bienestar Social y el Equipo Psicosocial7.webp"
+    ],
+    "detalle": {
+      "texto": "<p class=\"lead\">💚 Cuidar a quienes cuidan también es parte de nuestra atención humanizada.</p><p>En el Hospital Departamental San Antonio de Roldanillo continuamos fortaleciendo la atención humanizada a través de espacios de capacitación y sensibilización dirigidos a nuestro talento humano, desarrollados en articulación con el Comité de Bienestar Social y el Equipo Psicosocial.</p><p>🤝 Estos encuentros buscan promover la expresión de emociones, el reconocimiento de nuestras reacciones y el cuidado de la salud mental, especialmente después de la experiencia vivida con el terremoto.</p><p>Reconocemos que sentir miedo, tristeza o incertidumbre ante una situación tan difícil es una respuesta humana. Las dificultades para dormir, el nerviosismo, el llanto o recordar constantemente lo ocurrido pueden presentarse después de un evento traumático. Por eso, hablar de lo que sentimos, buscar apoyo y practicar ejercicios de respiración son herramientas que pueden ayudarnos a recuperar la calma y el bienestar emocional.</p><p>💚 Recordemos que no tenemos que afrontar estas emociones solos. Cuando el malestar es intenso o persiste, buscar ayuda profesional es fundamental.</p><p>Seguimos trabajando por una atención más humana, empática e integral, reconociendo que el bienestar emocional de nuestro talento humano también es esencial para brindar una atención cálida y de calidad a nuestros usuarios.</p><p class=\"fw-bold mb-0\">Hospital Departamental San Antonio de Roldanillo: comprometidos con el cuidado de la vida, la salud y el bienestar de nuestra comunidad.</p>"
+    }
+  },
+  {
+    "id": "designacion-junta-directiva-sector-cientifico",
+    "fecha": "2026-09-11",
+    "categoria": "convocatoria",
+    "etiqueta": "Junta Directiva",
+    "titulo": "Designación Miembro Junta Directiva – Sector Científico",
+    "resumen": "Designación de Miembro de Junta Directiva que representará al sector Científico de la empresa. Consulta la convocatoria y las postulaciones presentadas.",
+    "icono": "bi-megaphone-fill",
+    "enlaces": [
+      {
+        "texto": "Ver convocatoria",
+        "url": "/imagenes/imagenes-index-noticias/convocatorias/subdireccion/CONVOCATORIA.pdf",
+        "icono": "bi-file-earmark-pdf"
+      },
+      {
+        "texto": "Postulación Rodrigo Tujillo",
+        "url": "/imagenes/imagenes-index-noticias/convocatorias/subdireccion/POSTULACION RODRIGO ANDRES TUJILLO.pdf",
+        "icono": "bi-person"
+      },
+      {
+        "texto": "Postulación Yeimi Espinosa",
+        "url": "/imagenes/imagenes-index-noticias/convocatorias/subdireccion/POSTULACION YEIMI CAROLINA  ESPINOSA SANDOVAL.pdf",
+        "icono": "bi-person"
+      }
+    ]
+  },
+  {
+    "id": "representante-sector-cientifico",
+    "fecha": "2026-06-19",
+    "categoria": "convocatoria",
+    "titulo": "Representante del Sector Científico de la Salud",
+    "resumen": "Postulación y elección del representante del sector científico de la salud del municipio ante la Junta Directiva del Hospital Departamental San Antonio de Roldanillo.",
+    "icono": "bi-file-earmark-pdf",
+    "enlaces": [
+      {
+        "texto": "Ver documento",
+        "url": "/imagenes/imagenes-index-noticias/convocatorias/convocatoria.pdf",
+        "icono": "bi-file-earmark-pdf"
+      }
+    ]
+  },
+  {
+    "id": "listado-inscritos-representante-usuarios",
+    "fecha": "2026-06-17",
+    "categoria": "convocatoria",
+    "etiqueta": "Listado Oficial",
+    "titulo": "Elección del Representante de los Usuarios 2026-2028",
+    "resumen": "Presentamos el listado oficial de los usuarios inscritos para participar en la elección ante la Junta Directiva.",
+    "imagen": "/imagenes/imagenes-index-noticias/convocatorias/asociacion-de-usuarios.webp",
+    "detalle": {
+      "imagenes": [
+        "/imagenes/imagenes-index-noticias/convocatorias/asociacion-de-usuarios.webp"
+      ],
+      "texto": "<p>El Hospital Departamental San Antonio de Roldanillo E.S.E., la Secretaría Departamental de Salud y la Asociación de Usuarios presentan a la comunidad el listado oficial de los usuarios inscritos para participar en el proceso de elección del Representante de los Usuarios ante la Junta Directiva, para el período 2026 – 2028.</p><p>Invitamos a todos los usuarios a participar activamente en esta importante jornada democrática, fortaleciendo los espacios de representación y participación ciudadana en salud.</p>"
+    }
+  },
+  {
+    "id": "convocatoria-representante-usuarios",
+    "fecha": "2026-06-11",
+    "categoria": "convocatoria",
+    "titulo": "Elección del Representante de los Usuarios",
+    "resumen": "Convocatoria pública para la elección del representante de los usuarios ante la Junta Directiva.",
+    "imagen": "/imagenes/imagenes-index-noticias/convocatorias/convocatoria (1).webp",
+    "detalle": {
+      "imagenes": [
+        "/imagenes/imagenes-index-noticias/convocatorias/convocatoria (1).webp",
+        "/imagenes/imagenes-index-noticias/convocatorias/convocatoria (2).webp"
+      ],
+      "texto": "<p>El Hospital Departamental San Antonio de Roldanillo, Valle del Cauca, convoca públicamente a la comunidad para la <strong>elección del representante de los usuarios ante la Junta Directiva</strong>.</p><p><strong>Correos electrónicos:</strong> <a href=\"mailto:siau@hdsa.gov.co\">siau@hdsa.gov.co</a> · <a href=\"mailto:trabajosocial@hdsa.gov.co\">trabajosocial@hdsa.gov.co</a></p><p><strong>PBX:</strong> 602 891 2317</p>"
+    }
+  },
+  {
+    "id": "eleccion-junta-directiva-sector-cientifico",
+    "fecha": "2026-04-30",
+    "categoria": "convocatoria",
+    "titulo": "Elección Miembro Junta Directiva",
+    "resumen": "Convocatoria para la elección de miembro del sector científico en la junta directiva del Hospital Departamental San Antonio E.S.E. Consulta los requisitos y proceso de inscripción.",
+    "icono": "bi-person-vcard",
+    "enlaces": [
+      {
+        "texto": "Ver convocatoria",
+        "url": "/imagenes/imagenes-index-noticias/convocatoria-eleccion-sector-científico.pdf",
+        "icono": "bi-file-earmark-pdf"
+      },
+      {
+        "texto": "Ver postulados",
+        "url": "/imagenes/imagenes-index-noticias/Postulados-Como-Representantes-del-Sector-Científico-Ante-Junta-Directiva-HDSA-ESE.pdf",
+        "icono": "bi-people-fill"
+      }
+    ]
+  },
+  {
+    "id": "rendicion-cuentas-2025",
+    "fecha": "2026-04-16",
+    "categoria": "evento",
+    "etiqueta": "Audiencia Pública",
+    "destacada": true,
+    "titulo": "Rendición de Cuentas – Vigencia 2025",
+    "resumen": "El Hospital Departamental San Antonio presentó ante la comunidad su informe de gestión de la vigencia 2025.",
+    "imagen": "/documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1945.webp",
+    "enlaces": [
+      {
+        "texto": "Ver rendición",
+        "url": "/participa/rendicion-cuentas-2025.html",
+        "icono": "bi-eye"
+      },
+      {
+        "texto": "Ver video",
+        "url": "https://www.youtube.com/watch?v=ZVSmjKSdSBI",
+        "icono": "bi-play-circle"
+      }
+    ],
+    "inicio": true
+  },
+  {
+    "id": "convocatoria-laboral-sst",
+    "fecha": "2026-03-13",
+    "categoria": "convocatoria",
+    "etiqueta": "Convocatoria Laboral",
+    "titulo": "Convocatoria Laboral SST",
+    "resumen": "Vacantes para profesionales y tecnólogos en Seguridad y Salud en el Trabajo (SST). Referencia CONV-SST-2026-001.",
+    "icono": "bi-briefcase-fill",
+    "detalle": {
+      "texto": "<h6 class=\"fw-bold mb-3\">Vacantes disponibles</h6><p class=\"fw-bold mb-1\">Profesional en SST (1)</p><ul class=\"small\"><li>Líder de equipo</li><li>Gestión intersectorial nivel municipal</li><li>Evaluación de estándares mínimos</li><li>Análisis de condiciones de salud y trabajo de EE</li><li>Higiene industrial</li><li>Diseño y seguimiento del plan laboral escolar</li><li>Conformación del COPASST</li></ul><p class=\"fw-bold mb-1\">Fisioterapeuta especialista en SST (1)</p><ul class=\"small\"><li>Análisis de morbilidad sentida</li><li>Diseño e implementación del SVE para el riesgo biomecánico</li><li>Seguimiento a casos de rehabilitación profesional</li><li>Análisis de puestos de trabajo</li></ul><p class=\"fw-bold mb-1\">Psicólogo(a) especialista en SST (1)</p><ul class=\"small\"><li>Diagnóstico de condiciones de trabajo psicosocial</li><li>Diseño e implementación del SVE para el control de riesgo psicosocial</li><li>Seguimiento a casos de rehabilitación profesional</li><li>Análisis de puesto de trabajo de condiciones de salud mental</li></ul><p class=\"fw-bold mb-1\">Fonoaudiólogo(a) especialista en SST (1)</p><ul class=\"small\"><li>Diseño e implementación del SVE para problemas del sistema fonoaudiológico</li><li>Seguimiento a casos de rehabilitación profesional</li><li>Análisis de puestos de trabajo por exposición del sistema fonoaudiológico</li></ul><p class=\"fw-bold mb-1\">Tecnólogos en SST (2)</p><ul class=\"small\"><li>Aplicación y/o actualización de la MIPER</li><li>Análisis de vulnerabilidad</li><li>Implementación de los planes de salud y trabajo de la EE</li><li>Higiene industrial</li><li>Diseño y seguimiento del Plan Laboral Escolar</li><li>Conformación del COPASST</li></ul><p class=\"mb-0\"><strong>Interesados:</strong> traer hoja de vida al hospital. <span class=\"text-muted\">Referencia: CONV-SST-2026-001</span></p>"
+    }
+  },
+  {
+    "id": "capacitacion-violencia-de-genero",
+    "fecha": "2026-03-04",
+    "categoria": "evento",
+    "etiqueta": "Capacitación",
+    "titulo": "Capacitación en Violencia de Género",
+    "resumen": "Jornada de capacitación sobre la atención de violencias basadas en género, en el marco del Consultorio Rosa.",
+    "imagen": "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1661.webp",
+    "galeria": [
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1661.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1660.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1659.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1656.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1655.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1654.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1652.webp",
+      "/imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1651.webp"
+    ],
+    "enlaces": [
+      {
+        "texto": "Consultorio Rosa",
+        "url": "/consultorio-rosa.html",
+        "icono": "bi-heart-pulse"
+      }
+    ]
+  },
+  {
+    "id": "mastitis-necrotizante",
+    "fecha": "2025-12-01",
+    "categoria": "comunicado",
+    "etiqueta": "Investigación",
+    "titulo": "Mastitis Necrotizante: Estudio de caso",
+    "resumen": "Complicación poco común en mujeres lactantes. Streptococcus pneumoniae, asociado a infecciones respiratorias.",
+    "imagen": "/imagenes/imagenes-index-noticias/noticia-internacional/imagen-noticia-internacional.webp",
+    "enlaces": [
+      {
+        "texto": "Leer artículo",
+        "url": "https://revistainfectio.org/P_OJS/index.php/infectio/article/view/1255",
+        "icono": "bi-box-arrow-up-right"
+      }
+    ]
+  },
+  {
+    "id": "equipos-aps",
+    "fecha": "2025-11-19",
+    "categoria": "comunicado",
+    "etiqueta": "Comunidad",
+    "titulo": "Atención de nuestros equipos APS",
+    "resumen": "Los Grupos de Atención Primaria en Salud ya están en los barrios de Roldanillo, fortaleciendo la promoción y prevención.",
+    "imagen": "/imagenes/imagenes-index-noticias/noticia-aps.webp",
+    "enlaces": [
+      {
+        "texto": "Ver en Facebook",
+        "url": "https://www.facebook.com/reel/1751769838832170?locale=es_LA",
+        "icono": "bi-facebook"
+      }
+    ]
+  },
+  {
+    "id": "elecciones-asociacion-usuarios-2025",
+    "fecha": "2025-10-31",
+    "categoria": "convocatoria",
+    "etiqueta": "Participación",
+    "titulo": "Elecciones Asociación de Usuarios",
+    "resumen": "Inscripciones del 4 de noviembre al 4 de diciembre de 2025 para conformar la nueva Asociación de Usuarios del hospital.",
+    "icono": "bi-people-fill",
+    "detalle": {
+      "texto": "<p class=\"lead\">A partir del 4 de noviembre de 2025, el Hospital Departamental San Antonio de Roldanillo abre el proceso de inscripción para conformar la nueva <strong>Asociación de Usuarios</strong>.</p><p>Este es un espacio de participación ciudadana que busca fortalecer el vínculo entre la comunidad y la institución, promoviendo la defensa de los derechos y el cumplimiento de los deberes de los usuarios del hospital.</p><h6 class=\"fw-bold mt-4\">Fechas clave</h6><ul><li><strong>Inscripciones:</strong> del 4 de noviembre al 4 de diciembre de 2025.</li><li><strong>Reclamos e impugnaciones:</strong> 9 y 10 de diciembre (hasta 5:00 p.m.).</li><li><strong>Asamblea y elección:</strong> 22 de diciembre de 2025 (1:00 p.m. a 4:00 p.m.).</li></ul><h6 class=\"fw-bold\">Requisitos para participar</h6><ul><li>Tener historia clínica en el Hospital en el último año.</li><li>No tener inhabilidades o incompatibilidades legales.</li><li>Ser mayor de 18 años.</li></ul><div class=\"alert alert-info mb-0\">Las inscripciones se realizan en la <strong>oficina del SIAU</strong> en jornada continua (8:00 a.m. - 12:00 m. y 2:00 p.m. - 4:00 p.m.). La asamblea será en el <strong>Auditorio Luz Fátima</strong> del hospital.</div>"
+    }
+  },
+  {
+    "id": "jornada-cancer-de-mama",
+    "fecha": "2025-10-30",
+    "categoria": "evento",
+    "destacada": true,
+    "titulo": "Jornada de Educación y Concientización sobre Cáncer de Mama",
+    "resumen": "Desde nuestro Consultorio Rosado, reafirmamos nuestro compromiso con la detección temprana y el cuidado integral de la mujer.",
+    "imagen": "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8242.webp",
+    "galeria": [
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8242.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8244.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8247.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8248.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8250.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8252.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8253.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8254.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8269.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8272.webp",
+      "/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8275.webp"
+    ]
+  },
+  {
+    "id": "agradecimiento-colombina",
+    "fecha": "2025-10-15",
+    "categoria": "evento",
+    "titulo": "Agradecimiento a Colombina",
+    "resumen": "Agradecemos la valiosa donación de implementos médicos que fortalecen nuestra capacidad de atención.",
+    "imagen": "/imagenes/galeria-colombina/DSC_3756.webp",
+    "galeria": [
+      "/imagenes/galeria-colombina/DSC_3756.webp",
+      "/imagenes/galeria-colombina/DSC_3779.webp",
+      "/imagenes/galeria-colombina/DSC_3781.webp",
+      "/imagenes/galeria-colombina/DSC_3793.webp",
+      "/imagenes/galeria-colombina/DSC_3803.webp",
+      "/imagenes/galeria-colombina/DSC_3826.webp",
+      "/imagenes/galeria-colombina/DSC_3828.webp",
+      "/imagenes/galeria-colombina/Imagen de WhatsApp 2025-07-25 a las 14.51.07_2b40e6a3.webp"
+    ]
+  },
+  {
+    "id": "donacion-de-cabello",
+    "fecha": "2025-10-15",
+    "categoria": "evento",
+    "titulo": "Jornada de Donación de Cabello",
+    "resumen": "Un acto de amor y esperanza que nos recordó que pequeños gestos pueden transformar vidas.",
+    "imagen": "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-6.webp",
+    "galeria": [
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-1.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-2.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-3.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-4.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-5.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-6.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-7.webp",
+      "/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-8.webp"
+    ]
+  },
+  {
+    "id": "capacitacion-comfandi",
+    "fecha": "2025-10-06",
+    "categoria": "comunicado",
+    "titulo": "Capacitación en alianza con Comfandi",
+    "resumen": "Fortalecemos nuestro compromiso con la atención humanizada para brindar un trato cercano y respetuoso.",
+    "imagen": "/imagenes/imagenes-index-noticias/imagenes-noticias/octubre/noticia.webp",
+    "enlaces": [
+      {
+        "texto": "Leer más",
+        "url": "https://www.facebook.com/hdsaroldanillo?locale=es_LA",
+        "icono": "bi-facebook"
+      }
+    ]
+  },
+  {
+    "id": "video-salud",
+    "fecha": "2025-10-06",
+    "categoria": "video",
+    "titulo": "Video Destacado de Salud",
+    "resumen": "Consejos y recomendaciones para cuidar tu salud y bienestar.",
+    "video": "cm63-LbERs0"
+  },
+  {
+    "id": "video-servicios",
+    "fecha": "2025-10-06",
+    "categoria": "video",
+    "titulo": "Servicios del Hospital",
+    "resumen": "Conoce más sobre los servicios que ofrecemos en nuestro hospital.",
+    "video": "Xwgfhlrl-nA"
+  },
+  {
+    "id": "no-estas-solo",
+    "fecha": "2025-09-29",
+    "categoria": "comunicado",
+    "titulo": "No estás solo",
+    "resumen": "Hablar salva, escuchar acompaña y pedir ayuda nunca es una debilidad.",
+    "imagen": "/imagenes/imagenes-index-noticias/imagenes-noticias/no-estas-solo/linea-de-ayuda.webp",
+    "enlaces": [
+      {
+        "texto": "Leer más",
+        "url": "https://www.facebook.com/hdsaroldanillo?locale=es_LA",
+        "icono": "bi-facebook"
+      }
+    ]
+  },
+  {
+    "id": "dia-mundial-alzheimer",
+    "fecha": "2025-09-25",
+    "categoria": "video",
+    "titulo": "Día mundial del Alzheimer",
+    "resumen": "Dormir bien no es un lujo, es cuidar tu memoria. El descanso también previene.",
+    "imagen": "/imagenes/imagenes-index-noticias/video-destacado.webp",
+    "enlaces": [
+      {
+        "texto": "Ver video",
+        "url": "https://www.facebook.com/reel/1132433742350975?locale=es_LA",
+        "icono": "bi-play-circle"
+      }
+    ]
+  },
+  {
+    "id": "protegete",
+    "fecha": "2025-09-25",
+    "categoria": "video",
+    "titulo": "¡Protégete!",
+    "resumen": "Nos reímos con las respuestas… pero la verdad es clara: el condón protege tu salud.",
+    "imagen": "/imagenes/imagenes-index-noticias/video-destacado-2.webp",
+    "enlaces": [
+      {
+        "texto": "Ver video",
+        "url": "https://www.facebook.com/hdsaroldanillo/videos/725477447206151?locale=es_LA",
+        "icono": "bi-play-circle"
+      }
+    ]
+  },
+  {
+    "id": "importancia-autoexamen",
+    "fecha": "2025-09-25",
+    "categoria": "video",
+    "titulo": "Importancia del Autoexamen",
+    "resumen": "Un video esencial sobre la importancia del autoexamen de mama.",
+    "video": "ABGYBRfGHX4"
+  },
+  {
+    "id": "certificado-discapacidad",
+    "fecha": "2025-09-01",
+    "categoria": "comunicado",
+    "titulo": "Proceso de Certificación de Discapacidad",
+    "resumen": "Informamos sobre los nuevos lineamientos para un proceso más ágil y cercano.",
+    "imagen": "/documentos/Seccion noticias HDSA/Certificado de discapacidad/certificado-de-discapacidad.webp",
+    "enlaces": [
+      {
+        "texto": "Más información",
+        "url": "https://www.facebook.com/reel/3472915742962744?locale=es_LA",
+        "icono": "bi-facebook"
+      }
+    ]
+  },
+  {
+    "id": "club-diabeticos-hipertensos",
+    "fecha": "2025-09-01",
+    "categoria": "evento",
+    "titulo": "Club de Pacientes con Diabetes e Hipertensión",
+    "resumen": "Realizamos un encuentro especial para compartir conocimientos y experiencias.",
+    "imagen": "/documentos/Seccion noticias HDSA/Encuentro del club de diabeticos e hipertensos/DSC_9981.webp",
+    "enlaces": [
+      {
+        "texto": "Leer más",
+        "url": "https://www.facebook.com/photo?fbid=1325512666248732&set=pcb.1325512746248724&locale=es_LA",
+        "icono": "bi-facebook"
+      }
+    ]
+  },
+  {
+    "id": "prevencion-desnutricion",
+    "fecha": "2025-08-25",
+    "categoria": "comunicado",
+    "etiqueta": "PyP",
+    "titulo": "Prevención de la Desnutrición",
+    "resumen": "Implementamos jornadas de tamizaje y educación para prevenir la desnutrición infantil.",
+    "imagen": "/imagenes/imagenes-index-noticias/noticias-tarjeta1.webp",
+    "enlaces": [
+      {
+        "texto": "Leer más",
+        "url": "/promocion-prevencion.html",
+        "icono": "bi-arrow-right"
+      }
+    ]
+  }
+]

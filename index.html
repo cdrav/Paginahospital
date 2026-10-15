@@ -84,17 +84,17 @@
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
-<section id="actualizacion-sismo" class="mb-5 py-5" style="background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%);">
+<section id="actualizacion-sismo" class="mb-4 py-4" style="background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%);">
     <div class="container">
-      <div class="text-center mb-4">
+      <div class="text-center mb-3">
         <span class="badge rounded-pill px-3 py-2 mb-3" style="background: linear-gradient(135deg, #d35400, #e67e22); font-size: 0.85rem;">
           <i class="bi bi-exclamation-triangle-fill me-1"></i> Emergencia por el Sismo
         </span>
-        <h2 class="fw-bold">Actualizaci&oacute;n por el Sismo en Roldanillo</h2>
-        <p class="text-muted mx-auto" style="max-width: 650px;">El Hospital Departamental San Antonio contin&uacute;a informando a la comunidad sobre la atenci&oacute;n de servicios, jornadas de salud y la campa&ntilde;a de donaciones tras la emergencia.</p>
+        <h2 class="fw-bold h3 mb-2">Actualizaci&oacute;n por el Sismo en Roldanillo</h2>
+        <p class="text-muted mx-auto mb-0" style="max-width: 650px;">El Hospital Departamental San Antonio contin&uacute;a informando a la comunidad sobre la atenci&oacute;n de servicios, jornadas de salud y la campa&ntilde;a de donaciones tras la emergencia.</p>
       </div>
 
-      <div id="emergenciaSismoCarousel" class="carousel slide carousel-fade shadow-lg" data-bs-ride="carousel" data-bs-interval="6000" style="border-radius:16px; overflow:hidden;">
+      <div id="emergenciaSismoCarousel" class="carousel slide carousel-fade shadow sismo-carousel" data-bs-ride="carousel" data-bs-interval="6000" style="border-radius:16px; overflow:hidden;">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#emergenciaSismoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Testimonio Comunidad"></button>
           <button type="button" data-bs-target="#emergenciaSismoCarousel" data-bs-slide-to="1" aria-label="Especialidades"></button>
@@ -110,11 +110,11 @@
 
           <!-- Slide 1: Testimonio Comunidad -->
           <div class="carousel-item active">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-heart-fill me-1 text-danger"></i>Testimonio Comunidad</span>
-              <img src="imagenes/imagenes-index-noticias/noticia-destacada/noticia.webp" alt="Testimonio de la comunidad" class="img-fluid rounded shadow-lg mb-2" style="max-height:480px; object-fit:contain; cursor: pointer;" onclick="abrirModal('imagenes/imagenes-index-noticias/noticia-destacada/noticia.webp')">
-              <p class="text-white small mb-3" style="opacity: 0.8;"><i class="bi bi-hand-index-thumb me-1"></i> Haz clic para conocer la historia completa</p>
-              <div class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/noticia-destacada/noticia.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/noticia-destacada/noticia.webp" alt="Testimonio de la comunidad" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-heart-fill me-1 text-danger"></i>Testimonio Comunidad</span>
+              <div class="mb-0">
                 <p class="mb-2"><strong>Las palabras de nuestra comunidad nos llenan de gratitud</strong></p>
                 <p class="small mb-3">Hoy queremos compartir con ustedes este hermoso testimonio de una familia que necesitó atención para su hijo y encontró en nuestro Hospital una respuesta oportuna y humana. 🙏🏻</p>
                 <p class="small mb-2"><strong>🏥 Servicios funcionando con normalidad:</strong></p>
@@ -122,78 +122,103 @@
                 <p class="small mb-2">✅ Consulta Externa &nbsp; ✅ Laboratorio Clínico &nbsp; ✅ Rayos X &nbsp; ✅ Ecografías &nbsp; ✅ Mamografías</p>
                 <p class="small mt-3">En medio de las dificultades, seguimos adelante con compromiso, vocación y amor por nuestra comunidad. 💚</p>
               </div>
+              </div>
             </div>
           </div>
 
           <!-- Slide 2: Especialidades -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-stethoscope me-1"></i>Especialidades</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/especialidades.webp" alt="Servicios de Especialidades" class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">Consultas de <strong>Especialidades</strong> disponibles en el hospital.</p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/especialidades.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/especialidades.webp" alt="Servicios de Especialidades" loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-stethoscope me-1"></i>Especialidades</span>
+              
+              <p class="mb-0">Consultas de <strong>Especialidades</strong> disponibles en el hospital.</p>
+              </div>
             </div>
           </div>
 
           <!-- Slide 3: Laboratorio -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-droplet-fill me-1"></i>Laboratorio</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/laboratorio.webp" alt="Servicio de Laboratorio" class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">Servicio de <strong>Laboratorio Cl&iacute;nico</strong> disponible para ex&aacute;menes.</p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/laboratorio.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/laboratorio.webp" alt="Servicio de Laboratorio" loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-droplet-fill me-1"></i>Laboratorio</span>
+              
+              <p class="mb-0">Servicio de <strong>Laboratorio Cl&iacute;nico</strong> disponible para ex&aacute;menes.</p>
+              </div>
             </div>
           </div>
 
           <!-- Slide 4: Agradecimiento -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-heart-fill me-1 text-danger"></i>Agradecimiento</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/doncacion.webp" alt="Agradecimiento a la comunidad por las donaciones tras el sismo: los pl&aacute;sticos y lonas ya no se requieren, pero se siguen necesitando insumos, elementos de limpieza y suministros m&eacute;dicos" class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">&iexcl;Gracias por su solidaridad! Ya no necesitamos pl&aacute;sticos ni lonas. Seguimos requiriendo <strong>insumos hospitalarios, elementos de limpieza y suministros m&eacute;dicos</strong>.</p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/doncacion.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/doncacion.webp" alt="Agradecimiento a la comunidad por las donaciones tras el sismo: los pl&aacute;sticos y lonas ya no se requieren, pero se siguen necesitando insumos, elementos de limpieza y suministros m&eacute;dicos" loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-heart-fill me-1 text-danger"></i>Agradecimiento</span>
+              
+              <p class="mb-0">&iexcl;Gracias por su solidaridad! Ya no necesitamos pl&aacute;sticos ni lonas. Seguimos requiriendo <strong>insumos hospitalarios, elementos de limpieza y suministros m&eacute;dicos</strong>.</p>
+              </div>
             </div>
           </div>
 
           <!-- Slide 5: Cuenta bancaria para donaciones -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-piggy-bank-fill me-1"></i>Donaciones</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/cuenta-de-ahorros.webp" alt="Cuenta habilitada para donaciones tras el sismo: Banco Davivienda, cuenta corriente 012569999910, a nombre de Hospital Departamental San Antonio Roldanillo, NIT 891900343-6, llave Bre-B arroba 8919003436" class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">Banco <strong>Davivienda</strong> &middot; Cuenta corriente <strong>012569999910</strong> &middot; NIT 891900343-6 &middot; Llave Bre-B <strong>@8919003436</strong></p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/cuenta-de-ahorros.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/cuenta-de-ahorros.webp" alt="Cuenta habilitada para donaciones tras el sismo: Banco Davivienda, cuenta corriente 012569999910, a nombre de Hospital Departamental San Antonio Roldanillo, NIT 891900343-6, llave Bre-B arroba 8919003436" loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-piggy-bank-fill me-1"></i>Donaciones</span>
+              
+              <p class="mb-0">Banco <strong>Davivienda</strong> &middot; Cuenta corriente <strong>012569999910</strong> &middot; NIT 891900343-6 &middot; Llave Bre-B <strong>@8919003436</strong></p>
+              </div>
             </div>
           </div>
 
           <!-- Slide 6: Puesto de Salud Los Llanitos -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-heart-pulse-fill me-1"></i>Servicios</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/llanitos.webp" alt="Servicios en el Puesto de Salud Los Llanitos: consulta de controles prenatales y de crecimiento y desarrollo, para madres gestantes y lactantes" class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">Consulta de <strong>controles prenatales</strong> y de <strong>crecimiento y desarrollo</strong>, en el Puesto de Salud Los Llanitos, en los horarios habituales.</p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/llanitos.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/llanitos.webp" alt="Servicios en el Puesto de Salud Los Llanitos: consulta de controles prenatales y de crecimiento y desarrollo, para madres gestantes y lactantes" loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-heart-pulse-fill me-1"></i>Servicios</span>
+              
+              <p class="mb-0">Consulta de <strong>controles prenatales</strong> y de <strong>crecimiento y desarrollo</strong>, en el Puesto de Salud Los Llanitos, en los horarios habituales.</p>
+              </div>
             </div>
           </div>
 
           <!-- Slide 7: Líneas de citas habilitadas -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-telephone-fill me-1"></i>Atenci&oacute;n al Usuario</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/citas.webp" alt="L&iacute;neas habilitadas de la Central de Citas: 602 891 2317, extensiones 214 y 215" class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/citas.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/citas.webp" alt="L&iacute;neas habilitadas de la Central de Citas: 602 891 2317, extensiones 214 y 215" loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-telephone-fill me-1"></i>Atenci&oacute;n al Usuario</span>
+              
               <a href="tel:+576028912317" class="btn btn-light fw-bold rounded-pill px-4"><i class="bi bi-telephone-fill me-1"></i> Llamar ahora &mdash; 602 891 2317</a>
+              </div>
             </div>
           </div>
 
           <!-- Slide 8: Jornada de vacunación -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-shield-plus me-1"></i>Vacunaci&oacute;n</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/vacunacion.webp" alt="Jornada de vacunaci&oacute;n en medio de la emergencia por el sismo, afuera de la entrada principal del hospital, lunes a s&aacute;bado de 8:00 a.m. a 11:00 a.m." class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">Afuera de la entrada principal del hospital &middot; <strong>Lunes a s&aacute;bado, 8:00 a.m. a 11:00 a.m.</strong> &middot; Ni&ntilde;os, gestantes y poblaci&oacute;n adulta.</p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/vacunacion.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/vacunacion.webp" alt="Jornada de vacunaci&oacute;n en medio de la emergencia por el sismo, afuera de la entrada principal del hospital, lunes a s&aacute;bado de 8:00 a.m. a 11:00 a.m." loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-shield-plus me-1"></i>Vacunaci&oacute;n</span>
+              
+              <p class="mb-0">Afuera de la entrada principal del hospital &middot; <strong>Lunes a s&aacute;bado, 8:00 a.m. a 11:00 a.m.</strong> &middot; Ni&ntilde;os, gestantes y poblaci&oacute;n adulta.</p>
+              </div>
             </div>
           </div>
 
           <!-- Slide 9: Odontología itinerante -->
           <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4" style="min-height:560px;">
-              <span class="badge bg-light text-dark align-self-center mb-3 rounded-pill px-3 py-2"><i class="bi bi-emoji-smile-fill me-1"></i>Odontolog&iacute;a</span>
-              <img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/odontologia.webp" alt="Atenci&oacute;n odontol&oacute;gica itinerante en el Puesto de Salud El Palmar Guayabal y el Puesto de Salud Los Llanitos, de 8:30 a.m. a 3:00 p.m." class="img-fluid rounded shadow-lg mb-3" style="max-height:480px; object-fit:contain;">
-              <p class="text-white mb-0 px-3" style="max-width:600px; opacity:0.95;">Puesto de Salud <strong>El Palmar Guayabal</strong> y Puesto de Salud <strong>Los Llanitos</strong> &middot; 8:30 a.m. a 3:00 p.m.</p>
+            <div class="sismo-slide">
+              <button type="button" class="sismo-slide-media" onclick="abrirModal('imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/odontologia.webp')" aria-label="Ver imagen ampliada"><img src="imagenes/imagenes-index-noticias/Actualizacion-noticias-de-pagina/odontologia.webp" alt="Atenci&oacute;n odontol&oacute;gica itinerante en el Puesto de Salud El Palmar Guayabal y el Puesto de Salud Los Llanitos, de 8:30 a.m. a 3:00 p.m." loading="lazy" decoding="async"></button>
+              <div class="sismo-slide-texto">
+                <span class="badge bg-light text-dark align-self-start mb-3 rounded-pill px-3 py-2"><i class="bi bi-emoji-smile-fill me-1"></i>Odontolog&iacute;a</span>
+              
+              <p class="mb-0">Puesto de Salud <strong>El Palmar Guayabal</strong> y Puesto de Salud <strong>Los Llanitos</strong> &middot; 8:30 a.m. a 3:00 p.m.</p>
+              </div>
             </div>
           </div>
 
@@ -216,6 +241,14 @@
           <span class="badge rounded-pill px-3 py-2 mb-3" style="background: linear-gradient(135deg, #164443, #22a7a0); font-size: 0.85rem;"><i class="bi bi-newspaper me-1"></i> Actualidad HDSA</span>
           <h2 class="fw-bold">Noticias y Eventos</h2>
           <p class="text-muted mx-auto" style="max-width: 600px;">Mantente al d&iacute;a con las &uacute;ltimas novedades y actividades del Hospital Departamental San Antonio.</p>
+        </div>
+
+        <!-- Noticias del inicio: las marcadas con "inicio": true en data/noticias.json (todas quedan en noticias.html) -->
+        <div class="row g-4 mb-4" id="noticias-recientes" data-limite="6" aria-live="polite">
+          <div class="col-12 text-center text-muted py-4">
+            <div class="spinner-border text-primary mb-3" role="status"></div>
+            <p class="mb-0">Cargando noticias…</p>
+          </div>
         </div>
 
         <!-- Tarjeta fija de Resultados de Rayos X -->
@@ -250,97 +283,6 @@
           </div>
         </div>
 
-        <!-- Carrusel de Noticias Destacadas -->
-        <div id="destacadosCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="5000">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#destacadosCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Convocatoria"></button>
-            <button type="button" data-bs-target="#destacadosCarousel" data-bs-slide-to="1" aria-label="Postulados"></button>
-            <button type="button" data-bs-target="#destacadosCarousel" data-bs-slide-to="2" aria-label="Rendición de Cuentas"></button>
-          </div>
-          <div class="carousel-inner">
-            <!-- Slide 1: Convocatoria -->
-            <div class="carousel-item active">
-              <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, #e67e22, #d35400);">
-                <div class="row g-0 align-items-center">
-                  <div class="col-md-5">
-                    <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4 text-white" style="min-height: 260px;">
-                      <i class="bi bi-file-earmark-pdf-fill mb-3" style="font-size: 4rem;"></i>
-                      <span class="fw-bold text-center">Convocatoria Abierta</span>
-                    </div>
-                  </div>
-                  <div class="col-md-7 d-flex">
-                    <div class="card-body d-flex flex-column justify-content-center p-4 p-lg-5 text-white">
-                      <span class="badge rounded-pill align-self-start mb-3 px-3 py-2" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); font-size: 0.8rem;"><i class="bi bi-megaphone-fill me-1"></i>Junta Directiva</span>
-                      <h3 class="card-title fw-bold mb-2" style="font-size: 1.5rem;">Designación Miembro Junta Directiva</h3>
-                      <p class="mb-3" style="opacity: 0.9;">Designación de Miembro de Junta Directiva que representará al sector Científico de la empresa.</p>
-                      <div class="d-flex flex-wrap gap-2 mt-auto">
-                        <a href="imagenes/imagenes-index-noticias/convocatorias/subdireccion/CONVOCATORIA.pdf" target="_blank" rel="noopener" class="btn btn-light btn-sm fw-bold rounded-pill px-4">
-                          <i class="bi bi-file-earmark-pdf me-1"></i> Ver Convocatoria
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 2: Postulados -->
-            <div class="carousel-item">
-              <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, #27ae60, #16a085);">
-                <div class="row g-0 align-items-center">
-                  <div class="col-md-5">
-                    <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4 text-white" style="min-height: 260px;">
-                      <i class="bi bi-people-fill mb-3" style="font-size: 4rem;"></i>
-                      <span class="fw-bold text-center">Postulados</span>
-                    </div>
-                  </div>
-                  <div class="col-md-7 d-flex">
-                    <div class="card-body d-flex flex-column justify-content-center p-4 p-lg-5 text-white">
-                      <span class="badge rounded-pill align-self-start mb-3 px-3 py-2" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); font-size: 0.8rem;"><i class="bi bi-person-check-fill me-1"></i>Candidatos</span>
-                      <h3 class="card-title fw-bold mb-2" style="font-size: 1.5rem;">Postulados al Cargo</h3>
-                      <p class="mb-3" style="opacity: 0.9;">Consulta las postulaciones presentadas para el cargo de Subdirección Científica.</p>
-                      <div class="d-flex flex-wrap gap-2 mt-auto">
-                        <a href="imagenes/imagenes-index-noticias/convocatorias/subdireccion/POSTULACION RODRIGO ANDRES TUJILLO.pdf" target="_blank" rel="noopener" class="btn btn-light btn-sm fw-bold rounded-pill px-3">
-                          <i class="bi bi-file-earmark-pdf me-1"></i> Rodrigo Tujillo
-                        </a>
-                        <a href="imagenes/imagenes-index-noticias/convocatorias/subdireccion/POSTULACION YEIMI CAROLINA  ESPINOSA SANDOVAL.pdf" target="_blank" rel="noopener" class="btn btn-light btn-sm fw-bold rounded-pill px-3">
-                          <i class="bi bi-file-earmark-pdf me-1"></i> Yeimi Espinosa
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 3: Rendición de Cuentas -->
-            <div class="carousel-item">
-              <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, #164443 0%, #1a5c5a 50%, #22a7a0 100%);">
-                <div class="row g-0 align-items-center">
-                  <div class="col-md-5">
-                    <img src="documentos/rendicion-de-cuentas/2025/Imagenes/IMG_1945.webp" class="w-100 h-100" alt="Gerente presentando el informe de gestión" style="object-fit: cover; min-height: 260px;">
-                  </div>
-                  <div class="col-md-7 d-flex">
-                    <div class="card-body d-flex flex-column justify-content-center p-4 p-lg-5 text-white">
-                      <span class="badge rounded-pill align-self-start mb-3 px-3 py-2" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); font-size: 0.8rem;"><i class="bi bi-megaphone-fill me-1"></i>Audiencia P&uacute;blica</span>
-                      <h3 class="card-title fw-bold mb-2" style="font-size: 1.5rem;">Rendici&oacute;n de Cuentas &mdash; Vigencia 2025</h3>
-                      <p class="mb-3" style="opacity: 0.9;">El Hospital Departamental San Antonio present&oacute; ante la comunidad su informe de gesti&oacute;n de la vigencia 2025.</p>
-                      <div class="d-flex flex-wrap gap-2 mt-auto">
-                        <a href="participa/rendicion-cuentas-2025.html" class="btn btn-light btn-sm fw-bold rounded-pill px-4">
-                          <i class="bi bi-eye me-1"></i> Ver Rendici&oacute;n
-                        </a>
-                        <a href="https://www.youtube.com/watch?v=ZVSmjKSdSBI" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm rounded-pill px-3">
-                          <i class="bi bi-play-circle me-1"></i> Ver Video
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Consultorio Rosa - tarjeta destacada permanente -->
         <div class="row mb-4">
           <div class="col-12">
@@ -359,107 +301,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Grid de noticias secundarias -->
-        <div class="row g-4">
-        <!-- Convocatoria Sector Científico -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 10px;">
-            <div class="card-body d-flex flex-column p-3" style="background: linear-gradient(135deg, #1a5c5a 0%, #0f3332 100%); border-radius: 10px;">
-              <span class="badge bg-warning text-dark align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="bi bi-star-fill me-1"></i>Nueva Convocatoria</span>
-              <h6 class="card-title fw-bold mb-2 text-white" style="font-size: 0.95rem;">Representante del Sector Cient&iacute;fico de la Salud</h6>
-              <p class="card-text text-white small flex-grow-1" style="opacity: 0.9; font-size: 0.8rem;">POSTULACI&Oacute;N Y ELECCI&Oacute;N DEL REPRESENTANTE DEL SECTOR CIENT&Iacute;FICO DE LA SALUD DEL MUNICIPIO ANTE LA JUNTA DIRECTIVA.</p>
-              <div class="mt-auto">
-                <button type="button" class="btn btn-light btn-sm rounded-pill px-3" style="font-size: 0.8rem;" data-bs-toggle="modal" data-bs-target="#modalConvocatoriaSectorCientifico">
-                  <i class="bi bi-file-earmark-pdf me-1"></i> Ver Documento
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Listado Oficial de Usuarios -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 10px;">
-            <img src="imagenes/imagenes-index-noticias/convocatorias/asociacion-de-usuarios.webp" class="card-img-top" alt="Listado oficial de inscritos" style="height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
-            <div class="card-body d-flex flex-column p-3">
-              <span class="badge bg-success align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="bi bi-check2-square me-1"></i>Listado Oficial</span>
-              <h6 class="card-title fw-bold mb-2" style="font-size: 0.95rem;">Elecci&oacute;n del Representante de los Usuarios 2026-2028</h6>
-              <p class="card-text text-muted small flex-grow-1" style="font-size: 0.8rem;">Presentamos el listado oficial de los usuarios inscritos para participar en la elecci&oacute;n ante la Junta Directiva.</p>
-              <div class="mt-auto">
-                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3" style="font-size: 0.8rem;" data-bs-toggle="modal" data-bs-target="#modalListadoInscritos">
-                  <i class="bi bi-eye me-1"></i> Ver Listado
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Convocatoria Representante de Usuarios -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 10px;">
-            <img src="imagenes/imagenes-index-noticias/convocatorias/convocatoria (1).webp" class="card-img-top" alt="Convocatoria p&uacute;blica" style="height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
-            <div class="card-body d-flex flex-column p-3">
-              <span class="badge bg-danger align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="bi bi-star-fill me-1"></i>Destacado</span>
-              <h6 class="card-title fw-bold mb-2" style="font-size: 0.95rem;">Elecci&oacute;n del Representante de los Usuarios</h6>
-              <p class="card-text text-muted small flex-grow-1" style="font-size: 0.8rem;">Convocatoria p&uacute;blica para la elecci&oacute;n del representante de los usuarios ante la Junta Directiva.</p>
-              <div class="mt-auto">
-                <button class="btn btn-outline-primary btn-sm rounded-pill px-3" style="font-size: 0.8rem;" type="button" data-bs-toggle="modal" data-bs-target="#convocatoriaRepresentanteModal">
-                  <i class="bi bi-file-earmark-text me-1"></i> Ver Detalles
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Noticia Internacional - Mastitis Necrotizante -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 10px;">
-            <img src="imagenes/imagenes-index-noticias/noticia-internacional/imagen-noticia-internacional.webp" class="card-img-top" alt="Mastitis Necrotizante - Noticia Internacional" style="height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
-            <div class="card-body d-flex flex-column p-3">
-              <span class="badge bg-info align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="bi bi-journal-medical me-1"></i>Investigaci&oacute;n</span>
-              <h6 class="card-title fw-bold mb-2" style="font-size: 0.95rem;">Mastitis Necrotizante: Estudio de caso</h6>
-              <p class="card-text text-muted small flex-grow-1" style="font-size: 0.8rem;">Complicaci&oacute;n poco com&uacute;n en mujeres lactantes. Streptococcus pneumoniae, asociado a infecciones respiratorias.</p>
-              <div class="mt-auto">
-                <a href="https://revistainfectio.org/P_OJS/index.php/infectio/article/view/1255" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3" style="font-size: 0.8rem;">Leer art&iacute;culo <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Noticia Equipos APS -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 10px;">
-            <img src="/imagenes/imagenes-index-noticias/noticia-aps.webp" class="card-img-top" alt="Equipos APS del hospital atendiendo a la comunidad" style="height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
-            <div class="card-body d-flex flex-column p-3">
-              <span class="badge align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.65rem; background-color: #164443;"><i class="bi bi-people-fill me-1"></i>Comunidad</span>
-              <h6 class="card-title fw-bold mb-2" style="font-size: 0.95rem;">Atenci&oacute;n de nuestros equipos APS</h6>
-              <p class="card-text text-muted small flex-grow-1" style="font-size: 0.8rem;">Los Grupos de Atenci&oacute;n Primaria en Salud ya est&aacute;n en los barrios de Roldanillo, fortaleciendo la promoci&oacute;n y prevenci&oacute;n.</p>
-              <div class="mt-auto">
-                <a href="https://www.facebook.com/reel/1751769838832170?locale=es_LA" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm rounded-pill px-3" style="font-size: 0.8rem;">
-                  <i class="bi bi-facebook me-1"></i> Ver en Facebook
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Prevenci&oacute;n de la Desnutrici&oacute;n -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm hover-card border-0" style="border-radius: 10px;">
-              <img src="imagenes/imagenes-index-noticias/noticias-tarjeta1.webp" class="card-img-top" alt="Prevenci&oacute;n de la desnutrici&oacute;n infantil" style="height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
-              <div class="card-body d-flex flex-column p-3">
-                <span class="badge bg-success align-self-start mb-2 rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="bi bi-heart-pulse me-1"></i>PyP</span>
-                <h6 class="card-title fw-bold mb-2" style="font-size: 0.95rem;">Prevenci&oacute;n de la Desnutrici&oacute;n</h6>
-                <p class="card-text text-muted small flex-grow-1" style="font-size: 0.8rem;">Implementamos jornadas de tamizaje y educaci&oacute;n para prevenir la desnutrici&oacute;n infantil.</p>
-                <div class="mt-auto">
-                  <a href="promocion-prevencion.html" class="btn btn-outline-primary btn-sm rounded-pill px-3" style="font-size: 0.8rem;">Leer m&aacute;s <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-        </div>
-
-      </div>
 
         <div class="text-center mt-5">
           <a href="noticias.html" class="btn btn-primary btn-lg">
@@ -538,6 +379,8 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
 </section>
 
 <section id="quienes-somos" class="mb-5">
@@ -653,6 +496,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -970,278 +814,6 @@
 </section>
 </main>
 
-<!-- Modal Elecciones Asociación de Usuarios -->
-<div class="modal fade" id="asociacionUsuariosModal" tabindex="-1" aria-labelledby="asociacionUsuariosModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-brand text-white">
-        <h5 class="modal-title" id="asociacionUsuariosModalLabel"><i class="bi bi-people-fill me-2"></i>Convocatoria: Elecciones Asociación de Usuarios</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <p class="lead">A partir del 4 de noviembre de 2025, el Hospital Departamental San Antonio de Roldanillo abre el proceso de inscripción para conformar la nueva <strong>Asociación de Usuarios</strong>.</p>
-        <p>Este es un espacio de participación ciudadana que busca fortalecer el vínculo entre la comunidad y la institución, promoviendo la defensa de los derechos y el cumplimiento de los deberes de los usuarios del hospital.</p>
-        
-        <div class="my-4">
-          <h6 class="fw-bold">Fechas Clave:</h6>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div><i class="bi bi-calendar-plus me-2 text-primary"></i><strong>Inscripciones:</strong></div>
-              <span class="text-end">Del 4 de noviembre al 4 de diciembre de 2025.</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div><i class="bi bi-exclamation-triangle me-2 text-warning"></i><strong>Reclamos e Impugnaciones:</strong></div>
-              <span class="text-end">9 y 10 de diciembre (hasta 5:00 p.m.).</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div><i class="bi bi-check2-square me-2 text-success"></i><strong>Asamblea y Elección:</strong></div>
-              <span class="text-end">22 de diciembre de 2025 (1:00 p.m. a 4:00 p.m.).</span>
-            </li>
-          </ul>
-        </div>
-
-        <h6 class="fw-bold">Requisitos para Participar:</h6>
-        <ul>
-          <li>Tener historia clínica en el Hospital en el último año.</li>
-          <li>No tener inhabilidades o incompatibilidades legales.</li>
-          <li>Ser mayor de 18 años.</li>
-        </ul>
-
-        <div class="alert alert-info mt-4">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          Las inscripciones se realizan en la <strong>oficina del SIAU</strong> en jornada continua (8:00 a.m. - 12:00 m. y 2:00 p.m. - 4:00 p.m.). La asamblea será en el <strong>Auditorio Luz Fátima</strong> del hospital.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Galería Capacitación Violencia de Género -->
-<div class="modal fade" id="galeriaCapacitacionModal" tabindex="-1" aria-labelledby="galeriaCapacitacionModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="galeriaCapacitacionModalLabel">Galería: Capacitación en Violencia de Género</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body p-0">
-        <div id="galeriaCapacitacionCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <!-- Imagen 1  -->
-            <div class="carousel-item active">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1661.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1660.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1659.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1656.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1655.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1654.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1652.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/imagenes-index-noticias/consultorio-rosa/IMG_1651.webp" class="d-block w-100" alt="Capacitación" style="max-height: 80vh; object-fit: contain; background-color: #212529; margin: auto;">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#galeriaCapacitacionCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#galeriaCapacitacionCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
-           </button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Modal Convocatoria Personal Médico -->
-<div class="modal fade" id="modalConvocatoria" tabindex="-1" aria-labelledby="modalConvocatoriaLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="modalConvocatoriaLabel">
-          <i class="bi bi-briefcase-fill me-2"></i>¡Convocatoria Laboral SST!
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <h6 class="fw-bold mb-3">VACANTES DISPONIBLES:</h6>
-        
-        <div class="mb-3">
-          <p class="fw-bold mb-1">📁 PROFESIONAL EN SST (1)</p>
-          <ul class="list-unstyled small ps-3">
-            <li>• Lider de equipo</li>
-            <li>• Gestión intersectorial nivel municipal</li>
-            <li>• Evaluación de estándares mínimos</li>
-            <li>• Análisis de condiciones de salud y trabajo de EE</li>
-            <li>• Higiene industrial</li>
-            <li>• Diseño y seguimiento del plan laboral escolar</li>
-            <li>• Conformación del COPASST</li>
-          </ul>
-        </div>
-
-        <div class="mb-3">
-          <p class="fw-bold mb-1">📁 FISIOTERAPEUTA ESPECIALISTA EN SST (1)</p>
-          <ul class="list-unstyled small ps-3">
-            <li>• Análisis de morbilidad sentida</li>
-            <li>• Diseño e implementación del SVE para el riesgo biomecánico</li>
-            <li>• Seguimiento a casos de rehabilitación profesional</li>
-            <li>• Análisis de puestos de trabajo de trabajo</li>
-          </ul>
-        </div>
-
-        <div class="mb-3">
-          <p class="fw-bold mb-1">📁 PSICOLOGO(A) ESPECIALISTA EN SST (1)</p>
-          <ul class="list-unstyled small ps-3">
-            <li>• Diagnóstico de condiciones de trabajo psicosocial</li>
-            <li>• Diseño e implementación del SVE para el control de riesgo psicosocial</li>
-            <li>• Seguimiento a casos de rehabilitación profesional</li>
-            <li>• Análisis de puesto de trabajo de condiciones de salud mental</li>
-          </ul>
-        </div>
-
-        <div class="mb-3">
-          <p class="fw-bold mb-1">📁 FONOAUDIOLOGO(A) ESPECIALISTA EN SST (1)</p>
-          <ul class="list-unstyled small ps-3">
-            <li>• Diseño e implementación del SVE para problemas del sistema Fonoaudiológico</li>
-            <li>• Seguimiento a casos de rehabilitación profesional</li>
-            <li>• Análisis de puestos de trabajo por exposición del sistema fonoaudiológico</li>
-          </ul>
-        </div>
-
-        <div class="mb-3">
-          <p class="fw-bold mb-1">📁 TECNÓLOGOS EN SST (2)</p>
-          <ul class="list-unstyled small ps-3">
-            <li>• Aplicación y/o actualización de la MIPER</li>
-            <li>• Análisis de vulnerabilidad</li>
-            <li>• Implementación de los planes de salud y trabajo de la EE</li>
-            <li>• Higiene industrial</li>
-            <li>• Diseño y seguimiento del Plan Laboral Escolar</li>
-            <li>• Conformación del COPASST</li>
-          </ul>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row w-100">
-          <div class="col-md-6">
-            <small class="text-muted">Referencia: CONV-SST-2026-001</small>
-          </div>
-          <div class="col-md-6 text-end d-flex align-items-center justify-content-end">
-            <small class="text-info me-3 fw-bold">Interesados, traer hoja de vida al hospital.</small>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Convocatoria Representante de Usuarios -->
-<div class="modal fade" id="convocatoriaRepresentanteModal" tabindex="-1" aria-labelledby="convocatoriaRepresentanteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header border-0">
-        <h5 class="modal-title" id="convocatoriaRepresentanteModalLabel">Convocatoria P&uacute;blica: Elecci&oacute;n del Representante de los Usuarios</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <div class="text-center mb-4">
-          <img src="/imagenes/imagenes-index-noticias/convocatorias/convocatoria (1).webp" class="img-fluid rounded shadow mb-3" alt="Convocatoria p&uacute;blica para elecci&oacute;n del representante de los usuarios" style="max-height: 400px;">
-          <img src="/imagenes/imagenes-index-noticias/convocatorias/convocatoria (2).webp" class="img-fluid rounded shadow" alt="Convocatoria p&uacute;blica para elecci&oacute;n del representante de los usuarios - segunda imagen" style="max-height: 400px;">
-        </div>
-        
-        <p class="card-text">El Hospital Departamental San Antonio de Roldanillo, Valle del Cauca, convoca p&uacute;blicamente a la comunidad para la <strong>elecci&oacute;n del representante de los usuarios ante la Junta Directiva</strong>.</p>
-        
-        <h6 class="fw-bold mt-4">Informaci&oacute;n de contacto:</h6>
-        <p class="card-text"><strong>Correos electr&oacute;nicos:</strong></p>
-        <ul class="list-unstyled">
-          <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:siau@hdsa.gov.co">siau@hdsa.gov.co</a></li>
-          <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:trabajosocial@hdsa.gov.co">trabajosocial@hdsa.gov.co</a></li>
-        </ul>
-        
-        <p class="card-text mt-3"><strong>PBX:</strong> 6028912317</p>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Convocatoria Sector Científico -->
-<div class="modal fade" id="modalConvocatoriaSectorCientifico" tabindex="-1" aria-labelledby="modalConvocatoriaSectorCientificoLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0" style="border-radius: 20px; overflow: hidden;">
-      <div class="modal-header bg-brand text-white border-0">
-        <h5 class="modal-title fw-bold" id="modalConvocatoriaSectorCientificoLabel"><i class="bi bi-file-earmark-pdf me-2"></i>Convocatoria: Representante del Sector Científico</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body p-4">
-        <div class="text-center mb-4">
-          <div class="p-5 bg-light rounded-3">
-            <i class="bi bi-file-earmark-pdf text-primary" style="font-size: 5rem;"></i>
-            <h4 class="mt-3 fw-bold">Documento PDF Oficial</h4>
-            <p class="text-muted">POSTULACI&Oacute;N Y ELECCI&Oacute;N DEL REPRESENTANTE DEL SECTOR CIENT&Iacute;FICO DE LA SALUD</p>
-          </div>
-        </div>
-        <div class="px-2">
-          <p class="fw-bold mb-2">POSTULACI&Oacute;N Y ELECCI&Oacute;N DEL REPRESENTANTE DEL SECTOR CIENT&Iacute;FICO DE LA SALUD DEL MUNICIPIO ANTE LA JUNTA DIRECTIVA DE LA EMPRESA SOCIAL DEL ESTADO HOSPITAL DEPARTAMENTAL SAN ANTONIO DE ROLDANILLO</p>
-          <p>Consulte el documento oficial con toda la informaci&oacute;n sobre el proceso de postulaci&oacute;n y elecci&oacute;n del representante del sector cient&iacute;fico de la salud.</p>
-        </div>
-      </div>
-      <div class="modal-footer border-0">
-        <a href="imagenes/imagenes-index-noticias/convocatorias/convocatoria.pdf" target="_blank" class="btn btn-primary me-2">
-          <i class="bi bi-eye me-1"></i> Abrir PDF
-        </a>
-        <a href="imagenes/imagenes-index-noticias/convocatorias/convocatoria.pdf" download class="btn btn-outline-primary me-2">
-          <i class="bi bi-download me-1"></i> Descargar PDF
-        </a>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Listado Oficial de Usuarios Inscritos -->
-<div class="modal fade" id="modalListadoInscritos" tabindex="-1" aria-labelledby="modalListadoInscritosLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0" style="border-radius: 20px; overflow: hidden;">
-      <div class="modal-header bg-brand text-white border-0">
-        <h5 class="modal-title fw-bold" id="modalListadoInscritosLabel"><i class="bi bi-list-check me-2"></i>Listado Oficial de Usuarios Inscritos</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body p-4">
-        <div class="text-center mb-4">
-          <img src="imagenes/imagenes-index-noticias/convocatorias/asociacion-de-usuarios.webp" class="img-fluid rounded shadow" alt="Listado oficial de usuarios inscritos para elección del representante" style="max-height: 500px;">
-        </div>
-        <div class="px-2">
-          <p>El Hospital Departamental San Antonio de Roldanillo E.S.E., la Secretar&iacute;a Departamental de Salud y la Asociaci&oacute;n de Usuarios presentan a la comunidad el listado oficial de los usuarios inscritos para participar en el proceso de elecci&oacute;n del Representante de los Usuarios ante la Junta Directiva, para el per&iacute;odo 2026 &ndash; 2028.</p>
-          <p>Invitamos a todos los usuarios a participar activamente en esta importante jornada democr&aacute;tica, fortaleciendo los espacios de representaci&oacute;n y participaci&oacute;n ciudadana en salud.</p>
-          <div class="alert alert-info border-0 shadow-sm">
-            <p class="mb-1"><strong>&iexcl;Los esperamos!</strong> Su participaci&oacute;n es fundamental para construir una salud m&aacute;s participativa y cercana a la comunidad.</p>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Footer incluido -->
 <div id="footer-placeholder"></div>
 
@@ -1284,6 +856,7 @@
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/cookie-consent.js" defer></script>
+<script src="js/noticias.js" defer></script>
 
 <!-- Script modal de aviso de vacunación al iniciar -->
 <script>

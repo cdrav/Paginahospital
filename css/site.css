@@ -1777,6 +1777,47 @@ p, a, td, th, li {
 .news-card .card-img-top { height: 200px; object-fit: cover; }
 .news-card .card-body { display: flex; flex-direction: column; }
 .news-card .card-footer { background-color: transparent; border-top: none; padding-top: 0; }
+/* Noticias cargadas desde data/noticias.json */
+.news-card .noticia-icono { height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #164443 0%, #22a7a0 100%); color: #fff; font-size: 4.5rem; border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; }
+.news-card .noticia-video { position: relative; display: block; width: 100%; height: 200px; padding: 0; border: 0; background: #000; overflow: hidden; border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; }
+.news-card .noticia-video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.2s ease; }
+.news-card .noticia-video i { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.news-card .noticia-video:hover img, .news-card .noticia-video:focus-visible img { opacity: 1; }
+.noticia-galeria-img { max-height: 80vh; object-fit: contain; background-color: #212529; }
+.noticia-destacada { border-radius: 1rem; }
+.noticia-destacada-img { display: block; width: 100%; height: 100%; min-height: 260px; max-height: 460px; object-fit: cover; }
+.noticia-destacada-texto { height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 2rem 2.25rem; color: #fff; background: linear-gradient(135deg, #164443 0%, #1a5c5a 55%, #22a7a0 100%); }
+.noticia-destacada-rotulo { letter-spacing: 0.08em; opacity: 0.85; }
+.noticia-destacada-texto p { opacity: 0.92; line-height: 1.6; }
+/* En escritorio la foto ocupa todo el alto del panel de texto, sin franjas */
+@media (min-width: 992px) {
+  .noticia-destacada-media { position: relative; min-height: 380px; }
+  .noticia-destacada-media .noticia-destacada-img { position: absolute; inset: 0; max-height: none; }
+}
+@media (max-width: 991.98px) {
+  .noticia-destacada-img { max-height: 320px; }
+  .noticia-destacada-texto { padding: 1.5rem; }
+}
+.news-card-ancha .noticia-ancha-img { width: 100%; height: 100%; min-height: 240px; max-height: 340px; object-fit: cover; }
+.news-card-ancha .noticia-icono, .news-card-ancha .noticia-video { height: 100%; min-height: 240px; border-radius: 0; }
+
+/* Carrusel de la emergencia por el sismo (inicio) */
+.sismo-carousel .carousel-inner { border-radius: 16px; }
+.sismo-slide { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 2rem; align-items: center; padding: 1.75rem 4.5rem; min-height: 360px; color: #fff; }
+.sismo-slide-media { display: flex; justify-content: center; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.sismo-slide-media img { max-width: 100%; max-height: 320px; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.35); transition: transform 0.2s ease; }
+.sismo-slide-media:hover img, .sismo-slide-media:focus-visible img { transform: scale(1.03); }
+.sismo-slide-texto { display: flex; flex-direction: column; text-align: left; font-size: 1.05rem; }
+.sismo-slide-texto > div { padding: 0 !important; }
+.sismo-slide-texto .btn { align-self: flex-start; }
+.sismo-carousel .carousel-indicators { margin-bottom: 0.5rem; }
+@media (max-width: 767.98px) {
+  .sismo-slide { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem 1.25rem 2.5rem; min-height: 0; }
+  .sismo-slide-media img { max-height: 240px; }
+  .sismo-slide-texto { text-align: center; font-size: 0.95rem; }
+  .sismo-slide-texto .badge, .sismo-slide-texto .btn { align-self: center !important; }
+  .sismo-carousel .carousel-control-prev, .sismo-carousel .carousel-control-next { width: 2.5rem; }
+}
   
 /* =====================================================
    Estadísticas - Mejoras de Proporcionalidad y Layout

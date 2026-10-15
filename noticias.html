@@ -31,412 +31,45 @@
 </div>
 
   <!-- Nuevo Encabezado con Filtros -->
-  <header class="py-5 bg-light">
-    <div class="container py-5">
+  <header class="pt-4 pb-2 bg-light">
+    <div class="container py-3">
       <div class="row justify-content-center text-center">
         <div class="col-lg-8">
           <h1 class="display-4 fw-bold mb-3 text-primary" data-page-title="Noticias y Eventos">Noticias y Eventos</h1>
           <p class="lead text-muted mb-4">Explora las últimas novedades, campañas de salud, convocatorias y actividades del Hospital Departamental San Antonio.</p>
           <div class="filter-btn-group d-flex flex-wrap gap-2 justify-content-center shadow-sm" role="group" aria-label="Filtros de noticias">
-            <button type="button" class="btn btn-primary" data-filter="all">Todo</button>
-            <button type="button" class="btn btn-outline-primary" data-filter="convocatoria">Convocatorias</button>
-            <button type="button" class="btn btn-outline-primary" data-filter="evento">Eventos</button>
-            <button type="button" class="btn btn-outline-primary" data-filter="video">Videos</button>
-            <button type="button" class="btn btn-outline-primary" data-filter="comunicado">Comunicados</button>
+            <button type="button" class="btn btn-primary" data-filter="all" aria-pressed="true">Todo</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="convocatoria" aria-pressed="false">Convocatorias</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="evento" aria-pressed="false">Eventos</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="video" aria-pressed="false">Videos</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="comunicado" aria-pressed="false">Comunicados</button>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="container my-5">
-    <!-- Noticia Destacada -->
-    <section class="mb-5" id="featured-news">
-      <div class="card featured-news-card text-white shadow-lg">
-        <img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8242.webp" class="card-img" alt="Jornada de concientización sobre cáncer de mama">
-        <div class="card-img-overlay d-flex flex-column justify-content-end p-4 p-md-5">
-          <span class="badge bg-danger news-tag mb-2" style="width: fit-content;">Evento Destacado</span>
-          <h2 class="card-title h1 fw-bold">Jornada de Educación y Concientización sobre Cáncer de Mama</h2>
-          <p class="card-text d-none d-md-block lead" style="max-width: 70%;">Desde nuestro Consultorio Rosado, reafirmamos nuestro compromiso con la detección temprana y el cuidado integral de la mujer.</p>
-          <div class="mt-3">
-            <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#galeriaEventoRosaModal">
-              <i class="bi bi-images me-1"></i> Ver Galería del Evento
-            </button>
-          </div>
+  <main class="container mt-4 mb-5">
+    <!-- Noticia destacada (se carga desde data/noticias.json) -->
+    <section class="mb-5" id="noticia-destacada" aria-label="Noticia destacada"></section>
+
+    <!-- Listado de noticias (se carga desde data/noticias.json) -->
+    <section class="mb-5" aria-label="Listado de noticias">
+      <div class="row g-4" id="noticias-lista" aria-live="polite">
+        <div class="col-12 text-center text-muted py-5">
+          <div class="spinner-border text-primary mb-3" role="status"></div>
+          <p class="mb-0">Cargando noticias…</p>
         </div>
       </div>
     </section>
 
-    <!-- Grilla de Noticias -->
-    <section class="mb-5">
-      <div class="row g-4">
-        <!-- Elección Miembro Junta Directiva -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="convocatoria">
-          <div class="card news-card h-100 shadow-sm border-0" style="border-radius: 12px;">
-            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 200px; border-radius: 12px 12px 0 0;">
-                <i class="bi bi-person-vcard text-primary" style="font-size: 5rem;"></i>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <span class="badge bg-primary news-tag mb-2">Convocatoria</span>
-              <h5 class="card-title fw-bold">Elección Miembro Junta Directiva</h5>
-              <p class="card-text text-muted small flex-grow-1">Convocatoria para la elección de miembro del sector científico en la junta directiva del Hospital Departamental San Antonio E.S.E. Consulta los requisitos y proceso de inscripción.</p>
-            </div>
-            <div class="card-footer d-grid gap-2 border-0 bg-transparent pt-0 pb-3">
-              <a href="imagenes/imagenes-index-noticias/convocatoria-eleccion-sector-científico.pdf" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
-                <i class="bi bi-file-earmark-pdf me-1"></i> Ver Convocatoria
-              </a>
-              <a href="imagenes/imagenes-index-noticias/Postulados-Como-Representantes-del-Sector-Científico-Ante-Junta-Directiva-HDSA-ESE.pdf" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
-                <i class="bi bi-people-fill me-1"></i> Ver Postulados
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Donación de Cabello -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="evento">
-          <div class="card news-card h-100">
-            <img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-6.webp" class="card-img-top" alt="Jornada de donación de cabello">
-            <div class="card-body">
-              <span class="badge bg-primary news-tag mb-2">Evento</span>
-              <h5 class="card-title fw-bold">Jornada de Donación de Cabello</h5>
-              <p class="card-text text-muted small">Un acto de amor y esperanza que nos recordó que pequeños gestos pueden transformar vidas.</p>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn-link stretched-link" type="button" data-bs-toggle="modal" data-bs-target="#galeriaDonacionCabelloModal">Ver galería</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Capacitación Comfandi -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="comunicado">
-          <div class="card news-card h-100">
-            <img src="/imagenes/imagenes-index-noticias/imagenes-noticias/octubre/noticia.webp" class="card-img-top" alt="Capacitación con Comfandi">
-            <div class="card-body">
-              <span class="badge bg-info text-dark news-tag mb-2">Comunicado</span>
-              <h5 class="card-title fw-bold">Capacitación en alianza con Comfandi</h5>
-              <p class="card-text text-muted small">Fortalecemos nuestro compromiso con la atención humanizada para brindar un trato cercano y respetuoso.</p>
-            </div>
-            <div class="card-footer">
-              <a href="https://www.facebook.com/hdsaroldanillo?locale=es_LA" target="_blank" class="btn btn-link stretched-link">Leer más</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video Alzheimer -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="destacado">
-          <div class="card news-card h-100">
-            <img src="/imagenes/imagenes-index-noticias/video-destacado.webp" class="card-img-top" alt="Video sobre Alzheimer">
-            <div class="card-body">
-              <span class="badge bg-danger news-tag mb-2">Video</span>
-              <h5 class="card-title fw-bold">Día mundial del Alzheimer</h5>
-              <p class="card-text text-muted small">Dormir bien no es un lujo, es cuidar tu memoria. El descanso también previene.</p>
-            </div>
-            <div class="card-footer">
-              <a href="https://www.facebook.com/reel/1132433742350975?locale=es_LA" target="_blank" class="btn btn-link stretched-link">Ver video</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video ¡Protégete! -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="destacado">
-          <div class="card news-card h-100">
-            <img src="/imagenes/imagenes-index-noticias/video-destacado-2.webp" class="card-img-top" alt="Video sobre uso del condón">
-            <div class="card-body">
-              <span class="badge bg-danger news-tag mb-2">Video</span>
-              <h5 class="card-title fw-bold">¡Protégete!</h5>
-              <p class="card-text text-muted small">Nos reímos con las respuestas… pero la verdad es clara: el condón protege tu salud.</p>
-            </div>
-            <div class="card-footer">
-              <a href="https://www.facebook.com/hdsaroldanillo/videos/725477447206151?locale=es_LA" target="_blank" class="btn btn-link stretched-link">Ver video</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- No estás solo -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="comunicado">
-          <div class="card news-card h-100">
-            <img src="/imagenes/imagenes-index-noticias/imagenes-noticias/no-estas-solo/linea-de-ayuda.webp" class="card-img-top" alt="Campaña No estás solo">
-            <div class="card-body">
-              <span class="badge bg-info text-dark news-tag mb-2">Comunicado</span>
-              <h5 class="card-title fw-bold">No estás solo</h5>
-              <p class="card-text text-muted small">Hablar salva, escuchar acompaña y pedir ayuda nunca es una debilidad.</p>
-            </div>
-            <div class="card-footer">
-              <a href="https://www.facebook.com/hdsaroldanillo?locale=es_LA" target="_blank" class="btn btn-link stretched-link">Leer más</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Donación Colombina -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="evento">
-          <div class="card news-card h-100">
-            <img src="/imagenes/galeria-colombina/DSC_3756.webp" class="card-img-top" alt="Donación de Colombina">
-            <div class="card-body">
-              <span class="badge bg-primary news-tag mb-2">Evento</span>
-              <h5 class="card-title fw-bold">Agradecimiento a Colombina</h5>
-              <p class="card-text text-muted small">Agradecemos la valiosa donación de implementos médicos que fortalecen nuestra capacidad de atención.</p>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn-link stretched-link" type="button" data-bs-toggle="modal" data-bs-target="#galeriaColombinaModal">Ver galería</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Certificado de Discapacidad -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="comunicado">
-          <div class="card news-card h-100">
-            <img src="/documentos/Seccion noticias HDSA/Certificado de discapacidad/certificado-de-discapacidad.webp" class="card-img-top" alt="Certificado de Discapacidad">
-            <div class="card-body">
-              <span class="badge bg-info text-dark news-tag mb-2">Comunicado</span>
-              <h5 class="card-title fw-bold">Proceso de Certificación de Discapacidad</h5>
-              <p class="card-text text-muted small">Informamos sobre los nuevos lineamientos para un proceso más ágil y cercano.</p>
-            </div>
-            <div class="card-footer">
-              <a href="https://www.facebook.com/reel/3472915742962744?locale=es_LA" target="_blank" class="btn btn-link stretched-link">Más información</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Club de Diabéticos e Hipertensos -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="evento">
-          <div class="card news-card h-100">
-            <img src="/documentos/Seccion noticias HDSA/Encuentro del club de diabeticos e hipertensos/DSC_9981.webp" class="card-img-top" alt="Club de diabéticos e hipertensos">
-            <div class="card-body">
-              <span class="badge bg-primary news-tag mb-2">Evento</span>
-              <h5 class="card-title fw-bold">Club de Pacientes con Diabetes e Hipertensión</h5>
-              <p class="card-text text-muted small">Realizamos un encuentro especial para compartir conocimientos y experiencias.</p>
-            </div>
-            <div class="card-footer">
-              <a href="https://www.facebook.com/photo?fbid=1325512666248732&set=pcb.1325512746248724&locale=es_LA" target="_blank" class="btn btn-link stretched-link">Leer más</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video Destacado 1 (Reintegrado) -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="video">
-          <div class="card news-card h-100">
-            <div class="card-body">
-              <span class="badge bg-danger news-tag mb-2">Video</span>
-              <h5 class="card-title fw-bold">Importancia del Autoexamen</h5>
-              <p class="card-text text-muted small">Un video esencial sobre la importancia del autoexamen de mama.</p>
-              <div class="ratio ratio-16x9 rounded mt-auto">
-                <div class="lazy-youtube" data-youtube-id="ABGYBRfGHX4" title="Video sobre la importancia del autoexamen de mama">
-                  <!-- El placeholder se generará con JS -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video Destacado 2 (Reintegrado) -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="video">
-          <div class="card news-card h-100">
-            <div class="card-body">
-              <span class="badge bg-danger news-tag mb-2">Video</span>
-              <h5 class="card-title fw-bold">Video Destacado de Salud</h5>
-              <p class="card-text text-muted small">Consejos y recomendaciones para cuidar tu salud y bienestar.</p>
-              <div class="ratio ratio-16x9 rounded mt-auto">
-                <div class="lazy-youtube" data-youtube-id="cm63-LbERs0" title="Video destacado sobre salud">
-                  <!-- El placeholder se generará con JS -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video Destacado 3 (Reintegrado) -->
-        <div class="col-md-6 col-lg-4 news-item" data-category="video">
-          <div class="card news-card h-100">
-            <div class="card-body">
-              <span class="badge bg-danger news-tag mb-2">Video</span>
-              <h5 class="card-title fw-bold">Servicios del Hospital</h5>
-              <p class="card-text text-muted small">Conoce más sobre los servicios que ofrecemos en nuestro hospital.</p>
-              <div class="ratio ratio-16x9 rounded mt-auto">
-                <div class="lazy-youtube" data-youtube-id="Xwgfhlrl-nA" title="Video destacado sobre servicios del hospital">
-                  <!-- El placeholder se generará con JS -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Paginación (Placeholder) -->
-    <nav aria-label="Paginación de noticias" class="mt-5 d-flex justify-content-center">
-      <ul class="pagination shadow-sm">
-        <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-      </ul>
-    </nav>
-
-    <!-- MODALES -->
-    <!-- Modal: Convocatoria Psiquiatría -->
-    <div class="modal fade" id="convocatoriaPsiquiatriaModal" tabindex="-1" aria-labelledby="convocatoriaPsiquiatriaModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <h5 class="modal-title" id="convocatoriaPsiquiatriaModalLabel">Convocatoria: Profesional en Psiquiatría</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-        <!-- Detalle Convocatoria Psiquiatría -->
-            <p class="card-text">El Hospital Departamental San Antonio de Roldanillo, Valle del Cauca, invita a profesionales en la especialidad de <strong>Psiquiatría</strong> a formar parte de nuestros equipos básicos de Atención Primaria en Salud (APS).</p>
-            
-            <h6 class="fw-bold mt-4">Requisitos principales:</h6>
-            <ul class="list-group list-group-flush mb-3">
-              <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i>Título de Médico Especialista en Psiquiatría.</li>
-              <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i>Tarjeta profesional y registro vigente.</li>
-              <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i>Disponibilidad para trabajo en equipos interdisciplinarios de APS.</li>
-            </ul>
-
-            <h6 class="fw-bold mt-4">Interesados:</h6>
-            <p class="card-text">Por favor comunicarse a los teléfonos: <strong>3173683886 – 3173683896</strong> o enviar su hoja de vida a los siguientes correos electrónicos:</p>
-            <ul class="list-unstyled">
-              <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:gerencia@hdsa.gov.co">gerencia@hdsa.gov.co</a></li>
-              <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:hdsa@hospitalroldanillo.gov.co">hdsa@hospitalroldanillo.gov.co</a></li>
-              <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:coordinacionmedica@hdsa.gov.co">coordinacionmedica@hdsa.gov.co</a></li>
-            </ul>
-
-            <p class="card-text mt-3"><i class="bi bi-geo-alt-fill text-muted me-2"></i><strong>Lugar de trabajo:</strong> Hospital Departamental San Antonio de Roldanillo – Valle del Cauca.</p>
-          </div>
-          <div class="modal-footer border-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Galería Donación de Cabello -->
-    <div class="modal fade" id="galeriaDonacionCabelloModal" tabindex="-1" aria-labelledby="galeriaDonacionCabelloModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="galeriaDonacionCabelloModalLabel">Galería: Jornada de Donación de Cabello</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body p-0">
-            <div id="galeriaDonacionCabelloCarousel" class="carousel slide" data-bs-ride="carousel"> 
-              <div class="carousel-inner">
-                <div class="carousel-item active"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-1.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-2.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-3.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-4.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-5.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-6.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-7.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Donacion-consultorio-rosado/donacion-8.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#galeriaDonacionCabelloCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
-              <button class="carousel-control-next" type="button" data-bs-target="#galeriaDonacionCabelloCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Siguiente</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Galería Evento Consultorio Rosado -->
-    <div class="modal fade" id="galeriaEventoRosaModal" tabindex="-1" aria-labelledby="galeriaEventoRosaModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="galeriaEventoRosaModalLabel">Galería: Jornada de Concientización</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body p-0">
-            <div id="galeriaEventoRosaCarousel" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8242.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8244.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8247.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8248.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8250.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8252.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8253.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8254.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8269.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8272.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/consultario-rosado-imagenes/Evento-consultorio-rosado/DSC_8275.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-               
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#galeriaEventoRosaCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
-              <button class="carousel-control-next" type="button" data-bs-target="#galeriaEventoRosaCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Siguiente</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Galería Donación Colombina -->
-    <div class="modal fade" id="galeriaColombinaModal" tabindex="-1" aria-labelledby="galeriaColombinaModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="galeriaColombinaModalLabel">Galería: Donación Colombina</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body p-0">
-            <div id="galeriaColombinaCarousel" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active"><img src="/imagenes/galeria-colombina/DSC_3756.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/DSC_3779.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/DSC_3781.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/DSC_3793.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/DSC_3803.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/DSC_3826.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/DSC_3828.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-                <div class="carousel-item"><img src="/imagenes/galeria-colombina/Imagen de WhatsApp 2025-07-25 a las 14.51.07_2b40e6a3.webp" class="d-block w-100 modal-carousel-image" alt="..."></div>
-          </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#galeriaColombinaCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
-              <button class="carousel-control-next" type="button" data-bs-target="#galeriaColombinaCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Siguiente</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Convocatoria Representante de Usuarios -->
-    <div class="modal fade" id="convocatoriaRepresentanteModal" tabindex="-1" aria-labelledby="convocatoriaRepresentanteModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <h5 class="modal-title" id="convocatoriaRepresentanteModalLabel">Convocatoria Pública: Elección del Representante de los Usuarios</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-            <div class="text-center mb-4">
-              <img src="/imagenes/imagenes-index-noticias/convocatorias/convocatoria.webp" class="img-fluid rounded shadow mb-3" alt="Convocatoria pública para elección del representante de los usuarios" style="max-height: 400px;">
-              <img src="/imagenes/imagenes-index-noticias/convocatorias/convocatoria2.webp" class="img-fluid rounded shadow" alt="Convocatoria pública para elección del representante de los usuarios - segunda imagen" style="max-height: 400px;">
-            </div>
-            
-            <p class="card-text">El Hospital Departamental San Antonio de Roldanillo, Valle del Cauca, convoca públicamente a la comunidad para la <strong>elección del representante de los usuarios ante la Junta Directiva</strong>.</p>
-            
-            <h6 class="fw-bold mt-4">Información de contacto:</h6>
-            <p class="card-text"><strong>Correos electrónicos:</strong></p>
-            <ul class="list-unstyled">
-              <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:siau@hdsa.gov.co">siau@hdsa.gov.co</a></li>
-              <li><i class="bi bi-envelope-fill text-muted me-2"></i><a href="mailto:trabajosocial@hdsa.gov.co">trabajosocial@hdsa.gov.co</a></li>
-            </ul>
-            
-            <p class="card-text mt-3"><strong>PBX:</strong> 6028912317</p>
-          </div>
-          <div class="modal-footer border-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Paginación -->
+    <nav aria-label="Paginación de noticias" class="mt-5 d-flex justify-content-center" id="noticias-paginacion"></nav>
   </main>
 
 <!-- Footer parcial -->
 <div id="footer-placeholder"></div>
 
-<style>
-  /* Estilos para los controles del carrusel */
-  .modal-carousel-image { max-height: 80vh; object-fit: contain; background-color: #212529; }
-</style>
 
 <!-- Scripts optimizados con defer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
