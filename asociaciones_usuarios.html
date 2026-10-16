@@ -19,6 +19,17 @@
   <link rel="stylesheet" href="css/accessibility-buttons.css" />
   <link rel="stylesheet" href="css/transparencia.css" />
   <link rel="stylesheet" href="css/cookie-banner.css" />
+  <style>
+    /* Documentos por año */
+    .docs-anios { gap: 0.5rem; }
+    .docs-anios .nav-link { border: 1px solid #164443; color: #164443; font-weight: 700; border-radius: 50rem; padding: 0.4rem 1.25rem; }
+    .docs-anios .nav-link.active { background: linear-gradient(135deg, #164443, #22a7a0); border-color: transparent; color: #fff; }
+    .doc-grupo { color: #164443; padding-bottom: 0.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid #e3f1ef; }
+    .doc-item { display: flex; align-items: center; gap: 0.85rem; padding: 0.85rem 1rem; border-left: 4px solid #22a7a0; transition: background-color 0.2s ease; }
+    .doc-item:hover { background-color: #f3faf9; }
+    .doc-item .btn { flex-shrink: 0; }
+    .doc-vacio { color: #6c757d; font-size: 0.9rem; padding: 0.85rem 1rem; background: #f8f9fa; border-style: dashed; }
+  </style>
 </head>
 <body data-page-title="Asociaciones de Usuarios">
 
@@ -113,41 +124,7 @@
                 </div>
               </div>
               
-              <!-- Acordeón 5: Documentos Relacionados -->
-              <div class="accordion-item border-0 mb-3">
-                <h2 class="accordion-header" id="headingCinco">
-                  <button class="accordion-button collapsed bg-light fw-bold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCinco" aria-expanded="false" aria-controls="collapseCinco">
-                    <i class="bi bi-folder2-open me-2"></i>Documentos Relacionados
-                  </button>
-                </h2>
-                <div id="collapseCinco" class="accordion-collapse collapse" aria-labelledby="headingCinco" data-bs-parent="#acordeonAsociaciones">
-                  <div class="accordion-body">
-                    <div class="d-grid gap-2">
-
-                       <a href="documentos/asociaciones-de-usuarios/actas/asociacion-usuarios.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm text-start">
-                        <i class="bi bi-file-earmark-pdf me-1"></i>ACTA ASAMBLEA CONFORMACION ASOCIACION DE USUARIOS  
-                      </a>
-                      <a href="documentos/asociaciones-de-usuarios/actas/acta-001-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm text-start">
-                        <i class="bi bi-file-earmark-pdf me-1"></i>Acta No. 1 - Asociación de Usuarios HDSA
-                      </a>
-                      <a href="documentos/asociaciones-de-usuarios/actas/acta-002-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm text-start">
-                        <i class="bi bi-file-earmark-pdf me-1"></i>Acta No. 2 - Asociación de Usuarios HDSA
-                      </a>
-                      <a href="documentos/asociaciones-de-usuarios/actas/acta-003-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm text-start">
-                        <i class="bi bi-file-earmark-pdf me-1"></i>Acta No. 3 - Asociación de Usuarios HDSA
-                      </a>
-                      <a href="documentos/asociaciones-de-usuarios/actas/acta-004-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm text-start">
-                        <i class="bi bi-file-earmark-pdf me-1"></i>Acta No. 4 - Asociación de Usuarios HDSA
-                      </a>
-                      <a href="documentos/asociaciones-de-usuarios/actas/rendicion-de-cuentas-usuarios-n0-1.pdf" target="_blank" rel="noopener" class="btn btn-outline-brand btn-sm text-start mt-2">
-                        <i class="bi bi-file-earmark-text me-1"></i>Rendición de Cuentas 2017-2019
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Acordeón 6: Información de Contacto -->
+              <!-- Acordeón 5: Información de Contacto -->
               <div class="accordion-item border-0 mb-3">
                 <h2 class="accordion-header" id="headingSeis">
                   <button class="accordion-button collapsed bg-light fw-bold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeis" aria-expanded="false" aria-controls="collapseSeis">
@@ -178,9 +155,160 @@
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
+
+      <!-- ===================== DOCUMENTOS POR AÑO =====================
+           Para publicar un documento:
+           1. Guarde el PDF en documentos/asociaciones-de-usuarios/<año>/
+           2. Copie una fila <li class="list-group-item doc-item"> dentro del grupo que corresponda,
+              cambie el título, el tamaño y la ruta del archivo.
+           3. Si el grupo tenía la fila "Aún no hay documentos publicados", bórrela.
+           Para un año nuevo: agregue un botón en la lista de pestañas y copie un bloque "tab-pane".
+      ================================================================= -->
+      <section class="card border-0 shadow-sm mb-4" id="documentos" aria-labelledby="titulo-documentos">
+        <div class="card-body p-4">
+          <h2 class="h4 fw-bold text-brand mb-1" id="titulo-documentos"><i class="bi bi-folder2-open me-2"></i>Documentos de la Asociación de Usuarios</h2>
+          <p class="text-muted mb-4">Actas, planes, informes y rendición de cuentas, organizados por año.</p>
+
+          <ul class="nav nav-pills docs-anios mb-4" id="docsAnios" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-2026" data-bs-toggle="pill" data-bs-target="#docs-2026" type="button" role="tab" aria-controls="docs-2026" aria-selected="true">2026</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-2025" data-bs-toggle="pill" data-bs-target="#docs-2025" type="button" role="tab" aria-controls="docs-2025" aria-selected="false">2025</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-anteriores" data-bs-toggle="pill" data-bs-target="#docs-anteriores" type="button" role="tab" aria-controls="docs-anteriores" aria-selected="false">Años anteriores</button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+
+            <!-- ---------- 2026 ---------- -->
+            <div class="tab-pane fade show active" id="docs-2026" role="tabpanel" aria-labelledby="tab-2026" tabindex="0">
+              <div class="row g-4">
+                <div class="col-12">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-person-check me-2"></i>Elección del representante ante la Junta Directiva 2026-2028</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Cronograma de Elección de Representantes de los Usuarios 2026</div><small class="text-muted">PDF · 1.9 MB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/2026/Cronograma-Eleccion-de-representes-Usuarios-2026.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Acta de Elección de Representantes de los Usuarios ante la Junta Directiva 2026</div><small class="text-muted">PDF · 10.5 MB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/2026/Acta-de-ELeccion-de-representantes-de-los-usuarios-JD-2026.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Representante de los Usuarios ante la Junta Directiva, período 2026-2028</div><small class="text-muted">PDF · 155 KB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/2026/Representante-de-los-usuarios-ante-la-junta-directiva-pperiodo-2026-2028.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Resolución Nro. 1.220.03.02 - Eliana Villada Molina</div><small class="text-muted">PDF · 842 KB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/2026/Resolucion-Nro-1.220.03.02-Eliana-Villada- Molina.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-person-vcard text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Hoja de vida - Eliana Villada Molina</div><small class="text-muted">PDF · 1.5 MB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/2026/Hoja-de-vida-Eliana-Villada-Molina.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-journal-text me-2"></i>Actas de reunión</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Acta No. 01 - Asociación de Usuarios 2026</div><small class="text-muted">PDF · 281 KB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/2026/Acta-No.-01-asociacion-de-usuarios-año-2026.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-list-check me-2"></i>Plan de acción</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-vacio"><i class="bi bi-hourglass-split me-2"></i>Aún no hay documentos publicados.</li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-bar-chart-line me-2"></i>Informes de gestión</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-vacio"><i class="bi bi-hourglass-split me-2"></i>Aún no hay documentos publicados.</li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-megaphone me-2"></i>Rendición de cuentas</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-vacio"><i class="bi bi-hourglass-split me-2"></i>Aún no hay documentos publicados.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------- 2025 ---------- -->
+            <div class="tab-pane fade" id="docs-2025" role="tabpanel" aria-labelledby="tab-2025" tabindex="0">
+              <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-people me-2"></i>Conformación de la Asociación</h3>
+              <ul class="list-group">
+                <li class="list-group-item doc-item">
+                  <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                  <div class="flex-grow-1">
+                    <div class="fw-semibold">Acta Asamblea de Conformación de la Asociación de Usuarios</div>
+                    <small class="text-muted">PDF · 5.4 MB</small>
+                  </div>
+                  <a href="documentos/asociaciones-de-usuarios/actas/asociacion-usuarios.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- ---------- Años anteriores ---------- -->
+            <div class="tab-pane fade" id="docs-anteriores" role="tabpanel" aria-labelledby="tab-anteriores" tabindex="0">
+              <div class="row g-4">
+                <div class="col-lg-6">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-journal-text me-2"></i>Actas</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Acta No. 1 - Asociación de Usuarios HDSA</div><small class="text-muted">PDF · 1.3 MB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/actas/acta-001-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Acta No. 2 - Asociación de Usuarios HDSA</div><small class="text-muted">PDF · 1.5 MB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/actas/acta-002-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Acta No. 3 - Asociación de Usuarios HDSA</div><small class="text-muted">PDF · 44 KB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/actas/acta-003-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-pdf text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Acta No. 4 - Asociación de Usuarios HDSA</div><small class="text-muted">PDF · 60 KB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/actas/acta-004-asociacion-usuarios-hdsa.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h3 class="h6 fw-bold doc-grupo"><i class="bi bi-megaphone me-2"></i>Rendición de cuentas</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item doc-item">
+                      <i class="bi bi-file-earmark-text text-danger fs-4"></i>
+                      <div class="flex-grow-1"><div class="fw-semibold">Rendición de Cuentas 2017-2019</div><small class="text-muted">PDF · 80 KB</small></div>
+                      <a href="documentos/asociaciones-de-usuarios/actas/rendicion-de-cuentas-usuarios-n0-1.pdf" target="_blank" rel="noopener" class="btn btn-sm btn-outline-brand rounded-pill"><i class="bi bi-eye me-1"></i>Ver</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </main>
