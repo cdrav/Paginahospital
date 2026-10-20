@@ -10,3 +10,12 @@ search-index.json
 # Claves de servicio de Firebase (¡No subir al repositorio!)
 service-account.json
 clave-citas-online.json
+
+# Claves y certificados (por ejemplo, los de HTTPS local)
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+.env
+.env.*
