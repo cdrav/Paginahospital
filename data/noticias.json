@@ -1,5 +1,22 @@
 [
   {
+    "id": "consulta-resultados-laboratorio",
+    "fecha": "2026-10-28",
+    "categoria": "comunicado",
+    "etiqueta": "Laboratorio Clínico",
+    "inicio": true,
+    "titulo": "Ya puedes consultar de nuevo tus resultados de laboratorio",
+    "resumen": "El servicio de consulta de resultados de exámenes de laboratorio en línea está disponible nuevamente. Ingresa y consúltalos desde tu celular o computador.",
+    "imagen": "/imagenes/laboratorio-servicios.webp",
+    "enlaces": [
+      {
+        "texto": "Consultar resultados",
+        "url": "/laboratorio.html",
+        "icono": "bi-clipboard2-pulse"
+      }
+    ]
+  },
+  {
     "id": "cuidar-a-quienes-cuidan",
     "fecha": "2026-10-15",
     "categoria": "evento",
@@ -133,8 +150,7 @@
         "url": "https://www.youtube.com/watch?v=ZVSmjKSdSBI",
         "icono": "bi-play-circle"
       }
-    ],
-    "inicio": true
+    ]
   },
   {
     "id": "convocatoria-laboral-sst",
