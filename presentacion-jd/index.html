@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="img/emblema.png">
+<title>Junta Directiva 29 de octubre</title>
+<style>
+@font-face{font-family:'Poppins';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/poppins-300.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/poppins-400.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/poppins-600.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-weight:700;font-style:normal;font-display:swap;src:url(fonts/poppins-700.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-weight:900;font-style:normal;font-display:swap;src:url(fonts/poppins-900.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Serif';font-weight:400 500;font-style:italic;font-display:swap;src:url(fonts/plexserif-italic.woff2) format('woff2')}
+/* Layout: una diapositiva a la vez, a pantalla completa; barra inferior con progreso y navegación.
+   Paleta y tipografía del Libro de marca HDSA v1: #164443 corporativo, #069681 / #6FB3A9 / #C4EEE6 de contenido; Poppins + IBM Plex Serif Italic. Ámbar solo como color de advertencia. */
+:root{
+  --verde:#069681; --verde-hondo:#164443; --menta:#E3F6F2; --agua:#6FB3A9; --hielo:#C4EEE6; --ambar:#D99A2B; --coral:#C8553D;
+  --bg:#F5FAF9; --surface:#FFFFFF; --fg:#123634; --muted:#4F6D69; --line:#CFE5E0;
+  --chip:#E8F5F2; --on-verde:#FFFFFF; --titulo:#164443; --sombra:0 18px 40px -22px rgba(22,68,67,.45);
+  --f-display:"Poppins", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Poppins", "Segoe UI", system-ui, sans-serif;
+  --f-especial:"IBM Plex Serif", Georgia, serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --verde:#3DC3AC; --verde-hondo:#0F2F2E; --menta:#123A37; --agua:#6FB3A9; --hielo:#1E4A46; --ambar:#E9B55A; --coral:#E07A62;
+  --bg:#0A1C1B; --surface:#112927; --fg:#E2F3F0; --muted:#9DBDB7; --line:#24423F;
+  --chip:#163633; --on-verde:#062220; --titulo:#C4EEE6; --sombra:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --verde:#3DC3AC; --verde-hondo:#0F2F2E; --menta:#123A37; --agua:#6FB3A9; --hielo:#1E4A46; --ambar:#E9B55A; --coral:#E07A62;
+  --bg:#0A1C1B; --surface:#112927; --fg:#E2F3F0; --muted:#9DBDB7; --line:#24423F;
+  --chip:#163633; --on-verde:#062220; --titulo:#C4EEE6; --sombra:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark }
+/* logo claro / negativo según el tema */
+.l-neg{display:none}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .l-pos{display:none} :root:not([data-theme="light"]) .l-neg{display:block} }
+:root[data-theme="dark"] .l-pos{display:none} :root[data-theme="dark"] .l-neg{display:block}
+
+html,body{height:100%;margin:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow:hidden}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(26px,3.8vw,46px);font-weight:700;letter-spacing:-.015em;color:var(--titulo)}
+h3{font-size:clamp(17px,1.7vw,21px);font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--f-body);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--verde)}
+.lead{font-family:var(--f-especial);font-style:italic;font-size:clamp(18px,1.7vw,21px);color:var(--muted);max-width:60ch}
+kbd,.mono{font-family:var(--f-mono);font-size:.88em}
+kbd{background:var(--chip);border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 7px}
+b,strong{font-weight:700}
+
+/* ---------- escenario ---------- */
+.deck{position:relative;height:100%;display:flex;flex-direction:column}
+.slides{position:relative;flex:1;min-height:0}
+.slide{position:absolute;inset:0;overflow-y:auto;padding-block:clamp(20px,5vh,56px) 24px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease}
+.slide.prev{transform:translateX(-30px)}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(18px,3vh,30px);min-height:100%}
+.slide.on .anim>*{animation:sube .55s both}
+.slide.on .anim>*:nth-child(2){animation-delay:.08s}.slide.on .anim>*:nth-child(3){animation-delay:.16s}
+.slide.on .anim>*:nth-child(4){animation-delay:.24s}.slide.on .anim>*:nth-child(5){animation-delay:.32s}
+@keyframes sube{from{opacity:.0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,40px);align-items:start}
+.cols>*{min-width:0}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+
+/* ---------- barra inferior ---------- */
+.bar{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);background:var(--surface);
+  padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar .marca{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;white-space:nowrap}
+.bar .marca img{height:34px;width:auto}
+.cabecera{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.cabecera img{height:clamp(38px,5vw,52px);width:auto;max-width:60vw}
+.cabecera span{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right}
+@media (max-width:520px){.cabecera span{display:none}}
+.prog{flex:1;height:6px;background:var(--chip);border-radius:9px;overflow:hidden;min-width:40px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--verde-hondo),var(--verde),var(--agua));width:0;transition:width .45s}
+.contador{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.nav{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none}
+.nav:hover{border-color:var(--verde);color:var(--verde)}
+.nav.sig{background:var(--verde);color:var(--on-verde);border-color:var(--verde)}
+.nav:disabled{opacity:.35;cursor:default}
+.indice-btn{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:14px}
+@media (max-width:560px){.bar .marca span,.contador{display:none}}
+
+/* índice */
+.indice{position:fixed;inset:0;z-index:20;background:color-mix(in srgb,var(--verde-hondo) 55%,transparent);display:grid;place-items:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.indice .panel{background:var(--surface);border-radius:20px;max-width:640px;width:100%;max-height:80vh;overflow:auto;padding:22px;box-shadow:var(--sombra)}
+.indice ol{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media (max-width:520px){.indice ol{grid-template-columns:1fr}}
+.indice li button{width:100%;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:10px;display:flex;gap:10px;align-items:baseline}
+.indice li button:hover,.indice li button[aria-current="true"]{background:var(--chip)}
+.indice li button span{font-family:var(--f-mono);font-size:12px;color:var(--verde);min-width:2ch}
+
+/* ---------- piezas comunes ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(16px,2vw,24px)}
+.shot{border-radius:14px;border:1px solid var(--line);box-shadow:var(--sombra);overflow:hidden;background:#fff;cursor:zoom-in;display:block;padding:0;width:100%}
+.shot img{display:block;width:100%;height:auto}
+.nota{display:flex;gap:12px;align-items:flex-start;background:color-mix(in srgb,var(--ambar) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--ambar) 45%,var(--line));border-radius:14px;padding:14px 16px}
+.nota .ic{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ambar);color:#2B1C00;display:grid;place-items:center;font-weight:800;font-size:15px}
+.ok{color:var(--verde);font-weight:700}
+.boton{border:0;background:var(--verde);color:var(--on-verde);font-weight:700;border-radius:12px;padding:12px 18px}
+.boton:hover{filter:brightness(1.08)}
+.boton.sec{background:var(--chip);color:var(--fg);border:1px solid var(--line)}
+.tag{display:inline-block;border-radius:99px;padding:3px 10px;font-size:13px;font-weight:700;background:var(--chip);color:var(--verde)}
+
+/* ---------- 1 portada ---------- */
+.portada .wrap{justify-content:center}
+.portada .logo{width:clamp(240px,32vw,380px);max-width:100%;height:auto}
+.portada h1{font-size:clamp(44px,8.5vw,104px);font-weight:900;letter-spacing:-.02em;text-transform:uppercase;color:var(--titulo)}
+.portada h1 em{font-style:normal;color:var(--verde)}
+
+/* nota de Sistemas: regla de oro */
+.regla{display:flex;gap:16px;align-items:flex-start;background:var(--verde-hondo);color:#E9F7F4;border-radius:18px;padding:18px 20px}
+.regla .ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--agua);color:#0E2E2D;display:grid;place-items:center}
+.regla b{color:#fff}
+.regla p+p{margin-top:6px}
+.regla small{display:block;font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--hielo);margin-bottom:4px}
+:root[data-theme="dark"] .regla{background:var(--hielo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .regla{background:var(--hielo)}}
+.si-no{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:700px){.si-no{grid-template-columns:1fr}}
+.si-no ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
+.si-no .card.solo{border:2px solid var(--verde-hondo)}
+.si-no .card.tu{border-style:dashed}
+.burbujas{display:flex;flex-direction:column;gap:10px;max-width:420px}
+.burbuja{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 14px;box-shadow:var(--sombra);font-size:15px}
+.burbuja.yo{align-self:flex-end;background:var(--verde);color:var(--on-verde);border-color:var(--verde);border-radius:18px 18px 4px 18px}
+.burbuja small{display:block;font-size:12px;opacity:.75}
+.typing{display:inline-flex;gap:4px}.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bote 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bote{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+
+/* ---------- 2 qué es ---------- */
+.rasgos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){.rasgos{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){.rasgos{grid-template-columns:1fr}}
+.rasgo{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:18px;text-align:left;display:flex;flex-direction:column;gap:10px;transition:transform .2s,border-color .2s}
+.rasgo:hover,.rasgo[aria-pressed="true"]{transform:translateY(-4px);border-color:var(--verde)}
+.rasgo svg{width:36px;height:36px;color:var(--verde)}
+.rasgo .mas{font-size:15px;color:var(--muted)}
+.candado{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:var(--f-mono);font-size:14px}
+.candado .cifrado{background:var(--chip);border-radius:10px;padding:8px 12px;color:var(--verde);word-break:break-all;min-width:0;flex:1}
+
+/* ---------- 3 acceso ---------- */
+.login{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:14px}
+.login .url{font-family:var(--f-mono);font-size:13px;background:var(--chip);border-radius:99px;padding:7px 14px;display:flex;gap:8px;align-items:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.campo label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.campo input{width:100%;font:inherit;font-family:var(--f-mono);font-size:17px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg)}
+.campo input:focus{border-color:var(--verde);outline:none}
+.salida{font-family:var(--f-mono);font-size:18px;padding:12px 14px;border-radius:12px;background:var(--menta);color:var(--verde-hondo);min-height:50px}
+:root[data-theme="dark"] .salida{color:var(--fg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .salida{color:var(--fg)}}
+.salida .cc{color:var(--coral);font-weight:700}
+.pasos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:p}
+.pasos li{display:flex;gap:14px;align-items:flex-start;counter-increment:p}
+.pasos li::before{content:counter(p);flex:none;width:32px;height:32px;border-radius:50%;background:var(--verde);color:var(--on-verde);display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
+.exito{display:flex;gap:10px;align-items:center;background:var(--menta);border-radius:12px;padding:12px 14px;font-weight:600}
+
+/* ---------- 4 verificación ---------- */
+.pantallita{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--sombra);text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.pantallita .escudo{width:62px;height:62px;border-radius:18px;background:var(--menta);display:grid;place-items:center;color:var(--verde)}
+.opciones{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px}
+.opciones button{border-radius:12px;padding:12px;border:1.5px solid var(--line);background:var(--bg);font-weight:700}
+.opciones button:hover,.opciones button[aria-pressed="true"]{border-color:var(--verde);background:var(--menta)}
+.ruta{display:flex;flex-direction:column;gap:12px}
+.ruta .paso{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.ruta .paso .n{flex:none;font-family:var(--f-mono);font-size:13px;color:var(--verde);padding-top:2px}
+.loader{height:6px;background:var(--chip);border-radius:9px;overflow:hidden}
+.loader i{display:block;height:100%;width:0;background:var(--verde);transition:width .2s linear}
+
+/* ---------- 5 celular ---------- */
+.telefono{width:min(270px,100%);aspect-ratio:9/18;max-width:100%;margin:0 auto;border-radius:38px;background:var(--verde-hondo);padding:12px;box-shadow:var(--sombra);position:relative}
+.telefono .pant{height:100%;border-radius:28px;background:var(--bg);overflow:hidden;display:flex;flex-direction:column}
+.telefono .top{background:var(--verde);color:#fff;padding:22px 14px 12px;font-family:var(--f-display);font-weight:700;display:flex;align-items:center;gap:8px}
+.telefono .top img{width:auto;height:30px}
+.telefono .top{background:#164443}
+.telefono .msgs{flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13px}
+.telefono .bloqueo{position:absolute;inset:12px;border-radius:28px;background:color-mix(in srgb,var(--verde-hondo) 92%,#000);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s}
+.pin{display:grid;grid-template-columns:repeat(3,48px);gap:10px}
+.pin button{height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-family:var(--f-display);font-size:18px}
+.puntos{display:flex;gap:10px}.puntos i{width:12px;height:12px;border-radius:50%;border:2px solid #fff}.puntos i.f{background:#fff}
+.consejos{display:flex;flex-direction:column;gap:12px}
+
+/* ---------- 6 contraseña ---------- */
+.stepper{display:flex;gap:8px;flex-wrap:wrap}
+.stepper button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:14px}
+.stepper button[aria-selected="true"]{background:var(--verde);border-color:var(--verde);color:var(--on-verde)}
+.fuerza{height:10px;border-radius:9px;background:var(--chip);overflow:hidden}
+.fuerza i{display:block;height:100%;width:0;transition:width .3s,background .3s}
+.reglas{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:15px}
+.reglas li{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.reglas li.si{color:var(--fg)}
+.reglas li::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none}
+.reglas li.si::before{background:var(--verde);border-color:var(--verde)}
+
+/* ---------- 7 funciones ---------- */
+.func{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:24px;align-items:start}
+@media (max-width:860px){.func{grid-template-columns:1fr}}
+.lista-f{display:flex;flex-direction:column;gap:6px}
+.lista-f button{text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:11px 14px;font-weight:700;display:flex;gap:12px;align-items:center}
+.lista-f button:hover{background:var(--chip)}
+.lista-f button[aria-selected="true"]{background:var(--surface);border-color:var(--verde);box-shadow:var(--sombra)}
+.lista-f svg{width:22px;height:22px;color:var(--verde);flex:none}
+.detalle-f{display:flex;flex-direction:column;gap:14px}
+
+/* ---------- 8 buscar demo ---------- */
+.demo{display:grid;grid-template-columns:260px minmax(0,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);box-shadow:var(--sombra);min-height:330px}
+@media (max-width:700px){.demo{grid-template-columns:1fr}}
+.demo .lat{border-right:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.buscador{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface);font-size:14px;color:var(--muted);width:100%;text-align:left}
+.buscador:hover{border-color:var(--verde)}
+.buscador kbd{margin-left:auto;font-size:11px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 10px;font-size:13px;font-weight:700}
+.chips button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.salas-l{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.salas-l div{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px}
+.av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;flex:none}
+.demo .cen{padding:18px;display:flex;flex-direction:column;gap:12px;position:relative}
+.vacio{border:2px dashed var(--line);border-radius:14px;padding:20px;text-align:center;color:var(--muted)}
+.modal-b{border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--sombra);padding:12px;display:flex;flex-direction:column;gap:8px}
+.modal-b input{font:inherit;padding:10px 12px;border-radius:10px;border:1.5px solid var(--verde);background:var(--bg);color:var(--fg);width:100%}
+.res{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;font-size:15px;border:0;background:transparent;text-align:left;width:100%}
+.res:hover{background:var(--chip)}
+.res small{color:var(--muted);font-family:var(--f-mono);font-size:11px;display:block}
+
+/* ---------- 9 salas ---------- */
+.invitacion{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1.5px solid var(--ambar);background:color-mix(in srgb,var(--ambar) 10%,var(--surface));flex-wrap:wrap}
+.invitacion .txt{flex:1;min-width:140px}
+.flujo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:700px){.flujo{grid-template-columns:1fr}}
+.flujo .card{display:flex;flex-direction:column;gap:8px}
+.flujo .card .n{font-family:var(--f-mono);font-size:12px;color:var(--verde)}
+
+/* ---------- 10 recorrido ---------- */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tabs button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 13px;font-weight:700;font-size:14px}
+.tabs button[aria-selected="true"]{background:var(--verde);color:var(--on-verde);border-color:var(--verde)}
+.visor{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.visor{grid-template-columns:1fr}}
+.visor .txt{display:flex;flex-direction:column;gap:12px}
+
+/* ---------- 11 mensaje hover ---------- */
+.msg-demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 18px 58px;box-shadow:var(--sombra)}
+.msg-demo .av{position:absolute;left:16px;top:18px;width:32px;height:32px;font-size:14px}
+.msg-demo .quien{font-weight:700;color:var(--verde)}
+.toolbar{position:absolute;right:12px;top:-20px;display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sombra);overflow:hidden;opacity:0;transform:translateY(6px);transition:.25s}
+.msg-demo:hover .toolbar,.msg-demo:focus-within .toolbar,.msg-demo.fijo .toolbar{opacity:1;transform:none}
+.toolbar button{border:0;background:transparent;width:42px;height:40px;display:grid;place-items:center}
+.toolbar button:hover,.toolbar button[aria-pressed="true"]{background:var(--chip);color:var(--verde)}
+.toolbar svg{width:19px;height:19px}
+.menu3{position:absolute;right:12px;top:26px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sombra);padding:6px;min-width:190px;display:flex;flex-direction:column}
+.menu3 button{border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;font-size:15px}
+.menu3 button:hover{background:var(--chip)}
+.menu3 .peligro{color:var(--coral)}
+.explica{min-height:96px}
+.reacciones{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.reacciones span{border:1px solid var(--line);background:var(--chip);border-radius:99px;padding:2px 9px;font-size:14px}
+
+/* ---------- 12 apariencia ---------- */
+.temas{display:flex;gap:8px;flex-wrap:wrap}
+.temas button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-weight:700;display:flex;gap:8px;align-items:center}
+.temas button[aria-pressed="true"]{border-color:var(--verde);box-shadow:0 0 0 3px color-mix(in srgb,var(--verde) 25%,transparent)}
+.temas i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+.mini{--m-bg:#fff;--m-lat:#F4F6F8;--m-fg:#17191C;--m-acc:#0DBD8B;--m-line:#E3E8F0;
+  border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--sombra);display:grid;grid-template-columns:34% 66%;height:230px;background:var(--m-bg);color:var(--m-fg);transition:background .35s,color .35s;font-size:13px}
+.mini .ml{background:var(--m-lat);padding:10px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--m-line);transition:background .35s}
+.mini .ml div{height:12px;border-radius:6px;background:var(--m-line)}
+.mini .ml div.a{background:var(--m-acc);width:70%}
+.mini .mc{padding:12px;display:flex;flex-direction:column;gap:8px}
+.mini .mb{background:var(--m-lat);border-radius:10px;padding:7px 9px;max-width:85%;border:1px solid var(--m-line)}
+.mini .mb.y{align-self:flex-end;background:var(--m-acc);color:#fff;border-color:transparent}
+.mini[data-t="oscuro"]{--m-bg:#15191E;--m-lat:#21262C;--m-fg:#EBEEF2;--m-acc:#0DBD8B;--m-line:#394049}
+.mini[data-t="contraste"]{--m-bg:#000;--m-lat:#000;--m-fg:#fff;--m-acc:#FFE500;--m-line:#fff}
+.mini[data-t="contraste"] .mb.y{color:#000}
+.mini[data-t="hdsa"]{--m-bg:#F7FBF9;--m-lat:#E4F1EC;--m-fg:#164443;--m-acc:#069681;--m-line:#C9DED6}
+.switch{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.switch button{width:52px;height:30px;border-radius:99px;border:0;background:var(--line);position:relative;flex:none;transition:background .25s}
+.switch button::after{content:"";position:absolute;left:4px;top:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.switch button[aria-checked="true"]{background:var(--verde)}
+.switch button[aria-checked="true"]::after{left:26px}
+.campana{display:flex;align-items:center;gap:12px}
+.toast{background:var(--fg);color:var(--bg);border-radius:12px;padding:10px 14px;font-size:14px;display:flex;gap:10px;align-items:center;animation:sube .4s both}
+
+/* ---------- 13 seguridad (tarjetas volteables) ---------- */
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.flips{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.flips{grid-template-columns:1fr}}
+.flip{perspective:900px;border:0;background:transparent;padding:0;min-height:180px;text-align:left}
+.flip .in{position:relative;width:100%;height:100%;min-height:180px;transition:transform .6s;transform-style:preserve-3d}
+.flip[aria-pressed="true"] .in{transform:rotateY(180deg)}
+.flip .cara{position:absolute;inset:0;border-radius:18px;padding:18px;backface-visibility:hidden;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.flip .frente{background:var(--surface)}
+.flip .frente .q{font-family:var(--f-display);font-size:20px;font-weight:700;line-height:1.15}
+.flip .frente small{margin-top:auto;color:var(--verde);font-weight:700;font-size:13px}
+.flip .atras{background:var(--verde);color:var(--on-verde);transform:rotateY(180deg);border-color:var(--verde);font-size:15.5px}
+.flip svg{width:30px;height:30px;color:var(--verde)}
+
+/* ---------- 14 quiz ---------- */
+.quiz{max-width:760px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.qopc{display:flex;flex-direction:column;gap:10px}
+.qopc button{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 16px;font-weight:600;display:flex;gap:12px;align-items:center}
+.qopc button:hover:not(:disabled){border-color:var(--verde)}
+.qopc button .l{flex:none;width:28px;height:28px;border-radius:8px;background:var(--chip);display:grid;place-items:center;font-family:var(--f-mono);font-size:13px}
+.qopc button.bien{border-color:var(--verde);background:var(--menta)}
+.qopc button.mal{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--surface))}
+.qopc button:disabled{cursor:default}
+.qbar{display:flex;gap:6px}.qbar i{flex:1;height:6px;border-radius:9px;background:var(--chip)}
+.qbar i.b{background:var(--verde)}.qbar i.m{background:var(--coral)}.qbar i.a{background:var(--ambar)}
+.feedback{border-radius:14px;padding:14px 16px;background:var(--chip)}
+.final{text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.final .num{font-family:var(--f-display);font-size:clamp(60px,10vw,110px);font-weight:800;color:var(--verde);line-height:1}
+
+/* ---------- 15 soporte ---------- */
+.checks{display:flex;flex-direction:column;gap:10px}
+.checks label{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);cursor:pointer}
+.checks input{width:22px;height:22px;accent-color:var(--verde);flex:none}
+.sistemas{background:var(--verde-hondo);color:#E9F5F1;border-radius:22px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:14px}
+.sistemas h3{color:#fff}
+.sistemas .url{font-family:var(--f-mono);background:rgba(255,255,255,.1);border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;word-break:break-all}
+.sistemas .url button{border:0;border-radius:8px;padding:6px 12px;background:var(--ambar);color:#2B1C00;font-weight:700}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:30;background:rgba(5,20,16,.88);display:grid;place-items:center;padding:20px;cursor:zoom-out}
+.lb img{max-width:min(1400px,100%);max-height:88vh;border-radius:10px;background:#fff}
+.lb p{color:#fff;text-align:center;margin-top:10px;font-size:14px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ================= JUNTA DIRECTIVA ================= */
+:root{ --s1:#164443; --s2:#6FB3A9; --e1:#C4EEE6; --e2:#8ED3C5; --e3:#3FAE9C; --e4:#0B7A6A; --e5:#164443; --sube:#0B7A5A; --baja:#B4472F }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --s1:#C4EEE6; --s2:#3DA894; --e1:#1E4A46; --e2:#2E6E66; --e3:#3FA592; --e4:#7CCFBE; --e5:#C4EEE6; --sube:#5FD3A7; --baja:#F08A72 }}
+:root[data-theme="dark"]{ --s1:#C4EEE6; --s2:#3DA894; --e1:#1E4A46; --e2:#2E6E66; --e3:#3FA592; --e4:#7CCFBE; --e5:#C4EEE6; --sube:#5FD3A7; --baja:#F08A72 }
+
+.eslogan{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,2.6vw,32px);color:var(--titulo)}
+.agenda-mini{display:flex;flex-direction:column;gap:14px;align-items:flex-start;padding:28px;border-radius:22px;background:var(--surface);border:1px solid var(--line)}
+.reloj{display:flex;align-items:baseline;gap:4px;font-family:var(--f-display);font-weight:900;font-size:clamp(64px,9vw,120px);line-height:1;color:var(--verde);font-variant-numeric:tabular-nums}
+.reloj i{font-style:normal;animation:parpadeo 1.6s steps(2) infinite}
+@keyframes parpadeo{50%{opacity:.25}}
+.portada.jd h1{font-size:clamp(38px,6.4vw,82px)}
+
+/* orden del día */
+.orden{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;counter-reset:o}
+@media (max-width:820px){.orden{grid-template-columns:1fr}}
+.orden>li{counter-increment:o;min-width:0}
+.orden{grid-auto-flow:dense}
+.orden>li.ancho{grid-column:2;grid-row:1 / span 7}
+@media (max-width:820px){.orden>li.ancho{grid-column:auto;grid-row:auto}}
+.orden .item{padding:9px 14px}
+.orden{gap:8px}
+.orden .sub button,.orden .sub span{padding:3px 8px}
+.orden .item{width:100%;text-align:left;display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.orden button.item:hover{border-color:var(--verde);transform:translateY(-2px)}
+.orden button.item{transition:transform .2s,border-color .2s}
+.orden .item::before{content:counter(o);flex:none;width:34px;height:34px;border-radius:10px;background:var(--verde-hondo);color:#fff;display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
+:root[data-theme="dark"] .orden .item::before{background:var(--verde);color:var(--on-verde)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .orden .item::before{background:var(--verde);color:var(--on-verde)}}
+.orden .item b{display:block;font-weight:600}
+.orden .item .ir{margin-left:auto;color:var(--verde);font-weight:700;flex:none}
+.orden .sub{list-style:none;margin:8px 0 0;padding:0 0 0 48px;display:grid;gap:2px}
+.orden .sub button,.orden .sub span{display:flex;justify-content:space-between;gap:10px;width:100%;text-align:left;border:0;background:transparent;padding:5px 8px;border-radius:8px;font-size:14px;color:var(--muted)}
+.orden .sub button{color:var(--fg)}
+.orden .sub button:hover{background:var(--chip)}
+.orden .sub button::after{content:"→";color:var(--verde);font-weight:700}
+
+/* separadores de sección */
+.seccion .wrap{justify-content:center}
+.sec-cuerpo{display:flex;gap:clamp(18px,4vw,48px);align-items:center;flex-wrap:wrap}
+.sec-cuerpo>div{min-width:0;flex:1 1 320px}
+.sec-num{font-family:var(--f-display);font-weight:900;font-size:clamp(110px,18vw,220px);line-height:.85;color:var(--verde);letter-spacing:-.04em}
+.sec-ico{width:clamp(96px,13vw,150px);height:clamp(96px,13vw,150px);border-radius:28px;background:var(--menta);display:grid;place-items:center;color:var(--verde);flex:none}
+.sec-ico svg{width:55%;height:55%}
+.sec-cuerpo h2{font-size:clamp(28px,4.4vw,54px)}
+.mapa-puntos{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:10px}
+.mapa-puntos button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600;color:var(--muted)}
+.mapa-puntos button.hecho{color:var(--fg)}
+.mapa-puntos button[aria-current="true"]{background:var(--verde-hondo);border-color:var(--verde-hondo);color:#fff}
+.mapa-puntos button:disabled{opacity:.5;cursor:default}
+.indice-sub{display:flex;gap:8px;flex-wrap:wrap}
+.chip-ir{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:600;font-size:14px}
+.chip-ir:hover{border-color:var(--verde);color:var(--verde)}
+.chip-ir::after{content:" →"}
+
+.decision{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.decision .estado-dec{font-weight:600;color:var(--verde)}
+.decision.ok .boton{background:var(--chip);color:var(--fg);border:1px solid var(--line)}
+.actas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.actas{grid-template-columns:1fr}}
+.acta{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:6px}
+.acta .tag{align-self:flex-start}
+.acta .decision{margin-top:auto;padding-top:12px}
+.acta.ok{border-color:var(--verde)}
+
+.temas-g{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (max-width:700px){.temas-g{grid-template-columns:1fr}}
+.temas-g>*{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);text-align:left;font-weight:600;min-width:0}
+.temas-g button:hover{border-color:var(--verde)}
+.temas-g button::after{content:"→";margin-left:auto;color:var(--verde)}
+.temas-g span.sin{color:var(--muted);font-weight:400;border-style:dashed}
+.temas-g i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--verde)}
+.temas-g span.sin i{background:var(--line)}
+
+/* datos */
+.unidad{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi b{font-family:var(--f-display);font-weight:700;font-size:clamp(20px,2.2vw,28px);font-variant-numeric:tabular-nums;color:var(--titulo);overflow-wrap:anywhere}
+.kpi b small{font-size:.55em;color:var(--muted);font-weight:600}
+.kpi b.sube{color:var(--sube)} .kpi b.baja{color:var(--baja)}
+.card-cab{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:6px 12px;font-size:13px;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--verde-hondo);color:#fff}
+.leyenda{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.leyenda span,.leyenda button{display:inline-flex;align-items:center;gap:6px}
+.leyenda button{border:1px solid transparent;background:transparent;border-radius:8px;padding:3px 6px;font-size:13px;color:var(--muted)}
+.leyenda button[aria-pressed="true"]{border-color:var(--verde);color:var(--fg)}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.sw.s1{background:var(--s1)} .sw.s2{background:var(--s2)}
+.nota-graf{font-size:13px;color:var(--muted);margin-top:10px}
+.num{font-variant-numeric:tabular-nums}
+
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hbar{display:grid;grid-template-columns:minmax(90px,150px) 1fr;gap:12px;align-items:center;border:0;background:transparent;padding:4px;border-radius:10px;text-align:left;width:100%}
+.hbar:hover,.hbar:focus-visible{background:var(--chip)}
+.hbar .et{font-size:14px;font-weight:600;min-width:0}
+.hbar .pista{position:relative;height:26px}
+.hbar .rel{position:absolute;inset:0 auto 0 0;border-radius:0 4px 4px 0;background:var(--s1);transition:width .6s cubic-bezier(.2,.8,.2,1);min-width:2px}
+.hbar .val{position:absolute;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:8px}
+@media (max-width:600px){.hbar .pista{height:auto;display:flex;flex-direction:column;gap:3px}.hbar .rel{position:relative;inset:auto;height:14px}.hbar .val{position:static;transform:none;padding-left:0;white-space:normal}}
+
+.vbars{display:flex;align-items:flex-end;gap:clamp(12px,3vw,32px);height:210px;padding-top:28px;border-bottom:1px solid var(--line)}
+.vbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;border:0;background:transparent;padding:0;gap:6px;position:relative}
+.vbar .col{width:min(70px,100%);border-radius:4px 4px 0 0;background:var(--s2);transition:height .6s cubic-bezier(.2,.8,.2,1)}
+.vbar.actual .col{background:var(--s1)}
+.vbar[aria-pressed="true"] .col{outline:2px solid var(--verde);outline-offset:2px}
+.vbar .v{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.vbar .d{font-size:12px;font-weight:700}
+.vbar .d.sube{color:var(--sube)} .vbar .d.baja{color:var(--baja)}
+.ejes{display:flex;gap:clamp(12px,3vw,32px)}
+.ejes span{flex:1;text-align:center;font-size:13px;font-weight:600;padding-top:6px}
+.detalle-anio{margin-top:10px;font-size:14px;min-height:22px}
+
+.chips-f{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chips-f button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 12px;font-size:13px;font-weight:600}
+.chips-f button[aria-pressed="true"]{background:var(--verde-hondo);border-color:var(--verde-hondo);color:#fff}
+.colchart{padding-left:74px;position:relative;height:260px;display:flex;align-items:flex-end;gap:clamp(4px,1.2vw,14px);border-bottom:1px solid var(--line);padding-top:12px}
+.colchart .grid{position:absolute;inset:12px 0 0 0;pointer-events:none}
+.colchart .grid i{left:70px!important}
+.colchart .grid i span{transform:translateX(-70px);width:64px;text-align:right}
+.colchart.solo{padding-left:40px}
+.colchart.solo .grid i{left:36px!important}
+.colchart.solo .grid i span{transform:translateX(-36px);width:30px}
+.colchart .grid i{position:absolute;left:0;right:0;border-top:1px dashed var(--line)}
+.colchart .grid i span{position:absolute;left:0;top:-8px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mes{flex:1;height:100%;display:flex;flex-direction:column-reverse;align-items:center;border:0;background:transparent;padding:0;position:relative;min-width:0}
+.mes .seg1,.mes .seg2{width:min(54px,86%);transition:height .55s cubic-bezier(.2,.8,.2,1)}
+.mes .seg1{background:var(--s1)}
+.mes .seg2{background:var(--s2);border-radius:4px 4px 0 0;margin-bottom:2px}
+.mes .seg1.tope{border-radius:4px 4px 0 0}
+.mes:hover .seg1,.mes:hover .seg2,.mes[aria-pressed="true"] .seg1,.mes[aria-pressed="true"] .seg2{filter:brightness(1.12)}
+.mes .lbl{position:absolute;bottom:-24px;font-size:12px;font-weight:600;color:var(--muted)}
+.colchart+.ejes-esp{height:26px}
+.tip{position:absolute;z-index:3;pointer-events:none;background:var(--fg);color:var(--bg);border-radius:10px;padding:8px 11px;font-size:13px;line-height:1.45;white-space:nowrap;box-shadow:var(--sombra);transform:translate(-50%,-100%);font-variant-numeric:tabular-nums}
+.tip b{font-weight:700}
+
+.recup{display:flex;flex-direction:column;gap:14px}
+.recup .fila{display:flex;flex-direction:column;gap:5px}
+.recup .fila>div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:14px;flex-wrap:wrap}
+.recup .barra{height:12px;border-radius:99px;background:var(--chip);overflow:hidden}
+.recup .barra i{display:block;height:100%;background:var(--verde);border-radius:99px;transition:width .6s}
+.recup .fila.total{padding-top:10px;border-top:1px solid var(--line)}
+.recup .pct{font-family:var(--f-display);font-weight:700;color:var(--titulo)}
+
+.stack{display:flex;flex-direction:column;gap:10px}
+.stack .fila{display:grid;grid-template-columns:minmax(96px,140px) 1fr minmax(84px,auto);gap:12px;align-items:center}
+.stack .et{font-size:14px;font-weight:600}
+.stack .tot{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.stack .barra{display:flex;height:26px;gap:2px}
+.stack .barra button{border:0;padding:0;height:100%;transition:opacity .25s,width .5s}
+.stack .barra button:first-child{border-radius:4px 0 0 4px}
+.stack .barra button:last-child{border-radius:0 4px 4px 0}
+.stack.foco .barra button{opacity:.22}
+.stack.foco .barra button.on{opacity:1}
+.edades{display:flex;flex-direction:column;gap:10px}
+.edades .fila{display:grid;grid-template-columns:76px 1fr 46px;gap:10px;align-items:center;font-size:14px}
+.edades .barra{height:16px;border-radius:0 4px 4px 0}
+.edades b{text-align:right;font-variant-numeric:tabular-nums}
+
+.cols-pres{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:18px;align-items:start}
+@media (max-width:860px){.cols-pres{grid-template-columns:1fr}}
+.lista-pres{display:flex;flex-direction:column;gap:6px}
+.lista-pres button{display:grid;grid-template-columns:1fr auto;gap:4px 12px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px}
+.lista-pres button[aria-selected="true"]{border-color:var(--verde);box-shadow:var(--sombra)}
+.lista-pres button.total{border-width:2px;border-color:var(--verde-hondo)}
+.lista-pres .n{font-weight:600;font-size:14px}
+.lista-pres .p{font-family:var(--f-display);font-weight:700;color:var(--titulo);font-variant-numeric:tabular-nums}
+.lista-pres .mini-b{grid-column:1/-1;height:6px;border-radius:99px;background:var(--chip);overflow:hidden}
+.lista-pres .mini-b i{display:block;height:100%;background:var(--verde)}
+.embudo{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.embudo .paso{display:flex;flex-direction:column;gap:5px}
+.embudo .paso>div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:14px;flex-wrap:wrap}
+.embudo .paso b{font-variant-numeric:tabular-nums}
+.embudo .barra{height:22px;border-radius:0 4px 4px 0;background:var(--s1);transition:width .6s cubic-bezier(.2,.8,.2,1);min-width:2px}
+.embudo .barra.b2{background:var(--verde)}
+.embudo .barra.b3{background:var(--s2)}
+.embudo .barra.b4{background:var(--e1);border:1px solid var(--line)}
+.embudo .pctl{font-size:12px;color:var(--muted)}
+.det-cab{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.det-cab .grande{font-family:var(--f-display);font-weight:900;font-size:clamp(36px,5vw,56px);line-height:1;color:var(--verde)}
+.obs{margin-top:14px;font-size:13px;color:var(--muted)}
+
+.tabla-ver summary{cursor:pointer;font-weight:600;color:var(--verde);padding:6px 0}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:var(--surface)}
+.tabla{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.tabla th{background:var(--verde-hondo);color:#fff;font-weight:600;text-align:right;padding:8px 10px;white-space:nowrap}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla td{padding:7px 10px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+.tabla tr.tot td{font-weight:700;background:var(--chip)}
+.tabla tbody tr:hover td{background:var(--menta)}
+.tabla.compacta td,.tabla.compacta th{padding:6px 8px}
+
+.certs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:900px){.certs{grid-template-columns:1fr}}
+.cert{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cert .sello-ok{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:var(--menta);color:var(--verde);font-weight:700;font-size:13px;border-radius:99px;padding:4px 10px}
+.cert dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:14px}
+.cert dt{color:var(--muted)}
+.cert dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;min-width:0;overflow-wrap:anywhere}
+.cert .boton{margin-top:auto}
+.gracias .wrap{justify-content:center}
+.gr-cuerpo{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+.gracias h1{font-size:clamp(64px,13vw,170px);line-height:.95;letter-spacing:-.03em;color:var(--verde)}
+.gracias .lead{max-width:none}
+.informe{padding-block:10px 0!important;display:flex;flex-direction:column;gap:10px}
+.informe.on{display:flex}
+.inf-cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1400px;width:100%;margin:0 auto}
+.inf-cab h3{color:var(--titulo)}
+.inf-acc{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.inf-tip{font-size:13px;color:var(--muted);max-width:44ch}
+.inf-acc .boton{text-decoration:none;padding:8px 14px;font-size:14px}
+.inf-marco{flex:1;min-height:420px;max-width:1400px;width:100%;margin:0 auto;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid var(--line);border-bottom:0;background:#004241}
+.inf-marco iframe{display:block;width:100%;height:100%;border:0}
+.acuerdo-card{max-width:720px}
+.ac-total{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;background:var(--verde-hondo);color:#E9F7F4;border-radius:20px;padding:20px 24px}
+.ac-total>div:first-child{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 380px}
+.ac-total span{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--hielo)}
+.ac-total b{font-family:var(--f-display);font-weight:900;font-size:clamp(32px,5vw,58px);line-height:1.05;color:#fff;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.ac-total small{font-family:var(--f-especial);font-style:italic;font-size:14px;color:#CFE9E3}
+.ac-total .seg{border-color:rgba(255,255,255,.3)}
+.ac-total .seg button{color:#fff}
+.ac-total .seg button[aria-pressed="true"]{background:#fff;color:#164443}
+:root[data-theme="dark"] .ac-total{background:var(--hielo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ac-total{background:var(--hielo)}}
+.ac-fila{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.ac-fila:first-of-type{border-top:0}
+.ac-fila .nom{font-weight:600}
+.ac-fila .nom small{display:block;font-weight:400;color:var(--muted);font-family:var(--f-mono);font-size:12px}
+.ac-bar{display:flex;height:28px;gap:2px}
+.ac-bar button{border:0;padding:0;height:100%}
+.ac-bar button:first-child{border-radius:4px 0 0 4px;background:var(--s1)}
+.ac-bar button:last-child{border-radius:0 4px 4px 0;background:var(--s2)}
+.ac-vals{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin-top:5px;font-variant-numeric:tabular-nums}
+.ac-vals b{font-weight:700}
+.ac-arts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:700px){.ac-arts{grid-template-columns:1fr}.ac-fila{grid-template-columns:1fr}}
+.ac-num{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3vw,34px);color:var(--titulo);font-variant-numeric:tabular-nums;margin-top:4px}
+.ac-doc-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.visor-pdf{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:640px){.visor-pdf{grid-template-columns:1fr}.miniaturas{flex-direction:row!important;overflow-x:auto}}
+.miniaturas{display:flex;flex-direction:column;gap:10px}
+.miniaturas button{border:2px solid var(--line);border-radius:8px;padding:0;background:#fff;overflow:hidden;position:relative;flex:none;width:110px}
+.miniaturas button[aria-selected="true"]{border-color:var(--verde)}
+.miniaturas img{display:block;width:100%}
+.miniaturas span{position:absolute;bottom:4px;right:4px;background:var(--verde-hondo);color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px}
+.hoja{display:flex;flex-direction:column;align-items:center;gap:10px}
+.pagina{border:1px solid var(--line);border-radius:10px;padding:0;background:#fff;box-shadow:var(--sombra);cursor:zoom-in;max-width:min(640px,100%)}
+.pagina img{display:block;width:100%;height:auto;border-radius:10px}
+.hoja-nav{display:flex;align-items:center;gap:12px}
+/* .wrap.ancha la pone el JS cuando el contenido tiene ancho de sobra: gráfica principal y tarjetas en una sola fila */
+#s-recaudo .wrap.ancha,#s-cartera .wrap.ancha{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,2fr);align-content:start;align-items:start}
+#s-recaudo .wrap.ancha>*,#s-cartera .wrap.ancha>*{grid-column:1/-1}
+#s-recaudo .wrap.ancha>.card,#s-cartera .wrap.ancha>.card{grid-column:1}
+#s-recaudo .wrap.ancha>.cols,#s-cartera .wrap.ancha>.cols{grid-column:2;gap:clamp(18px,3vh,30px)}
+/* pantallas anchas (portátil y monitor): el JS escala .wrap; el visor del acuerdo se limita al alto disponible */
+@media (min-width:1100px){
+  .visor-pdf .pagina img{max-height:68vh;width:auto;max-width:100%}
+  .visor-pdf .miniaturas{max-height:68vh;overflow-y:auto;padding-right:4px}
+}
+@media (min-width:900px) and (max-height:820px){
+  .slide{padding-block:14px 10px}
+  .wrap{gap:14px}
+  .cabecera{padding-bottom:8px}
+}
+</style>
+
+</head>
+<body>
+<div class="deck">
+<div class="slides" id="slides">
+
+<!-- ===================== JUNTA DIRECTIVA · PARTE 1 ===================== -->
+<section class="slide portada jd" id="s-portada-jd" data-t="Junta Directiva Ordinaria" data-sec="jd">
+ <div class="wrap">
+  <div class="cols" style="align-items:center">
+   <div class="anim" style="display:flex;flex-direction:column;gap:22px">
+    <img class="logo l-pos" src="img/logo-horizontal.png" alt="Hospital Departamental San Antonio, Roldanillo - Valle E.S.E.">
+    <img class="logo l-neg" src="img/logo-horizontal-neg.png" alt="Hospital Departamental San Antonio, Roldanillo - Valle E.S.E.">
+    <p class="eyebrow">Junta Directiva Ordinaria</p>
+    <h1>29 de octubre <em>de 2026</em></h1>
+    <p class="lead">Hora: 1:00 p. m.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+     <button class="boton" data-ir-id="s-orden">Ver el orden del día →</button>
+     <button class="boton sec" data-abrir-indice>Todas las diapositivas</button>
+    </div>
+   </div>
+   <div class="anim">
+    <div class="agenda-mini" aria-hidden="true">
+     <p class="eslogan">Servir con Excelencia</p>
+     <div class="reloj"><span>13</span><i>:</i><span>00</span></div>
+     <p style="color:var(--muted);font-size:14px">Jueves 29 · octubre · 2026</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-orden" data-t="Orden del día propuesto" data-sec="jd">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Orden del día propuesto</p><h2>Ocho puntos para esta sesión</h2>
+   <p class="lead" style="margin-top:8px">Toca un punto para ir directo a su presentación.</p></div>
+  <ol class="orden anim" id="ordenDia"></ol>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-p2" data-t="2. Aprobación del orden del día" data-sec="jd" data-punto="2">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">2</span>
+   <div><p class="eyebrow">Punto 2</p><h2>Aprobación del orden del día</h2>
+    <div class="decision" data-decision="orden"><button class="boton" data-aprobar>Marcar como aprobado</button><span class="estado-dec"></span></div></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-p3" data-t="3. Lectura y aprobación de actas" data-sec="jd" data-punto="3">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">3</span>
+   <div><p class="eyebrow">Punto 3</p><h2>Lectura y aprobación de actas</h2></div>
+  </div>
+  <div class="actas anim">
+   <article class="acta"><span class="tag">Ordinaria</span><h3>Acta No. 09</h3><p>30 de septiembre de 2026</p>
+    <div class="decision" data-decision="acta09"><button class="boton" data-aprobar>Aprobar</button><span class="estado-dec"></span></div></article>
+   <article class="acta"><span class="tag">Extraordinaria</span><h3>Acta No. 06</h3><p>29 de julio de 2026</p>
+    <div class="decision" data-decision="acta06"><button class="boton" data-aprobar>Aprobar</button><span class="estado-dec"></span></div></article>
+   <article class="acta"><span class="tag">Extraordinaria</span><h3>Acta No. 10</h3><p>16 de octubre de 2026</p>
+    <div class="decision" data-decision="acta10"><button class="boton" data-aprobar>Aprobar</button><span class="estado-dec"></span></div></article>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-p4" data-t="4. Informe de la Presidente" data-sec="jd" data-punto="4">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">4</span>
+   <div><p class="eyebrow">Punto 4</p><h2>Informe de la Presidente</h2><p class="lead" style="margin-top:8px">Dra. María Cristina Lesmes Duque</p></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-p5" data-t="5. Informe del Gerente" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">5</span>
+   <div><p class="eyebrow">Punto 5</p><h2>Informe del Gerente</h2><p class="lead" style="margin-top:8px">Dr. Mauricio Saldarriaga Vinasco</p></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-temas" data-t="Temas del informe del Gerente" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Punto 5 · Informe del Gerente</p><h2>Temas del informe</h2>
+   <p class="lead" style="margin-top:8px">Los temas con flecha tienen diapositiva propia: tócalos para ir.</p></div>
+  <div class="temas-g anim" id="temasGerente"></div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-rips" data-t="Informe de servicios basados en RIPS" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+   <div><p class="eyebrow">Prestación de servicios</p><h2>Informe de servicios basados en RIPS</h2>
+    <p class="lead" style="margin-top:8px">Enero – octubre 2026</p>
+    <p style="margin-top:14px;color:var(--muted)">Subdirección Científica<br>Hospital Departamental San Antonio de Roldanillo</p></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+<!-- ===================== FIN PARTE 1 ===================== -->
+
+<!-- ===================== INFORME III TRIMESTRE (Coordinación Médica) ===================== -->
+<section class="slide jd informe" id="s-informe" data-t="Productividad III trimestre 2026" data-sec="jd" data-punto="5">
+ <div class="inf-cab">
+  <div><p class="eyebrow">Punto 5 · Informe del Gerente · Coordinación Médica</p><h3>Productividad III trimestre 2026</h3></div>
+  <div class="inf-acc"><span class="inf-tip">Navegue el informe con sus propias flechas. Para seguir con la Junta, use la flecha verde de abajo.</span>
+   <a class="boton sec" href="informe/HDSAR_III_Trim_2026.html" target="_blank" rel="noopener">Abrir en otra pestaña</a></div>
+ </div>
+ <div class="inf-marco"><iframe id="infFrame" title="Informe de productividad III trimestre 2026" data-src="informe/HDSAR_III_Trim_2026.html" allow="fullscreen" allowfullscreen></iframe></div>
+</section>
+
+<!-- ===================== JUNTA DIRECTIVA · PARTE 2 ===================== -->
+<section class="slide jd seccion" id="s-financiera" data-t="Información financiera" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+   <div><p class="eyebrow">Punto 5 · Informe del Gerente</p><h2>Información financiera</h2>
+    <p class="lead" style="margin-top:8px">Corte a 30 de septiembre de 2026</p>
+    <div class="indice-sub" style="margin-top:18px">
+     <button class="chip-ir" data-ir-id="s-facturacion">Facturación</button>
+     <button class="chip-ir" data-ir-id="s-recaudo">Recaudo</button>
+     <button class="chip-ir" data-ir-id="s-cartera">Cartera</button>
+     <button class="chip-ir" data-ir-id="s-ingresos">Presupuesto · Ingresos</button>
+     <button class="chip-ir" data-ir-id="s-gastos">Presupuesto · Gastos</button>
+    </div></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-facturacion" data-t="Facturación" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Información financiera · Corte 30 sep 2026</p><h2>Facturación</h2>
+   <p class="unidad">Valores en miles de pesos</p></div>
+  <div class="kpis anim">
+   <div class="kpi"><span>Total venta de servicios</span><b>$22,724,794</b></div>
+   <div class="kpi"><span>Promedio mes</span><b>$2,524,977</b></div>
+   <div class="kpi"><span>Promedio mes vs. 2025</span><b class="baja">−14%</b></div>
+  </div>
+  <div class="cols anim">
+   <div class="card">
+    <div class="card-cab"><h3>Por régimen</h3>
+     <div class="seg" role="group" aria-label="Medida"><button aria-pressed="true" data-m="t">Total</button><button aria-pressed="false" data-m="p">Promedio mes</button></div></div>
+    <div class="hbars" id="factRegimen"></div>
+   </div>
+   <div class="card">
+    <div class="card-cab"><h3>Comparativo con vigencias anteriores</h3></div>
+    <div class="vbars" id="factAnios"></div>
+    <p class="nota-graf">Promedio mensual de facturación por año. Toca una barra para ver el detalle.</p>
+    <div class="detalle-anio" id="factAnioDet" aria-live="polite"></div>
+   </div>
+  </div>
+  <details class="tabla-ver anim"><summary>Ver tabla original</summary>
+   <div class="tabla-scroll"><table class="tabla"><thead><tr><th>Régimen</th><th>Total facturación venta de servicios</th><th>Promedio mes</th><th>% participación</th></tr></thead><tbody id="factTabla"></tbody></table></div>
+  </details>
+ </div>
+</section>
+
+<section class="slide jd" id="s-recaudo" data-t="Recaudo" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Información financiera · Corte 30 sep 2026</p><h2>Recaudo</h2>
+   <p class="unidad">Cifras en miles de pesos</p></div>
+  <div class="kpis anim">
+   <div class="kpi"><span>Total recaudo</span><b>$22,542,948</b></div>
+   <div class="kpi"><span>De la vigencia</span><b>$7,524,515</b></div>
+   <div class="kpi"><span>De vigencias anteriores</span><b>$15,018,433</b></div>
+   <div class="kpi"><span>Total recaudo vs. 2025</span><b class="sube">+25%</b></div>
+  </div>
+  <div class="card anim">
+   <div class="card-cab"><h3>Recaudo mensual</h3>
+    <div class="leyenda"><span><i class="sw s1"></i>Vigencia actual</span><span><i class="sw s2"></i>Vigencias anteriores</span></div></div>
+   <div class="chips-f" id="recFiltro" role="group" aria-label="Filtrar recaudo de la vigencia">
+    <button aria-pressed="true" data-r="todo">Todo el recaudo</button>
+    <button aria-pressed="false" data-r="SUBSIDIADO">Subsidiado</button>
+    <button aria-pressed="false" data-r="CONTRIBUTIVO">Contributivo</button>
+    <button aria-pressed="false" data-r="SOAT">SOAT</button>
+    <button aria-pressed="false" data-r="OTRAS ENTIDADES">Otras entidades</button>
+   </div>
+   <div class="colchart" id="recMeses"></div>
+   <p class="nota-graf" id="recNota">Pasa el cursor o toca una barra para ver el detalle del mes.</p>
+  </div>
+  <div class="cols anim">
+   <div class="card"><div class="card-cab"><h3>% de recuperación de la vigencia</h3></div><div id="recRecup" class="recup"></div></div>
+   <div class="card"><div class="card-cab"><h3>Comparativo con vigencias anteriores</h3></div>
+    <div class="vbars" id="recAnios"></div><p class="nota-graf">Total recaudo. No incluye salud pública.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-cartera" data-t="Cartera (deudores)" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Información financiera · Corte 30 sep 2026</p><h2>Cartera (deudores)</h2>
+   <p class="unidad">Valores en miles de pesos · edades en días</p></div>
+  <div class="kpis anim">
+   <div class="kpi"><span>Cartera total</span><b>$27,168,282</b></div>
+   <div class="kpi"><span>Mayor a 360 días</span><b>$8,663,286 <small>32%</small></b></div>
+   <div class="kpi"><span>Empresas en liquidación</span><b>$4,685,136 <small>17%</small></b></div>
+   <div class="kpi"><span>Cartera sin entidades en liquidación</span><b>$22,483,146 <small>83%</small></b></div>
+  </div>
+  <div class="card anim">
+   <div class="card-cab"><h3>Clasificada por régimen y por edades</h3>
+    <div class="leyenda" id="carLeyenda"></div></div>
+   <div class="stack" id="carStack"></div>
+   <p class="nota-graf">Cada barra suma el total del régimen. Toca un tramo para ver el valor, o una edad en la leyenda para resaltarla.</p>
+  </div>
+  <div class="cols anim">
+   <div class="card"><div class="card-cab"><h3>Peso por edad de la cartera</h3></div><div class="edades" id="carEdades"></div></div>
+   <div class="card"><div class="card-cab"><h3>Cartera de empresas en liquidación</h3></div><div class="hbars" id="carLiq"></div></div>
+  </div>
+  <details class="tabla-ver anim"><summary>Ver tabla original</summary>
+   <div class="tabla-scroll"><table class="tabla"><thead><tr><th>Régimen</th><th>&lt;60</th><th>61-90</th><th>91-180</th><th>181-360</th><th>&gt;360</th><th>Total</th><th>Peso</th></tr></thead><tbody id="carTabla"></tbody></table></div>
+  </details>
+ </div>
+</section>
+
+<section class="slide jd" id="s-ingresos" data-t="Presupuesto · Ingresos" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Ejecución presupuestal 2026</p><h2>Presupuesto · Ingresos</h2>
+   <p class="unidad">Valores en miles de pesos</p></div>
+  <div class="cols-pres anim">
+   <div class="lista-pres" id="ingLista" role="tablist" aria-label="Conceptos de ingreso"></div>
+   <div class="card" id="ingDet"></div>
+  </div>
+  <details class="tabla-ver anim"><summary>Ver tabla original</summary>
+   <div class="tabla-scroll"><table class="tabla"><thead><tr><th>Concepto</th><th>Ppto inicial</th><th>Ppto definitivo</th><th>Reconocimiento</th><th>% sobre ppto dftvo</th><th>Recaudo</th><th>% sobre reconocimiento</th><th>Cuentas por cobrar</th></tr></thead><tbody id="ingTabla"></tbody></table></div>
+  </details>
+ </div>
+</section>
+
+<section class="slide jd" id="s-gastos" data-t="Presupuesto · Gastos" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Ejecución presupuestal 2026</p><h2>Presupuesto · Gastos</h2>
+   <p class="unidad">Valores en miles de pesos</p></div>
+  <div class="cols-pres anim">
+   <div class="lista-pres" id="gasLista" role="tablist" aria-label="Conceptos de gasto"></div>
+   <div class="card" id="gasDet"></div>
+  </div>
+  <details class="tabla-ver anim"><summary>Ver tabla original</summary>
+   <div class="tabla-scroll"><table class="tabla"><thead><tr><th>Concepto</th><th>Ppto inicial</th><th>Ppto definitivo</th><th>Compromisos</th><th>% sobre ppto dftvo</th><th>Obligaciones</th><th>% sobre ppto dftvo</th><th>Giros / pagos</th><th>% sobre obligaciones</th><th>Cuentas por pagar</th></tr></thead><tbody id="gasTabla"></tbody></table></div>
+  </details>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-judiciales" data-t="Estado actual de procesos judiciales" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 21h14M4 7h16M7 7l-3 7a3 3 0 0 0 6 0L7 7ZM17 7l-3 7a3 3 0 0 0 6 0l-3-7Z"/></svg></span>
+   <div><p class="eyebrow">Punto 5 · Informe del Gerente</p><h2>Estado actual de procesos judiciales</h2></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-control" data-t="Informe de control interno" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span>
+   <div><p class="eyebrow">Punto 5 · Informe del Gerente</p><h2>Informe de control interno</h2>
+    <p class="lead" style="margin-top:8px">Seguimiento a hallazgos de la Revisoría Fiscal (Kerston)</p></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-sarlaft-sec" data-t="Informes SARLAFT y SICOF" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+   <div><p class="eyebrow">Punto 5 · Informe del Gerente</p><h2>Informes de SARLAFT y SICOF</h2></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-sarlaft" data-t="Reporte SARLAFT 2026" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">SARLAFT</p><h2>Reporte SARLAFT 2026</h2>
+   <p class="lead" style="margin-top:8px">Verificación de antecedentes judiciales, disciplinarios y fiscales</p></div>
+  <div class="kpis anim">
+   <div class="kpi"><span>Verificaciones enero – septiembre</span><b>234</b></div>
+   <div class="kpi"><span>Fuentes consultadas</span><b>4</b></div>
+   <div class="kpi"><span>Reportes negativos</span><b>234</b></div>
+  </div>
+  <div class="cols anim">
+   <div class="card"><div class="card-cab"><h3>Verificaciones por mes</h3></div><div class="colchart solo" id="sarMeses"></div>
+    <p class="nota-graf">Fuente de información: Contratación.</p></div>
+   <div class="card"><div class="card-cab"><h3>Detalle por fuente</h3></div>
+    <div class="tabla-scroll"><table class="tabla compacta"><thead><tr><th>Mes</th><th>Policía</th><th>Contraloría</th><th>Procuraduría</th><th>SARLAFT</th><th>Reportes negativos</th></tr></thead><tbody id="sarTabla"></tbody></table></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-uiaf" data-t="Certificados UIAF" data-sec="jd" data-punto="5">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">SICOF · UIAF</p><h2>Reportes a la UIAF del periodo 1 – 30 de septiembre de 2026</h2>
+   <p class="lead" style="margin-top:8px">Los tres reportes fueron certificados como exitosos el 6 de octubre de 2026.</p></div>
+  <div class="certs anim" id="certs"></div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-p6" data-t="6. Informe de la Revisoría Fiscal" data-sec="jd" data-punto="6">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">6</span>
+   <div><p class="eyebrow">Punto 6</p><h2>Informe de la Revisoría Fiscal</h2></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-p7" data-t="7. Presentación de anteproyectos de acuerdo" data-sec="jd" data-punto="7">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">7</span>
+   <div><p class="eyebrow">Punto 7</p><h2>Presentación de anteproyectos de acuerdo</h2>
+    <article class="acta acuerdo-card" style="margin-top:20px">
+     <span class="tag">Anteproyecto</span>
+     <h3>Acuerdo No. 015 – 2026 · 29 de octubre de 2026</h3>
+     <p style="color:var(--muted)">Por medio del cual se viabiliza el anteproyecto de presupuesto de ingresos y de gastos del Hospital Departamental San Antonio de Roldanillo E.S.E. para la vigencia fiscal del 1.º de enero al 31 de diciembre de 2027.</p>
+     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+      <button class="boton" data-ir-id="s-acuerdo-resumen">Ver el resumen →</button>
+      <button class="boton sec" data-ir-id="s-acuerdo-doc">Ver el documento</button>
+     </div>
+     <div class="decision" data-decision="acuerdo015"><button class="boton sec" data-aprobar>Marcar como viabilizado</button><span class="estado-dec"></span></div>
+    </article></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-acuerdo-resumen" data-t="Acuerdo No. 015: presupuesto 2027" data-sec="jd" data-punto="7">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Punto 7 · Acuerdo No. 015 – 2026</p><h2>Anteproyecto de presupuesto 2027</h2>
+   <p class="unidad">Valores en pesos · vigencia fiscal 1.º de enero – 31 de diciembre de 2027</p></div>
+  <div class="ac-total anim">
+   <div><span>Artículo primero · se viabiliza por</span><b>$34.278.379.155</b>
+    <small>Treinta y cuatro mil doscientos setenta y ocho millones trescientos setenta y nueve mil ciento cincuenta y cinco pesos m/cte.</small></div>
+   <div class="seg" role="group" aria-label="Ver"><button aria-pressed="true" data-v="ing">Ingresos</button><button aria-pressed="false" data-v="gas">Gastos</button></div>
+  </div>
+  <div class="card anim" id="acDet"></div>
+  <div class="ac-arts anim">
+   <div class="card"><span class="tag">Artículo segundo</span><h3 style="margin-top:8px">Aforo del 5% de mantenimiento</h3><p class="ac-num">$1.713.918.955</p><p style="font-size:14px;color:var(--muted)">Incluido en cumplimiento del artículo 9 del Decreto 1769 de 1994.</p></div>
+   <div class="card"><span class="tag">Artículo tercero</span><h3 style="margin-top:8px">Trámite ante el CONFIS</h3><p style="font-size:15px;margin-top:6px">El acuerdo requiere el trámite respectivo del Consejo de Política Fiscal del Valle del Cauca (CONFIS).</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide jd" id="s-acuerdo-doc" data-t="Acuerdo No. 015: documento" data-sec="jd" data-punto="7">
+ <div class="wrap">
+  <div class="anim ac-doc-cab"><div><p class="eyebrow">Punto 7 · Acuerdo No. 015 – 2026</p><h2>Documento del acuerdo</h2></div>
+   <a class="boton sec" href="docs/ACUERDO-015-2026.pdf" target="_blank" rel="noopener" style="text-decoration:none">Abrir el PDF</a></div>
+  <div class="visor-pdf anim">
+   <div class="miniaturas" id="acMinis" role="tablist" aria-label="Páginas"></div>
+   <div class="hoja">
+    <button class="pagina" id="acPag" title="Toca para ampliar"><img id="acImg" src="img/acuerdo/pagina-1.jpg" alt="Acuerdo No. 015, página 1 de 4"></button>
+    <div class="hoja-nav"><button class="nav" id="acAnt" aria-label="Página anterior">‹</button><span id="acCont" class="contador" style="display:inline">Página 1 de 4</span><button class="nav" id="acSig" aria-label="Página siguiente">›</button></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="slide jd seccion" id="s-p8" data-t="8. Proposiciones y varios" data-sec="jd" data-punto="8">
+ <div class="wrap">
+  <div class="sec-cuerpo anim">
+   <span class="sec-num">8</span>
+   <div><p class="eyebrow">Punto 8</p><h2>Proposiciones y varios</h2>
+    <p class="eslogan" style="margin-top:22px">Servir con Excelencia</p></div>
+  </div>
+  <div class="mapa-puntos anim"></div>
+ </div>
+</section>
+<section class="slide portada jd gracias" id="s-gracias" data-t="Gracias" data-sec="jd">
+ <div class="wrap">
+  <div class="gr-cuerpo anim">
+   <img class="logo l-pos" src="img/logo-horizontal.png" alt="Hospital Departamental San Antonio, Roldanillo - Valle E.S.E.">
+   <img class="logo l-neg" src="img/logo-horizontal-neg.png" alt="Hospital Departamental San Antonio, Roldanillo - Valle E.S.E.">
+   <h1>Gracias</h1>
+   <p class="eslogan">Servir con Excelencia</p>
+   <p class="lead">Junta Directiva Ordinaria · 29 de octubre de 2026</p>
+   <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+    <button class="boton" data-ir-id="s-orden">Volver al orden del día</button>
+    <button class="boton sec" data-ir-id="s-portada-jd">Ir a la portada</button>
+   </div>
+  </div>
+ </div>
+</section>
+<!-- ===================== FIN PARTE 2 ===================== -->
+
+</div>
+
+<nav class="bar" aria-label="Navegación de diapositivas">
+ <div class="marca"><span>Servir con Excelencia</span></div>
+ <button class="indice-btn" data-abrir-indice>Temas</button>
+ <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+ <span class="contador" id="contador">1 / 15</span>
+ <button class="nav" id="fs" aria-label="Pantalla completa" title="Pantalla completa (F)"><svg id="fsOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg id="fsOff" hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
+ <button class="nav" id="ant" aria-label="Anterior"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg></button>
+ <button class="nav sig" id="sig" aria-label="Siguiente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg></button>
+</nav>
+</div>
+
+<div class="indice" id="indice" hidden role="dialog" aria-label="Temas">
+ <div class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Temas de la guía</h3><button class="nav" id="cerrarIndice" aria-label="Cerrar">✕</button></div><ol id="indiceLista"></ol></div>
+</div>
+<div class="lb" id="lb" hidden><div><img id="lbImg" alt=""><p id="lbTxt"></p></div></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const slides=$$('.slide'); let cur=0;
+function ir(n){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>{s.classList.toggle('on',i===n);s.classList.toggle('prev',i<n);s.setAttribute('aria-hidden',i!==n)});
+  const fr=slides[n].querySelector('iframe[data-src]');if(fr&&!fr.src)fr.src=fr.dataset.src;
+  cur=n; $('#progBar').style.width=((n+1)/slides.length*100)+'%';
+  $('#contador').textContent=(n+1)+' / '+slides.length;
+  $('#ant').disabled=n===0; $('#sig').disabled=n===slides.length-1;
+  slides[n].scrollTop=0;
+  const h='#d'+(n+1); if(location.hash!==h) try{history.replaceState(null,'',h)}catch(e){location.hash=h}
+  $$('#indiceLista button').forEach((b,i)=>b.setAttribute('aria-current',i===n));
+}
+$('#ant').onclick=()=>ir(cur-1); $('#sig').onclick=()=>ir(cur+1);
+$$('[data-ir]').forEach(b=>b.onclick=()=>ir(+b.dataset.ir));
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea')) return;
+  if(!$('#lb').hidden&&e.key==='Escape'){$('#lb').hidden=true;return}
+  if(!$('#indice').hidden&&e.key==='Escape'){$('#indice').hidden=true;return}
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ir(cur+1);e.preventDefault()}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){ir(cur-1);e.preventDefault()}
+});
+let tx=null,ty=null;
+$('#slides').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('#slides').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.5&&!e.target.closest('.tabs,.demo,input')) ir(cur+(dx<0?1:-1)); tx=null},{passive:true});
+// logo corporativo en cada diapositiva
+window.irA=id=>{const k=slides.findIndex(s=>s.id===id);if(k>=0)ir(k)};
+slides.forEach((s,i)=>{if(s.classList.contains('portada')||s.classList.contains('informe'))return;const w=s.querySelector('.wrap');const c=document.createElement('div');c.className='cabecera';
+  c.innerHTML='<img class="l-pos" src="img/logo-horizontal.png" alt="Hospital Departamental San Antonio"><img class="l-neg" src="img/logo-horizontal-neg.png" alt="Hospital Departamental San Antonio"><span>'+(s.dataset.sec==='jd'?'Junta Directiva · 29 oct 2026':'Guía Chat HDSA')+'</span>';w.prepend(c)});
+// pantalla completa
+const raiz=document.documentElement,fsBtn=$('#fs');
+const puedeFs=!!(raiz.requestFullscreen||raiz.webkitRequestFullscreen);
+if(!puedeFs) fsBtn.hidden=true;
+const enFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+function alternarFs(){try{if(enFs()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{const p=(raiz.requestFullscreen||raiz.webkitRequestFullscreen).call(raiz);if(p&&p.catch)p.catch(()=>{})}}catch(e){}}
+function marcarFs(){const on=enFs();$('#fsOn').hidden=on;$('#fsOff').hidden=!on;fsBtn.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');fsBtn.title=(on?'Salir de pantalla completa':'Pantalla completa')+' (F)'}
+fsBtn.onclick=alternarFs;document.addEventListener('fullscreenchange',marcarFs);document.addEventListener('webkitfullscreenchange',marcarFs);
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea')||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='f'||e.key==='F'){alternarFs();e.preventDefault()}});
+// índice
+$('#indiceLista').innerHTML=slides.map((s,i)=>`<li><button data-i="${i}"><span>${String(i+1).padStart(2,'0')}</span>${s.dataset.t}</button></li>`).join('');
+$$('#indiceLista button').forEach(b=>b.onclick=()=>{ir(+b.dataset.i);$('#indice').hidden=true});
+$$('[data-abrir-indice]').forEach(b=>b.onclick=()=>{$('#indice').hidden=false});
+$('#cerrarIndice').onclick=()=>$('#indice').hidden=true;
+$('#indice').onclick=e=>{if(e.target.id==='indice')$('#indice').hidden=true};
+// lightbox
+function zoom(src,txt){$('#lbImg').src=src;$('#lbTxt').textContent=txt||'';$('#lb').hidden=false}
+$('#lb').onclick=()=>$('#lb').hidden=true;
+document.addEventListener('click',e=>{const s=e.target.closest('.shot');if(s){const im=s.querySelector('img');zoom(im.src,im.alt)}});
+
+// ajuste a pantalla: escala el contenido para llenar portátiles y monitores grandes sin scroll
+function ajustar(){
+  const barZ=innerWidth>=900?Math.min(1.4,Math.max(1,innerWidth/1600)):1;
+  $('.bar').style.zoom=barZ;
+  const s=slides[cur],w=s.querySelector(':scope>.wrap');
+  // el informe embebido se diseña para >=720px de alto: si el marco es más bajo, se dibuja a 720 y se reduce
+  const fr=s.querySelector('.inf-marco iframe');
+  if(fr){const m=fr.parentNode,k=innerWidth>=900?Math.max(.7,Math.min(1,m.clientHeight/720)):1;
+    Object.assign(fr.style,k<1?{width:m.clientWidth/k+'px',height:m.clientHeight/k+'px',transform:'scale('+k+')',transformOrigin:'0 0'}:{width:'',height:'',transform:''})}
+  if(!w)return;
+  w.style.zoom=1;w.style.minHeight='0';w.style.maxWidth='';
+  if(innerWidth<900){w.style.minHeight='';return}
+  const cs=getComputedStyle(s),
+    alto=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom),
+    ancho=s.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),
+    medir=()=>Math.max(...[...w.children].map(k=>k.getBoundingClientRect().bottom))-w.getBoundingClientRect().top+16;
+  // se prueba de mayor a menor escala; al reducir, el contenido gana ancho y se reacomoda en menos alto
+  const util=ancho*(innerWidth>=1600?.92:.97);
+  let z=Math.min(2,util/1120);
+  for(;;){
+    const base=Math.max(1120,Math.min(1600,util/z));
+    w.style.zoom=z;w.style.maxWidth=base+'px';w.classList.toggle('ancha',base>=1400);
+    if(medir()<=alto||z<=.7)break;
+    z=Math.max(.7,z-.04);
+  }
+  w.style.minHeight=(alto/z)+'px';
+}
+let tAj;addEventListener('resize',()=>{clearTimeout(tAj);tAj=setTimeout(ajustar,80)});
+document.fonts&&document.fonts.ready.then(ajustar);addEventListener('load',ajustar);
+const irBase=ir;ir=n=>{irBase(n);ajustar()};
+
+// arranque
+function desdeHash(){const m=/^#d(\d+)$/.exec(location.hash);ir(m?+m[1]-1:0)}
+window.addEventListener('hashchange',desdeHash);desdeHash();
+})();
+</script>
+<script>
+// ================= JUNTA DIRECTIVA =================
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const f=n=>Math.round(n).toLocaleString('en-US');
+const $f=n=>'$'+f(n);
+const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep'];
+const MESES_L=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre'];
+const irId=id=>window.irA&&window.irA(id);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-ir-id]');if(b){e.preventDefault();irId(b.dataset.irId)}});
+
+// ---- tooltip compartido ----
+function tooltip(cont){let t=cont.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';t.hidden=true;cont.appendChild(t)}
+  return{show(html,x,y){t.innerHTML=html;t.hidden=false;const w=cont.clientWidth;const tw=t.offsetWidth;let left=Math.max(tw/2+4,Math.min(w-tw/2-4,x));t.style.left=left+'px';t.style.top=Math.max(y,t.offsetHeight+4)+'px'},hide(){t.hidden=true}}}
+function enlazarTip(el,cont,html){const tp=tooltip(cont);
+  const mostrar=()=>{const r=el.getBoundingClientRect(),c=cont.getBoundingClientRect(),z=(c.width/cont.offsetWidth)||1;tp.show(html(),(r.left-c.left+r.width/2)/z,(r.top-c.top-8)/z)};
+  el.addEventListener('pointerenter',mostrar);el.addEventListener('focus',mostrar);el.addEventListener('click',mostrar);
+  el.addEventListener('pointerleave',()=>tp.hide());el.addEventListener('blur',()=>tp.hide())}
+
+// ---- orden del día ----
+const ORDEN=[
+ {t:'Llamada a lista y verificación del quórum'},
+ {t:'Lectura y aprobación del orden del día',id:'s-p2'},
+ {t:'Lectura y aprobación del Acta Ordinaria No. 09 del 30 de septiembre de 2026 y del Acta Extraordinaria No. 10 del 16 de octubre de 2026',id:'s-p3'},
+ {t:'Informe de la Presidente, Dra. María Cristina Lesmes Duque',id:'s-p4'},
+ {t:'Informe del Gerente, Dr. Mauricio Saldarriaga Vinasco',id:'s-p5',sub:[
+   ['Prestación de servicios - RIPS','s-rips'],['Información financiera. Estados financieros','s-financiera'],
+   ['Informe de ejecución presupuestal de ingresos y gastos','s-ingresos'],['Informe de producción (productividad III trimestre)','s-informe'],['Informe de cartera','s-cartera'],['Pasivos'],
+   ['Estado actual de procesos judiciales','s-judiciales'],['Informe de seguimiento a planes de mejoramiento con entidades de control'],
+   ['Informes de SARLAFT y SICOF conforme a lo dispuesto en las mismas','s-sarlaft-sec'],['Informe de control interno','s-control']]},
+ {t:'Informe de la Revisoría Fiscal',id:'s-p6'},
+ {t:'Presentación de anteproyectos de acuerdo',id:'s-p7'},
+ {t:'Proposiciones y varios',id:'s-p8'}];
+$('#ordenDia').innerHTML=ORDEN.map(o=>{
+  const cab=o.id?`<button class="item" data-ir-id="${o.id}"><b>${o.t}</b><span class="ir">→</span></button>`:`<div class="item"><b>${o.t}</b></div>`;
+  const sub=o.sub?`<ul class="sub">${o.sub.map(s=>s[1]?`<li><button data-ir-id="${s[1]}">${s[0]}</button></li>`:`<li><span>${s[0]}</span></li>`).join('')}</ul>`:'';
+  return `<li${o.sub?' class="ancho"':''}>${cab}${sub}</li>`}).join('');
+
+// ---- temas del gerente ----
+const TEMAS=ORDEN[4].sub;
+$('#temasGerente').innerHTML=TEMAS.map(s=>s[1]?`<button data-ir-id="${s[1]}"><i></i>${s[0]}</button>`:`<span class="sin"><i></i>${s[0]}</span>`).join('');
+
+// ---- mapa de puntos en separadores ----
+const PUNTOS={1:null,2:'s-p2',3:'s-p3',4:'s-p4',5:'s-p5',6:'s-p6',7:'s-p7',8:'s-p8'};
+$$('.mapa-puntos').forEach(m=>{const pk=m.closest('.slide').dataset.punto;
+  m.innerHTML=Object.entries(PUNTOS).map(([k,id])=>`<button ${id?`data-ir-id="${id}"`:'disabled'} ${k===pk?'aria-current="true"':''} title="${ORDEN[k-1].t}">Punto ${k}</button>`).join('')});
+
+// ---- decisiones (aprobado) ----
+function leerDec(k){try{return localStorage.getItem('jd29-'+k)==='1'}catch(e){return false}}
+function guardarDec(k,v){try{v?localStorage.setItem('jd29-'+k,'1'):localStorage.removeItem('jd29-'+k)}catch(e){}}
+$$('.decision').forEach(d=>{const k=d.dataset.decision,b=d.querySelector('[data-aprobar]'),txt=b.textContent;
+  const pintar=v=>{d.classList.toggle('ok',v);d.closest('.acta')?.classList.toggle('ok',v);d.querySelector('.estado-dec').textContent=v?'✓ Aprobado':'';b.textContent=v?'Deshacer':txt};
+  pintar(leerDec(k));b.onclick=()=>{const v=!d.classList.contains('ok');guardarDec(k,v);pintar(v)}});
+
+// ================= FACTURACIÓN =================
+const FACT=[['Subsidiado POS',14580394,1620043.77,'64%'],['Contributivo',6011265,667918.38,'26%'],['SOAT',455319,50591.05,'2%'],
+ ['Riesgo profesional',108902,12100.24,'0%'],['Policía Nacional',148654,16517.08,'1%'],['Otros clientes',1420259,157806.56,'6%']];
+const FACT_T=[22724794,2524977,'100%'];
+let medida='t';
+function pintarFact(){const i=medida==='t'?1:2;const max=Math.max(...FACT.map(r=>r[i]));
+  $('#factRegimen').innerHTML=FACT.map(r=>`<button class="hbar"><span class="et">${r[0]}</span><span class="pista"><span class="rel" style="width:${(r[i]/max*78).toFixed(2)}%"></span><span class="val" style="left:${(r[i]/max*78).toFixed(2)}%">${$f(r[i])} · ${r[3]}</span></span></button>`).join('');
+  $$('#factRegimen .hbar').forEach((b,k)=>enlazarTip(b,$('#factRegimen'),()=>{const r=FACT[k];return `<b>${r[0]}</b><br>Total: ${$f(r[1])}<br>Promedio mes: ${$f(r[2])}<br>Participación: ${r[3]}`}))}
+$('#factRegimen').style.position='relative';
+$$('#s-facturacion .seg button').forEach(b=>b.onclick=()=>{medida=b.dataset.m;$$('#s-facturacion .seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));pintarFact()});
+pintarFact();
+$('#factTabla').innerHTML=FACT.map(r=>`<tr><td>${r[0]}</td><td>${$f(r[1])}</td><td>${r[2].toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</td><td>${r[3]}</td></tr>`).join('')+`<tr class="tot"><td>Total venta</td><td>${$f(FACT_T[0])}</td><td>${$f(FACT_T[1])}</td><td>${FACT_T[2]}</td></tr>`;
+
+function anios(cont,detalle,datos,nota){const max=Math.max(...datos.map(d=>d.v));
+  cont.innerHTML=datos.map((d,k)=>`<button class="vbar${k===datos.length-1?' actual':''}" aria-pressed="false"><span class="d ${d.inc?(d.inc.startsWith('-')?'baja':'sube'):''}">${d.inc||'&nbsp;'}</span><span class="v">${$f(d.v)}</span><span class="col" style="height:${(d.v/max*72).toFixed(1)}%"></span></button>`).join('');
+  cont.insertAdjacentHTML('afterend',`<div class="ejes">${datos.map(d=>`<span>${d.a}</span>`).join('')}</div>`);
+  [...cont.querySelectorAll('.vbar')].forEach((b,k)=>b.onclick=()=>{[...cont.querySelectorAll('.vbar')].forEach(x=>x.setAttribute('aria-pressed',x===b));if(detalle)detalle.innerHTML=nota(datos[k])})}
+anios($('#factAnios'),$('#factAnioDet'),[{a:'2024',v:2799269,t:25193417},{a:'2025',v:2952263,t:26570365,inc:'+5%'},{a:'2026',v:2524977,t:22724793.73,inc:'−14%'}],
+ d=>`<b>${d.a}:</b> total facturación ${$f(d.t)} · promedio mes ${$f(d.v)}${d.inc?` · ${d.inc} frente al año anterior`:''}`);
+
+// ================= RECAUDO =================
+const REC={SUBSIDIADO:[422,275874,7483,1980089,810357,364467,4709,1697246,384780],
+ CONTRIBUTIVO:[0,65410,25355,79357,180356,192628,29740,226576,438557],
+ SOAT:[863,10151,12371,9438,11223,23385,25308,30943,31507],
+ 'OTRAS ENTIDADES':[24260,114866,39158,178576,33383,30498,30947,106008,48224]};
+const REC_ACT=[25545,466301,84367,2247460,1035319,610978,90704,2060773,903068];
+const REC_ANT=[1151022,2634065,86613,2795262,426299,178822,922245,828064,5996041];
+const REC_TOT=[1176567,3100366,170980,5042722,1461618,789800,1012949,2888837,6899109];
+const NOMBRE_R={SUBSIDIADO:'Subsidiado',CONTRIBUTIVO:'Contributivo',SOAT:'SOAT','OTRAS ENTIDADES':'Otras entidades'};
+const PROM_R={SUBSIDIADO:613936,CONTRIBUTIVO:137553,SOAT:17243,'OTRAS ENTIDADES':67324};
+function techo(v){const p=Math.pow(10,Math.floor(Math.log10(v)));const n=v/p;const t=[1,1.5,2,2.5,3,4,5,6,7.5,8,10].find(x=>n<=x);return t*p}
+let filtroR='todo';
+function pintarRec(){const c=$('#recMeses');const todo=filtroR==='todo';
+  const serieA=todo?REC_ACT:REC[filtroR];const max=techo(Math.max(...(todo?REC_TOT:serieA)));
+  const pasos=[1.5,3,6,7.5].some(x=>Math.abs(max/Math.pow(10,Math.floor(Math.log10(max)))-x)<1e-9)?3:4;let grid='<div class="grid">';for(let i=1;i<=pasos;i++){grid+=`<i style="bottom:${i/pasos*100}%"><span>${f(max*i/pasos)}</span></i>`}grid+='</div>';
+  c.innerHTML=grid+MESES.map((m,k)=>{const a=serieA[k],b=todo?REC_ANT[k]:0;
+    return `<button class="mes" aria-label="${MESES_L[k]}"><span class="seg1${b?'':' tope'}" style="height:${(a/max*100).toFixed(2)}%"></span>${b?`<span class="seg2" style="height:${(b/max*100).toFixed(2)}%"></span>`:''}<span class="lbl">${m}</span></button>`}).join('');
+  [...c.querySelectorAll('.mes')].forEach((b,k)=>enlazarTip(b,c,()=>todo?`<b>${MESES_L[k]}</b><br>Vigencia actual: ${$f(REC_ACT[k])}<br>Vigencias anteriores: ${$f(REC_ANT[k])}<br><b>Total: ${$f(REC_TOT[k])}</b>`:`<b>${MESES_L[k]} · ${NOMBRE_R[filtroR]}</b><br>Recaudo de la vigencia: ${$f(REC[filtroR][k])}`));
+  $('#recNota').textContent=todo?'Promedio mes: vigencia actual $836,057 · vigencias anteriores $1,668,715 · total $2,504,772. Pasa el cursor o toca una barra para ver el detalle del mes.':`Recaudo de la vigencia actual de ${NOMBRE_R[filtroR]}: total enero–septiembre ${$f(REC[filtroR].reduce((a,b)=>a+b,0))} · promedio mes ${$f(PROM_R[filtroR])}.`;
+  document.querySelector('#s-recaudo .leyenda').hidden=!todo}
+$('#recMeses').insertAdjacentHTML('afterend','<div class="ejes-esp" style="height:26px"></div>');
+$$('#recFiltro button').forEach(b=>b.onclick=()=>{filtroR=b.dataset.r;$$('#recFiltro button').forEach(x=>x.setAttribute('aria-pressed',x===b));pintarRec()});
+pintarRec();
+const RECUP=[['Subsidiado',14580394,5525427,'38%'],['Contributivo',6011265,1237979,'21%'],['SOAT',455319,155189,'34%'],['Otras entidades',1677815,605920,'36%']];
+$('#recRecup').innerHTML=RECUP.map(r=>`<div class="fila"><div><span><b>${r[0]}</b> · facturado ${$f(r[1])} · recaudado ${$f(r[2])}</span><span class="pct">${r[3]}</span></div><div class="barra"><i style="width:${r[3]}"></i></div></div>`).join('')+
+ `<div class="fila total"><div><span><b>Total año</b> · facturado $22,724,794 · recaudado $7,524,515</span><span class="pct">33%</span></div><div class="barra"><i style="width:33%"></i></div></div>`;
+anios($('#recAnios'),null,[{a:'2024',v:19098477},{a:'2025',v:18042599,inc:'−6%'},{a:'2026',v:22542948,inc:'+25%'}]);
+[...$('#recAnios').querySelectorAll('.vbar')].forEach((b,k)=>{const p=[2122053,2004733,2504772][k];enlazarTip(b,$('#recAnios').parentElement,()=>`<b>${['2024','2025','2026'][k]}</b><br>Promedio mes: ${$f(p)}`)});
+$('#recAnios').parentElement.style.position='relative';
+
+// ================= CARTERA =================
+const EDADES=['<60','61-90','91-180','181-360','>360'];
+const CAR=[['Contributivo',[1232149,589739,1524143,2818016,2601284],8765331,'32%'],['Subsidiado',[3556703,677344,2484510,4327732,4867800],15914089,'59%'],
+ ['Emigrantes',[10154,4907,29581,52338,14167],111147,'0%'],['SOAT',[81769,44510,74910,120486,441804],763479,'3%'],
+ ['FOSYGA - ADRES',[21976,2043,20155,99828,279863],423865,'2%'],['Otras entidades',[350329,9496,125146,247032,458368],1190371,'4%']];
+const CAR_T=[[5253080,1328039,4258445,7665432,8663286],27168282];
+const CAR_P=['19%','5%','16%','28%','32%'];
+let focoEdad=null;
+const colE=i=>`var(--e${i+1})`;
+$('#carLeyenda').innerHTML=EDADES.map((e,i)=>`<button aria-pressed="false" data-e="${i}"><i class="sw" style="background:${colE(i)}"></i>${e} días</button>`).join('');
+const maxC=Math.max(...CAR.map(r=>r[2]));
+$('#carStack').style.position='relative';
+$('#carStack').innerHTML=CAR.map(r=>`<div class="fila"><span class="et">${r[0]}</span><div class="barra" style="width:${(r[2]/maxC*100).toFixed(2)}%">${r[1].map((v,i)=>`<button data-e="${i}" style="width:${(v/r[2]*100).toFixed(3)}%;background:${colE(i)}" aria-label="${r[0]} ${EDADES[i]} días ${$f(v)}"></button>`).join('')}</div><span class="tot">${$f(r[2])} · ${r[3]}</span></div>`).join('');
+$$('#carStack .fila').forEach((fi,k)=>[...fi.querySelectorAll('.barra button')].forEach((b,i)=>enlazarTip(b,$('#carStack'),()=>`<b>${CAR[k][0]} · ${EDADES[i]} días</b><br>${$f(CAR[k][1][i])} (${(CAR[k][1][i]/CAR[k][2]*100).toFixed(0)}% del régimen)`)));
+function pintarFoco(){$('#carStack').classList.toggle('foco',focoEdad!==null);$$('#carStack .barra button').forEach(b=>b.classList.toggle('on',+b.dataset.e===focoEdad));
+  $$('#carLeyenda button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.e===focoEdad))}
+$$('#carLeyenda button').forEach(b=>b.onclick=()=>{focoEdad=focoEdad===+b.dataset.e?null:+b.dataset.e;pintarFoco()});
+const maxE=Math.max(...CAR_T[0]);
+$('#carEdades').innerHTML=EDADES.map((e,i)=>`<div class="fila"><span>${e} días</span><span><span class="barra" style="display:block;width:${(CAR_T[0][i]/maxE*100).toFixed(1)}%;background:${colE(i)}"></span></span><b>${CAR_P[i]}</b></div><div style="font-size:12px;color:var(--muted);margin:-6px 0 0 86px">${$f(CAR_T[0][i])}</div>`).join('');
+const LIQ=[['Medimás',1641673],['Coomeva',1065957],['Cafesalud EPS',984984],['Barrios Unidos',947876],['Otras entidades',44646]];
+const maxL=LIQ[0][1];
+$('#carLiq').innerHTML=LIQ.map(r=>`<div class="hbar" style="cursor:default"><span class="et">${r[0]}</span><span class="pista"><span class="rel" style="width:${(r[1]/maxL*70).toFixed(2)}%;background:var(--s2)"></span><span class="val" style="left:${(r[1]/maxL*70).toFixed(2)}%">${$f(r[1])}</span></span></div>`).join('')+
+ `<p class="nota-graf" style="margin-top:4px"><b>Total en liquidación:</b> $4,685,136 (17% de la cartera)</p>`;
+$('#carTabla').innerHTML=CAR.map(r=>`<tr><td>${r[0]}</td>${r[1].map(v=>`<td>${$f(v)}</td>`).join('')}<td>${$f(r[2])}</td><td>${r[3]}</td></tr>`).join('')+
+ `<tr class="tot"><td>Gran total</td>${CAR_T[0].map(v=>`<td>${$f(v)}</td>`).join('')}<td>${$f(CAR_T[1])}</td><td>100%</td></tr><tr><td>Peso porcentual</td>${CAR_P.map(p=>`<td>${p}</td>`).join('')}<td>100%</td><td></td></tr>`;
+
+// ================= PRESUPUESTO =================
+// [concepto, inicial, definitivo, reconocimiento, %ppto, recaudo, %reconoc, cxc]
+const ING=[['Disponibilidad inicial',0,2904270,2904270,'100%',2904270,'0%',0],
+ ['Ingreso total excluye CxC',26302879,27459144,25555305,'93%',9952053,'39%',15603252],
+ ['Total venta de servicios',26302879,25294136,24210680,'96%',8889859,'37%',15320821],
+ ['Aportes',0,2000000,2000000,'0%',2000000,'0%',0],
+ ['Otros ingresos',0,2165008,1344625,'0%',1062194,'79%',282431],
+ ['Ingresos de capital',0,0,15307,'0%',15307,'100%',0],
+ ['Cuentas por cobrar otras vigencias',13138860,13138860,15018433,'114%',15018433,'100%',0],
+ ['Ingreso total',39441739,45502274,45493315,'100%',29890063,'66%',15603252]];
+// [concepto, inicial, definitivo, compromisos, %, obligaciones, %, giros, %, cxp]
+const GAS=[['Gastos total excluye CxP',34234011,37063375,33615694,'91%',26285713,'78%',20305045,'77%',5980668],
+ ['Gasto de funcionamiento',10203864,7646190,7298200,'95%',6051987,'83%',4852880,'80%',1199107],
+ ['Gastos de operación comercial',24030147,29417185,26317494,'89%',20233726,'77%',15452165,'76%',4781561],
+ ['Cuentas por pagar vigencias anteriores',5207728,8438899,8219476,'97%',8219476,'100%',7960262,'97%',259214],
+ ['Inversión',0,0,0,'0%',0,'0%',0,'0%',0],
+ ['Gran total de gastos',39441739,45502274,41835170,'92%',34505189,'82%',28265307,'82%',6239882]];
+const v0=v=>v?$f(v):'–';
+function lista(cont,det,datos,pctIdx,render){
+  cont.innerHTML=datos.map((r,k)=>`<button role="tab" aria-selected="false" class="${k===datos.length-1?'total':''}"><span class="n">${r[0]}</span><span class="p">${r[pctIdx]}</span><span class="mini-b"><i style="width:${Math.min(100,parseFloat(r[pctIdx]))}%"></i></span></button>`).join('');
+  const bs=[...cont.querySelectorAll('button')];
+  const sel=k=>{bs.forEach((b,j)=>b.setAttribute('aria-selected',j===k));det.innerHTML=render(datos[k])};
+  bs.forEach((b,k)=>b.onclick=()=>sel(k));sel(datos.length-1)}
+function paso(lbl,val,base,cls,pct){return `<div class="paso"><div><span>${lbl}</span><span><b>${v0(val)}</b>${pct?` <span class="pctl">${pct}</span>`:''}</span></div><div class="barra ${cls}" style="width:${base?Math.min(100,val/base*100).toFixed(2):0}%"></div></div>`}
+lista($('#ingLista'),$('#ingDet'),ING,4,r=>{const base=Math.max(r[2],r[3],1);
+  return `<div class="det-cab"><h3>${r[0]}</h3><span class="grande">${r[4]}</span></div><p style="font-size:13px;color:var(--muted)">Reconocimiento sobre presupuesto definitivo</p>
+  <div class="embudo">${paso('Presupuesto inicial',r[1],base,'b3')}${paso('Presupuesto definitivo',r[2],base,'')}${paso('Reconocimiento',r[3],base,'b2',r[4]+' sobre ppto dftvo')}${paso('Recaudo',r[5],base,'b2',r[6]+' sobre reconocimiento')}${paso('Cuentas por cobrar',r[7],base,'b4')}</div>`});
+lista($('#gasLista'),$('#gasDet'),GAS,4,r=>{const base=Math.max(r[2],1);
+  return `<div class="det-cab"><h3>${r[0]}</h3><span class="grande">${r[4]}</span></div><p style="font-size:13px;color:var(--muted)">Compromisos sobre presupuesto definitivo</p>
+  <div class="embudo">${paso('Presupuesto inicial',r[1],base,'b3')}${paso('Presupuesto definitivo',r[2],base,'')}${paso('Compromisos',r[3],base,'b2',r[4]+' sobre ppto dftvo')}${paso('Obligaciones',r[5],base,'b2',r[6])}${paso('Giros / pagos',r[7],base,'b2',r[8]+' sobre obligaciones')}${paso('Cuentas por pagar',r[9],base,'b4')}</div>`});
+$('#ingTabla').innerHTML=ING.map((r,k)=>`<tr${k===ING.length-1?' class="tot"':''}><td>${r[0]}</td><td>${f(r[1])}</td><td>${f(r[2])}</td><td>${f(r[3])}</td><td>${r[4]}</td><td>${f(r[5])}</td><td>${r[6]}</td><td>${f(r[7])}</td></tr>`).join('');
+$('#gasTabla').innerHTML=GAS.map((r,k)=>`<tr${k===GAS.length-1?' class="tot"':''}><td>${r[0]}</td>${[1,2,3].map(i=>`<td>${r[i]?f(r[i]):'–'}</td>`).join('')}<td>${r[4]}</td><td>${r[5]?f(r[5]):'–'}</td><td>${r[6]}</td><td>${r[7]?f(r[7]):'–'}</td><td>${r[8]}</td><td>${r[9]?f(r[9]):'–'}</td></tr>`).join('');
+
+// ================= SARLAFT =================
+const SAR=[112,53,31,4,6,8,7,9,4];
+(function(){const c=$('#sarMeses');const max=techo(Math.max(...SAR));let g='<div class="grid">';for(let i=1;i<=4;i++)g+=`<i style="bottom:${i/4*100}%"><span>${max*i/4}</span></i>`;g+='</div>';
+  c.innerHTML=g+SAR.map((v,k)=>`<button class="mes" aria-label="${MESES_L[k]} ${v}"><span class="seg1 tope" style="height:${(v/max*100).toFixed(2)}%"></span><span class="lbl">${MESES[k]}</span></button>`).join('');
+  c.insertAdjacentHTML('afterend','<div style="height:26px"></div>');
+  [...c.querySelectorAll('.mes')].forEach((b,k)=>enlazarTip(b,c,()=>`<b>${MESES_L[k]}</b><br>${SAR[k]} verificaciones en cada fuente`));
+  $('#sarTabla').innerHTML=SAR.map((v,k)=>`<tr><td>${MESES_L[k]}</td>${'<td>'+v+'</td>'.repeat(1)}<td>${v}</td><td>${v}</td><td>${v}</td><td>${v}</td></tr>`).join('')+`<tr class="tot"><td>Total general</td><td>234</td><td>234</td><td>234</td><td>234</td><td>234</td></tr>`})();
+
+// ================= CERTIFICADOS UIAF =================
+const CERTS=[
+ {t:'Reporte de Operaciones Sospechosas (ROS)',rad:'3409958',medio:'En línea',fecha:'6/10/2026 3:23:19 p. m.',cod:'1971751',gen:'6 oct. de 2026, 3:23:21 p. m.',img:'img/cert-ros.png'},
+ {t:'Reporte de Proveedores (CE009)',rad:'3409966',medio:'Cargue en línea',fecha:'6/10/2026 3:24:12 p. m.',cod:'88609',gen:'6 oct. de 2026, 3:24:17 p. m.',img:'img/cert-proveedores.png'},
+ {t:'Reporte de Procedimientos (CE009)',rad:'3409959',medio:'Cargue en línea',fecha:'6/10/2026 3:23:44 p. m.',cod:'88737',gen:'6 oct. de 2026, 3:23:48 p. m.',img:'img/cert-procedimientos.png'}];
+$('#certs').innerHTML=CERTS.map(c=>`<article class="cert"><span class="sello-ok">✓ Exitoso</span><h3>${c.t}</h3>
+ <dl><dt>No. radicación</dt><dd>${c.rad}</dd><dt>Periodo</dt><dd>1-9-2026 a 30-9-2026</dd><dt>Registros</dt><dd>0</dd><dt>Tipo de reporte</dt><dd>Ausencia</dd><dt>Medio</dt><dd>${c.medio}</dd><dt>Radicado</dt><dd>${c.fecha}</dd><dt>Código de entrega</dt><dd>${c.cod}</dd></dl>
+ <button class="boton sec shot-btn" data-img="${c.img}" data-txt="Certificado UIAF · ${c.t} · generado el ${c.gen}">Ver certificado original</button></article>`).join('');
+$$('.shot-btn').forEach(b=>b.onclick=()=>{$('#lbImg').src=b.dataset.img;$('#lbTxt').textContent=b.dataset.txt;$('#lb').hidden=false});
+})();
+
+// ================= ACUERDO 015 =================
+(function(){const $=q=>document.querySelector(q),$$=q=>[...document.querySelectorAll(q)];
+const p=n=>'$'+n.toLocaleString('es-CO');
+const D={ing:{tit:'Ingresos',a:'Vigencia corriente',b:'Cuentas por cobrar (CxC)',filas:[
+  ['1.1.02.05','Venta de bienes y servicios',29855333405,4423045750],['1.0','Disponibilidad inicial',0,0]],tot:[29855333405,4423045750]},
+ gas:{tit:'Gastos',a:'Vigencia corriente 2027',b:'Cuentas por pagar (CxP)',filas:[
+  ['2.1','Funcionamiento',7971492487,1722188061],['2.4','Gastos de operación comercial',17960432844,6624265763]],tot:[25931925331,8346453824]}};
+const TOTAL=34278379155;
+function pintar(k){const d=D[k];
+ const fila=(cod,nom,a,b)=>{const t=a+b;const w=t/TOTAL*100;
+  return `<div class="ac-fila"><div class="nom">${nom}<small>Rubro ${cod}</small></div><div>${t?`<div class="ac-bar" style="width:${w.toFixed(2)}%"><button style="width:${(a/t*100).toFixed(3)}%" aria-label="${d.a} ${p(a)}" title="${d.a}: ${p(a)}"></button><button style="width:${(b/t*100).toFixed(3)}%" aria-label="${d.b} ${p(b)}" title="${d.b}: ${p(b)}"></button></div>`:'<div style="color:var(--muted);font-size:14px">$0</div>'}
+   ${t?`<div class="ac-vals"><span>${d.a}: <b>${p(a)}</b></span><span>${d.b}: <b>${p(b)}</b></span><span>Total: <b>${p(t)}</b> · ${(t/TOTAL*100).toFixed(1).replace('.',',')}%</span></div>`:''}</div></div>`};
+ $('#acDet').innerHTML=`<div class="card-cab"><h3>${d.tit} por rubro</h3><div class="leyenda"><span><i class="sw s1"></i>${d.a}</span><span><i class="sw s2"></i>${d.b}</span></div></div>`+
+  d.filas.map(r=>fila(...r)).join('')+fila(k==='ing'?'1':'2','Total '+d.tit.toLowerCase(),d.tot[0],d.tot[1]);}
+$$('#s-acuerdo-resumen .seg button').forEach(b=>b.onclick=()=>{$$('#s-acuerdo-resumen .seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));pintar(b.dataset.v)});
+pintar('ing');
+// visor de páginas
+let pg=1;const N=4;
+$('#acMinis').innerHTML=[1,2,3,4].map(i=>`<button role="tab" aria-selected="${i===1}" data-p="${i}"><img src="img/acuerdo/pagina-${i}.jpg" alt="Página ${i}" loading="lazy"><span>${i}</span></button>`).join('');
+function verPg(i){pg=Math.max(1,Math.min(N,i));$('#acImg').src=`img/acuerdo/pagina-${pg}.jpg`;$('#acImg').alt=`Acuerdo No. 015, página ${pg} de ${N}`;$('#acCont').textContent=`Página ${pg} de ${N}`;
+ $$('#acMinis button').forEach(b=>b.setAttribute('aria-selected',+b.dataset.p===pg));$('#acAnt').disabled=pg===1;$('#acSig').disabled=pg===N}
+$$('#acMinis button').forEach(b=>b.onclick=()=>verPg(+b.dataset.p));
+$('#acAnt').onclick=()=>verPg(pg-1);$('#acSig').onclick=()=>verPg(pg+1);
+$('#acPag').onclick=()=>{$('#lbImg').src=$('#acImg').src;$('#lbTxt').textContent=$('#acImg').alt;$('#lb').hidden=false};
+verPg(1);})();
+</script>
+
+</body>
+</html>
