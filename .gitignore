@@ -19,3 +19,6 @@ clave-citas-online.json
 *.pfx
 .env
 .env.*
+
+# Copia original de la guía del chat: la publicada es guia-chat-hdsa (con verificación de sesión)
+documentos/Portal-institucional/Guía Chat HDSA2/

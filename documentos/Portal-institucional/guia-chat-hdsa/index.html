@@ -1,0 +1,1033 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía Chat HDSA</title><meta name="robots" content="noindex,nofollow"><link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+<!-- GUARDIA:INICIO -->
+<script>
+// Solo para personal con sesión en el portal: si no hay sesión, va al login institucional
+document.documentElement.classList.add('verificando');
+setTimeout(function () { if (document.documentElement.classList.contains('verificando')) location.replace('/login-institucional.html'); }, 10000);
+</script>
+<style>html.verificando body{visibility:hidden}</style>
+<script type="module">
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { auth } from "/js/firebase-config.js";
+onAuthStateChanged(auth, (user) => {
+  if (user) document.documentElement.classList.remove('verificando');
+  else location.replace('/login-institucional.html');
+});
+</script>
+<!-- GUARDIA:FIN -->
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=IBM+Plex+Serif:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: una diapositiva a la vez, a pantalla completa; barra inferior con progreso y navegación.
+   Paleta y tipografía del Libro de marca HDSA v1: #164443 corporativo, #069681 / #6FB3A9 / #C4EEE6 de contenido; Poppins + IBM Plex Serif Italic. Ámbar solo como color de advertencia. */
+:root{
+  --verde:#069681; --verde-hondo:#164443; --menta:#E3F6F2; --agua:#6FB3A9; --hielo:#C4EEE6; --ambar:#D99A2B; --coral:#C8553D;
+  --bg:#F5FAF9; --surface:#FFFFFF; --fg:#123634; --muted:#4F6D69; --line:#CFE5E0;
+  --chip:#E8F5F2; --on-verde:#FFFFFF; --titulo:#164443; --sombra:0 18px 40px -22px rgba(22,68,67,.45);
+  --f-display:"Poppins", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Poppins", "Segoe UI", system-ui, sans-serif;
+  --f-especial:"IBM Plex Serif", Georgia, serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --verde:#3DC3AC; --verde-hondo:#0F2F2E; --menta:#123A37; --agua:#6FB3A9; --hielo:#1E4A46; --ambar:#E9B55A; --coral:#E07A62;
+  --bg:#0A1C1B; --surface:#112927; --fg:#E2F3F0; --muted:#9DBDB7; --line:#24423F;
+  --chip:#163633; --on-verde:#062220; --titulo:#C4EEE6; --sombra:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --verde:#3DC3AC; --verde-hondo:#0F2F2E; --menta:#123A37; --agua:#6FB3A9; --hielo:#1E4A46; --ambar:#E9B55A; --coral:#E07A62;
+  --bg:#0A1C1B; --surface:#112927; --fg:#E2F3F0; --muted:#9DBDB7; --line:#24423F;
+  --chip:#163633; --on-verde:#062220; --titulo:#C4EEE6; --sombra:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark }
+/* logo claro / negativo según el tema */
+.l-neg{display:none}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .l-pos{display:none} :root:not([data-theme="light"]) .l-neg{display:block} }
+:root[data-theme="dark"] .l-pos{display:none} :root[data-theme="dark"] .l-neg{display:block}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow:hidden}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(26px,3.8vw,46px);font-weight:700;letter-spacing:-.015em;color:var(--titulo)}
+h3{font-size:clamp(17px,1.7vw,21px);font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--f-body);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--verde)}
+.lead{font-family:var(--f-especial);font-style:italic;font-size:clamp(18px,1.7vw,21px);color:var(--muted);max-width:60ch}
+kbd,.mono{font-family:var(--f-mono);font-size:.88em}
+kbd{background:var(--chip);border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 7px}
+b,strong{font-weight:700}
+
+/* ---------- escenario ---------- */
+.deck{position:relative;height:100%;display:flex;flex-direction:column}
+.slides{position:relative;flex:1;min-height:0}
+.slide{position:absolute;inset:0;overflow-y:auto;padding-block:clamp(20px,5vh,56px) 24px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease}
+.slide.prev{transform:translateX(-30px)}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(18px,3vh,30px);min-height:100%}
+.slide.on .anim>*{animation:sube .55s both}
+.slide.on .anim>*:nth-child(2){animation-delay:.08s}.slide.on .anim>*:nth-child(3){animation-delay:.16s}
+.slide.on .anim>*:nth-child(4){animation-delay:.24s}.slide.on .anim>*:nth-child(5){animation-delay:.32s}
+@keyframes sube{from{opacity:.0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,40px);align-items:start}
+.cols>*{min-width:0}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+
+/* ---------- barra inferior ---------- */
+.bar{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);background:var(--surface);
+  padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar .marca{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;white-space:nowrap}
+.bar .marca img{height:34px;width:auto}
+.cabecera{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.cabecera img{height:clamp(38px,5vw,52px);width:auto;max-width:60vw}
+.cabecera span{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right}
+@media (max-width:520px){.cabecera span{display:none}}
+.prog{flex:1;height:6px;background:var(--chip);border-radius:9px;overflow:hidden;min-width:40px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--verde-hondo),var(--verde),var(--agua));width:0;transition:width .45s}
+.contador{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.nav{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none}
+.nav:hover{border-color:var(--verde);color:var(--verde)}
+.nav.sig{background:var(--verde);color:var(--on-verde);border-color:var(--verde)}
+.nav:disabled{opacity:.35;cursor:default}
+.indice-btn{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:14px}
+@media (max-width:560px){.bar .marca span,.contador{display:none}}
+
+/* índice */
+.indice{position:fixed;inset:0;z-index:20;background:color-mix(in srgb,var(--verde-hondo) 55%,transparent);display:grid;place-items:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.indice .panel{background:var(--surface);border-radius:20px;max-width:640px;width:100%;max-height:80vh;overflow:auto;padding:22px;box-shadow:var(--sombra)}
+.indice ol{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media (max-width:520px){.indice ol{grid-template-columns:1fr}}
+.indice li button{width:100%;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:10px;display:flex;gap:10px;align-items:baseline}
+.indice li button:hover,.indice li button[aria-current="true"]{background:var(--chip)}
+.indice li button span{font-family:var(--f-mono);font-size:12px;color:var(--verde);min-width:2ch}
+
+/* ---------- piezas comunes ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(16px,2vw,24px)}
+.shot{border-radius:14px;border:1px solid var(--line);box-shadow:var(--sombra);overflow:hidden;background:#fff;cursor:zoom-in;display:block;padding:0;width:100%}
+.shot img{display:block;width:100%;height:auto}
+.nota{display:flex;gap:12px;align-items:flex-start;background:color-mix(in srgb,var(--ambar) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--ambar) 45%,var(--line));border-radius:14px;padding:14px 16px}
+.nota .ic{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ambar);color:#2B1C00;display:grid;place-items:center;font-weight:800;font-size:15px}
+.ok{color:var(--verde);font-weight:700}
+.boton{border:0;background:var(--verde);color:var(--on-verde);font-weight:700;border-radius:12px;padding:12px 18px}
+.boton:hover{filter:brightness(1.08)}
+.boton.sec{background:var(--chip);color:var(--fg);border:1px solid var(--line)}
+.tag{display:inline-block;border-radius:99px;padding:3px 10px;font-size:13px;font-weight:700;background:var(--chip);color:var(--verde)}
+
+/* ---------- 1 portada ---------- */
+.portada .wrap{justify-content:center}
+.portada .logo{width:clamp(240px,32vw,380px);max-width:100%;height:auto}
+.portada h1{font-size:clamp(44px,8.5vw,104px);font-weight:900;letter-spacing:-.02em;text-transform:uppercase;color:var(--titulo)}
+.portada h1 em{font-style:normal;color:var(--verde)}
+
+/* nota de Sistemas: regla de oro */
+.regla{display:flex;gap:16px;align-items:flex-start;background:var(--verde-hondo);color:#E9F7F4;border-radius:18px;padding:18px 20px}
+.regla .ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--agua);color:#0E2E2D;display:grid;place-items:center}
+.regla b{color:#fff}
+.regla p+p{margin-top:6px}
+.regla small{display:block;font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--hielo);margin-bottom:4px}
+:root[data-theme="dark"] .regla{background:var(--hielo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .regla{background:var(--hielo)}}
+.si-no{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:700px){.si-no{grid-template-columns:1fr}}
+.si-no ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
+.si-no .card.solo{border:2px solid var(--verde-hondo)}
+.si-no .card.tu{border-style:dashed}
+.burbujas{display:flex;flex-direction:column;gap:10px;max-width:420px}
+.burbuja{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 14px;box-shadow:var(--sombra);font-size:15px}
+.burbuja.yo{align-self:flex-end;background:var(--verde);color:var(--on-verde);border-color:var(--verde);border-radius:18px 18px 4px 18px}
+.burbuja small{display:block;font-size:12px;opacity:.75}
+.typing{display:inline-flex;gap:4px}.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bote 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bote{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+
+/* ---------- 2 qué es ---------- */
+.rasgos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){.rasgos{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){.rasgos{grid-template-columns:1fr}}
+.rasgo{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:18px;text-align:left;display:flex;flex-direction:column;gap:10px;transition:transform .2s,border-color .2s}
+.rasgo:hover,.rasgo[aria-pressed="true"]{transform:translateY(-4px);border-color:var(--verde)}
+.rasgo svg{width:36px;height:36px;color:var(--verde)}
+.rasgo .mas{font-size:15px;color:var(--muted)}
+.candado{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:var(--f-mono);font-size:14px}
+.candado .cifrado{background:var(--chip);border-radius:10px;padding:8px 12px;color:var(--verde);word-break:break-all;min-width:0;flex:1}
+
+/* ---------- 3 acceso ---------- */
+.login{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:14px}
+.login .url{font-family:var(--f-mono);font-size:13px;background:var(--chip);border-radius:99px;padding:7px 14px;display:flex;gap:8px;align-items:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.campo label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.campo input{width:100%;font:inherit;font-family:var(--f-mono);font-size:17px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg)}
+.campo input:focus{border-color:var(--verde);outline:none}
+.salida{font-family:var(--f-mono);font-size:18px;padding:12px 14px;border-radius:12px;background:var(--menta);color:var(--verde-hondo);min-height:50px}
+:root[data-theme="dark"] .salida{color:var(--fg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .salida{color:var(--fg)}}
+.salida .cc{color:var(--coral);font-weight:700}
+.pasos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:p}
+.pasos li{display:flex;gap:14px;align-items:flex-start;counter-increment:p}
+.pasos li::before{content:counter(p);flex:none;width:32px;height:32px;border-radius:50%;background:var(--verde);color:var(--on-verde);display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
+.exito{display:flex;gap:10px;align-items:center;background:var(--menta);border-radius:12px;padding:12px 14px;font-weight:600}
+
+/* ---------- 4 verificación ---------- */
+.pantallita{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--sombra);text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.pantallita .escudo{width:62px;height:62px;border-radius:18px;background:var(--menta);display:grid;place-items:center;color:var(--verde)}
+.opciones{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px}
+.opciones button{border-radius:12px;padding:12px;border:1.5px solid var(--line);background:var(--bg);font-weight:700}
+.opciones button:hover,.opciones button[aria-pressed="true"]{border-color:var(--verde);background:var(--menta)}
+.ruta{display:flex;flex-direction:column;gap:12px}
+.ruta .paso{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.ruta .paso .n{flex:none;font-family:var(--f-mono);font-size:13px;color:var(--verde);padding-top:2px}
+.loader{height:6px;background:var(--chip);border-radius:9px;overflow:hidden}
+.loader i{display:block;height:100%;width:0;background:var(--verde);transition:width .2s linear}
+
+/* ---------- 5 celular ---------- */
+.telefono{width:min(270px,100%);aspect-ratio:9/18;max-width:100%;margin:0 auto;border-radius:38px;background:var(--verde-hondo);padding:12px;box-shadow:var(--sombra);position:relative}
+.telefono .pant{height:100%;border-radius:28px;background:var(--bg);overflow:hidden;display:flex;flex-direction:column}
+.telefono .top{background:var(--verde);color:#fff;padding:22px 14px 12px;font-family:var(--f-display);font-weight:700;display:flex;align-items:center;gap:8px}
+.telefono .top img{width:auto;height:30px}
+.telefono .top{background:#164443}
+.telefono .msgs{flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13px}
+.telefono .bloqueo{position:absolute;inset:12px;border-radius:28px;background:color-mix(in srgb,var(--verde-hondo) 92%,#000);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s}
+.pin{display:grid;grid-template-columns:repeat(3,48px);gap:10px}
+.pin button{height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-family:var(--f-display);font-size:18px}
+.puntos{display:flex;gap:10px}.puntos i{width:12px;height:12px;border-radius:50%;border:2px solid #fff}.puntos i.f{background:#fff}
+.consejos{display:flex;flex-direction:column;gap:12px}
+
+/* ---------- 6 contraseña ---------- */
+.stepper{display:flex;gap:8px;flex-wrap:wrap}
+.stepper button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:14px}
+.stepper button[aria-selected="true"]{background:var(--verde);border-color:var(--verde);color:var(--on-verde)}
+.fuerza{height:10px;border-radius:9px;background:var(--chip);overflow:hidden}
+.fuerza i{display:block;height:100%;width:0;transition:width .3s,background .3s}
+.reglas{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:15px}
+.reglas li{display:flex;gap:8px;align-items:center;color:var(--muted)}
+.reglas li.si{color:var(--fg)}
+.reglas li::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none}
+.reglas li.si::before{background:var(--verde);border-color:var(--verde)}
+
+/* ---------- 7 funciones ---------- */
+.func{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:24px;align-items:start}
+@media (max-width:860px){.func{grid-template-columns:1fr}}
+.lista-f{display:flex;flex-direction:column;gap:6px}
+.lista-f button{text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:11px 14px;font-weight:700;display:flex;gap:12px;align-items:center}
+.lista-f button:hover{background:var(--chip)}
+.lista-f button[aria-selected="true"]{background:var(--surface);border-color:var(--verde);box-shadow:var(--sombra)}
+.lista-f svg{width:22px;height:22px;color:var(--verde);flex:none}
+.detalle-f{display:flex;flex-direction:column;gap:14px}
+
+/* ---------- 8 buscar demo ---------- */
+.demo{display:grid;grid-template-columns:260px minmax(0,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);box-shadow:var(--sombra);min-height:330px}
+@media (max-width:700px){.demo{grid-template-columns:1fr}}
+.demo .lat{border-right:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.buscador{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface);font-size:14px;color:var(--muted);width:100%;text-align:left}
+.buscador:hover{border-color:var(--verde)}
+.buscador kbd{margin-left:auto;font-size:11px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 10px;font-size:13px;font-weight:700}
+.chips button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.salas-l{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.salas-l div{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px}
+.av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;flex:none}
+.demo .cen{padding:18px;display:flex;flex-direction:column;gap:12px;position:relative}
+.vacio{border:2px dashed var(--line);border-radius:14px;padding:20px;text-align:center;color:var(--muted)}
+.modal-b{border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--sombra);padding:12px;display:flex;flex-direction:column;gap:8px}
+.modal-b input{font:inherit;padding:10px 12px;border-radius:10px;border:1.5px solid var(--verde);background:var(--bg);color:var(--fg);width:100%}
+.res{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;font-size:15px;border:0;background:transparent;text-align:left;width:100%}
+.res:hover{background:var(--chip)}
+.res small{color:var(--muted);font-family:var(--f-mono);font-size:11px;display:block}
+
+/* ---------- 9 salas ---------- */
+.invitacion{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1.5px solid var(--ambar);background:color-mix(in srgb,var(--ambar) 10%,var(--surface));flex-wrap:wrap}
+.invitacion .txt{flex:1;min-width:140px}
+.flujo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:700px){.flujo{grid-template-columns:1fr}}
+.flujo .card{display:flex;flex-direction:column;gap:8px}
+.flujo .card .n{font-family:var(--f-mono);font-size:12px;color:var(--verde)}
+
+/* ---------- 10 recorrido ---------- */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tabs button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 13px;font-weight:700;font-size:14px}
+.tabs button[aria-selected="true"]{background:var(--verde);color:var(--on-verde);border-color:var(--verde)}
+.visor{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.visor{grid-template-columns:1fr}}
+.visor .txt{display:flex;flex-direction:column;gap:12px}
+
+/* ---------- 11 mensaje hover ---------- */
+.msg-demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 18px 58px;box-shadow:var(--sombra)}
+.msg-demo .av{position:absolute;left:16px;top:18px;width:32px;height:32px;font-size:14px}
+.msg-demo .quien{font-weight:700;color:var(--verde)}
+.toolbar{position:absolute;right:12px;top:-20px;display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sombra);overflow:hidden;opacity:0;transform:translateY(6px);transition:.25s}
+.msg-demo:hover .toolbar,.msg-demo:focus-within .toolbar,.msg-demo.fijo .toolbar{opacity:1;transform:none}
+.toolbar button{border:0;background:transparent;width:42px;height:40px;display:grid;place-items:center}
+.toolbar button:hover,.toolbar button[aria-pressed="true"]{background:var(--chip);color:var(--verde)}
+.toolbar svg{width:19px;height:19px}
+.menu3{position:absolute;right:12px;top:26px;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sombra);padding:6px;min-width:190px;display:flex;flex-direction:column}
+.menu3 button{border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;font-size:15px}
+.menu3 button:hover{background:var(--chip)}
+.menu3 .peligro{color:var(--coral)}
+.explica{min-height:96px}
+.reacciones{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.reacciones span{border:1px solid var(--line);background:var(--chip);border-radius:99px;padding:2px 9px;font-size:14px}
+
+/* ---------- 12 apariencia ---------- */
+.temas{display:flex;gap:8px;flex-wrap:wrap}
+.temas button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-weight:700;display:flex;gap:8px;align-items:center}
+.temas button[aria-pressed="true"]{border-color:var(--verde);box-shadow:0 0 0 3px color-mix(in srgb,var(--verde) 25%,transparent)}
+.temas i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+.mini{--m-bg:#fff;--m-lat:#F4F6F8;--m-fg:#17191C;--m-acc:#0DBD8B;--m-line:#E3E8F0;
+  border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--sombra);display:grid;grid-template-columns:34% 66%;height:230px;background:var(--m-bg);color:var(--m-fg);transition:background .35s,color .35s;font-size:13px}
+.mini .ml{background:var(--m-lat);padding:10px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--m-line);transition:background .35s}
+.mini .ml div{height:12px;border-radius:6px;background:var(--m-line)}
+.mini .ml div.a{background:var(--m-acc);width:70%}
+.mini .mc{padding:12px;display:flex;flex-direction:column;gap:8px}
+.mini .mb{background:var(--m-lat);border-radius:10px;padding:7px 9px;max-width:85%;border:1px solid var(--m-line)}
+.mini .mb.y{align-self:flex-end;background:var(--m-acc);color:#fff;border-color:transparent}
+.mini[data-t="oscuro"]{--m-bg:#15191E;--m-lat:#21262C;--m-fg:#EBEEF2;--m-acc:#0DBD8B;--m-line:#394049}
+.mini[data-t="contraste"]{--m-bg:#000;--m-lat:#000;--m-fg:#fff;--m-acc:#FFE500;--m-line:#fff}
+.mini[data-t="contraste"] .mb.y{color:#000}
+.mini[data-t="hdsa"]{--m-bg:#F7FBF9;--m-lat:#E4F1EC;--m-fg:#164443;--m-acc:#069681;--m-line:#C9DED6}
+.switch{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.switch button{width:52px;height:30px;border-radius:99px;border:0;background:var(--line);position:relative;flex:none;transition:background .25s}
+.switch button::after{content:"";position:absolute;left:4px;top:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.switch button[aria-checked="true"]{background:var(--verde)}
+.switch button[aria-checked="true"]::after{left:26px}
+.campana{display:flex;align-items:center;gap:12px}
+.toast{background:var(--fg);color:var(--bg);border-radius:12px;padding:10px 14px;font-size:14px;display:flex;gap:10px;align-items:center;animation:sube .4s both}
+
+/* ---------- 13 seguridad (tarjetas volteables) ---------- */
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.flips{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.flips{grid-template-columns:1fr}}
+.flip{perspective:900px;border:0;background:transparent;padding:0;min-height:180px;text-align:left}
+.flip .in{position:relative;width:100%;height:100%;min-height:180px;transition:transform .6s;transform-style:preserve-3d}
+.flip[aria-pressed="true"] .in{transform:rotateY(180deg)}
+.flip .cara{position:absolute;inset:0;border-radius:18px;padding:18px;backface-visibility:hidden;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.flip .frente{background:var(--surface)}
+.flip .frente .q{font-family:var(--f-display);font-size:20px;font-weight:700;line-height:1.15}
+.flip .frente small{margin-top:auto;color:var(--verde);font-weight:700;font-size:13px}
+.flip .atras{background:var(--verde);color:var(--on-verde);transform:rotateY(180deg);border-color:var(--verde);font-size:15.5px}
+.flip svg{width:30px;height:30px;color:var(--verde)}
+
+/* ---------- 14 quiz ---------- */
+.quiz{max-width:760px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.qopc{display:flex;flex-direction:column;gap:10px}
+.qopc button{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 16px;font-weight:600;display:flex;gap:12px;align-items:center}
+.qopc button:hover:not(:disabled){border-color:var(--verde)}
+.qopc button .l{flex:none;width:28px;height:28px;border-radius:8px;background:var(--chip);display:grid;place-items:center;font-family:var(--f-mono);font-size:13px}
+.qopc button.bien{border-color:var(--verde);background:var(--menta)}
+.qopc button.mal{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--surface))}
+.qopc button:disabled{cursor:default}
+.qbar{display:flex;gap:6px}.qbar i{flex:1;height:6px;border-radius:9px;background:var(--chip)}
+.qbar i.b{background:var(--verde)}.qbar i.m{background:var(--coral)}.qbar i.a{background:var(--ambar)}
+.feedback{border-radius:14px;padding:14px 16px;background:var(--chip)}
+.final{text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.final .num{font-family:var(--f-display);font-size:clamp(60px,10vw,110px);font-weight:800;color:var(--verde);line-height:1}
+
+/* ---------- 15 soporte ---------- */
+.checks{display:flex;flex-direction:column;gap:10px}
+.checks label{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);cursor:pointer}
+.checks input{width:22px;height:22px;accent-color:var(--verde);flex:none}
+.sistemas{background:var(--verde-hondo);color:#E9F5F1;border-radius:22px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:14px}
+.sistemas h3{color:#fff}
+.sistemas .url{font-family:var(--f-mono);background:rgba(255,255,255,.1);border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;word-break:break-all}
+.sistemas .url button{border:0;border-radius:8px;padding:6px 12px;background:var(--ambar);color:#2B1C00;font-weight:700}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:30;background:rgba(5,20,16,.88);display:grid;place-items:center;padding:20px;cursor:zoom-out}
+.lb img{max-width:min(1400px,100%);max-height:88vh;border-radius:10px;background:#fff}
+.lb p{color:#fff;text-align:center;margin-top:10px;font-size:14px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ---------- ajustes de responsividad ---------- */
+/* Alto real en celular: la barra del navegador no tapa la navegación */
+@supports (height:100dvh){html{height:100dvh}body{height:100%}}
+.slides{overflow:hidden}
+.slide{overscroll-behavior-y:contain}
+/* Tarjetas volteables: crecen con su texto, sea cual sea la cara más larga */
+.flip .in{display:grid}
+.flip .cara{position:relative;inset:auto;grid-area:1/1}
+/* Portada: el título también se ajusta a la altura de la pantalla */
+.portada h1{font-size:clamp(44px,min(8.5vw,11vh),104px)}
+/* Celulares muy angostos */
+@media (max-width:380px){.bar{gap:8px}.nav{width:38px;height:38px}.prog{min-width:0}.indice-btn{padding:8px 11px}}
+/* Pantallas táctiles: botones más cómodos y sin atajos de teclado */
+@media (pointer:coarse){
+  .chips button,.tabs button,.stepper button,.indice-btn{min-height:44px}
+  .buscador{min-height:44px}.buscador kbd{display:none}
+}
+/* Celular acostado: más espacio para el contenido */
+@media (max-height:480px) and (orientation:landscape){
+  .bar{padding-block:5px calc(5px + env(safe-area-inset-bottom,0px))}
+  .nav{width:36px;height:36px}
+  .slide{padding-block:12px 16px}
+  .cabecera{padding-bottom:6px}.cabecera img{height:30px}
+  .telefono{width:min(210px,100%)}
+}
+</style>
+
+<div class="deck">
+<div class="slides" id="slides">
+
+<!-- 1 PORTADA -->
+<section class="slide portada" data-t="Bienvenida">
+ <div class="wrap">
+  <div class="cols" style="align-items:center">
+   <div class="anim" style="display:flex;flex-direction:column;gap:22px">
+    <img class="logo l-pos" src="img/logo-horizontal.png" alt="Hospital Departamental San Antonio, Roldanillo - Valle E.S.E.">
+    <img class="logo l-neg" src="img/logo-horizontal-neg.png" alt="Hospital Departamental San Antonio, Roldanillo - Valle E.S.E.">
+    <p class="eyebrow">Canal oficial de comunicación interna</p>
+    <h1>Chat <em>HDSA</em></h1>
+    <p class="lead">Guía interactiva para el personal: cómo entrar, verificar tu identidad y usar el chat institucional en el día a día.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+     <button class="boton" data-ir="1">Empezar el recorrido →</button>
+     <button class="boton sec" data-abrir-indice>Ver temas</button>
+    </div>
+   </div>
+   <div class="burbujas" aria-hidden="true" id="portadaChat">
+    <div class="burbuja"><small>Urgencias · Turno noche</small>Buenas, ¿alguien me confirma el ingreso de la cama 4?</div>
+    <div class="burbuja yo"><small>Tú</small>Confirmado, ya quedó registrado ✓</div>
+    <div class="burbuja"><small>Sistemas</small>Bienvenidos a Chat HDSA. Todo lo que escriben aquí viaja cifrado 🔒</div>
+    <div class="burbuja" style="width:64px"><span class="typing"><i></i><i></i><i></i></span></div>
+   </div>
+  </div>
+  <p style="color:var(--muted);font-size:14px;margin-top:auto">Usa las flechas <kbd>←</kbd> <kbd>→</kbd> del teclado, desliza en el celular o toca los botones de abajo. Para verla en pantalla completa, toca el botón de los cuatro ángulos o presiona <kbd>F</kbd>.</p>
+ </div>
+</section>
+
+<!-- 2 QUÉ ES -->
+<section class="slide" data-t="¿Qué es Chat HDSA?">
+ <div class="wrap anim">
+  <div><p class="eyebrow">Introducción</p><h2>La mensajería interna y segura del hospital</h2></div>
+  <p class="lead">Toca cada tarjeta para ver qué puedes hacer.</p>
+  <div class="rasgos">
+   <button class="rasgo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg><h3>Mensajes directos</h3><p class="mas" hidden>Escríbele a cualquier compañero registrado, aunque nunca hayan hablado antes.</p></button>
+   <button class="rasgo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5"/></svg><h3>Salas de grupo</h3><p class="mas" hidden>Por área, turno o equipo. Las crea Sistemas y te llegan como invitación.</p></button>
+   <button class="rasgo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="13" height="12" rx="3"/><path d="m15 10 6-3v10l-6-3"/></svg><h3>Voz y video</h3><p class="mas" hidden>Llamadas desde cualquier conversación, con los íconos de arriba a la derecha.</p></button>
+   <button class="rasgo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h3>Cifrado de extremo a extremo</h3><p class="mas" hidden>Solo quienes están en la conversación pueden leer los mensajes.</p></button>
+  </div>
+  <div class="card">
+   <p style="font-weight:700;margin-bottom:10px">Así viaja un mensaje por la red:</p>
+   <div class="candado">
+    <span>“Paciente cama 4 estable”</span><span aria-hidden="true">→</span>
+    <span class="cifrado" id="cifrado">x9Fq#2mL!aP0zR7…</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 3 PRIMER ACCESO -->
+<section class="slide" data-t="Primer acceso">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Paso 1</p><h2>Tu primer ingreso</h2></div>
+  <div class="cols">
+   <div class="anim" style="display:flex;flex-direction:column;gap:18px">
+    <ol class="pasos">
+     <li><div>Abre el navegador (mejor desde tu celular) y entra a <b class="mono">https://chat.hdsa.gov.co:447</b></div></li>
+     <li><div>Toca <b>Iniciar sesión</b>.</div></li>
+     <li><div><b>Usuario:</b> las letras <b class="mono">cc</b> + tu cédula, sin puntos ni espacios.</div></li>
+     <li><div><b>Contraseña inicial:</b> tu número de cédula.</div></li>
+    </ol>
+    <div class="nota"><span class="ic">!</span><p>Si el navegador ya tiene abierta otra cuenta, cierra sesión primero desde tu perfil (icono con tu inicial, arriba a la izquierda).</p></div>
+   </div>
+   <div class="login anim" aria-label="Simulador de inicio de sesión">
+    <div class="url"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>chat.hdsa.gov.co:447</div>
+    <p class="tag" style="align-self:flex-start">Pruébalo · simulador</p>
+    <div class="campo"><label for="ced">Escribe una cédula de ejemplo</label>
+     <input id="ced" inputmode="numeric" autocomplete="off" placeholder="1.236.458.795" value="1.236.458.795"></div>
+    <div><p style="font-size:14px;font-weight:700;margin-bottom:6px">Tu usuario será</p><div class="salida" id="usuario"></div></div>
+    <div><p style="font-size:14px;font-weight:700;margin-bottom:6px">Contraseña inicial</p><div class="salida" id="clave"></div></div>
+    <button class="boton" id="btnLogin">Iniciar sesión</button>
+    <div class="exito" id="loginOk" hidden><span class="ok">✓</span> Datos correctos. Lo siguiente que verás es la pantalla de identidad digital.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 4 VERIFICACIÓN -->
+<section class="slide" data-t="Verificar identidad digital">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Paso 2</p><h2>“Confirma tu identidad digital”</h2>
+   <p class="lead" style="margin-top:10px">Aparece la primera vez en cada dispositivo nuevo. Es normal: es un paso de seguridad del cifrado, no un error.</p></div>
+  <div class="cols">
+   <div class="pantallita anim">
+    <div class="escudo"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+    <h3>Confirma tu identidad digital</h3>
+    <p style="color:var(--muted);font-size:15px">¿Qué botón te aparece en pantalla? Tócalo.</p>
+    <div class="opciones">
+     <button data-ruta="clave" aria-pressed="false">Usar clave de recuperación</button>
+     <button data-ruta="reset" aria-pressed="false">¿No puedes confirmar?</button>
+    </div>
+   </div>
+   <div class="anim">
+    <div id="rutaVacia" class="vacio">Elige una opción para ver qué hacer.</div>
+    <div class="ruta" id="rutaClave" hidden>
+     <div class="paso"><span class="n">01</span><p>Toca <b>Usar clave de recuperación</b>.</p></div>
+     <div class="paso"><span class="n">02</span><p>Escribe la clave que te entregó el área de <b>Sistemas</b>.</p></div>
+     <div class="paso"><span class="n">03</span><p>En unos segundos queda verificado. <span class="ok">¡Listo!</span></p></div>
+    </div>
+    <div class="ruta" id="rutaReset" hidden>
+     <div class="paso"><span class="n">01</span><p>Toca <b>¿No puedes confirmar?</b> → “Necesitas restablecer tu identidad digital” → <b>Continuar</b>.</p></div>
+     <div class="paso"><span class="n">02</span><p>Tus salas, contactos y configuración <b>se mantienen</b>. Solo se reinicia el cifrado de ese dispositivo.</p></div>
+     <div class="paso" style="flex-direction:column"><div style="display:flex;gap:12px"><span class="n">03</span><p>Si se queda en “Restableciendo…” más de 15-20 segundos, recarga con <kbd>F5</kbd>.</p></div>
+      <div style="width:100%;display:flex;flex-direction:column;gap:8px"><div class="loader"><i id="resetBar"></i></div>
+       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span id="resetTxt" style="font-size:14px;color:var(--muted)">Restableciendo…</span><button class="boton sec" id="btnF5" style="padding:6px 12px;font-size:14px">Simular F5</button></div></div></div>
+    </div>
+    <div class="nota" style="margin-top:14px"><span class="ic">i</span><p>Si tienes dudas o no avanza, comunícate con Sistemas <b>antes</b> de intentarlo varias veces seguidas. La clave de recuperación y el restablecimiento del cifrado se gestionan siempre con ellos.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 5 CELULAR -->
+<section class="slide" data-t="Desde tu celular">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Recomendado</p><h2>Úsalo desde tu celular</h2></div>
+  <div class="cols" style="align-items:center">
+   <div class="consejos anim">
+    <div class="card"><h3>Android y iOS</h3><p style="margin-top:6px">Recomendado para enfermería de <b>urgencias</b> y <b>hospitalización</b>. El líder de área solicita la instalación a Sistemas, con el consentimiento del personal.</p></div>
+    <div class="card"><h3>¿Computador compartido?</h3><p style="margin-top:6px">Cada vez que cierres sesión te pedirá verificar de nuevo. Por eso el celular personal es lo más práctico.</p></div>
+    <div class="nota"><span class="ic">🔒</span><p><b>Activa el bloqueo de pantalla</b> (PIN o huella): la sesión queda abierta de forma permanente. Prueba desbloquear el teléfono de ejemplo.</p></div>
+   </div>
+   <div class="anim">
+    <div class="telefono">
+     <div class="pant">
+      <div class="top"><img src="img/emblema-neg.png" alt="">Chat HDSA</div>
+      <div class="msgs">
+       <div class="burbuja" style="font-size:13px"><small>Hospitalización</small>Cambio de turno 7 p. m.</div>
+       <div class="burbuja yo" style="font-size:13px">Recibido 👍</div>
+       <div class="burbuja" style="font-size:13px"><small>Anuncios HDSA</small>Reunión de líderes el viernes.</div>
+      </div>
+     </div>
+     <div class="bloqueo" id="bloqueo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <p style="font-size:14px">Escribe 4 dígitos</p>
+      <div class="puntos" id="puntos"><i></i><i></i><i></i><i></i></div>
+      <div class="pin" id="pin"></div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 6 CONTRASEÑA -->
+<section class="slide" data-t="Cambiar tu contraseña">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Paso 3</p><h2>Cambia tu contraseña el primer día</h2>
+   <p class="lead" style="margin-top:10px">Tu contraseña inicial es tu cédula. Cámbiala apenas entres.</p></div>
+  <div class="cols">
+   <div class="anim" style="display:flex;flex-direction:column;gap:14px">
+    <div class="stepper" role="tablist" id="stepPass">
+     <button role="tab" aria-selected="true" data-i="0">1 · Tu inicial</button>
+     <button role="tab" aria-selected="false" data-i="1">2 · Cuenta</button>
+     <button role="tab" aria-selected="false" data-i="2">3 · Nueva clave</button>
+    </div>
+    <div class="card" id="stepTxt"></div>
+    <button class="shot" id="stepImg"><img alt="" src="img/menu-perfil.jpg"></button>
+   </div>
+   <div class="card anim" style="display:flex;flex-direction:column;gap:14px">
+    <h3>Mide tu nueva contraseña</h3>
+    <p style="font-size:15px;color:var(--muted)">Escribe una de práctica (no tu clave real). No se guarda ni se envía.</p>
+    <div class="campo"><label for="pw">Contraseña de práctica</label><input id="pw" type="text" autocomplete="off" placeholder="Ej: Turno-Noche-2026"></div>
+    <div class="fuerza"><i id="fuerzaBar"></i></div>
+    <p id="fuerzaTxt" style="font-weight:700">Escribe algo para empezar</p>
+    <ul class="reglas" id="reglas">
+     <li data-r="len">Al menos 10 caracteres</li>
+     <li data-r="mix">Mayúsculas y minúsculas</li>
+     <li data-r="num">Algún número o símbolo</li>
+     <li data-r="ced">No es solo un número (como la cédula)</li>
+    </ul>
+    <div class="nota"><span class="ic">!</span><p>Usa una contraseña que no uses en otros sitios. Si la olvidas, Sistemas te la restablece.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 6b REGLA DE ORO: SISTEMAS -->
+<section class="slide" data-t="Configuración solo con Sistemas">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Buena práctica obligatoria</p><h2>Toda configuración se hace con el área de Sistemas</h2>
+   <p class="lead" style="margin-top:10px">El cifrado de extremo a extremo depende de que cada dispositivo, sesión y clave quede bien configurado. Un cambio por cuenta propia puede dejarte sin acceso a tus mensajes o debilitar la seguridad de todos.</p></div>
+  <div class="regla anim">
+   <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="M12 8v5M12 16h.01"/></svg></span>
+   <div><small>Regla de oro</small><p><b>Antes de cambiar cualquier configuración de Chat HDSA, comunícate con el área de Sistemas.</b></p>
+    <p>Ellos hacen o acompañan el cambio, porque de eso dependen la seguridad y el cifrado de los mensajes del hospital.</p></div>
+  </div>
+  <div class="si-no anim">
+   <div class="card solo"><h3>Solo con Sistemas</h3>
+    <ul>
+     <li>Instalar el chat en un celular o computador</li>
+     <li><b>Seguridad y privacidad</b>, <b>Cifrado</b> y <b>Sesiones</b></li>
+     <li><b>Vincular nuevo dispositivo</b> o cerrar sesiones de otros equipos</li>
+     <li>Claves de recuperación y “restablecer identidad digital” si algo falla</li>
+     <li>Cambiar de celular o recuperar mensajes anteriores</li>
+     <li>Crear salas, invitar personas o cambiar permisos</li>
+    </ul></div>
+   <div class="card tu"><h3>Puedes hacerlo tú (y si dudas, pregunta)</h3>
+    <ul>
+     <li>Cambiar tu contraseña inicial por una propia</li>
+     <li>Tema claro, oscuro o hdsa-light</li>
+     <li>Activar o silenciar el sonido de las notificaciones</li>
+     <li>Tu nombre visible y tu foto de perfil</li>
+    </ul>
+    <p style="margin-top:10px;font-size:14px;color:var(--muted)">Si un ajuste no aparece en esta lista, consúltalo primero con Sistemas.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 7 FUNCIONES -->
+<section class="slide" data-t="Funciones básicas">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Día a día</p><h2>¿Qué quieres hacer?</h2></div>
+  <div class="func anim">
+   <div class="lista-f" role="tablist" id="listaF"></div>
+   <div class="detalle-f" id="detalleF"></div>
+  </div>
+ </div>
+</section>
+
+<!-- 8 BUSCAR PERSONAS -->
+<section class="slide" data-t="Buscar personas">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">El error más común</p><h2>Para encontrar a alguien, usa <span style="color:var(--verde)">Buscar</span>, no el chip “Personas”</h2></div>
+  <div class="cols">
+   <div class="demo anim" aria-label="Simulador de búsqueda">
+    <div class="lat">
+     <button class="buscador" id="abrirBuscar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Buscar<kbd>Ctrl K</kbd></button>
+     <p style="font-weight:800;font-size:14px">Todos los chats</p>
+     <div class="chips" id="chipsDemo">
+      <button aria-pressed="false" data-c="noleidos">No leídos</button>
+      <button aria-pressed="false" data-c="personas">Personas</button>
+      <button aria-pressed="false" data-c="salas">Salas</button>
+     </div>
+     <div class="salas-l" id="salasDemo"></div>
+    </div>
+    <div class="cen" id="cenDemo"></div>
+   </div>
+   <div class="anim" style="display:flex;flex-direction:column;gap:14px">
+    <div class="card"><h3>Prueba esto</h3>
+     <ol style="margin:10px 0 0;padding-left:20px;display:grid;gap:6px">
+      <li>Toca el chip <b>Personas</b>. Fíjate que no busca a nadie nuevo.</li>
+      <li>Ahora toca <b>Buscar</b> (o <kbd>Ctrl</kbd>+<kbd>K</kbd>) y escribe un nombre.</li>
+      <li>Toca el resultado para abrir la conversación.</li>
+     </ol></div>
+    <div class="nota"><span class="ic">!</span><p>El chip <b>Personas</b> solo <b>filtra</b> conversaciones directas que ya tienes abiertas. Si aún no le has escrito a nadie, se ve vacío.</p></div>
+    <p style="color:var(--muted);font-size:15px">También puedes usar el botón <b>+</b> junto a “Inicio” → <b>Enviar un mensaje directo</b>.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 9 SALAS -->
+<section class="slide" data-t="Salas de grupo">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Grupos</p><h2>Las salas te llegan como invitación</h2>
+   <p class="lead" style="margin-top:10px">Las salas de tu área o equipo las crea Sistemas. No te unes buscándolas: te agregan y tú aceptas.</p></div>
+  <div class="card anim" style="display:flex;flex-direction:column;gap:12px">
+   <p class="tag" style="align-self:flex-start">Pruébalo</p>
+   <div class="invitacion" id="invitacion">
+    <span class="av" style="background:var(--ambar);color:#2B1C00">U</span>
+    <div class="txt"><b>Urgencias · Enfermería</b><br><span style="font-size:14px;color:var(--muted)">canalcomunicacioneshdsa te invitó a esta sala</span></div>
+    <button class="boton" id="aceptar">Aceptar</button>
+   </div>
+   <div class="exito" id="aceptado" hidden><span class="ok">✓</span> Ya estás en la sala. Ahora aparece en tu lista de la izquierda.</div>
+  </div>
+  <div class="flujo anim">
+   <div class="card"><span class="n">SI LA SALA YA ESTÁ EN TU LISTA</span><p>Usa el chip <b>Salas</b> para ver solo grupos, o escribe su nombre en <b>Buscar</b> (<kbd>Ctrl</kbd>+<kbd>K</kbd>).</p></div>
+   <div class="card"><span class="n">SI CREES QUE TE FALTA UNA</span><p>Por ejemplo, la de tu turno o servicio: pide a Sistemas que te agregue.</p></div>
+   <div class="card"><span class="n">PARA ORGANIZARTE</span><p>El <b>+</b> junto a “Todos los chats” permite crear una <b>nueva sección</b> (carpeta). Es opcional.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 10 RECORRIDO VISUAL -->
+<section class="slide" data-t="Recorrido con capturas">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Guía visual</p><h2>Reconoce cada pantalla</h2>
+   <p class="lead" style="margin-top:10px">Capturas reales de Chat HDSA. Toca una imagen para verla en grande.</p></div>
+  <div class="tabs anim" role="tablist" id="tabsVis"></div>
+  <div class="visor anim">
+   <button class="shot" id="visImg"><img alt="" src="img/inicio.jpg"></button>
+   <div class="txt" id="visTxt"></div>
+  </div>
+ </div>
+</section>
+
+<!-- 11 ACCIONES MENSAJE -->
+<section class="slide" data-t="Acciones sobre un mensaje">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Mensajes</p><h2>Reacciona, responde, fija y más</h2>
+   <p class="lead" style="margin-top:10px">En computador, pasa el cursor sobre un mensaje (sin hacer clic) y aparece una barra de íconos. Prueba cada uno.</p></div>
+  <div class="cols">
+   <div class="anim" style="padding-top:26px">
+    <div class="msg-demo fijo" id="msgDemo" tabindex="0">
+     <span class="av" style="background:#7A4FC2">L</span>
+     <div class="quien">Luisa Fernanda</div>
+     <p id="msgTexto">¿Alguien tiene el formato de remisión actualizado?</p>
+     <div class="reacciones" id="reac"></div>
+     <div class="toolbar" role="toolbar" aria-label="Acciones del mensaje">
+      <button data-a="reac" aria-label="Reaccionar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2M9 9.5h.01M15 9.5h.01"/></svg></button>
+      <button data-a="resp" aria-label="Responder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v4"/></svg></button>
+      <button data-a="hilo" aria-label="Responder en hilo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16M4 11h10M4 17h6"/><path d="m16 15 3 3-3 3"/></svg></button>
+      <button data-a="fijar" aria-label="Fijar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17v5M8 3h8l-1 6 3 4H6l3-4-1-6Z"/></svg></button>
+      <button data-a="mas" aria-label="Más opciones"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+     </div>
+     <div class="menu3" id="menu3" hidden>
+      <button data-m="Reenviar">Reenviar</button><button data-m="Compartir">Compartir</button>
+      <button data-m="Denunciar">Denunciar</button><button data-m="Eliminar" class="peligro">Eliminar</button>
+     </div>
+    </div>
+   </div>
+   <div class="card explica anim" id="explica" aria-live="polite">
+    <h3>Toca un ícono de la barra</h3>
+    <p style="margin-top:6px;color:var(--muted)">De izquierda a derecha: reaccionar, responder, responder en hilo, fijar y más opciones.</p>
+   </div>
+  </div>
+  <div class="nota anim"><span class="ic">!</span><p>Ojo: los íconos de <b>teléfono</b> y <b>cámara</b> (arriba a la derecha de la conversación) <b>inician la llamada de inmediato</b>. No son una vista previa.</p></div>
+ </div>
+</section>
+
+<!-- 12 NOTIFICACIONES Y APARIENCIA -->
+<section class="slide" data-t="Notificaciones y apariencia">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Ajustes</p><h2>Hazlo a tu medida</h2></div>
+  <div class="regla anim"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/></svg></span>
+   <p>Aquí solo cambias <b>tema</b> y <b>notificaciones</b>. No toques <b>Seguridad y privacidad</b>, <b>Cifrado</b> ni <b>Sesiones</b>: esos ajustes se hacen únicamente con el área de Sistemas.</p></div>
+  <div class="cols">
+   <div class="anim" style="display:flex;flex-direction:column;gap:12px">
+    <h3>Notificaciones</h3>
+    <p style="color:var(--muted);font-size:15px">Engranaje (abajo a la izquierda) → <b>Ajustes → Notificaciones</b>.</p>
+    <div class="switch"><span>Activar notificaciones en este dispositivo</span><button role="switch" aria-checked="true" id="swNotif" aria-label="Notificaciones"></button></div>
+    <div class="switch"><span>Con sonido</span><button role="switch" aria-checked="false" id="swSonido" aria-label="Sonido"></button></div>
+    <div class="campana"><button class="boton sec" id="probarNotif">Simular un mensaje</button></div>
+    <div id="toastZona"></div>
+    <div class="nota"><span class="ic">i</span><p>Solo llegan mientras el chat esté <b>abierto</b> en el navegador. Minimizado sirve; cerrado, no.</p></div>
+   </div>
+   <div class="anim" style="display:flex;flex-direction:column;gap:12px">
+    <h3>Apariencia</h3>
+    <p style="color:var(--muted);font-size:15px"><b>Ajustes → Apariencia</b>. Toca un tema:</p>
+    <div class="temas" id="temas">
+     <button aria-pressed="false" data-t="claro"><i style="background:#fff"></i>Claro</button>
+     <button aria-pressed="false" data-t="oscuro"><i style="background:#15191E"></i>Oscuro</button>
+     <button aria-pressed="false" data-t="contraste"><i style="background:#FFE500"></i>Alto contraste</button>
+     <button aria-pressed="true" data-t="hdsa"><i style="background:#069681"></i>hdsa-light</button>
+    </div>
+    <div class="mini" id="mini" data-t="hdsa">
+     <div class="ml"><div class="a"></div><div></div><div></div><div></div><div></div></div>
+     <div class="mc"><div class="mb">Hola, ¿cómo va el turno?</div><div class="mb y">Todo en orden 👌</div><div class="mb">Perfecto, gracias.</div></div>
+    </div>
+    <p style="font-size:14px;color:var(--muted)"><b>hdsa-light</b> es el tema propio del hospital. “Usar el mismo tema que el sistema” lo cambia solo según tu celular o computador.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 13 SEGURIDAD -->
+<section class="slide" data-t="Seguridad">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Buenas prácticas</p><h2>Cuida tu cuenta y la información de los pacientes</h2>
+   <p class="lead" style="margin-top:10px">Toca cada tarjeta para ver la regla.</p></div>
+  <div class="flips anim" id="flips"></div>
+ </div>
+</section>
+
+<!-- 14 QUIZ -->
+<section class="slide" data-t="Pon a prueba lo aprendido">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Autoevaluación</p><h2>¿Quedó claro? 7 preguntas rápidas</h2></div>
+  <div class="quiz anim" id="quiz"></div>
+ </div>
+</section>
+
+<!-- 15 SOPORTE -->
+<section class="slide" data-t="Si tienes problemas">
+ <div class="wrap">
+  <div class="anim"><p class="eyebrow">Soporte</p><h2>¿Algo no funciona? Escríbele a Sistemas</h2></div>
+  <div class="cols">
+   <div class="anim" style="display:flex;flex-direction:column;gap:12px">
+    <p style="color:var(--muted)">Marca lo que te pasa:</p>
+    <div class="checks" id="checks">
+     <label><input type="checkbox" id="p1">Olvidé mi contraseña</label>
+     <label><input type="checkbox" id="p2">La pantalla de verificación no avanza después de varios intentos</label>
+     <label><input type="checkbox" id="p3">No veo una sala o un contacto que debería tener</label>
+     <label><input type="checkbox" id="p4">Cambié de celular y necesito mis mensajes anteriores</label>
+     <label><input type="checkbox" id="p5">Perdí mi celular o alguien pudo ver mi sesión</label>
+    </div>
+   </div>
+   <div class="sistemas anim">
+    <h3 id="supTitulo">Área de Sistemas</h3>
+    <p id="supTxt">Marca lo que te pasa y te decimos qué tener a mano.</p>
+    <div class="url"><span>https://chat.hdsa.gov.co:447</span><button id="copiar">Copiar enlace</button></div>
+    <p style="font-size:14px;opacity:.85">Guarda este enlace en tu celular. Instala la app solo desde los enlaces oficiales que comparta el hospital.</p>
+    <p style="font-size:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px"><b style="color:#fff">Recuerda:</b> cualquier configuración de Chat HDSA (instalación, dispositivos, sesiones, seguridad o cifrado) se hace con el área de Sistemas.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+</div>
+
+<nav class="bar" aria-label="Navegación de diapositivas">
+ <div class="marca"><span>Chat HDSA</span></div>
+ <button class="indice-btn" data-abrir-indice>Temas</button>
+ <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+ <span class="contador" id="contador">1 / 15</span>
+ <button class="nav" id="fs" aria-label="Pantalla completa" title="Pantalla completa (F)"><svg id="fsOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg id="fsOff" hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
+ <button class="nav" id="ant" aria-label="Anterior"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg></button>
+ <button class="nav sig" id="sig" aria-label="Siguiente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg></button>
+</nav>
+</div>
+
+<div class="indice" id="indice" hidden role="dialog" aria-label="Temas">
+ <div class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Temas de la guía</h3><button class="nav" id="cerrarIndice" aria-label="Cerrar">✕</button></div><ol id="indiceLista"></ol></div>
+</div>
+<div class="lb" id="lb" hidden><div><img id="lbImg" alt=""><p id="lbTxt"></p></div></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const slides=$$('.slide'); let cur=0;
+function ir(n){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>{s.classList.toggle('on',i===n);s.classList.toggle('prev',i<n);s.setAttribute('aria-hidden',i!==n)});
+  cur=n; $('#progBar').style.width=((n+1)/slides.length*100)+'%';
+  $('#contador').textContent=(n+1)+' / '+slides.length;
+  $('#ant').disabled=n===0; $('#sig').disabled=n===slides.length-1;
+  slides[n].scrollTop=0;
+  const h='#d'+(n+1); if(location.hash!==h) try{history.replaceState(null,'',h)}catch(e){location.hash=h}
+  $$('#indiceLista button').forEach((b,i)=>b.setAttribute('aria-current',i===n));
+}
+$('#ant').onclick=()=>ir(cur-1); $('#sig').onclick=()=>ir(cur+1);
+$$('[data-ir]').forEach(b=>b.onclick=()=>ir(+b.dataset.ir));
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea')) return;
+  if(!$('#lb').hidden&&e.key==='Escape'){$('#lb').hidden=true;return}
+  if(!$('#indice').hidden&&e.key==='Escape'){$('#indice').hidden=true;return}
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ir(cur+1);e.preventDefault()}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){ir(cur-1);e.preventDefault()}
+});
+let tx=null,ty=null;
+$('#slides').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('#slides').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.5&&!e.target.closest('.tabs,.demo,input')) ir(cur+(dx<0?1:-1)); tx=null},{passive:true});
+// logo corporativo en cada diapositiva
+slides.forEach((s,i)=>{if(s.classList.contains('portada'))return;const w=s.querySelector('.wrap');const c=document.createElement('div');c.className='cabecera';
+  c.innerHTML='<img class="l-pos" src="img/logo-horizontal.png" alt="Hospital Departamental San Antonio"><img class="l-neg" src="img/logo-horizontal-neg.png" alt="Hospital Departamental San Antonio"><span>Guía Chat HDSA</span>';w.prepend(c)});
+// pantalla completa
+const raiz=document.documentElement,fsBtn=$('#fs');
+const puedeFs=!!(raiz.requestFullscreen||raiz.webkitRequestFullscreen);
+if(!puedeFs) fsBtn.hidden=true;
+const enFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+function alternarFs(){try{if(enFs()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{const p=(raiz.requestFullscreen||raiz.webkitRequestFullscreen).call(raiz);if(p&&p.catch)p.catch(()=>{})}}catch(e){}}
+function marcarFs(){const on=enFs();$('#fsOn').hidden=on;$('#fsOff').hidden=!on;fsBtn.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');fsBtn.title=(on?'Salir de pantalla completa':'Pantalla completa')+' (F)'}
+fsBtn.onclick=alternarFs;document.addEventListener('fullscreenchange',marcarFs);document.addEventListener('webkitfullscreenchange',marcarFs);
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea')||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='f'||e.key==='F'){alternarFs();e.preventDefault()}});
+// índice
+$('#indiceLista').innerHTML=slides.map((s,i)=>`<li><button data-i="${i}"><span>${String(i+1).padStart(2,'0')}</span>${s.dataset.t}</button></li>`).join('');
+$$('#indiceLista button').forEach(b=>b.onclick=()=>{ir(+b.dataset.i);$('#indice').hidden=true});
+$$('[data-abrir-indice]').forEach(b=>b.onclick=()=>{$('#indice').hidden=false});
+$('#cerrarIndice').onclick=()=>$('#indice').hidden=true;
+$('#indice').onclick=e=>{if(e.target.id==='indice')$('#indice').hidden=true};
+// lightbox
+function zoom(src,txt){$('#lbImg').src=src;$('#lbTxt').textContent=txt||'';$('#lb').hidden=false}
+$('#lb').onclick=()=>$('#lb').hidden=true;
+document.addEventListener('click',e=>{const s=e.target.closest('.shot');if(s){const im=s.querySelector('img');zoom(im.src,im.alt)}});
+
+// 2 rasgos + cifrado
+$$('.rasgo').forEach(b=>b.onclick=()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);b.querySelector('.mas').hidden=!on});
+const ab='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789#$%&!*+=';
+setInterval(()=>{if(cur!==1)return;let s='';for(let i=0;i<22;i++)s+=ab[Math.floor(Math.random()*ab.length)];$('#cifrado').textContent=s},140);
+
+// 3 login
+function actualizarLogin(){
+  const d=$('#ced').value.replace(/\D/g,'');
+  $('#usuario').innerHTML=d?'<span class="cc">cc</span>'+d:'<span style="opacity:.5">Escribe tu cédula arriba</span>';
+  $('#clave').textContent=d?d:'—'; $('#loginOk').hidden=true;
+}
+$('#ced').addEventListener('input',actualizarLogin); actualizarLogin();
+$('#btnLogin').onclick=()=>{const d=$('#ced').value.replace(/\D/g,'');if(d.length>=6){$('#loginOk').hidden=false}else{$('#usuario').innerHTML='<span style="color:var(--coral)">La cédula parece incompleta</span>'}};
+
+// 4 verificación
+let resetT=null;
+$$('.opciones button').forEach(b=>b.onclick=()=>{
+  $$('.opciones button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  $('#rutaVacia').hidden=true; $('#rutaClave').hidden=b.dataset.ruta!=='clave'; $('#rutaReset').hidden=b.dataset.ruta!=='reset';
+  if(b.dataset.ruta==='reset') animarReset();
+});
+function animarReset(){clearInterval(resetT);let p=0;$('#resetTxt').textContent='Restableciendo…';$('#resetBar').style.width='0';
+  resetT=setInterval(()=>{p=Math.min(p+4,72);$('#resetBar').style.width=p+'%';if(p>=72){clearInterval(resetT);$('#resetTxt').textContent='Parece detenido… prueba recargar (F5)'}},120)}
+$('#btnF5').onclick=()=>{clearInterval(resetT);$('#resetBar').style.width='100%';$('#resetTxt').innerHTML='<span class="ok">✓ Verificado. Ya estaba listo por dentro.</span>'};
+
+// 5 PIN
+const pin=$('#pin');let dig=0;
+['1','2','3','4','5','6','7','8','9','','0',''].forEach(k=>{const b=document.createElement('button');b.textContent=k;if(!k){b.style.visibility='hidden';b.tabIndex=-1}
+  b.onclick=()=>{dig++;$$('#puntos i').forEach((p,i)=>p.classList.toggle('f',i<dig));if(dig>=4){setTimeout(()=>{$('#bloqueo').style.opacity=0;$('#bloqueo').style.pointerEvents='none';
+    setTimeout(()=>{dig=0;$$('#puntos i').forEach(p=>p.classList.remove('f'));$('#bloqueo').style.opacity=1;$('#bloqueo').style.pointerEvents=''},4000)},250)}};pin.appendChild(b)});
+
+// 6 contraseña
+const pasosPass=[
+ {t:'Toca el icono con tu <b>inicial</b> (arriba a la izquierda) y elige <b>Todos los ajustes</b>.',img:'img/menu-perfil.jpg'},
+ {t:'Entra a <b>Cuenta</b>. Ahí también puedes cambiar tu nombre visible y tu foto.',img:'img/ajustes-cuenta.jpg'},
+ {t:'Busca la opción para cambiar la contraseña. Escribe la actual (tu cédula) y la nueva.',img:'img/ajustes-cuenta.jpg'}];
+function verPaso(i){$$('#stepPass button').forEach((b,j)=>b.setAttribute('aria-selected',i===j));$('#stepTxt').innerHTML='<p>'+pasosPass[i].t+'</p>';
+  const im=$('#stepImg img');im.src=pasosPass[i].img;im.alt=pasosPass[i].t.replace(/<[^>]+>/g,'')}
+$$('#stepPass button').forEach(b=>b.onclick=()=>verPaso(+b.dataset.i)); verPaso(0);
+$('#pw').addEventListener('input',()=>{const v=$('#pw').value;const r={len:v.length>=10,mix:/[a-z]/.test(v)&&/[A-Z]/.test(v),num:/[\d\W_]/.test(v),ced:v.length>0&&!/^\d+$/.test(v.replace(/[.\s]/g,''))};
+  $$('#reglas li').forEach(li=>li.classList.toggle('si',r[li.dataset.r]));const n=Object.values(r).filter(Boolean).length;
+  const est=[['Escribe algo para empezar','var(--line)'],['Muy débil','var(--coral)'],['Débil','var(--coral)'],['Aceptable','var(--ambar)'],['Fuerte ✓','var(--verde)']][v?n:0];
+  $('#fuerzaBar').style.width=(v?Math.max(n,1)*25:0)+'%';$('#fuerzaBar').style.background=est[1];$('#fuerzaTxt').textContent=est[0]});
+
+// 7 funciones
+const ico={
+ msg:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',
+ grp:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 6h5M18.5 3.5v5"/>',
+ ok:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+ fil:'<path d="M3 5h18l-7 8v6l-4 2v-8L3 5Z"/>',
+ tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+ clip:'<path d="m21 11-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/>',
+ bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4l2-2ZM10 21h4"/>'};
+const funcs=[
+ {i:'msg',t:'Escribir a una persona',c:'Usa <b>Envía un mensaje directo</b> en la pantalla de inicio, o el <b>+</b> junto a la lista de salas, y busca por nombre.',img:'img/inicio.jpg'},
+ {i:'grp',t:'Ver tus salas de grupo',c:'Aparecen en la lista de la izquierda, organizadas por área, turno o equipo, según como las haya creado Sistemas.',img:'img/chip-salas.jpg'},
+ {i:'ok',t:'Aceptar una invitación',c:'Toca la sala en tu lista y luego <b>Aceptar</b>.',img:'img/menu-mas.jpg'},
+ {i:'fil',t:'Filtrar la lista',c:'Usa los chips de arriba: <b>No leídos, Personas, Salas, Menciones, Invitaciones</b>. Filtran lo que ya tienes; no buscan gente nueva.',img:'img/chip-personas.jpg'},
+ {i:'tel',t:'Llamar por voz o video',c:'Dentro de la conversación, íconos de <b>teléfono</b> o <b>cámara</b> arriba. La llamada empieza de inmediato al tocarlos.',img:'img/conversacion.jpg'},
+ {i:'clip',t:'Enviar imagen o archivo',c:'Toca el <b>+</b> o el <b>clip</b> dentro del cuadro de mensaje.',img:'img/conversacion.jpg'},
+ {i:'bell',t:'Ver notificaciones',c:'La <b>campana</b> en la parte superior. Configúralas en <b>Ajustes → Notificaciones</b>.',img:'img/notificaciones.jpg'}];
+$('#listaF').innerHTML=funcs.map((f,i)=>`<button role="tab" aria-selected="false" data-i="${i}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${ico[f.i]}</svg>${f.t}</button>`).join('');
+function verF(i){$$('#listaF button').forEach((b,j)=>b.setAttribute('aria-selected',i===j));const f=funcs[i];
+  $('#detalleF').innerHTML=`<div class="card"><h3>${f.t}</h3><p style="margin-top:8px">${f.c}</p></div><button class="shot"><img src="${f.img}" alt="${f.t}"></button>`}
+$$('#listaF button').forEach(b=>b.onclick=()=>verF(+b.dataset.i)); verF(0);
+
+// 8 buscar demo
+const misChats=[{n:'Anuncios HDSA',s:1,c:'#037A62'},{n:'Urgencias · Enfermería',s:1,c:'#C8553D'},{n:'Laboratorio',s:1,c:'#7A4FC2'},{n:'Cuentas médicas',s:1,c:'#2C6FB7'}];
+const gente=['Luisa Fernanda Correa','Manuela Hernández Vargas','Heidi Dayana González','Cristian David Ruiz','Zoraida Ibarra','Wilder Antonio Pino','Dayli Yuliani Ramírez'];
+let abiertos=[]; let chip=null;
+function pintarLista(){
+  let l=misChats.concat(abiertos.map(n=>({n,s:0,c:'#E2A23B'})));
+  if(chip==='personas')l=l.filter(x=>!x.s); if(chip==='salas')l=l.filter(x=>x.s); if(chip==='noleidos')l=l.slice(1,2);
+  $('#salasDemo').innerHTML=l.length?l.map(x=>`<div><span class="av" style="background:${x.c}">${x.n[0]}</span>${x.n}</div>`).join(''):'<div style="color:var(--muted);font-size:13px">Sin resultados</div>';
+  if(chip==='personas'&&!abiertos.length) cen(`<div class="vacio"><b>Vacío.</b><br>El chip “Personas” solo muestra conversaciones directas que ya abriste. Aún no le has escrito a nadie.<br><br>👉 Usa <b>Buscar</b> arriba.</div>`);
+}
+function cen(h){$('#cenDemo').innerHTML=h}
+function cenInicio(){cen(`<div style="text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding-top:20px"><img class="l-pos" src="img/emblema.png" alt="" style="width:54px"><img class="l-neg" src="img/emblema-neg.png" alt="" style="width:54px"><h3>Bienvenido a Chat HDSA</h3><p style="color:var(--muted);font-size:15px">Prueba los chips o el buscador.</p></div>`)}
+$$('#chipsDemo button').forEach(b=>b.onclick=()=>{const on=chip!==b.dataset.c;chip=on?b.dataset.c:null;$$('#chipsDemo button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c===chip));if(chip!=='personas'||abiertos.length)cenInicio();pintarLista()});
+function abrirBuscador(){cen(`<div class="modal-b"><input id="qDemo" placeholder="Escribe un nombre… ej: Luisa" autocomplete="off"><p style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.08em">GENTE</p><div id="resDemo"></div></div>`);
+  const q=$('#qDemo');q.focus();const pr=()=>{const v=q.value.trim().toLowerCase();const r=v?gente.filter(g=>g.toLowerCase().includes(v)):gente.slice(0,3);
+   $('#resDemo').innerHTML=r.length?r.map(g=>`<button class="res" data-n="${g}"><span class="av" style="background:#E2A23B">${g[0]}</span><span>${g}<small>@cc••••:chat.hdsa.gov.co</small></span></button>`).join(''):'<p style="color:var(--muted);font-size:14px;padding:8px">Nadie con ese nombre</p>';
+   $$('#resDemo .res').forEach(b=>b.onclick=()=>{const n=b.dataset.n;if(!abiertos.includes(n))abiertos.push(n);pintarLista();
+     cen(`<div style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:10px"><span class="av" style="background:#E2A23B">${n[0]}</span><b>${n}</b></div><div class="exito"><span class="ok">✓</span> Conversación nueva abierta. Ahora sí aparece en el chip “Personas”.</div><div class="burbuja yo" style="align-self:flex-end">¡Hola! Te escribo por Chat HDSA 👋</div></div>`)})};
+  q.addEventListener('input',pr);pr()}
+$('#abrirBuscar').onclick=abrirBuscador;
+document.addEventListener('keydown',e=>{if(slides[cur].contains($('#abrirBuscar'))&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();abrirBuscador()}});
+cenInicio();pintarLista();
+
+// 9 invitación
+$('#aceptar').onclick=()=>{$('#invitacion').hidden=true;$('#aceptado').hidden=false;setTimeout(()=>{$('#invitacion').hidden=false;$('#aceptado').hidden=true},5000)};
+
+// 10 recorrido
+const vis=[
+ {k:'Inicio',img:'inicio',t:'Pantalla de inicio',d:'Lo primero que ves al entrar o cuando no tienes ninguna conversación abierta. Desde aquí: <b>Enviar un mensaje directo</b>, <b>Explorar las salas públicas</b> o <b>Crear un grupo</b>.'},
+ {k:'Conversación',img:'conversacion',t:'La conversación',d:'Los mensajes van en el centro y el cuadro para escribir abajo. Arriba: llamada, hilos, información de la sala y miembros.'},
+ {k:'Barra del mensaje',img:'barra-mensaje',t:'Barra de acciones',d:'Pasa el cursor sobre un mensaje: <b>reaccionar, responder, responder en hilo, fijar</b> y <b>más opciones</b>.'},
+ {k:'Más opciones',img:'menu-opciones',t:'Menú de los tres puntos',d:'<b>Reenviar</b>, <b>Compartir</b> (copia un enlace), <b>Denunciar</b> y <b>Eliminar</b>. En tus propios mensajes también verás <b>Editar</b>.'},
+ {k:'Hilos',img:'hilos',t:'Hilos',d:'Responde a un mensaje específico sin llenar la conversación principal. Si la sala aún no tiene hilos, el panel aparece con un texto en inglés: es normal.'},
+ {k:'Info de la sala',img:'info-sala',t:'Información de la sala',d:'Toca la <b>i</b> arriba a la derecha: verás si la sala está cifrada, su tema, y accesos para invitar o ver quién está.'},
+ {k:'Miembros',img:'gente',t:'Miembros',d:'Desde la información de la sala, toca <b>Gente</b> para ver la lista completa de miembros.'},
+ {k:'Buscar',img:'buscar',t:'Buscador general',d:'Barra <b>Buscar</b> o <kbd>Ctrl</kbd>+<kbd>K</kbd>. “Public spaces” y “Messages” aún salen en inglés: equivalen a Espacios públicos y Mensajes.'},
+ {k:'Buscar gente',img:'buscar-gente',t:'Buscar en Gente',d:'Encuentra a cualquier persona registrada, aunque nunca le hayas escrito.'},
+ {k:'Chip Salas',img:'chip-salas',t:'Chip “Salas”',d:'Muestra solo las salas de grupo que ya tienes en tu lista.'},
+ {k:'Chip Personas',img:'chip-personas',t:'Chip “Personas”',d:'Muestra solo tus conversaciones directas ya abiertas. No busca entre todo el personal.'},
+ {k:'Botón +',img:'menu-mas',t:'Botón + junto a “Todos los chats”',d:'<b>Start chat</b> (iniciar chat), <b>Nueva sala</b> y <b>New section</b> (carpeta para organizar, opcional).'},
+ {k:'Tu perfil',img:'menu-perfil',t:'Menú de tu perfil',d:'Toca tu avatar arriba a la izquierda para el menú rápido y <b>Todos los ajustes</b>.'},
+ {k:'Cuenta',img:'ajustes-cuenta',t:'Ajustes → Cuenta',d:'Cambia tu nombre visible y tu foto de perfil.'},
+ {k:'Ajustes rápidos',img:'ajustes-rapidos',t:'Engranaje',d:'Abajo a la izquierda: acceso rápido para cambiar el tema y entrar a <b>Ajustes</b>.'},
+ {k:'Notificaciones',img:'notificaciones',t:'Ajustes → Notificaciones',d:'Actívalas o desactívalas, elige si suenan o llegan en silencio, y configura avisos cuando escriban tu nombre o usen @room.'},
+ {k:'Apariencia',img:'apariencia',t:'Ajustes → Apariencia',d:'Claro, Oscuro, Alto contraste y <b>hdsa-light</b>, el tema del hospital.'}];
+$('#tabsVis').innerHTML=vis.map((v,i)=>`<button role="tab" aria-selected="false" data-i="${i}">${v.k}</button>`).join('');
+function verVis(i){$$('#tabsVis button').forEach((b,j)=>b.setAttribute('aria-selected',i===j));const v=vis[i];
+  const im=$('#visImg img');im.src='img/'+v.img+'.jpg';im.alt=v.t;
+  $('#visTxt').innerHTML=`<span class="tag">${i+1} de ${vis.length}</span><h3>${v.t}</h3><p>${v.d}</p><div style="display:flex;gap:8px"><button class="boton sec" data-v="-1">← Anterior</button><button class="boton" data-v="1">Siguiente →</button></div>`;
+  $$('#visTxt [data-v]').forEach(b=>b.onclick=()=>verVis((i+ +b.dataset.v+vis.length)%vis.length));
+  const t=$$('#tabsVis button')[i];t.parentNode.scrollTo({left:t.offsetLeft-t.parentNode.offsetLeft-20,behavior:'smooth'})}
+$$('#tabsVis button').forEach(b=>b.onclick=()=>verVis(+b.dataset.i)); verVis(0);
+
+// 11 mensaje
+const acc={
+ reac:['Reaccionar','Elige un emoji para responder rápido sin escribir. Se agregó un 👍 al mensaje.'],
+ resp:['Responder','Tu respuesta queda citando este mensaje, para que se entienda a qué contestas.'],
+ hilo:['Responder en hilo','Abre un hilo a un lado: la conversación sobre este tema queda agrupada sin llenar la sala.'],
+ fijar:['Fijar','El mensaje queda fijado arriba de la sala para que todos lo encuentren fácil.'],
+ mas:['Más opciones','Abre el menú con Reenviar, Compartir, Denunciar y Eliminar. Toca una opción.']};
+const accM={Reenviar:'Envía este mensaje a otra sala o persona.',Compartir:'Copia un enlace directo a este mensaje.',Denunciar:'Reporta un mensaje inapropiado al administrador.',
+ Eliminar:'Solo puedes eliminar tus propios mensajes (o cualquiera si administras la sala). Queda marcado como “mensaje eliminado”.'};
+$$('.toolbar button').forEach(b=>b.onclick=e=>{e.stopPropagation();const a=b.dataset.a;$$('.toolbar button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  $('#menu3').hidden=a!=='mas';$('#explica').innerHTML=`<h3>${acc[a][0]}</h3><p style="margin-top:6px">${acc[a][1]}</p>`;
+  if(a==='reac')$('#reac').innerHTML='<span>👍 1</span>'; if(a==='fijar')$('#msgTexto').innerHTML='📌 ¿Alguien tiene el formato de remisión actualizado?'});
+$$('#menu3 button').forEach(b=>b.onclick=e=>{e.stopPropagation();$('#menu3').hidden=true;$('#explica').innerHTML=`<h3>${b.dataset.m}</h3><p style="margin-top:6px">${accM[b.dataset.m]}</p>`;
+  if(b.dataset.m==='Eliminar'){$('#msgTexto').innerHTML='<i style="color:var(--muted)">Mensaje eliminado</i>';$('#reac').innerHTML=''}});
+
+// 12 ajustes
+$$('.switch button').forEach(b=>b.onclick=()=>b.setAttribute('aria-checked',b.getAttribute('aria-checked')!=='true'));
+$('#probarNotif').onclick=()=>{const on=$('#swNotif').getAttribute('aria-checked')==='true',son=$('#swSonido').getAttribute('aria-checked')==='true';
+  $('#toastZona').innerHTML=on?`<div class="toast">🔔 <span><b>Laboratorio:</b> Resultados listos para cama 12${son?' · <i>suena</i>':' · en silencio'}</span></div>`:`<div class="toast" style="background:var(--chip);color:var(--muted)">Notificaciones apagadas: no te enterarás hasta abrir el chat.</div>`};
+$$('#temas button').forEach(b=>b.onclick=()=>{$$('#temas button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#mini').dataset.t=b.dataset.t});
+
+// 13 seguridad
+const segu=[
+ ['<rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>','¿Puedo prestarle mi usuario a un compañero de turno?','No. No compartas tu usuario ni tu contraseña con nadie, ni siquiera con un compañero de turno.'],
+ ['<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>','¿Necesito bloqueo de pantalla?','Sí. Activa PIN o huella en el dispositivo donde tengas la sesión abierta.'],
+ ['<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/>','¿Puedo hablar de pacientes aquí?','Solo para comunicación institucional. La información de pacientes tiene las mismas reglas de confidencialidad que cualquier otro medio del hospital.'],
+ ['<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5h.01"/>','Perdí mi celular. ¿Qué hago?','Avisa a Sistemas de inmediato para cerrar esa sesión de forma remota. Lo mismo si alguien pudo ver tu sesión abierta.'],
+ ['<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>','¿Puedo instalarlo o configurarlo por mi cuenta?','No. La instalación y cualquier ajuste de seguridad, cifrado o dispositivos se hacen con el área de Sistemas, y solo con los enlaces oficiales del hospital.'],
+ ['<path d="M4 12h16M12 4v16"/>','¿Y si cambio de celular?','Necesitarás tu clave de recuperación para ver tus mensajes anteriores. Sistemas la tiene en custodia.']];
+$('#flips').innerHTML=segu.map(s=>`<button class="flip" aria-pressed="false"><div class="in"><div class="cara frente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${s[0]}</svg><p class="q">${s[1]}</p><small>Toca para ver la respuesta ↻</small></div><div class="cara atras"><p>${s[2]}</p></div></div></button>`).join('');
+$$('.flip').forEach(b=>b.onclick=()=>b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true'));
+
+// 14 quiz
+const Q=[
+ {p:'Tu cédula es 1.236.458.795. ¿Cuál es tu usuario?',o:['1236458795','cc1236458795','cc 1.236.458.795','hdsa1236458795'],c:1,e:'Usuario = “cc” + cédula, sin puntos ni espacios.'},
+ {p:'Quieres escribirle a alguien con quien nunca has hablado. ¿Qué usas?',o:['El chip “Personas”','El chip “Salas”','Buscar (Ctrl+K)','La campana'],c:2,e:'El chip “Personas” solo filtra chats ya abiertos. Para alguien nuevo, siempre Buscar.'},
+ {p:'¿Cómo entras a la sala de tu turno?',o:['La busco y me uno','Sistemas me invita y yo acepto','Creo una sala nueva con ese nombre','Le pido el enlace a un compañero'],c:1,e:'Las salas las crea Sistemas y te llegan como invitación para Aceptar.'},
+ {p:'Tocas el ícono de teléfono en una conversación. ¿Qué pasa?',o:['Se abre una vista previa','Se inicia la llamada de inmediato','Te pide confirmar','Se agenda una llamada'],c:1,e:'No hay vista previa: la llamada empieza al tocarlo.'},
+ {p:'¿Cuándo te llegan las notificaciones?',o:['Siempre, aunque cierres el navegador','Solo si el chat está abierto (minimizado sirve)','Solo por correo','Nunca en el celular'],c:1,e:'Con el chat abierto, aunque esté minimizado. Cerrado, no.'},
+ {p:'Quieres cambiar algo en “Seguridad y privacidad” o “Cifrado”. ¿Qué haces?',o:['Lo cambio yo, es mi cuenta','Le pregunto a un compañero','Me comunico primero con el área de Sistemas','Busco un tutorial en internet'],c:2,e:'Toda configuración de seguridad y cifrado se hace con Sistemas: de ella depende la protección de los mensajes de todo el hospital.'},
+ {p:'La pantalla se queda en “Restableciendo…” más de 20 segundos.',o:['Cierro y espero un día','Recargo la página (F5)','Repito el proceso 10 veces','Creo otra cuenta'],c:1,e:'Normalmente ya quedó listo por dentro: recarga con F5. Si sigue, avisa a Sistemas.'}];
+let qi=0,qr=[];
+function pintarQ(){
+  const bar=`<div class="qbar">${Q.map((_,i)=>`<i class="${qr[i]===true?'b':qr[i]===false?'m':i===qi?'a':''}"></i>`).join('')}</div>`;
+  if(qi>=Q.length){const n=qr.filter(Boolean).length;
+    $('#quiz').innerHTML=bar+`<div class="final card"><div class="num">${n}/${Q.length}</div><h3>${n===Q.length?'¡Excelente! Ya dominas Chat HDSA.':n>=4?'¡Muy bien! Repasa las que fallaste.':'Vale la pena repasar la guía.'}</h3><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="boton" id="qOtra">Intentar de nuevo</button><button class="boton sec" data-ir="0">Volver al inicio</button></div></div>`;
+    $('#qOtra').onclick=()=>{qi=0;qr=[];pintarQ()};$('#quiz [data-ir]').onclick=()=>ir(0);return}
+  const q=Q[qi];
+  $('#quiz').innerHTML=bar+`<span class="tag" style="align-self:flex-start">Pregunta ${qi+1} de ${Q.length}</span><h3 style="font-size:clamp(20px,2.4vw,28px)">${q.p}</h3><div class="qopc">${q.o.map((o,i)=>`<button data-i="${i}"><span class="l">${'ABCD'[i]}</span>${o}</button>`).join('')}</div><div id="qfb"></div>`;
+  $$('.qopc button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i,ok=i===q.c;qr[qi]=ok;
+    $$('.qopc button').forEach((x,j)=>{x.disabled=true;if(j===q.c)x.classList.add('bien');else if(j===i)x.classList.add('mal')});
+    $('#qfb').innerHTML=`<div class="feedback"><b>${ok?'¡Correcto!':'Casi.'}</b> ${q.e}</div><div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="boton" id="qSig">${qi===Q.length-1?'Ver resultado':'Siguiente pregunta →'}</button></div>`;
+    $('#qSig').onclick=()=>{qi++;pintarQ()};
+    $$('.qbar i')[qi].className=ok?'b':'m'});
+}
+pintarQ();
+
+// 15 soporte
+const tips={p1:'Olvidaste la contraseña: Sistemas te la restablece.',p2:'Verificación trabada: no lo intentes muchas veces seguidas; Sistemas te ayuda.',p3:'Te falta una sala o contacto: di cuál es (por ejemplo, tu turno o servicio).',
+ p4:'Cambio de celular: vas a necesitar tu clave de recuperación, que Sistemas tiene en custodia.',p5:'Celular perdido o sesión expuesta: avisa de inmediato para cerrar la sesión de forma remota.'};
+$$('#checks input').forEach(c=>c.onchange=()=>{const s=$$('#checks input').filter(x=>x.checked);
+  $('#supTitulo').textContent=s.length?'Comunícate con Sistemas':'Área de Sistemas';
+  $('#supTxt').innerHTML=s.length?'<ul style="margin:0;padding-left:18px;display:grid;gap:6px">'+s.map(x=>'<li>'+tips[x.id]+'</li>').join('')+'</ul>':'Marca lo que te pasa y te decimos qué tener a mano.';
+  if(s.some(x=>x.id==='p5'))$('#supTitulo').textContent='⚠ Avisa a Sistemas ya'});
+$('#copiar').onclick=()=>{const t='https://chat.hdsa.gov.co:447';const done=()=>{$('#copiar').textContent='Copiado ✓';setTimeout(()=>$('#copiar').textContent='Copiar enlace',2000)};
+  try{navigator.clipboard.writeText(t).then(done,()=>{sel()})}catch(e){sel()}
+  function sel(){const r=document.createRange();r.selectNodeContents($('.sistemas .url span'));const s=getSelection();s.removeAllRanges();s.addRange(r)}};
+
+// arranque
+function desdeHash(){const m=/^#d(\d+)$/.exec(location.hash);ir(m?+m[1]-1:0)}
+window.addEventListener('hashchange',desdeHash);desdeHash();
+})();
+</script>
+
+</body></html>

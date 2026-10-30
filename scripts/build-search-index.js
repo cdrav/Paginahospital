@@ -6,7 +6,7 @@ const { glob } = require('glob');
 const PROJECT_ROOT = path.join(__dirname, '..');
 const HTML_FILES_PATTERN = '**/*.html';
 // Excluimos directorios que no contienen páginas públicas
-const EXCLUDE_PATTERNS = ['node_modules/**', 'partials/**', 'presentacion-jd/**'];
+const EXCLUDE_PATTERNS = ['node_modules/**', 'partials/**', 'presentacion-jd/**', 'documentos/Portal-institucional/**'];
 const OUTPUT_PATH = path.join(PROJECT_ROOT, 'search-index.json');
 
 /**
