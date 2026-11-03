@@ -26,6 +26,16 @@ onAuthStateChanged(auth, (user) => {
         // --- Lógica de roles por correo ---
         const SUPER_ADMIN_EMAILS = ['coord.sistemas@hdsa.gov.co'];
         const CITAS_EMAILS = ['citas@hdsa.gov.co'];
+        // Usuario del personal para la guía del chat: solo ve la guía, nada más del portal
+        const CHAT_GUIA_EMAILS = ['chat@hdsa.gov.co'];
+
+        if (CHAT_GUIA_EMAILS.includes(userEmail)) {
+            window.location.replace('documentos/Portal-institucional/guia-chat-hdsa/index.html');
+            return;
+        }
+
+        // Sesión verificada: ya se puede mostrar el portal
+        document.documentElement.classList.remove('portal-verificando');
 
         const isSuperAdmin = SUPER_ADMIN_EMAILS.includes(userEmail);
         const isCitasUser = CITAS_EMAILS.includes(userEmail);

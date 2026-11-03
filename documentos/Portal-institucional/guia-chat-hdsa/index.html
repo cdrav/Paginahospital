@@ -7,12 +7,13 @@ setTimeout(function () { if (document.documentElement.classList.contains('verifi
 </script>
 <style>html.verificando body{visibility:hidden}</style>
 <script type="module">
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { auth } from "/js/firebase-config.js";
 onAuthStateChanged(auth, (user) => {
   if (user) document.documentElement.classList.remove('verificando');
   else location.replace('/login-institucional.html');
 });
+window.cerrarSesionHDSA = () => signOut(auth).then(() => location.replace('/login-institucional.html'));
 </script>
 <!-- GUARDIA:FIN -->
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
@@ -783,7 +784,7 @@ b,strong{font-weight:700}
 </div>
 
 <div class="indice" id="indice" hidden role="dialog" aria-label="Temas">
- <div class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Temas de la guía</h3><button class="nav" id="cerrarIndice" aria-label="Cerrar">✕</button></div><ol id="indiceLista"></ol></div>
+ <div class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Temas de la guía</h3><button class="nav" id="cerrarIndice" aria-label="Cerrar">✕</button></div><ol id="indiceLista"></ol><div style="border-top:1px solid var(--line);margin-top:16px;padding-top:14px;display:flex;justify-content:flex-end"><button class="boton sec" type="button" onclick="window.cerrarSesionHDSA&&window.cerrarSesionHDSA()">Cerrar sesión</button></div></div>
 </div>
 <div class="lb" id="lb" hidden><div><img id="lbImg" alt=""><p id="lbTxt"></p></div></div>
 

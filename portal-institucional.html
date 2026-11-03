@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="/css/accesibilidad.css" />
     <link rel="stylesheet" href="/css/accessibility-buttons.css" />
     <link rel="stylesheet" href="/css/portal-select-fix.css" />
+    <!-- El contenido del portal se oculta hasta verificar la sesión y el rol (ver js/portal-institucional-v2.js) -->
+    <script>document.documentElement.classList.add('portal-verificando');</script>
+    <style>html.portal-verificando main, html.portal-verificando #user-welcome { visibility: hidden; }</style>
 </head>
 <body>
 
@@ -506,7 +509,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="js/email-service.js"></script>
     <!-- Lógica principal del portal, incluye protección de ruta y gestión de paneles -->
-    <script src="js/portal-institucional-v2.js?v=4" type="module" defer></script>
+    <script src="js/portal-institucional-v2.js?v=5" type="module" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>
