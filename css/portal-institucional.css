@@ -276,3 +276,85 @@
         font-size: 1.75rem;
     }
 }
+
+/* =====================================================================
+   Optimización del portal (noviembre 2026)
+   ===================================================================== */
+
+/* Título de la franja superior: la regla general de h1 lo pintaba oscuro sobre fondo oscuro */
+.portal-hero h1,
+.portal-hero .lead,
+.portal-hero #user-welcome {
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+.portal-hero .lead { opacity: .9; }
+/* El body del sitio es un contenedor flex de altura fija: sin esto la franja se encoge y corta el título */
+.portal-hero { flex-shrink: 0; }
+
+/* Secciones del inicio */
+.portal-seccion { padding: 0; } /* anula el relleno general de <section> del sitio */
+.portal-seccion-titulo {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding-bottom: .75rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid #e3f1ef;
+}
+.portal-seccion-titulo h2 { color: #164443; text-transform: none; }
+.portal-seccion-icono {
+    flex: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    color: #fff;
+    background: linear-gradient(135deg, #164443, #22a7a0);
+}
+
+/* Tabla de citas: botones sin partirse */
+.tabla-citas .acciones-cita .btn { white-space: nowrap; flex-shrink: 0; }
+
+/* Tabla de citas en celular: cada solicitud como tarjeta */
+@media (max-width: 767.98px) {
+    .tabla-citas thead { display: none; }
+    .tabla-citas,
+    .tabla-citas tbody,
+    .tabla-citas tr,
+    .tabla-citas td { display: block; width: 100%; }
+    .tabla-citas tr.cita-row {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: .5rem .75rem;
+        margin-bottom: .75rem;
+        background: #fff;
+    }
+    .tabla-citas tr.table-group-header td { border-radius: 8px; margin: .5rem 0; }
+    .tabla-citas tr.cita-row td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        border: 0;
+        padding: .35rem 0;
+        text-align: right;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    .tabla-citas tr.cita-row td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        font-size: .75rem;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        color: #6b7280;
+        text-align: left;
+        flex: none;
+    }
+    .tabla-citas tr.cita-row td > * { min-width: 0; }
+    .tabla-citas .acciones-cita { justify-content: flex-end; }
+}

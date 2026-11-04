@@ -1,0 +1,72 @@
+rules_version = '2';
+
+// Reglas de Firestore del Portal Institucional HDSA.
+// Pegar en: Consola de Firebase > Firestore Database > Reglas > Publicar.
+//
+// Permisos por módulo (igual que js/portal-institucional-v2.js):
+//   colección "usuariosPortal", documento = correo del usuario en minúsculas
+//   { nombre: "…", modulos: ["citas", "calidad", …], inicio: "citas" }
+//   Módulos: "admin" (todo), "citas", "calidad", "guia-chat".
+// Los correos de la lista "porDefecto" funcionan aunque no tengan documento.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function correo() {
+      return request.auth.token.email.lower();
+    }
+    function esAdmin() {
+      return request.auth != null && correo() in ['coord.sistemas@hdsa.gov.co'];
+    }
+    function perfil() {
+      return get(/databases/$(database)/documents/usuariosPortal/$(correo())).data;
+    }
+    function tienePerfil() {
+      return exists(/databases/$(database)/documents/usuariosPortal/$(correo()));
+    }
+    function tieneModulo(modulo) {
+      return request.auth != null && (
+        esAdmin()
+        || (modulo == 'citas' && correo() == 'citas@hdsa.gov.co')
+        || (tienePerfil() && perfil().modulos is list
+            && (modulo in perfil().modulos || 'admin' in perfil().modulos))
+      );
+    }
+
+    // Permisos de cada usuario: cada quien lee el suyo; solo el administrador los edita
+    match /usuariosPortal/{email} {
+      allow read: if request.auth != null && (correo() == email || esAdmin());
+      allow write: if esAdmin();
+    }
+
+    // Especialidades: lectura pública (formulario de citas), edición solo administrador
+    match /especialidades/{docId} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+
+    // Citas en línea
+    match /citasOnline/{citaId} {
+      // El público solo puede CREAR una solicitud nueva, con la forma esperada
+      allow create: if request.resource.data.status == 'Solicitud de Cita'
+                    && request.resource.data.paciente is map
+                    && request.resource.data.especialidad is map
+                    && request.resource.data.createdAt == request.time
+                    && request.resource.data.get('ordenesMedicas', []) is list
+                    && request.resource.data.get('ordenesMedicas', []).size() <= 10
+                    && request.resource.data.get('historial', []) is list
+                    && request.resource.data.get('historial', []).size() <= 1;
+      // Leer y gestionar: solo quien tenga el módulo de citas
+      allow read, update: if tieneModulo('citas');
+      // Borrar: solo el administrador
+      allow delete: if esAdmin();
+    }
+
+    // Registro de correos enviados desde el panel de citas
+    match /emailLogs/{logId} {
+      allow create, read: if tieneModulo('citas');
+    }
+
+    // Todo lo demás queda cerrado
+  }
+}

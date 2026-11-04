@@ -5,7 +5,7 @@
 
 import { db, storage } from "./firebase-config.js";
 import { collection, addDoc, serverTimestamp, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+import { ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 // Datos de ejemplo para especialidades (Simulación de API)
 const especialidades = [
@@ -716,13 +716,14 @@ const especialidades = [
             // Estructura organizada: citas/YYYY/MM/ID_CITA/timestamp_archivo.ext
             const storageRef = ref(storage, `citas/${currentYear}/${currentMonth}/${citaId}/${uniqueName}`);
             const snapshot = await uploadBytes(storageRef, fileToUpload);
-            const downloadURL = await getDownloadURL(snapshot.ref);
-            
+
+            // Se guarda la ruta, no un enlace público: los adjuntos solo los abre
+            // el personal de citas desde el portal (ver firebase/storage.rules).
             return {
               success: true,
               data: {
               name: fileToUpload.name,
-              url: downloadURL,
+              path: snapshot.ref.fullPath,
               size: fileToUpload.size,
               type: fileToUpload.type
               }

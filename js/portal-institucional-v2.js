@@ -3,80 +3,104 @@ import { auth, db, storage } from "./firebase-config.js";
 import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-// Protección de ruta: Firebase verifica si hay usuario activo
-onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        // Si no hay usuario, mandar al login
-        window.location.href = 'login-institucional.html';
-    } else {
-        console.log("Usuario autenticado:", user.email);
-        
-        // Mostrar mensaje de bienvenida personalizado por rol
-        const welcomeElement = document.getElementById('user-welcome');
-        const userEmail = (user.email || '').toLowerCase();
-        if (welcomeElement) {
-            const friendlyNames = {
-                'citas@hdsa.gov.co': 'Gestora de Citas',
-                'coord.sistemas@hdsa.gov.co': 'Administrador'
-            };
-            const displayName = friendlyNames[userEmail] || user.email;
-            welcomeElement.textContent = `Bienvenido(a), ${displayName}`;
+// --- Seguridad: los datos de las citas vienen de un formulario público ---
+// Todo texto que se inserte en el HTML pasa por esc(); los enlaces por urlSegura().
+function esc(valor) {
+    return String(valor ?? '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+// Texto libre (motivo, notas): se escapa y se conservan los saltos de línea
+function escMultilinea(valor) {
+    return esc(valor).replace(/\r?\n/g, '<br>');
+}
+// Solo se permiten enlaces https (descargas de Firebase Storage)
+function urlSegura(url) {
+    return /^https:\/\//i.test(String(url || '')) ? esc(url) : '#';
+}
+
+// Estados válidos de una cita (únicos en todo el portal)
+const ESTADOS_CITA = ['Solicitud de Cita', 'En Proceso', 'Confirmada', 'Reasignada', 'Cancelada'];
+const GRUPO_OTROS = 'Otros estados';
+
+// =========================================================================
+// ROLES DEL PORTAL
+// Cada usuario tiene una lista de módulos. Se leen de Firestore:
+//   colección "usuariosPortal", documento = correo del usuario
+//   { nombre: "…", modulos: ["citas", "calidad", …], inicio: "citas" (opcional) }
+// Módulos: "admin" (ve todo), "citas", "calidad", "guia-chat" (solo la guía).
+// Sin documento en Firestore se usan estos valores (los usuarios de siempre).
+// Importante: las reglas de Firestore/Storage deben coincidir (ver firebase/).
+// =========================================================================
+const PERFILES_POR_DEFECTO = {
+    'coord.sistemas@hdsa.gov.co': { nombre: 'Administrador', modulos: ['admin'] },
+    'citas@hdsa.gov.co': { nombre: 'Gestora de Citas', modulos: ['citas'], inicio: 'citas' },
+    'chat@hdsa.gov.co': { nombre: 'Personal', modulos: ['guia-chat'] }
+};
+const URL_GUIA_CHAT = 'documentos/Portal-institucional/guia-chat-hdsa/index.html';
+
+async function obtenerPerfil(email) {
+    try {
+        const snap = await getDoc(doc(db, 'usuariosPortal', email));
+        if (snap.exists()) {
+            const datos = snap.data();
+            return { nombre: datos.nombre || '', modulos: Array.isArray(datos.modulos) ? datos.modulos : [], inicio: datos.inicio || '' };
         }
-
-        // --- Lógica de roles por correo ---
-        const SUPER_ADMIN_EMAILS = ['coord.sistemas@hdsa.gov.co'];
-        const CITAS_EMAILS = ['citas@hdsa.gov.co'];
-        // Usuario del personal para la guía del chat: solo ve la guía, nada más del portal
-        const CHAT_GUIA_EMAILS = ['chat@hdsa.gov.co'];
-
-        if (CHAT_GUIA_EMAILS.includes(userEmail)) {
-            window.location.replace('documentos/Portal-institucional/guia-chat-hdsa/index.html');
-            return;
-        }
-
-        // Sesión verificada: ya se puede mostrar el portal
-        document.documentElement.classList.remove('portal-verificando');
-
-        const isSuperAdmin = SUPER_ADMIN_EMAILS.includes(userEmail);
-        const isCitasUser = CITAS_EMAILS.includes(userEmail);
-
-        if (isSuperAdmin) {
-            // Super Admin: ve TODOS los módulos
-            const adminCard = document.getElementById('admin-card');
-            const firebaseCard = document.getElementById('firebase-card');
-            const hojaVidaPcCard = document.getElementById('hoja-vida-pc-card');
-            const citasAdminCard = document.getElementById('citas-admin-card');
-            const intranetCard = document.getElementById('intranet-card');
-            
-            if (adminCard) adminCard.classList.remove('d-none');
-            if (firebaseCard) firebaseCard.classList.remove('d-none');
-            if (hojaVidaPcCard) hojaVidaPcCard.classList.remove('d-none');
-            if (citasAdminCard) citasAdminCard.classList.remove('d-none');
-            if (intranetCard) intranetCard.classList.remove('d-none');
-
-            // Mostrar botón de borrar registros solo para admin
-            const btnAdminDeleteAll = document.getElementById('btn-admin-delete-all');
-            if (btnAdminDeleteAll) btnAdminDeleteAll.classList.remove('d-none');
-
-            initCitasAdmin();
-            initIntranetPlaneacion();
-
-        } else if (isCitasUser) {
-            // Usuario de Citas: solo ve el módulo de gestión de citas
-            const citasAdminCard = document.getElementById('citas-admin-card');
-            if (citasAdminCard) citasAdminCard.classList.remove('d-none');
-
-            initCitasAdmin();
-
-            // Auto-abrir el panel de citas directamente
-            const mainCardsContainer = document.getElementById('main-cards-container');
-            const citasAdminPanel = document.getElementById('citas-admin-panel');
-            if (mainCardsContainer && citasAdminPanel) {
-                mainCardsContainer.classList.add('d-none');
-                citasAdminPanel.classList.remove('d-none');
-            }
-        }
+    } catch (error) {
+        console.warn('No se pudo leer el perfil del usuario; se usan los permisos por defecto.', error);
     }
+    return PERFILES_POR_DEFECTO[email] || { nombre: '', modulos: [] };
+}
+
+function aplicarPerfil(perfil) {
+    const esAdmin = perfil.modulos.includes('admin');
+    const tiene = (modulo) => esAdmin || perfil.modulos.includes(modulo);
+
+    // Tarjetas con data-modulo: visibles solo si el usuario tiene ese módulo
+    document.querySelectorAll('#main-cards-container [data-modulo]').forEach(tarjeta => {
+        tarjeta.classList.toggle('d-none', !tiene(tarjeta.dataset.modulo));
+    });
+    // Secciones sin ninguna tarjeta visible se ocultan
+    document.querySelectorAll('#main-cards-container .portal-seccion').forEach(seccion => {
+        const visibles = [...seccion.querySelectorAll('.portal-tarjeta')].some(t => !t.classList.contains('d-none'));
+        seccion.classList.toggle('d-none', !visibles);
+    });
+
+    const btnAdminDeleteAll = document.getElementById('btn-admin-delete-all');
+    if (btnAdminDeleteAll) btnAdminDeleteAll.classList.toggle('d-none', !esAdmin);
+
+    if (tiene('citas')) initCitasAdmin();
+    if (tiene('calidad')) initIntranetPlaneacion();
+
+    // Usuarios que entran directo a su módulo (ej. Gestora de Citas)
+    if (perfil.inicio === 'citas' && tiene('citas')) {
+        document.getElementById('main-cards-container')?.classList.add('d-none');
+        document.getElementById('citas-admin-panel')?.classList.remove('d-none');
+    }
+}
+
+// Protección de ruta: Firebase verifica si hay usuario activo
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = 'login-institucional.html';
+        return;
+    }
+    const userEmail = (user.email || '').toLowerCase();
+    const perfil = await obtenerPerfil(userEmail);
+
+    // Usuario solo de la guía del chat: va directo a la guía, nada más del portal
+    if (perfil.modulos.length === 1 && perfil.modulos[0] === 'guia-chat') {
+        window.location.replace(URL_GUIA_CHAT);
+        return;
+    }
+
+    const welcomeElement = document.getElementById('user-welcome');
+    if (welcomeElement) welcomeElement.textContent = `Bienvenido(a), ${perfil.nombre || user.email}`;
+
+    aplicarPerfil(perfil);
+
+    // Sesión y permisos verificados: ya se puede mostrar el portal
+    document.documentElement.classList.remove('portal-verificando');
 });
 
 // Lógica de la página
@@ -144,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const radicado = btn.dataset.radicado;
             const pacienteEmail = btn.dataset.email;            
             const especialidad = btn.dataset.especialidad;
-            openEmailModal(docId, pacienteEmail, radicado, especialidad);
+            openEmailModal(docId, pacienteEmail, radicado, especialidad, btn.dataset.status, btn.dataset.fecha, btn.dataset.hora);
         }
 
         if (e.target.closest('.cambiar-estado-btn')) {
@@ -163,11 +187,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (e.target.closest('.descargar-archivo-btn')) {
-            const btn = e.target.closest('.descargar-archivo-btn');
-            const fileUrl = btn.dataset.url;
-            const fileName = btn.dataset.name;
-            await downloadFile(fileUrl, fileName);
+            await downloadFile(e.target.closest('.descargar-archivo-btn'));
         }
+
+        // Mapa de Procesos: copiar la ruta de la carpeta compartida
+        if (e.target.closest('.copy-path-btn')) {
+            await copiarRutaProceso(e.target.closest('.copy-path-btn'));
+        }
+    });
+
+    // Paginación: "Cargar más" muestra otras 20 solicitudes de las ya filtradas
+    const btnLoadMore = document.getElementById('btn-load-more-citas');
+    if (btnLoadMore) {
+        btnLoadMore.addEventListener('click', () => {
+            citasQueryLimit += CITAS_POR_PAGINA;
+            renderCitasTable(currentCitasData);
+        });
+    }
+
+    // Filtros de fecha
+    ['filter-date-from', 'filter-date-to'].forEach(id => {
+        document.getElementById(id)?.addEventListener('change', () => {
+            citasQueryLimit = CITAS_POR_PAGINA;
+            initCitasAdmin();
+        });
+    });
+    document.getElementById('filter-status')?.addEventListener('change', () => {
+        citasQueryLimit = CITAS_POR_PAGINA;
+        initCitasAdmin();
     });
 
     // Event listener para tarjetas de estadísticas clickables
@@ -223,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterSpecialty = document.getElementById('filter-specialty');
     if (filterSpecialty) {
         filterSpecialty.addEventListener('change', () => {
-            citasQueryLimit = 20;
+            citasQueryLimit = CITAS_POR_PAGINA;
             initCitasAdmin();
         });
     }
@@ -274,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnApplyFilters = document.getElementById('btn-apply-filters');
     if (btnApplyFilters) {
         btnApplyFilters.addEventListener('click', () => {
+            citasQueryLimit = CITAS_POR_PAGINA;
             initCitasAdmin(); // Recargar con los nuevos filtros
         });
     }
@@ -303,6 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.addEventListener('input', () => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
+                citasQueryLimit = CITAS_POR_PAGINA;
                 initCitasAdmin();
             }, 500);
         });
@@ -314,7 +363,8 @@ document.addEventListener('DOMContentLoaded', () => {
  * Ahora soporta filtros para optimizar lecturas.
  */
 let currentCitasData = []; // Variable global para almacenar los datos actuales y poder exportarlos
-let citasQueryLimit = 20; // Límite inicial de citas a cargar (Paginación)
+const CITAS_POR_PAGINA = 20; // Solicitudes que se muestran por página
+let citasQueryLimit = CITAS_POR_PAGINA; // Cuántas se muestran ahora (crece con "Cargar más")
 let unsubscribeCitas = null; // Variable para almacenar la suscripción y poder cancelarla
 
 function initCitasAdmin() {
@@ -351,20 +401,30 @@ function initCitasAdmin() {
     }
 
     // Usamos onSnapshot para tiempo real, pero cuidado con los costos si hay muchas escrituras.
+    // Rango de fechas de solicitud (se filtra en el navegador para no requerir índices en Firestore)
+    const desde = dateFrom ? new Date(`${dateFrom}T00:00:00`) : null;
+    const hasta = dateTo ? new Date(`${dateTo}T23:59:59.999`) : null;
+
     unsubscribeCitas = onSnapshot(q, (querySnapshot) => {
         const citas = [];
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            
+
             // Filtrar registros incompletos para evitar errores en reportes y tabla
             if (!data.paciente || !data.especialidad) {
                 return;
             }
 
+            // Filtro por fecha de solicitud
+            const creada = data.createdAt?.toDate ? data.createdAt.toDate() : null;
+            if ((desde || hasta) && !creada) return;
+            if (desde && creada < desde) return;
+            if (hasta && creada > hasta) return;
+
             // Filtrado en cliente para búsqueda de texto (nombre o documento)
             if (searchTerm) {
                 const nombreCompleto = `${data.paciente.nombres} ${data.paciente.apellidos}`.toLowerCase();
-                const documento = data.paciente.numeroDocumento || '';
+                const documento = String(data.paciente.numeroDocumento || '');
                 if (nombreCompleto.includes(searchTerm) || documento.includes(searchTerm)) {
                     citas.push({ id: doc.id, ...data });
                 }
@@ -372,10 +432,13 @@ function initCitasAdmin() {
                 citas.push({ id: doc.id, ...data });
             }
         });
-        
-        currentCitasData = citas; // Guardar referencia para exportación
-        updateStatistics(citas); // Calcular estadísticas con los datos cargados
-        renderCitasTable(citas, querySnapshot.size);
+
+        // Más recientes primero
+        citas.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+        currentCitasData = citas; // Todas las citas filtradas: se usan en exportación y estadísticas
+        updateStatistics(citas);
+        renderCitasTable(citas);
     }, (error) => {
         console.error("Error al cargar citas:", error);
         document.getElementById('citas-table-body').innerHTML = `<tr><td colspan="7" class="text-center text-danger">Error al cargar las solicitudes.</td></tr>`;
@@ -420,11 +483,11 @@ function animateValue(id, value) {
 }
 
 /**
- * Renderiza las filas de la tabla de citas con mejoras.
- * @param {Array} citas - Datos de las citas
- * @param {number} totalLoaded - Cantidad total cargada actualmente (para lógica de botón)
+ * Renderiza la tabla de citas agrupada por estado.
+ * Muestra de a CITAS_POR_PAGINA; "Cargar más" agrega otra página.
+ * @param {Array} citas - Todas las citas filtradas (más recientes primero)
  */
-function renderCitasTable(citas, totalLoaded) {
+function renderCitasTable(citas) {
     const tableBody = document.getElementById('citas-table-body');
     const loadingSpinner = document.getElementById('citas-loading');
     const noResults = document.getElementById('citas-no-results');
@@ -444,119 +507,77 @@ function renderCitasTable(citas, totalLoaded) {
     }
 
     noResults.classList.add('d-none');
-    
-    // Lógica del botón "Cargar más"
-    if (btnLoadMore && infoText) {
-        const searchTerm = document.getElementById('filter-search')?.value;
-        
-        if (searchTerm) {
-            // En búsqueda no usamos paginación simple (el límite se maneja en la query de búsqueda)
-            btnLoadMore.classList.add('d-none');
-            infoText.textContent = `Resultados de búsqueda: ${citas.length}`;
-        } else {
-            infoText.textContent = `Mostrando ${citas.length} solicitudes más recientes`;
-            
-            // Si cargamos menos de lo que pedimos (ej. pedimos 20 y llegaron 15), es el final
-            if (totalLoaded !== undefined && totalLoaded < citasQueryLimit) {
-                btnLoadMore.classList.add('d-none');
-                infoText.textContent += ' (Fin de los registros)';
-            } else {
-                btnLoadMore.classList.remove('d-none');
-            }
-        }
+
+    const visibles = citas.slice(0, citasQueryLimit);
+    if (btnLoadMore) btnLoadMore.classList.toggle('d-none', visibles.length >= citas.length);
+    if (infoText) {
+        infoText.textContent = visibles.length >= citas.length
+            ? `Mostrando ${citas.length} solicitud${citas.length === 1 ? '' : 'es'}`
+            : `Mostrando ${visibles.length} de ${citas.length} solicitudes (las más recientes primero)`;
     }
 
-    // Agrupar citas por estado para mejor organización
-    const citasPorEstado = {
-        'Solicitud de Cita': [],
-        'Confirmada': [],
-        'En Proceso': [],
-        'Reasignada': [],
-        'Cancelada': []
-    };
-
-    citas.forEach(cita => {
-        // Validación mejorada con más detalles
-        if (!cita.paciente) {
-            console.warn('⚠️ Cita sin datos de paciente:', cita.id, cita);
-            return;
-        }
-        
-        if (!cita.especialidad) {
-            console.warn('⚠️ Cita sin especialidad:', cita.id, cita);
-            return;
-        }
-
+    // Agrupar por estado; los estados desconocidos van a un grupo propio (no se esconden)
+    const citasPorEstado = {};
+    [...ESTADOS_CITA, GRUPO_OTROS].forEach(e => { citasPorEstado[e] = []; });
+    visibles.forEach(cita => {
         const status = cita.status || 'Solicitud de Cita';
-        if (citasPorEstado[status]) {
-            citasPorEstado[status].push(cita);
-        } else {
-            console.warn('⚠️ Estado desconocido:', status, 'para cita:', cita.id);
-            // Agregar a Solicitud de Cita por defecto
-            citasPorEstado['Solicitud de Cita'].push(cita);
-        }
+        (citasPorEstado[status] || citasPorEstado[GRUPO_OTROS]).push(cita);
     });
 
-    // Renderizar citas agrupadas por estado
     let htmlContent = '';
-    Object.keys(citasPorEstado).forEach(status => {
-        if (citasPorEstado[status].length > 0) {
-            htmlContent += `
-                <tr class="table-group-header">
-                    <td colspan="6" class="bg-light text-center fw-bold text-primary py-2">
-                        <i class="bi bi-folder-fill me-2"></i>${status} (${citasPorEstado[status].length})
-                    </td>
-                </tr>
-            `;
-            
-            citasPorEstado[status].forEach(cita => {
-                const fechaSolicitud = cita.createdAt?.toDate().toLocaleDateString('es-CO') || 'N/A';
-                const statusBadge = getStatusBadge(status);
-                const radicadoToShow = cita.radicado || cita.id;
+    Object.keys(citasPorEstado).forEach(grupo => {
+        const lista = citasPorEstado[grupo];
+        if (!lista.length) return;
+        htmlContent += `
+            <tr class="table-group-header">
+                <td colspan="6" class="bg-light text-center fw-bold text-primary py-2">
+                    <i class="bi bi-folder-fill me-2"></i>${esc(grupo)} (${lista.length})
+                </td>
+            </tr>`;
 
-                htmlContent += `
-                    <tr class="cita-row" data-status="${status}">
-                        <td data-label="Radicado"><small class="text-muted fw-bold">${radicadoToShow}</small></td>
-                        <td data-label="Paciente">
-                            <div class="d-flex align-items-center">
-                                <div class="me-2">
-                                    <i class="bi bi-person-circle text-primary fs-5"></i>
-                                </div>
-                                <div>
-                                    <strong>${cita.paciente.nombres || 'N/A'} ${cita.paciente.apellidos || 'N/A'}</strong>
-                                    <small class="d-block text-muted">${cita.paciente.numeroDocumento || 'N/A'}</small>
-                                </div>
+        lista.forEach(cita => {
+            const status = cita.status || 'Solicitud de Cita';
+            const fechaSolicitud = cita.createdAt?.toDate ? cita.createdAt.toDate().toLocaleDateString('es-CO') : 'N/A';
+            const radicado = cita.radicado || cita.id;
+            const paciente = cita.paciente || {};
+            const especialidad = cita.especialidad?.nombre || 'N/A';
+
+            htmlContent += `
+                <tr class="cita-row" data-status="${esc(status)}">
+                    <td data-label="Radicado"><small class="text-muted fw-bold">${esc(radicado)}</small></td>
+                    <td data-label="Paciente">
+                        <div class="d-flex align-items-center">
+                            <div class="me-2"><i class="bi bi-person-circle text-primary fs-5"></i></div>
+                            <div>
+                                <strong>${esc(paciente.nombres || 'N/A')} ${esc(paciente.apellidos || '')}</strong>
+                                <small class="d-block text-muted">${esc(paciente.numeroDocumento || 'N/A')}</small>
                             </div>
-                        </td>
-                        <td data-label="Especialidad">
-                            <span class="badge bg-info text-white">
-                                <i class="bi bi-hospital me-1"></i>${cita.especialidad.nombre || 'N/A'}
-                            </span>
-                        </td>
-                        <td data-label="Fecha Solicitud">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-calendar-event text-muted me-2"></i>
-                                <span>${fechaSolicitud}</span>
-                            </div>
-                        </td>
-                        <td data-label="Estado">${statusBadge}</td>
-                        <td data-label="Acciones">
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-sm btn-primary view-details-btn rounded-pill px-3 shadow-sm border-0 d-inline-flex align-items-center" data-doc-id="${cita.id}" title="Ver detalles completos">
-                                    <i class="bi bi-eye-fill me-1"></i> Ver
-                                </button>
-                                <button class="btn btn-sm btn-light border cambiar-estado-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-status="${status}" title="Cambiar Estado">
-                                    <i class="bi bi-arrow-repeat text-warning"></i>
-                                </button>
-                                <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${cita.id}" data-radicado="${radicadoToShow}" data-email="${cita.paciente.correo || ''}" data-especialidad="${cita.especialidad.nombre}" data-status="${status}" data-fecha="${cita.fecha || ''}" data-hora="${cita.hora || ''}" title="Responder Email">
-                                    <i class="bi bi-envelope-at text-info"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
+                        </div>
+                    </td>
+                    <td data-label="Especialidad">
+                        <span class="badge bg-info text-white"><i class="bi bi-hospital me-1"></i>${esc(especialidad)}</span>
+                    </td>
+                    <td data-label="Fecha solicitud">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-calendar-event text-muted me-2"></i><span>${esc(fechaSolicitud)}</span>
+                        </div>
+                    </td>
+                    <td data-label="Estado">${getStatusBadge(status)}</td>
+                    <td data-label="Acciones">
+                        <div class="d-flex gap-2 acciones-cita">
+                            <button class="btn btn-sm btn-primary view-details-btn rounded-pill px-3 shadow-sm border-0 d-inline-flex align-items-center text-nowrap" data-doc-id="${esc(cita.id)}" title="Ver detalles completos">
+                                <i class="bi bi-eye-fill me-1"></i> Ver
+                            </button>
+                            <button class="btn btn-sm btn-light border cambiar-estado-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${esc(cita.id)}" data-status="${esc(status)}" title="Cambiar estado" aria-label="Cambiar estado">
+                                <i class="bi bi-arrow-repeat text-warning"></i>
+                            </button>
+                            <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${esc(cita.id)}" data-radicado="${esc(radicado)}" data-email="${esc(paciente.correo || '')}" data-especialidad="${esc(especialidad)}" data-status="${esc(status)}" data-fecha="${esc(cita.fecha || '')}" data-hora="${esc(cita.hora || '')}" title="Responder por correo" aria-label="Responder por correo">
+                                <i class="bi bi-envelope-at text-info"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+        });
     });
 
     tableBody.innerHTML = htmlContent;
@@ -653,7 +674,7 @@ function openEmailModal(citaId, pacienteEmail, radicado, especialidad, currentSt
         templateGroup.innerHTML = `
             <label class="form-label small fw-bold text-muted"><i class="bi bi-magic me-1"></i>Plantilla sugerida:</label>
             <select id="templateSelect" class="form-select form-select-sm border-primary shadow-sm">
-                ${Object.keys(templates).map(name => `<option value="${name}">${name}</option>`).join('')}
+                ${Object.keys(templates).map(name => `<option value="${esc(name)}">${esc(name)}</option>`).join('')}
             </select>
         `;
         emailSubject.closest('.mb-3').insertAdjacentElement('beforebegin', templateGroup);
@@ -960,7 +981,8 @@ function getStatusBadge(status) {
         'Reasignada': '<span class="badge bg-secondary">Reasignada</span>',
         'Cancelada': '<span class="badge bg-danger">Cancelada</span>'
     };
-    return badges[status] || badges['Solicitud de Cita'];
+    if (!status) return badges['Solicitud de Cita'];
+    return badges[status] || `<span class="badge bg-dark">${esc(status)}</span>`;
 }
 
 
@@ -1066,12 +1088,12 @@ async function showCitaDetails(docId) {
             <div class="mt-3">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <h6 class="fw-bold mb-0"><i class="bi bi-journal-text me-2"></i>Notas de Gestión Administrativa:</h6>
-                    <button class="btn btn-sm btn-link text-primary p-0 btn-notas-solicitud" data-doc-id="${docId}" title="Editar notas">
+                    <button class="btn btn-sm btn-link text-primary p-0 btn-notas-solicitud" data-doc-id="${esc(docId)}" title="Editar notas">
                         <i class="bi bi-pencil-square"></i> Editar
                     </button>
                 </div>
                 <div class="alert alert-warning py-2 small shadow-sm border-start border-4 border-warning">
-                    ${cita.gestionNotes}
+                    ${escMultilinea(cita.gestionNotes)}
                     <div class="text-end mt-1 border-top pt-1 text-muted" style="font-size: 0.7rem;">
                         Última actualización: ${cita.notesUpdatedAt ? cita.notesUpdatedAt.toDate().toLocaleString('es-CO') : 'N/A'}
                     </div>
@@ -1079,53 +1101,58 @@ async function showCitaDetails(docId) {
             </div>
         ` : '';
 
-        // Obtener URLs de descarga para los archivos
+        // Archivos adjuntos. Las citas nuevas guardan la ruta en Storage (path) y el enlace
+        // se pide aquí con la sesión del funcionario; las antiguas traen el enlace (url).
         let archivosHtml = '';
-        if (cita.ordenesMedicas && cita.ordenesMedicas.length > 0) {
+        const adjuntos = Array.isArray(cita.ordenesMedicas) ? cita.ordenesMedicas : [];
+        if (adjuntos.length > 0) {
+            const enlaces = await Promise.all(adjuntos.map(async archivo => {
+                if (archivo.url) return archivo.url;
+                if (!archivo.path) return '';
+                try { return await getDownloadURL(ref(storage, archivo.path)); }
+                catch (error) { console.warn('No se pudo obtener el enlace del adjunto:', archivo.path, error); return ''; }
+            }));
+
             archivosHtml = `
                 <div class="mt-3">
                     <h6><i class="bi bi-file-earmark-text me-2"></i>Archivos Adjuntos:</h6>
-                    <div class="list-group">
-            `;
-            
-            for (const archivo of cita.ordenesMedicas) {
-                // Determinar tipo de archivo para visualización
-                const isImage = archivo.type.includes('image');
-                const isPdf = archivo.type.includes('pdf');
-                let previewHtml = '';
+                    <div class="list-group">`;
 
-                if (isImage) {
+            adjuntos.forEach((archivo, i) => {
+                const url = urlSegura(enlaces[i]);
+                const tipo = String(archivo.type || '');
+                const isImage = tipo.includes('image');
+                const isPdf = tipo.includes('pdf');
+                let previewHtml = '';
+                if (url === '#') {
+                    previewHtml = `<div class="mt-2 small text-danger"><i class="bi bi-exclamation-triangle me-1"></i>No se pudo obtener el archivo.</div>`;
+                } else if (isImage) {
                     previewHtml = `<div class="mt-2 text-center bg-light p-2 rounded">
-                        <img src="${archivo.url}" alt="Vista previa" style="max-height: 150px; max-width: 100%; border-radius: 4px; cursor: pointer;" onclick="window.open('${archivo.url}', '_blank')">
+                        <a href="${url}" target="_blank" rel="noopener"><img src="${url}" alt="Vista previa del adjunto" style="max-height: 150px; max-width: 100%; border-radius: 4px;"></a>
                     </div>`;
                 } else if (isPdf) {
                     previewHtml = `<div class="mt-2 text-center bg-light p-2 rounded">
                         <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 3rem;"></i>
-                        <small class="d-block text-muted mt-1">Vista previa no disponible. <a href="${archivo.url}" target="_blank" rel="noopener">Abrir PDF</a></small>
+                        <small class="d-block text-muted mt-1">Vista previa no disponible. <a href="${url}" target="_blank" rel="noopener">Abrir PDF</a></small>
                     </div>`;
                 }
 
                 archivosHtml += `
                     <div class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
+                        <div class="d-flex justify-content-between align-items-center gap-2">
+                            <div class="text-break">
                                 <i class="bi ${isImage ? 'bi-file-image' : (isPdf ? 'bi-file-pdf' : 'bi-file-earmark')} me-2"></i>
-                                <strong>${archivo.name}</strong>
-                                <small class="text-muted d-block">
-                                    ${formatFileSize(archivo.size)} • ${archivo.type}
-                                </small>
+                                <strong>${esc(archivo.name)}</strong>
+                                <small class="text-muted d-block">${esc(formatFileSize(archivo.size || 0))} • ${esc(tipo)}</small>
                             </div>
-                            <button class="btn btn-sm btn-outline-success descargar-archivo-btn" 
-                                    data-url="${archivo.url}" 
-                                    data-name="${archivo.name}">
+                            <button class="btn btn-sm btn-outline-success descargar-archivo-btn flex-shrink-0" data-url="${url}" data-name="${esc(archivo.name)}" ${url === '#' ? 'disabled' : ''}>
                                 <i class="bi bi-download"></i> Descargar
                             </button>
                         </div>
                         ${previewHtml}
-                    </div>
-                `;
-            }
-            
+                    </div>`;
+            });
+
             archivosHtml += '</div></div>';
         } else {
             archivosHtml = `
@@ -1133,7 +1160,7 @@ async function showCitaDetails(docId) {
                     <h6><i class="bi bi-file-earmark-text me-2"></i>Archivos Adjuntos:</h6>
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle me-2"></i>
-                        No hay archivos adjuntos ${cita.corsIssue ? '(Error de CORS al subir. Revisa la configuración de Firebase Storage)' : ''}
+                        No hay archivos adjuntos ${cita.corsIssue ? '(hubo un problema al subirlos desde el formulario)' : ''}
                     </div>
                 </div>
             `;
@@ -1148,11 +1175,11 @@ async function showCitaDetails(docId) {
                             <h6 class="fw-bold mb-0 text-primary"><i class="bi bi-person-badge-fill me-2"></i>Información del Paciente</h6>
                         </div>
                         <div class="card-body">
-                            <div class="mb-2"><strong>Nombre:</strong><br>${cita.paciente.nombres} ${cita.paciente.apellidos}</div>
-                            <div class="mb-2"><strong>Documento:</strong><br>${cita.paciente.tipoDocumento} ${cita.paciente.numeroDocumento}</div>
-                            <div class="mb-2"><strong>Teléfono:</strong><br><a href="tel:${cita.paciente.telefono}" class="text-decoration-none">${cita.paciente.telefono}</a> ${cita.tieneWhatsapp === 'si' ? '<i class="bi bi-whatsapp text-success ms-1"></i>' : ''}</div>
-                            <div class="mb-2"><strong>Correo:</strong><br><a href="mailto:${cita.paciente.correo}" class="text-decoration-none">${cita.paciente.correo}</a></div>
-                            <div class="mb-0"><strong>EPS/Entidad:</strong><br><span class="badge bg-secondary-subtle text-secondary-emphasis">${cita.paciente.eps}</span></div>
+                            <div class="mb-2"><strong>Nombre:</strong><br>${esc(cita.paciente.nombres)} ${esc(cita.paciente.apellidos)}</div>
+                            <div class="mb-2"><strong>Documento:</strong><br>${esc(cita.paciente.tipoDocumento)} ${esc(cita.paciente.numeroDocumento)}</div>
+                            <div class="mb-2"><strong>Teléfono:</strong><br><a href="tel:${esc(String(cita.paciente.telefono || '').replace(/[^\d+]/g, ''))}" class="text-decoration-none">${esc(cita.paciente.telefono)}</a> ${cita.tieneWhatsapp === 'si' ? '<i class="bi bi-whatsapp text-success ms-1"></i>' : ''}</div>
+                            <div class="mb-2"><strong>Correo:</strong><br><a href="mailto:${esc(cita.paciente.correo)}" class="text-decoration-none">${esc(cita.paciente.correo)}</a></div>
+                            <div class="mb-0"><strong>EPS/Entidad:</strong><br><span class="badge bg-secondary-subtle text-secondary-emphasis">${esc(cita.paciente.eps)}</span></div>
                         </div>
                     </div>
                 </div>
@@ -1164,11 +1191,11 @@ async function showCitaDetails(docId) {
                             <h6 class="fw-bold mb-0 text-primary"><i class="bi bi-calendar-check-fill me-2"></i>Detalles de la Solicitud</h6>
                         </div>
                         <div class="card-body">
-                            <div class="mb-2"><strong>Radicado:</strong><br><code class="fw-bold">${cita.radicado || docId}</code></div>
-                            <div class="mb-2"><strong>Especialidad:</strong><br>${cita.especialidad.nombre}</div>
-                            <div class="mb-2"><strong>Preferencia:</strong><br><i class="bi bi-calendar3 me-1"></i> ${cita.fecha} <i class="bi bi-clock ms-2 me-1"></i> ${cita.hora}</div>
+                            <div class="mb-2"><strong>Radicado:</strong><br><code class="fw-bold">${esc(cita.radicado || docId)}</code></div>
+                            <div class="mb-2"><strong>Especialidad:</strong><br>${esc(cita.especialidad.nombre)}</div>
+                            <div class="mb-2"><strong>Preferencia:</strong><br><i class="bi bi-calendar3 me-1"></i> ${esc(cita.fecha)} <i class="bi bi-clock ms-2 me-1"></i> ${esc(cita.hora)}</div>
                             <div class="mb-2"><strong>Estado Actual:</strong><br>${getStatusBadge(cita.status)}</div>
-                            <div class="mb-0"><strong>Solicitada el:</strong><br><small class="text-muted">${cita.createdAt?.toDate().toLocaleString('es-CO')}</small></div>
+                            <div class="mb-0"><strong>Solicitada el:</strong><br><small class="text-muted">${esc(cita.createdAt?.toDate ? cita.createdAt.toDate().toLocaleString('es-CO') : 'N/A')}</small></div>
                         </div>
                     </div>
                 </div>
@@ -1178,7 +1205,7 @@ async function showCitaDetails(docId) {
             <div class="card mt-3 border-0 bg-light shadow-sm">
                 <div class="card-body py-2 px-3">
                     <h6 class="fw-bold mb-1 text-primary small"><i class="bi bi-chat-text-fill me-2"></i>Motivo de Consulta</h6>
-                    ${cita.motivoConsulta}
+                    ${escMultilinea(cita.motivoConsulta)}
                 </div>
             </div>
             
@@ -1191,7 +1218,7 @@ async function showCitaDetails(docId) {
             
             <div class="modal-footer px-0 pb-0 mt-4 border-top-0 d-flex justify-content-between">
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-primary btn-sm rounded-pill btn-notas-solicitud" data-doc-id="${docId}" id="btnPrincipalNotas">
+                    <button class="btn btn-outline-primary btn-sm rounded-pill btn-notas-solicitud" data-doc-id="${esc(docId)}" id="btnPrincipalNotas">
                         <i class="bi ${cita.gestionNotes ? 'bi-pencil-square' : 'bi-journal-plus'} me-2"></i>
                         ${cita.gestionNotes ? 'Modificar Notas' : 'Añadir Notas'}
                     </button>
@@ -1200,7 +1227,7 @@ async function showCitaDetails(docId) {
                     <button type="button" class="btn btn-light btn-sm rounded-pill px-3 border" data-bs-dismiss="modal">
                         Cerrar
                     </button>
-                    <button class="btn btn-primary btn-sm rounded-pill px-4 responder-email-btn" data-doc-id="${docId}" data-radicado="${cita.radicado || docId}" data-email="${cita.paciente.correo}" data-especialidad="${cita.especialidad.nombre}" data-status="${cita.status}" data-fecha="${cita.fecha || ''}" data-hora="${cita.hora || ''}">
+                    <button class="btn btn-primary btn-sm rounded-pill px-4 responder-email-btn" data-doc-id="${esc(docId)}" data-radicado="${esc(cita.radicado || docId)}" data-email="${esc(cita.paciente.correo)}" data-especialidad="${esc(cita.especialidad.nombre)}" data-status="${esc(cita.status)}" data-fecha="${esc(cita.fecha || '')}" data-hora="${esc(cita.hora || '')}">
                         <i class="bi bi-envelope-fill me-2"></i>Responder por Email
                     </button>
                 </div>
@@ -1245,8 +1272,8 @@ function renderHistory(historial) {
         const div = document.createElement('div');
         div.className = 'history-item border-start border-3 border-secondary ps-3 mb-3';
         div.innerHTML = `
-            <p class="mb-0 small text-muted">${date} - <strong>${item.user || 'Sistema'}</strong></p>
-            <p class="mb-0">${item.action}</p>
+            <p class="mb-0 small text-muted">${esc(date)} - <strong>${esc(item.user || 'Sistema')}</strong></p>
+            <p class="mb-0">${esc(item.action)}</p>
         `;
         timeline.appendChild(div);
     });
@@ -1278,14 +1305,14 @@ Teléfono: 602 891 2317 Ext. 214 - 215`;
 /**
  * Descarga un archivo desde Firebase Storage.
  */
-async function downloadFile(url, fileName) {
-    const btn = document.querySelector(`.descargar-archivo-btn[data-url="${url}"]`);
-    const originalHtml = btn ? btn.innerHTML : '';
+async function downloadFile(btn) {
+    const url = btn?.dataset.url;
+    const fileName = btn?.dataset.name || 'adjunto';
+    if (!url || url === '#') return;
+    const originalHtml = btn.innerHTML;
     try {
-        if (btn) {
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-            btn.disabled = true;
-        }
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        btn.disabled = true;
 
         const response = await fetch(url);
         if (!response.ok) throw new Error('La respuesta de la red no fue correcta.');
@@ -1305,10 +1332,8 @@ async function downloadFile(url, fileName) {
         console.error('Error en la descarga directa, abriendo en nueva pestaña:', error);
         window.open(url, '_blank');
     } finally {
-        if (btn) {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-        }
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
     }
 }
 
@@ -1496,6 +1521,41 @@ const DATA_PLANEACION = {
 /**
  * Inicializa el renderizado del módulo de planeación si el contenedor existe.
  */
+// Convierte file://10.10.1.6/carpeta/... en \\10.10.1.6\carpeta\... (formato del Explorador de Windows)
+function rutaWindows(url) {
+    let ruta = String(url || '').replace(/^file:\/*/i, '');
+    try { ruta = decodeURI(ruta); } catch (e) { /* se deja tal cual */ }
+    return '\\\\' + ruta.replace(/\//g, '\\');
+}
+
+async function copiarRutaProceso(btn) {
+    const ruta = btn.dataset.path || '';
+    let copiado = false;
+    try {
+        await navigator.clipboard.writeText(ruta);
+        copiado = true;
+    } catch (e) {
+        // Respaldo para navegadores sin acceso al portapapeles
+        const campo = document.createElement('textarea');
+        campo.value = ruta;
+        campo.setAttribute('readonly', '');
+        campo.style.position = 'fixed';
+        campo.style.opacity = '0';
+        document.body.appendChild(campo);
+        campo.select();
+        try { copiado = document.execCommand('copy'); } catch (e2) { copiado = false; }
+        campo.remove();
+    }
+    if (copiado) {
+        window.notify?.('Ruta copiada. Péguela en el Explorador de archivos (red del hospital).', { type: 'success' });
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="bi bi-check2 me-1"></i> Copiada';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+    } else {
+        window.prompt('Copie esta ruta y péguela en el Explorador de archivos:', ruta);
+    }
+}
+
 function initIntranetPlaneacion() {
     const container = document.getElementById('planeacion-intranet-container');
     if (!container) return;
@@ -1511,8 +1571,8 @@ function initIntranetPlaneacion() {
                 <h6 class="card-title fw-bold flex-grow-1">${item.nombre}</h6>
             </div>
             <div class="card-footer bg-transparent border-0 text-center pt-0 pb-3">
-                <button class="btn btn-sm btn-outline-secondary copy-path-btn" data-path="${item.url}">
-                    <i class="bi bi-clipboard me-1"></i> Copiar Ruta de Acceso
+                <button class="btn btn-sm btn-outline-secondary copy-path-btn" data-path="${esc(rutaWindows(item.url))}" title="${esc(rutaWindows(item.url))}">
+                    <i class="bi bi-clipboard me-1"></i> Copiar ruta
                 </button>
             </div>
         </div>
@@ -1529,15 +1589,23 @@ function initIntranetPlaneacion() {
     `;
     
     // Generar el HTML completo del dashboard
-    container.innerHTML = [
+    const notaUso = `
+        <div class="alert alert-info d-flex gap-3 align-items-start mb-5">
+            <i class="bi bi-info-circle-fill fs-4"></i>
+            <div><strong>Cómo abrir los documentos:</strong> toque <em>Copiar ruta</em> y péguela en la barra de direcciones del
+            <strong>Explorador de archivos</strong> de Windows. Funciona solo en computadores conectados a la red del hospital.</div>
+        </div>`;
+    container.innerHTML = notaUso + [
         renderCategory("Procesos Estratégicos", DATA_PLANEACION.estrategicos, "primary", "bi-diagram-3-fill"),
         renderCategory("Procesos Misionales", DATA_PLANEACION.misionales, "success", "bi-hospital-fill"),
         renderCategory("Procesos de Apoyo Administrativo", DATA_PLANEACION.administrativos, "info", "bi-gear-fill"),
         renderCategory("Procesos de Evaluación y Control", DATA_PLANEACION.control, "warning", "bi-shield-fill-check")
     ].join('');
     
-    // Agregar estilos CSS dinámicamente para el nuevo dashboard
+    // Agregar estilos CSS del dashboard (una sola vez)
+    if (document.getElementById('estilos-mapa-procesos')) return;
     const style = document.createElement('style');
+    style.id = 'estilos-mapa-procesos';
     style.textContent = `
         .modern-dashboard-card {
             border-radius: 0.75rem;

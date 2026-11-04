@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Reglas de Firebase Storage del Portal Institucional HDSA.
+// Pegar en: Consola de Firebase > Storage > Reglas > Publicar.
+//
+// Antes: todo el almacenamiento era público (cualquiera podía leer, listar,
+// subir y borrar archivos, incluidos los adjuntos de pacientes).
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Funcionarios con acceso a las citas (mantener igual que en firestore.rules)
+    function puedeVerCitas() {
+      return request.auth != null
+        && request.auth.token.email.lower() in ['coord.sistemas@hdsa.gov.co', 'citas@hdsa.gov.co'];
+    }
+
+    // Adjuntos de las citas: citas/AAAA/MM/ID_CITA/archivo
+    match /citas/{anio}/{mes}/{citaId}/{archivo} {
+      // El formulario público solo puede SUBIR archivos nuevos (no reemplazar, no leer)
+      allow create: if request.resource.size < 10 * 1024 * 1024
+                    && (request.resource.contentType.matches('image/.*')
+                        || request.resource.contentType == 'application/pdf'
+                        || request.resource.contentType == 'application/octet-stream');
+      // Ver y descargar: solo funcionarios de citas
+      allow read: if puedeVerCitas();
+      allow delete: if request.auth != null
+        && request.auth.token.email.lower() == 'coord.sistemas@hdsa.gov.co';
+    }
+
+    // Todo lo demás queda cerrado
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

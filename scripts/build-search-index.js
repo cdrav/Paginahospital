@@ -6,7 +6,9 @@ const { glob } = require('glob');
 const PROJECT_ROOT = path.join(__dirname, '..');
 const HTML_FILES_PATTERN = '**/*.html';
 // Excluimos directorios que no contienen páginas públicas
-const EXCLUDE_PATTERNS = ['node_modules/**', 'partials/**', 'presentacion-jd/**', 'documentos/Portal-institucional/**'];
+const EXCLUDE_PATTERNS = ['node_modules/**', 'partials/**', 'presentacion-jd/**', 'documentos/Portal-institucional/**',
+    // Páginas internas del portal (requieren inicio de sesión)
+    'portal-institucional.html', 'login-institucional.html', 'manual-gestion-citas.html'];
 const OUTPUT_PATH = path.join(PROJECT_ROOT, 'search-index.json');
 
 /**
