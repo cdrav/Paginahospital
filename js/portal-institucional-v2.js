@@ -2,7 +2,7 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import { auth, db, storage } from "./firebase-config.js";
 import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-import { obtenerPerfil, soloGuiaChat, URL_GUIA_CHAT, esc } from "./portal-sesion.js";
+import { obtenerPerfil, soloGuiaChat, soloReportarSoporte, URL_GUIA_CHAT, URL_SOPORTE, esc } from "./portal-sesion.js";
 
 // --- Seguridad: los datos de las citas vienen de un formulario público ---
 // Todo texto que se inserte en el HTML pasa por esc(); los enlaces por urlSegura().
@@ -57,6 +57,30 @@ function aplicarPerfil(perfil) {
     }
 }
 
+// Franja superior: saludo según la hora y datos de la sesión
+function mostrarUsuario(perfil, email) {
+    const nombre = perfil.nombre || email.split('@')[0];
+    const hora = new Date().getHours();
+    const saludo = hora < 12 ? 'Buenos días' : hora < 19 ? 'Buenas tardes' : 'Buenas noches';
+    const iniciales = nombre.split(/[\s._-]+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('') || '?';
+    const poner = (id, texto) => { const el = document.getElementById(id); if (el) el.textContent = texto; };
+    poner('user-welcome', `${saludo}, ${nombre}`);
+    poner('usuario-nombre', nombre);
+    poner('usuario-correo', email);
+    poner('usuario-iniciales', iniciales);
+}
+
+// Accesos rápidos a las secciones visibles para este usuario
+function construirAtajos() {
+    const nav = document.getElementById('portal-atajos');
+    if (!nav) return;
+    nav.innerHTML = [...document.querySelectorAll('#main-cards-container .portal-seccion:not(.d-none)')].map(sec => {
+        const titulo = sec.querySelector('h2')?.textContent || '';
+        const icono = sec.querySelector('.portal-seccion-icono i')?.className || 'bi bi-grid';
+        return `<a class="portal-atajo" data-acento="${esc(sec.dataset.acento || '')}" href="#${esc(sec.id)}"><i class="${esc(icono)}"></i>${esc(titulo)}</a>`;
+    }).join('');
+}
+
 // Protección de ruta: Firebase verifica si hay usuario activo
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -67,15 +91,18 @@ onAuthStateChanged(auth, async (user) => {
     const perfil = await obtenerPerfil(userEmail);
 
     // Usuario solo de la guía del chat: va directo a la guía, nada más del portal
+    if (soloReportarSoporte(perfil)) {
+        window.location.replace(URL_SOPORTE);
+        return;
+    }
     if (soloGuiaChat(perfil)) {
         window.location.replace(URL_GUIA_CHAT);
         return;
     }
 
-    const welcomeElement = document.getElementById('user-welcome');
-    if (welcomeElement) welcomeElement.textContent = `Bienvenido(a), ${perfil.nombre || user.email}`;
-
+    mostrarUsuario(perfil, userEmail);
     aplicarPerfil(perfil);
+    construirAtajos();
 
     // Sesión y permisos verificados: ya se puede mostrar el portal
     document.documentElement.classList.remove('portal-verificando');

@@ -65,7 +65,8 @@ function tarjetaSolicitud(fila, conGestion) {
           <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
             <div>
               <div class="fw-bold">${esc(fila['Categoría'] || 'Sin categoría')}</div>
-              <small class="text-muted">${esc(fila['Fecha'])} · ${esc(lugar)}${conGestion && fila['Nombre'] ? ' · ' + esc(fila['Nombre']) : ''}</small>
+              <small class="text-muted">${esc(fila['Fecha'])} · ${esc(lugar)}</small>
+              ${fila['Nombre'] ? `<small class="d-block soporte-quien"><i class="bi bi-person me-1"></i>${esc(fila['Nombre'])}${fila['Cargo'] ? ' · ' + esc(fila['Cargo']) : ''}${fila['Teléfono / Ext.'] ? ` · <i class="bi bi-telephone ms-1 me-1"></i>${esc(fila['Teléfono / Ext.'])}` : ''}</small>` : ''}
             </div>
             <div class="d-flex gap-2 flex-wrap">${prioridadBadge(fila['Prioridad'])}<span class="badge ${est.clase}">${esc(est.texto)}</span></div>
           </div>
@@ -93,8 +94,17 @@ function iniciarFormulario() {
     const servicio = $('#servicio');
     const grupoRural = $('#grupo-rural');
     const nombre = $('#nombre');
-    nombre.value = sesion.perfil.nombre || '';
+    const compartida = !!sesion.perfil.compartida;
+    // En una cuenta compartida el nombre lo escribe cada persona; en una personal se llena solo
+    const nombreInicial = compartida ? '' : (sesion.perfil.nombre || '');
+    nombre.value = nombreInicial;
     $('#correo-sesion').textContent = sesion.email;
+    $('#aviso-compartida').classList.toggle('d-none', !compartida);
+
+    const descripcion = $('#descripcion');
+    const contador = $('#contador-descripcion');
+    const contar = () => { contador.textContent = `${descripcion.value.length} / 1500`; };
+    descripcion.addEventListener('input', contar);
 
     servicio.addEventListener('change', () => {
         const rural = servicio.value === 'Rurales (Otro)';
@@ -113,17 +123,22 @@ function iniciarFormulario() {
         try {
             await llamar('crear', {
                 nombre: nombre.value.trim(),
+                cargo: $('#cargo').value.trim(),
+                contacto: $('#contacto').value.trim(),
+                correo_contacto: $('#correo_contacto').value.trim(),
                 servicio: servicio.value,
                 nombre_rural: $('#nombre_rural').value.trim(),
                 categoria: categorias.join(', '),
                 descripcion: $('#descripcion').value.trim(),
                 placa_inventario: $('#placa_inventario').value.trim(),
-                prioridad: $('#prioridad').value
+                prioridad: form.querySelector('input[name="prioridad"]:checked')?.value || 'Media'
             });
             form.reset();
-            nombre.value = sesion.perfil.nombre || '';
+            nombre.value = nombreInicial;
             form.classList.remove('was-validated');
             grupoRural.classList.add('d-none');
+            contar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             aviso('success', '¡Solicitud enviada! El área de Sistemas fue notificada. Puede seguirla en "Mis solicitudes".');
             cargarMias();
         } catch (err) {
@@ -239,6 +254,12 @@ function iniciarPanel() {
     document.documentElement.classList.remove('portal-verificando');
     $('#usuario-sesion').textContent = sesion.perfil.nombre || sesion.email;
 
+    if (sesion.perfil.compartida) {
+        // Cuenta compartida: sin enlaces al portal y aviso en "Mis solicitudes"
+        document.querySelectorAll('.solo-personal, [data-solo-personal]').forEach(el => el.classList.add('d-none'));
+        const nota = document.getElementById('nota-mias');
+        if (nota) nota.textContent = 'Esta es una cuenta compartida: aquí aparecen las solicitudes enviadas desde esta cuenta por cualquier persona.';
+    }
     iniciarFormulario();
     document.querySelector('[data-bs-target="#tab-mias"]').addEventListener('shown.bs.tab', cargarMias);
     cargarMias();
