@@ -358,3 +358,21 @@
     .tabla-citas tr.cita-row td > * { min-width: 0; }
     .tabla-citas .acciones-cita { justify-content: flex-end; }
 }
+
+/* =====================================================================
+   Páginas internas del portal (Soporte técnico y siguientes)
+   ===================================================================== */
+.portal-hero-compacto h1 { text-transform: none; }
+.portal-migas { --bs-breadcrumb-divider-color: rgba(255,255,255,.6); }
+.portal-migas a { color: rgba(255,255,255,.85); }
+.portal-migas .active { color: #fff; }
+
+.portal-pestanas { gap: .5rem; }
+.portal-pestanas .nav-link { border: 1px solid #164443; color: #164443; font-weight: 700; border-radius: 50rem; }
+.portal-pestanas .nav-link.active { background: linear-gradient(135deg, #164443, #22a7a0); border-color: transparent; color: #fff; }
+
+.portal-ayuda { background: #f3faf9; }
+.soporte-item { border-left: 4px solid #22a7a0 !important; }
+.soporte-descripcion { white-space: pre-wrap; overflow-wrap: anywhere; }
+.soporte-gestion { background: #f8f9fa; border-radius: .5rem; padding: .6rem .8rem; display: grid; gap: .2rem; }
+.soporte-vacio { text-align: center; color: #6c757d; padding: 2.5rem 1rem; border: 2px dashed #dee2e6; border-radius: 1rem; }

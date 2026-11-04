@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#164443">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Soporte Técnico - Portal Institucional HDSA</title>
+  <meta name="description" content="Solicitudes de soporte técnico al área de Sistemas del Hospital Departamental San Antonio.">
+  <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Work+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/portal-institucional.css?v=3" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+  <link rel="stylesheet" href="/css/accessibility-buttons.css" />
+  <!-- El contenido se oculta hasta verificar la sesión (js/portal-soporte.js) -->
+  <script>document.documentElement.classList.add('portal-verificando');</script>
+  <style>html.portal-verificando main { visibility: hidden; }</style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <div class="portal-hero portal-hero-compacto py-4 text-white">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mb-2">
+        <ol class="breadcrumb portal-migas mb-0">
+          <li class="breadcrumb-item"><a href="portal-institucional.html">Portal Institucional</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Soporte Técnico</li>
+        </ol>
+      </nav>
+      <h1 class="h2 fw-bold mb-1"><i class="bi bi-tools me-2"></i>Soporte Técnico</h1>
+      <p class="mb-0 opacity-75">Reporte fallas de equipos, programas, SIHOS o red al área de Sistemas. Sesión: <strong id="usuario-sesion"></strong></p>
+    </div>
+  </div>
+
+  <main class="container my-4 my-md-5">
+    <ul class="nav nav-pills portal-pestanas mb-4" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-nueva" type="button" role="tab" aria-controls="tab-nueva" aria-selected="true"><i class="bi bi-plus-circle me-1"></i>Nueva solicitud</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-mias" type="button" role="tab" aria-controls="tab-mias" aria-selected="false"><i class="bi bi-person-lines-fill me-1"></i>Mis solicitudes <span class="badge bg-secondary ms-1" id="contador-mias">0</span></button>
+      </li>
+      <li class="nav-item d-none solo-tecnico" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-panel" type="button" role="tab" aria-controls="tab-panel" aria-selected="false"><i class="bi bi-clipboard-data me-1"></i>Panel técnico <span class="badge bg-warning text-dark ms-1" id="contador-pendientes">0</span></button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- ============ Nueva solicitud ============ -->
+      <section class="tab-pane fade show active portal-seccion" id="tab-nueva" role="tabpanel" tabindex="0">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <form id="form-soporte" class="card border-0 shadow-sm" novalidate>
+              <div class="card-body p-4">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="nombre" class="form-label fw-bold">Nombre de quien reporta</label>
+                    <input type="text" class="form-control" id="nombre" maxlength="120" required>
+                    <div class="form-text">Correo de la sesión: <span id="correo-sesion"></span></div>
+                    <div class="invalid-feedback">Escriba su nombre.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="servicio" class="form-label fw-bold">Servicio / Área</label>
+                    <select class="form-select" id="servicio" required>
+                      <option value="">Seleccione…</option>
+                      <option>Urgencias</option><option>Facturación</option><option>Hospitalización</option>
+                      <option>Administrativa</option><option>Aps</option><option>Consulta Externa</option>
+                      <option>Farmacia</option><option>Laboratorio</option><option>Rayos X</option>
+                      <option>Cuentas Médicas</option><option>Odontología</option><option>PyP</option>
+                      <option>P.S. San Sebastián</option><option>P.S. Llanitos</option><option>P.S. El Rey</option>
+                      <option>P.S. La Asunción</option><option>Rurales (Otro)</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione el servicio.</div>
+                  </div>
+                  <div class="col-12 d-none" id="grupo-rural">
+                    <label for="nombre_rural" class="form-label fw-bold">Nombre del puesto de salud rural</label>
+                    <input type="text" class="form-control" id="nombre_rural" maxlength="120">
+                    <div class="invalid-feedback">Escriba el nombre del puesto.</div>
+                  </div>
+                  <div class="col-12">
+                    <span class="form-label fw-bold d-block">Tipo de problema</span>
+                    <div class="d-flex flex-wrap gap-3">
+                      <div class="form-check"><input class="form-check-input" type="checkbox" name="categoria" value="Hardware" id="cat-hw"><label class="form-check-label" for="cat-hw">Hardware (equipo, impresora)</label></div>
+                      <div class="form-check"><input class="form-check-input" type="checkbox" name="categoria" value="Software" id="cat-sw"><label class="form-check-label" for="cat-sw">Software (programas)</label></div>
+                      <div class="form-check"><input class="form-check-input" type="checkbox" name="categoria" value="SIHOS" id="cat-sihos"><label class="form-check-label" for="cat-sihos">SIHOS</label></div>
+                      <div class="form-check"><input class="form-check-input" type="checkbox" name="categoria" value="Redes" id="cat-red"><label class="form-check-label" for="cat-red">Red / Internet</label></div>
+                    </div>
+                    <div class="text-danger small mt-1 d-none" id="error-categoria">Seleccione al menos un tipo de problema.</div>
+                  </div>
+                  <div class="col-12">
+                    <label for="descripcion" class="form-label fw-bold">Descripción detallada</label>
+                    <textarea class="form-control" id="descripcion" rows="4" maxlength="1500" required placeholder="¿Qué pasa? ¿Desde cuándo? ¿Aparece algún mensaje de error?"></textarea>
+                    <div class="invalid-feedback">Describa el problema.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="placa_inventario" class="form-label fw-bold">Placa de inventario <span class="text-muted fw-normal">(si aplica)</span></label>
+                    <input type="text" class="form-control" id="placa_inventario" maxlength="40" placeholder="Ej: 5736">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="prioridad" class="form-label fw-bold">Prioridad</label>
+                    <select class="form-select" id="prioridad">
+                      <option value="Baja">Baja · no afecta la operación</option>
+                      <option value="Media" selected>Media · afecta parcialmente</option>
+                      <option value="Alta">Alta · detiene la atención al paciente</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-white border-0 px-4 pb-4 pt-0">
+                <button type="submit" class="btn btn-primary rounded-pill px-4" id="btn-enviar"><i class="bi bi-send me-2"></i>Enviar solicitud</button>
+              </div>
+            </form>
+          </div>
+          <aside class="col-lg-4">
+            <div class="card border-0 shadow-sm portal-ayuda">
+              <div class="card-body">
+                <h2 class="h6 fw-bold"><i class="bi bi-lightbulb me-2"></i>Para una atención más rápida</h2>
+                <ul class="small mb-0 ps-3">
+                  <li>Indique la <strong>placa</strong> del equipo (etiqueta pegada al equipo).</li>
+                  <li>Si aparece un mensaje de error, escríbalo tal cual.</li>
+                  <li>Use prioridad <strong>Alta</strong> solo si se detiene la atención al paciente.</li>
+                  <li>Siga el estado en <strong>Mis solicitudes</strong>.</li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ Mis solicitudes ============ -->
+      <section class="tab-pane fade portal-seccion" id="tab-mias" role="tabpanel" tabindex="0">
+        <div id="lista-mias"></div>
+      </section>
+
+      <!-- ============ Panel técnico (solo módulo "soporte") ============ -->
+      <section class="tab-pane fade portal-seccion d-none solo-tecnico" id="tab-panel" role="tabpanel" tabindex="0">
+        <div class="card border-0 shadow-sm mb-3">
+          <div class="card-body row g-2 align-items-end">
+            <div class="col-sm-4">
+              <label for="filtro-estado" class="form-label small fw-bold">Estado</label>
+              <select id="filtro-estado" class="form-select form-select-sm">
+                <option value="pendiente" selected>Pendientes</option>
+                <option value="revisado">Atendidas</option>
+                <option value="todos">Todas</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="filtro-texto" class="form-label small fw-bold">Buscar</label>
+              <input id="filtro-texto" type="search" class="form-control form-control-sm" placeholder="Nombre, servicio, placa, descripción…">
+            </div>
+            <div class="col-sm-2 d-grid">
+              <button id="btn-recargar-panel" class="btn btn-sm btn-outline-secondary" type="button"><i class="bi bi-arrow-clockwise me-1"></i>Recargar</button>
+            </div>
+          </div>
+        </div>
+        <div id="lista-panel"></div>
+      </section>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i>Volver al Portal</a>
+    </div>
+  </main>
+
+  <!-- Modal: atender solicitud -->
+  <div class="modal fade" id="modal-atender" tabindex="-1" aria-labelledby="modal-atender-titulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" id="form-atender" novalidate>
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="modal-atender-titulo">Atender solicitud</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-light border small" id="atender-resumen"></div>
+          <div class="mb-3">
+            <label for="tecnico_soporte" class="form-label fw-bold">Técnico responsable</label>
+            <select id="tecnico_soporte" class="form-select" required></select>
+            <div class="invalid-feedback">Seleccione el técnico.</div>
+          </div>
+          <div class="mb-3">
+            <label for="tipo_accion" class="form-label fw-bold">Acción tomada</label>
+            <select id="tipo_accion" class="form-select">
+              <option value="Pendiente">Solo recepción (pendiente)</option>
+              <option value="Solucionado en Sitio">Solucionado en sitio</option>
+              <option value="Escalado">Escalado a otro nivel</option>
+              <option value="Equipo Retirado">Equipo retirado a taller</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="escalado_a" class="form-label fw-bold">Escalar a</label>
+            <select id="escalado_a" class="form-select">
+              <option>N/A</option><option>Soporte SIHOS</option><option>Mantenimiento Infraestructura</option><option>Proveedor Externo</option>
+            </select>
+          </div>
+          <div>
+            <label for="notas_tecnicas" class="form-label fw-bold">Notas técnicas / solución</label>
+            <textarea id="notas_tecnicas" class="form-control" rows="4" maxlength="1500"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-guardar-atencion"><i class="bi bi-check2-circle me-1"></i>Guardar gestión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/accesibilidad.js" defer></script>
+  <script src="js/accessibility-styles.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/portal-soporte.js?v=1" type="module"></script>
+</body>
+</html>

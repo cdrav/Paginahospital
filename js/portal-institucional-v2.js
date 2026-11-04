@@ -2,14 +2,10 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import { auth, db, storage } from "./firebase-config.js";
 import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+import { obtenerPerfil, soloGuiaChat, URL_GUIA_CHAT, esc } from "./portal-sesion.js";
 
 // --- Seguridad: los datos de las citas vienen de un formulario público ---
 // Todo texto que se inserte en el HTML pasa por esc(); los enlaces por urlSegura().
-function esc(valor) {
-    return String(valor ?? '')
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
 // Texto libre (motivo, notas): se escapa y se conservan los saltos de línea
 function escMultilinea(valor) {
     return esc(valor).replace(/\r?\n/g, '<br>');
@@ -28,29 +24,11 @@ const GRUPO_OTROS = 'Otros estados';
 // Cada usuario tiene una lista de módulos. Se leen de Firestore:
 //   colección "usuariosPortal", documento = correo del usuario
 //   { nombre: "…", modulos: ["citas", "calidad", …], inicio: "citas" (opcional) }
-// Módulos: "admin" (ve todo), "citas", "calidad", "guia-chat" (solo la guía).
+// Módulos: "admin" (ve todo), "citas", "calidad", "soporte", "guia-chat" (solo la guía).
 // Sin documento en Firestore se usan estos valores (los usuarios de siempre).
 // Importante: las reglas de Firestore/Storage deben coincidir (ver firebase/).
 // =========================================================================
-const PERFILES_POR_DEFECTO = {
-    'coord.sistemas@hdsa.gov.co': { nombre: 'Administrador', modulos: ['admin'] },
-    'citas@hdsa.gov.co': { nombre: 'Gestora de Citas', modulos: ['citas'], inicio: 'citas' },
-    'chat@hdsa.gov.co': { nombre: 'Personal', modulos: ['guia-chat'] }
-};
-const URL_GUIA_CHAT = 'documentos/Portal-institucional/guia-chat-hdsa/index.html';
-
-async function obtenerPerfil(email) {
-    try {
-        const snap = await getDoc(doc(db, 'usuariosPortal', email));
-        if (snap.exists()) {
-            const datos = snap.data();
-            return { nombre: datos.nombre || '', modulos: Array.isArray(datos.modulos) ? datos.modulos : [], inicio: datos.inicio || '' };
-        }
-    } catch (error) {
-        console.warn('No se pudo leer el perfil del usuario; se usan los permisos por defecto.', error);
-    }
-    return PERFILES_POR_DEFECTO[email] || { nombre: '', modulos: [] };
-}
+// Perfiles por defecto y lectura de permisos: js/portal-sesion.js
 
 function aplicarPerfil(perfil) {
     const esAdmin = perfil.modulos.includes('admin');
@@ -89,7 +67,7 @@ onAuthStateChanged(auth, async (user) => {
     const perfil = await obtenerPerfil(userEmail);
 
     // Usuario solo de la guía del chat: va directo a la guía, nada más del portal
-    if (perfil.modulos.length === 1 && perfil.modulos[0] === 'guia-chat') {
+    if (soloGuiaChat(perfil)) {
         window.location.replace(URL_GUIA_CHAT);
         return;
     }

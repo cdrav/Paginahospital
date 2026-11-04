@@ -22,3 +22,6 @@ clave-citas-online.json
 
 # Copia original de la guía del chat: la publicada es guia-chat-hdsa (con verificación de sesión)
 documentos/Portal-institucional/Guía Chat HDSA2/
+
+# Código de Apps Script (copias locales: tienen IDs de archivos de Drive, no se publican)
+apps-script/
