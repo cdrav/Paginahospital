@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#164443">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Restablecer Contraseña - Portal Institucional HDSA</title>
+  <meta name="description" content="Solicitud de gestión de contraseñas de los sistemas institucionales.">
+  <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Work+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/portal-institucional.css?v=4" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+  <link rel="stylesheet" href="/css/accessibility-buttons.css" />
+  <script>document.documentElement.classList.add('portal-verificando');</script>
+  <style>html.portal-verificando main { visibility: hidden; }</style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <div class="portal-hero portal-hero-compacto py-4 text-white">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mb-2">
+        <ol class="breadcrumb portal-migas mb-0">
+          <li class="breadcrumb-item"><a href="portal-institucional.html">Portal Institucional</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Restablecer Contraseña</li>
+        </ol>
+      </nav>
+      <h1 class="h2 fw-bold mb-1"><i class="bi bi-key-fill me-2"></i>Gestión de Contraseñas</h1>
+      <p class="mb-0 opacity-75">Restablecimiento, desbloqueo o registro biométrico en los sistemas institucionales.</p>
+    </div>
+  </div>
+
+  <main class="container my-4 my-md-5">
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <form id="form-contrasena" class="ficha" novalidate>
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>1</span>Información del funcionario</h2>
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold" for="nombreCompleto">Nombre completo *</label><input class="form-control" id="nombreCompleto" name="nombreCompleto" maxlength="120" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-md-6"><label class="form-label fw-bold" for="documento">Documento de identidad *</label><input class="form-control" id="documento" name="documento" inputmode="numeric" maxlength="20" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-md-6"><label class="form-label fw-bold" for="cargo">Cargo *</label><input class="form-control" id="cargo" name="cargo" maxlength="80" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold" for="servicio">Servicio / Área *</label>
+                  <select class="form-select" id="servicio" name="servicio" required>
+                    <option value="">Seleccione…</option><option>Administrativa</option><option>Asistencial</option><option>Urgencias</option>
+                    <option>Hospitalización</option><option>Sistemas</option><option>Facturación</option>
+                  </select>
+                  <div class="invalid-feedback">Seleccione el servicio.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label fw-bold" for="emailContacto">Correo electrónico *</label>
+                  <input type="email" class="form-control" id="emailContacto" name="emailContacto" maxlength="120" required>
+                  <div class="form-text">Por este medio se le notificará el nuevo usuario y contraseña. Sesión actual: <span id="correo-sesion"></span></div>
+                  <div class="invalid-feedback">Escriba un correo válido.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>2</span>Sistema a gestionar</h2>
+              <div class="ficha-checks">
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sistema" value="SIHOS" id="checkSihos"><label class="form-check-label" for="checkSihos">Plataforma SIHOS</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sistema" value="PC" id="checkPC"><label class="form-check-label" for="checkPC">Equipo de cómputo (dominio)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sistema" value="Email" id="checkEmail"><label class="form-check-label" for="checkEmail">Correo institucional</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sistema" value="Biometrico" id="checkBiometrico"><label class="form-check-label" for="checkBiometrico">Registro biométrico</label></div>
+              </div>
+              <div class="text-danger small mt-2 d-none" id="error-sistema">Seleccione al menos un sistema.</div>
+              <div class="alert alert-warning small py-2 mt-3 mb-0 d-none" id="aviso-correo">
+                <i class="bi bi-envelope-exclamation me-1"></i><strong>Política de correo:</strong> solo se gestionan cuentas institucionales (terminadas en @hdsa.gov.co). Sistemas no restablece contraseñas de correos personales.
+              </div>
+            </div>
+          </section>
+
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>3</span>Detalles de la solicitud</h2>
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold" for="usuarioActual">Usuario actual <span class="text-muted fw-normal">(opcional)</span></label><input class="form-control" id="usuarioActual" name="usuarioActual" maxlength="80"></div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold" for="motivo">Motivo *</label>
+                  <select class="form-select" id="motivo" name="motivo" required>
+                    <option value="">Seleccione…</option>
+                    <option value="Olvido">Olvido de contraseña</option>
+                    <option value="Caducidad">Caducidad / expiración</option>
+                    <option value="Bloqueo">Usuario bloqueado</option>
+                    <option value="Registro de Biometría">Registro de biometría</option>
+                  </select>
+                  <div class="invalid-feedback">Seleccione el motivo.</div>
+                </div>
+                <div class="col-12"><label class="form-label fw-bold" for="observaciones">Observaciones</label><textarea class="form-control" id="observaciones" name="observaciones" rows="3" maxlength="1000"></textarea></div>
+                <div class="col-12">
+                  <div class="form-check portal-politica">
+                    <input class="form-check-input" type="checkbox" name="terminos" id="terminos" required>
+                    <label class="form-check-label small" for="terminos"><strong>Política de seguridad:</strong> acepto que las credenciales de acceso (usuario y contraseña) son de carácter <strong>personal e intransferible</strong>. Me comprometo a no compartirlas y a cumplir las políticas de seguridad de la información del HDSA.</label>
+                    <div class="invalid-feedback">Debe aceptar la política para continuar.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="ficha-acciones">
+            <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4" id="btn-enviar"><i class="bi bi-send me-2"></i>Radicar solicitud</button>
+          </div>
+          <div id="resultado" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+      <aside class="col-lg-4">
+        <div class="card border-0 shadow-sm portal-ayuda">
+          <div class="card-body">
+            <h2 class="h6 fw-bold"><i class="bi bi-shield-lock me-2"></i>Antes de enviar</h2>
+            <ul class="small mb-0 ps-3">
+              <li>Todas las solicitudes de contraseñas se hacen <strong>obligatoriamente por este medio</strong>.</li>
+              <li>La solicitud queda registrada con su sesión del portal.</li>
+              <li>Sistemas puede llamarle o pedirle que se acerque para <strong>confirmar su identidad</strong> antes de entregar la nueva contraseña.</li>
+              <li>Nunca comparta su contraseña, ni siquiera con el personal de Sistemas.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/accesibilidad.js" defer></script>
+  <script src="js/accessibility-styles.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/portal-contrasena.js?v=1" type="module"></script>
+</body>
+</html>

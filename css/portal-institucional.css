@@ -376,3 +376,13 @@
 .soporte-descripcion { white-space: pre-wrap; overflow-wrap: anywhere; }
 .soporte-gestion { background: #f8f9fa; border-radius: .5rem; padding: .6rem .8rem; display: grid; gap: .2rem; }
 .soporte-vacio { text-align: center; color: #6c757d; padding: 2.5rem 1rem; border: 2px dashed #dee2e6; border-radius: 1rem; }
+
+/* Hoja de Vida PC (ficha técnica) */
+.ficha-titulo { display: flex; align-items: center; gap: .65rem; font-size: 1.05rem; font-weight: 800; color: #164443; text-transform: none; margin-bottom: 1.25rem; }
+.ficha-titulo span { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: .9rem; background: linear-gradient(135deg, #164443, #22a7a0); }
+.ficha .periferico { border: 1px solid #e3f1ef; border-radius: .75rem; padding: .75rem 1rem 1rem; background: #fbfdfd; }
+.ficha .periferico legend { float: none; width: auto; padding: 0 .25rem; margin-bottom: .5rem; color: #164443; }
+.ficha-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .35rem 1rem; }
+.ficha-acciones { position: sticky; bottom: 0; z-index: 5; display: flex; justify-content: space-between; gap: .75rem; flex-wrap: wrap; padding: .85rem 1rem; margin: 0 -1rem; background: rgba(248, 250, 250, .96); backdrop-filter: blur(4px); border-top: 1px solid #e5e7eb; }
+@media (max-width: 575.98px) { .ficha-acciones .btn { flex: 1 1 100%; } }
+.portal-politica { background: #f3faf9; border: 1px solid #cfe5e2; border-radius: .75rem; padding: .75rem 1rem .75rem 2.5rem; }

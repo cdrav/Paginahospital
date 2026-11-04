@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#164443">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hoja de Vida PC - Portal Institucional HDSA</title>
+  <meta name="description" content="Ficha técnica de equipos de cómputo (GI-SI-FO-15).">
+  <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Work+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/portal-institucional.css?v=4" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+  <link rel="stylesheet" href="/css/accessibility-buttons.css" />
+  <script>document.documentElement.classList.add('portal-verificando');</script>
+  <style>html.portal-verificando main { visibility: hidden; }</style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <div class="portal-hero portal-hero-compacto py-4 text-white">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mb-2">
+        <ol class="breadcrumb portal-migas mb-0">
+          <li class="breadcrumb-item"><a href="portal-institucional.html">Portal Institucional</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Hoja de Vida PC</li>
+        </ol>
+      </nav>
+      <h1 class="h2 fw-bold mb-1"><i class="bi bi-pc-display-horizontal me-2"></i>Hoja de Vida PC</h1>
+      <p class="mb-0 opacity-75">Ficha técnica de equipos de cómputo · Código GI-SI-FO-15. Al guardar se registra en la hoja de inventario y se genera el PDF en Drive.</p>
+    </div>
+  </div>
+
+  <main class="container my-4 my-md-5">
+    <div id="sin-permiso" class="alert alert-warning d-none">
+      <i class="bi bi-lock-fill me-2"></i>Este formulario es para el personal técnico de Sistemas. Si necesita acceso, comuníquese con el área de Sistemas.
+    </div>
+
+    <form id="form-hoja-vida" class="ficha" novalidate>
+      <!-- 1 -->
+      <section class="card border-0 shadow-sm mb-4 portal-seccion">
+        <div class="card-body p-4">
+          <h2 class="ficha-titulo"><span>1</span>Información del usuario y ubicación</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label fw-bold" for="responsable">Nombre del responsable *</label><input class="form-control" id="responsable" name="responsable" maxlength="120" required><div class="invalid-feedback">Obligatorio.</div></div>
+            <div class="col-md-3"><label class="form-label fw-bold" for="cedula">Cédula (CC)</label><input class="form-control" id="cedula" name="cedula" inputmode="numeric" maxlength="15"></div>
+            <div class="col-md-3"><label class="form-label fw-bold" for="cargo">Cargo</label><input class="form-control" id="cargo" name="cargo" maxlength="80"></div>
+            <div class="col-md-6"><label class="form-label fw-bold" for="usuario_red">Usuario de red / correo</label><input class="form-control" id="usuario_red" name="usuario_red" maxlength="120"></div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold" for="ubicacion">Ubicación *</label>
+              <input class="form-control" id="ubicacion" name="ubicacion" list="lista-ubicaciones" maxlength="80" required placeholder="Escriba o elija de la lista">
+              <datalist id="lista-ubicaciones">
+                <option value="URGENCIAS"></option><option value="HOSPITALIZACION"></option><option value="CIRUGIA"></option>
+                <option value="SALA DE RECUPERACION CIRUGIA"></option><option value="PARTOS"></option><option value="CONSULTA EXTERNA"></option>
+                <option value="FACTURACION"></option><option value="CTAS MEDICAS"></option><option value="FARMACIA"></option>
+                <option value="LABORATORIO"></option><option value="RAYOS X"></option><option value="ODONTOLOGIA"></option>
+                <option value="PYP"></option><option value="APS"></option><option value="ADMINISTRATIVA"></option><option value="SISTEMAS"></option>
+                <option value="PUESTO DE SALUD SAN SEBASTIAN"></option><option value="PUESTO DE SALUD LLANITOS"></option>
+                <option value="PUESTO DE SALUD EL REY"></option><option value="PUESTO DE SALUD LA ASUNCION"></option>
+                <option value="PUESTO DE SALUD SANTA ANA"></option>
+              </datalist>
+              <div class="form-text">Use el mismo nombre de siempre: cada ubicación es una carpeta en Drive.</div>
+              <div class="invalid-feedback">Obligatorio.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section class="card border-0 shadow-sm mb-4 portal-seccion">
+        <div class="card-body p-4">
+          <h2 class="ficha-titulo"><span>2</span>Hardware y especificaciones</h2>
+          <div class="mb-3">
+            <span class="form-label fw-bold d-block">Tipo de equipo *</span>
+            <div class="d-flex flex-wrap gap-3">
+              <div class="form-check"><input class="form-check-input" type="radio" name="tipo_equipo" id="te-pc" value="PC Escritorio" required><label class="form-check-label" for="te-pc">PC escritorio</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="tipo_equipo" id="te-port" value="Portatil"><label class="form-check-label" for="te-port">Portátil</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="tipo_equipo" id="te-aio" value="AIO"><label class="form-check-label" for="te-aio">Todo en uno (AIO)</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="tipo_equipo" id="te-srv" value="Servidor"><label class="form-check-label" for="te-srv">Servidor</label></div>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-6 col-md-3"><label class="form-label fw-bold" for="marca">Marca</label><input class="form-control" id="marca" name="marca" maxlength="60"></div>
+            <div class="col-6 col-md-3"><label class="form-label fw-bold" for="modelo">Modelo</label><input class="form-control" id="modelo" name="modelo" maxlength="80"></div>
+            <div class="col-6 col-md-3"><label class="form-label fw-bold" for="serial">Serial (S/N)</label><input class="form-control" id="serial" name="serial" maxlength="80"></div>
+            <div class="col-6 col-md-3"><label class="form-label fw-bold" for="placa">Placa de inventario *</label><input class="form-control" id="placa" name="placa" maxlength="40" required placeholder="Ej: 5736 o SIN PLACA"><div class="invalid-feedback">Obligatorio (nombre del PDF).</div></div>
+            <div class="col-md-4"><label class="form-label fw-bold" for="procesador">Procesador</label><input class="form-control" id="procesador" name="procesador" maxlength="80" placeholder="Ej: Intel Core i5 7ª gen"></div>
+            <div class="col-4 col-md-2"><label class="form-label fw-bold" for="ram">RAM (GB)</label><input class="form-control" id="ram" name="ram" inputmode="numeric" maxlength="5"></div>
+            <div class="col-4 col-md-3"><label class="form-label fw-bold" for="disco1_tipo">Disco</label><select class="form-select" id="disco1_tipo" name="disco1_tipo"><option>HDD</option><option>SSD</option><option>M2</option></select></div>
+            <div class="col-4 col-md-3"><label class="form-label fw-bold" for="disco1_cap">Capacidad</label><select class="form-select" id="disco1_cap" name="disco1_cap"><option>128 GB</option><option>250 GB</option><option>256 GB</option><option>500 GB</option><option>1 TB</option><option>2 TB</option></select></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="card border-0 shadow-sm mb-4 portal-seccion">
+        <div class="card-body p-4">
+          <h2 class="ficha-titulo"><span>3</span>Periféricos</h2>
+          <p class="text-muted small">Deje vacío lo que no aplique.</p>
+          <div class="row g-3" id="perifericos"></div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="card border-0 shadow-sm mb-4 portal-seccion">
+        <div class="card-body p-4">
+          <h2 class="ficha-titulo"><span>4</span>Software y licenciamiento</h2>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <span class="form-label fw-bold d-block">Sistema operativo</span>
+              <div class="d-flex flex-wrap gap-3 mb-2">
+                <div class="form-check"><input class="form-check-input" type="radio" name="so" id="so-10" value="Win10"><label class="form-check-label" for="so-10">Windows 10</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="so" id="so-11" value="Win11"><label class="form-check-label" for="so-11">Windows 11</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="so" id="so-lx" value="Linux"><label class="form-check-label" for="so-lx">Linux</label></div>
+              </div>
+              <span class="small fw-bold me-2">Licencia:</span>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="lic_oem" id="lic_oem"><label class="form-check-label" for="lic_oem">OEM</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="lic_vol" id="lic_vol"><label class="form-check-label" for="lic_vol">Volumen</label></div>
+            </div>
+            <div class="col-md-6">
+              <span class="form-label fw-bold d-block">Ofimática</span>
+              <div class="d-flex flex-wrap gap-3 mb-2">
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-365" value="365"><label class="form-check-label" for="of-365">Office 365</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-16" value="2016"><label class="form-check-label" for="of-16">2016</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-19" value="2019"><label class="form-check-label" for="of-19">2019</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-21" value="2021"><label class="form-check-label" for="of-21">2021</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-24" value="2024"><label class="form-check-label" for="of-24">2024</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-lo" value="LibreOffice"><label class="form-check-label" for="of-lo">LibreOffice</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="office" id="of-wps" value="WPS"><label class="form-check-label" for="of-wps">WPS</label></div>
+              </div>
+              <span class="small fw-bold me-2">Estado:</span>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="estado_off" id="eo-act" value="Activado"><label class="form-check-label" for="eo-act">Activado</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="estado_off" id="eo-sin" value="SinLicencia"><label class="form-check-label" for="eo-sin">Sin licencia</label></div>
+            </div>
+            <div class="col-12">
+              <span class="form-label fw-bold d-block">Software adicional instalado</span>
+              <div class="ficha-checks">
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_7zip" id="sw_7zip"><label class="form-check-label" for="sw_7zip">7-Zip</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_winrar" id="sw_winrar"><label class="form-check-label" for="sw_winrar">WinRAR</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_pdf" id="sw_pdf"><label class="form-check-label" for="sw_pdf">Adobe Reader</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_sumatra" id="sw_sumatra"><label class="form-check-label" for="sw_sumatra">Sumatra PDF</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_nitro" id="sw_nitro"><label class="form-check-label" for="sw_nitro">Nitro PDF</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_java" id="sw_java"><label class="form-check-label" for="sw_java">Java</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_his" id="sw_his"><label class="form-check-label" for="sw_his">HIS (SIHOS)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sw_av" id="sw_av"><label class="form-check-label" for="sw_av">Antivirus corporativo</label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="card border-0 shadow-sm mb-4 portal-seccion">
+        <div class="card-body p-4">
+          <h2 class="ficha-titulo"><span>5</span>Red y seguridad (auditoría)</h2>
+          <div class="row g-3">
+            <div class="col-md-4"><label class="form-label fw-bold" for="hostname">Nombre del equipo (hostname)</label><input class="form-control" id="hostname" name="hostname" maxlength="60"></div>
+            <div class="col-6 col-md-4"><label class="form-label fw-bold" for="ip">Dirección IP</label><input class="form-control" id="ip" name="ip" maxlength="45" placeholder="10.10.0.0"></div>
+            <div class="col-6 col-md-4"><label class="form-label fw-bold" for="gateway">Puerta de enlace</label><input class="form-control" id="gateway" name="gateway" maxlength="45"></div>
+            <div class="col-6 col-md-4"><label class="form-label fw-bold" for="mac_lan">MAC (LAN)</label><input class="form-control" id="mac_lan" name="mac_lan" maxlength="20" placeholder="AA-BB-CC-DD-EE-FF"></div>
+            <div class="col-6 col-md-4"><label class="form-label fw-bold" for="mac_wifi">MAC (WiFi)</label><input class="form-control" id="mac_wifi" name="mac_wifi" maxlength="20"></div>
+            <div class="col-md-4"><label class="form-label fw-bold" for="dns">DNS principal</label><input class="form-control" id="dns" name="dns" maxlength="45"></div>
+            <div class="col-12">
+              <span class="form-label fw-bold d-block">Chequeo de seguridad</span>
+              <div class="ficha-checks">
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sec_dominio" id="sec_dominio"><label class="form-check-label" for="sec_dominio">Unido al dominio</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sec_av_upd" id="sec_av_upd"><label class="form-check-label" for="sec_av_upd">Antivirus actualizado</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sec_bitlocker" id="sec_bitlocker"><label class="form-check-label" for="sec_bitlocker">Cifrado BitLocker</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sec_usb" id="sec_usb"><label class="form-check-label" for="sec_usb">Bloqueo USB</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="sec_cuenta_local" id="sec_cuenta_local"><label class="form-check-label" for="sec_cuenta_local">Cuenta local</label></div>
+              </div>
+            </div>
+            <div class="col-md-6"><label class="form-label fw-bold" for="realizado_por">Realizado por (Sistemas)</label><input class="form-control" id="realizado_por" name="realizado_por" maxlength="120"></div>
+            <div class="col-md-6"><label class="form-label fw-bold" for="recibido_por">Recibido a satisfacción (usuario)</label><input class="form-control" id="recibido_por" name="recibido_por" maxlength="120"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="ficha-acciones">
+        <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+        <button type="submit" class="btn btn-primary rounded-pill px-4" id="btn-guardar"><i class="bi bi-save me-2"></i>Guardar ficha y generar PDF</button>
+      </div>
+      <div id="resultado" role="status" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/accesibilidad.js" defer></script>
+  <script src="js/accessibility-styles.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/portal-hoja-vida-pc.js?v=1" type="module"></script>
+</body>
+</html>

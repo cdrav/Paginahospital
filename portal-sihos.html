@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#164443">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Creación de Usuario SIHOS - Portal Institucional HDSA</title>
+  <meta name="description" content="Solicitud de creación de usuarios en el sistema SIHOS.">
+  <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Work+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css" />
+  <link rel="stylesheet" href="/css/portal-institucional.css?v=4" />
+  <link rel="stylesheet" href="/css/accesibilidad.css" />
+  <link rel="stylesheet" href="/css/accessibility-buttons.css" />
+  <script>document.documentElement.classList.add('portal-verificando');</script>
+  <style>html.portal-verificando main { visibility: hidden; }</style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <div class="portal-hero portal-hero-compacto py-4 text-white">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mb-2">
+        <ol class="breadcrumb portal-migas mb-0">
+          <li class="breadcrumb-item"><a href="portal-institucional.html">Portal Institucional</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Creación de Usuario SIHOS</li>
+        </ol>
+      </nav>
+      <h1 class="h2 fw-bold mb-1"><i class="bi bi-person-plus-fill me-2"></i>Creación de Usuario SIHOS</h1>
+      <p class="mb-0 opacity-75">Solicitud de acceso al sistema SIHOS para personal nuevo o con cambio de funciones.</p>
+    </div>
+  </div>
+
+  <main class="container my-4 my-md-5">
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <form id="form-sihos" class="ficha" novalidate>
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>1</span>Información del funcionario</h2>
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold" for="nombres">Nombres *</label><input class="form-control" id="nombres" name="nombres" maxlength="80" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-md-6"><label class="form-label fw-bold" for="apellidos">Apellidos *</label><input class="form-control" id="apellidos" name="apellidos" maxlength="80" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-md-6"><label class="form-label fw-bold" for="profesion">Profesión *</label><input class="form-control" id="profesion" name="profesion" maxlength="120" required placeholder="Ej: Médico general, Auxiliar de enfermería…"><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-md-6"><label class="form-label fw-bold" for="cedula">Cédula *</label><input class="form-control" id="cedula" name="cedula" inputmode="numeric" maxlength="20" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-12"><label class="form-label fw-bold" for="email">Correo electrónico *</label><input type="email" class="form-control" id="email" name="email" maxlength="120" required placeholder="ejemplo@hdsa.gov.co"><div class="invalid-feedback">Escriba un correo válido.</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>2</span>Vinculación y tipo de perfil</h2>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <span class="form-label fw-bold d-block">Tipo de contrato *</span>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="tipo_contrato" id="tc-fijo" value="Fijo" required><label class="form-check-label" for="tc-fijo">Término fijo</label></div>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="tipo_contrato" id="tc-indef" value="Indefinido"><label class="form-check-label" for="tc-indef">Indefinido</label></div>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="tipo_contrato" id="tc-otro" value="Otro"><label class="form-check-label" for="tc-otro">Otro</label></div>
+                  <div class="mt-2 d-none" id="grupo-otro-contrato">
+                    <input class="form-control form-control-sm" id="otro_contrato_detalle" name="otro_contrato_detalle" maxlength="80" placeholder="Especifique el tipo de contrato">
+                    <div class="invalid-feedback">Especifique el contrato.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <span class="form-label fw-bold d-block">Categoría *</span>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="categoria" id="cat-adm" value="Administrativo" required><label class="form-check-label" for="cat-adm">Administrativo</label></div>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="categoria" id="cat-asis" value="Asistencial"><label class="form-check-label" for="cat-asis">Asistencial</label></div>
+                </div>
+                <div class="col-12 d-none" id="aviso-rethus">
+                  <div class="alert alert-warning small py-2 mb-0"><i class="bi bi-exclamation-triangle-fill me-1"></i><strong>Atención:</strong> el personal <strong>asistencial</strong> debe estar inscrito obligatoriamente en <strong>RETHUS</strong>.</div>
+                </div>
+                <div class="col-md-6 d-none" id="grupo-registro">
+                  <label class="form-label fw-bold" for="registro_profesional">Registro / tarjeta profesional *</label>
+                  <input class="form-control" id="registro_profesional" name="registro_profesional" maxlength="40">
+                  <div class="invalid-feedback">Obligatorio para personal asistencial.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>3</span>Detalle de funciones</h2>
+              <div class="row g-3">
+                <div class="col-12"><label class="form-label fw-bold" for="rol_institucional">Rol institucional *</label><input class="form-control" id="rol_institucional" name="rol_institucional" maxlength="120" required><div class="invalid-feedback">Obligatorio.</div></div>
+                <div class="col-12"><label class="form-label fw-bold" for="funciones">Funciones en SIHOS *</label><textarea class="form-control" id="funciones" name="funciones" rows="3" maxlength="1500" required placeholder="Qué módulos o acciones realizará (Ej: evolución médica, facturación, admisiones…)"></textarea><div class="invalid-feedback">Describa las funciones.</div></div>
+                <div class="col-12"><label class="form-label fw-bold" for="observaciones">Observaciones</label><textarea class="form-control" id="observaciones" name="observaciones" rows="2" maxlength="1000" placeholder="Otra información relevante para Sistemas"></textarea></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card border-0 shadow-sm mb-4 portal-seccion">
+            <div class="card-body p-4">
+              <h2 class="ficha-titulo"><span>4</span>Responsable de la solicitud</h2>
+              <label class="form-label fw-bold" for="solicitado_por">Nombre completo de quien solicita *</label>
+              <input class="form-control" id="solicitado_por" name="solicitado_por" maxlength="120" required>
+              <div class="form-text">Normalmente el jefe inmediato o el líder del área.</div>
+              <div class="invalid-feedback">Obligatorio.</div>
+            </div>
+          </section>
+
+          <div class="ficha-acciones">
+            <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4" id="btn-enviar"><i class="bi bi-send me-2"></i>Enviar solicitud</button>
+          </div>
+          <div id="resultado" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+      <aside class="col-lg-4">
+        <div class="card border-0 shadow-sm portal-ayuda">
+          <div class="card-body">
+            <h2 class="h6 fw-bold"><i class="bi bi-info-circle me-2"></i>Tenga en cuenta</h2>
+            <ul class="small mb-0 ps-3">
+              <li>La solicitud la hace el <strong>jefe inmediato o líder del área</strong>.</li>
+              <li>El personal asistencial debe estar en <strong>RETHUS</strong> y tener tarjeta profesional.</li>
+              <li>Describa con claridad las funciones: de eso dependen los permisos del usuario en SIHOS.</li>
+              <li>Sistemas enviará las credenciales al correo del funcionario.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/accesibilidad.js" defer></script>
+  <script src="js/accessibility-styles.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/portal-sihos.js?v=1" type="module"></script>
+</body>
+</html>
