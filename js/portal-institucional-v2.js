@@ -2,7 +2,7 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import { auth, db, storage } from "./firebase-config.js";
 import { collection, query, onSnapshot, doc, getDoc, updateDoc, orderBy, getDocs, where, limit, arrayUnion, Timestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-import { obtenerPerfil, soloGuiaChat, soloReportarSoporte, URL_GUIA_CHAT, URL_SOPORTE, esc } from "./portal-sesion.js";
+import { obtenerPerfil, soloGuiaChat, soloReportarSoporte, URL_GUIA_CHAT, esc } from "./portal-sesion.js";
 
 // --- Seguridad: los datos de las citas vienen de un formulario público ---
 // Todo texto que se inserte en el HTML pasa por esc(); los enlaces por urlSegura().
@@ -38,6 +38,10 @@ function aplicarPerfil(perfil) {
     document.querySelectorAll('#main-cards-container [data-modulo]').forEach(tarjeta => {
         tarjeta.classList.toggle('d-none', !tiene(tarjeta.dataset.modulo));
     });
+    // Cuenta compartida: solo las secciones marcadas con data-cuenta-compartida (Solicitudes a Sistemas)
+    if (soloReportarSoporte(perfil)) {
+        document.querySelectorAll('#main-cards-container .portal-seccion:not([data-cuenta-compartida]) .portal-tarjeta').forEach(t => t.classList.add('d-none'));
+    }
     // Secciones sin ninguna tarjeta visible se ocultan
     document.querySelectorAll('#main-cards-container .portal-seccion').forEach(seccion => {
         const visibles = [...seccion.querySelectorAll('.portal-tarjeta')].some(t => !t.classList.contains('d-none'));
@@ -91,10 +95,6 @@ onAuthStateChanged(auth, async (user) => {
     const perfil = await obtenerPerfil(userEmail);
 
     // Usuario solo de la guía del chat: va directo a la guía, nada más del portal
-    if (soloReportarSoporte(perfil)) {
-        window.location.replace(URL_SOPORTE);
-        return;
-    }
     if (soloGuiaChat(perfil)) {
         window.location.replace(URL_GUIA_CHAT);
         return;

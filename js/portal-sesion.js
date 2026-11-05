@@ -3,8 +3,9 @@
 // Permisos: colección "usuariosPortal" de Firestore, documento = correo del usuario
 //   { nombre: "…", modulos: ["citas", "calidad", "soporte", …], inicio: "citas" }
 // Módulos: "admin" (todo), "citas", "calidad", "soporte" (técnicos de Sistemas), "guia-chat",
-//          "reportar-soporte" (cuenta compartida: solo puede reportar fallas en Soporte Técnico).
-// Perfil con compartida: true -> el formulario pide los datos de la persona que reporta.
+//          "reportar-soporte" (cuenta compartida: solo ve "Solicitudes a Sistemas").
+// Perfil con compartida: true -> los formularios piden los datos de la persona y no se muestran
+// solicitudes anteriores (las vería cualquiera que use la cuenta).
 // Sin documento se usan PERFILES_POR_DEFECTO. Las reglas de Firebase y los Apps Script
 // deben coincidir con estos permisos (ver firebase/ y apps-script/).
 
@@ -19,8 +20,11 @@ export const PERFILES_POR_DEFECTO = {
     'soporte@hdsa.gov.co': { nombre: 'Cuenta compartida de soporte', modulos: ['reportar-soporte'], compartida: true }
 };
 export const URL_SOPORTE = '/portal-soporte.html';
+// Páginas que puede abrir la cuenta compartida (además del portal)
+export const PAGINAS_CUENTA_COMPARTIDA = [URL_SOPORTE, '/portal-contrasena.html', '/portal-sihos.html'];
 export const URL_GUIA_CHAT = '/documentos/Portal-institucional/guia-chat-hdsa/index.html';
 export const URL_LOGIN = '/login-institucional.html';
+export const URL_PORTAL = '/portal-institucional.html';
 
 export async function obtenerPerfil(email) {
     try {
@@ -55,8 +59,8 @@ export function exigirSesion() {
             const email = (user.email || '').toLowerCase();
             const perfil = await obtenerPerfil(email);
             if (soloGuiaChat(perfil)) { window.location.replace(URL_GUIA_CHAT); return; }
-            // La cuenta compartida de soporte solo puede usar la página de Soporte Técnico
-            if (soloReportarSoporte(perfil) && !window.location.pathname.endsWith(URL_SOPORTE)) { window.location.replace(URL_SOPORTE); return; }
+            // La cuenta compartida solo puede usar los formularios de Solicitudes a Sistemas
+            if (soloReportarSoporte(perfil) && !PAGINAS_CUENTA_COMPARTIDA.some(p => window.location.pathname.endsWith(p))) { window.location.replace(URL_PORTAL); return; }
             const tiene = (modulo) => perfil.modulos.includes('admin') || perfil.modulos.includes(modulo);
             resolve({ user, email, perfil, tiene });
         });

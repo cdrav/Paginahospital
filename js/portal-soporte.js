@@ -98,6 +98,10 @@ function iniciarFormulario() {
     // En una cuenta compartida el nombre lo escribe cada persona; en una personal se llena solo
     const nombreInicial = compartida ? '' : (sesion.perfil.nombre || '');
     nombre.value = nombreInicial;
+    // El correo de contacto es obligatorio; en una cuenta personal se propone el de la sesión
+    const correoContacto = $('#correo_contacto');
+    const correoInicial = compartida ? '' : sesion.email;
+    correoContacto.value = correoInicial;
     $('#correo-sesion').textContent = sesion.email;
     $('#aviso-compartida').classList.toggle('d-none', !compartida);
 
@@ -121,11 +125,11 @@ function iniciarFormulario() {
         const boton = $('#btn-enviar');
         ocupado(boton, true, 'Enviando…');
         try {
-            await llamar('crear', {
+            const creada = await llamar('crear', {
                 nombre: nombre.value.trim(),
                 cargo: $('#cargo').value.trim(),
                 contacto: $('#contacto').value.trim(),
-                correo_contacto: $('#correo_contacto').value.trim(),
+                correo_contacto: correoContacto.value.trim(),
                 servicio: servicio.value,
                 nombre_rural: $('#nombre_rural').value.trim(),
                 categoria: categorias.join(', '),
@@ -133,14 +137,18 @@ function iniciarFormulario() {
                 placa_inventario: $('#placa_inventario').value.trim(),
                 prioridad: form.querySelector('input[name="prioridad"]:checked')?.value || 'Media'
             });
+            const correoAviso = correoContacto.value.trim();
             form.reset();
             nombre.value = nombreInicial;
+            correoContacto.value = correoInicial;
             form.classList.remove('was-validated');
             grupoRural.classList.add('d-none');
             contar();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            aviso('success', '¡Solicitud enviada! El área de Sistemas fue notificada. Puede seguirla en "Mis solicitudes".');
-            cargarMias();
+            aviso('success', compartida
+                ? `¡Solicitud N.º ${creada && creada.fila ? creada.fila - 1 : ''} enviada! El área de Sistemas fue notificada. Recibirá la confirmación y la respuesta en ${correoAviso}.`
+                : '¡Solicitud enviada! El área de Sistemas fue notificada. Puede seguirla en "Mis solicitudes".');
+            if (!compartida) cargarMias();
         } catch (err) {
             aviso('danger', err.message);
         } finally {
@@ -254,15 +262,15 @@ function iniciarPanel() {
     document.documentElement.classList.remove('portal-verificando');
     $('#usuario-sesion').textContent = sesion.perfil.nombre || sesion.email;
 
-    if (sesion.perfil.compartida) {
-        // Cuenta compartida: sin enlaces al portal y aviso en "Mis solicitudes"
-        document.querySelectorAll('.solo-personal, [data-solo-personal]').forEach(el => el.classList.add('d-none'));
-        const nota = document.getElementById('nota-mias');
-        if (nota) nota.textContent = 'Esta es una cuenta compartida: aquí aparecen las solicitudes enviadas desde esta cuenta por cualquier persona.';
-    }
     iniciarFormulario();
-    document.querySelector('[data-bs-target="#tab-mias"]').addEventListener('shown.bs.tab', cargarMias);
-    cargarMias();
+    if (sesion.perfil.compartida) {
+        // Cuenta compartida: "Mis solicitudes" mostraría lo de todas las personas que la usan.
+        // El seguimiento lo hace Sistemas y la persona recibe las novedades en su correo.
+        document.querySelector('[data-bs-target="#tab-mias"]').closest('li').classList.add('d-none');
+    } else {
+        document.querySelector('[data-bs-target="#tab-mias"]').addEventListener('shown.bs.tab', cargarMias);
+        cargarMias();
+    }
 
     if (sesion.tiene('soporte')) {
         document.querySelectorAll('.solo-tecnico').forEach(el => el.classList.remove('d-none'));

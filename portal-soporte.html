@@ -88,9 +88,9 @@
                     <div class="invalid-feedback">Escriba el nombre del puesto.</div>
                   </div>
                   <div class="col-12">
-                    <label class="form-label fw-bold" for="correo_contacto">Correo <span class="text-muted fw-normal">(opcional, para recibir respuesta)</span></label>
-                    <input type="email" class="form-control" id="correo_contacto" maxlength="120" placeholder="nombre@hdsa.gov.co" autocomplete="email">
-                    <div class="invalid-feedback">Escriba un correo válido o déjelo vacío.</div>
+                    <label class="form-label fw-bold" for="correo_contacto">Correo * <span class="text-muted fw-normal">(allí recibirá la confirmación y la respuesta)</span></label>
+                    <input type="email" class="form-control" id="correo_contacto" maxlength="120" placeholder="nombre@hdsa.gov.co" autocomplete="email" required pattern="[^\s@]+@[^\s@]+\.[^\s@]+">
+                    <div class="invalid-feedback">Escriba un correo válido.</div>
                     <div class="form-text">Sesión: <span id="correo-sesion"></span></div>
                   </div>
                 </div>
@@ -142,7 +142,7 @@
             </section>
 
             <div class="ficha-acciones">
-              <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4" id="btn-volver-portal" data-solo-personal><i class="bi bi-arrow-left me-2"></i>Volver</a>
+              <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4" id="btn-volver-portal"><i class="bi bi-arrow-left me-2"></i>Volver</a>
               <button type="submit" class="btn btn-primary rounded-pill px-4" id="btn-enviar"><i class="bi bi-send me-2"></i>Enviar solicitud</button>
             </div>
           </form>
@@ -182,7 +182,7 @@
       </section>
     </div>
 
-    <div class="text-center mt-5 solo-personal">
+    <div class="text-center mt-5">
       <a href="portal-institucional.html" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i>Volver al Portal</a>
     </div>
   </main>
@@ -238,6 +238,6 @@
   <script src="js/accesibilidad.js" defer></script>
   <script src="js/accessibility-styles.js" defer></script>
   <script src="js/main.js" defer></script>
-  <script src="js/portal-soporte.js?v=2" type="module"></script>
+  <script src="js/portal-soporte.js?v=4" type="module"></script>
 </body>
 </html>

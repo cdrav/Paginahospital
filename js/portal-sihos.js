@@ -32,7 +32,9 @@ function actualizarCondicionales() {
 
     const form = $('#form-sihos');
     const solicitante = $('#solicitado_por');
-    solicitante.value = sesion.perfil.nombre || '';
+    // En la cuenta compartida cada persona escribe su nombre
+    const nombreInicial = sesion.perfil.compartida ? '' : (sesion.perfil.nombre || '');
+    solicitante.value = nombreInicial;
     form.querySelectorAll('input[name="tipo_contrato"], input[name="categoria"]').forEach(r => r.addEventListener('change', actualizarCondicionales));
 
     form.addEventListener('submit', async (e) => {
@@ -63,7 +65,7 @@ function actualizarCondicionales() {
             avisar('success', `<i class="bi bi-check-circle-fill me-2"></i><strong>Solicitud enviada.</strong> El área de Sistemas creará el usuario SIHOS de ${esc(datos.nombres)} ${esc(datos.apellidos)}.`);
             form.reset();
             form.classList.remove('was-validated');
-            solicitante.value = sesion.perfil.nombre || '';
+            solicitante.value = nombreInicial;
             actualizarCondicionales();
         } catch (err) {
             avisar('danger', `<i class="bi bi-exclamation-triangle-fill me-2"></i>${esc(err.message)}`);

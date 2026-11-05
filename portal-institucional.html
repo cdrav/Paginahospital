@@ -119,20 +119,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Formulario: Apertura de Historia Clínica -->
-                    <div class="col-md-6 col-lg-4 portal-tarjeta">
-                        <div class="card form-link-card h-100">
-                            <div class="card-body text-center d-flex flex-column">
-                                <div class="form-icon-wrapper"><i class="bi bi-file-earmark-medical-fill"></i></div>
-                                <h5 class="card-title">Apertura Historia Clínica</h5>
-                                <p class="card-text text-muted flex-grow-1">Proceso para la apertura de historia clínica.</p>
-                                <a href="https://cdrav.github.io/Apertura-de-Historia-Cl-nica-HDSA/" target="_blank" rel="noopener" class="btn btn-outline-primary stretched-link" aria-label="Acceder al formulario de Apertura de Historia Clínica">Acceder al Formulario</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
-            <section class="portal-seccion mb-5" id="seccion-sistemas" data-acento="sistemas" aria-labelledby="sec-bi-tools">
+            <section class="portal-seccion mb-5" id="seccion-sistemas" data-acento="sistemas" data-cuenta-compartida aria-labelledby="sec-bi-tools">
                 <div class="portal-seccion-titulo">
                     <span class="portal-seccion-icono"><i class="bi bi-tools"></i></span>
                     <div><h2 class="h5 fw-bold mb-0" id="sec-bi-tools">Solicitudes a Sistemas</h2><p class="text-muted small mb-0">Soporte técnico, accesos y equipos.</p></div>
@@ -171,6 +160,17 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Formulario: Gestión Web Hospitalaria -->
+                    <div class="col-md-6 col-lg-4 portal-tarjeta" id="gestion-web-card">
+                        <div class="card form-link-card h-100">
+                            <div class="card-body text-center d-flex flex-column">
+                                <div class="form-icon-wrapper"><i class="bi bi-globe"></i></div>
+                                <h5 class="card-title">Gestión Web Hospitalaria</h5>
+                                <p class="card-text text-muted flex-grow-1">Plataforma para la gestión de contenidos y servicios del sitio web.</p>
+                                <a href="https://script.google.com/macros/s/AKfycbwo3MBeMhsghEryzA1HFvavIwlhe1vFaqgzl_euQYxsgA1BNsLTgSur2GGvEq5JADSk/exec" target="_blank" rel="noopener" class="btn btn-outline-primary stretched-link" aria-label="Acceder al formulario de Gestión Web Hospitalaria">Acceder al formulario</a>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Formulario: Registro de Equipos para Trabajo en Casa -->
                     <div class="col-md-6 col-lg-4 portal-tarjeta">
                         <div class="card form-link-card h-100">
@@ -190,17 +190,6 @@
                     <div><h2 class="h5 fw-bold mb-0" id="sec-bi-shield-lock-fill">Administración</h2><p class="text-muted small mb-0">Herramientas de administración del sitio y de los usuarios.</p></div>
                 </div>
                 <div class="row g-4">
-                    <!-- Formulario: Gestión Web Hospitalaria -->
-                    <div class="col-md-6 col-lg-4 portal-tarjeta d-none" data-modulo="admin" id="admin-card">
-                        <div class="card form-link-card h-100">
-                            <div class="card-body text-center d-flex flex-column">
-                                <div class="form-icon-wrapper"><i class="bi bi-globe"></i></div>
-                                <h5 class="card-title">Gestión Web Hospitalaria</h5>
-                                <p class="card-text text-muted flex-grow-1">Plataforma para la gestión de contenidos y servicios del sitio web.</p>
-                                <a href="https://script.google.com/macros/s/AKfycbwo3MBeMhsghEryzA1HFvavIwlhe1vFaqgzl_euQYxsgA1BNsLTgSur2GGvEq5JADSk/exec" target="_blank" rel="noopener" class="btn btn-outline-primary stretched-link" aria-label="Acceder al formulario de Gestión Web Hospitalaria">Acceder al formulario</a>
-                            </div>
-                        </div>
-                    </div>
                     <!-- Panel de Control Firebase (Solo Admin) -->
                     <div class="col-md-6 col-lg-4 portal-tarjeta d-none" data-modulo="admin" id="firebase-card">
                         <div class="card form-link-card h-100">
@@ -549,7 +538,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="js/email-service.js"></script>
     <!-- Lógica principal del portal, incluye protección de ruta y gestión de paneles -->
-    <script src="js/portal-institucional-v2.js?v=8" type="module" defer></script>
+    <script src="js/portal-institucional-v2.js?v=9" type="module" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>
