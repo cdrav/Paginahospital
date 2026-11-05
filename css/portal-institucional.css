@@ -555,3 +555,19 @@
 
 .soporte-quien { color: #374151; margin-top: .15rem; }
 .ficha-acciones > .d-none + .btn { margin-left: auto; }
+
+/* Zona para adjuntar archivos (Gestión Web) */
+.zona-archivos {
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: .2rem; cursor: pointer;
+    padding: 1.6rem 1rem; border: 2px dashed #c9d3d6; border-radius: 1rem; background: #fbfcfc; transition: border-color .15s, background .15s;
+}
+.zona-archivos > i { font-size: 2rem; color: var(--acento, #22a7a0); }
+.zona-archivos small { color: #6b7280; }
+.zona-archivos:hover, .zona-archivos.arrastrando { border-color: var(--acento, #22a7a0); background: var(--acento-suave, #e3f4f2); }
+.zona-archivos.invalida { border-color: #dc3545; }
+#archivo:focus-visible + .lista-archivos, .zona-archivos:focus-within { outline: 3px solid var(--acento, #22a7a0); outline-offset: 2px; }
+.lista-archivos { list-style: none; padding: 0; margin: .75rem 0 0; display: grid; gap: .4rem; }
+.lista-archivos li { display: flex; align-items: center; gap: .6rem; padding: .5rem .75rem; border: 1px solid #e3e8ea; border-radius: .7rem; background: #fff; }
+.lista-archivos li > i { font-size: 1.2rem; color: var(--acento, #22a7a0); }
+.lista-archivos .nombre { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lista-archivos small { color: #6b7280; white-space: nowrap; }

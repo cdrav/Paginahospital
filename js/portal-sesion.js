@@ -21,7 +21,7 @@ export const PERFILES_POR_DEFECTO = {
 };
 export const URL_SOPORTE = '/portal-soporte.html';
 // Páginas que puede abrir la cuenta compartida (además del portal)
-export const PAGINAS_CUENTA_COMPARTIDA = [URL_SOPORTE, '/portal-contrasena.html', '/portal-sihos.html'];
+export const PAGINAS_CUENTA_COMPARTIDA = [URL_SOPORTE, '/portal-contrasena.html', '/portal-sihos.html', '/portal-gestion-web.html'];
 export const URL_GUIA_CHAT = '/documentos/Portal-institucional/guia-chat-hdsa/index.html';
 export const URL_LOGIN = '/login-institucional.html';
 export const URL_PORTAL = '/portal-institucional.html';
