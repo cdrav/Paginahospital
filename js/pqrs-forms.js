@@ -132,7 +132,8 @@
       const anonimo = $('anonimo-check').checked;
       const datos = new URLSearchParams();
       const campo = (nombre, id) => datos.append(nombre, ($(id).value || '').trim());
-      datos.append('tipo', $('tipoSolicitud').value);
+      const tipo = form.querySelector('input[name="tipo"]:checked');
+      datos.append('tipo', tipo ? tipo.value : '');
       datos.append('anonimo', anonimo ? 'si' : 'no');
       if (!anonimo) {
         campo('razon_social', 'razonSocial'); campo('nombres', 'nombres'); campo('apellidos', 'apellidos');
@@ -178,10 +179,21 @@
     form.addEventListener('submit', enviar);
     form.addEventListener('reset', () => setTimeout(() => {
       form.classList.remove('was-validated');
+      ocultarMensaje();
       pintarAdjuntos();
+      contarDescripcion();
       toggleCamposPersonales();
     }));
     $('adjuntos').addEventListener('change', pintarAdjuntos);
+
+    // Contador de caracteres de la descripción
+    const descripcion = $('descripcion');
+    const contador = $('descripcion-contador');
+    function contarDescripcion() {
+      if (contador) contador.textContent = descripcion.value.length + ' / ' + descripcion.maxLength;
+    }
+    descripcion.addEventListener('input', contarDescripcion);
+    contarDescripcion();
 
     $('btn-imprimir').addEventListener('click', () => {
       document.body.classList.add('imprimir-constancia');

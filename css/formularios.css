@@ -173,21 +173,3 @@
 .breadcrumb-item.active {
   color: #6c757d;
 }
-
-
-/* PQRSD: campo trampa para bots (fuera de pantalla, sin display:none para que los bots lo llenen) */
-.pqrs-trampa {
-  position: absolute !important;
-  left: -10000px !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-/* PQRSD: al imprimir solo sale la constancia de recepción */
-@media print {
-  body.imprimir-constancia * { visibility: hidden; }
-  body.imprimir-constancia #pqrs-recibida,
-  body.imprimir-constancia #pqrs-recibida * { visibility: visible; }
-  body.imprimir-constancia #pqrs-recibida { position: absolute; left: 0; top: 0; width: 100%; border: 0 !important; }
-}
