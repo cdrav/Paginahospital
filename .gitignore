@@ -25,3 +25,6 @@ documentos/Portal-institucional/Guía Chat HDSA2/
 
 # Código de Apps Script (copias locales: tienen IDs de archivos de Drive, no se publican)
 apps-script/
+
+# Carpeta que arma el despliegue (scripts/preparar-publicacion.js)
+_site/

@@ -34,13 +34,18 @@ jobs:
           npm ci
           npm run build:search
 
+      # Solo se publica lo público: sin node_modules, scripts, reglas de Firebase, configuración, etc.
+      # La lista está en scripts/preparar-publicacion.js
+      - name: Preparar carpeta pública (_site)
+        run: node scripts/preparar-publicacion.js
+
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v6
 
       - name: Subir artefactos de Pages
         uses: actions/upload-pages-artifact@v5
         with:
-          path: './'
+          path: './_site'
 
       - name: Desplegar en GitHub Pages
         id: deployment
