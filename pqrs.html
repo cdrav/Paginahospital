@@ -1,4 +1,4 @@
-|<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&family=Work+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/site.css" />
-    <link rel="stylesheet" href="css/formularios.css" />
+    <link rel="stylesheet" href="css/formularios.css?v=2" />
     <link rel="stylesheet" href="css/accesibilidad.css?v=1.1" />
     <link rel="stylesheet" href="css/accessibility-buttons.css" />
     <link rel="stylesheet" href="css/cookie-banner.css" />
@@ -67,9 +67,31 @@
       <!-- Mensaje de éxito/error del envío -->
       <div id="form-message" class="alert d-none" role="alert"></div>
       
+      <!-- Constancia de recepción (se muestra al enviar) -->
+      <div id="pqrs-recibida" class="card border-success mb-4 d-none" tabindex="-1">
+        <div class="card-body p-4">
+          <h2 class="h4 text-success mb-3"><i class="bi bi-check-circle-fill me-2"></i>Su PQRSD fue recibida</h2>
+          <p>La Ventanilla Única del hospital la registrará y le dará respuesta por los medios de contacto que indicó.</p>
+          <dl class="row mb-3">
+            <dt class="col-sm-4">Tipo</dt><dd class="col-sm-8" id="recibida-tipo"></dd>
+            <dt class="col-sm-4">Fecha de recepción</dt><dd class="col-sm-8" id="recibida-fecha"></dd>
+            <dt class="col-sm-4">Término de respuesta</dt><dd class="col-sm-8" id="recibida-plazo"></dd>
+          </dl>
+          <p class="mb-2" id="recibida-acuse"></p>
+          <p class="alert alert-warning d-none" id="recibida-aviso-adjuntos"></p>
+          <div class="d-flex flex-wrap gap-2 d-print-none">
+            <button type="button" class="btn btn-primary" id="btn-imprimir"><i class="bi bi-printer me-1"></i>Imprimir o guardar en PDF</button>
+            <button type="button" class="btn btn-outline-secondary" id="btn-nueva">Enviar otra PQRSD</button>
+          </div>
+        </div>
+      </div>
+
       <form id="pqrs-form" class="needs-validation" novalidate>
-        <!-- Token CSRF (opcional, para protección adicional) -->
-        <input type="hidden" name="_token" id="csrf-token">
+        <!-- Campo trampa para bots: las personas no lo ven ni lo llenan -->
+        <div class="pqrs-trampa" aria-hidden="true">
+          <label for="sitio_web">No llenar este campo</label>
+          <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off">
+        </div>
 
         <!-- Información Básica -->
         <div class="form-section">
@@ -84,13 +106,15 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label for="tipoSolicitud" class="form-label required-field">Tipo de solicitud</label>
-              <select class="form-select" id="tipoSolicitud" name="TipoDeSolicitud" required>
+              <select class="form-select" id="tipoSolicitud" name="tipo" required>
                 <option value="" selected disabled>Seleccione una opción</option>
                 <option value="peticion">Petición</option>
                 <option value="queja">Queja</option>
                 <option value="reclamo">Reclamo</option>
                 <option value="sugerencia">Sugerencia</option>
                 <option value="denuncia">Denuncia</option>
+                <option value="informacion">Solicitud de información o documentos</option>
+                <option value="consulta">Consulta</option>
               </select>
               <div class="invalid-feedback">
                 Por favor seleccione el tipo de solicitud.
@@ -98,11 +122,8 @@
             </div>
 
             <div class="col-md-6">
-              <label for="fecha" class="form-label required-field">Fecha</label>
-              <input type="date" class="form-control" id="fecha" name="Fecha" required>
-              <div class="invalid-feedback">
-                Por favor ingrese la fecha.
-              </div>
+              <p class="form-label mb-1">Fecha de recepción</p>
+              <p class="form-text mt-0">Se registra automáticamente al enviar el formulario.</p>
             </div>
 
             <!-- Contenedor para datos personales que se puede ocultar -->
@@ -110,12 +131,12 @@
               <div class="row g-3">
                 <div class="col-12">
                   <label for="razonSocial" class="form-label">Razón Social (si aplica)</label>
-                  <input type="text" class="form-control" id="razonSocial" name="RazonSocial" placeholder="Nombre de la empresa">
+                  <input type="text" class="form-control" id="razonSocial" name="RazonSocial" maxlength="120" placeholder="Nombre de la empresa">
                 </div>
 
                 <div class="col-md-6">
                   <label for="nombres" class="form-label required-field">Nombres completos (persona natural)</label>
-                  <input type="text" class="form-control" id="nombres" name="Nombres">
+                  <input type="text" class="form-control" id="nombres" name="Nombres" maxlength="80" autocomplete="given-name">
                   <div class="invalid-feedback">
                     Por favor ingrese sus nombres completos.
                   </div>
@@ -123,7 +144,7 @@
 
                 <div class="col-md-6">
                   <label for="apellidos" class="form-label required-field">Apellidos completos (persona natural)</label>
-                  <input type="text" class="form-control" id="apellidos" name="Apellidos">
+                  <input type="text" class="form-control" id="apellidos" name="Apellidos" maxlength="80" autocomplete="family-name">
                   <div class="invalid-feedback">
                     Por favor ingrese sus apellidos completos.
                   </div>
@@ -146,7 +167,7 @@
 
                 <div class="col-md-8">
                   <label for="numeroDocumento" class="form-label required-field">Número de documento</label>
-                  <input type="text" class="form-control" id="numeroDocumento" name="NumeroDeDocumento">
+                  <input type="text" class="form-control" id="numeroDocumento" name="NumeroDeDocumento" maxlength="20" pattern="[A-Za-z0-9.\- ]{3,20}">
                   <div class="invalid-feedback">
                     Por favor ingrese su número de documento.
                   </div>
@@ -154,7 +175,7 @@
 
                 <div class="col-md-6">
                   <label for="telefono" class="form-label required-field">Teléfono de contacto</label>
-                  <input type="tel" class="form-control" id="telefono" name="Telefono">
+                  <input type="tel" class="form-control" id="telefono" name="Telefono" maxlength="20" pattern="[0-9+()\s\-]{7,20}" autocomplete="tel">
                   <div class="invalid-feedback">
                     Por favor ingrese un número de teléfono válido.
                   </div>
@@ -162,7 +183,7 @@
 
                 <div class="col-md-6">
                   <label for="email" class="form-label required-field">Correo electrónico</label>
-                  <input type="email" class="form-control" id="email" name="CorreoElectronico" placeholder="ejemplo@correo.com">
+                  <input type="email" class="form-control" id="email" name="CorreoElectronico" maxlength="120" autocomplete="email" placeholder="ejemplo@correo.com">
                   <div class="invalid-feedback">
                     Por favor ingrese un correo electrónico válido.
                   </div>
@@ -170,11 +191,11 @@
 
                 <div class="col-12">
                   <label for="direccion" class="form-label">Dirección de residencia</label>
-                  <input type="text" class="form-control" id="direccion" name="Direccion">
+                  <input type="text" class="form-control" id="direccion" name="Direccion" maxlength="150">
                 </div>
 
-                <div class="col-md-6"><label for="municipio" class="form-label">Municipio</label><input type="text" class="form-control" id="municipio" name="Municipio"></div>
-                <div class="col-md-6"><label for="departamento" class="form-label">Departamento</label><input type="text" class="form-control" id="departamento" name="Departamento"></div>
+                <div class="col-md-6"><label for="municipio" class="form-label">Municipio</label><input type="text" class="form-control" id="municipio" name="Municipio" maxlength="60"></div>
+                <div class="col-md-6"><label for="departamento" class="form-label">Departamento</label><input type="text" class="form-control" id="departamento" name="Departamento" maxlength="60"></div>
               </div>
             </div>
           </div>
@@ -186,7 +207,7 @@
           
           <div class="mb-3">
             <label for="asunto" class="form-label required-field">Asunto</label>
-            <input type="text" class="form-control" id="asunto" name="Asunto" required>
+            <input type="text" class="form-control" id="asunto" name="Asunto" maxlength="150" minlength="3" required>
             <div class="invalid-feedback">
               Por favor ingrese un asunto para su solicitud.
             </div>
@@ -194,7 +215,7 @@
 
           <div class="mb-3">
             <label for="descripcion" class="form-label required-field">Descripción detallada</label>
-            <textarea class="form-control form-textarea" id="descripcion" name="Descripcion" rows="5" required></textarea>
+            <textarea class="form-control form-textarea" id="descripcion" name="Descripcion" rows="5" maxlength="5000" minlength="10" required></textarea>
             <div class="form-text">Describa de manera clara y detallada su petición, queja, reclamo, sugerencia o denuncia.</div>
             <div class="invalid-feedback">
               Por favor proporcione una descripción detallada.
@@ -202,11 +223,21 @@
           </div>
 
           <div class="mb-4">
-            <div data-netlify-recaptcha="true"></div>
+            <label for="adjuntos" class="form-label">Adjuntos (opcional)</label>
+            <input class="form-control" type="file" id="adjuntos" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" multiple aria-describedby="adjuntos-ayuda">
+            <div class="form-text" id="adjuntos-ayuda">Solo PDF, JPG o PNG. Máximo 3 archivos, 5 MB cada uno y 10 MB en total.</div>
+            <ul class="list-unstyled small mt-2 mb-0" id="adjuntos-lista" aria-live="polite"></ul>
+            <div class="text-danger small mt-1 d-none" id="adjuntos-error" role="alert"></div>
+          </div>
+
+          <div class="mb-4">
+            <p class="form-label mb-2">Verificación de seguridad</p>
+            <div id="turnstile-pqrs"></div>
+            <div class="text-danger small mt-1 d-none" id="turnstile-error" role="alert">Complete la verificación de seguridad.</div>
           </div>
 
           <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" value="" id="aceptoTerminos" required>
+            <input class="form-check-input" type="checkbox" value="si" id="aceptoTerminos" required>
             <label class="form-check-label" for="aceptoTerminos">
               Acepto la <a href="#" data-bs-toggle="modal" data-bs-target="#politicaTratamiento">Política de Tratamiento de Datos Personales</a> y autorizo el tratamiento de mis datos de acuerdo con la Ley 1581 de 2012.
             </label>
@@ -269,9 +300,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
   <script src="js/cookie-consent.js" defer></script>
-  <script src="js/pqrs-forms.js" defer></script>
+  <script src="js/pqrs-forms.js?v=2" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=pqrsTurnstileListo" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
   <script src="js/utils.js" defer></script>
   <script src="js/layout.js" defer></script>
@@ -280,6 +311,5 @@
   <script src="js/accessibility-styles.js" defer></script>
   <script src="js/busqueda.js" defer></script>
   <script src="js/main.js" defer></script>
-  <script src="js/cookie-banner.js" defer></script>
 </body>
 </html>
