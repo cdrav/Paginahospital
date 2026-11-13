@@ -51,19 +51,30 @@ function pintarArchivos(mostrarError) {
     $('#zona-archivos').classList.toggle('invalida', !!(mostrarError && error));
 }
 
+const mismoArchivo = (a, b) => a.name === b.name && a.size === b.size && a.lastModified === b.lastModified;
+
 function agregar(lista) {
     const rechazados = [];
-    [...lista].forEach(f => {
+    [...(lista || [])].forEach(f => {
         const ext = f.name.split('.').pop().toLowerCase();
         if (!EXTENSIONES.includes(ext) || !f.size) { rechazados.push(f.name); return; }
-        if (!archivos.some(a => a.name === f.name && a.size === f.size)) archivos.push(f);
+        if (!archivos.some(a => mismoArchivo(a, f))) archivos.push(f);
     });
     pintarArchivos(true);
     if (rechazados.length) {
+        // Se muestra junto con el error de cantidad/tamaño, si lo hay
         const caja = $('#error-archivos');
-        caja.textContent = `No se agregaron (tipo no permitido o vacíos): ${rechazados.join(', ')}`;
+        caja.textContent = [`No se agregaron (tipo no permitido o vacíos): ${rechazados.join(', ')}.`, errorArchivos()].filter(Boolean).join(' ');
         caja.classList.remove('d-none');
     }
+}
+
+/** Lee la respuesta del Apps Script; si no es JSON (error de Google, red caída) da un mensaje claro. */
+async function leerRespuesta(resp) {
+    let resultado = null;
+    try { resultado = await resp.json(); } catch { /* respuesta no JSON */ }
+    if (!resultado) throw new Error(`El servicio no respondió correctamente${resp.ok ? '' : ` (código ${resp.status})`}. Intente de nuevo en unos minutos o escriba a sistemas@hdsa.gov.co.`);
+    return resultado;
 }
 
 function base64(archivo) {
@@ -101,7 +112,7 @@ function base64(archivo) {
     entrada.addEventListener('change', () => { agregar(entrada.files); entrada.value = ''; });
     ['dragenter', 'dragover'].forEach(ev => zona.addEventListener(ev, (e) => { e.preventDefault(); zona.classList.add('arrastrando'); }));
     ['dragleave', 'drop'].forEach(ev => zona.addEventListener(ev, (e) => { e.preventDefault(); zona.classList.remove('arrastrando'); }));
-    zona.addEventListener('drop', (e) => agregar(e.dataTransfer.files));
+    zona.addEventListener('drop', (e) => agregar(e.dataTransfer?.files));
     $('#lista-archivos').addEventListener('click', (e) => {
         const b = e.target.closest('[data-quitar]');
         if (!b) return;
@@ -132,8 +143,13 @@ function base64(archivo) {
             }
             datos.append('idToken', await sesion.user.getIdToken());
             const correo = $('#correo').value.trim();
-            const resp = await fetch(URL_GESTION_WEB, { method: 'POST', body: datos });
-            const resultado = await resp.json();
+            let resp;
+            try {
+                resp = await fetch(URL_GESTION_WEB, { method: 'POST', body: datos });
+            } catch {
+                throw new Error('No hay conexión con el servicio. Revise su internet e intente de nuevo.');
+            }
+            const resultado = await leerRespuesta(resp);
             if (resultado.result !== 'success') throw new Error(resultado.error || 'No se pudo enviar la solicitud.');
             const n = resultado.data && resultado.data.radicado;
             avisar('success', `<i class="bi bi-check-circle-fill me-2"></i><strong>Solicitud${n ? ' N.º ' + esc(n) : ''} enviada.</strong> Sistemas fue notificado y recibirá la confirmación en ${esc(correo)}.`);

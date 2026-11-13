@@ -565,7 +565,8 @@
 .zona-archivos small { color: #6b7280; }
 .zona-archivos:hover, .zona-archivos.arrastrando { border-color: var(--acento, #22a7a0); background: var(--acento-suave, #e3f4f2); }
 .zona-archivos.invalida { border-color: #dc3545; }
-#archivo:focus-visible + .lista-archivos, .zona-archivos:focus-within { outline: 3px solid var(--acento, #22a7a0); outline-offset: 2px; }
+/* El input va después del label (visually-hidden): el foco por teclado se marca en la zona */
+.zona-archivos:has(+ #archivo:focus-visible) { outline: 3px solid var(--acento, #22a7a0); outline-offset: 2px; }
 .lista-archivos { list-style: none; padding: 0; margin: .75rem 0 0; display: grid; gap: .4rem; }
 .lista-archivos li { display: flex; align-items: center; gap: .6rem; padding: .5rem .75rem; border: 1px solid #e3e8ea; border-radius: .7rem; background: #fff; }
 .lista-archivos li > i { font-size: 1.2rem; color: var(--acento, #22a7a0); }
