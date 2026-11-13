@@ -1,0 +1,125 @@
+/* estadisticas.css — Página de estadísticas del sitio (solo estadisticas.html). */
+
+.est-pagina {
+  --es-primario: #164443;
+  --es-dato: #069681;        /* color de los datos (una sola serie por gráfico) */
+  --es-dato-suave: #cdebe5;
+  --es-pista: #edf3f2;       /* fondo de las barras */
+  --es-borde: #dde6e4;
+  --es-texto: #1f2d2d;
+  --es-gris: #5c6b6a;
+  background: #f5f8f7;
+  padding-bottom: 3rem;
+}
+
+/* ---------- Encabezado ---------- */
+.est-hero {
+  background: linear-gradient(135deg, var(--es-primario) 0%, #1d5d5a 60%, var(--es-dato) 140%);
+  color: #fff;
+  padding: 2rem 0 4.5rem;
+}
+.est-hero .breadcrumb { padding: 0; }
+.est-hero .breadcrumb-item a { color: #cfe9e4; text-decoration: none; }
+.est-hero .breadcrumb-item a:hover { color: #fff; text-decoration: underline; }
+.est-hero .breadcrumb-item.active,
+.est-hero .breadcrumb-item + .breadcrumb-item::before { color: rgba(255, 255, 255, .7); }
+.est-titulo { color: #fff; font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem); font-weight: 800; margin-bottom: .5rem; text-transform: none; }
+.est-intro { font-size: 1.05rem; color: rgba(255, 255, 255, .9); margin-bottom: .75rem; }
+.est-estado { font-size: .9rem; color: rgba(255, 255, 255, .8); margin: 0; display: flex; align-items: center; }
+
+.est-contenido { margin-top: -3rem; position: relative; }
+
+/* ---------- Indicadores ---------- */
+.est-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.est-kpi {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 10px 30px rgba(22, 68, 67, .08);
+}
+.est-kpi-icono {
+  width: 2.4rem; height: 2.4rem;
+  border-radius: 10px;
+  background: var(--es-pista);
+  color: var(--es-dato);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: .75rem;
+}
+.est-kpi-nombre { font-size: .9rem; font-weight: 600; color: var(--es-gris); margin: 0; }
+.est-kpi-valor {
+  font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.4rem);
+  font-weight: 800;
+  color: var(--es-texto);
+  line-height: 1.1;
+  margin: .2rem 0 .3rem;
+  font-variant-numeric: tabular-nums;
+}
+.est-kpi-nota { font-size: .82rem; color: var(--es-gris); margin: 0; }
+
+/* ---------- Tarjetas ---------- */
+.est-tarjeta {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(22, 68, 67, .06);
+  margin-bottom: 1.5rem;
+}
+.row .est-tarjeta { margin-bottom: 0; }
+.est-tarjeta-titulo { font-size: 1.15rem; font-weight: 700; color: var(--es-primario); margin-bottom: .2rem; }
+.est-tarjeta-sub { font-size: .85rem; color: var(--es-gris); margin-bottom: 1.1rem; }
+.est-grafico { position: relative; height: 260px; }
+.est-grafico-alto { height: 300px; }
+
+/* Tabla de datos (alternativa accesible a los gráficos) */
+.est-tabla-datos { margin-top: .75rem; font-size: .9rem; }
+.est-tabla-datos summary { cursor: pointer; color: #047a67; font-weight: 600; }
+.est-tabla-datos table { margin: .75rem 0 0; max-width: 420px; }
+.est-tabla-datos td, .est-tabla-datos th { font-variant-numeric: tabular-nums; }
+
+/* ---------- Barras horizontales (HTML) ---------- */
+.est-barras { list-style: none; padding: 0; margin: 0; display: grid; gap: .85rem; }
+.est-barras li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: .75rem; row-gap: .35rem; }
+.est-barra-nombre { color: var(--es-texto); font-weight: 600; font-size: .95rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: .5rem; }
+.est-barra-nombre i { color: var(--es-dato); font-size: 1.1rem; }
+.est-barra-nombre a { color: inherit; text-decoration: none; overflow: hidden; text-overflow: ellipsis; }
+.est-barra-nombre a:hover { color: #047a67; text-decoration: underline; }
+.est-barra-valor { font-size: .9rem; color: var(--es-gris); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.est-barra-valor strong { color: var(--es-texto); }
+.est-barra-pista { grid-column: 1 / -1; height: 10px; background: var(--es-pista); border-radius: 4px; overflow: hidden; }
+.est-barra-relleno { display: block; height: 100%; background: var(--es-dato); border-radius: 4px; min-width: 4px; transition: width .6s ease; }
+.est-barras-numeradas { counter-reset: puesto; }
+.est-barras-numeradas li { counter-increment: puesto; }
+.est-barras-numeradas .est-barra-nombre::before {
+  content: counter(puesto);
+  flex: 0 0 auto;
+  width: 1.5rem; height: 1.5rem;
+  border-radius: 50%;
+  background: var(--es-pista);
+  color: var(--es-primario);
+  font-size: .8rem; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.est-vacio { color: var(--es-gris); font-size: .9rem; display: block !important; }
+
+.est-fuente { font-size: .85rem; color: var(--es-gris); margin: 1.5rem 0 0; max-width: 900px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  .est-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 575.98px) {
+  .est-hero { padding: 1.5rem 0 4rem; }
+  .est-kpis { gap: .75rem; }
+  .est-kpi { padding: 1rem; border-radius: 12px; }
+  .est-tarjeta { padding: 1.15rem; border-radius: 12px; }
+  .est-grafico, .est-grafico-alto { height: 230px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .est-barra-relleno { transition: none; }
+}
