@@ -477,11 +477,6 @@
     padding-right: 2.25rem !important; /* Espacio para no escribir sobre la flecha */
   }
 
-  /* Estilo para el bloqueo de acceso */
-  #access-gate .form-card {
-    border: 2px solid var(--secondary-color);
-  }
-
   /* ==========================================================================
      DISEÑO RESPONSIVO AVANZADO (MOBILE FIRST ADAPTATION)
      ========================================================================== */

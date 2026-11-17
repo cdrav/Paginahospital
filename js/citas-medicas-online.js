@@ -33,34 +33,13 @@ const especialidades = [
   
   // Inicialización
   document.addEventListener('DOMContentLoaded', function() {
-    // --- VALIDACIÓN DE ACCESO TEMPORAL ---
-    const accessGate = document.getElementById('access-gate');
+    // Este script solo se carga cuando el servicio está habilitado (ver el final de
+    // citas-medicas-online.html): quita el aviso "no disponible" y muestra el formulario.
+    const avisoNoDisponible = document.getElementById('citas-no-disponible');
     const contentWrapper = document.getElementById('citas-content-wrapper');
-    const passInput = document.getElementById('dev-password');
-    const unlockBtn = document.getElementById('btn-unlock');
-    const errorMsg = document.getElementById('unlock-error');
-    const PASS_CORRECTA = 'Hdsa891900';
-
-    function checkAccess() {
-      if (sessionStorage.getItem('dev_access_granted') === 'true') {
-        if (accessGate) accessGate.remove();
-        if (contentWrapper) contentWrapper.style.display = 'block';
-        setStepView(pasoActual); // Ajustar altura del wizard una vez visible
-      }
-    }
-
-    if (unlockBtn) {
-      unlockBtn.addEventListener('click', () => {
-        if (passInput.value === PASS_CORRECTA) {
-          sessionStorage.setItem('dev_access_granted', 'true');
-          checkAccess();
-        } else {
-          errorMsg.style.display = 'block';
-          passInput.classList.add('is-invalid');
-        }
-      });
-    }
-    checkAccess();
+    if (avisoNoDisponible) avisoNoDisponible.remove();
+    if (contentWrapper) contentWrapper.style.display = 'block';
+    setStepView(pasoActual); // Ajustar altura del wizard una vez visible
 
     cargarEspecialidades();
     generarCalendario(fechaMostrada.getFullYear(), fechaMostrada.getMonth());

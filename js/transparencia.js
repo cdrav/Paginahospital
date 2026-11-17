@@ -519,33 +519,54 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     '.anchor-target p'
   ];
 
+  // Quita los resaltados devolviendo cada <mark> a texto (sin reescribir el HTML del elemento)
   const clearHighlights = (root) => {
-    root.querySelectorAll('[data-original-html]').forEach((el) => {
-      el.innerHTML = el.getAttribute('data-original-html');
-      el.removeAttribute('data-original-html');
+    root.querySelectorAll('mark.search-hit').forEach((mark) => {
+      const parent = mark.parentNode;
+      if (!parent) return;
+      parent.replaceChild(document.createTextNode(mark.textContent), mark);
+      parent.normalize();
     });
   };
 
+  // Expresión que encuentra el término con o sin tildes ("contratacion" → "Contratación")
+  const regexSinTildes = (term) => {
+    const variantes = { a: 'aáàäâ', e: 'eéèëê', i: 'iíìïî', o: 'oóòöô', u: 'uúùüû', n: 'nñ', c: 'cç' };
+    const patron = [...norm(term).replace(/\s+/g, ' ')]
+      .map((ch) => (variantes[ch] ? `[${variantes[ch]}]` : ch === ' ' ? '\\s+' : escapeRegExp(ch)))
+      .join('');
+    return new RegExp(patron, 'gi');
+  };
+
+  // Envuelve las coincidencias en <mark class="search-hit"> creando nodos (el texto nunca se interpreta como HTML)
   const highlightInElement = (el, rawTerm) => {
     if (!el || !rawTerm) return;
     const term = rawTerm.trim();
     if (!term) return;
-    if (!el.hasAttribute('data-original-html')) {
-      el.setAttribute('data-original-html', el.innerHTML);
-    }
+    const re = regexSinTildes(term);
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
     const texts = [];
     let node;
     while ((node = walker.nextNode())) {
-      const value = node.nodeValue;
-      if (!value) continue;
-      if (norm(value).includes(norm(term))) texts.push(node);
+      if (!node.nodeValue || node.parentElement.closest('mark.search-hit')) continue; // ya resaltado
+      re.lastIndex = 0;
+      if (re.test(node.nodeValue)) texts.push(node);
     }
-    const re = new RegExp(escapeRegExp(term), 'gi');
     texts.forEach((textNode) => {
-      const span = document.createElement('span');
-      span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
-      textNode.parentNode.replaceChild(span, textNode);
+      const texto = textNode.nodeValue;
+      const frag = document.createDocumentFragment();
+      let ultimo = 0, m;
+      re.lastIndex = 0;
+      while ((m = re.exec(texto)) !== null) {
+        if (m.index > ultimo) frag.appendChild(document.createTextNode(texto.slice(ultimo, m.index)));
+        const mark = document.createElement('mark');
+        mark.className = 'search-hit';
+        mark.textContent = m[0];
+        frag.appendChild(mark);
+        ultimo = m.index + m[0].length;
+      }
+      if (ultimo < texto.length) frag.appendChild(document.createTextNode(texto.slice(ultimo)));
+      textNode.parentNode.replaceChild(frag, textNode);
     });
   };
 

@@ -36,27 +36,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   };
 
+  // Expresión que encuentra el término con o sin tildes ("resolucion" → "Resolución")
+  const regexSinTildes = (term) => {
+    const variantes = { a: 'aáàäâ', e: 'eéèëê', i: 'iíìïî', o: 'oóòöô', u: 'uúùüû', n: 'nñ', c: 'cç' };
+    const patron = [...norm(term).replace(/\s+/g, ' ')]
+      .map((ch) => (variantes[ch] ? `[${variantes[ch]}]` : ch === ' ' ? '\\s+' : escapeRegExp(ch)))
+      .join('');
+    return new RegExp(patron, 'gi');
+  };
+
+  // Envuelve las coincidencias en <mark class="search-hit"> creando nodos (el texto nunca se interpreta como HTML)
   const highlightInElement = (el, rawTerm) => {
     if (!el || !rawTerm) return;
     const term = rawTerm.trim();
     if (!term) return;
+    const re = regexSinTildes(term);
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
     const texts = [];
     let node;
     while ((node = walker.nextNode())) {
-      const value = node.nodeValue;
-      if (value && norm(value).includes(norm(term))) {
-        texts.push(node);
-      }
+      if (!node.nodeValue || node.parentElement.closest('mark.search-hit')) continue;
+      re.lastIndex = 0;
+      if (re.test(node.nodeValue)) texts.push(node);
     }
-    const re = new RegExp(escapeRegExp(term), 'gi');
     texts.forEach((textNode) => {
-      const parent = textNode.parentNode;
-      if (parent) {
-        const span = document.createElement('span');
-        span.innerHTML = textNode.nodeValue.replace(re, (m) => `<mark class="search-hit">${m}</mark>`);
-        parent.replaceChild(span, textNode);
+      const texto = textNode.nodeValue;
+      const frag = document.createDocumentFragment();
+      let ultimo = 0, m;
+      re.lastIndex = 0;
+      while ((m = re.exec(texto)) !== null) {
+        if (m.index > ultimo) frag.appendChild(document.createTextNode(texto.slice(ultimo, m.index)));
+        const mark = document.createElement('mark');
+        mark.className = 'search-hit';
+        mark.textContent = m[0];
+        frag.appendChild(mark);
+        ultimo = m.index + m[0].length;
       }
+      if (ultimo < texto.length) frag.appendChild(document.createTextNode(texto.slice(ultimo)));
+      textNode.parentNode.replaceChild(frag, textNode);
     });
   };
 
@@ -131,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (liveStatus) liveStatus.textContent = 'No se encontraron resultados.';
     } else {
       if (liveStatus) {
-        liveStatus.textContent = `${totalMatches} resultado${totalMatches === 1 ? '' : 's'} encontrados.`;
+        liveStatus.textContent = totalMatches === 1 ? '1 resultado encontrado.' : `${totalMatches} resultados encontrados.`;
       }
       // Activate the first tab that has matches
       if (firstMatchedTabLink) {

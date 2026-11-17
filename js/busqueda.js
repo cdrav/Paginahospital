@@ -16,13 +16,39 @@ const searchConfig = {
     },
     initializationPromise: null,
     
-    // Inicialización
+    // Inicialización (el índice lo carga el manejador de 'partialsLoaded' en buscar.html)
     init: function() {
         this.setupSearchForm();
-        // Inicializar el índice si estamos en la página de búsqueda
-        if (document.getElementById('search-results')) {
-            this.initializeSearch();
-        }
+    },
+
+    // --- Utilidades de texto ---
+    // Quita tildes y pasa a minúsculas conservando la longitud del texto
+    normalizar: function(s) {
+        return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    },
+    escaparHtml: function(s) {
+        return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    },
+    // Palabras útiles de la consulta: sin tildes, sin símbolos de la sintaxis de lunr y sin palabras vacías ("de", "la"...)
+    palabrasDeConsulta: function(term) {
+        const filtro = (window.lunr && lunr.es && lunr.es.stopWordFilter) ? lunr.es.stopWordFilter : (p => p);
+        return this.normalizar(term)
+            .replace(/[^a-z0-9ñ]+/g, ' ')
+            .split(' ')
+            .filter(p => p.length >= 2 && filtro(p)); // las letras sueltas no aportan
+    },
+    // Expresión que encuentra cualquiera de las palabras con o sin tildes
+    regexResaltado: function(palabras) {
+        const variantes = { a: 'aáàäâ', e: 'eéèëê', i: 'iíìïî', o: 'oóòöô', u: 'uúùüû', n: 'nñ', c: 'cç' };
+        const partes = palabras.filter(p => p.length >= 2)
+            .sort((a, b) => b.length - a.length)
+            .map(p => [...p].map(ch => variantes[ch] ? `[${variantes[ch]}]` : ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join(''));
+        return partes.length ? new RegExp(`(${partes.join('|')})`, 'gi') : null;
+    },
+    // Título sin el sufijo repetido " - Hospital Departamental San Antonio" / " | HDSA"
+    tituloCorto: function(titulo) {
+        const t = String(titulo || '').replace(/\s*[-|–]\s*(Hospital Departamental San Antonio.*|HDSA)\s*$/i, '').trim();
+        return t || titulo || 'Sin título';
     },
     
     // Inicializar la búsqueda
@@ -67,24 +93,32 @@ const searchConfig = {
                     const url = new URL(window.location);
                     url.searchParams.set('q', searchTerm);
                     window.history.pushState({}, '', url); // Actualizar URL sin recargar
+                    this.sincronizarCampos(searchTerm);
                     this.performSearch(searchTerm);
                 } else {
-                    window.location.href = `buscar.html?q=${encodeURIComponent(searchTerm)}`;
+                    // Ruta absoluta: desde páginas en subcarpetas (p. ej. /participa/) también debe ir a /buscar.html
+                    window.location.href = `/buscar.html?q=${encodeURIComponent(searchTerm)}`;
                 }
             });
         });
     },
-    
+
+    // Pone el término en los campos de búsqueda del header (escritorio y móvil)
+    sincronizarCampos: function(term) {
+        document.querySelectorAll('nav form[action$="buscar.html"] input[name="q"]').forEach(i => { i.value = term; });
+    },
+
     // Carga el índice de búsqueda y lo prepara para ser usado por Lunr.js
     loadSearchData: async function() {
+        if (this.lunrIndex) return true; // ya cargado
         try {
             console.log('Cargando índice de búsqueda...');
-            
+
             // Esperar a que estén disponibles las librerías de lunr
             await waitForGlobal('lunr', 5000);
-            
+
             // Cargar el índice de búsqueda
-            const response = await fetch('search-index.json', {
+            const response = await fetch('/search-index.json', {
                 headers: {
                     'Cache-Control': 'no-cache',
                     'Pragma': 'no-cache'
@@ -110,38 +144,24 @@ const searchConfig = {
                 }
             });
 
-            // Configurar Lunr.js
-            return new Promise((resolve, reject) => {
-                try {
-                    // Esperar a que esté disponible el soporte para español
-                    if (window.lunr && window.lunr.es) {
-                        this.lunrIndex = lunr(function() {
-                            this.use(lunr.es);
-                            this.ref('url');
-                            this.field('title', { boost: 10 });
-                            this.field('content');
-                            
-                            documents.forEach(doc => this.add(doc));
-                        });
-                        console.log('Índice de búsqueda creado exitosamente');
-                        resolve(true);
-                    } else {
-                        // Usar configuración básica si no hay soporte para español
-                        console.warn('Usando configuración básica de lunr (sin soporte para español)');
-                        this.lunrIndex = lunr(function() {
-                            this.ref('url');
-                            this.field('title', { boost: 10 });
-                            this.field('content');
-                            
-                            documents.forEach(doc => this.add(doc));
-                        });
-                        resolve(true);
-                    }
-                } catch (error) {
-                    console.error('Error al configurar el índice de búsqueda:', error);
-                    reject(error);
-                }
+            // Configurar Lunr.js. Se indexa el texto sin tildes (y la consulta también se
+            // normaliza), así "vacunacion" encuentra "vacunación".
+            const normalizar = this.normalizar;
+            const sinTildes = documents.filter(d => d && d.url).map(d => ({
+                url: d.url, title: normalizar(d.title), content: normalizar(d.content)
+            }));
+            const usarEspanol = !!(window.lunr && window.lunr.es);
+            if (!usarEspanol) console.warn('Usando configuración básica de lunr (sin soporte para español)');
+            this.lunrIndex = lunr(function() {
+                if (usarEspanol) this.use(lunr.es);
+                this.ref('url');
+                this.field('title', { boost: 10 });
+                this.field('content');
+                sinTildes.forEach(doc => this.add(doc));
             });
+            this.isInitialized = true;
+            console.log('Índice de búsqueda creado exitosamente');
+            return true;
         } catch (error) {
             console.error('Error al cargar y construir el índice de búsqueda:', error);
             const resultsContainer = document.getElementById('search-results');
@@ -201,8 +221,7 @@ const searchConfig = {
         }
         
         try {
-            // Realizar la búsqueda con Lunr
-            const results = this.lunrIndex.search(term);
+            const results = this.buscarEnIndice(term);
             console.log(`Se encontraron ${results.length} resultados para: ${term}`);
             this.displaySearchResults(term, results);
             return results;
@@ -213,58 +232,50 @@ const searchConfig = {
         }
     },
     
-    // Obtiene un extracto del texto que contiene el término de búsqueda
+    // Busca en el índice: primero páginas que tengan TODAS las palabras; si no hay,
+    // páginas con CUALQUIERA; y si tampoco, palabras incompletas como prefijo ("vacun" → vacunación).
+    buscarEnIndice: function(term) {
+        const palabras = this.palabrasDeConsulta(term);
+        if (!palabras.length) return [];
+        const P = lunr.Query.presence;
+        const consultar = (armar) => { try { return this.lunrIndex.query(armar); } catch (e) { console.warn('Consulta no válida:', e); return []; } };
+        let r = consultar(q => palabras.forEach(p => q.term(p, { presence: P.REQUIRED })));
+        if (!r.length && palabras.length > 1) r = consultar(q => palabras.forEach(p => q.term(p)));
+        if (!r.length) r = consultar(q => palabras.filter(p => p.length >= 3).forEach(p =>
+            q.term(p, { wildcard: lunr.Query.wildcard.TRAILING, usePipeline: false })));
+        return r;
+    },
+
+    // Obtiene un extracto del texto alrededor de la primera coincidencia (ya escapado y resaltado)
     getExcerpt: function(text, term) {
-        // Manejar casos donde el texto es nulo o indefinido
-        if (!text) {
-            return 'No hay contenido disponible para mostrar.';
-        }
-        
-        // Si el texto es muy corto, devolverlo completo
-        if (text.length <= 250) {
-            return this.highlightTerm(text, term);
-        }
-        
-        // Buscar el término en el texto (insensible a mayúsculas/minúsculas)
-        const searchTerm = term.toLowerCase();
-        const textLower = text.toLowerCase();
-        const index = textLower.indexOf(searchTerm);
-        
-        // Si no se encuentra el término, devolver los primeros 250 caracteres
-        if (index === -1) {
-            return this.highlightTerm(text.substring(0, 250) + '...', term);
-        }
-        
-        // Obtener un fragmento alrededor del término de búsqueda
-        const start = Math.max(0, index - 80);
-        const end = Math.min(text.length, index + searchTerm.length + 80);
+        if (!text) return 'No hay contenido disponible para mostrar.';
+        const LARGO = 250;
+        if (text.length <= LARGO) return this.highlightTerm(text, term);
+
+        const re = this.regexResaltado(this.palabrasDeConsulta(term));
+        const m = re ? re.exec(text) : null;
+        if (!m) return this.highlightTerm(text.substring(0, LARGO) + '...', term);
+
+        const start = Math.max(0, m.index - 80);
+        const end = Math.min(text.length, m.index + m[0].length + 120);
         let excerpt = text.substring(start, end);
-        
-        // Agregar puntos suspensivos si es necesario
         if (start > 0) excerpt = '...' + excerpt;
         if (end < text.length) excerpt = excerpt + '...';
-        
-        // Resaltar el término de búsqueda
         return this.highlightTerm(excerpt, term);
     },
-    
-    // Función auxiliar para resaltar términos en el texto
+
+    // Escapa el texto y resalta cada palabra buscada (sin importar tildes ni mayúsculas)
     highlightTerm: function(text, term) {
-        if (!term || !text) return text;
-        
-        try {
-            // Escapar caracteres especiales para la expresión regular
-            const escapedTerm = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-            return text.replace(
-                new RegExp(escapedTerm, 'gi'), 
-                match => `<span class="bg-warning text-dark">${match}</span>`
-            );
-        } catch (e) {
-            console.error('Error al resaltar el término:', e);
-            return text; // Devolver el texto sin modificar si hay un error
+        const re = term ? this.regexResaltado(this.palabrasDeConsulta(term)) : null;
+        if (!re || !text) return this.escaparHtml(text);
+        let html = '', ultimo = 0, m;
+        while ((m = re.exec(text)) !== null) {
+            html += this.escaparHtml(text.slice(ultimo, m.index)) + `<mark class="bg-warning text-dark px-0">${this.escaparHtml(m[0])}</mark>`;
+            ultimo = m.index + m[0].length;
         }
+        return html + this.escaparHtml(text.slice(ultimo));
     },
-    
+
     // Actualiza el mensaje de estado de la búsqueda
     updateResultsMessage: function(term, count, isLimited = false) {
         const resultsContainer = document.getElementById('search-results');
@@ -275,7 +286,7 @@ const searchConfig = {
         if (!resultsContainer || !resultsCount || !searchTermElement || !noResultsElement) return;
 
         searchTermElement.textContent = `"${term}"`;
-        let msg = `Se encontraron ${count} resultados.`;
+        let msg = count === 1 ? 'Se encontró 1 resultado.' : `Se encontraron ${count} resultados.`;
         if (isLimited) {
             msg += ` Mostrando los ${this.MAX_RESULTS} más relevantes.`;
         }
@@ -332,9 +343,9 @@ const searchConfig = {
         // Tarjetas de resultados
         displayResults.forEach(result => {
             const pageData = this.dataStore[result.ref] || {};
-            const pageTitle = pageData.title || 'Sin título';
+            const pageTitle = this.tituloCorto(pageData.title);
             const pageContent = pageData.content || '';
-            const url = result.ref;
+            const url = '/' + String(result.ref).replace(/^\/+/, '');
             const cat = this.categorizeUrl(url);
             const catClase = this.categories[cat] ? cat : 'general';
             const cfg = this.categories[catClase];
@@ -349,7 +360,7 @@ const searchConfig = {
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <h6 class="mb-1">
-                                    <a href="${url}" class="text-decoration-none">${this.highlightTerm(pageTitle, term)}</a>
+                                    <a href="${this.escaparHtml(url)}" class="text-decoration-none">${this.highlightTerm(pageTitle, term)}</a>
                                 </h6>
                                 <span class="badge rounded-pill mb-2 busq-badge">${cfg.label}</span>
                                 <p class="text-muted small mb-0">${excerpt}</p>
@@ -439,13 +450,21 @@ document.addEventListener('partialsLoaded', async () => {
             const indexLoaded = await searchConfig.loadSearchData();
             if (spinnerContainer) spinnerContainer.classList.add('d-none');
 
-            if (indexLoaded) {
-                const urlParams = new URLSearchParams(window.location.search);
-                const searchTerm = urlParams.get('q');
+            const buscarDesdeUrl = () => {
+                const searchTerm = (new URLSearchParams(window.location.search).get('q') || '').trim();
+                searchConfig.sincronizarCampos(searchTerm);
                 if (searchTerm) {
-                    document.querySelector('input[name="q"]').value = searchTerm;
                     searchConfig.performSearch(searchTerm);
+                } else {
+                    // Sin término: no dejar el spinner ni "Buscando:" vacío
+                    const estado = document.getElementById('search-status');
+                    if (estado) estado.innerHTML = 'Escriba un término en el buscador de la parte superior.';
                 }
+            };
+            if (indexLoaded) {
+                buscarDesdeUrl();
+                // Botones Atrás/Adelante del navegador entre búsquedas
+                window.addEventListener('popstate', buscarDesdeUrl);
             }
         } catch (error) {
             console.error("Error al inicializar la búsqueda:", error);
