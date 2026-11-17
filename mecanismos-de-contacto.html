@@ -9,8 +9,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Mecanismos de Contacto - Hospital Departamental San Antonio</title>
     <meta name="description" content="Canales oficiales de contacto del Hospital Departamental San Antonio: PBX, correo, PQRS, horarios, ubicación y redes sociales.">
-    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
-    <!-- El manifest se carga desde partials/header.html -->
+    <link rel="icon" href="/imagenes/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="96x96" href="/imagenes/icons/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/imagenes/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
@@ -31,7 +33,7 @@
     </div>
 
     <!-- Hero -->
-    <section class="py-5 text-white" style="background: linear-gradient(135deg, #164443, #069681);">
+    <section class="py-5 text-white bg-degradado-marca-verde">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-8">
@@ -52,7 +54,7 @@
         <div class="col-12 col-lg-8">
           <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-              <h2 class="h4 fw-bold mb-4" style="color:#164443;">Canales de Atención</h2>
+              <h2 class="h4 fw-bold mb-4 text-brand">Canales de Atención</h2>
               <div class="row g-4">
                 <div class="col-md-6">
                   <div class="d-flex">
@@ -97,7 +99,7 @@
           <!-- Horarios y atención prioritaria -->
           <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-              <h2 class="h4 fw-bold mb-4" style="color:#164443;">Horarios de Atención</h2>
+              <h2 class="h4 fw-bold mb-4 text-brand">Horarios de Atención</h2>
               <div class="row g-4">
                 <div class="col-md-6">
                   <div class="p-3 bg-light rounded-3 h-100">
@@ -120,7 +122,7 @@
           <!-- Dirección y mapa -->
           <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-              <h2 class="h4 fw-bold mb-3" style="color:#164443;">Dirección y Ubicación</h2>
+              <h2 class="h4 fw-bold mb-3 text-brand">Dirección y Ubicación</h2>
               <div class="row g-3 align-items-center">
                 <div class="col-lg-5">
                   <ul class="list-unstyled mb-0">
@@ -140,7 +142,7 @@
           <!-- Transparencia y datos personales -->
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-              <h2 class="h4 fw-bold mb-3" style="color:#164443;">Transparencia y Protección de Datos</h2>
+              <h2 class="h4 fw-bold mb-3 text-brand">Transparencia y Protección de Datos</h2>
               <p class="mb-3">Tu información personal es tratada conforme a la Ley 1581 de 2012 y demás normas aplicables. Para conocer el detalle, consulta nuestro esquema de publicación y tratamiento de datos personales.</p>
               <a class="btn btn-outline-primary btn-sm me-2" href="transparencia-acceso-informacion-publica.html"><i class="bi bi-shield-check me-2"></i>Transparencia</a>
               <a class="btn btn-outline-secondary btn-sm" href="Politicas.html"><i class="bi bi-file-earmark-text me-2"></i>Tratamiento de Datos</a>
@@ -152,7 +154,7 @@
         <div class="col-12 col-lg-4">
           <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-              <h3 class="h5 fw-bold mb-3" style="color:#164443;">Atención al Usuario</h3>
+              <h3 class="h5 fw-bold mb-3 text-brand">Atención al Usuario</h3>
               <ul class="list-unstyled mb-0">
                 <li class="mb-3 d-flex">
                   <i class="bi bi-people-fill text-primary me-2 fs-5"></i>
@@ -175,7 +177,7 @@
 
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-              <h3 class="h6 fw-bold mb-3" style="color:#164443;">Redes Sociales</h3>
+              <h3 class="h6 fw-bold mb-3 text-brand">Redes Sociales</h3>
               <div class="d-flex gap-2">
                 <a href="https://www.facebook.com/hdsaroldanillo/?locale=es_LA" target="_blank" class="btn btn-outline-primary btn-sm" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
                 <a href="https://www.instagram.com/hdsaroldanillo/?hl=es" target="_blank" class="btn btn-outline-danger btn-sm" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
@@ -196,7 +198,6 @@
 <script src="js/layout.js" defer></script>
 <script src="js/navbar.js" defer></script>
 <script src="js/accesibilidad.js" defer></script>
-<script src="js/accessibility-styles.js" defer></script>
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/breadcrumb.js" defer></script>

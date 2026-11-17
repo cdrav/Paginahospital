@@ -11,13 +11,7 @@
       c.id = 'notification-container';
       c.setAttribute('aria-live', 'polite');
       c.setAttribute('aria-atomic', 'true');
-      c.style.position = 'fixed';
-      c.style.top = '1rem';
-      c.style.right = '1rem';
-      c.style.zIndex = '1080'; // por encima del header
-      c.style.display = 'flex';
-      c.style.flexDirection = 'column';
-      c.style.gap = '.5rem';
+      c.className = 'notify-contenedor'; // estilos en css/site.css
       document.body.appendChild(c);
     }
     return c;
@@ -34,9 +28,12 @@
     }
   }
 
-  // notify(message, { type, timeout, target })
+  // notify(message, { type, timeout, target, key })
+  // key: si ya hay una notificación visible con la misma clave, se actualiza su
+  // texto y se reinicia su tiempo en lugar de apilar otra igual.
   function notify(message, opts) {
-    const options = Object.assign({ type: 'info', timeout: DEFAULT_TIMEOUT, target: null }, opts);
+    const options = Object.assign({ type: 'info', timeout: DEFAULT_TIMEOUT, target: null, key: '' },
+      typeof opts === 'object' && opts ? opts : {});
 
     // Si hay un target (selector o elemento), usamos un alert en ese contenedor (ej. #form-message)
     if (options.target) {
@@ -52,21 +49,30 @@
 
     // Si no hay target, creamos un alert flotante en el contenedor global
     const container = ensureContainer();
+    const previa = options.key
+      ? [...container.querySelectorAll('[data-notify-key]')].find(a => a.dataset.notifyKey === options.key)
+      : null;
+    if (previa) {
+      previa.className = classFor(options.type) + ' shadow-sm notify-alerta';
+      previa.querySelector('.notify-texto').innerHTML = message;
+      clearTimeout(previa._notifyTimer);
+      if (options.timeout > 0) previa._notifyTimer = setTimeout(() => previa.remove(), options.timeout);
+      return previa;
+    }
+
     const alert = document.createElement('div');
-    alert.className = classFor(options.type) + ' shadow-sm';
+    alert.className = classFor(options.type) + ' shadow-sm notify-alerta';
     alert.role = 'alert';
-    alert.style.minWidth = '260px';
-    alert.style.maxWidth = '380px';
-    alert.style.margin = 0;
+    if (options.key) alert.dataset.notifyKey = options.key;
 
     const closeBtn = document.createElement('button');
     closeBtn.type = 'button';
-    closeBtn.className = 'btn-close';
+    closeBtn.className = 'btn-close float-end';
     closeBtn.setAttribute('aria-label', 'Cerrar');
-    closeBtn.style.float = 'right';
     closeBtn.addEventListener('click', () => alert.remove());
 
     const content = document.createElement('div');
+    content.className = 'notify-texto';
     content.innerHTML = message; // Permitir HTML simple como <strong>
 
     alert.appendChild(closeBtn);
@@ -74,16 +80,14 @@
     container.appendChild(alert);
 
     if (options.timeout > 0) {
-      setTimeout(() => {
+      alert._notifyTimer = setTimeout(() => {
         try { alert.remove(); } catch (_) {}
       }, options.timeout);
     }
     return alert;
   }
 
-  // Alias para compatibilidad hacia atrás
   window.notify = notify;
-  window.showNotification = notify;
 
   // Utilidad para calcular el alto del header fijo/pegajoso
   function calcHeaderOffset() {

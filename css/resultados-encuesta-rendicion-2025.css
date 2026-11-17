@@ -1,0 +1,192 @@
+/* Resultados de la encuesta de rendición de cuentas 2025 (participa/resultados-encuesta-rendicion-2025.html) */
+
+.kpi-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.kpi-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #164443;
+  line-height: 1.1;
+}
+.kpi-detail {
+  font-size: 0.78rem;
+  color: #0f766e;
+  margin-top: 0.35rem;
+}
+.chart-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: none;
+  height: 100%;
+}
+.chart-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #164443;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.chart-title .icon {
+  font-size: 1.1rem;
+}
+.chart-container-donut {
+  position: relative;
+  height: 260px;
+}
+.chart-container-bar {
+  position: relative;
+  height: 260px;
+}
+.section-title-dash {
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.section-title-dash::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #164443, #22a7a0);
+  border-radius: 2px;
+}
+.binary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.binary-item:last-child {
+  border-bottom: none;
+}
+.binary-label {
+  font-size: 0.82rem;
+  color: #495057;
+  min-width: 280px;
+  flex-shrink: 0;
+}
+.binary-bar-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.binary-percent {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #164443;
+  min-width: 50px;
+  text-align: right;
+}
+.binary-bar {
+  flex: 1;
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.binary-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #164443, #22a7a0);
+  border-radius: 5px;
+  transition: width 0.8s ease;
+}
+.responses-table {
+  width: 100%;
+  font-size: 0.82rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.responses-table thead th {
+  background: #164443;
+  color: #fff;
+  padding: 0.75rem;
+  font-weight: 600;
+  font-size: 0.78rem;
+  border: none;
+}
+.responses-table thead th:first-child {
+  border-radius: 8px 0 0 0;
+}
+.responses-table thead th:last-child {
+  border-radius: 0 8px 0 0;
+}
+.responses-table tbody td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #495057;
+  vertical-align: top;
+}
+.responses-table tbody tr:hover {
+  background: #f8fffe;
+}
+.response-card-mobile {
+  display: none;
+}
+.response-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+.response-card-date {
+  font-size: 0.75rem;
+  color: #22a7a0;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.response-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #164443;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.response-card-text {
+  font-size: 0.82rem;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 767px) {
+  .binary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .binary-label {
+    min-width: auto;
+  }
+  .binary-bar-wrapper {
+    width: 100%;
+  }
+  .responses-table-wrapper table {
+    display: none;
+  }
+  .response-card-mobile {
+    display: block;
+  }
+}

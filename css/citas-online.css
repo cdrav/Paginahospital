@@ -366,7 +366,7 @@
   }
 
   .btn-secondary-modern {
-    background: #6c757d;
+    background: #5c636a;
     color: white;
   }
 
@@ -626,3 +626,22 @@
   }
 
   /* Asegurar que el footer siempre sea visible */
+
+/* ===== Antes estilos inline en citas-medicas-online.html ===== */
+#progressBar { width: 0%; } /* el JS actualiza el ancho */
+.aviso-amarillo {
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  border: 2px solid #ffc107;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(255,193,7,0.15);
+}
+.aviso-disponibilidad {
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  border: 2px solid #ffc107;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(255,193,7,0.2);
+}
+.aviso-texto { color: #5d4037; line-height: 1.6; }
+.modal-cabecera-naranja { background: linear-gradient(135deg, #e65100, #ff8f00); padding: 2rem 1.5rem; }

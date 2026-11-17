@@ -2,34 +2,29 @@
 const CENTRO_RELEVO_URL = "https://www.signosenred.gov.co/";
 const ENCUESTA_ACCESIBILIDAD_URL = "/encuesta-accesibilidad.html";
 
-// Función para mostrar notificaciones mejoradas
-function showNotification(message, type = 'info') {
-    // Usar utilidad global si está disponible, con un timeout estándar
+// Mensaje de la barra de accesibilidad. Usa un solo aviso que se actualiza
+// (clave 'accesibilidad'): con varios clics seguidos no se apilan mensajes iguales.
+let avisoRespaldo = null;
+function avisoAccesibilidad(message) {
     if (window.notify) {
-        window.notify(message, { type, timeout: 3000 });
+        window.notify(message, { type: 'info', timeout: 3000, key: 'accesibilidad' });
         return;
     }
-    // Fallback mínimo si utils.js no ha cargado
-    try {
-        // Bootstrap alert simple como fallback
-        const div = document.createElement('div');
-        div.className = `alert alert-${type === 'error' ? 'danger' : type}`;
-        div.role = 'alert';
-        div.style.position = 'fixed';
-        div.style.top = '1rem';
-        div.style.right = '1rem';
-        div.style.zIndex = '1080';
-        div.textContent = message;
-        document.body.appendChild(div);
-        setTimeout(() => div.remove(), 3000);
-    } catch (e) {
-        console.log(message);
+    // Respaldo si utils.js no está en la página (mismas clases que utils.js, en site.css)
+    if (!avisoRespaldo || !avisoRespaldo.isConnected) {
+        avisoRespaldo = document.createElement('div');
+        avisoRespaldo.className = 'alert alert-info shadow-sm notify-alerta notify-contenedor';
+        avisoRespaldo.role = 'alert';
+        document.body.appendChild(avisoRespaldo);
     }
+    avisoRespaldo.textContent = message;
+    clearTimeout(avisoRespaldo._timer);
+    avisoRespaldo._timer = setTimeout(() => avisoRespaldo.remove(), 3000);
 }
 
 // Función para abrir signos en red
 function openCentroRelevo() {
-    showNotification('Abriendo Signos en red...', 'signos-en-red');
+    avisoAccesibilidad('Abriendo Signos en Red...');
     setTimeout(() => {
         window.open(CENTRO_RELEVO_URL, '_blank');
     }, 500);
@@ -37,7 +32,7 @@ function openCentroRelevo() {
 
 // Función para abrir Encuesta de Accesibilidad
 function openEncuestaAccesibilidad() {
-    showNotification('Redirigiendo a la encuesta de accesibilidad...', 'encuesta-accesibilidad');
+    avisoAccesibilidad('Abriendo la encuesta de accesibilidad...');
     // Usar location.href en lugar de window.open para mejor experiencia en móviles
     setTimeout(() => {
         window.location.href = ENCUESTA_ACCESIBILIDAD_URL;
@@ -48,20 +43,26 @@ function openEncuestaAccesibilidad() {
 function changeTextSize(direction) {
     const body = document.body;
     const currentSize = parseFloat(getComputedStyle(body).fontSize);
-    
+    // Tamaño original de la página (sin el ajuste guardado), para mostrar el porcentaje
+    const ajuste = body.style.fontSize;
+    body.style.fontSize = '';
+    const baseSize = parseFloat(getComputedStyle(body).fontSize) || 16;
+    body.style.fontSize = ajuste;
+    const porcentaje = px => Math.round((px / baseSize) * 100) + ' %';
+
     if (direction === 'increase') {
         if (currentSize < 24) { // Límite máximo
             body.style.fontSize = (currentSize + 2) + 'px';
-            showNotification('Texto aumentado', 'increase-text');
+            avisoAccesibilidad('Tamaño del texto: ' + porcentaje(currentSize + 2));
         } else {
-            showNotification('Tamaño máximo alcanzado', 'increase-text');
+            avisoAccesibilidad('Tamaño del texto: ' + porcentaje(currentSize) + ' (máximo)');
         }
     } else if (direction === 'decrease') {
         if (currentSize > 12) { // Límite mínimo
             body.style.fontSize = (currentSize - 2) + 'px';
-            showNotification('Texto reducido', 'decrease-text');
+            avisoAccesibilidad('Tamaño del texto: ' + porcentaje(currentSize - 2));
         } else {
-            showNotification('Tamaño mínimo alcanzado', 'decrease-text');
+            avisoAccesibilidad('Tamaño del texto: ' + porcentaje(currentSize) + ' (mínimo)');
         }
     }
     
@@ -69,14 +70,56 @@ function changeTextSize(direction) {
     localStorage.setItem('fontSize', body.style.fontSize);
 }
 
+// Modos de contraste: la clase va en <html> (los modos oscuro y sepia usan
+// filtros CSS, que sobre <body> romperían los elementos position:fixed);
+// alto contraste también va en <body>, donde la usan sus reglas CSS.
+const CONTRAST_MODES = ['alto-contraste', 'modo-oscuro', 'modo-sepia'];
+let fondosObserver = null;
+let fondosPendiente = null;
+
+function applyContrastMode(mode) {
+    const html = document.documentElement;
+    html.classList.remove(...CONTRAST_MODES);
+    document.body.classList.remove(...CONTRAST_MODES);
+    if (fondosObserver) { fondosObserver.disconnect(); fondosObserver = null; }
+    clearTimeout(fondosPendiente); fondosPendiente = null;
+    document.querySelectorAll('.acc-reinvertir').forEach(el => el.classList.remove('acc-reinvertir'));
+    if (!CONTRAST_MODES.includes(mode)) return;
+    html.classList.add(mode);
+    if (mode === 'alto-contraste') document.body.classList.add(mode);
+    if (mode === 'modo-oscuro') {
+        // Se re-invierten (quedan con sus colores originales) los fondos
+        // fotográficos y las franjas que ya son oscuras (barra GOV.CO,
+        // encabezado, pie), para que no se vuelvan claras. Se revisa también
+        // el contenido que se carga después (header, noticias...).
+        const oscuro = (bg) => {
+            const m = bg.match(/rgba?\(([^)]+)\)/); if (!m) return false;
+            const [r, g, b, a = 1] = m[1].split(/[ ,\/]+/).filter(Boolean).map(Number);
+            return a >= 0.9 && (0.2126 * r + 0.7152 * g + 0.0722 * b) < 110;
+        };
+        const marcar = () => {
+            fondosPendiente = null;
+            const ancho = document.documentElement.clientWidth;
+            document.querySelectorAll('body *').forEach(el => {
+                if (el.classList.contains('acc-reinvertir') || el.parentElement.closest('.acc-reinvertir')) return;
+                const cs = getComputedStyle(el);
+                if (/url\(/.test(cs.backgroundImage) && !el.matches('.form-select, .form-check-input, .btn-close, [class*="-icon"]')) {
+                    el.classList.add('acc-reinvertir');
+                } else if (oscuro(cs.backgroundColor) && (el.offsetWidth >= ancho * 0.6 || el.matches('.accessibility-buttons-container'))) {
+                    el.classList.add('acc-reinvertir');
+                }
+            });
+        };
+        marcar();
+        fondosObserver = new MutationObserver(() => { if (!fondosPendiente) fondosPendiente = setTimeout(marcar, 300); });
+        fondosObserver.observe(document.body, { childList: true, subtree: true });
+    }
+}
+
 // Función para cambiar el contraste
 function changeContrast() {
-    const body = document.body;
     const currentMode = localStorage.getItem('contrastMode') || 'normal';
-    
-    // Remover clases anteriores
-    body.classList.remove('alto-contraste', 'modo-oscuro', 'modo-sepia');
-    
+
     let newMode;
     let message;
     
@@ -102,12 +145,10 @@ function changeContrast() {
             message = 'Modo alto contraste activado';
     }
     
-    if (newMode !== 'normal') {
-        body.classList.add(newMode);
-    }
-    
+    applyContrastMode(newMode);
+
     localStorage.setItem('contrastMode', newMode);
-    showNotification(message, 'contrast-change');
+    avisoAccesibilidad(message);
 }
 
 // Función para resetear configuración
@@ -119,10 +160,10 @@ function resetSettings() {
     localStorage.removeItem('fontSize');
     
     // Resetear contraste
-    body.classList.remove('alto-contraste', 'modo-oscuro', 'modo-sepia');
+    applyContrastMode('normal');
     localStorage.setItem('contrastMode', 'normal');
     
-    showNotification('Configuración restablecida', 'reset-settings');
+    avisoAccesibilidad('Texto y contraste restablecidos');
 }
 
 // Event listener para los botones de accesibilidad
@@ -136,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (savedContrastMode && savedContrastMode !== 'normal') {
-        document.body.classList.add(savedContrastMode);
+        applyContrastMode(savedContrastMode);
     }
     
     // Delegación de eventos para los botones
@@ -167,27 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Atajos de teclado
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey) {
-            switch (e.key) {
-                case '=':
-                case '+':
-                    e.preventDefault();
-                    changeTextSize('increase');
-                    break;
-                case '-':
-                    e.preventDefault();
-                    changeTextSize('decrease');
-                    break;
-                case '0':
-                    e.preventDefault();
-                    resetSettings();
-                    break;
-            }
-        }
-    });
-    
+    // Sin atajos de teclado propios: Ctrl + "+", Ctrl + "-" y Ctrl + 0 quedan para el
+    // zoom del navegador, que agranda toda la página y es el que usan las personas con baja visión.
+
     // Exponer bandera global para evitar conflictos con otros scripts
     window.ACCESSIBILITY_MANAGED = true;
 });

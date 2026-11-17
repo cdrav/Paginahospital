@@ -6,22 +6,20 @@
     <title>Portal Institucional - Hospital Departamental San Antonio de Roldanillo</title>
     <meta name="description" content="Portal institucional del Hospital Departamental San Antonio de Roldanillo">
     <meta name="robots" content="noindex,nofollow">
-    <link rel="icon" type="image/webp" sizes="32x32" href="imagenes/Logo-hospital.webp">
-    <link rel="icon" type="image/webp" sizes="192x192" href="imagenes/Logo-hospital.webp">
-    <link rel="icon" type="image/webp" sizes="512x512" href="imagenes/Logo-hospital.webp">
-    <link rel="apple-touch-icon" href="imagenes/Logo-hospital.webp">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" href="/imagenes/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="96x96" href="/imagenes/icons/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/imagenes/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css" />
-    <link rel="stylesheet" href="/css/portal-institucional.css?v=5" />
+    <link rel="stylesheet" href="/css/portal-institucional.css?v=9" />
     <link rel="stylesheet" href="/css/accesibilidad.css" />
     <link rel="stylesheet" href="/css/accessibility-buttons.css" />
     <link rel="stylesheet" href="/css/portal-select-fix.css" />
     <!-- El contenido del portal se oculta hasta verificar la sesión y el rol (ver js/portal-institucional-v2.js) -->
     <script>document.documentElement.classList.add('portal-verificando');</script>
-    <style>html.portal-verificando main, html.portal-verificando #user-welcome { visibility: hidden; }</style>
 </head>
 <body>
 
@@ -217,10 +215,10 @@
                 </div>
             </div>
             <div class="text-center mb-5">
-                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width:72px;height:72px;background:linear-gradient(135deg,#164443,#22a7a0);">
-                    <i class="bi bi-calendar2-check text-white" style="font-size:2rem;"></i>
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 wh-72 bg-degradado-marca">
+                    <i class="bi bi-calendar2-check text-white icon-2rem"></i>
                 </div>
-                <h2 class="display-6 fw-bold" style="color:#164443;">Gestión de Citas Online</h2>
+                <h2 class="display-6 fw-bold text-brand">Gestión de Citas Online</h2>
                 <p class="lead text-muted">Seguimiento y administración de las solicitudes de citas recibidas desde la web.</p>
             </div>
 
@@ -229,7 +227,7 @@
                 <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-warning text-white h-100" data-status-filter="Solicitud de Cita">
                         <div class="card-body text-center py-3">
-                            <i class="bi bi-clock-history d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <i class="bi bi-clock-history d-block mb-1 fs-1-5rem opacity-85"></i>
                             <h6 class="card-title mb-1">Pendientes</h6>
                             <h2 class="display-5 fw-bold mb-0" id="stat-solicitud">0</h2>
                         </div>
@@ -238,7 +236,7 @@
                 <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-primary text-white h-100" data-status-filter="En Proceso">
                         <div class="card-body text-center py-3">
-                            <i class="bi bi-gear-wide-connected d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <i class="bi bi-gear-wide-connected d-block mb-1 fs-1-5rem opacity-85"></i>
                             <h6 class="card-title mb-1">En Proceso</h6>
                             <h2 class="display-5 fw-bold mb-0" id="stat-proceso">0</h2>
                         </div>
@@ -247,7 +245,7 @@
                 <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-info text-white h-100" data-status-filter="Confirmada">
                         <div class="card-body text-center py-3">
-                            <i class="bi bi-check2-circle d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <i class="bi bi-check2-circle d-block mb-1 fs-1-5rem opacity-85"></i>
                             <h6 class="card-title mb-1">Confirmadas</h6>
                             <h2 class="display-5 fw-bold mb-0" id="stat-confirmada">0</h2>
                         </div>
@@ -256,7 +254,7 @@
                 <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-success text-white h-100" data-status-filter="Reasignada">
                         <div class="card-body text-center py-3">
-                            <i class="bi bi-arrow-repeat d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <i class="bi bi-arrow-repeat d-block mb-1 fs-1-5rem opacity-85"></i>
                             <h6 class="card-title mb-1">Reasignadas</h6>
                             <h2 class="display-5 fw-bold mb-0" id="stat-reasignada">0</h2>
                         </div>
@@ -265,18 +263,18 @@
                 <div class="col-6 col-lg-2">
                     <div class="card stat-card-clickable bg-danger text-white h-100" data-status-filter="Cancelada">
                         <div class="card-body text-center py-3">
-                            <i class="bi bi-x-circle d-block mb-1" style="font-size:1.5rem;opacity:.85;"></i>
+                            <i class="bi bi-x-circle d-block mb-1 fs-1-5rem opacity-85"></i>
                             <h6 class="card-title mb-1">Canceladas</h6>
                             <h2 class="display-5 fw-bold mb-0" id="stat-cancelada">0</h2>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-2">
-                    <div class="card stat-card-clickable bg-light h-100" data-status-filter="all" style="border:2px solid #164443 !important;">
+                    <div class="card stat-card-clickable bg-light h-100 border-brand-2" data-status-filter="all">
                         <div class="card-body text-center py-3">
-                            <i class="bi bi-bar-chart-line d-block mb-1" style="font-size:1.5rem;color:#164443;opacity:.85;"></i>
-                            <h6 class="card-title mb-1" style="color:#164443;">Total</h6>
-                            <h2 class="display-5 fw-bold mb-0" style="color:#164443;" id="stat-total">0</h2>
+                            <i class="bi bi-bar-chart-line d-block mb-1 fs-1-5rem text-brand opacity-85"></i>
+                            <h6 class="card-title mb-1 text-brand">Total</h6>
+                            <h2 class="display-5 fw-bold mb-0 text-brand" id="stat-total">0</h2>
                         </div>
                     </div>
                 </div>
@@ -403,9 +401,9 @@
                 </div>
                 
                 <!-- Sección de Historial dentro del Modal -->
-                <div class="modal-body border-top bg-light" id="modal-history-section" style="display:none;">
+                <div class="modal-body border-top bg-light oculto-inicial" id="modal-history-section">
                     <h6 class="fw-bold mb-3"><i class="bi bi-clock-history me-2"></i>Historial de Gestión</h6>
-                    <div class="history-timeline" id="history-timeline-content" style="max-height: 200px; overflow-y: auto;">
+                    <div class="history-timeline mh-200 overflow-y-auto" id="history-timeline-content">
                         <!-- El historial se cargará aquí -->
                     </div>
                 </div>
@@ -523,11 +521,10 @@
     <script src="js/layout.js" defer></script>
     <script src="js/utils.js" defer></script>
     <script src="js/accesibilidad.js" defer></script>
-    <script src="js/accessibility-styles.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="js/email-service.js"></script>
     <!-- Lógica principal del portal, incluye protección de ruta y gestión de paneles -->
-    <script src="js/portal-institucional-v2.js?v=9" type="module" defer></script>
+    <script src="js/portal-institucional-v2.js?v=10" type="module" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>

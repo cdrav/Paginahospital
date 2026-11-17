@@ -9,8 +9,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Hospital Departamental San Antonio</title>
     <meta name="description" content="Servicio de Consulta Externa del Hospital Departamental San Antonio. Atención ambulatoria con especialistas.">
-    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
-    <!-- El manifest se carga desde partials/header.html -->
+    <link rel="icon" href="/imagenes/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="96x96" href="/imagenes/icons/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/imagenes/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&family=Work+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -31,9 +33,9 @@
    </div>
 
 <!-- Hero Section -->
-<section class="position-relative hero-promocion d-flex align-items-center"
+<section class="position-relative hero-promocion d-flex align-items-center hero-bg-consulta-externa"
          role="img"
-         aria-label="Servicio de Consulta Externa" style="background-image: url('imagenes/consulta-ecterna-banner.webp');">
+         aria-label="Servicio de Consulta Externa">
   <div class="container">
     <div class="row">
       <div class="col-lg-7 col-md-9">
@@ -63,7 +65,7 @@
             <div class="col-md-6">
               <div class="d-flex">
                 <div class="me-3 text-primary">
-                  <i class="bi bi-calendar-check" style="font-size: 1.5rem;"></i>
+                  <i class="bi bi-calendar-check fs-1-5rem"></i>
                 </div>
                 <div>
                   <h5 class="fw-bold">Horario de Atención</h5>
@@ -79,7 +81,7 @@
             <div class="col-md-6">
               <div class="d-flex">
                 <div class="me-3 text-primary">
-                  <i class="bi bi-telephone" style="font-size: 1.5rem;"></i>
+                  <i class="bi bi-telephone fs-1-5rem"></i>
                 </div>
                 <div>
                   <h5 class="fw-bold">Contacto</h5>
@@ -93,7 +95,7 @@
       
       <!-- Sección de Especialidades -->
       <section class="mb-5">
-        <h3 class="fw-bold mb-4" style="color: #164443;">Nuestras Especialidades</h3>
+        <h3 class="fw-bold mb-4 text-brand">Nuestras Especialidades</h3>
         
         <div class="row g-4">
           <div class="col-md-6">
@@ -101,7 +103,7 @@
               <div class="card-body">
                 <div class="d-flex align-items-start">
                   <div class="me-3 text-primary">
-                    <i class="bi bi-eye-fill" style="font-size: 1.5rem;"></i>
+                    <i class="bi bi-eye-fill fs-1-5rem"></i>
                   </div>
                   <div>
                     <h5 class="card-title fw-bold">Oftalmología</h5>
@@ -117,7 +119,7 @@
               <div class="card-body">
                 <div class="d-flex align-items-start">
                   <div class="me-3 text-primary">
-                    <i class="bi bi-bandaid-fill" style="font-size: 1.5rem;"></i>
+                    <i class="bi bi-bandaid-fill fs-1-5rem"></i>
                   </div>
                   <div>
                     <h5 class="card-title fw-bold">Ortopedia</h5>
@@ -133,7 +135,7 @@
               <div class="card-body">
                 <div class="d-flex align-items-start">
                   <div class="me-3 text-primary">
-                    <i class="bi bi-gender-female" style="font-size: 1.5rem;"></i>
+                    <i class="bi bi-gender-female fs-1-5rem"></i>
                   </div>
                   <div>
                     <h5 class="card-title fw-bold">Ginecología</h5>
@@ -149,7 +151,7 @@
               <div class="card-body">
                 <div class="d-flex align-items-start">
                   <div class="me-3 text-primary">
-                    <i class="bi bi-emoji-smile" style="font-size: 1.5rem;"></i>
+                    <i class="bi bi-emoji-smile fs-1-5rem"></i>
                   </div>
                   <div>
                     <h5 class="card-title fw-bold">Pediatría</h5>
@@ -168,13 +170,13 @@
 
       <!-- Proceso de Atención -->
       <section class="mb-5">
-        <h3 class="fw-bold mb-4" style="color: #164443;">Proceso de Atención</h3>
+        <h3 class="fw-bold mb-4 text-brand">Proceso de Atención</h3>
         
         <div class="row g-4">
           <div class="col-md-4">
             <div class="card h-100 border-0 text-center p-3 shadow-sm">
               <div class="bg-primary bg-opacity-10 icon-circle-lg mb-3">
-                <i class="bi bi-calendar2-check text-primary" style="font-size: 2rem;"></i>
+                <i class="bi bi-calendar2-check text-primary icon-2rem"></i>
               </div>
               <h5 class="fw-bold">1. Solicitud de Cita</h5>
               <p>Puede solicitar su cita a través de nuestra línea telefónica, página web o de manera presencial.</p>
@@ -184,7 +186,7 @@
           <div class="col-md-4">
             <div class="card h-100 border-0 text-center p-3 shadow-sm">
               <div class="bg-primary bg-opacity-10 icon-circle-lg mb-3">
-                <i class="bi bi-clipboard2-pulse text-primary" style="font-size: 2rem;"></i>
+                <i class="bi bi-clipboard2-pulse text-primary icon-2rem"></i>
               </div>
               <h5 class="fw-bold">2. Valoración Médica</h5>
               <p>Nuestros especialistas realizarán una evaluación completa de su estado de salud.</p>
@@ -194,7 +196,7 @@
           <div class="col-md-4">
             <div class="card h-100 border-0 text-center p-3 shadow-sm">
               <div class="bg-primary bg-opacity-10 icon-circle-lg mb-3">
-                <i class="bi bi-prescription2 text-primary" style="font-size: 2rem;"></i>
+                <i class="bi bi-prescription2 text-primary icon-2rem"></i>
               </div>
               <h5 class="fw-bold">3. Tratamiento</h5>
               <p>Se le indicará el tratamiento a seguir y las recomendaciones necesarias para su recuperación.</p>
@@ -235,7 +237,7 @@
       
       <!-- Tarjeta de Especialidades -->
       <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-info text-white fw-bold">
+        <div class="card-header bg-info text-dark fw-bold">
           <i class="bi bi-heart-pulse me-2"></i>Especialidades
         </div>
         <ul class="list-group list-group-flush">
@@ -249,7 +251,7 @@
           
         </ul>
         <div class="card-footer bg-transparent text-center">
-          <a href="#especialidades" class="btn btn-outline-info btn-sm">Ver todas las especialidades</a>
+          <a href="#especialidades" class="btn btn-outline-primary btn-sm">Ver todas las especialidades</a>
         </div>
       </div>
       
@@ -276,7 +278,7 @@
       <div class="col-lg-10">
         <div class="card border-0 shadow-sm">
           <div class="card-body p-4">
-            <h3 class="fw-bold mb-4" style="color: #164443;">Requisitos para la Atención</h3>
+            <h3 class="fw-bold mb-4 text-brand">Requisitos para la Atención</h3>
             
             <div class="alert alert-info">
               <i class="bi bi-info-circle-fill me-2"></i>
@@ -338,7 +340,7 @@
 <section class="py-5" id="preguntas-frecuentes">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="fw-bold" style="color: #164443;">Preguntas Frecuentes</h2>
+      <h2 class="fw-bold text-brand">Preguntas Frecuentes</h2>
       <p class="text-muted">Encuentra respuestas a las preguntas más comunes sobre nuestro servicio de consulta externa</p>
     </div>
 
@@ -429,7 +431,6 @@
 <script src="js/layout.js" defer></script>
 <script src="js/navbar.js" defer></script>
 <script src="js/accesibilidad.js" defer></script>
-<script src="js/accessibility-styles.js" defer></script>
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/breadcrumb.js" defer></script>

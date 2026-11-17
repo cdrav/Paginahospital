@@ -64,8 +64,8 @@
       if (normatividadItem) {
         const portalItem = document.createElement('li');
         portalItem.className = 'nav-item';
-        // Se usa color amarillo (#ffc107) para resaltar sobre el fondo verde
-        portalItem.innerHTML = `<a class="nav-link" href="login-institucional.html" style="color: #ffc107 !important;"><i class="bi bi-person-lock me-1"></i> Portal Institucional</a>`;
+        // Amarillo (#ffc107) para resaltar sobre el fondo verde: clase .nav-link-portal en site.css
+        portalItem.innerHTML = `<a class="nav-link nav-link-portal" href="login-institucional.html"><i class="bi bi-person-lock me-1"></i> Portal Institucional</a>`;
         normatividadItem.after(portalItem);
       }
     } catch (e) {

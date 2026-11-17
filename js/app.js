@@ -273,10 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="binary-bar-wrapper">
         <span class="binary-percent">${percentage}%</span>
         <div class="binary-bar">
-          <div class="binary-bar-fill" style="width: ${percentage}%"></div>
+          <div class="binary-bar-fill"></div>
         </div>
       </div>
     `;
+    item.querySelector('.binary-bar-fill').style.width = `${percentage}%`;
     binaryGrid.appendChild(item);
   });
 

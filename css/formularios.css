@@ -18,7 +18,7 @@
 
 /* Títulos de sección */
 .form-title {
-  color: #0d6efd;
+  color: #0a58ca;
   margin-bottom: 1.5rem;
   font-weight: 700;
   font-size: 1.5rem;
@@ -93,7 +93,7 @@
 }
 
 .info-box h5 {
-  color: #0d6efd;
+  color: #0a58ca;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -113,7 +113,7 @@
 
 /* Enlace de política de privacidad */
 .form-check-label a {
-  color: #0d6efd;
+  color: #0a58ca;
   text-decoration: none;
   font-weight: 500;
 }
@@ -136,7 +136,7 @@
 }
 
 .modal-title {
-  color: #0d6efd;
+  color: #0a58ca;
   font-weight: 600;
 }
 
@@ -162,14 +162,14 @@
 .breadcrumb-item + .breadcrumb-item::before {
   content: ">";
   padding: 0 0.5rem;
-  color: #6c757d;
+  color: #5c636a;
 }
 
 .breadcrumb-item a {
-  color: #0d6efd;
+  color: #0a58ca;
   text-decoration: none;
 }
 
 .breadcrumb-item.active {
-  color: #6c757d;
+  color: #5c636a;
 }

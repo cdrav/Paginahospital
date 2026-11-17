@@ -93,8 +93,10 @@ body[data-page-title="Consultorio Rosa"] main.container {
   box-shadow: 0 8px 25px rgba(142, 68, 173, 0.25);
 }
 
+.cta-rosa :is(h2, h3) { color: #fff; }
+
 .cta-rosa .lead {
-  color: rgba(255, 255, 255, 0.8);
+  color: #fff;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;

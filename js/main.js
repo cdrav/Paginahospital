@@ -1,4 +1,4 @@
-// main.js - Utilidades de interfaz para Google Translate y otras mejoras
+// main.js - Utilidades de interfaz (videos de YouTube diferidos, tooltips y popovers)
 (function () {
   // --- Lazy Load YouTube Videos ---
   function initializeLazyYouTube() {
@@ -44,96 +44,8 @@
     });
   }
 
-  // Función para cargar el script de Google Translate
-  function loadGoogleTranslateScript(callback) {
-    // Verificar si ya está cargado
-    if (window.google && window.google.translate) {
-      if (callback) callback();
-      return;
-    }
-    
-    // Crear el script
-    const script = document.createElement('script');
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    script.defer = true;
-    
-    // Manejar errores
-    script.onerror = function() {
-      const isLocal = window.location.protocol === 'file:';
-      console.warn('Error al cargar Google Translate.' + (isLocal ? ' Nota: El traductor de Google no funciona al abrir el archivo HTML directamente. Use un servidor local (Live Server).' : ''));
-      if (callback) callback(new Error('No se pudo cargar el traductor'));
-    };
-    
-    // Agregar a la página
-    document.head.appendChild(script);
-    
-    // Configurar la función de inicialización global
-    window.googleTranslateElementInit = function() {
-      if (window.google && window.google.translate) {
-        new google.translate.TranslateElement({
-          pageLanguage: 'es',
-          includedLanguages: 'en,fr,pt',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-        
-        // Ocultar el banner de Google
-        const googleBanner = document.querySelector('.goog-te-banner-frame');
-        if (googleBanner) {
-          googleBanner.style.display = 'none';
-        }
-        
-        if (callback) callback();
-      } else if (callback) {
-        callback(new Error('Google Translate no está disponible'));
-      }
-    };
-  }
+  // La traducción del sitio se maneja en js/traductor.js (cargado desde partials/header.html)
 
-  // Función para configurar el botón de traducción
-  function setupTranslateButton() {
-    const btn = document.getElementById('translate-now');
-    if (!btn) return;
-    
-    // Mostrar el botón
-    btn.style.display = 'inline-block';
-    
-    // Configurar evento de clic
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Mostrar indicador de carga
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...';
-      btn.disabled = true;
-      
-      // Cargar el script de Google Translate
-      loadGoogleTranslateScript(function(error) {
-        // Restaurar el botón
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        
-        if (error) {
-          console.error('Error al cargar el traductor:', error);
-          // Usar el sistema de notificaciones del sitio en lugar de un alert.
-          if (window.notify) {
-            window.notify('No se pudo cargar el traduector. Por favor, intente de nuevo más tarde.', { type: 'danger' });
-          } else {
-            alert('No se pudo cargar el traductor. Por favor, intente de nuevo más tarde.');
-          }
-          return;
-        }
-        
-        // Mostrar/ocultar el selector de idiomas
-        const translateElement = document.getElementById('google_translate_element');
-        if (translateElement) {
-          translateElement.style.display = translateElement.style.display === 'none' ? 'block' : 'none';
-        }
-      });
-    });
-  }
-  
   // Función para inicializar componentes de Bootstrap (Tooltips y Popovers)
   function initializeBootstrapComponents() {
     // Verificar si Bootstrap está cargado
@@ -155,18 +67,7 @@
   // Inicialización cuando el DOM esté listo
   function initializeSiteFeatures() {
     initializeLazyYouTube();
-    
-    // Crear contenedor para el traductor si no existe
-    if (!document.getElementById('google_translate_element')) {
-      const translateDiv = document.createElement('div');
-      translateDiv.id = 'google_translate_element';
-      translateDiv.style.display = 'none';
-      document.body.appendChild(translateDiv);
-    }
-    
-    // Configurar el botón de traducción
-    setupTranslateButton();
-    
+
     // Inicializar componentes de Bootstrap
     initializeBootstrapComponents();
   }

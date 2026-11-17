@@ -871,7 +871,7 @@ const especialidades = [
                         </div>
                         <div class="modal-body p-4 text-center">
                             <div class="mb-4">
-                                <i class="bi bi-calendar-check text-success" style="font-size: 4rem;"></i>
+                                <i class="bi bi-calendar-check text-success fs-4rem"></i>
                             </div>
                             <h4 class="fw-bold text-brand mb-3">Tu cita ha sido agendada</h4>
                             <p class="text-muted mb-4">Hemos recibido tu solicitud correctamente.</p>

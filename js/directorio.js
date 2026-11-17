@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "Dubisa Alvarez", cargo: "Jefe de Enfermería", email: "urgencias@hdsa.gov.co", foto: "dubisa-alvarez.webp", area: "asistencial" },
         { nombre: "Lina Maria Madrid", cargo: "Terapia Física", email: "apterapeutico@hdsa.gov.co", foto: "lina-maria-madrid.webp", area: "asistencial" },
         { nombre: "Lorena Nieto", cargo: "Jefe Enfermería Hospitalización", email: "urgencias@hdsa.gov.co", foto: "lorena-nieto.webp", area: "asistencial" },
-        { nombre: "Maria Camila Zapata", cargo: "Coordinadora Odontología", email: "odontologia@hdsa.gov.co", foto: "maria-camila-zapata.webp", area: "asistencial" },
+        { nombre: "Maria Camila Agudelo Zapata", cargo: "Coordinadora Odontología", email: "odontologia@hdsa.gov.co", foto: "maria-camila-zapata.webp", area: "asistencial" },
         { nombre: "Sebastian Sarria", cargo: "Biomédico", email: "mantenimiento@hdsa.gov.co", foto: "sebastian-sarria.webp", area: "asistencial" },
         { nombre: "Amalia Diaz", cargo: "Tecnóloga de Radiología", email: "radiologia@hdsa.gov.co", foto: "amalia-diaz.webp", area: "asistencial" },
         { nombre: "Lorena Rios", cargo: "Seguridad y Salud en el Trabajo", email: "medicinalaboral@hdsa.gov.co", foto: "lorena-rios.webp", area: "asistencial" },

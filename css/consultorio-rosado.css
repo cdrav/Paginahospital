@@ -10,14 +10,14 @@
 }
 
 .btn-outline-pink {
-  --bs-btn-color: #d63384;
-  --bs-btn-border-color: #d63384;
+  --bs-btn-color: #a61e5c;
+  --bs-btn-border-color: #a61e5c;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #d63384;
-  --bs-btn-hover-border-color: #d63384;
+  --bs-btn-hover-bg: #a61e5c;
+  --bs-btn-hover-border-color: #a61e5c;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #d63384;
-  --bs-btn-active-border-color: #d63384;
+  --bs-btn-active-bg: #a61e5c;
+  --bs-btn-active-border-color: #a61e5c;
 }
 
 /* Iconos */

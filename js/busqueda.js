@@ -5,14 +5,14 @@ const searchConfig = {
     isInitialized: false,
     MAX_RESULTS: 20,
     categories: {
-        transparencia: { label: 'Transparencia', icon: 'bi-shield-check', color: '#164443' },
-        servicios: { label: 'Servicios de Salud', icon: 'bi-heart-pulse', color: '#dc3545' },
-        normatividad: { label: 'Normatividad', icon: 'bi-journal-text', color: '#6f42c1' },
-        participacion: { label: 'Participación', icon: 'bi-people', color: '#198754' },
-        pqrs: { label: 'PQRSD', icon: 'bi-chat-square-text', color: '#fd7e14' },
-        noticias: { label: 'Noticias', icon: 'bi-newspaper', color: '#0d6efd' },
-        institucional: { label: 'Institucional', icon: 'bi-building', color: '#20c997' },
-        general: { label: 'General', icon: 'bi-info-circle', color: '#6c757d' }
+        transparencia: { label: 'Transparencia', icon: 'bi-shield-check' },
+        servicios: { label: 'Servicios de Salud', icon: 'bi-heart-pulse' },
+        normatividad: { label: 'Normatividad', icon: 'bi-journal-text' },
+        participacion: { label: 'Participación', icon: 'bi-people' },
+        pqrs: { label: 'PQRSD', icon: 'bi-chat-square-text' },
+        noticias: { label: 'Noticias', icon: 'bi-newspaper' },
+        institucional: { label: 'Institucional', icon: 'bi-building' },
+        general: { label: 'General', icon: 'bi-info-circle' }
     },
     initializationPromise: null,
     
@@ -336,22 +336,22 @@ const searchConfig = {
             const pageContent = pageData.content || '';
             const url = result.ref;
             const cat = this.categorizeUrl(url);
-            const cfg = this.categories[cat] || this.categories.general;
+            const catClase = this.categories[cat] ? cat : 'general';
+            const cfg = this.categories[catClase];
             const excerpt = this.getExcerpt(pageContent, term);
 
             html += `
-                <div class="card search-result-card mb-3 border-0 shadow-sm" data-category="${cat}">
+                <div class="card search-result-card mb-3 border-0 shadow-sm busq-cat-${catClase}" data-category="${cat}">
                     <div class="card-body py-3">
                         <div class="d-flex align-items-start gap-3">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
-                                 style="width:42px;height:42px;background:${cfg.color}15;">
-                                <i class="${cfg.icon}" style="color:${cfg.color};font-size:1.2rem;"></i>
+                            <div class="busq-icono rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                                <i class="${cfg.icon}"></i>
                             </div>
-                            <div class="flex-grow-1" style="min-width:0;">
+                            <div class="flex-grow-1 min-w-0">
                                 <h6 class="mb-1">
                                     <a href="${url}" class="text-decoration-none">${this.highlightTerm(pageTitle, term)}</a>
                                 </h6>
-                                <span class="badge rounded-pill mb-2" style="background:${cfg.color}18;color:${cfg.color};font-size:.7rem;font-weight:500;">${cfg.label}</span>
+                                <span class="badge rounded-pill mb-2 busq-badge">${cfg.label}</span>
                                 <p class="text-muted small mb-0">${excerpt}</p>
                             </div>
                         </div>

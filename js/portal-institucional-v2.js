@@ -573,10 +573,10 @@ function renderCitasTable(citas) {
                             <button class="btn btn-sm btn-primary view-details-btn rounded-pill px-3 shadow-sm border-0 d-inline-flex align-items-center text-nowrap" data-doc-id="${esc(cita.id)}" title="Ver detalles completos">
                                 <i class="bi bi-eye-fill me-1"></i> Ver
                             </button>
-                            <button class="btn btn-sm btn-light border cambiar-estado-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${esc(cita.id)}" data-status="${esc(status)}" title="Cambiar estado" aria-label="Cambiar estado">
+                            <button class="btn btn-sm btn-light border cambiar-estado-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center wh-32" data-doc-id="${esc(cita.id)}" data-status="${esc(status)}" title="Cambiar estado" aria-label="Cambiar estado">
                                 <i class="bi bi-arrow-repeat text-warning"></i>
                             </button>
-                            <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-doc-id="${esc(cita.id)}" data-radicado="${esc(radicado)}" data-email="${esc(paciente.correo || '')}" data-especialidad="${esc(especialidad)}" data-status="${esc(status)}" data-fecha="${esc(cita.fecha || '')}" data-hora="${esc(cita.hora || '')}" title="Responder por correo" aria-label="Responder por correo">
+                            <button class="btn btn-sm btn-light border responder-email-btn rounded-circle shadow-sm p-2 d-inline-flex align-items-center justify-content-center wh-32" data-doc-id="${esc(cita.id)}" data-radicado="${esc(radicado)}" data-email="${esc(paciente.correo || '')}" data-especialidad="${esc(especialidad)}" data-status="${esc(status)}" data-fecha="${esc(cita.fecha || '')}" data-hora="${esc(cita.hora || '')}" title="Responder por correo" aria-label="Responder por correo">
                                 <i class="bi bi-envelope-at text-info"></i>
                             </button>
                         </div>
@@ -1099,7 +1099,7 @@ async function showCitaDetails(docId) {
                 </div>
                 <div class="alert alert-warning py-2 small shadow-sm border-start border-4 border-warning">
                     ${escMultilinea(cita.gestionNotes)}
-                    <div class="text-end mt-1 border-top pt-1 text-muted" style="font-size: 0.7rem;">
+                    <div class="text-end mt-1 border-top pt-1 text-muted fs-0-7rem">
                         Última actualización: ${cita.notesUpdatedAt ? cita.notesUpdatedAt.toDate().toLocaleString('es-CO') : 'N/A'}
                     </div>
                 </div>
@@ -1133,11 +1133,11 @@ async function showCitaDetails(docId) {
                     previewHtml = `<div class="mt-2 small text-danger"><i class="bi bi-exclamation-triangle me-1"></i>No se pudo obtener el archivo.</div>`;
                 } else if (isImage) {
                     previewHtml = `<div class="mt-2 text-center bg-light p-2 rounded">
-                        <a href="${url}" target="_blank" rel="noopener"><img src="${url}" alt="Vista previa del adjunto" style="max-height: 150px; max-width: 100%; border-radius: 4px;"></a>
+                        <a href="${url}" target="_blank" rel="noopener"><img src="${url}" alt="Vista previa del adjunto" class="adjunto-miniatura"></a>
                     </div>`;
                 } else if (isPdf) {
                     previewHtml = `<div class="mt-2 text-center bg-light p-2 rounded">
-                        <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 3rem;"></i>
+                        <i class="bi bi-file-earmark-pdf text-danger fs-3rem"></i>
                         <small class="d-block text-muted mt-1">Vista previa no disponible. <a href="${url}" target="_blank" rel="noopener">Abrir PDF</a></small>
                     </div>`;
                 }

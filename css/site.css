@@ -4,21 +4,19 @@
 .top-bar .gov-link { display: flex; align-items: center; }
 .gov-logo { height: 40px; width: auto; display: block; }
 
-/* ====== Google Translate (widget) - visibilidad en barra azul ====== */
-.top-bar .translate-widget { display: flex; align-items: center; gap: .5rem; color: #fff; }
-.top-bar .goog-te-gadget { font-size: 0; /* ocultar texto "Powered by" */ }
-.top-bar .goog-te-gadget .goog-te-combo {
-  font-size: 14px; line-height: 1.2; height: 34px;
-  background: rgba(255,255,255,.14); color: #fff;
-  border: 1px solid rgba(255,255,255,.35); border-radius: 6px;
-  padding: 6px 10px; outline: none; cursor: pointer;
-}
-.top-bar .goog-te-gadget .goog-te-combo option { color: #111; background: #fff; }
-/* Ocultar logo/link de Google y texto auxiliar del gadget */
-.goog-logo-link, .goog-te-gadget span { display: none !important; }
-/* Quitar la barra superior inyectada por Google Translate */
-.goog-te-banner-frame { display: none !important; }
-body { top: 0 !important; }
+/* ====== Google Translate (js/traductor.js) ======
+   El sitio usa su propio botón English/Español; se ocultan el widget, la barra
+   que Google inserta arriba (tapaba la barra GOV.CO), su tooltip de "texto
+   original" y el resaltado que pone al pasar el ratón por un párrafo. */
+#google_translate_element,
+.goog-te-banner-frame,
+iframe.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame { display: none !important; }
+body { top: 0 !important; position: static; }
+.goog-text-highlight,
+font[class*="VIpgJd"] { background: none !important; box-shadow: none !important; }
+.top-bar .translate-btn { display: inline-flex; align-items: center; gap: .4rem; }
 
 /* Botón Traducir en top bar */
 .top-bar .translate-btn {
@@ -49,6 +47,137 @@ body { top: 0 !important; }
 .bg-transparent { background-color: transparent !important; }
 .text-accent { color: #069681 !important; }
 .wh-80 { width: 80px !important; height: 80px !important; }
+
+/* Colores de texto y borde */
+.text-turquesa { color: #22a7a0 !important; }
+.text-naranja { color: #e65100 !important; }
+.text-brand-medio { color: #1c6b6a !important; }
+.text-gov { color: #3366cc !important; }
+.border-brand { border-color: #164443 !important; }
+.border-brand-medio { border-color: #1c6b6a !important; }
+.border-accent-2 { border: 2px solid #069681 !important; }
+.bg-morado { background-color: #6f42c1 !important; }
+.bg-verde-oscuro { background-color: #0f7b5f !important; }
+.bg-none { background: none !important; }
+
+/* Fondos degradados */
+.bg-degradado-marca { background: linear-gradient(135deg, #164443, #22a7a0) !important; }
+.bg-degradado-marca-verde { background: linear-gradient(135deg, #164443, #069681) !important; }
+.bg-degradado-marca-3 { background: linear-gradient(135deg, #164443 0%, #1a5c5a 50%, #22a7a0 100%) !important; }
+.bg-degradado-oscuro { background: linear-gradient(135deg, #0f5e5c 0%, #1a5a57 100%) !important; }
+.bg-degradado-calido { background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important; }
+.bg-degradado-menta { background: linear-gradient(180deg, #f8fffe 0%, #ffffff 100%) !important; }
+.bg-degradado-ambar { background: linear-gradient(135deg, #a84300, #b85500) !important; }
+.bg-degradado-pizarra { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important; }
+.bg-degradado-morado { background: linear-gradient(135deg, #8e44ad, #6c3483) !important; }
+
+/* Tamaños de letra */
+.fs-0-8rem { font-size: 0.8rem !important; }
+.fs-0-85rem { font-size: 0.85rem !important; }
+.fs-0-9rem { font-size: 0.9rem !important; }
+.fs-0-95rem { font-size: 0.95rem !important; }
+.fs-1rem { font-size: 1rem !important; }
+.fs-1-05rem { font-size: 1.05rem !important; }
+.fs-1-08rem { font-size: 1.08rem !important; }
+.fs-1-15rem { font-size: 1.15rem !important; }
+.fs-1-25rem { font-size: 1.25rem !important; }
+.fs-1-5rem { font-size: 1.5rem !important; }
+.fs-1-75rem { font-size: 1.75rem !important; }
+.fs-1-8rem { font-size: 1.8rem !important; }
+.fs-2-5rem { font-size: 2.5rem !important; }
+.fs-3rem { font-size: 3rem !important; }
+.fs-3-5rem { font-size: 3.5rem !important; }
+.fs-4rem { font-size: 4rem !important; }
+.lh-1-7 { line-height: 1.7 !important; }
+.ls-1px { letter-spacing: 1px !important; }
+.ls-n0-5px { letter-spacing: -0.5px !important; }
+
+/* Tamaños de caja */
+.wh-70 { width: 70px !important; height: 70px !important; }
+.wh-72 { width: 72px !important; height: 72px !important; }
+.w-120px { width: 120px !important; }
+.mw-450 { max-width: 450px !important; }
+.mw-600 { max-width: 600px !important; }
+.mw-650 { max-width: 650px !important; }
+.mw-800 { max-width: 800px !important; }
+.mh-200 { max-height: 200px !important; }
+.mh-400 { max-height: 400px !important; }
+.mh-450 { max-height: 450px !important; }
+.mh-500 { max-height: 500px !important; }
+.mh-70vh { max-height: 70vh !important; }
+.min-h-48 { min-height: 48px !important; }
+.min-h-280 { min-height: 280px !important; }
+.min-w-80 { min-width: 80px !important; }
+.min-w-120 { min-width: 120px !important; }
+.min-w-150 { min-width: 150px !important; }
+.min-w-160 { min-width: 160px !important; }
+.top-110 { top: 110px !important; }
+.p-0-75rem { padding: 0.75rem !important; }
+.rounded-12 { border-radius: 12px !important; }
+.rounded-16 { border-radius: 16px !important; }
+.rounded-20 { border-radius: 20px !important; }
+.rounded-1-25rem { border-radius: 1.25rem !important; }
+
+/* Varios */
+.opacity-85 { opacity: 0.85 !important; }
+.opacity-90 { opacity: 0.9 !important; }
+.cursor-default { cursor: default !important; }
+.cursor-pointer { cursor: pointer !important; }
+/* Oculto al cargar; el JS lo muestra con element.style.display (por eso sin !important) */
+.oculto-inicial { display: none; }
+.wh-32 { width: 32px !important; height: 32px !important; }
+.fs-0-7rem { font-size: 0.7rem !important; }
+.min-w-0 { min-width: 0 !important; }
+
+/* Enlace "Portal Institucional" que layout.js agrega al menú */
+.nav-link.nav-link-portal { color: #ffc107 !important; }
+
+/* Notificaciones flotantes (js/utils.js → notify) */
+.notify-contenedor {
+  position: fixed; top: 1rem; right: 1rem; z-index: 1080; /* por encima del header */
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.notify-alerta { min-width: 260px; max-width: 380px; margin: 0; }
+
+/* Resultados del buscador (js/busqueda.js): color por categoría.
+   --cat-fondo es el color de la categoría muy aclarado; --cat-color es un tono
+   oscuro del mismo color para que el texto pequeño cumpla 4.5:1 sobre ese fondo. */
+.busq-cat-transparencia { --cat-color: #164443; --cat-fondo: 22, 68, 67; }
+.busq-cat-servicios     { --cat-color: #b02a37; --cat-fondo: 220, 53, 69; }
+.busq-cat-normatividad  { --cat-color: #6f42c1; --cat-fondo: 111, 66, 193; }
+.busq-cat-participacion { --cat-color: #146c43; --cat-fondo: 25, 135, 84; }
+.busq-cat-pqrs          { --cat-color: #a84300; --cat-fondo: 253, 126, 20; }
+.busq-cat-noticias      { --cat-color: #0a58ca; --cat-fondo: 13, 110, 253; }
+.busq-cat-institucional { --cat-color: #0f7b5f; --cat-fondo: 32, 201, 151; }
+.busq-cat-general       { --cat-color: #5c636a; --cat-fondo: 108, 117, 125; }
+.busq-icono { width: 42px; height: 42px; background: rgba(var(--cat-fondo), .08); }
+.busq-icono i { color: var(--cat-color); font-size: 1.2rem; }
+.busq-badge { background: rgba(var(--cat-fondo), .094); color: var(--cat-color); font-size: .7rem; font-weight: 500; }
+
+/* Componentes que antes tenían estilos inline */
+.franja-degradado { height: 5px; background: linear-gradient(90deg, #164443, #22a7a0, #2dd4bf); }
+.sombra-inferior { height: 100px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1)); }
+.caja-turquesa { background: #f0fdfa; border: 1px solid #22a7a0; }
+.hr-marca { border-color: #164443; opacity: 0.2; }
+.foto-destacada-140,
+.foto-destacada-150 { object-fit: cover; border: 4px solid white; }
+.foto-destacada-140 { width: 140px; height: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.foto-destacada-150 { width: 150px; height: 150px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.icono-marca-agua { opacity: 0.2; font-size: 5rem; position: absolute; top: -10px; right: -10px; }
+/* Botón cerrar del modal de imagen ampliada (inicio) */
+.btn-close.btn-cerrar-imagen {
+  z-index: 10; background-color: #ffffff; border-radius: 50%; width: 45px; height: 45px;
+  font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.3s ease;
+  border: 3px solid #ff0000; color: #ff0000;
+}
+.img-ampliada { max-height: 80vh; object-fit: contain; transition: transform 0.3s ease; cursor: zoom-in; }
+
+/* Footer */
+.footer-titulo { color: #069681; font-size: 2.3rem; letter-spacing: -1px; overflow-wrap: break-word; }
+.gov-final-logo { height: 32px; margin-right: 12px; }
+.copyright-bar { background: #212529 !important; color: #fff !important; width: 100% !important; }
+.copyright-texto { color: #fff !important; padding: 0 1rem; }
+.copyright-texto strong { color: #fff !important; }
 .fin-controls .chip {
   border: 1px solid rgba(0,0,0,.15);
   background: #fff;
@@ -171,6 +300,28 @@ body { top: 0 !important; }
    Basado en Bootstrap 5 y variables de marca
    ===================================================== */
 
+/* Contraste WCAG AA: el azul y el gris por defecto de Bootstrap (#0d6efd,
+   #5c636a) dan ~4,3:1 sobre el fondo #f8f9fa del sitio; se usan sus tonos
+   un paso más oscuros (≥ 5,9:1). */
+:root {
+  --bs-link-color: #0a58ca;
+  --bs-link-color-rgb: 10, 88, 202;
+  --bs-link-hover-color: #084298;
+  --bs-link-hover-color-rgb: 8, 66, 152;
+}
+.btn-outline-primary {
+  --bs-btn-color: #0a58ca;
+  --bs-btn-border-color: #0a58ca;
+  --bs-btn-hover-bg: #0a58ca;
+  --bs-btn-hover-border-color: #0a58ca;
+  --bs-btn-active-bg: #084298;
+  --bs-btn-active-border-color: #084298;
+}
+.btn-outline-secondary {
+  --bs-btn-color: #5c636a;
+  --bs-btn-border-color: #5c636a;
+}
+
 :root {
   /* Colores de marca */
   --color-primario: #164443;
@@ -249,7 +400,7 @@ body { top: 0 !important; }
   margin-bottom: .25rem;
 }
 .section-lead {
-  color: #6c757d;
+  color: #5c636a;
   font-size: clamp(.95rem, .85rem + .5vw, 1.15rem);
   line-height: 1.55;
   margin: 0;
@@ -280,6 +431,9 @@ h1 {
   font-weight: 900; 
   font-size: clamp(2rem, 1.2rem + 2.2vw, 3rem);
 }
+/* Títulos dentro de bloques con fondo oscuro marcados .text-white/.text-light:
+   heredan el color claro en vez del verde institucional (que no se vería) */
+:is(.text-white, .text-light) :is(h1, h2, h3, h4, h5) { color: inherit; }
 h2 { font-weight: 800; font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.2rem); }
 h3 { font-weight: 700; font-size: clamp(1.25rem, 1rem + .6vw, 1.6rem); }
 
@@ -832,8 +986,9 @@ section > p {
   line-height: 1.35;               /* Mejora lectura en varias líneas */
 }
 .servicios .btn-overlay {
-  background-color: var(--color-secundario);
-  border-color: var(--color-secundario);
+  /* Verde institucional un tono más oscuro: texto blanco con contraste 5,2:1 (WCAG AA) */
+  background-color: #057a69;
+  border-color: #057a69;
   color: #fff;
   font-weight: 700;
   padding: .5rem .9rem;
@@ -841,8 +996,8 @@ section > p {
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
 }
 .servicios .btn-overlay:hover {
-  background-color: #058772;
-  border-color: #058772;
+  background-color: #046457;
+  border-color: #046457;
   box-shadow: 0 10px 20px rgba(0,0,0,.16);
 }
 
@@ -927,7 +1082,7 @@ section > p {
 .institution-logo-box.is-red { border-color: #dc3545; box-shadow: 0 8px 24px rgba(220,53,69,0.15); }
 .institution-logo-box.is-blue { border-color: #007bff; box-shadow: 0 8px 24px rgba(0,123,255,0.15); }
 .institution-logo-box.is-blue2 { border-color: #3366cc; box-shadow: 0 8px 24px rgba(51,102,204,0.15); }
-.institution-logo-box.is-gray { border-color: #6c757d; box-shadow: 0 8px 24px rgba(108,117,125,0.15); }
+.institution-logo-box.is-gray { border-color: #5c636a; box-shadow: 0 8px 24px rgba(108,117,125,0.15); }
 .institution-logo-box.is-success { border-color: #198754; box-shadow: 0 8px 24px rgba(25,135,84,0.15); }
 .institution-logo-box.is-info { border-color: #0dcaf0; box-shadow: 0 8px 24px rgba(13,202,240,0.15); }
 .institution-logo-box.is-warning { border-color: #ffc107; box-shadow: 0 8px 24px rgba(255,193,7,0.15); }
@@ -1000,7 +1155,7 @@ section > p {
 /* Estilos para resultados de búsqueda */
 .no-results-icon {
   font-size: 3rem;
-  color: #6c757d;
+  color: #5c636a;
   animation: pulse 2s infinite;
 }
 
@@ -1020,15 +1175,17 @@ section > p {
 
 
 /* Botón outline con color de marca secundario */
+/* Verde institucional un tono más oscuro (#057a69) para que el texto cumpla
+   contraste 4,5:1 sobre blanco (con #069681 daba 3,7:1) */
 .btn-outline-brand {
-  border: 2px solid var(--color-secundario);
-  color: var(--color-secundario);
+  border: 2px solid #057a69;
+  color: #057a69;
   background: transparent;
 }
 .btn-outline-brand:hover, .btn-outline-brand:focus {
-  background: var(--color-secundario);
+  background: #057a69;
   color: #fff;
-  border-color: var(--color-secundario);
+  border-color: #057a69;
 }
 
 /* =====================================================
@@ -1067,7 +1224,7 @@ section > p {
 .badge-file-odt,
 .badge-file-ods { background-color: #6f42c1; } /* purple */
 .badge-file-zip,
-.badge-file-rar { background-color: #6c757d; } /* secondary */
+.badge-file-rar { background-color: #5c636a; } /* secondary */
 .badge-file-txt  { background-color: #343a40; } /* dark */
 .badge-file-other{ background-color: #495057; } /* neutral */
 
@@ -1090,30 +1247,6 @@ section > p {
   color: #fff !important; /* asegurar icono blanco, evitar gris por herencia */
 }
 
-/* Botones de accesibilidad  */
-.accessibility-buttons-container {
-  position: fixed;
-  top: 60%;
-  right: 0;
-  transform: translateY(-50%);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 4px 0 0 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.accessibility-buttons-container .btn {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
-}
-
 /* Accesibilidad: resaltar enfoque claramente para enlaces y botones */
 :where(a, button, .btn):focus-visible {
   outline: 3px solid #ffbf47; /* amarillo GOV.co accesible */
@@ -1124,23 +1257,35 @@ section > p {
    Accesibilidad mínima (botonera y modos de contraste)
    ===================================================== */
 
-/* Contenedor flotante de botones de accesibilidad */
+/* Contenedor flotante de botones de accesibilidad
+   (tablet y escritorio: vertical, acoplado a la derecha; en móvil, barra inferior más abajo) */
 .accessibility-buttons-container {
   position: fixed;
-  top: 60%;
-  right: 0;
+  top: 50%;
+  right: 8px;
   transform: translateY(-50%);
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 6px 4px;
+  align-items: stretch;
+  gap: 8px;
+  padding: 8px;
+  max-height: calc(100dvh - 24px);
   background: var(--color-primario); /* Contenedor oscuro para contrastar con botones blancos */
   border-radius: 8px 0 0 8px;
   box-shadow: -2px 0 10px rgba(0,0,0,.25);
 }
+/* Pantallas bajas (p. ej. iPad Pro horizontal): botones más juntos */
+@media (min-width: 769px) and (max-height: 799px) {
+  .accessibility-buttons-container { gap: 6px; }
+}
+/* Solo si de verdad no cabe se permite desplazar (el scroll recorta los tooltips laterales) */
+@media (min-width: 769px) and (max-height: 400px) {
+  .accessibility-buttons-container { overflow-y: auto; }
+}
 
 .accessibility-buttons-container .btn {
+  overflow: visible; /* la regla global .btn { overflow: hidden } recortaba el tooltip */
   width: 40px;
   height: 40px;
   border-radius: 6px;
@@ -1189,7 +1334,8 @@ section > p {
   pointer-events: none;
 }
 
-.accessibility-buttons-container .btn:hover::after { 
+.accessibility-buttons-container .btn:hover::after,
+.accessibility-buttons-container .btn:focus-visible::after {
   opacity: 1; 
   visibility: visible; 
   transform: translateY(-50%) translateX(-2px); 
@@ -1243,42 +1389,7 @@ section > p {
 }
 /* Ajuste de tooltip para mejor legibilidad */
 .accessibility-buttons-container .btn::after { font-size: .8rem; }
-/* ===== Modos de contraste mínimos ===== */
-/* Alto contraste */
-.alto-contraste, .high-contrast {
-  background-color: #000 !important;
-  color: #fff !important;
-}
-.alto-contraste .navbar, .high-contrast .navbar,
-.alto-contraste .top-bar, .high-contrast .top-bar { background-color: #000 !important; color: #fff !important; }
-.alto-contraste .card, .high-contrast .card { background-color: #000 !important; color: #fff !important; }
-.alto-contraste a, .high-contrast a { color: #00ff00 !important; }
-.alto-contraste .btn-outline-primary, .high-contrast .btn-outline-primary { border-color: #00ff00 !important; color: #00ff00 !important; }
-
-/* Modo oscuro */
-.modo-oscuro {
-  background-color: #1a1a1a !important;
-  color: #e0e0e0 !important;
-}
-.modo-oscuro .navbar, .modo-oscuro .top-bar { background-color: #2a2a2a !important; color: #e0e0e0 !important; }
-.modo-oscuro .card { background-color: #2a2a2a !important; color: #e0e0e0 !important; }
-.modo-oscuro a { color: #90caf9 !important; }
-
-/* Modo sepia */
-.modo-sepia {
-  background-color: #f4ecd8 !important;
-  color: #5a4a3a !important;
-}
-.modo-sepia .navbar, .modo-sepia .top-bar { background-color: #e6d8c0 !important; color: #5a4a3a !important; }
-.modo-sepia .card { background-color: #e6d8c0 !important; color: #5a4a3a !important; }
-.modo-sepia a { color: #8b4513 !important; }
-
-/* Asegurar que las imágenes mantengan sus colores en todos los modos */
-.alto-contraste img, .modo-oscuro img, .modo-sepia img,
-.alto-contraste .card-img-top, .modo-oscuro .card-img-top, .modo-sepia .card-img-top,
-.alto-contraste .carousel-item img, .modo-oscuro .carousel-item img, .modo-sepia .carousel-item img {
-  filter: none !important; -webkit-filter: none !important;
-}
+/* Los modos de contraste (alto contraste, oscuro, sepia) se definen en css/accesibilidad.css */
 
 /* =====================================================
    Estilos para la tarjeta del Consultorio Rosa
@@ -1367,11 +1478,11 @@ body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer {
 }
 
 body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer a {
-  color: #0d6efd;
+  color: #0a58ca;
 }
 
 body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer .text-muted {
-  color: #6c757d;
+  color: #5c636a;
 }
 
 /* Tarjeta institucional en el footer */
@@ -1457,6 +1568,15 @@ main {
 @media (max-width: 575.98px) {
   .hero-promocion { height: 220px; }
 }
+
+/* Banner de cada servicio (por defecto .hero-promocion usa el de Promoción y Prevención) */
+.hero-promocion.hero-bg-consulta-externa { background-image: url('/imagenes/consulta-ecterna-banner.webp'); }
+.hero-promocion.hero-bg-cuidado-oral { background-image: url('/imagenes/odontologia-banner.webp'); }
+.hero-promocion.hero-bg-diagnostico { background-image: url('/imagenes/diagnostico-banner.webp'); }
+.hero-promocion.hero-bg-hospitalizacion { background-image: url('/imagenes/hospitalizacion-banner-sin-logo.webp'); }
+.hero-promocion.hero-bg-laboratorio { background-image: url('/imagenes/laboratorio-banner.webp'); }
+.hero-promocion.hero-bg-partos { background-image: url('/imagenes/Partos-banner.webp'); }
+.hero-promocion.hero-bg-urgencias { background-image: url('/imagenes/urgencias-banner.webp'); }
 
 /* =====================================================
    Hero Participa (banner)
@@ -1744,7 +1864,7 @@ p, a, td, th, li {
   height: 12px;
   border-radius: 50%;
   margin: 0 4px;
-  border: 1px solid #6c757d;
+  border: 1px solid #5c636a;
 }
 #actividadesCarousel .carousel-indicators .active {
   background-color: #0d6efd;
@@ -1852,7 +1972,7 @@ p, a, td, th, li {
 }
 
 #breadcrumb-container .breadcrumb-item+.breadcrumb-item::before {
-  color: #6c757d;
+  color: #5c636a;
 }
 
 /* Tarjetas de estadísticas con un hover más sutil */

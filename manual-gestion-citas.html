@@ -7,86 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
-    <style>
-        :root { --brand: #164443; --accent: #22a7a0; --light-accent: #e0f7f5; }
-        body { font-family: 'Poppins', sans-serif; color: #374151; line-height: 1.8; }
-        .manual-hero {
-            background: linear-gradient(135deg, #0f3332 0%, #164443 40%, #1a6b62 100%);
-            color: #fff; padding: 3rem 0; position: relative; overflow: hidden;
-        }
-        .manual-hero::after {
-            content: ''; position: absolute; top: -60%; right: -15%; width: 450px; height: 450px;
-            border-radius: 50%; background: radial-gradient(circle, rgba(34,167,160,0.15) 0%, transparent 70%);
-        }
-        .sidebar-nav { position: sticky; top: 90px; }
-        .sidebar-nav a {
-            display: block; padding: 0.6rem 1rem; margin-bottom: 0.25rem;
-            color: #4b5563; text-decoration: none; border-radius: 8px;
-            font-size: 0.9rem; transition: all 0.2s ease;
-        }
-        .sidebar-nav a:hover, .sidebar-nav a.active {
-            background: var(--light-accent); color: var(--brand); font-weight: 600;
-        }
-        .section-title {
-            color: var(--brand); font-weight: 700; padding-bottom: 0.75rem;
-            border-bottom: 3px solid var(--accent); margin-bottom: 1.5rem; scroll-margin-top: 100px;
-        }
-        .step-box {
-            background: #fff; border: 1px solid #e5e7eb; border-radius: 16px;
-            padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
-            border-left: 4px solid var(--accent); transition: box-shadow 0.2s ease;
-        }
-        .step-box:hover { box-shadow: 0 4px 16px rgba(22,68,67,0.08); }
-        .step-number {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 36px; height: 36px; border-radius: 50%; font-weight: 700; font-size: 0.9rem;
-            background: linear-gradient(135deg, var(--brand), var(--accent)); color: #fff;
-            margin-right: 0.75rem; flex-shrink: 0;
-        }
-        .tip-box {
-            background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fbbf24;
-            border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
-        }
-        .tip-box i { color: #f59e0b; }
-        .warning-box {
-            background: linear-gradient(135deg, #fef2f2, #fee2e2); border: 1px solid #f87171;
-            border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
-        }
-        .warning-box i { color: #ef4444; }
-        .info-box {
-            background: linear-gradient(135deg, #f0fdfa, var(--light-accent)); border: 1px solid var(--accent);
-            border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
-        }
-        .info-box i { color: var(--accent); }
-        .badge-status { padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
-        .badge-solicitud { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
-        .badge-proceso { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
-        .badge-confirmada { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; }
-        .badge-reasignada { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
-        .badge-cancelada { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
-        .shortcut-key {
-            display: inline-block; background: #f3f4f6; border: 1px solid #d1d5db;
-            border-radius: 6px; padding: 0.15rem 0.5rem; font-size: 0.8rem; font-weight: 600; color: #374151;
-        }
-        .print-only { display: none; }
-        @media print {
-            .sidebar-nav, .manual-hero, .no-print { display: none !important; }
-            .print-only { display: block; }
-            .section-title { break-before: page; }
-            body { font-size: 12pt; }
-        }
-    </style>
+    <link rel="icon" href="/imagenes/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="96x96" href="/imagenes/icons/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/imagenes/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="css/manual-gestion-citas.css" />
 </head>
 <body>
 
 <!-- Hero -->
 <div class="manual-hero">
-    <div class="container position-relative" style="z-index:1;">
+    <div class="container position-relative z-1">
         <div class="d-flex align-items-center gap-3 mb-3">
-            <img src="imagenes/Logo-hospital.webp" alt="Logo HDSA" style="height:50px;" onerror="this.style.display='none'">
+            <img class="manual-logo" src="imagenes/Logo-hospital.webp" alt="Logo HDSA" onerror="this.style.display='none'">
             <div>
-                <h1 class="fw-bold mb-0" style="font-size:1.75rem;">Manual de Usuario</h1>
+                <h1 class="fw-bold mb-0 manual-titulo">Manual de Usuario</h1>
                 <p class="mb-0 opacity-75">Módulo de Gestión de Citas Online</p>
             </div>
         </div>
@@ -168,12 +103,12 @@
             <h2 id="dashboard" class="section-title mt-5"><i class="bi bi-speedometer2 me-2"></i>2. Dashboard de Estadísticas</h2>
             <p>Al ingresar verás <strong>6 tarjetas de colores</strong> con las estadísticas en tiempo real:</p>
             <div class="row g-2 mb-3">
-                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;"><strong>Pendientes</strong><br>Citas recién solicitadas</div></div>
-                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;"><strong>En Proceso</strong><br>Citas siendo gestionadas</div></div>
-                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;"><strong>Confirmadas</strong><br>Citas con fecha asignada</div></div>
-                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;"><strong>Reasignadas</strong><br>Cambiadas de fecha/hora</div></div>
-                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;"><strong>Canceladas</strong><br>Citas que no se realizaron</div></div>
-                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 border" style="color:#164443;"><strong>Total</strong><br>Suma de todas las citas</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 leyenda-estado leyenda-ambar"><strong>Pendientes</strong><br>Citas recién solicitadas</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 leyenda-estado leyenda-azul"><strong>En Proceso</strong><br>Citas siendo gestionadas</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 leyenda-estado leyenda-cian"><strong>Confirmadas</strong><br>Citas con fecha asignada</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 leyenda-estado leyenda-verde"><strong>Reasignadas</strong><br>Cambiadas de fecha/hora</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 leyenda-estado leyenda-rojo"><strong>Canceladas</strong><br>Citas que no se realizaron</div></div>
+                <div class="col-6 col-md-4"><div class="text-center p-2 rounded-3 border manual-texto-marca"><strong>Total</strong><br>Suma de todas las citas</div></div>
             </div>
             <div class="tip-box">
                 <i class="bi bi-lightbulb-fill me-2"></i>
@@ -362,7 +297,7 @@
             <p>Cada solicitud de cita pasa por un flujo de estados. Este es el significado de cada uno:</p>
             <table class="table table-bordered align-middle">
                 <thead class="table-light">
-                    <tr><th style="width:180px;">Estado</th><th>Significado</th><th>¿Qué hacer?</th></tr>
+                    <tr><th class="manual-col-campo">Estado</th><th>Significado</th><th>¿Qué hacer?</th></tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -445,9 +380,9 @@
             </div>
 
             <!-- SOPORTE -->
-            <div class="mt-5 p-4 rounded-3 text-center" style="background:linear-gradient(135deg, #f0fdfa, #e0f7f5); border:1px solid #22a7a0;">
-                <i class="bi bi-headset" style="font-size:2.5rem;color:#22a7a0;"></i>
-                <h4 class="fw-bold mt-2" style="color:#164443;">¿Necesitas ayuda adicional?</h4>
+            <div class="mt-5 p-4 rounded-3 text-center manual-contacto">
+                <i class="bi bi-headset manual-contacto-icono"></i>
+                <h4 class="fw-bold mt-2 manual-texto-marca">¿Necesitas ayuda adicional?</h4>
                 <p class="text-muted mb-2">Comunícate con el área de Sistemas para soporte técnico.</p>
                 <p class="mb-0"><strong>coord.sistemas@hdsa.gov.co</strong> &bull; Ext. 112</p>
             </div>

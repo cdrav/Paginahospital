@@ -135,7 +135,7 @@
           <div class="col-lg-5">
             <div class="noticia-destacada-texto">
               <span class="small text-uppercase fw-bold mb-3 noticia-destacada-rotulo"><i class="bi bi-star-fill me-1"></i>Noticia destacada</span>
-              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">${badge(n, true)} ${fecha(n, 'text-white-50')}</div>
+              <div class="d-flex flex-wrap align-items-center gap-2 mb-3">${badge(n, true)} ${fecha(n, 'text-white')}</div>
               <h2 class="h3 fw-bold mb-3">${esc(n.titulo)}</h2>
               <p class="mb-4">${esc(n.resumen)}</p>
               ${acciones(n, 'btn-light')}
@@ -209,7 +209,7 @@
 
   function abrirDetalle(n) {
     const imagenes = (n.detalle.imagenes || []).map(src =>
-      `<img src="${esc(src)}" class="img-fluid rounded shadow mb-3" alt="${esc(n.titulo)}" style="max-height: 500px;">`).join('');
+      `<img src="${esc(src)}" class="img-fluid rounded shadow mb-3 mh-500" alt="${esc(n.titulo)}">`).join('');
     // detalle.texto es HTML escrito por el equipo del hospital en data/noticias.json
     abrirModal(n.titulo, `${imagenes ? `<div class="text-center">${imagenes}</div>` : ''}
       <div class="px-2">${n.detalle.texto || ''}</div>`);

@@ -150,8 +150,9 @@
       <li>
         <span class="est-barra-nombre" title="${esc(f.nombre)}">${f.icono ? `<i class="bi ${esc(f.icono)}" aria-hidden="true"></i>` : ''}${f.enlace ? `<a href="${esc(f.enlace)}">${esc(f.nombre)}</a>` : esc(f.nombre)}</span>
         <span class="est-barra-valor">${f.texto}</span>
-        <span class="est-barra-pista" aria-hidden="true"><span class="est-barra-relleno" style="width:${Math.max(2, (f.valor / max) * 100).toFixed(1)}%"></span></span>
+        <span class="est-barra-pista" aria-hidden="true"><span class="est-barra-relleno" data-ancho="${Math.max(2, (f.valor / max) * 100).toFixed(1)}"></span></span>
       </li>`).join('');
+    lista.querySelectorAll('.est-barra-relleno[data-ancho]').forEach(b => { b.style.width = b.dataset.ancho + '%'; });
   }
 
   function pintarListas(x) {

@@ -1,0 +1,83 @@
+/* Manual de gestión de citas (manual-gestion-citas.html) */
+
+:root { --brand: #164443; --accent: #22a7a0; --light-accent: #e0f7f5; }
+body { font-family: 'Poppins', sans-serif; color: #374151; line-height: 1.8; }
+.manual-hero {
+    background: linear-gradient(135deg, #0f3332 0%, #164443 40%, #1a6b62 100%);
+    color: #fff; padding: 3rem 0; position: relative; overflow: hidden;
+}
+.manual-hero::after {
+    content: ''; position: absolute; top: -60%; right: -15%; width: 450px; height: 450px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(34,167,160,0.15) 0%, transparent 70%);
+}
+.sidebar-nav { position: sticky; top: 90px; }
+.sidebar-nav a {
+    display: block; padding: 0.6rem 1rem; margin-bottom: 0.25rem;
+    color: #4b5563; text-decoration: none; border-radius: 8px;
+    font-size: 0.9rem; transition: all 0.2s ease;
+}
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background: var(--light-accent); color: var(--brand); font-weight: 600;
+}
+.section-title {
+    color: var(--brand); font-weight: 700; padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--accent); margin-bottom: 1.5rem; scroll-margin-top: 100px;
+}
+.step-box {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 16px;
+    padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
+    border-left: 4px solid var(--accent); transition: box-shadow 0.2s ease;
+}
+.step-box:hover { box-shadow: 0 4px 16px rgba(22,68,67,0.08); }
+.step-number {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%; font-weight: 700; font-size: 0.9rem;
+    background: linear-gradient(135deg, var(--brand), var(--accent)); color: #fff;
+    margin-right: 0.75rem; flex-shrink: 0;
+}
+.tip-box {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fbbf24;
+    border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
+}
+.tip-box i { color: #f59e0b; }
+.warning-box {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2); border: 1px solid #f87171;
+    border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
+}
+.warning-box i { color: #ef4444; }
+.info-box {
+    background: linear-gradient(135deg, #f0fdfa, var(--light-accent)); border: 1px solid var(--accent);
+    border-radius: 12px; padding: 1.25rem; margin: 1rem 0;
+}
+.info-box i { color: var(--accent); }
+.badge-status { padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
+.badge-solicitud { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+.badge-proceso { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
+.badge-confirmada { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; }
+.badge-reasignada { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+.badge-cancelada { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+.shortcut-key {
+    display: inline-block; background: #f3f4f6; border: 1px solid #d1d5db;
+    border-radius: 6px; padding: 0.15rem 0.5rem; font-size: 0.8rem; font-weight: 600; color: #374151;
+}
+.print-only { display: none; }
+@media print {
+    .sidebar-nav, .manual-hero, .no-print { display: none !important; }
+    .print-only { display: block; }
+    .section-title { break-before: page; }
+    body { font-size: 12pt; }
+}
+
+/* Antes estilos inline (esta página no carga site.css) */
+.manual-logo { height: 50px; }
+.manual-titulo { font-size: 1.75rem; }
+.manual-texto-marca { color: #164443; }
+.manual-col-campo { width: 180px; }
+.leyenda-estado { color: #fff; }
+.leyenda-ambar { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.leyenda-azul { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.leyenda-cian { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.leyenda-verde { background: linear-gradient(135deg, #10b981, #059669); }
+.leyenda-rojo { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.manual-contacto { background: linear-gradient(135deg, #f0fdfa, #e0f7f5); border: 1px solid #22a7a0; }
+.manual-contacto-icono { font-size: 2.5rem; color: #22a7a0; }

@@ -572,3 +572,14 @@
 .lista-archivos li > i { font-size: 1.2rem; color: var(--acento, #22a7a0); }
 .lista-archivos .nombre { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lista-archivos small { color: #6b7280; white-space: nowrap; }
+
+/* Oculta el contenido mientras se verifica la sesión (antes <style> en cada página del portal) */
+html.portal-verificando main,
+html.portal-verificando #user-welcome { visibility: hidden; }
+
+/* Tarjeta "Total" de estadísticas */
+#citas-admin-panel .card.bg-light.border-brand-2,
+.stat-card-clickable.bg-light.border-brand-2 { border: 2px solid #164443 !important; }
+
+/* Miniatura de imagen adjunta en el detalle de la cita */
+.adjunto-miniatura { max-height: 150px; max-width: 100%; border-radius: 4px; }

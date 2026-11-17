@@ -9,8 +9,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Hospital Departamental San Antonio</title>
   <meta name="description" content="Sitio web oficial del Hospital Departamental San Antonio. Brindamos servicios de salud con calidad y calidez humana.">
-  <link rel="icon" type="image/x-icon" href="/imagenes/icons/favicon.ico">
-  <!-- El manifest se carga desde partials/header.html -->
+  <link rel="icon" href="/imagenes/icons/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="96x96" href="/imagenes/icons/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="/imagenes/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Poppins:wght@300;700;900&family=Work+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -84,17 +86,17 @@
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
-<section id="actualizacion-sismo" class="mb-4 py-4" style="background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%);">
+<section id="actualizacion-sismo" class="mb-4 py-4 bg-degradado-calido">
     <div class="container">
       <div class="text-center mb-3">
-        <span class="badge rounded-pill px-3 py-2 mb-3" style="background: linear-gradient(135deg, #d35400, #e67e22); font-size: 0.85rem;">
+        <span class="badge rounded-pill px-3 py-2 mb-3 bg-degradado-ambar fs-0-85rem">
           <i class="bi bi-exclamation-triangle-fill me-1"></i> Emergencia por el Sismo
         </span>
         <h2 class="fw-bold h3 mb-2">Actualizaci&oacute;n por el Sismo en Roldanillo</h2>
-        <p class="text-muted mx-auto mb-0" style="max-width: 650px;">El Hospital Departamental San Antonio contin&uacute;a informando a la comunidad sobre la atenci&oacute;n de servicios, jornadas de salud y la campa&ntilde;a de donaciones tras la emergencia.</p>
+        <p class="text-muted mx-auto mb-0 mw-650">El Hospital Departamental San Antonio contin&uacute;a informando a la comunidad sobre la atenci&oacute;n de servicios, jornadas de salud y la campa&ntilde;a de donaciones tras la emergencia.</p>
       </div>
 
-      <div id="emergenciaSismoCarousel" class="carousel slide carousel-fade shadow sismo-carousel" data-bs-ride="carousel" data-bs-interval="6000" style="border-radius:16px; overflow:hidden;">
+      <div id="emergenciaSismoCarousel" class="carousel slide carousel-fade shadow sismo-carousel rounded-16 overflow-hidden" data-bs-ride="carousel" data-bs-interval="6000">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#emergenciaSismoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Testimonio Comunidad"></button>
           <button type="button" data-bs-target="#emergenciaSismoCarousel" data-bs-slide-to="1" aria-label="Especialidades"></button>
@@ -106,7 +108,7 @@
           <button type="button" data-bs-target="#emergenciaSismoCarousel" data-bs-slide-to="7" aria-label="Jornada de vacunaci&oacute;n"></button>
           <button type="button" data-bs-target="#emergenciaSismoCarousel" data-bs-slide-to="8" aria-label="Odontolog&iacute;a itinerante"></button>
         </div>
-        <div class="carousel-inner" style="background: linear-gradient(135deg, #164443 0%, #1a5c5a 50%, #22a7a0 100%);">
+        <div class="carousel-inner bg-degradado-marca-3">
 
           <!-- Slide 1: Testimonio Comunidad -->
           <div class="carousel-item active">
@@ -235,12 +237,12 @@
     </div>
   </section>
 
-  <section id="noticias-eventos" class="mb-5 py-5" style="background: linear-gradient(180deg, #f8fffe 0%, #ffffff 100%);">
+  <section id="noticias-eventos" class="mb-5 py-5 bg-degradado-menta">
     <div class="container">
         <div class="text-center mb-5">
-          <span class="badge rounded-pill px-3 py-2 mb-3" style="background: linear-gradient(135deg, #164443, #22a7a0); font-size: 0.85rem;"><i class="bi bi-newspaper me-1"></i> Actualidad HDSA</span>
+          <span class="badge rounded-pill px-3 py-2 mb-3 bg-degradado-marca fs-0-85rem"><i class="bi bi-newspaper me-1"></i> Actualidad HDSA</span>
           <h2 class="fw-bold">Noticias y Eventos</h2>
-          <p class="text-muted mx-auto" style="max-width: 600px;">Mantente al d&iacute;a con las &uacute;ltimas novedades y actividades del Hospital Departamental San Antonio.</p>
+          <p class="text-muted mx-auto mw-600">Mantente al d&iacute;a con las &uacute;ltimas novedades y actividades del Hospital Departamental San Antonio.</p>
         </div>
 
         <!-- Noticias del inicio: las marcadas con "inicio": true en data/noticias.json (todas quedan en noticias.html) -->
@@ -253,19 +255,19 @@
 
         <!-- Tarjeta fija de Resultados de Rayos X -->
         <div class="mb-4">
-          <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+          <div class="card border-0 shadow-lg overflow-hidden rounded-16 bg-degradado-pizarra">
             <div class="row g-0 align-items-center">
               <div class="col-md-5">
-                <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4 text-white" style="min-height: 280px;">
-                  <img src="imagenes/imagenes-index-noticias/Resultados-rayos-x/Qr-rayos-x.webp" class="rounded mb-3" alt="QR Resultados Rayos X" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid white; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-                  <span class="fw-bold text-center" style="font-size: 0.95rem;">Escanea para ver tus resultados</span>
+                <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4 text-white min-h-280">
+                  <img src="imagenes/imagenes-index-noticias/Resultados-rayos-x/Qr-rayos-x.webp" class="rounded mb-3 foto-destacada-150" alt="QR Resultados Rayos X">
+                  <span class="fw-bold text-center fs-0-95rem">Escanea para ver tus resultados</span>
                 </div>
               </div>
               <div class="col-md-7 d-flex">
                 <div class="card-body d-flex flex-column justify-content-center p-4 p-lg-5 text-white">
-                  <span class="badge bg-primary rounded-pill align-self-start mb-3 px-3 py-2" style="font-size: 0.85rem;"><i class="bi bi-qr-code-scan me-1"></i>Resultados de Im&aacute;genes</span>
-                  <h3 class="card-title fw-bold mb-2" style="font-size: 1.5rem;">Resultados de Rayos X</h3>
-                  <p class="mb-3" style="opacity: 0.9; font-size: 0.95rem;">Consulta tus resultados de im&aacute;genes diagn&oacute;sticas de forma r&aacute;pida y segura. Escanea el c&oacute;digo QR o accede directamente a la plataforma.</p>
+                  <span class="badge bg-primary rounded-pill align-self-start mb-3 px-3 py-2 fs-0-85rem"><i class="bi bi-qr-code-scan me-1"></i>Resultados de Im&aacute;genes</span>
+                  <h3 class="card-title fw-bold mb-2 fs-1-5rem">Resultados de Rayos X</h3>
+                  <p class="mb-3 opacity-90 fs-0-95rem">Consulta tus resultados de im&aacute;genes diagn&oacute;sticas de forma r&aacute;pida y segura. Escanea el c&oacute;digo QR o accede directamente a la plataforma.</p>
                   <div class="d-flex flex-wrap gap-2 mt-auto">
                     <a href="https://rx-vista.com/" target="_blank" rel="noopener" class="btn btn-light btn-sm fw-bold rounded-pill px-4">
                       <i class="bi bi-box-arrow-up-right me-1"></i> Acceder a Resultados
@@ -286,14 +288,14 @@
         <!-- Consultorio Rosa - tarjeta destacada permanente -->
         <div class="row mb-4">
           <div class="col-12">
-            <div class="card h-100 border-0 shadow hover-card text-white overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, #8e44ad, #6c3483);">
+            <div class="card h-100 border-0 shadow hover-card text-white overflow-hidden rounded-16 bg-degradado-morado">
               <div class="card-body d-flex flex-column text-center justify-content-center p-4">
-                <div class="mb-3" style="opacity: 0.2; font-size: 5rem; position: absolute; top: -10px; right: -10px;"><i class="bi bi-heart-pulse-fill"></i></div>
+                <div class="mb-3 icono-marca-agua"><i class="bi bi-heart-pulse-fill"></i></div>
                 <div class="mb-3">
-                  <i class="bi bi-shield-check-fill" style="font-size: 3.5rem;"></i>
+                  <i class="bi bi-shield-check-fill fs-3-5rem"></i>
                 </div>
                 <h5 class="card-title fw-bold mb-2">Consultorio Rosa</h5>
-                <p class="fw-light mb-4" style="opacity: 0.9;">Atenci&oacute;n integral y segura para v&iacute;ctimas de violencias de g&eacute;nero.</p>
+                <p class="fw-light mb-4 opacity-90">Atenci&oacute;n integral y segura para v&iacute;ctimas de violencias de g&eacute;nero.</p>
                 <div class="mt-auto">
                   <a href="consultorio-rosa.html" class="btn btn-light btn-sm fw-bold rounded-pill px-4">Conocer M&aacute;s <i class="bi bi-arrow-right ms-1"></i></a>
                 </div>
@@ -606,7 +608,7 @@
                 <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
                   <a href="https://www.gov.co/" target="_blank" class="mb-4 institution-logo-box is-blue2 pad-8 d-block text-decoration-none" aria-label="Visitar sitio Gov.co">
                     <img src="imagenes/logo_gov_digital-1-1600x323.webp" alt="Logo Portal Único del Estado Colombiano" class="img-fluid-contain gov-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <i class="bi bi-globe2 fallback-icon" style="color: #3366cc;"></i>
+                    <i class="bi bi-globe2 fallback-icon text-gov"></i>
                   </a>
                   <h5 class="card-title fw-bold mb-3 text-primary">Gov.co</h5>
                   <p class="card-text text-muted mb-4 small">Portal Único del Estado Colombiano</p>
@@ -735,19 +737,19 @@
       <div class="row justify-content-center text-center g-4">
           <div class="col-auto">
               <a href="https://www.facebook.com/hdsaroldanillo/?locale=es_LA" target="_blank" class="text-decoration-none d-block social-icon-link">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="img-fluid rounded-circle shadow-sm mb-2" style="width: 70px; height: 70px; object-fit: cover;">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="img-fluid rounded-circle shadow-sm mb-2 wh-70 object-fit-cover">
                   <p class="fw-bold text-dark">Facebook</p>
               </a>
           </div>
           <div class="col-auto">
               <a href="https://www.instagram.com/hdsaroldanillo/?hl=es" target="_blank" class="text-decoration-none d-block social-icon-link">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="img-fluid rounded-circle shadow-sm mb-2" style="width: 70px; height: 70px; object-fit: cover;">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="img-fluid rounded-circle shadow-sm mb-2 wh-70 object-fit-cover">
                   <p class="fw-bold text-dark">Instagram</p>
               </a>
           </div>
           <div class="col-auto">
               <a href="https://www.youtube.com/@HDSARoldanillo" target="_blank" class="text-decoration-none d-block social-icon-link">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" class="img-fluid rounded-circle shadow-sm mb-2" style="width: 70px; height: 70px; object-fit: cover;">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" class="img-fluid rounded-circle shadow-sm mb-2 wh-70 object-fit-cover">
                   <p class="fw-bold text-dark">YouTube</p>
               </a>
           </div>
@@ -837,9 +839,9 @@
 <!-- Modal de Aviso de Vacunación -->
 <div class="modal fade" id="modalInicio" tabindex="-1" aria-labelledby="modalInicioLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content" style="background: transparent; border: none;">
+    <div class="modal-content bg-transparent border-0">
       <div class="modal-body p-0 position-relative">
-        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar" style="z-index: 10; background-color: #ffffff; border-radius: 50%; width: 45px; height: 45px; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.3s ease; border: 3px solid #ff0000; color: #ff0000;"></button>
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 btn-cerrar-imagen" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         <img src="imagenes/imagenes-index-noticias/flyer-2.webp" class="img-fluid rounded" alt="Aviso de Jornada de Vacunación">
       </div>
     </div>
@@ -852,7 +854,6 @@
 <script src="js/layout.js" defer></script>
 <script src="js/navbar.js" defer></script>
 <script src="js/accesibilidad.js" defer></script>
-<script src="js/accessibility-styles.js" defer></script>
 <script src="js/busqueda.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/cookie-consent.js" defer></script>
@@ -960,7 +961,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center bg-dark">
-        <img id="modalImagenAmpliada" src="" alt="Imagen ampliada" class="img-fluid" style="max-height: 80vh; object-fit: contain; transition: transform 0.3s ease; cursor: zoom-in;" onmouseover="this.style.transform='scale(1.5)';" onmouseout="this.style.transform='scale(1)';">
+        <img id="modalImagenAmpliada" src="" alt="Imagen ampliada" class="img-fluid img-ampliada" onmouseover="this.style.transform='scale(1.5)';" onmouseout="this.style.transform='scale(1)';">
       </div>
     </div>
   </div>

@@ -203,3 +203,7 @@
         margin-left: 2rem;
     }
 }
+
+/* Selector de año siempre visible (antes estilos inline con !important) */
+.year-selector { display: inline-flex !important; visibility: visible !important; }
+.year-selector .year-btn { display: inline-block !important; visibility: visible !important; }

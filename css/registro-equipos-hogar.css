@@ -1,0 +1,7 @@
+/* Registro de equipos del hogar (registro-equipos-hogar.html) */
+
+.equipo-row td { vertical-align: middle; }
+.equipo-row .form-select,
+.equipo-row .form-control { min-width: 130px; }
+#equipos-table-wrapper { overflow-x: auto; }
+.btn-add-equipo { border-style: dashed; }
