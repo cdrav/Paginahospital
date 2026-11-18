@@ -567,7 +567,7 @@
       font-size: 1.2rem;
     }
 
-    .specialty-card h5 {
+    .specialty-card :is(h5, .tam-h5) {
       margin: 0;
       font-size: 1rem;
     }

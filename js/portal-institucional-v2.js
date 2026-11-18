@@ -847,16 +847,48 @@ function openStatusModal(docId, currentStatus) {
  * Exporta los datos actuales de la tabla a un archivo Excel (.xlsx) profesional.
  * Incluye filtros automáticos y ajuste de columnas.
  */
-function exportCitasToExcel() {
+// Las librerías de exportación pesan ~1,3 MB: se descargan solo la primera vez que se exporta
+const LIBRERIAS_EXPORTAR = {
+    excel: ['https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js'],
+    pdf: ['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+          'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js']
+};
+const scriptsCargados = new Map();
+function cargarScript(src) {
+    if (!scriptsCargados.has(src)) {
+        scriptsCargados.set(src, new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = () => { scriptsCargados.delete(src); reject(new Error('No se pudo descargar ' + src)); };
+            document.head.appendChild(s);
+        }));
+    }
+    return scriptsCargados.get(src);
+}
+async function cargarLibrerias(tipo, boton) {
+    const toggle = boton?.closest('.dropdown')?.querySelector('[data-bs-toggle="dropdown"]');
+    if (toggle) toggle.setAttribute('aria-busy', 'true');
+    try {
+        // En orden: autotable necesita que jsPDF ya exista
+        for (const src of LIBRERIAS_EXPORTAR[tipo]) await cargarScript(src);
+        return true;
+    } catch (e) {
+        console.error(e);
+        alert('No se pudo descargar la herramienta para exportar. Revise la conexión e intente de nuevo.');
+        return false;
+    } finally {
+        if (toggle) toggle.removeAttribute('aria-busy');
+    }
+}
+
+async function exportCitasToExcel(e) {
     if (!currentCitasData || currentCitasData.length === 0) {
         alert("No hay datos para exportar.");
         return;
     }
-    
-    if (typeof XLSX === 'undefined') {
-        alert("La librería de Excel no se cargó correctamente. Por favor recargue la página.");
-        return;
-    }
+
+    if (!(await cargarLibrerias('excel', e?.currentTarget)) || typeof XLSX === 'undefined') return;
 
     // Definir encabezados
     const headers = ["ID/Radicado", "Fecha Solicitud", "Documento", "Paciente", "Teléfono", "Email", "Especialidad", "Fecha Cita", "Hora Cita", "Estado", "Motivo"];
@@ -913,16 +945,13 @@ function exportCitasToExcel() {
 /**
  * Exporta los datos actuales de la tabla a un archivo PDF profesional.
  */
-async function exportCitasToPDF() {
-    const { jsPDF } = window.jspdf;
-    if (typeof jsPDF === 'undefined') {
-        alert("La librería para generar PDF no está disponible. Por favor, recargue la página.");
-        return;
-    }
+async function exportCitasToPDF(e) {
     if (!currentCitasData || currentCitasData.length === 0) {
         alert("No hay datos para exportar a PDF.");
         return;
     }
+    if (!(await cargarLibrerias('pdf', e?.currentTarget)) || !window.jspdf) return;
+    const { jsPDF } = window.jspdf;
 
     const doc = new jsPDF({ orientation: 'landscape' });
 

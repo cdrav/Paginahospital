@@ -7,6 +7,9 @@
   async function loadPartial(targetSelector, url) {
     const target = document.querySelector(targetSelector);
     if (!target) return Promise.resolve(); // Resuelve silenciosamente si el objetivo no existe
+    // En el sitio publicado el parcial ya viene dentro del HTML (lo inserta
+    // scripts/preparar-publicacion.js); en local se descarga como siempre.
+    if (target.hasAttribute('data-parcial-incluido')) return Promise.resolve();
     try {
       const res = await fetch(url, { cache: "no-cache" });
       if (!res.ok) throw new Error(`HTTP ${res.status} al cargar ${url}`);

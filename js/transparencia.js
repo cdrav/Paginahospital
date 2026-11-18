@@ -138,7 +138,9 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     heading.focus({ preventScroll: true });
   }
 
-  function showOnlyBySelector(sel) {
+  // enfocar=false en la carga inicial sin ancla: así el teclado empieza por el inicio de la página
+  // (enlace "Saltar al contenido" y menú) en vez de saltar directo a la sección 1.
+  function showOnlyBySelector(sel, enfocar = true) {
     const target = sel ? document.querySelector(sel) : null;
     // Si el hash apunta a un elemento interno (como un encabezado dentro de una sección),
     // resolver la sección contenedora para poder mostrarla en modo "una sección a la vez".
@@ -191,6 +193,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (effectiveTarget && effectiveTarget.id) expandAccordionForSectionId(effectiveTarget.id);
     if (hash) setActiveLink(hash);
     // Foco: si es 1.1, buscar heading dentro de mvveContainer; si no, sobre la sección
+    if (!enfocar) return;
     if (sel === '#mision-vision-valores' && mvveContainer) {
       focusSectionHeading(mvveContainer);
     } else if (effectiveTarget) {
@@ -203,7 +206,7 @@ const getHeaderOffset = () => (typeof window.calcHeaderOffset === 'function' ? w
     if (hash && document.querySelector(hash)) {
       showOnlyBySelector(hash);
     } else {
-      showOnlyBySelector('#seccion-1');
+      showOnlyBySelector('#seccion-1', false);
     }
     // Actualizar el botón después de aplicar la vista inicial
     updateToggleLabel();

@@ -189,7 +189,7 @@
     border-bottom: 2px solid #f3f4f6;
     padding: 1.25rem 1.5rem;
 }
-#citas-admin-panel .card-header h5 {
+#citas-admin-panel .card-header :is(h5, .tam-h5) {
     font-weight: 700;
     color: #164443;
 }
@@ -513,7 +513,7 @@
    ===================================================================== */
 .portal-form-centrado { max-width: 780px; margin: 0 auto; }
 .portal-form-centrado.portal-form-ancho { max-width: 1040px; }
-.portal-interna main.container { padding-top: .5rem; }
+.portal-interna .zona-principal.container { padding-top: .5rem; }
 
 .portal-interna .form-control, .portal-interna .form-select { border-radius: .65rem; padding: .62rem .85rem; border-color: #d5dde0; }
 .portal-interna .form-control-sm, .portal-interna .form-select-sm { padding: .35rem .6rem; }
@@ -574,7 +574,7 @@
 .lista-archivos small { color: #6b7280; white-space: nowrap; }
 
 /* Oculta el contenido mientras se verifica la sesión (antes <style> en cada página del portal) */
-html.portal-verificando main,
+html.portal-verificando .zona-principal,
 html.portal-verificando #user-welcome { visibility: hidden; }
 
 /* Tarjeta "Total" de estadísticas */

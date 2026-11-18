@@ -22,7 +22,7 @@
 
 /* Ajustes de responsividad para pantallas muy pequeñas (ej. Moto G4) */
 @media (max-width: 575.98px) { /* Bootstrap's 'sm' breakpoint */
-    main.container {
+    .zona-principal.container {
         padding-left: 10px !important;
         padding-right: 10px !important;
         padding-top: 2rem !important;

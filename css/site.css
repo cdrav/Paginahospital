@@ -1,424 +1,45 @@
-/* Top GOV bar: misma cuadrícula y mayor altura */
-.top-bar { background: #0b5ed7; /* azul GOV */ }
-.top-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px; }
-.top-bar .gov-link { display: flex; align-items: center; }
-.gov-logo { height: 40px; width: auto; display: block; }
+/* ==========================================================================
+   site.css — Estilos generales del sitio hdsa.gov.co
+   (Bootstrap 5.3 se carga antes; css/accesibilidad.css define los modos de contraste)
 
-/* ====== Google Translate (js/traductor.js) ======
-   El sitio usa su propio botón English/Español; se ocultan el widget, la barra
-   que Google inserta arriba (tapaba la barra GOV.CO), su tooltip de "texto
-   original" y el resaltado que pone al pasar el ratón por un párrafo. */
-#google_translate_element,
-.goog-te-banner-frame,
-iframe.skiptranslate,
-#goog-gt-tt,
-.goog-te-balloon-frame { display: none !important; }
-body { top: 0 !important; position: static; }
-.goog-text-highlight,
-font[class*="VIpgJd"] { background: none !important; box-shadow: none !important; }
-.top-bar .translate-btn { display: inline-flex; align-items: center; gap: .4rem; }
+   Índice
+     1. Variables
+     2. Base y tipografía
+     3. Ajustes a Bootstrap
+     4. Encabezado (barra GOV.CO, traducción, menú, buscador)
+     5. Pie de página
+     6. Barra de accesibilidad y aviso de cookies
+     7. Componentes compartidos
+     8. Estilos por página
+     9. Utilidades
+   ========================================================================== */
 
-/* Botón Traducir en top bar */
-.top-bar .translate-btn {
-  background: #ffffff; color: #0b5ed7; border: 1px solid rgba(255,255,255,.35);
-  border-radius: 9999px; padding: 6px 12px; font-weight: 600; font-size: 14px;
-  line-height: 1; transition: all .2s ease; box-shadow: 0 1px 2px rgba(0,0,0,.06);
-}
-.top-bar .translate-btn:hover { background: #e9f1ff; border-color: #ffffff; }
-.top-bar .translate-btn:active { transform: translateY(1px); }
+/* ======================================================================
+   1. Variables — Colores de marca y ajustes de color de Bootstrap (contraste WCAG AA).
+   ====================================================================== */
 
-/* Estilo para el botón del Portal Institucional en la barra superior */
-.top-bar .btn-light {
-  border-radius: 50px;
-  font-size: 0.85rem;
-  padding: 0.4rem 0.8rem;
-}
-
-/* Botón Traducir en top bar */
-/* --- Transparencia 4.2 UX enhancements --- */
-
-/* ====== Utilidades personalizadas (para reemplazar estilos inline) ====== */
-.text-brand { color: #164443 !important; }
-.bg-brand { background-color: #164443 !important; }
-.alert-brand { background-color: #164443 !important; color: #ffffff !important; }
-.top-90 { top: 90px !important; }
-.hero-img-400 { height: 400px; object-fit: cover; }
-.icon-2rem { font-size: 2rem !important; }
-.bg-transparent { background-color: transparent !important; }
-.text-accent { color: #069681 !important; }
-.wh-80 { width: 80px !important; height: 80px !important; }
-
-/* Colores de texto y borde */
-.text-turquesa { color: #22a7a0 !important; }
-.text-naranja { color: #e65100 !important; }
-.text-brand-medio { color: #1c6b6a !important; }
-.text-gov { color: #3366cc !important; }
-.border-brand { border-color: #164443 !important; }
-.border-brand-medio { border-color: #1c6b6a !important; }
-.border-accent-2 { border: 2px solid #069681 !important; }
-.bg-morado { background-color: #6f42c1 !important; }
-.bg-verde-oscuro { background-color: #0f7b5f !important; }
-.bg-none { background: none !important; }
-
-/* Fondos degradados */
-.bg-degradado-marca { background: linear-gradient(135deg, #164443, #22a7a0) !important; }
-.bg-degradado-marca-verde { background: linear-gradient(135deg, #164443, #069681) !important; }
-.bg-degradado-marca-3 { background: linear-gradient(135deg, #164443 0%, #1a5c5a 50%, #22a7a0 100%) !important; }
-.bg-degradado-oscuro { background: linear-gradient(135deg, #0f5e5c 0%, #1a5a57 100%) !important; }
-.bg-degradado-calido { background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important; }
-.bg-degradado-menta { background: linear-gradient(180deg, #f8fffe 0%, #ffffff 100%) !important; }
-.bg-degradado-ambar { background: linear-gradient(135deg, #a84300, #b85500) !important; }
-.bg-degradado-pizarra { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important; }
-.bg-degradado-morado { background: linear-gradient(135deg, #8e44ad, #6c3483) !important; }
-
-/* Tamaños de letra */
-.fs-0-8rem { font-size: 0.8rem !important; }
-.fs-0-85rem { font-size: 0.85rem !important; }
-.fs-0-9rem { font-size: 0.9rem !important; }
-.fs-0-95rem { font-size: 0.95rem !important; }
-.fs-1rem { font-size: 1rem !important; }
-.fs-1-05rem { font-size: 1.05rem !important; }
-.fs-1-08rem { font-size: 1.08rem !important; }
-.fs-1-15rem { font-size: 1.15rem !important; }
-.fs-1-25rem { font-size: 1.25rem !important; }
-.fs-1-5rem { font-size: 1.5rem !important; }
-.fs-1-75rem { font-size: 1.75rem !important; }
-.fs-1-8rem { font-size: 1.8rem !important; }
-.fs-2-5rem { font-size: 2.5rem !important; }
-.fs-3rem { font-size: 3rem !important; }
-.fs-3-5rem { font-size: 3.5rem !important; }
-.fs-4rem { font-size: 4rem !important; }
-.lh-1-7 { line-height: 1.7 !important; }
-.ls-1px { letter-spacing: 1px !important; }
-.ls-n0-5px { letter-spacing: -0.5px !important; }
-
-/* Tamaños de caja */
-.wh-70 { width: 70px !important; height: 70px !important; }
-.wh-72 { width: 72px !important; height: 72px !important; }
-.w-120px { width: 120px !important; }
-.mw-450 { max-width: 450px !important; }
-.mw-600 { max-width: 600px !important; }
-.mw-650 { max-width: 650px !important; }
-.mw-800 { max-width: 800px !important; }
-.mh-200 { max-height: 200px !important; }
-.mh-400 { max-height: 400px !important; }
-.mh-450 { max-height: 450px !important; }
-.mh-500 { max-height: 500px !important; }
-.mh-70vh { max-height: 70vh !important; }
-.min-h-48 { min-height: 48px !important; }
-.min-h-280 { min-height: 280px !important; }
-.min-w-80 { min-width: 80px !important; }
-.min-w-120 { min-width: 120px !important; }
-.min-w-150 { min-width: 150px !important; }
-.min-w-160 { min-width: 160px !important; }
-.top-110 { top: 110px !important; }
-.p-0-75rem { padding: 0.75rem !important; }
-.rounded-12 { border-radius: 12px !important; }
-.rounded-16 { border-radius: 16px !important; }
-.rounded-20 { border-radius: 20px !important; }
-.rounded-1-25rem { border-radius: 1.25rem !important; }
-
-/* Varios */
-.opacity-85 { opacity: 0.85 !important; }
-.opacity-90 { opacity: 0.9 !important; }
-.cursor-default { cursor: default !important; }
-.cursor-pointer { cursor: pointer !important; }
-/* Oculto al cargar; el JS lo muestra con element.style.display (por eso sin !important) */
-.oculto-inicial { display: none; }
-.wh-32 { width: 32px !important; height: 32px !important; }
-.fs-0-7rem { font-size: 0.7rem !important; }
-.min-w-0 { min-width: 0 !important; }
-
-/* Enlace "Portal Institucional" que layout.js agrega al menú */
-.nav-link.nav-link-portal { color: #ffc107 !important; }
-
-/* Notificaciones flotantes (js/utils.js → notify) */
-.notify-contenedor {
-  position: fixed; top: 1rem; right: 1rem; z-index: 1080; /* por encima del header */
-  display: flex; flex-direction: column; gap: .5rem;
-}
-.notify-alerta { min-width: 260px; max-width: 380px; margin: 0; }
-
-/* Resultados del buscador (js/busqueda.js): color por categoría.
-   --cat-fondo es el color de la categoría muy aclarado; --cat-color es un tono
-   oscuro del mismo color para que el texto pequeño cumpla 4.5:1 sobre ese fondo. */
-.busq-cat-transparencia { --cat-color: #164443; --cat-fondo: 22, 68, 67; }
-.busq-cat-servicios     { --cat-color: #b02a37; --cat-fondo: 220, 53, 69; }
-.busq-cat-normatividad  { --cat-color: #6f42c1; --cat-fondo: 111, 66, 193; }
-.busq-cat-participacion { --cat-color: #146c43; --cat-fondo: 25, 135, 84; }
-.busq-cat-pqrs          { --cat-color: #a84300; --cat-fondo: 253, 126, 20; }
-.busq-cat-noticias      { --cat-color: #0a58ca; --cat-fondo: 13, 110, 253; }
-.busq-cat-institucional { --cat-color: #0f7b5f; --cat-fondo: 32, 201, 151; }
-.busq-cat-general       { --cat-color: #5c636a; --cat-fondo: 108, 117, 125; }
-.busq-icono { width: 42px; height: 42px; background: rgba(var(--cat-fondo), .08); }
-.busq-icono i { color: var(--cat-color); font-size: 1.2rem; }
-.busq-badge { background: rgba(var(--cat-fondo), .094); color: var(--cat-color); font-size: .7rem; font-weight: 500; }
-
-/* Componentes que antes tenían estilos inline */
-.franja-degradado { height: 5px; background: linear-gradient(90deg, #164443, #22a7a0, #2dd4bf); }
-.sombra-inferior { height: 100px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1)); }
-.caja-turquesa { background: #f0fdfa; border: 1px solid #22a7a0; }
-.hr-marca { border-color: #164443; opacity: 0.2; }
-.foto-destacada-140,
-.foto-destacada-150 { object-fit: cover; border: 4px solid white; }
-.foto-destacada-140 { width: 140px; height: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-.foto-destacada-150 { width: 150px; height: 150px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-.icono-marca-agua { opacity: 0.2; font-size: 5rem; position: absolute; top: -10px; right: -10px; }
-/* Botón cerrar del modal de imagen ampliada (inicio) */
-.btn-close.btn-cerrar-imagen {
-  z-index: 10; background-color: #ffffff; border-radius: 50%; width: 45px; height: 45px;
-  font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.3s ease;
-  border: 3px solid #ff0000; color: #ff0000;
-}
-.img-ampliada { max-height: 80vh; object-fit: contain; transition: transform 0.3s ease; cursor: zoom-in; }
-
-/* Footer */
-.footer-titulo { color: #069681; font-size: 2.3rem; letter-spacing: -1px; overflow-wrap: break-word; }
-.gov-final-logo { height: 32px; margin-right: 12px; }
-.copyright-bar { background: #212529 !important; color: #fff !important; width: 100% !important; }
-.copyright-texto { color: #fff !important; padding: 0 1rem; }
-.copyright-texto strong { color: #fff !important; }
-.fin-controls .chip {
-  border: 1px solid rgba(0,0,0,.15);
-  background: #fff;
-  color: #0f3332;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  line-height: 1.2;
-  cursor: pointer;
-}
-.fin-controls .chip:hover { background: #f5f9f9; border-color: var(--color-primario); }
-.fin-controls .chip.active { background: var(--color-primario); color: #fff; border-color: var(--color-primario); }
-.fin-controls .fin-chip-label { font-size: .9rem; color: #555; }
-.fin-controls { gap: .5rem; }
-
-.fin-cat-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem 1.25rem;
-}
-@media (min-width: 992px) {
-  .fin-cat-grid { grid-template-columns: 1fr 1fr; }
-}
-.fin-cat-block { min-width: 0; }
-
-/* Grid plano (sin acordeón) */
-.fin-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-}
-
-.file-ext-badge {
-  display: inline-block;
-  background: #e9ecef;
-  color: #495057;
-  border-radius: 999px;
-  padding: 2px 8px;
-  font-size: .72rem;
-  margin-right: .5rem;
-  text-transform: uppercase;
-}
-
-.year-badge {
-  display: inline-block;
-  background: #f0faf9;
-  color: #0f3332;
-  border: 1px solid #cfe7e5;
-  border-radius: 999px;
-  padding: 2px 8px;
-  font-size: .72rem;
-  margin-right: .5rem;
-}
-
-/* Make small financial buttons more compact on wrap */
-.fin-file.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .25rem;
-  white-space: normal;
-}
-
-/* Hide years with zero visible items after filter */
-.accordion-item.fin-empty { display: none; }
-
-/* Footer GOV bar: misma cuadrícula, mayor altura y logos más grandes */
-.gov-final-bar { background: #0b5ed7; color: #fff; }
-.gov-final-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px !important; }
-.gov-final-bar img { height: 40px !important; width: auto; margin-right: 12px; }
-.gov-final-bar a { color: #fff; }
-
-/* ===================
-   Animaciones: Nuestros Servicios (cards)
-   =================== */
-.servicios {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden; /* ya está en HTML, reforzamos */
-  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
-  will-change: transform, box-shadow;
-  box-shadow: 0 8px 18px rgba(0,0,0,.08);
-}
-.servicios .card-img-top {
-  transition: transform .6s cubic-bezier(.22,.61,.36,1);
-  transform-origin: center center;
-}
-.servicios:hover,
-.servicios:focus-within {
-  transform: translateY(-10px);
-  box-shadow: 0 18px 40px rgba(0,0,0,.16);
-}
-.servicios:hover .card-img-top,
-.servicios:focus-within .card-img-top {
-  transform: scale(1.1);
-}
-/* Resalte sutil con halo */
-.servicios::after {
-  content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  background: radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.22), transparent 60%),
-              linear-gradient(180deg, rgba(6,150,129,.2), rgba(6,150,129,0));
-  opacity: 0; transition: opacity .35s ease;
-}
-.servicios:hover::after,
-.servicios:focus-within::after { opacity: 1; }
-
-/* Accesible: estados focus visibles para tarjetas clicables dentro */
-.servicios a:focus,
-.servicios button:focus { outline: 2px solid rgba(6,150,129,.65); outline-offset: 2px; }
-
-/* Respeto a usuarios que prefieren menos movimiento */
-@media (prefers-reduced-motion: reduce) {
-  .servicios, .servicios .card-img-top { transition: none; }
-  .servicios:hover, .servicios:focus-within { transform: none; box-shadow: 0 6px 16px rgba(0,0,0,.06); }
-  .servicios .card-body > * { opacity: 1; transform: none; transition: none; }
-}
-/* =====================================================
-   HDSA - CSS mínimo y responsivo para index.html
-   Basado en Bootstrap 5 y variables de marca
-   ===================================================== */
-
-/* Contraste WCAG AA: el azul y el gris por defecto de Bootstrap (#0d6efd,
-   #5c636a) dan ~4,3:1 sobre el fondo #f8f9fa del sitio; se usan sus tonos
-   un paso más oscuros (≥ 5,9:1). */
 :root {
   --bs-link-color: #0a58ca;
   --bs-link-color-rgb: 10, 88, 202;
   --bs-link-hover-color: #084298;
   --bs-link-hover-color-rgb: 8, 66, 152;
-}
-.btn-outline-primary {
-  --bs-btn-color: #0a58ca;
-  --bs-btn-border-color: #0a58ca;
-  --bs-btn-hover-bg: #0a58ca;
-  --bs-btn-hover-border-color: #0a58ca;
-  --bs-btn-active-bg: #084298;
-  --bs-btn-active-border-color: #084298;
-}
-.btn-outline-secondary {
-  --bs-btn-color: #5c636a;
-  --bs-btn-border-color: #5c636a;
-}
-
-:root {
-  /* Colores de marca */
   --color-primario: #164443;
-  --color-secundario: #069681;
-  --color-terciario: #3366cc; /* barra superior */
+  --color-terciario: #3366cc;
   --color-texto: #333333;
   --color-texto-sec: #666666;
   --color-fondo: #f8f9fa;
   --shadow: 0 6px 18px rgba(0,0,0,0.08);
   --radius: 10px;
+  --color-secundario: #069681;
+  --color-secundario-hover: #047a67;
 }
 
-/* Título sobre imagen con texto blanco y gradiente de soporte */
-.hero-title-badge {
-  display: inline-block;
-  background: transparent;             /* sin placa */
-  color: #fff;                          /* texto blanco */
-  padding: 0;                           /* sin relleno de placa */
-  border-radius: 0;                     /* sin bordes redondeados */
-  font-family: 'Work Sans', 'Poppins', sans-serif;
-  font-weight: 900;                     /* fuerte para legibilidad */
-  text-transform: uppercase;
-  /* Escala responsiva, más grande que antes */
-  font-size: clamp(1.25rem, 0.9rem + 2.2vw, 2.6rem);
-  letter-spacing: .4px;
-  text-shadow: 0 3px 12px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.35);
-}
-.hero-title-wrap {
-  position: absolute;
-  left: 0; right: 0;
-  bottom: 1.25rem;
-  z-index: 2;                           /* por delante del gradiente */
-}
-.hero-title-wrap .container { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; }
-.hero-title-wrap .hero-title-badge i { margin-right: .5rem; }
-/* Gradiente oscuro inferior para contraste AA/AAA */
-.hero-title-wrap::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  /* expandir banda hacia abajo y un poco hacia arriba del texto */
-  bottom: -1.25rem;
-  height: clamp(120px, 22vw, 260px);
-  background: linear-gradient(to top, rgba(0,0,0,.58) 0%, rgba(0,0,0,.34) 45%, rgba(0,0,0,0) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Breadcrumbs legibles en placa clara y centrados en el hero */
-.hero-breadcrumbs-wrap {
-  position: absolute;
-  left: 0; right: 0;
-  top: 1rem;
-}
-.hero-breadcrumbs-wrap .container { display: flex; justify-content: center; }
-.breadcrumb-plate {
-  background: rgba(255,255,255,.96);
-  border-radius: .75rem;
-  padding: .4rem .8rem;
-  margin: 0;
-  box-shadow: 0 6px 18px rgba(0,0,0,.10);
-}
-.breadcrumb-plate .breadcrumb-item a { color: var(--color-primario); text-decoration: none; font-weight: 700; }
-.breadcrumb-plate .breadcrumb-item a:hover, .breadcrumb-plate .breadcrumb-item a:focus { text-decoration: underline; }
-.breadcrumb-plate .breadcrumb-item.active { color: #333; font-weight: 800; }
-.breadcrumb-plate .breadcrumb-item + .breadcrumb-item::before { color: #666; }
-
-/* Títulos y subtítulos de sección con escala proporcional */
-.section-title {
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 800;
-  color: var(--color-primario);
-  /* Similar a citas médicas: contundente pero ajustable */
-  font-size: clamp(1.25rem, 0.9rem + 2.1vw, 2.4rem);
-  letter-spacing: -0.3px;
-  margin-bottom: .25rem;
-}
-.section-lead {
-  color: #5c636a;
-  font-size: clamp(.95rem, .85rem + .5vw, 1.15rem);
-  line-height: 1.55;
-  margin: 0;
-}
+/* ======================================================================
+   2. Base y tipografía — Elementos HTML sin clase: documento, títulos, secciones y robustez responsiva.
+   ====================================================================== */
 
 /* Tipografía base */
 html { font-size: clamp(15px, 0.9rem + 0.3vw, 18px); }
-body {
-  /* Poppins para contenidos (no Arial) */
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
-  color: var(--color-texto);
-  background: var(--color-fondo);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
 h1, h2, h3, h4, h5 {
   color: var(--color-primario);
   font-family: 'Work Sans', 'Poppins', sans-serif;
@@ -436,14 +57,42 @@ h1 {
 :is(.text-white, .text-light) :is(h1, h2, h3, h4, h5) { color: inherit; }
 h2 { font-weight: 800; font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.2rem); }
 h3 { font-weight: 700; font-size: clamp(1.25rem, 1rem + .6vw, 1.6rem); }
-
+/* Para corregir el nivel de un título sin cambiar cómo se ve:
+   .titulo-como-texto = aspecto de h6 (color y letra del texto); .titulo-800 = grosor de h4/h5 */
+.titulo-como-texto { color: inherit; font-family: inherit; font-weight: 500; }
+.titulo-800 { font-weight: 800; }
+/* Tamaño de h4/h5/h6 sin el resto de estilos de las clases .h4/.h5/.h6 de Bootstrap
+   (que imponen font-weight:500 y otro color) */
+.tam-h3 { font-size: clamp(1.25rem, 1rem + .6vw, 1.6rem); font-weight: 700; }
+.tam-h4 { font-size: calc(1.275rem + .3vw); }
+@media (min-width: 1200px) { .tam-h4 { font-size: 1.5rem; } }
+.tam-h5 { font-size: 1.25rem; }
+.tam-h6 { font-size: 1rem; }
+/* Enlace "Saltar al contenido principal": oculto hasta que se llega a él con el teclado */
+.saltar-contenido {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 10001;
+  padding: .75rem 1.25rem;
+  background: #ffc107;
+  color: #000;
+  font-weight: 700;
+  border-radius: 0 0 .5rem .5rem;
+  text-decoration: none;
+}
+.saltar-contenido:focus { top: 0; outline: 3px solid #000; outline-offset: 2px; }
+#contenido-principal:focus { outline: none; }
+/* El <main> que envuelve banner + miga de pan + contenido mantiene el mismo contexto flex que
+   tenía <body>, para que sus hijos se comporten igual que cuando eran hijos directos del body
+   (en flex los márgenes no se colapsan). Si el <main> ya era la zona de contenido, no aplica. */
+main#contenido-principal:not(.zona-principal) { display: flex; flex-direction: column; }
 /* Encabezados de sección simples */
 section { padding: clamp(2rem, 1.2rem + 2vw, 4rem) 0; }
 /* Ritmo vertical para títulos de sección y subtítulos */
 section > h1, section > h2, section > h3 {
   margin-bottom: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
 }
-section > p { margin-bottom: clamp(1rem, 0.7rem + 1vw, 1.75rem); }
 section > h2 {
   font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem);
   margin-bottom: 1rem;
@@ -453,7 +102,162 @@ section > p {
   max-width: 900px;
   margin: 0 auto 2rem;
 }
+/* Asegurar que el footer esté en la parte inferior */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  top: 0 !important;
+  position: static;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1 0 auto;
+}
+/* --- Robustez Responsiva Global --- */
+/* Prevenir que tablas anchas rompan el layout en móviles */
+.table-responsive {
+  overflow-x: auto;
+}
+/* Asegurar que textos y URLs largas no desborden sus contenedores */
+p, a, td, th, li {
+  word-break: break-word; /* Para navegadores antiguos */
+  overflow-wrap: anywhere; /* Estándar moderno */
+}
+/* Evitar que elementos flex/grid se encojan de forma indeseada */
+.row > * { min-width: 0; }
+/* Accesibilidad: resaltar enfoque claramente para enlaces y botones */
+:where(a, button, .btn):focus-visible {
+  outline: 3px solid #ffbf47; /* amarillo GOV.co accesible */
+  outline-offset: 2px;
+}
 
+/* ======================================================================
+   3. Ajustes a Bootstrap — Botones, menús desplegables, acordeón y utilidades de Bootstrap con los colores del sitio.
+   ====================================================================== */
+
+.btn-outline-primary {
+  --bs-btn-color: #0a58ca;
+  --bs-btn-border-color: #0a58ca;
+  --bs-btn-hover-bg: #0a58ca;
+  --bs-btn-hover-border-color: #0a58ca;
+  --bs-btn-active-bg: #084298;
+  --bs-btn-active-border-color: #084298;
+}
+.btn-outline-secondary {
+  --bs-btn-color: #5c636a;
+  --bs-btn-border-color: #5c636a;
+}
+/* Estilos para todos los botones de la página */
+.btn {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+/* Efecto hover para todos los botones */
+.btn:not(.btn-outline-brand):not(.btn-link):not(.btn-close):hover {
+  color: #fff;
+  background-color: var(--color-secundario, #069681);
+  border-color: var(--color-secundario, #069681);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+/* Efecto active para todos los botones */
+.btn:not(.btn-link):not(.btn-close):active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+/* Estilo para los íconos dentro de los botones */
+.btn i {
+  transition: transform 0.3s ease;
+}
+/* Efecto hover para los íconos */
+.btn:hover i {
+  transform: translateX(3px);
+}
+/* Estilo para el foco accesible */
+.btn:focus-visible { 
+  outline: 3px solid #ffbf47;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
+}
+/* Dropdown: estilo coherente y apertura por hover en desktop */
+.dropdown-menu { border: 0; border-radius: var(--radius); box-shadow: var(--shadow); padding: .5rem; }
+.dropdown-item { border-radius: 8px; padding: .5rem .75rem; }
+.dropdown-item:hover, .dropdown-item:focus { background: #e9f4f2; color: var(--color-primario); }
+/* FAQ acordeón: confiar en Bootstrap, solo pequeños ajustes */
+.accordion-button { font-family: 'Work Sans', 'Poppins', sans-serif; font-weight: 700; }
+.accordion-button:not(.collapsed) { color: var(--color-primario); background: #e9f4f2; }
+/* Utilidades */
+.text-primary { color: var(--color-primario) !important; }
+.bg-light { background: #f8f9fa !important; }
+/* Botón outline con color de marca secundario */
+/* Verde institucional un tono más oscuro (#057a69) para que el texto cumpla
+   contraste 4,5:1 sobre blanco (con #069681 daba 3,7:1) */
+.btn-outline-brand {
+  border: 2px solid #057a69;
+  color: #057a69;
+  background: transparent;
+}
+.btn-outline-brand:hover, .btn-outline-brand:focus {
+  background: #057a69;
+  color: #fff;
+  border-color: #057a69;
+}
+
+/* ======================================================================
+   4. Encabezado — Barra GOV.CO, botón de traducción, menú principal, logo y buscador.
+   ====================================================================== */
+
+/* Top GOV bar: misma cuadrícula y mayor altura */
+.top-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px; }
+.top-bar .gov-link { display: flex; align-items: center; }
+.gov-logo { height: 40px; width: auto; display: block; }
+/* --- Google Translate (js/traductor.js) — El sitio usa su propio botón English/Español; se ocultan el widget, la barra — que Google inserta arriba (tapaba la barra GOV.CO), su tooltip de "texto — original" y el resaltado que pone al pasar el ratón por un párrafo. --- */
+#google_translate_element,
+.goog-te-banner-frame,
+iframe.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame { display: none !important; }
+.goog-text-highlight, font[class*="VIpgJd"] { background: none !important; box-shadow: none !important; }
+/* Botón Traducir en top bar */
+.top-bar .translate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: #ffffff;
+  color: #0b5ed7;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  transition: all .2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+.top-bar .translate-btn:hover { background: #e9f1ff; border-color: #ffffff; }
+.top-bar .translate-btn:active { transform: translateY(1px); }
+/* Estilo para el botón del Portal Institucional en la barra superior */
+.top-bar .btn-light {
+  border-radius: 50px;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+}
 /* Barra superior GOV.CO */
 .top-bar {
   background: var(--color-terciario);
@@ -461,12 +265,9 @@ section > p {
   font-size: 0.9rem;
 }
 .top-bar .gov-logo { height: 28px; width: auto; display: block; }
-.top-bar .translate-widget { color: #fff; }
-
 /* Navbar */
 .navbar { background: var(--color-primario); border-bottom: 1px solid rgba(255,255,255,.15); z-index: 1030; }
 /* Aislar el contexto para que el blending del logo no afecte otros elementos */
-.navbar .navbar-brand { isolation: isolate; }
 /* Limitar ancho como container para centrar contenido */
 .navbar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
 .navbar .nav-top { padding-top: .35rem; padding-bottom: .35rem; }
@@ -477,31 +278,35 @@ section > p {
  * evitar que empuje a otros elementos como el botón del menú.
  * min-width: 0 es crucial para que el flexbox pueda encoger el elemento.
 */
-.navbar .navbar-brand { display: flex; align-items: center; gap: .5rem; min-width: 0; flex-shrink: 1; flex-grow: 0; }
+.navbar .navbar-brand {
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  flex-shrink: 1;
+  flex-grow: 0;
+}
 /* Logo: optimizado para claridad y buena apariencia */
 .hospital-logo {
-  /* Altura responsiva: empieza pequeño en móviles y crece con la pantalla */
-  height: 50px; /* Base para móviles pequeños */
+  height: 50px;
   width: auto;
   background: transparent;
   box-shadow: none;
   border: 0;
-  /* Filtro sutil que mejora claridad sin afectar calidad */
   filter: contrast(1.05) brightness(1.02);
-  /* Controlar escala suave */
-  --logo-scale-x: 1;   /* base */
-  --logo-scale: 1;     /* escala general */
+  --logo-scale-x: 1;
+  --logo-scale: 1;
   transform: translateY(0) scaleX(var(--logo-scale-x)) scale(var(--logo-scale));
   transform-origin: center;
   transition: transform .28s cubic-bezier(.22,.61,.36,1), filter .28s ease, height .28s ease;
+  object-fit: contain;
 }
-.hospital-logo:hover,
-.hospital-logo:focus-visible {
+.hospital-logo:hover, .hospital-logo:focus-visible {
   transform: translateY(-2px) scaleX(var(--logo-scale-x)) scale(1.08);
   /* Hover mejorado con más claridad y brillo */
   filter: contrast(1.08) brightness(1.05);
 }
-.brand-text { display: flex; flex-direction: column; line-height: 1; font-family: 'Work Sans', 'Poppins', sans-serif; }
 .hospital-name {
   display: flex;
   flex-direction: column; /* Apila el texto en móviles por defecto */
@@ -512,24 +317,19 @@ section > p {
   font-size: clamp(0.7rem, 3.5vw, 1.1rem); /* Tamaño de fuente responsivo y más agresivo en móviles */
   line-height: 1.2; /* Mejora el espaciado cuando el texto se ajusta en dos líneas */
 }
-
-.hospital-name-line1,
-.hospital-name-line2 {
+.hospital-name-line1, .hospital-name-line2 {
   text-align: left; /* Asegura alineación a la izquierda cuando se apila */
 }
-
 @media (min-width: 992px) {
   .hospital-name {
     flex-direction: row; /* Vuelve a una sola línea en escritorio */
     gap: 0.25em; /* Añade un espacio entre las dos partes */
   }
 }
-.hospital-location { color: #bfe7e3; font-size: .9rem; font-weight: 600; }
 /* Mejorar tocabilidad y legibilidad del menú */
 .navbar .nav-link { color:#fff; padding: .6rem .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15px; white-space: normal; border-bottom: 3px solid transparent; border-radius: 0; }
 .navbar .nav-link:hover, .navbar .nav-link:focus { text-decoration: none; border-bottom-color: var(--color-secundario); }
 .navbar .nav-link.active, .navbar .nav-link[aria-current="page"] { border-bottom-color: #fff; }
-
 /* Asegurar que el botón del menú no se encoja */
 .navbar-toggler {
   flex-shrink: 0;
@@ -544,77 +344,19 @@ section > p {
   width: 1.5em;
   height: 1.5em;
 }
-
 /* En móvil/tablet puede envolver; en desktop forzar una sola línea */
 .navbar .navbar-nav { flex-wrap: wrap; gap: .15rem .4rem; }
-
 /* Tamaños de logo y fuentes responsivos para el navbar, de menor a mayor */
 @media (min-width: 576px) {
   .hospital-logo {
     height: 65px;
   }
 }
-
-/* =====================================================
-   Mejoras de Responsividad para el Wizard de Citas
-   ===================================================== */
-@media (max-width: 768px) {
-  /* Ajuste de días del calendario para dedos (Touch targets) */
-  .calendar-day {
-    height: auto !important;
-    aspect-ratio: 1;
-    line-height: 1 !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem !important;
-    margin: 0 !important;
-    border-radius: 8px !important;
-  }
-  
-  /* Grilla de horarios responsive y ordenada */
-  #horariosContainer {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* 3 columnas exactas */
-    gap: 8px !important;
-  }
-  
-  .time-slot {
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 10px 4px !important;
-    font-size: 0.85rem !important;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Especialidades en lista vertical para mejor lectura */
-  #especialidadesContainer {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-  }
-  
-  .specialty-card {
-    width: 100% !important;
-    margin-bottom: 0 !important;
-    min-height: auto !important; /* Permitir altura flexible */
-  }
-
-  /* Asegurar espacio inferior para que los botones de navegación respiren */
-  .step-content-wrapper {
-    padding-bottom: 60px; 
-  }
-}
-
 @media (min-width: 768px) {
   .hospital-logo {
     height: 84px;
   }
 }
-
 @media (min-width: 992px) {
   .hospital-logo {
     height: 100px;
@@ -623,14 +365,12 @@ section > p {
     gap: .75rem; /* Aumentar el gap en desktop */
   }
 }
-
 @media (min-width: 1200px) {
   .hospital-logo {
     height: 120px;
   }
   .navbar .nav-link { padding: .5rem .8rem; font-size: .98rem; }
 }
-
 /* Ajuste fino para pantallas extra pequeñas para evitar superposición */
 @media (max-width: 380px) {
   .hospital-logo {
@@ -648,47 +388,41 @@ section > p {
     padding: 0.25rem 0.5rem; /* Reducir padding del botón de menú */
   }
 }
-
 /* Disposición horizontal del menú en pantallas grandes */
 @media (min-width: 992px) {
-  /* Ajustar espacio vertical para proporción más compacta */
-  .navbar .navbar-brand { padding-top: .2rem; padding-bottom: .2rem; }
-  .navbar .navbar-brand { padding-top: .25rem; padding-bottom: .25rem; }
-  /* Ensanchado más notorio en escritorio */
+/* Ajustar espacio vertical para proporción más compacta */
+  .navbar .navbar-brand {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+  }
+/* Ensanchado más notorio en escritorio */
   .hospital-logo { --logo-scale-x: 1.10; }
-  /* Permitir wrap en pantallas muy grandes para evitar corte de elementos */
+/* Permitir wrap en pantallas muy grandes para evitar corte de elementos */
   .navbar .navbar-nav { flex-direction: row; align-items: center; gap: .2rem .55rem; flex-wrap: wrap; justify-content: center; }
-  .navbar .nav-link { white-space: nowrap; }
-  .navbar .nav-link { width: auto; border-radius: 0; }
+  .navbar .nav-link {
+    white-space: nowrap;
+    width: auto;
+    border-radius: 0;
+  }
   .navbar .nav-link:hover, .navbar .nav-link:focus { background: transparent; }
-
-  /* Alinear el buscador a la derecha en la fila superior */
+/* Alinear el buscador a la derecha en la fila superior */
   .navbar .nav-top .search-form { margin-left: auto; flex: 0 0 auto; width: clamp(260px, 20vw, 400px); min-width: 220px; }
-
-  /* Centrar el grupo de navegación entre marca y buscador */
+/* Centrar el grupo de navegación entre marca y buscador */
   .navbar .container-fluid { display: flex; align-items: stretch; flex-direction: column; }
   .navbar .navbar-collapse.nav-bottom { display: flex !important; flex: 0 0 auto; width: 100%; }
   .navbar .navbar-collapse.nav-bottom .navbar-nav { justify-content: center; width: 100%; min-width: 0; }
-
-  /* Altura y sombra del header para separarlo del contenido */
+/* Altura y sombra del header para separarlo del contenido */
   .navbar { min-height: 86px; box-shadow: 0 4px 18px rgba(0,0,0,.08); }
 }
-
 /* Ajuste adicional para pantallas muy grandes (1400px+) para evitar corte */
 @media (min-width: 1400px) {
   .navbar .navbar-nav { gap: .3rem .6rem; }
   .navbar .nav-link { padding: .5rem .9rem; }
 }
-
-/* Dropdown: estilo coherente y apertura por hover en desktop */
-.dropdown-menu { border: 0; border-radius: var(--radius); box-shadow: var(--shadow); padding: .5rem; }
-.dropdown-item { border-radius: 8px; padding: .5rem .75rem; }
-.dropdown-item:hover, .dropdown-item:focus { background: #e9f4f2; color: var(--color-primario); }
 @media (min-width: 992px) {
   .navbar .dropdown:hover > .dropdown-menu { display: block; }
   .navbar .dropdown-toggle:focus { text-decoration: none; }
 }
-
 /* Búsqueda */
 .search-form { margin-left: auto; width: clamp(300px, 34vw, 640px); }
 .search-form .input-group { width: 100%; }
@@ -709,50 +443,56 @@ section > p {
   border-radius: 0 .375rem .375rem 0;
 }
 .search-form .btn:hover, .search-form .btn:focus { background: #058772; border-color: #058772; color: #fff; }
-@media (min-width: 1400px) { .search-form { width: clamp(360px, 28vw, 560px); } }
+@media (min-width: 1400px) {
+  .search-form { width: clamp(360px, 28vw, 560px); }
+}
+/* --- Navbar - Componentes (reemplaza inline styles) --- */
+.navbar-lema { font-size: 0.9rem; white-space: nowrap; }
+.navbar-search-desktop { width: 280px; }
+/* Enlace "Portal Institucional" que layout.js agrega al menú */
+.nav-link.nav-link-portal { color: #ffc107 !important; }
 
-/* Estilos para todos los botones de la página */
-.btn {
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: all 0.3s ease;
+/* ======================================================================
+   5. Pie de página — Tarjeta institucional, botones rápidos, barra GOV.CO final y copyright.
+   ====================================================================== */
+
+/* --- Estilos del Footer y Barra Final --- */
+/* Estilos para el footer */
+footer {
+  background-color: #f8f9fa;
+  padding-top: 3rem;
+  padding-bottom: 0;
+  margin-top: 3rem;
+  width: 100%;
   position: relative;
+  z-index: 1;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Asegurar que el footer sea visible en modo normal */
+body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer a {
+  color: #0a58ca;
+}
+body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer .text-muted {
+  color: #5c636a;
+}
+/* Tarjeta institucional en el footer */
+.footer-institutional-card {
+  max-width: 1100px;
+  border-radius: 2rem;
+  width: 95%;
+  margin: 0 auto 3rem auto;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
-
-/* Efecto hover para todos los botones */
-.btn:not(.btn-outline-brand):not(.btn-link):not(.btn-close):hover {
-  color: #fff;
-  background-color: var(--color-secundario, #069681);
-  border-color: var(--color-secundario, #069681);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Efecto active para todos los botones */
-.btn:not(.btn-link):not(.btn-close):active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para los íconos dentro de los botones */
-.btn i {
-  transition: transform 0.3s ease;
-}
-
-/* Efecto hover para los íconos */
-.btn:hover i {
-  transform: translateX(3px);
-}
-
-/* Estilo para el foco accesible */
-.btn:focus-visible { 
-  outline: 3px solid #ffbf47;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
-}
-
 /* Botones rápidos del footer: tipografía, colores institucionales y animaciones */
 /* Estilos base para todos los botones del footer */
 .footer-institutional-card .btn,
@@ -783,7 +523,6 @@ section > p {
   border-radius: 50px;
   box-shadow: none;
 }
-
 /* Efecto hover para todos los botones */
 .footer-institutional-card .btn:hover,
 .quicklink-btn:hover,
@@ -798,7 +537,6 @@ section > p {
   box-shadow: 0 4px 12px rgba(6, 150, 129, 0.25);
   transform: translateY(-2px);
 }
-
 /* Efecto active para todos los botones */
 .footer-institutional-card .btn:active,
 .quicklink-btn:active,
@@ -810,7 +548,6 @@ section > p {
   transform: translateY(1px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
 /* Estilos para los íconos dentro de los botones */
 .quicklink-btn i,
 .btn-mapa i,
@@ -821,7 +558,6 @@ section > p {
   font-size: 1.1em;
   transition: transform 0.3s ease;
 }
-
 /* Efecto hover para los íconos */
 .quicklink-btn:hover i,
 .btn-mapa:hover i,
@@ -831,7 +567,6 @@ section > p {
 .btn-email:hover i {
   transform: translateX(3px);
 }
-
 /* Estilo para el foco accesible */
 .quicklink-btn:focus-visible,
 .btn-mapa:focus-visible,
@@ -843,7 +578,6 @@ section > p {
   outline-offset: 2px;
   box-shadow: 0 0 0 4px rgba(255, 191, 71, 0.3);
 }
-
 /* Aplicar el mismo estilo a todos los botones */
 .quicklink-btn.btn-mapa,
 .quicklink-btn.btn-politicas,
@@ -853,60 +587,513 @@ section > p {
   color: var(--color-secundario, #069681);
   border-color: var(--color-secundario, #069681);
 }
-
 /* Definir el color de hover consistente con el menú */
-:root {
-  --color-secundario: #069681; /* Color institucional */
-  --color-secundario-hover: #047a67; /* Color de hover del menú */
+/* Footer GOV bar: misma cuadrícula, mayor altura y logos más grandes */
+.gov-final-bar > .container-fluid { max-width: 1440px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; min-height: 56px !important; }
+.gov-final-bar img { height: 40px !important; width: auto; margin-right: 12px; }
+.gov-final-bar a { color: #fff; }
+/* Barra final de GOV.CO */
+.gov-final-bar {
+  background: #0b5ed7;
+  color: #fff;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #3366cc;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+/* En pantallas más grandes, cambiar a disposición horizontal */
+@media (min-width: 768px) {
+  .gov-final-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 48px; /* Restaurar altura mínima en desktop */
+  }
+}
+/* Footer */
+.footer-titulo { color: #069681; font-size: 2.3rem; letter-spacing: -1px; overflow-wrap: break-word; }
+.gov-final-logo { height: 32px; margin-right: 12px; }
+.copyright-bar { background: #212529 !important; color: #fff !important; width: 100% !important; }
+.copyright-texto { color: #fff !important; padding: 0 1rem; }
+.copyright-texto strong { color: #fff !important; }
+
+/* ======================================================================
+   6. Barra de accesibilidad y aviso de cookies — Los modos de contraste están en css/accesibilidad.css.
+   ====================================================================== */
+
+/* --- Accesibilidad mínima (botonera y modos de contraste) --- */
+/* Contenedor flotante de botones de accesibilidad
+   (tablet y escritorio: vertical, acoplado a la derecha; en móvil, barra inferior más abajo) */
+.accessibility-buttons-container {
+  position: fixed;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 8px;
+  max-height: calc(100dvh - 24px);
+  background: var(--color-primario); /* Contenedor oscuro para contrastar con botones blancos */
+  border-radius: 8px 0 0 8px;
+  box-shadow: -2px 0 10px rgba(0,0,0,.25);
+}
+/* Pantallas bajas (p. ej. iPad Pro horizontal): botones más juntos */
+@media (min-width: 769px) and (max-height: 799px) {
+  .accessibility-buttons-container { gap: 6px; }
+}
+/* Solo si de verdad no cabe se permite desplazar (el scroll recorta los tooltips laterales) */
+@media (min-width: 769px) and (max-height: 400px) {
+  .accessibility-buttons-container { overflow-y: auto; }
+}
+.accessibility-buttons-container .btn {
+  overflow: visible; /* la regla global .btn { overflow: hidden } recortaba el tooltip */
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.25); /* Borde más notorio */
+  background: #ffffff; /* Fondo blanco sólido para máxima legibilidad */
+  color: #164443; /* Íconos en color oscuro de la marca */
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.accessibility-buttons-container .btn:hover { 
+  background: #f1f5f5; 
+  transform: translateY(-1px); 
+  box-shadow: 0 2px 8px rgba(0,0,0,.25); 
+}
+.accessibility-buttons-container .btn:focus { 
+  outline: 3px solid #ffbf47; /* Aro accesible GOV */
+  outline-offset: 2px;
+  box-shadow: none; 
+}
+/* Tooltip simple usando el atributo title */
+.accessibility-buttons-container .btn::after {
+  content: attr(title);
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,.9);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease, transform .2s ease;
+  margin-right: 6px;
+  pointer-events: none;
+  font-size: .8rem;
+}
+.accessibility-buttons-container .btn:hover::after,
+.accessibility-buttons-container .btn:focus-visible::after {
+  opacity: 1; 
+  visibility: visible; 
+  transform: translateY(-50%) translateX(-2px); 
+}
+/* Ubicación en móviles: barra inferior fija y fluida */
+@media (max-width: 768px) {
+  .accessibility-buttons-container {
+    top: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0) + 12px);
+    left: 0;
+    right: 0;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap; /* permite salto de línea si no cabe */
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 6px 8px;
+    gap: 6px;
+    margin: 0 8px; /* separa de los bordes laterales */
+  }
+  .accessibility-buttons-container .btn {
+    width: 38px;
+    height: 38px;
+    font-size: .95rem;
+  }
+  /* Espacio al final de la página para que la barra flotante (≈50px + 12px de margen) no tape
+     el copyright ni "Preferencias de cookies". !important para ganarle a .py-3 de Bootstrap. */
+  .copyright-bar { padding-bottom: calc(1rem + 66px + env(safe-area-inset-bottom, 0px)) !important; }
+/* En pantallas táctiles, ocultar tooltip para evitar desbordes */
+  @media (pointer: coarse) {
+    .accessibility-buttons-container .btn::after { display: none; }
+  }
+}
+/* Extra pequeño: reducir ligeramente tamaño y aumentar wrap */
+@media (max-width: 360px) {
+  .accessibility-buttons-container {
+    gap: 4px;
+    padding: 6px;
+  }
+  .accessibility-buttons-container .btn {
+    width: 34px;
+    height: 34px;
+    font-size: .9rem;
+  }
+}
+/* Iconos más legibles dentro de la barra de accesibilidad */
+.accessibility-buttons-container .btn i {
+  font-size: 1.2rem;
+  color: #0b0b0b;
+  line-height: 1;
+}
+/* Ajuste de tooltip para mejor legibilidad */
+/* Los modos de contraste (alto contraste, oscuro, sepia) se definen en css/accesibilidad.css */
+/* --- Aviso de cookies (lo crea js/consentimiento.js en todas las páginas) --- */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #164443;
+  color: #fff;
+  padding: 1.25rem 0;
+  z-index: 10000; /* encima de la barra de accesibilidad (9999) */
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+  border-top: 3px solid #069681;
+  transform: translateY(100%); /* oculto hasta que el script añade .show */
+  visibility: hidden;
+  transition: transform 0.4s ease-out, visibility 0.4s;
+}
+.cookie-banner.show {
+  transform: translateY(0);
+  visibility: visible;
+}
+.cookie-banner .cookie-title {
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+.cookie-banner .cookie-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.cookie-banner .cookie-text a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.cookie-banner .cookie-text a:hover { opacity: 0.8; }
+.cookie-banner .cookie-acciones {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.cookie-banner .cookie-acciones .btn {
+  flex: 1 1 0;
+  min-width: 8rem;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+  color: #164443;
+  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+.cookie-banner .cookie-acciones .btn:hover { background-color: #e2e6ea; }
+.cookie-banner .cookie-acciones .btn:focus-visible {
+  outline: 3px solid #ffc107;
+  outline-offset: 2px;
+}
+/* Enlace "Preferencias de cookies" en la barra de copyright */
+.enlace-preferencias-cookies {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #fff;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.enlace-preferencias-cookies:hover { opacity: 0.85; }
+@media (max-width: 576px) {
+  .cookie-banner { padding: 1rem 0; }
+  .cookie-banner .cookie-text { font-size: 0.85rem; }
+}
+.enlace-preferencias-cookies:focus-visible {
+  outline: 2px solid #ffc107;
+  outline-offset: 2px;
+}
+/* En móviles, con el aviso visible, la barra de accesibilidad sube para no quedar tapada */
+@media (max-width: 768px) {
+  body.cookie-banner-visible .accessibility-buttons-container {
+    bottom: calc(var(--alto-aviso-cookies, 260px) + 8px);
+    transition: bottom 0.3s ease-in-out;
+  }
 }
 
+/* ======================================================================
+   7. Componentes compartidos — Banners, carruseles, tarjetas de servicios, enlaces de interés, menús anidados, videos y avisos.
+   ====================================================================== */
+
+/* Título sobre imagen con texto blanco y gradiente de soporte */
+.hero-title-wrap {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 1.25rem;
+  z-index: 2;                           /* por delante del gradiente */
+}
+.hero-title-wrap .container { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; }
+/* Gradiente oscuro inferior para contraste AA/AAA */
+.hero-title-wrap::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  /* expandir banda hacia abajo y un poco hacia arriba del texto */
+  bottom: -1.25rem;
+  height: clamp(120px, 22vw, 260px);
+  background: linear-gradient(to top, rgba(0,0,0,.58) 0%, rgba(0,0,0,.34) 45%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+/* Breadcrumbs legibles en placa clara y centrados en el hero */
+/* Títulos y subtítulos de sección con escala proporcional */
+.section-title {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+  color: var(--color-primario);
+  /* Similar a citas médicas: contundente pero ajustable */
+  font-size: clamp(1.25rem, 0.9rem + 2.1vw, 2.4rem);
+  letter-spacing: -0.3px;
+  margin-bottom: .25rem;
+}
+/* --- Hero Promoción y Prevención (banner) --- */
+.hero-promocion {
+  padding: 0; /* Sin padding en hero */
+  width: 100%;
+  height: 400px;           /* Igual que Participa para consistencia */
+  max-height: none;
+  /* Altura mínima responsiva para mantener proporción visual */
+  min-height: clamp(220px, 30vw, 420px);
+  background-color: transparent;
+  background-image: url('/imagenes/promoción-y prevención-banner.webp');
+  background-repeat: no-repeat;
+  background-position: center;         /* Mejor equilibrio visual */
+  background-size: cover;            /* Ocupa todo el área sin bandas */
+}
+/* Alturas por breakpoint similares a Participa */
+@media (max-width: 991.98px) {
+  .hero-promocion { height: 320px; }
+}
+@media (max-width: 767.98px) {
+  .hero-promocion { height: 260px; }
+}
+@media (max-width: 575.98px) {
+  .hero-promocion { height: 220px; }
+}
+/* Banner de cada servicio (por defecto .hero-promocion usa el de Promoción y Prevención) */
+/* PENDIENTE: foto del banner de Consulta Externa (la imagen 'consulta-ecterna-banner.webp' nunca existió).
+   Cuando llegue, ponerla en /imagenes/ y cambiar "none" por url('/imagenes/<nombre-real>.webp').
+   Mientras tanto queda sin foto (si se quita esta línea mostraría la de Promoción y Prevención). */
+.hero-promocion.hero-bg-consulta-externa { background-image: none; }
+.hero-promocion.hero-bg-cuidado-oral { background-image: url('/imagenes/odontologia-banner.webp'); }
+.hero-promocion.hero-bg-diagnostico { background-image: url('/imagenes/diagnostico-banner.webp'); }
+.hero-promocion.hero-bg-hospitalizacion { background-image: url('/imagenes/hospitalizacion-banner-sin-logo.webp'); }
+.hero-promocion.hero-bg-laboratorio { background-image: url('/imagenes/laboratorio-banner.webp'); }
+.hero-promocion.hero-bg-partos { background-image: url('/imagenes/Partos-banner.webp'); }
+.hero-promocion.hero-bg-urgencias { background-image: url('/imagenes/urgencias-banner.webp'); }
+/* --- Hero Participa (banner) --- */
+.hero-participa {
+  padding: 0;
+  width: 100%;
+  height: 400px;
+  background-color: var(--color-primario);
+  background-image: url('/imagenes/participa-banner.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background: url('../imagenes/participa.webp') no-repeat center center/cover;
+  min-height: 300px;
+  position: relative;
+  margin-bottom: 3rem;
+}
+/* Alturas responsivas para el banner */
+@media (max-width: 991.98px) {
+  .hero-participa { height: 320px; }
+}
+@media (max-width: 767.98px) {
+  .hero-participa { height: 260px; }
+}
+@media (max-width: 575.98px) {
+  .hero-participa { height: 220px; }
+}
+.hero-image-responsive {
+  height: 250px; /* Altura para móviles */
+  object-fit: cover;
+}
+@media (min-width: 768px) {
+  .hero-image-responsive {
+    height: 400px; /* Altura para tablets y escritorio */
+  }
+}
+/* --- Estilos personalizados para la sección Participa --- */
 /* Carrusel full width mínimo y 100% responsivo */
 .fullwidth-carousel { background: #fff; }
 .fullwidth-carousel .carousel-inner { width: 100%; }
 /* Carrusel: mostrar imagen completa (sin recorte) */
 #carouselHospital { overflow: hidden; }
 #carouselHospital .carousel-item { height: auto; }
-#carouselHospital .carousel-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-}
-
 /* Ajuste para las imágenes del carrusel principal */
 /* Se establece una altura máxima para evitar que las imágenes sean demasiado grandes en pantallas de escritorio,
    pero se permite que la altura se ajuste automáticamente para mantener la proporción. */
 #carouselHospital .carousel-item img {
-  height: auto; /* Permite que la altura se ajuste para mantener la proporción */
-  max-height: 70vh; /* Limita la altura máxima en pantallas grandes */
-  object-fit: contain; /* Asegura que toda la imagen sea visible sin recortes */
-  object-position: center; /* Centra la imagen */
+  display: block;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  object-position: center;
   width: 100%;
-  background-color: #e9ecef; /* Color de fondo para las barras laterales si la imagen no llena el espacio */
+  background-color: #e9ecef;
 }
-
 /* Estilo para imágenes de carrusel dentro de tarjetas de noticias */
-.news-carousel-img {
-  height: 200px; /* Altura fija para consistencia */
-  object-fit: contain; /* Muestra la imagen completa sin recortar */
-  background-color: #f8f9fa; /* Fondo claro para imágenes que no llenan el espacio */
-  width: 100%;
-}
-
-
 /* Controles discretos en desktop, ocultos en móviles */
-.fullwidth-carousel .carousel-control-prev,
-.fullwidth-carousel .carousel-control-next { filter: none; }
+.fullwidth-carousel .carousel-control-prev, .fullwidth-carousel .carousel-control-next { filter: none; }
 @media (max-width: 768px) {
-  .fullwidth-carousel .carousel-control-prev,
-  .fullwidth-carousel .carousel-control-next { display: none; }
+  .fullwidth-carousel .carousel-control-prev, .fullwidth-carousel .carousel-control-next { display: none; }
+}
+/* Área táctil mínima de 24 × 24 px (WCAG 2.5.8) para controles que se ven más pequeños:
+   un pseudo-elemento invisible, centrado sobre el control, amplía la zona que recibe el toque
+   sin cambiar cómo se ve ni mover nada. Los controles prev/next ya son position:absolute. */
+.carousel-indicators [data-bs-target],
+.enlace-preferencias-cookies { position: relative; }
+.carousel-indicators [data-bs-target]::after,
+.carousel-control-prev::after,
+.carousel-control-next::after,
+.enlace-preferencias-cookies::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 24px);
+  height: max(100%, 24px);
+  transform: translate(-50%, -50%);
 }
 /* Indicadores compactos */
 .fullwidth-carousel .carousel-indicators [data-bs-target] {
   width: 12px; height: 12px; border-radius: 50%;
 }
-
+/* --- Carrusel Principal - Botones de Acción --- */
+/*
+  Contenedor del botón. Lo centramos horizontalmente y lo posicionamos
+  en la parte inferior para no interferir con el contenido principal de la imagen.
+*/
+#carouselHospital .carousel-caption {
+  position: absolute;
+  bottom: 10%; /* Un poco más abajo para mejor visibilidad */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Ancho relativo para adaptarse */
+  max-width: 500px; /* Ancho máximo para que no sea demasiado grande en pantallas anchas */
+  padding: 0; /* Quitamos padding para que el botón defina el espacio */
+  text-align: center; /* Centra el botón dentro del caption */
+  display: block !important; /* Asegura visibilidad en todos los tamaños */
+}
+/* Estilo del botón de acción del carrusel - más pequeño y refinado */
+.carousel-action-btn {
+  background-color: rgba(6, 150, 129, 0.9); /* Verde institucional con transparencia */
+  border: 1px solid rgba(255, 255, 255, 0.7); /* Borde más sutil */
+  color: #fff;
+  font-weight: 600; /* Un poco menos grueso */
+  padding: 0.6rem 1.25rem; /* Padding reducido para un botón más pequeño */
+  border-radius: 50px;
+  text-transform: none; /* Quitamos mayúsculas para un look más amigable */
+  letter-spacing: 0;
+  font-size: clamp(0.85rem, 1.2vw, 1rem); /* Tamaño de fuente ligeramente más pequeño */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block; /* Asegura que el botón no ocupe todo el ancho */
+  white-space: nowrap; /* Evita que el texto del botón se parta */
+}
+.carousel-action-btn:hover {
+  background-color: #047a67;
+  border-color: #fff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+/* Ajustes para pantallas muy pequeñas (móviles en vertical) */
+@media (max-width: 576px) {
+  #carouselHospital .carousel-caption {
+    bottom: 8%; /* Un poco más abajo en móviles */
+  }
+  .carousel-action-btn {
+    width: 80%; /* Ocupa un buen ancho pero deja márgenes */
+    padding: 0.5rem 1rem; /* Aún más pequeño para móviles */
+  }
+}
+/* --- Carrusel Principal - Index --- */
+.fullwidth-carousel .carousel-item img.carousel-img {
+    height: auto;
+    min-height: 250px;
+    max-height: 600px;
+    object-fit: cover;
+    object-position: center;
+}
+/* --- Animaciones: Nuestros Servicios (cards) --- */
+.servicios {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden; /* ya está en HTML, reforzamos */
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  will-change: transform, box-shadow;
+  box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
+.servicios .card-img-top {
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  transform-origin: center center;
+  width: 100%;
+  height: clamp(220px, 28vw, 340px);
+  object-fit: cover;
+  display: block;
+}
+.servicios:hover, .servicios:focus-within {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.16);
+}
+.servicios:hover .card-img-top, .servicios:focus-within .card-img-top {
+  transform: scale(1.1);
+}
+/* Resalte sutil con halo */
+.servicios::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,.22), transparent 60%),
+              linear-gradient(180deg, rgba(6,150,129,.2), rgba(6,150,129,0));
+  opacity: 0; transition: opacity .35s ease;
+}
+.servicios:hover::after, .servicios:focus-within::after { opacity: 1; }
+/* Accesible: estados focus visibles para tarjetas clicables dentro */
+.servicios a:focus, .servicios button:focus { outline: 2px solid rgba(6,150,129,.65); outline-offset: 2px; }
+/* Respeto a usuarios que prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .servicios, .servicios .card-img-top { transition: none; }
+  .servicios:hover, .servicios:focus-within { transform: none; box-shadow: 0 6px 16px rgba(0,0,0,.06); }
+  .servicios .card-body > * { opacity: 1; transform: none; transition: none; }
+}
 /* Tarjetas e iconos de servicios */
 .servicios .card {
   border: 3px solid var(--color-secundario); /* Marco verde de la página */
@@ -922,52 +1109,25 @@ section > p {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.65), 0 14px 32px rgba(0,0,0,.14), 0 0 0 4px rgba(5,135,114,.10); /* Ring sutil con verde */
   border-color: #047a67; /* Verde un poco más oscuro al hover */
 }
-
 /* Cambio sutil de color de título en hover de la tarjeta */
 .servicios .card:hover .card-title {
   color: var(--color-secundario);
 }
-
 /* Accesibilidad: resaltar cuando el contenido interno recibe foco */
 .servicios .card:focus-within {
   outline: 3px solid #ffbf47; /* Amarillo GOV accesible */
   outline-offset: 3px;
 }
-.servicios .card-background-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: none; /* Sin filtros para respetar colores originales */
-  transform: none; /* Sin zoom ni transformaciones */
-  transition: none; /* Sin transiciones que alteren la imagen */
-  opacity: 1; /* Imagen completamente visible */
-}
-
 /* Nueva disposición: imagen arriba y contenido abajo */
-.servicios .card-img-top {
-  width: 100%;
-  height: clamp(220px, 28vw, 340px); /* Altura responsiva dominante */
-  object-fit: cover; /* Protagonismo de la imagen sin deformación */
-  display: block;
-}
-
 .servicios .card-body {
   padding: 1rem 1.25rem 1.25rem;
 }
-
 /* Sección de servicios: fondo claro y separación del contenido */
 .servicios-section {
   background: #f8fbfb;
   border: 2px solid rgba(5,135,114,.15); /* Borde verde sutil alrededor de la sección */
   border-radius: 20px;
   padding: 1rem 1.25rem 1.25rem;
-}
-.servicios .card-img-overlay {
-  position: relative;
-  background: none; /* Sin gradiente sobre la imagen */
 }
 .servicios .card-title {
   color: #164443; /* Color de marca, legible sobre fondo claro */
@@ -1000,24 +1160,9 @@ section > p {
   border-color: #046457;
   box-shadow: 0 10px 20px rgba(0,0,0,.16);
 }
-
 /* Micro-animación de la flecha del botón */
 .servicios .btn-overlay i { transition: transform .2s ease; }
 .servicios .btn-overlay:hover i { transform: translateX(3px); }
-.card-subtitle {
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 600;
-  color: var(--color-texto-sec);
-  margin-top: .25rem;
-  margin-bottom: .5rem;
-}
-.btn-hover-animate { transition: transform .2s ease, box-shadow .2s ease; }
-.btn-hover-animate:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
-
-/* Botones de colores adicionales usados en servicios */
-.btn-purple { background-color: #6f42c1; border-color: #6f42c1; color: #fff; }
-.btn-orange { background-color: #fd7e14; border-color: #fd7e14; color: #fff; }
-
 /* Enlaces de interés: tarjetas hover suaves */
 .hover-card {
   transition: transform .3s ease, box-shadow .3s ease;
@@ -1030,36 +1175,6 @@ section > p {
 /* Animación de Zoom en la imagen */
 .hover-card .card-img-top { transition: transform 0.5s ease; }
 .hover-card:hover .card-img-top { transform: scale(1.05); }
-
-/* Efecto de zoom en tarjeta destacada */
-.zoom-card {
-  transition: transform .3s ease, box-shadow .3s ease;
-  overflow: hidden;
-}
-.zoom-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,.15);
-}
-.zoom-card .card-title {
-  transition: font-size .3s ease, transform .3s ease;
-}
-.zoom-card:hover .card-title {
-  font-size: 1.15em;
-  transform: translateY(-2px);
-}
-.zoom-card .card-text {
-  transition: font-size .3s ease;
-}
-.zoom-card:hover .card-text {
-  font-size: 1.05em;
-}
-.zoom-card img {
-  transition: transform .4s ease;
-}
-.zoom-card:hover img {
-  transform: scale(1.08);
-}
-
 /* Enlaces de interés: cajas de logos institucionales */
 .institution-logo-box {
   width: 120px;
@@ -1087,7 +1202,6 @@ section > p {
 .institution-logo-box.is-info { border-color: #0dcaf0; box-shadow: 0 8px 24px rgba(13,202,240,0.15); }
 .institution-logo-box.is-warning { border-color: #ffc107; box-shadow: 0 8px 24px rgba(255,193,7,0.15); }
 .institution-logo-box.pad-8 { padding: 8px; }
-
 /* Controles del carrusel de enlaces (reemplazo de estilos inline) */
 .enlaces-control { width: 5%; }
 .enlaces-control.prev { left: -50px; }
@@ -1101,16 +1215,10 @@ section > p {
   align-items: center;
   justify-content: center;
 }
-
-/* FAQ acordeón: confiar en Bootstrap, solo pequeños ajustes */
-.accordion-button { font-family: 'Work Sans', 'Poppins', sans-serif; font-weight: 700; }
-.accordion-button:not(.collapsed) { color: var(--color-primario); background: #e9f4f2; }
-
 /* Estilos para menús desplegables anidados */
 .dropdown-submenu {
   position: relative;
 }
-
 .dropdown-submenu .dropdown-menu {
   top: 0;
   left: 100%;
@@ -1119,11 +1227,9 @@ section > p {
   border-radius: 0 6px 6px 6px;
   display: none;
 }
-
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
 }
-
 .dropdown-submenu > a:after {
   display: block;
   content: " ";
@@ -1137,1257 +1243,9 @@ section > p {
   margin-top: 5px;
   margin-right: -10px;
 }
-
 .dropdown-submenu:hover > a:after {
   border-left-color: #164443;
 }
-
-.dropdown-submenu.pull-left {
-  float: none;
-}
-
-.dropdown-submenu.pull-left > .dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-
-/* Estilos para resultados de búsqueda */
-.no-results-icon {
-  font-size: 3rem;
-  color: #5c636a;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* Utilidades */
-.text-primary { color: var(--color-primario) !important; }
-.bg-light { background: #f8f9fa !important; }
-
-/* =====================================================
-   Normatividad - Barra de búsqueda (estilos globales)
-   ===================================================== */
-
-
-/* Botón outline con color de marca secundario */
-/* Verde institucional un tono más oscuro (#057a69) para que el texto cumpla
-   contraste 4,5:1 sobre blanco (con #069681 daba 3,7:1) */
-.btn-outline-brand {
-  border: 2px solid #057a69;
-  color: #057a69;
-  background: transparent;
-}
-.btn-outline-brand:hover, .btn-outline-brand:focus {
-  background: #057a69;
-  color: #fff;
-  border-color: #057a69;
-}
-
-/* =====================================================
-   Normatividad - Badges por tipo de archivo
-   ===================================================== */
-/* Base visual para badges de archivo */
-.badge-file-pdf,
-.badge-file-doc,
-.badge-file-docx,
-.badge-file-xls,
-.badge-file-xlsx,
-.badge-file-ppt,
-.badge-file-pptx,
-.badge-file-odt,
-.badge-file-ods,
-.badge-file-zip,
-.badge-file-rar,
-.badge-file-txt,
-.badge-file-other {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: .25rem .5rem;
-  border-radius: .5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
-}
-.badge-file-pdf  { background-color: #dc3545; } /* danger */
-.badge-file-doc,
-.badge-file-docx { background-color: #0d6efd; } /* primary */
-.badge-file-xls,
-.badge-file-xlsx { background-color: #198754; } /* success */
-.badge-file-ppt,
-.badge-file-pptx { background-color: #fd7e14; } /* orange */
-.badge-file-odt,
-.badge-file-ods { background-color: #6f42c1; } /* purple */
-.badge-file-zip,
-.badge-file-rar { background-color: #5c636a; } /* secondary */
-.badge-file-txt  { background-color: #343a40; } /* dark */
-.badge-file-other{ background-color: #495057; } /* neutral */
-
-/* Ícono dentro de la badge */
-.badge-file-pdf i,
-.badge-file-doc i,
-.badge-file-docx i,
-.badge-file-xls i,
-.badge-file-xlsx i,
-.badge-file-ppt i,
-.badge-file-pptx i,
-.badge-file-odt i,
-.badge-file-ods i,
-.badge-file-zip i,
-.badge-file-rar i,
-.badge-file-txt i,
-.badge-file-other i {
-  font-size: 1rem;
-  line-height: 1;
-  color: #fff !important; /* asegurar icono blanco, evitar gris por herencia */
-}
-
-/* Accesibilidad: resaltar enfoque claramente para enlaces y botones */
-:where(a, button, .btn):focus-visible {
-  outline: 3px solid #ffbf47; /* amarillo GOV.co accesible */
-  outline-offset: 2px;
-}
-
-/* =====================================================
-   Accesibilidad mínima (botonera y modos de contraste)
-   ===================================================== */
-
-/* Contenedor flotante de botones de accesibilidad
-   (tablet y escritorio: vertical, acoplado a la derecha; en móvil, barra inferior más abajo) */
-.accessibility-buttons-container {
-  position: fixed;
-  top: 50%;
-  right: 8px;
-  transform: translateY(-50%);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
-  padding: 8px;
-  max-height: calc(100dvh - 24px);
-  background: var(--color-primario); /* Contenedor oscuro para contrastar con botones blancos */
-  border-radius: 8px 0 0 8px;
-  box-shadow: -2px 0 10px rgba(0,0,0,.25);
-}
-/* Pantallas bajas (p. ej. iPad Pro horizontal): botones más juntos */
-@media (min-width: 769px) and (max-height: 799px) {
-  .accessibility-buttons-container { gap: 6px; }
-}
-/* Solo si de verdad no cabe se permite desplazar (el scroll recorta los tooltips laterales) */
-@media (min-width: 769px) and (max-height: 400px) {
-  .accessibility-buttons-container { overflow-y: auto; }
-}
-
-.accessibility-buttons-container .btn {
-  overflow: visible; /* la regla global .btn { overflow: hidden } recortaba el tooltip */
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,.25); /* Borde más notorio */
-  background: #ffffff; /* Fondo blanco sólido para máxima legibilidad */
-  color: #164443; /* Íconos en color oscuro de la marca */
-  font-size: 1rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-}
-
-.accessibility-buttons-container .btn:hover { 
-  background: #f1f5f5; 
-  transform: translateY(-1px); 
-  box-shadow: 0 2px 8px rgba(0,0,0,.25); 
-}
-
-.accessibility-buttons-container .btn:focus { 
-  outline: 3px solid #ffbf47; /* Aro accesible GOV */
-  outline-offset: 2px;
-  box-shadow: none; 
-}
-
-/* Tooltip simple usando el atributo title */
-.accessibility-buttons-container .btn::after {
-  content: attr(title);
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,.9);
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: .7rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .2s ease, transform .2s ease;
-  margin-right: 6px;
-  pointer-events: none;
-}
-
-.accessibility-buttons-container .btn:hover::after,
-.accessibility-buttons-container .btn:focus-visible::after {
-  opacity: 1; 
-  visibility: visible; 
-  transform: translateY(-50%) translateX(-2px); 
-}
-
-/* Ubicación en móviles: barra inferior fija y fluida */
-@media (max-width: 768px) {
-  .accessibility-buttons-container {
-    top: auto;
-    bottom: calc(env(safe-area-inset-bottom, 0) + 12px);
-    left: 0;
-    right: 0;
-    transform: none;
-    flex-direction: row;
-    flex-wrap: wrap; /* permite salto de línea si no cabe */
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    padding: 6px 8px;
-    gap: 6px;
-    margin: 0 8px; /* separa de los bordes laterales */
-  }
-  .accessibility-buttons-container .btn {
-    width: 38px;
-    height: 38px;
-    font-size: .95rem;
-  }
-  /* En pantallas táctiles, ocultar tooltip para evitar desbordes */
-  @media (pointer: coarse) {
-    .accessibility-buttons-container .btn::after { display: none; }
-  }
-}
-
-/* Extra pequeño: reducir ligeramente tamaño y aumentar wrap */
-@media (max-width: 360px) {
-  .accessibility-buttons-container {
-    gap: 4px;
-    padding: 6px;
-  }
-  .accessibility-buttons-container .btn {
-    width: 34px;
-    height: 34px;
-    font-size: .9rem;
-  }
-}
-/* Iconos más legibles dentro de la barra de accesibilidad */
-.accessibility-buttons-container .btn i {
-  font-size: 1.2rem;
-  color: #0b0b0b;
-  line-height: 1;
-}
-/* Ajuste de tooltip para mejor legibilidad */
-.accessibility-buttons-container .btn::after { font-size: .8rem; }
-/* Los modos de contraste (alto contraste, oscuro, sepia) se definen en css/accesibilidad.css */
-
-/* =====================================================
-   Estilos para la tarjeta del Consultorio Rosa
-   ===================================================== */
-.consultorio-rosa-card {
-    background: linear-gradient(135deg, #fcf9fd 0%, #f3e8ff 100%);
-    border: 1px solid #e8d6f0;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-}
-
-.consultorio-rosa-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(108, 52, 131, 0.15);
-    border-color: #d2b4de;
-}
-
-.consultorio-rosa-card .btn {
-    transition: all 0.3s ease;
-    background-color: #8e44ad;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-}
-
-.consultorio-rosa-card .btn:hover {
-    background-color: #7d3c98;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
-}
-
-.consultorio-rosa-card .bi-heart-pulse-fill {
-    color: #8e44ad;
-    transition: transform 0.3s ease;
-}
-
-.consultorio-rosa-card:hover .bi-heart-pulse-fill {
-    transform: scale(1.1);
-}
-
-.consultorio-rosa-card ul li {
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.consultorio-rosa-card ul li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.5em;
-    width: 8px;
-    height: 8px;
-    background-color: #8e44ad;
-    border-radius: 50%;
-}
-
-/* =====================================================
-   Estilos del Footer y Barra Final
-   ===================================================== */
-
-/* Estilos para el footer */
-footer {
-  background-color: #f8f9fa;
-  padding-top: 3rem;
-  padding-bottom: 0;
-  margin-top: 3rem;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  height: auto;
-  overflow: visible;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Asegurar que el footer sea visible en modo normal */
-body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer {
-  background-color: #f8f9fa;
-  color: #212529;
-}
-
-body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer a {
-  color: #0a58ca;
-}
-
-body:not(.modo-oscuro):not(.modo-sepia):not(.alto-contraste) footer .text-muted {
-  color: #5c636a;
-}
-
-/* Tarjeta institucional en el footer */
-.footer-institutional-card {
-  max-width: 1100px;
-  border-radius: 2rem;
-  width: 95%;
-  margin: 0 auto 3rem auto;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
-
-/* Asegurar que el footer esté en la parte inferior */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1 0 auto;
-}
-
-/* Barra final de GOV.CO */
-.gov-final-bar {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-
-  background-color: #3366cc; /* Azul institucional */
-  display: flex;
-  align-items: center;
-  /* Por defecto (móvil): apilado y centrado para mejor legibilidad */
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.75rem; /* Espacio entre elementos apilados */
-  padding: 1rem;
-  text-align: center;
-}
-
-/* En pantallas más grandes, cambiar a disposición horizontal */
-@media (min-width: 768px) {
-  .gov-final-bar {
-    flex-direction: row;
-    justify-content: space-between;
-    min-height: 48px; /* Restaurar altura mínima en desktop */
-  }
-}
-
-/* =====================================================
-   Hero Promoción y Prevención (banner)
-   ===================================================== */
-.hero-promocion {
-  padding: 0; /* Sin padding en hero */
-  width: 100%;
-  height: 400px;           /* Igual que Participa para consistencia */
-  max-height: none;
-  /* Altura mínima responsiva para mantener proporción visual */
-  min-height: clamp(220px, 30vw, 420px);
-  background-color: transparent;
-  background-image: url('/imagenes/promoción-y prevención-banner.webp');
-  background-repeat: no-repeat;
-  background-position: center;         /* Mejor equilibrio visual */
-  background-size: cover;            /* Ocupa todo el área sin bandas */
-}
-
-/* Alturas por breakpoint similares a Participa */
-@media (max-width: 991.98px) {
-  .hero-promocion { height: 320px; }
-}
-@media (max-width: 767.98px) {
-  .hero-promocion { height: 260px; }
-}
-@media (max-width: 575.98px) {
-  .hero-promocion { height: 220px; }
-}
-
-/* Banner de cada servicio (por defecto .hero-promocion usa el de Promoción y Prevención) */
-.hero-promocion.hero-bg-consulta-externa { background-image: url('/imagenes/consulta-ecterna-banner.webp'); }
-.hero-promocion.hero-bg-cuidado-oral { background-image: url('/imagenes/odontologia-banner.webp'); }
-.hero-promocion.hero-bg-diagnostico { background-image: url('/imagenes/diagnostico-banner.webp'); }
-.hero-promocion.hero-bg-hospitalizacion { background-image: url('/imagenes/hospitalizacion-banner-sin-logo.webp'); }
-.hero-promocion.hero-bg-laboratorio { background-image: url('/imagenes/laboratorio-banner.webp'); }
-.hero-promocion.hero-bg-partos { background-image: url('/imagenes/Partos-banner.webp'); }
-.hero-promocion.hero-bg-urgencias { background-image: url('/imagenes/urgencias-banner.webp'); }
-
-/* =====================================================
-   Hero Participa (banner)
-   ===================================================== */
-.hero-participa {
-  padding: 0;
-  width: 100%;
-  height: 400px; /* Altura estándar para banners internos */
-  min-height: clamp(220px, 30vw, 420px);
-  background-color: var(--color-primario); /* Color de respaldo */
-  /* NOTA: Se recomienda crear una imagen 'participa-banner.webp' de aprox. 1920x500px */
-  background-image: url('/imagenes/participa-banner.webp');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-/* Alturas responsivas para el banner */
-@media (max-width: 991.98px) {
-  .hero-participa { height: 320px; }
-}
-@media (max-width: 767.98px) {
-  .hero-participa { height: 260px; }
-}
-@media (max-width: 575.98px) {
-  .hero-participa { height: 220px; }
-}
-
-/* =====================================================
-   Tarjetas de la sección Participa
-   ===================================================== */
-.participa-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 28px rgba(22, 68, 67, 0.15) !important;
-}
-.participa-icon-wrap {
-  width: 70px; height: 70px; margin: 0 auto;
-  background-color: rgba(6, 150, 129, 0.1); color: var(--color-secundario);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  transition: background-color .3s ease, color .3s ease;
-}
-.participa-card:hover .participa-icon-wrap { background-color: var(--color-secundario); color: #fff; }
-.participa-icon-wrap i { font-size: 2rem; line-height: 1; }
-.participa-card .card-title { color: var(--color-primario); }
-
-/* =====================================================
-   Citas Médicas - Banner (hero)
-   ===================================================== */
-section.citas-hero {
-  position: relative;
-  width: 100%;
-  min-height: 340px;
-  padding: 60px 0; /* espacio vertical para el contenido */
-  color: #fff; /* texto blanco sobre banner */
-  background-color: #0f3332; /* color de respaldo por si no carga la imagen */
-  background-image: url('/imagenes/citas-medicas-banner.webp');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-section.citas-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: none; /* Sin overlay: mostrar imagen original sin oscurecer */
-}
-section.citas-hero > .container {
-  position: relative;
-  z-index: 1; /* sobre el overlay */
-}
-@media (max-width: 991.98px) {
-  section.citas-hero { min-height: 300px; padding: 48px 0; }
-}
-@media (max-width: 767.98px) {
-  section.citas-hero { min-height: 260px; padding: 36px 0; }
-}
-@media (max-width: 575.98px) {
-  section.citas-hero { min-height: 220px; padding: 28px 0; }
-}
-
-/* =====================================================
-   Transparencia: Sidebar y anclas internas
-   ===================================================== */
-/* Compensación del header fijo para scroll a anclas */
-.anchor-target { scroll-margin-top: 110px; }
-@media (max-width: 991.98px) { .anchor-target { scroll-margin-top: 80px; } }
-
-/* Sidebar: resaltar enlace activo manteniendo la línea gráfica */
-.sidebar-nav .btn.active,
-.sidebar-nav a.active {
-  background-color: var(--color-secundario);
-  border-color: var(--color-secundario);
-  color: #fff;
-}
-
-/* =====================================================
-   Normatividad: Alineación de íconos y filas
-   ===================================================== */
-/* Asegura que todos los elementos de la lista queden en la misma línea base */
-#normatividadTabsContent .list-group-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* alinea verticalmente el texto, icono y badges */
-  gap: .75rem;
-}
-/* Grupo de la izquierda: icono + texto siempre centrados verticalmente */
-#normatividadTabsContent .list-group-item > span:first-child {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-}
-/* Normaliza los íconos Bootstrap para evitar saltos de línea/altura */
-#normatividadTabsContent .list-group-item i.bi {
-  font-size: 1.1rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  flex: 0 0 1.25rem; /* ancho fijo para alinear con todas las filas */
-  vertical-align: middle;
-}
-/* Evita que las badges estiren la altura de la fila */
-#normatividadTabsContent .list-group-item .badge { line-height: 1; }
-
-/* Colorear íconos de archivos PDF (rojo característico) */
-#normatividadTabsContent a[href$=".pdf"] i.bi {
-  color: #dc3545; /* rojo Bootstrap - danger */
-}
-/* Mantener y oscurecer levemente en hover/focus del item */
-#normatividadTabsContent .list-group-item:hover a[href$=".pdf"] i.bi,
-#normatividadTabsContent .list-group-item:focus a[href$=".pdf"] i.bi {
-  color: #b02a37; /* rojo más oscuro en hover */
-}
-
- /*
-   =====================================================
-   Transparencia - Corrección de Alineación de Listas (v5 - Definitiva)
-   =====================================================
-   Solución robusta para los ítems de lista que son enlaces.
-   1. Se aplica flexbox para alinear los elementos internos.
-   2. Se le indica al texto principal (el nombre del documento) que crezca para usar el espacio disponible.
-   3. Se usa `min-width: 0` en el texto, un truco crucial de flexbox para permitir que el texto largo se ajuste (wrap) en lugar de desbordar y "cortarse".
-   4. Se asegura que los íconos y badges no se deformen.
- */
-.anchor-target a.list-group-item {
-   display: flex;
-   align-items: center;
-   gap: 0.75rem;
-   text-decoration: none;
-    width: 100%;
- }
-
- /* El texto principal (nombre del archivo/documento) debe crecer */
- .anchor-target a.list-group-item > span:not(.badge),
- .anchor-target a.list-group-item > strong {
-   flex-grow: 1;
-   min-width: 0; /* Permite que el texto se ajuste y no se corte */
- }
-
- /* Los elementos auxiliares (badges, botones, fechas, íconos) no deben crecer ni encogerse */
- .anchor-target a.list-group-item > .badge,
- .anchor-target a.list-group-item > .btn,
- .anchor-target a.list-group-item > small,
- .anchor-target a.list-group-item > i {
-   flex-shrink: 0;
- }
-
-.hero-image-responsive {
-  height: 250px; /* Altura para móviles */
-  object-fit: cover;
-}
-
-@media (min-width: 768px) {
-  .hero-image-responsive {
-    height: 400px; /* Altura para tablets y escritorio */
-  }
-}
-
-/* =====================================================
-   Robustez Responsiva Global
-   ===================================================== */
-
-/* Prevenir que tablas anchas rompan el layout en móviles */
-.table-responsive {
-  overflow-x: auto;
-}
-
-/* Asegurar que textos y URLs largas no desborden sus contenedores */
-p, a, td, th, li {
-  word-break: break-word; /* Para navegadores antiguos */
-  overflow-wrap: anywhere; /* Estándar moderno */
-}
-
-/* Evitar que elementos flex/grid se encojan de forma indeseada */
-.row > * { min-width: 0; }
-
-/* Clase de utilidad para círculos de iconos */
-.icon-circle-lg {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-/* Hacer los círculos un poco más pequeños en móviles */
-@media (max-width: 767.98px) {
-  .icon-circle-lg {
-    width: 60px;
-    height: 60px;
-  }
-}
-
-/* =====================================================
-   Cookie Consent Banner - Corrección de visibilidad
-   ===================================================== */
-
-/* 
-  Asegura que el banner de cookies tenga la máxima prioridad visual
-  y esté por encima de otros elementos fijos como los botones de accesibilidad.
-*/
-.cookie-banner {
-  z-index: 10000 !important; /* Prioridad sobre los botones de accesibilidad (z-index: 9999) */
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
-  transition: transform 0.4s ease-out;
-  transform: translateY(100%); /* Oculto por defecto, se muestra con JS */
-  visibility: hidden;
-}
-
-/* Clase para mostrar el banner con una animación suave */
-.cookie-banner.show {
-  transform: translateY(0);
-  visibility: visible;
-}
-
-/* 
-  En móviles, cuando el banner de cookies está visible, se desplazan los botones de accesibilidad hacia arriba.
-  Esto requiere que el script `cookie-consent.js` añada la clase `cookie-banner-visible` al <body>.
-*/
-@media (max-width: 768px) {
-  body.cookie-banner-visible .accessibility-buttons-container {
-    bottom: calc(env(safe-area-inset-bottom, 0) + 140px); /* 140px es una altura estimada para el banner */
-    transition: bottom 0.4s ease-out;
-  }
-}
-
-/* Ajuste adicional para la barra de accesibilidad en móviles cuando el banner de cookies está visible */
-@media (max-width: 768px) {
-  body.cookie-banner-visible .accessibility-buttons-container {
-    bottom: 140px; /* Ajusta esta altura si el banner de cookies cambia de tamaño */
-    transition: bottom 0.3s ease-in-out;
-  }
-}
-
-/* =====================================================
-   Página Niños, Niñas y Adolescentes - Carrusel
-   ===================================================== */
-#actividadesCarousel .img-carousel {
-  max-height: 60vh;
-  width: 100%;
-  object-fit: contain;
-  object-position: center;
-  background-color: #f8f9fa;
-  padding: 1rem;
-}
-#actividadesCarousel .carousel-control-prev,
-#actividadesCarousel .carousel-control-next {
-  width: 5%;
-  opacity: 0.8;
-}
-#actividadesCarousel .carousel-control-prev-icon,
-#actividadesCarousel .carousel-control-next-icon {
-  width: 2rem;
-  height: 2rem;
-}
-#actividadesCarousel .carousel-indicators {
-  bottom: -40px;
-}
-#actividadesCarousel .carousel-indicators [data-bs-target] {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin: 0 4px;
-  border: 1px solid #5c636a;
-}
-#actividadesCarousel .carousel-indicators .active {
-  background-color: #0d6efd;
-}
-  
-/* =====================================================
-   Página de Noticias - Filtros y Tarjetas
-   ===================================================== */
-
-.filter-btn-group .btn {
-  border-radius: 50px;
-  font-weight: 600;
-}
-
-.featured-news-card { border: none; }
-.featured-news-card .card-img { height: clamp(300px, 50vh, 450px); object-fit: cover; border-radius: 0.75rem; }
-.featured-news-card .card-img-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%); border-radius: 0.75rem; }
-
-.news-tag { 
-  font-size: 0.8rem; 
-  font-weight: 700; 
-  text-transform: uppercase; 
-  letter-spacing: 0.5px; 
-}
-
-.featured-news-card .card-title { text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
-
-.news-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.news-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-.news-card .card-img-top { height: 200px; object-fit: cover; }
-.news-card .card-body { display: flex; flex-direction: column; }
-.news-card .card-footer { background-color: transparent; border-top: none; padding-top: 0; }
-/* Noticias cargadas desde data/noticias.json */
-.news-card .noticia-icono { height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #164443 0%, #22a7a0 100%); color: #fff; font-size: 4.5rem; border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; }
-.news-card .noticia-video { position: relative; display: block; width: 100%; height: 200px; padding: 0; border: 0; background: #000; overflow: hidden; border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; }
-.news-card .noticia-video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.2s ease; }
-.news-card .noticia-video i { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-.news-card .noticia-video:hover img, .news-card .noticia-video:focus-visible img { opacity: 1; }
-.noticia-galeria-img { max-height: 80vh; object-fit: contain; background-color: #212529; }
-.noticia-destacada { border-radius: 1rem; }
-.noticia-destacada-img { display: block; width: 100%; height: 100%; min-height: 260px; max-height: 460px; object-fit: cover; }
-.noticia-destacada-texto { height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 2rem 2.25rem; color: #fff; background: linear-gradient(135deg, #164443 0%, #1a5c5a 55%, #22a7a0 100%); }
-.noticia-destacada-rotulo { letter-spacing: 0.08em; opacity: 0.85; }
-.noticia-destacada-texto p { opacity: 0.92; line-height: 1.6; }
-/* En escritorio la foto ocupa todo el alto del panel de texto, sin franjas */
-@media (min-width: 992px) {
-  .noticia-destacada-media { position: relative; min-height: 380px; }
-  .noticia-destacada-media .noticia-destacada-img { position: absolute; inset: 0; max-height: none; }
-}
-@media (max-width: 991.98px) {
-  .noticia-destacada-img { max-height: 320px; }
-  .noticia-destacada-texto { padding: 1.5rem; }
-}
-.news-card-ancha .noticia-ancha-img { width: 100%; height: 100%; min-height: 240px; max-height: 340px; object-fit: cover; }
-.news-card-ancha .noticia-icono, .news-card-ancha .noticia-video { height: 100%; min-height: 240px; border-radius: 0; }
-
-/* Carrusel de la emergencia por el sismo (inicio) */
-.sismo-carousel .carousel-inner { border-radius: 16px; }
-.sismo-slide { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 2rem; align-items: center; padding: 1.75rem 4.5rem; min-height: 360px; color: #fff; }
-.sismo-slide-media { display: flex; justify-content: center; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
-.sismo-slide-media img { max-width: 100%; max-height: 320px; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.35); transition: transform 0.2s ease; }
-.sismo-slide-media:hover img, .sismo-slide-media:focus-visible img { transform: scale(1.03); }
-.sismo-slide-texto { display: flex; flex-direction: column; text-align: left; font-size: 1.05rem; }
-.sismo-slide-texto > div { padding: 0 !important; }
-.sismo-slide-texto .btn { align-self: flex-start; }
-.sismo-carousel .carousel-indicators { margin-bottom: 0.5rem; }
-@media (max-width: 767.98px) {
-  .sismo-slide { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem 1.25rem 2.5rem; min-height: 0; }
-  .sismo-slide-media img { max-height: 240px; }
-  .sismo-slide-texto { text-align: center; font-size: 0.95rem; }
-  .sismo-slide-texto .badge, .sismo-slide-texto .btn { align-self: center !important; }
-  .sismo-carousel .carousel-control-prev, .sismo-carousel .carousel-control-next { width: 2.5rem; }
-}
-  
-/* =====================================================
-   Estadísticas - Mejoras de Proporcionalidad y Layout
-   ===================================================== */
-
-.statistics-header {
-  border-bottom: 1px solid #dee2e6;
-}
-
-/* Estilo para el breadcrumb en la página de estadísticas */
-#breadcrumb-container .breadcrumb {
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #e9ecef;
-  border-radius: 0.375rem;
-  font-size: 0.9rem;
-}
-
-#breadcrumb-container .breadcrumb-item a {
-  color: var(--color-primario);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-#breadcrumb-container .breadcrumb-item a:hover {
-  text-decoration: underline;
-}
-
-#breadcrumb-container .breadcrumb-item.active {
-  color: #495057;
-  font-weight: 600;
-}
-
-#breadcrumb-container .breadcrumb-item+.breadcrumb-item::before {
-  color: #5c636a;
-}
-
-/* Tarjetas de estadísticas con un hover más sutil */
-.stat-card {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-.stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para tarjetas de estadísticas clickables */
-.stat-card-clickable {
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-.stat-card-clickable:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-}
-
-/* =====================================================
-   Carrusel Principal - Botones de Acción
-   ===================================================== */
-
-/*
-  Contenedor del botón. Lo centramos horizontalmente y lo posicionamos
-  en la parte inferior para no interferir con el contenido principal de la imagen.
-*/
-#carouselHospital .carousel-caption {
-  position: absolute;
-  bottom: 10%; /* Un poco más abajo para mejor visibilidad */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%; /* Ancho relativo para adaptarse */
-  max-width: 500px; /* Ancho máximo para que no sea demasiado grande en pantallas anchas */
-  padding: 0; /* Quitamos padding para que el botón defina el espacio */
-  text-align: center; /* Centra el botón dentro del caption */
-  display: block !important; /* Asegura visibilidad en todos los tamaños */
-}
-
-/* Estilo del botón de acción del carrusel - más pequeño y refinado */
-.carousel-action-btn {
-  background-color: rgba(6, 150, 129, 0.9); /* Verde institucional con transparencia */
-  border: 1px solid rgba(255, 255, 255, 0.7); /* Borde más sutil */
-  color: #fff;
-  font-weight: 600; /* Un poco menos grueso */
-  padding: 0.6rem 1.25rem; /* Padding reducido para un botón más pequeño */
-  border-radius: 50px;
-  text-transform: none; /* Quitamos mayúsculas para un look más amigable */
-  letter-spacing: 0;
-  font-size: clamp(0.85rem, 1.2vw, 1rem); /* Tamaño de fuente ligeramente más pequeño */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block; /* Asegura que el botón no ocupe todo el ancho */
-  white-space: nowrap; /* Evita que el texto del botón se parta */
-}
-
-.carousel-action-btn:hover {
-  background-color: #047a67;
-  border-color: #fff;
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  color: #fff;
-}
-
-/* Ajustes para pantallas muy pequeñas (móviles en vertical) */
-@media (max-width: 576px) {
-  #carouselHospital .carousel-caption {
-    bottom: 8%; /* Un poco más abajo en móviles */
-  }
-
-  .carousel-action-btn {
-    width: 80%; /* Ocupa un buen ancho pero deja márgenes */
-    padding: 0.5rem 1rem; /* Aún más pequeño para móviles */
-  }
-}
-
-/* =====================================================
-   Mapa del Sitio - Mejoras de Layout y Estilo
-   ===================================================== */
-.sitemap-list {
-  padding-left: 0;
-  list-style: none;
-  margin-bottom: 0;
-}
-
-.sitemap-list li {
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.sitemap-list li:last-child {
-  border-bottom: none;
-}
-
-.sitemap-list a {
-  display: block;
-  padding: 0.85rem 1.25rem;
-  color: #343a40;
-  text-decoration: none;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, padding-left 0.2s ease;
-  position: relative;
-}
-
-.sitemap-list a::before {
-  content: '\F285'; /* Bootstrap Icon: bi-arrow-right-circle */
-  font-family: 'bootstrap-icons';
-  margin-right: 0.75rem;
-  color: var(--color-secundario);
-}
-
-.sitemap-list a:hover {
-  background-color: #f8f9fa;
-  color: var(--color-primario);
-  padding-left: 1.5rem;
-}
-
-/* =====================================================
-   Página de Hospitalización - Diseño Elegante
-   ===================================================== */
-
-.section-title-hosp {
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 700;
-  color: var(--color-primario);
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--color-secundario);
-  display: inline-block;
-}
-
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: var(--radius);
-  height: 100%;
-}
-
-.feature-icon {
-  font-size: 1.75rem;
-  color: var(--color-secundario);
-  flex-shrink: 0;
-}
-
-.feature-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-primario);
-  margin-bottom: 0.25rem;
-}
-
-.feature-text {
-  font-size: 0.95rem;
-  color: var(--color-texto-sec);
-  margin-bottom: 0;
-}
-
-.room-card {
-  border: 1px solid #e9ecef;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.room-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow);
-}
-
-.room-card .card-img-top {
-  height: 220px;
-  object-fit: cover;
-}
-
-.room-features {
-  padding-left: 0;
-  list-style: none;
-  margin-top: 1rem;
-}
-
-.room-features li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.room-features i {
-  color: var(--color-secundario);
-  margin-right: 0.5rem;
-}
-
-.process-step-card {
-  background-color: #fff;
-  border: 1px solid #e9ecef;
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  text-align: center;
-  height: 100%;
-  position: relative;
-}
-
-.step-number {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 40px;
-  background-color: var(--color-primario);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.2rem;
-  border: 3px solid #fff;
-}
-
-.step-title {
-  margin-top: 1.5rem;
-  font-weight: 700;
-}
-
-.additional-service-card {
-  text-align: center;
-  padding: 1.5rem;
-}
-
-.additional-service-card i {
-  font-size: 2.5rem;
-  color: var(--color-secundario);
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.sidebar-card .sidebar-title {
-  color: var(--color-primario);
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.sidebar-card .sidebar-list {
-  padding-left: 0;
-  list-style: none;
-}
-
-.sidebar-card .sidebar-list li {
-  margin-bottom: 1rem;
-}
-
-.sidebar-card .sidebar-list strong {
-  color: #343a40;
-}
-
-.sidebar-card .sidebar-list span {
-  color: var(--color-texto-sec);
-  font-size: 0.95rem;
-}
-
-.emergency-card {
-  border-width: 2px !important;
-}
-
-.emergency-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-/* --- START: Directory Card Image Fix --- */
-
-/* 1. Wrapper to enforce aspect ratio (3:4) */
-.directorio-img-wrapper {
-  position: relative;
-  /* Establece una relación de aspecto de retrato (3:4). La altura será el 133.33% del ancho. */
-  padding-top: 133.33%;
-  background-color: #e9ecef; /* Placeholder color */
-}
-
-/* 2. The image itself, positioned to fill the wrapper */
-.directorio-img-wrapper .card-img-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Muestra la imagen completa sin recortar, manteniendo su proporción. */
-  object-position: center; /* Centra la imagen dentro del espacio disponible */
-}
-/* --- END: Directory Card Image Fix --- */
-
-/* Uniformidad y ajuste de texto en tarjetas de directorio */
-.directorio-card-col .card-title {
-  /* Asegura espacio vertical para alinear títulos (aprox. 2 líneas) */
-  min-height: 3em; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Ajuste para el cargo para mejorar la alineación vertical */
-.directorio-card-col .card-text.fw-semibold {
-  
-  /* Ajustes de texto y tamaño */
-  font-size: 0.78rem;
-  line-height: 1.4;
-  min-height: 3.6em;
-  padding: 0.4em 0.5em;
-}
-
-/* Solución para que el botón de email no se estire innecesariamente */
-.directorio-email-btn {
-  font-size: 0.78rem;
-}
-
-/* Directorio Institucional - Estilo Organigrama */
-.organigrama {
-  position: relative;
-}
-
-.org-level {
-  margin-bottom: 30px;
-}
-
-/* Tarjetas principales (Gerente, Subgerentes) */
-.directorio-card-principal .card-body {
-  background-color: #f0faf9;
-}
-.directorio-card-principal .card-title {
-  color: var(--color-primario);
-}
-
-/* Ajuste final de proporcionalidad para la tarjeta del Gerente */
-.directorio-card-col .card { /* Aplica el ancho máximo a todas las tarjetas del directorio */
-  max-width: 350px; /* Limita el ancho máximo de la tarjeta */
-  margin-left: auto;  /* Centra la tarjeta horizontalmente */
-  margin-right: auto; /* Centra la tarjeta horizontalmente */
-}
-
-/* Nivel 1 (Gerente) */
-/* .org-level-1 .row > div { max-width: 400px; } */
-
-/* Nivel Asesores */
-/* .org-level-asesores .row > .col { max-width: 400px; } */
-
-/* Nivel 2 (Subgerentes) */
-.org-level-2 .row > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/* .org-level-2 .row .row { max-width: 400px; } */
-/* La siguiente regla se mantiene porque es para flex-grow, no max-width */
- .org-level-2 .row .row {
-  flex-grow: 1; /* Asegura que el contenedor de la tarjeta crezca para llenar el espacio */
-}
-
-/* Solución definitiva para alinear tarjetas de subgerentes */
-.org-level-2 .row .row > .col {
-  display: flex; /* Convierte la columna en un contenedor flex para que la tarjeta h-100 se estire */
-}
-
-.org-connector-down {
-  width: 2px;
-  height: 30px;
-  background-color: #ccc;
-  margin: 0 auto;
-}
-.org-connector-across {
-  position: absolute;
-  top: 28px;
-  left: 25%;
-  right: 25%;
-  height: 2px;
-  background-color: #ccc;
-}
-.org-branch {
-  position: relative;
-}
-.org-connector-up {
-  width: 2px;
-  height: 30px;
-  background-color: #ccc;
-  margin: 0 auto -2px auto;
-}
-.org-level-3-connectors {
-  height: 30px;
-  margin-bottom: 30px;
-}
-.org-connector-down-small {
-  width: 2px;
-  height: 30px;
-  background-color: #ccc;
-  margin: 0 auto;
-}
-
-/* Ocultar conectores en móvil para un layout más simple */
-@media (max-width: 767.98px) {
-  .org-connector-container,
-  .org-connector-up,
-  .org-level-3-connectors {
-    display: none;
-  }
-  .org-level {
-    margin-bottom: 15px;
-  }
-  .organigrama .col-lg-6 {
-    margin-bottom: 2rem;
-  }
-}
-
 /* Lazy load YouTube videos */
 .lazy-youtube {
   cursor: pointer;
@@ -2395,7 +1253,6 @@ p, a, td, th, li {
   display: block; /* Cambiado de flex a block */
   overflow: hidden; /* Oculta cualquier desbordamiento de la imagen */
 }
-
 /* Nueva clase para la imagen de miniatura */
 .lazy-youtube-thumbnail {
   position: absolute;
@@ -2407,11 +1264,9 @@ p, a, td, th, li {
   object-position: center;
   transition: transform 0.3s ease;
 }
-
 .lazy-youtube:hover .lazy-youtube-thumbnail {
   transform: scale(1.05); /* Efecto de zoom sutil al pasar el cursor */
 }
-
 .lazy-youtube::before {
   content: '';
   position: absolute;
@@ -2456,58 +1311,703 @@ p, a, td, th, li {
   border-color: transparent transparent transparent #fff;
   margin-left: 5px;
 }
-
-/* =====================================================
-   Estilos personalizados para la sección Participa
-   ===================================================== */
-
-.hero-participa {
-    background: url('../imagenes/participa.webp') no-repeat center center/cover;
-    min-height: 300px; /* Ajusta esta altura si es necesario */
-    position: relative;
-    margin-bottom: 3rem;
+/* Clase de utilidad para círculos de iconos */
+.icon-circle-lg {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
-
-.content-card {
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border: none;
+/* Hacer los círculos un poco más pequeños en móviles */
+@media (max-width: 767.98px) {
+  .icon-circle-lg {
+    width: 60px;
+    height: 60px;
+  }
 }
-
-.participa-feature {
-    padding: 2.5rem 0;
+/* Estilos para resultados de búsqueda */
+.no-results-icon {
+  font-size: 3rem;
+  color: #5c636a;
+  animation: pulse 2s infinite;
 }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+/* Notificaciones flotantes (js/utils.js → notify) */
+.notify-contenedor {
+  position: fixed; top: 1rem; right: 1rem; z-index: 1080; /* por encima del header */
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.notify-alerta { min-width: 260px; max-width: 380px; margin: 0; }
 
-.feature-icon {
-    width: 70px;
-    height: 70px;
-    background: rgba(26, 159, 143, 0.1);
-    border-radius: 50%;
+/* ======================================================================
+   8. Estilos por página — Cada bloque indica la página a la que pertenece.
+   ====================================================================== */
+
+/* ---------- Citas médicas online (asistente de pasos) ---------- */
+/* --- Mejoras de Responsividad para el Wizard de Citas --- */
+@media (max-width: 768px) {
+/* Ajuste de días del calendario para dedos (Touch targets) */
+  .calendar-day {
+    height: auto !important;
+    aspect-ratio: 1;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+  }
+/* Grilla de horarios responsive y ordenada */
+  #horariosContainer {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 columnas exactas */
+    gap: 8px !important;
+  }
+  .time-slot {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 10px 4px !important;
+    font-size: 0.85rem !important;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
+  }
+/* Especialidades en lista vertical para mejor lectura */
+  #especialidadesContainer {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .specialty-card {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important; /* Permitir altura flexible */
+  }
+/* Asegurar espacio inferior para que los botones de navegación respiren */
+  .step-content-wrapper {
+    padding-bottom: 60px; 
+  }
 }
 
+/* ---------- Buscador (buscar.html) ---------- */
+/* Resultados del buscador (js/busqueda.js): color por categoría.
+   --cat-fondo es el color de la categoría muy aclarado; --cat-color es un tono
+   oscuro del mismo color para que el texto pequeño cumpla 4.5:1 sobre ese fondo. */
+.busq-cat-transparencia { --cat-color: #164443; --cat-fondo: 22, 68, 67; }
+.busq-cat-servicios { --cat-color: #b02a37; --cat-fondo: 220, 53, 69; }
+.busq-cat-normatividad { --cat-color: #6f42c1; --cat-fondo: 111, 66, 193; }
+.busq-cat-participacion { --cat-color: #146c43; --cat-fondo: 25, 135, 84; }
+.busq-cat-pqrs { --cat-color: #a84300; --cat-fondo: 253, 126, 20; }
+.busq-cat-noticias { --cat-color: #0a58ca; --cat-fondo: 13, 110, 253; }
+.busq-cat-institucional { --cat-color: #0f7b5f; --cat-fondo: 32, 201, 151; }
+.busq-cat-general { --cat-color: #5c636a; --cat-fondo: 108, 117, 125; }
+.busq-icono { width: 42px; height: 42px; background: rgba(var(--cat-fondo), .08); }
+.busq-icono i { color: var(--cat-color); font-size: 1.2rem; }
+.busq-badge { background: rgba(var(--cat-fondo), .094); color: var(--cat-color); font-size: .7rem; font-weight: 500; }
+
+/* ---------- Transparencia ---------- */
+/* --- Transparencia: Sidebar y anclas internas --- */
+/* Compensación del header fijo para scroll a anclas */
+.anchor-target { scroll-margin-top: 110px; }
+@media (max-width: 991.98px) {
+  .anchor-target { scroll-margin-top: 80px; }
+}
+/* Sidebar: resaltar enlace activo manteniendo la línea gráfica */
+.sidebar-nav .btn.active, .sidebar-nav a.active {
+  background-color: var(--color-secundario);
+  border-color: var(--color-secundario);
+  color: #fff;
+}
+/* --- Transparencia - Corrección de Alineación de Listas (v5 - Definitiva) — Solución robusta para los ítems de lista que son enlaces. — 1. Se aplica flexbox para alinear los elementos internos. — 2. Se le indica al texto principal (el nombre del documento) que crezca para usar el espacio disponible. — 3. Se usa `min-width: 0` en el texto, un truco crucial de flexbox para permitir que el texto largo se ajuste (wrap) en lugar de desbordar y "cortarse". — 4. Se asegura que los íconos y badges no se deformen. --- */
+.anchor-target a.list-group-item {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+   text-decoration: none;
+    width: 100%;
+ }
+/* El texto principal (nombre del archivo/documento) debe crecer */
+.anchor-target a.list-group-item > span:not(.badge),
+.anchor-target a.list-group-item > strong {
+   flex-grow: 1;
+   min-width: 0; /* Permite que el texto se ajuste y no se corte */
+ }
+/* Los elementos auxiliares (badges, botones, fechas, íconos) no deben crecer ni encogerse */
+.anchor-target a.list-group-item > .badge,
+.anchor-target a.list-group-item > .btn,
+.anchor-target a.list-group-item > small,
+.anchor-target a.list-group-item > i {
+   flex-shrink: 0;
+ }
+
+/* ---------- Normatividad ---------- */
+/* --- Normatividad: Alineación de íconos y filas --- */
+/* Asegura que todos los elementos de la lista queden en la misma línea base */
+#normatividadTabsContent .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* alinea verticalmente el texto, icono y badges */
+  gap: .75rem;
+}
+/* Grupo de la izquierda: icono + texto siempre centrados verticalmente */
+#normatividadTabsContent .list-group-item > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+/* Normaliza los íconos Bootstrap para evitar saltos de línea/altura */
+#normatividadTabsContent .list-group-item i.bi {
+  font-size: 1.1rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex: 0 0 1.25rem; /* ancho fijo para alinear con todas las filas */
+  vertical-align: middle;
+}
+/* Evita que las badges estiren la altura de la fila */
+#normatividadTabsContent .list-group-item .badge { line-height: 1; }
+/* Colorear íconos de archivos PDF (rojo característico) */
+#normatividadTabsContent a[href$=".pdf"] i.bi {
+  color: #dc3545; /* rojo Bootstrap - danger */
+}
+/* Mantener y oscurecer levemente en hover/focus del item */
+#normatividadTabsContent .list-group-item:hover a[href$=".pdf"] i.bi,
+#normatividadTabsContent .list-group-item:focus a[href$=".pdf"] i.bi {
+  color: #b02a37; /* rojo más oscuro en hover */
+}
+
+/* ---------- Inicio y Noticias: noticias y carrusel del sismo ---------- */
+/* --- Página de Noticias - Filtros y Tarjetas --- */
+.filter-btn-group .btn {
+  border-radius: 50px;
+  font-weight: 600;
+}
+.news-tag { 
+  font-size: 0.8rem; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px; 
+}
+.news-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.news-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.news-card .card-img-top { height: 200px; object-fit: cover; }
+.news-card .card-body { display: flex; flex-direction: column; }
+.news-card .card-footer { background-color: transparent; border-top: none; padding-top: 0; }
+/* Noticias cargadas desde data/noticias.json */
+.news-card .noticia-icono { height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #164443 0%, #22a7a0 100%); color: #fff; font-size: 4.5rem; border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; }
+.news-card .noticia-video { position: relative; display: block; width: 100%; height: 200px; padding: 0; border: 0; background: #000; overflow: hidden; border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; }
+.news-card .noticia-video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.2s ease; }
+.news-card .noticia-video i { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.news-card .noticia-video:hover img, .news-card .noticia-video:focus-visible img { opacity: 1; }
+.noticia-galeria-img { max-height: 80vh; object-fit: contain; background-color: #212529; }
+/* Noticia abierta con un enlace directo (noticias.html#noticia-<id>, p. ej. desde el buscador) */
+.noticia-resaltada { outline: 3px solid #ffc107; outline-offset: 4px; scroll-margin-top: 140px; }
+.noticia-resaltada:focus { outline: 3px solid #ffc107; }
+.noticia-destacada { border-radius: 1rem; }
+.noticia-destacada-img { display: block; width: 100%; height: 100%; min-height: 260px; max-height: 460px; object-fit: cover; }
+.noticia-destacada-texto { height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 2rem 2.25rem; color: #fff; background: linear-gradient(135deg, #164443 0%, #1a5c5a 55%, #22a7a0 100%); }
+.noticia-destacada-rotulo { letter-spacing: 0.08em; opacity: 0.85; }
+.noticia-destacada-texto p { opacity: 0.92; line-height: 1.6; }
+/* En escritorio la foto ocupa todo el alto del panel de texto, sin franjas */
+@media (min-width: 992px) {
+  .noticia-destacada-media { position: relative; min-height: 380px; }
+  .noticia-destacada-media .noticia-destacada-img { position: absolute; inset: 0; max-height: none; }
+}
+@media (max-width: 991.98px) {
+  .noticia-destacada-img { max-height: 320px; }
+  .noticia-destacada-texto { padding: 1.5rem; }
+}
+.news-card-ancha .noticia-ancha-img { width: 100%; height: 100%; min-height: 240px; max-height: 340px; object-fit: cover; }
+.news-card-ancha .noticia-icono, .news-card-ancha .noticia-video { height: 100%; min-height: 240px; border-radius: 0; }
+/* Carrusel de la emergencia por el sismo (inicio) */
+.sismo-carousel .carousel-inner { border-radius: 16px; }
+.sismo-slide { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 2rem; align-items: center; padding: 1.75rem 4.5rem; min-height: 360px; color: #fff; }
+.sismo-slide-media { display: flex; justify-content: center; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.sismo-slide-media img { max-width: 100%; max-height: 320px; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.35); transition: transform 0.2s ease; }
+.sismo-slide-media:hover img, .sismo-slide-media:focus-visible img { transform: scale(1.03); }
+.sismo-slide-texto { display: flex; flex-direction: column; text-align: left; font-size: 1.05rem; }
+.sismo-slide-texto > div { padding: 0 !important; }
+.sismo-slide-texto .btn { align-self: flex-start; }
+.sismo-carousel .carousel-indicators { margin-bottom: 0.5rem; }
+@media (max-width: 767.98px) {
+  .sismo-slide { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem 1.25rem 2.5rem; min-height: 0; }
+  .sismo-slide-media img { max-height: 240px; }
+  .sismo-slide-texto { text-align: center; font-size: 0.95rem; }
+  .sismo-slide-texto .badge, .sismo-slide-texto .btn { align-self: center !important; }
+  .sismo-carousel .carousel-control-prev, .sismo-carousel .carousel-control-next { width: 2.5rem; }
+}
+
+/* ---------- Niños, niñas y adolescentes ---------- */
+/* --- Página Niños, Niñas y Adolescentes - Carrusel --- */
+#actividadesCarousel .img-carousel {
+  max-height: 60vh;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+#actividadesCarousel .carousel-control-prev, #actividadesCarousel .carousel-control-next {
+  width: 5%;
+  opacity: 0.8;
+}
+#actividadesCarousel .carousel-control-prev-icon,
+#actividadesCarousel .carousel-control-next-icon {
+  width: 2rem;
+  height: 2rem;
+}
+#actividadesCarousel .carousel-indicators {
+  bottom: -40px;
+}
+#actividadesCarousel .carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+  border: 1px solid #5c636a;
+}
+#actividadesCarousel .carousel-indicators .active {
+  background-color: #0d6efd;
+}
+
+/* ---------- Portal institucional: estadísticas ---------- */
+/* --- Estadísticas - Mejoras de Proporcionalidad y Layout --- */
+/* Estilo para el breadcrumb en la página de estadísticas */
+#breadcrumb-container .breadcrumb {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e9ecef;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+}
+#breadcrumb-container .breadcrumb-item a {
+  color: var(--color-primario);
+  text-decoration: none;
+  font-weight: 600;
+}
+#breadcrumb-container .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+#breadcrumb-container .breadcrumb-item.active {
+  color: #495057;
+  font-weight: 600;
+}
+#breadcrumb-container .breadcrumb-item+.breadcrumb-item::before {
+  color: #5c636a;
+}
+/* Tarjetas de estadísticas con un hover más sutil */
+/* Estilo para tarjetas de estadísticas clickables */
+.stat-card-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.stat-card-clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* ---------- Mapa del sitio ---------- */
+/* --- Mapa del Sitio - Mejoras de Layout y Estilo --- */
+.sitemap-list {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 0;
+}
+.sitemap-list li {
+  border-bottom: 1px solid #f0f0f0;
+}
+.sitemap-list li:last-child {
+  border-bottom: none;
+}
+.sitemap-list a {
+  display: block;
+  padding: 0.85rem 1.25rem;
+  color: #343a40;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, padding-left 0.2s ease;
+  position: relative;
+}
+.sitemap-list a::before {
+  content: '\F285'; /* Bootstrap Icon: bi-arrow-right-circle */
+  font-family: 'bootstrap-icons';
+  margin-right: 0.75rem;
+  color: var(--color-secundario);
+}
+.sitemap-list a:hover {
+  background-color: #f8f9fa;
+  color: var(--color-primario);
+  padding-left: 1.5rem;
+}
+
+/* ---------- Hospitalización ---------- */
+/* --- Página de Hospitalización - Diseño Elegante --- */
+.section-title-hosp {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  color: var(--color-primario);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-secundario);
+  display: inline-block;
+}
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: var(--radius);
+  height: 100%;
+}
+.feature-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primario);
+  margin-bottom: 0.25rem;
+}
+.feature-text {
+  font-size: 0.95rem;
+  color: var(--color-texto-sec);
+  margin-bottom: 0;
+}
+.room-card {
+  border: 1px solid #e9ecef;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+.room-card .card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
+.room-features {
+  padding-left: 0;
+  list-style: none;
+  margin-top: 1rem;
+}
+.room-features li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+.room-features i {
+  color: var(--color-secundario);
+  margin-right: 0.5rem;
+}
+.process-step-card {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  height: 100%;
+  position: relative;
+}
+.step-number {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primario);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: 3px solid #fff;
+}
+.step-title {
+  margin-top: 1.5rem;
+  font-weight: 700;
+}
+.additional-service-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+.additional-service-card i {
+  font-size: 2.5rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+  display: block;
+}
+.sidebar-card .sidebar-title {
+  color: var(--color-primario);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.emergency-card {
+  border-width: 2px !important;
+}
+.emergency-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Directorio institucional ---------- */
+/* --- START: Directory Card Image Fix --- */
+/* 1. Wrapper to enforce aspect ratio (3:4) */
+.directorio-img-wrapper {
+  position: relative;
+  /* Establece una relación de aspecto de retrato (3:4). La altura será el 133.33% del ancho. */
+  padding-top: 133.33%;
+  background-color: #e9ecef; /* Placeholder color */
+}
+/* 2. The image itself, positioned to fill the wrapper */
+.directorio-img-wrapper .card-img-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Muestra la imagen completa sin recortar, manteniendo su proporción. */
+  object-position: center; /* Centra la imagen dentro del espacio disponible */
+}
+/* --- END: Directory Card Image Fix --- */
+/* Uniformidad y ajuste de texto en tarjetas de directorio */
+.directorio-card-col .card-title {
+  /* Asegura espacio vertical para alinear títulos (aprox. 2 líneas) */
+  min-height: 3em; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Ajuste para el cargo para mejorar la alineación vertical */
+.directorio-card-col .card-text.fw-semibold {
+  
+  /* Ajustes de texto y tamaño */
+  font-size: 0.78rem;
+  line-height: 1.4;
+  min-height: 3.6em;
+  padding: 0.4em 0.5em;
+}
+/* Solución para que el botón de email no se estire innecesariamente */
+.directorio-email-btn {
+  font-size: 0.78rem;
+}
+/* Directorio Institucional - Estilo Organigrama */
+.organigrama {
+  position: relative;
+}
+.org-level {
+  margin-bottom: 30px;
+}
+/* Tarjetas principales (Gerente, Subgerentes) */
+.directorio-card-principal .card-body {
+  background-color: #f0faf9;
+}
+.directorio-card-principal .card-title {
+  color: var(--color-primario);
+}
+/* Ajuste final de proporcionalidad para la tarjeta del Gerente */
+.directorio-card-col .card { /* Aplica el ancho máximo a todas las tarjetas del directorio */
+  max-width: 350px; /* Limita el ancho máximo de la tarjeta */
+  margin-left: auto;  /* Centra la tarjeta horizontalmente */
+  margin-right: auto; /* Centra la tarjeta horizontalmente */
+}
+/* Nivel 1 (Gerente) */
+/* .org-level-1 .row > div { max-width: 400px; } */
+/* Nivel Asesores */
+/* .org-level-asesores .row > .col { max-width: 400px; } */
+/* Nivel 2 (Subgerentes) */
+.org-level-2 .row > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* .org-level-2 .row .row { max-width: 400px; } */
+/* La siguiente regla se mantiene porque es para flex-grow, no max-width */
+.org-level-2 .row .row {
+  flex-grow: 1; /* Asegura que el contenedor de la tarjeta crezca para llenar el espacio */
+}
+/* Solución definitiva para alinear tarjetas de subgerentes */
+.org-level-2 .row .row > .col {
+  display: flex; /* Convierte la columna en un contenedor flex para que la tarjeta h-100 se estire */
+}
+.org-connector-down {
+  width: 2px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 auto;
+}
+.org-connector-across {
+  position: absolute;
+  top: 28px;
+  left: 25%;
+  right: 25%;
+  height: 2px;
+  background-color: #ccc;
+}
+.org-branch {
+  position: relative;
+}
+.org-connector-up {
+  width: 2px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 auto -2px auto;
+}
+.org-level-3-connectors {
+  height: 30px;
+  margin-bottom: 30px;
+}
+.org-connector-down-small {
+  width: 2px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 auto;
+}
+/* Ocultar conectores en móvil para un layout más simple */
+@media (max-width: 767.98px) {
+  .org-connector-container, .org-connector-up, .org-level-3-connectors {
+    display: none;
+  }
+  .org-level {
+    margin-bottom: 15px;
+  }
+  .organigrama .col-lg-6 {
+    margin-bottom: 2rem;
+  }
+}
+
+/* ---------- Participa ---------- */
+/* --- Tarjetas de la sección Participa --- */
+.feature-icon {
+  font-size: 1.75rem;
+  color: var(--color-secundario);
+  flex-shrink: 0;
+  width: 70px;
+  height: 70px;
+  background: rgba(26, 159, 143, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
 .feature-icon i {
     font-size: 2rem;
     color: #1a9f8f;
 }
 
-/* =====================================================
-   Carrusel Principal - Index
-   ===================================================== */
-.fullwidth-carousel .carousel-item img.carousel-img {
-    height: auto;
-    min-height: 250px;
-    max-height: 600px;
-    object-fit: cover;
-    object-position: center;
-}
+/* ======================================================================
+   9. Utilidades — Clases de una sola función (la mayoría con !important) que reemplazaron estilos inline. Van al final para que ganen a los componentes.
+   ====================================================================== */
 
-/* =====================================================
-   Navbar - Componentes (reemplaza inline styles)
-   ===================================================== */
-.hospital-logo { object-fit: contain; }
-.navbar-lema { font-size: 0.9rem; white-space: nowrap; }
-.navbar-search-desktop { width: 280px; }
+/* --- Utilidades personalizadas (para reemplazar estilos inline) --- */
+.text-brand { color: #164443 !important; }
+.bg-brand { background-color: #164443 !important; }
+.top-90 { top: 90px !important; }
+.icon-2rem { font-size: 2rem !important; }
+.bg-transparent { background-color: transparent !important; }
+.text-accent { color: #069681 !important; }
+.wh-80 { width: 80px !important; height: 80px !important; }
+/* Colores de texto y borde */
+.text-turquesa { color: #22a7a0 !important; }
+.text-naranja { color: #e65100 !important; }
+.text-brand-medio { color: #1c6b6a !important; }
+.text-gov { color: #3366cc !important; }
+.border-brand { border-color: #164443 !important; }
+.border-brand-medio { border-color: #1c6b6a !important; }
+.border-accent-2 { border: 2px solid #069681 !important; }
+.bg-morado { background-color: #6f42c1 !important; }
+.bg-verde-oscuro { background-color: #0f7b5f !important; }
+.bg-none { background: none !important; }
+/* Fondos degradados */
+.bg-degradado-marca { background: linear-gradient(135deg, #164443, #22a7a0) !important; }
+.bg-degradado-marca-verde { background: linear-gradient(135deg, #164443, #069681) !important; }
+.bg-degradado-marca-3 { background: linear-gradient(135deg, #164443 0%, #1a5c5a 50%, #22a7a0 100%) !important; }
+.bg-degradado-oscuro { background: linear-gradient(135deg, #0f5e5c 0%, #1a5a57 100%) !important; }
+.bg-degradado-calido { background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important; }
+.bg-degradado-menta { background: linear-gradient(180deg, #f8fffe 0%, #ffffff 100%) !important; }
+.bg-degradado-ambar { background: linear-gradient(135deg, #a84300, #b85500) !important; }
+.bg-degradado-pizarra { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important; }
+.bg-degradado-morado { background: linear-gradient(135deg, #8e44ad, #6c3483) !important; }
+/* Tamaños de letra */
+.fs-0-8rem { font-size: 0.8rem !important; }
+.fs-0-85rem { font-size: 0.85rem !important; }
+.fs-0-9rem { font-size: 0.9rem !important; }
+.fs-0-95rem { font-size: 0.95rem !important; }
+.fs-1rem { font-size: 1rem !important; }
+.fs-1-05rem { font-size: 1.05rem !important; }
+.fs-1-08rem { font-size: 1.08rem !important; }
+.fs-1-15rem { font-size: 1.15rem !important; }
+.fs-1-25rem { font-size: 1.25rem !important; }
+.fs-1-5rem { font-size: 1.5rem !important; }
+.fs-1-8rem { font-size: 1.8rem !important; }
+.fs-2-5rem { font-size: 2.5rem !important; }
+.fs-3rem { font-size: 3rem !important; }
+.fs-3-5rem { font-size: 3.5rem !important; }
+.fs-4rem { font-size: 4rem !important; }
+.lh-1-7 { line-height: 1.7 !important; }
+.ls-1px { letter-spacing: 1px !important; }
+.ls-n0-5px { letter-spacing: -0.5px !important; }
+/* Tamaños de caja */
+.wh-70 { width: 70px !important; height: 70px !important; }
+.wh-72 { width: 72px !important; height: 72px !important; }
+.w-120px { width: 120px !important; }
+.mw-600 { max-width: 600px !important; }
+.mw-650 { max-width: 650px !important; }
+.mw-800 { max-width: 800px !important; }
+.mh-200 { max-height: 200px !important; }
+.mh-400 { max-height: 400px !important; }
+.mh-450 { max-height: 450px !important; }
+.mh-500 { max-height: 500px !important; }
+.mh-70vh { max-height: 70vh !important; }
+.min-h-48 { min-height: 48px !important; }
+.min-h-280 { min-height: 280px !important; }
+.min-w-80 { min-width: 80px !important; }
+.min-w-120 { min-width: 120px !important; }
+.min-w-150 { min-width: 150px !important; }
+.min-w-160 { min-width: 160px !important; }
+.top-110 { top: 110px !important; }
+.p-0-75rem { padding: 0.75rem !important; }
+.rounded-12 { border-radius: 12px !important; }
+.rounded-16 { border-radius: 16px !important; }
+.rounded-20 { border-radius: 20px !important; }
+.rounded-1-25rem { border-radius: 1.25rem !important; }
+/* Varios */
+.opacity-85 { opacity: 0.85 !important; }
+.opacity-90 { opacity: 0.9 !important; }
+.cursor-default { cursor: default !important; }
+.cursor-pointer { cursor: pointer !important; }
+/* Oculto al cargar; el JS lo muestra con element.style.display (por eso sin !important) */
+.oculto-inicial { display: none; }
+.wh-32 { width: 32px !important; height: 32px !important; }
+.fs-0-7rem { font-size: 0.7rem !important; }
+.min-w-0 { min-width: 0 !important; }
+/* Componentes que antes tenían estilos inline */
+.franja-degradado { height: 5px; background: linear-gradient(90deg, #164443, #22a7a0, #2dd4bf); }
+.sombra-inferior { height: 100px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1)); }
+.caja-turquesa { background: #f0fdfa; border: 1px solid #22a7a0; }
+.hr-marca { border-color: #164443; opacity: 0.2; }
+.foto-destacada-140, .foto-destacada-150 { object-fit: cover; border: 4px solid white; }
+.foto-destacada-140 { width: 140px; height: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.foto-destacada-150 { width: 150px; height: 150px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.icono-marca-agua { opacity: 0.2; font-size: 5rem; position: absolute; top: -10px; right: -10px; }
+/* Botón cerrar del modal de imagen ampliada (inicio) */
+.btn-close.btn-cerrar-imagen {
+  z-index: 10; background-color: #ffffff; border-radius: 50%; width: 45px; height: 45px;
+  font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.3s ease;
+  border: 3px solid #ff0000; color: #ff0000;
+}
+.img-ampliada { max-height: 80vh; object-fit: contain; transition: transform 0.3s ease; cursor: zoom-in; }

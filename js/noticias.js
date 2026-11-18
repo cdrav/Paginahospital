@@ -88,7 +88,7 @@
 
   function tarjeta(n) {
     return `<div class="col-md-6 col-lg-4">
-      <article class="card news-card h-100 shadow-sm border-0">
+      <article class="card news-card h-100 shadow-sm border-0" id="noticia-${esc(n.id)}">
         ${media(n)}
         <div class="card-body d-flex flex-column">
           <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
@@ -109,7 +109,7 @@
       ? `<img src="${esc(n.imagen)}" class="noticia-ancha-img" alt="${esc(n.titulo)}" loading="lazy" decoding="async">`
       : media(n);
     return `<div class="col-12">
-      <article class="card news-card news-card-ancha shadow-sm border-0 overflow-hidden">
+      <article class="card news-card news-card-ancha shadow-sm border-0 overflow-hidden" id="noticia-${esc(n.id)}">
         <div class="row g-0 align-items-stretch">
           <div class="col-md-5">${imagen}</div>
           <div class="col-md-7">
@@ -127,7 +127,7 @@
 
   // Foto a un lado y texto en un panel de color: se lee bien con cualquier foto
   function destacada(n) {
-    return `<article class="card noticia-destacada shadow-lg border-0 overflow-hidden">
+    return `<article class="card noticia-destacada shadow-lg border-0 overflow-hidden" id="noticia-${esc(n.id)}">
         <div class="row g-0">
           <div class="col-lg-7 noticia-destacada-media">
             <img src="${esc(n.imagen)}" class="noticia-destacada-img" alt="${esc(n.titulo)}">
@@ -327,7 +327,40 @@
       });
     }
 
+    // Enlace directo a una noticia (p. ej. desde el buscador): noticias.html#noticia-<id>
+    function irANoticia() {
+      const m = location.hash.match(/^#noticia-(.+)$/);
+      if (!m) return;
+      const id = decodeURIComponent(m[1]);
+      const indice = todas.findIndex(n => n.id === id);
+      if (indice >= 0) {
+        // Volver a "Todas" y abrir la página del listado donde está
+        const botonTodas = document.querySelector('.filter-btn-group [data-filter="all"]');
+        if (filtro !== 'all' && botonTodas) botonTodas.click();
+        pagina = Math.floor(indice / POR_PAGINA) + 1;
+        mostrar(false);
+      }
+      const tarjetaNoticia = document.getElementById('noticia-' + id);
+      if (!tarjetaNoticia) return;
+      document.querySelectorAll('.noticia-resaltada').forEach(t => t.classList.remove('noticia-resaltada'));
+      tarjetaNoticia.classList.add('noticia-resaltada');
+      tarjetaNoticia.setAttribute('tabindex', '-1');
+      tarjetaNoticia.focus({ preventScroll: true });
+      // El header (en local se carga aparte) y las fotos de arriba mueven la página: se desplaza
+      // cuando ya están, y otra vez al terminar de cargar todo
+      const desplazar = () => tarjetaNoticia.scrollIntoView({ block: 'center' });
+      const header = document.getElementById('header-placeholder');
+      if (header && !header.hasAttribute('data-parcial-incluido') && !header.children.length) {
+        document.addEventListener('partialsLoaded', desplazar, { once: true });
+      } else {
+        desplazar();
+      }
+      if (document.readyState !== 'complete') window.addEventListener('load', desplazar, { once: true });
+    }
+
     mostrar(false);
+    irANoticia();
+    window.addEventListener('hashchange', irANoticia);
   }
 
   document.addEventListener('DOMContentLoaded', function () {

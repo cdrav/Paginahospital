@@ -92,7 +92,7 @@
   border-radius: 0 4px 4px 0;
 }
 
-.info-box h5 {
+.info-box :is(h5, .tam-h5) {
   color: #0a58ca;
   font-weight: 600;
   margin-bottom: 0.5rem;

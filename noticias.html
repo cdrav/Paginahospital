@@ -27,6 +27,8 @@
 <!-- Header incluido -->
 <div id="header-placeholder"></div>
 
+<main id="contenido-principal" tabindex="-1">
+
 <!-- Contenedor para el breadcrumb -->
 <div id="breadcrumb-container" class="container mt-3">
   <!-- El breadcrumb se insertará aquí mediante JavaScript -->
@@ -51,7 +53,7 @@
     </div>
   </header>
 
-  <main class="container mt-4 mb-5">
+  <div class="zona-principal container mt-4 mb-5">
     <!-- Noticia destacada (se carga desde data/noticias.json) -->
     <section class="mb-5" id="noticia-destacada" aria-label="Noticia destacada"></section>
 
@@ -67,7 +69,8 @@
 
     <!-- Paginación -->
     <nav aria-label="Paginación de noticias" class="mt-5 d-flex justify-content-center" id="noticias-paginacion"></nav>
-  </main>
+  </div>
+</main>
 
 <!-- Footer parcial -->
 <div id="footer-placeholder"></div>

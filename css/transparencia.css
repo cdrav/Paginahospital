@@ -226,7 +226,7 @@ section.col-lg-8.col-md-7 { min-width: 0; }
 .organigrama-card:hover {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.organigrama-card h6 {
+.organigrama-card :is(h6, .tam-h6) {
   color: #164443;
   font-weight: 700;
   margin-bottom: 8px;

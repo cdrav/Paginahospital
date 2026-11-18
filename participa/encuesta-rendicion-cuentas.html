@@ -20,9 +20,12 @@
 </head>
 <body data-page-title="Encuesta Rendición de Cuentas">
     <div id="header-placeholder"></div>
+
+<main id="contenido-principal" tabindex="-1">
+<h1 class="visually-hidden">Encuesta Rendición de Cuentas 2025</h1>
     <div id="breadcrumb-container" class="container mt-3"></div>
 
-    <main class="container py-5">
+    <div class="zona-principal container py-5">
         <div class="card form-card">
     <div class="card-body p-4">
     <header class="mb-4">
@@ -39,7 +42,7 @@
                 <label class="option"><input type="radio" name="p1" value="radio" required> Radio, medio masivo de comunicación</label>
                 <label class="option"><input type="radio" name="p1" value="invitacion" required> Invitación directa</label>
                 <label class="option"><input type="radio" name="p1" value="otro" required> Otro</label>
-                <input type="text" name="p1_otro" class="form-control mt-2 d-none" placeholder="¿Cuál?">
+                <input type="text" name="p1_otro" class="form-control mt-2 d-none" placeholder="¿Cuál?" aria-label="Otro medio por el que se enteró: ¿cuál?">
             </div>
         </div>
 
@@ -54,7 +57,7 @@
                 <label class="option"><input type="radio" name="p2" value="funcionario" required> Funcionario de la institución</label>
                 <label class="option"><input type="radio" name="p2" value="organizacion" required> Representante de organización social</label>
                 <label class="option"><input type="radio" name="p2" value="otro" required> Otro</label>
-                <input type="text" name="p2_otro" class="form-control mt-2 d-none" placeholder="¿Cuál?">
+                <input type="text" name="p2_otro" class="form-control mt-2 d-none" placeholder="¿Cuál?" aria-label="Otra forma en que se identifica: ¿cuál?">
             </div>
         </div>
 
@@ -227,6 +230,7 @@
         </div>
     </form>
     </div>
+</div>
 </div>
 </main>
 

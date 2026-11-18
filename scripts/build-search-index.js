@@ -25,6 +25,37 @@ function extractContent($, selector) {
     return contentEl.text().replace(/\s\s+/g, ' ').trim();
 }
 
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto',
+    'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+/**
+ * Cada noticia de data/noticias.json se indexa por separado. La URL lleva el ancla
+ * #noticia-<id>, que js/noticias.js usa para abrir la página del listado donde está
+ * la noticia y resaltarla.
+ */
+async function indexarNoticias() {
+    let lista;
+    try {
+        lista = JSON.parse(await fs.readFile(path.join(PROJECT_ROOT, 'data', 'noticias.json'), 'utf-8'));
+    } catch (error) {
+        console.warn('⚠️  No se pudieron indexar las noticias:', error.message);
+        return [];
+    }
+    return lista.filter(n => n && n.id && n.titulo).map(n => {
+        const [a, m, d] = String(n.fecha || '').split('-').map(Number);
+        const fecha = a && m && d ? `${d} de ${MESES[m - 1]} de ${a}` : '';
+        const detalle = n.detalle && n.detalle.texto ? cheerio.load(n.detalle.texto).text() : '';
+        const enlaces = (n.enlaces || []).map(e => e.texto).join('. ');
+        const content = [n.resumen, detalle, n.etiqueta, enlaces, fecha && `Publicada el ${fecha}.`]
+            .filter(Boolean).join(' ').replace(/\s\s+/g, ' ').trim();
+        return {
+            url: `noticias.html#noticia-${n.id}`,
+            title: `${n.titulo} - Noticias`,
+            content,
+        };
+    });
+}
+
 async function buildSearchIndex() {
     console.log('Iniciando la construcción del índice de búsqueda...');
 
@@ -57,9 +88,12 @@ async function buildSearchIndex() {
             }
         }
 
+        const noticias = await indexarNoticias();
+        searchData.push(...noticias);
+
         await fs.writeFile(OUTPUT_PATH, JSON.stringify(searchData, null, 2));
         console.log(`✅ Índice de búsqueda creado exitosamente en: ${OUTPUT_PATH}`);
-        console.log(`   Se indexaron ${searchData.length} páginas.`);
+        console.log(`   Se indexaron ${searchData.length - noticias.length} páginas y ${noticias.length} noticias.`);
 
     } catch (error) {
         console.error('❌ Error al construir el índice de búsqueda:', error);

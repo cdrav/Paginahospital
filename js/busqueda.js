@@ -175,6 +175,8 @@ const searchConfig = {
     // Categoriza una URL según la sección del sitio
     categorizeUrl: function(url) {
         url = (url || '').toLowerCase();
+        // Noticias sueltas (noticias.html#noticia-...): su id puede contener "laboratorio", "citas", etc.
+        if (url.includes('noticias.html#')) return 'noticias';
         if (url.includes('transparencia')) return 'transparencia';
         if (url.includes('urgencias') || url.includes('consulta-externa') || url.includes('laboratorio') ||
             url.includes('hospitalizacion') || url.includes('partos') || url.includes('cuidado-oral') ||
