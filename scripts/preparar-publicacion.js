@@ -110,6 +110,53 @@ const parcial = nombre => {
 };
 const PARCIALES = { 'header-placeholder': parcial('header.html'), 'footer-placeholder': parcial('footer.html') };
 
+// ---------------------------------------------------------------------------
+//  3. Metadatos para compartir (Open Graph / Twitter) y <link rel="canonical">:
+//     al pegar un enlace en WhatsApp, Facebook, etc. sale título, descripción
+//     e imagen. Se toman del <title> y <meta name="description"> de cada página.
+//  4. sitemap.xml con las páginas públicas (robots.txt ya lo anuncia).
+//  Las páginas con <meta name="robots" content="noindex"> y las de PRIVADAS
+//  no llevan estos metadatos ni van en el sitemap.
+// ---------------------------------------------------------------------------
+const SITIO = 'https://hdsa.gov.co/';
+const NOMBRE_SITIO = 'Hospital Departamental San Antonio';
+const IMAGEN_COMPARTIR = { url: SITIO + 'imagenes/compartir-hdsa.jpg', ancho: 1200, alto: 630, alt: 'Vista aérea del Hospital Departamental San Antonio en Roldanillo, Valle del Cauca' };
+const PRIVADAS = new Set(['login-institucional.html', 'manual-gestion-citas.html']);
+const FUERA_DEL_SITEMAP = new Set(['buscar.html']); // tienen metadatos, pero no aportan al buscador
+const urlsSitemap = [];
+let conMetadatos = 0;
+
+const atributo = s => s.replace(/\s+/g, ' ').trim().replace(/"/g, '&quot;');
+
+function metadatos(html, archivoHtml) {
+  const rel = path.relative(DESTINO, archivoHtml).split(path.sep).join('/');
+  if (PRIVADAS.has(rel) || /<meta\s+name=["']robots["'][^>]*noindex/i.test(html)) return html;
+  const url = rel === 'index.html' ? SITIO : SITIO + encodeURI(rel);
+  if (!FUERA_DEL_SITEMAP.has(rel)) urlsSitemap.push(url);
+  if (/property=["']og:/i.test(html)) return html;
+
+  const titulo = (html.match(/<title>([\s\S]*?)<\/title>/i) || [])[1];
+  const descripcion = (html.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i) || [])[1];
+  if (!titulo) return html;
+  const t = atributo(titulo), d = descripcion ? atributo(descripcion) : '';
+  const etiquetas = [
+    /rel=["']canonical["']/i.test(html) ? '' : `<link rel="canonical" href="${url}">`,
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:site_name" content="${NOMBRE_SITIO}">`,
+    `<meta property="og:locale" content="es_CO">`,
+    `<meta property="og:title" content="${t}">`,
+    d && `<meta property="og:description" content="${d}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:image" content="${IMAGEN_COMPARTIR.url}">`,
+    `<meta property="og:image:width" content="${IMAGEN_COMPARTIR.ancho}">`,
+    `<meta property="og:image:height" content="${IMAGEN_COMPARTIR.alto}">`,
+    `<meta property="og:image:alt" content="${IMAGEN_COMPARTIR.alt}">`,
+    `<meta name="twitter:card" content="summary_large_image">`
+  ].filter(Boolean).join('\n    ');
+  conMetadatos++;
+  return html.replace(/<\/head>/i, `    ${etiquetas}\n</head>`);
+}
+
 let paginas = 0, incluidos = 0, versionados = 0;
 for (const f of listar(DESTINO, /\.html$/i)) {
   if (f.includes(path.sep + 'partials' + path.sep)) continue;
@@ -124,6 +171,13 @@ for (const f of listar(DESTINO, /\.html$/i)) {
   const antes = html;
   html = versionar(html, f);
   if (html !== antes) versionados++;
+  html = metadatos(html, f);
   if (html !== original) { fs.writeFileSync(f, html); paginas++; }
 }
-console.log(`Páginas ajustadas: ${paginas} (parciales insertados: ${incluidos}; con versión automática de CSS/JS: ${versionados}).`);
+console.log(`Páginas ajustadas: ${paginas} (parciales insertados: ${incluidos}; con versión automática de CSS/JS: ${versionados}; con metadatos para compartir: ${conMetadatos}).`);
+
+urlsSitemap.sort((a, b) => (a === SITIO ? -1 : b === SITIO ? 1 : a.localeCompare(b)));
+fs.writeFileSync(path.join(DESTINO, 'sitemap.xml'),
+  '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  urlsSitemap.map(u => `  <url><loc>${u}</loc></url>`).join('\n') + '\n</urlset>\n');
+console.log(`sitemap.xml: ${urlsSitemap.length} páginas.`);

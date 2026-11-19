@@ -102,9 +102,11 @@ section > p {
   max-width: 900px;
   margin: 0 auto 2rem;
 }
-/* Asegurar que el footer esté en la parte inferior */
+/* Footer abajo en páginas cortas: body es una columna flex de al menos la altura de la
+   ventana (min-height en body) y <main> ocupa el espacio que sobra (flex: 1 0 auto).
+   body NO lleva height: 100%: con altura fija, sus hijos se encogían para caber en la
+   ventana (banners recortados, barra superior de 55 px en vez de 56). */
 html, body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
